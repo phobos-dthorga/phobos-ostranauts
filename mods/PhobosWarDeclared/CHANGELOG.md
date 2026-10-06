@@ -9,6 +9,16 @@ not Steam publication.
 
 - Reviewed every English entry. Lay held build sites is now Lay postponed build sites. Damage reports explain what is waiting and why. Schematics, commands and saved battle records stay the same.
 
+## [0.3.1] - 2026-10-06 - Draft
+
+### Changed
+
+- Which ships are yours now comes from Phobos Framework's shared list of the player's ships, the same rule this mod used: every loaded ship the game's registry names you as owner of. Damage reports and rebuilding behave as before.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.123.0. No save changes. Not yet tried in the game.
+
 ## [0.3.0] - 2026-10-05 - Draft
 
 ### Added

@@ -29,6 +29,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.123.0] - 2026-10-06 - Draft
+
+### Added
+
+- Fair gig deadlines (owner direction, 6 October 2026). The game gives a far Gig Nexus delivery 70 hours per AU in a straight line, whatever ship takes it, quicker even than its own long-range ferry at 80 hours per AU. Framework now times the trip for each torch-equipped ship you own, on the game's own trip planner: accelerate at the game's 2 g torch limiter, coast at the torch speed limit if the trip is long enough, brake to arrive. It averages the trips across those ships, adds a quarter for course changes and 4 hours to undock, dock and turn in, and allows that time when it is longer than the game's. It never shortens the game's own time. A 0.7 AU delivery at 1 g, for example, needs about 57 hours where the game allowed 49; it now allows about 76.
+- The speed bonuses (x2, x4, x8 for a third, two fifths and two thirds of the time) follow the new allowance, so a direct trip at your fleet's pace earns the base pay or the x2 bonus.
+- A far offer's text at the Gig Nexus now names its destination, how far it is from the pickup, and how its time was set. With no torch ship of yours, it says the game's own time stands and how long the game's ferry would take.
+- Settings in the new Gigs section: FairDeadlines (on), TripMargin (1 to 3, default 1.25) and DockingHours (0 to 48, default 4).
+- Shared for other mods: a torch drive's rating at the game's limiter, torch trip times, and the player's own ships. Auto Nav and War Has Been Declared now use them.
+
+### Save compatibility
+
+- Automatic. The game saves each gig's time allowance itself. Offers already on a board are corrected the next time the board lists them; gigs you have already taken keep their deadline.
+
+### Compatibility and limits
+
+- The trip is a straight line between the two ends when the offer is listed, as the game measures it; orbits move on. Fuel is not counted: a refuelled torch is assumed. Gigs not counted as far by the game (within 5,000 km, or on a transit link) are unchanged. Not yet tried in the game.
+
 ## [0.122.0] - 2026-10-06 - Draft
 
 ### Added

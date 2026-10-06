@@ -85627,6 +85627,97 @@
       ],
       "before": "The Letters window opens in a running game, with no other window that refuses to close.",
       "after": "The Letters window opens in a running game, with no other window that refuses to close."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.setting_fair",
+      "category": "help",
+      "decision": "add",
+      "reason": "Fair gig deadlines settings (Framework 0.123.0, owner direction 6 October 2026): what each does and its range in plain words.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Fair gig deadlines: a far gig allows the time your own torch-equipped ships need to make the trip, averaged across them, instead of the game's 70 hours per AU in a straight line. Never shorter than the game's own time. Set false to keep the game's deadlines.",
+      "after": "Fair gig deadlines: a far gig allows the time your own torch-equipped ships need to make the trip, averaged across them, instead of the game's 70 hours per AU in a straight line. Never shorter than the game's own time. Set false to keep the game's deadlines."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.setting_margin",
+      "category": "help",
+      "decision": "add",
+      "reason": "Fair gig deadlines settings (Framework 0.123.0, owner direction 6 October 2026): what each does and its range in plain words.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "How much longer than your torch ships' average trip a far gig allows, 1 to 3 times (1.25 adds a quarter for course changes and slower burns).",
+      "after": "How much longer than your torch ships' average trip a far gig allows, 1 to 3 times (1.25 adds a quarter for course changes and slower burns)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.setting_docking",
+      "category": "help",
+      "decision": "add",
+      "reason": "Fair gig deadlines settings (Framework 0.123.0, owner direction 6 October 2026): what each does and its range in plain words.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Hours added to every far gig for undocking, docking and turning it in, 0 to 48.",
+      "after": "Hours added to every far gig for undocking, docking and turning it in, 0 to 48."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.route",
+      "category": "status",
+      "decision": "add",
+      "reason": "Fair gig deadlines at the Gig Nexus (Framework 0.123.0): the destination, its distance and how the time allowed was set; a skipped gig is logged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Phobos: destination {0}, {1} km from the pickup in a straight line.",
+      "after": "Phobos: destination {0}, {1} km from the pickup in a straight line."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.fair",
+      "category": "status",
+      "decision": "add",
+      "reason": "Fair gig deadlines at the Gig Nexus (Framework 0.123.0): the destination, its distance and how the time allowed was set; a skipped gig is logged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Time allowed: at least your {0} torch ship(s)' average trip of {1} at the 2 g limiter, times {2}, plus {3} hours to dock and turn in. The speed bonuses follow this time.",
+      "after": "Time allowed: at least your {0} torch ship(s)' average trip of {1} at the 2 g limiter, times {2}, plus {3} hours to dock and turn in. The speed bonuses follow this time."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.no_torch",
+      "category": "status",
+      "decision": "add",
+      "reason": "Fair gig deadlines at the Gig Nexus (Framework 0.123.0): the destination, its distance and how the time allowed was set; a skipped gig is logged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "None of your ships has a torch drive, so the game's own time stands. Its long-range ferry would take about {0}.",
+      "after": "None of your ships has a torch drive, so the game's own time stands. Its long-range ferry would take about {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Gigs.failed",
+      "category": "status",
+      "decision": "add",
+      "reason": "Fair gig deadlines at the Gig Nexus (Framework 0.123.0): the destination, its distance and how the time allowed was set; a skipped gig is logged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Phobos fair gig deadlines skipped one gig: {0}",
+      "after": "Phobos fair gig deadlines skipped one gig: {0}"
     }
   ],
   "documents": [
@@ -85634,8 +85725,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3504237c0754ebd013e0ae72ac9a4b16dbfd26d4d7af2c67794318e1f4bdca25",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1)."
+      "sha256": "c2ea94a34fe47e23e2e31deea8e5aa554c349b1d9cadba8d69fcfa2660c3782d",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -85746,8 +85837,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cba2132ee2ce0c7eb36d97aac159da11ad28379d6faf8f07b8e0c1a35ca8a0c2",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "91a6b94fd4a74debb7e59d3f876409d2a591ffbb56a244ee04dc2d160ba728b9",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -85795,8 +85886,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f5af48b111206084267d114fb3745d6242b957ef01623bb5609178d5343d2855",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "79dbde66f192e5186506299dc087539b7fb8af2657f8442f0b731e816a1db2c3",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/crew-automation.md",
@@ -86428,8 +86519,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "fd1913ae2597780b6da5899535bea5bf5954628290a96ff0b2be53f6d15ba990",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0).",
+      "sha256": "f239cf0eb2aafa6209c9381192d7233ba9b3844cd5832d646076fa3c0dae022c",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0).",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata."
     },
     {
@@ -86641,8 +86732,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "8f9f8363fa9165b5c374a4c45d2b75961d7aa983197a268ec9c5d2fd5b3731db",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "799666b36be45c23050f9b8f628d584de0134a83980802e04d793f404eab6a12",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words. 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/development/war-declared-design.md",
@@ -86690,8 +86781,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a1954918d60088eda8743b9d0985904c05d0079607c25903ea7ac0b02bbac027",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "3f4eea0ceb271443eac32027306c6844e66770a9e0e196110e3376f59103d938",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -86753,8 +86844,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e85faa5ccc8f94693961eb6bf527a51a0c096a39e409cc21fa4f0ecaeeb67519",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "cc51fb0bde90908acc10d34f9071982e5831db3735f72629681caf08cd58d810",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/item-references.md",
@@ -86774,8 +86865,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "5a77cdffa855d84bd1158110c6cfa35cf2937b221c5c7fda5bea9fd0e9b42428",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "b3b1d35645246915190d99605d4c8861ef6d297a87b03d470959a9bec910b480",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -86816,8 +86907,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cc1267b2d74256fdfb4f54acc949e9739833c4b517be8107a1c8d05d69729b03",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "8fa30fe223e802af4aca11ea0432553e69850a77c761ea70dcf4ad0a86a28e48",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -86914,8 +87005,8 @@
       "path": "docs/war-declared-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "d417840113bf62d09b81d9d24e33a37dec234d704c7f3b410b7c426355859826",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "a1a52f6526042faeb093216f607f41c45f7344723e50cee4168e9010f45fc03c",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -86935,15 +87026,15 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ef15266947fa35432e1976a5a49aa9a1c4e108ae6917afc0fa52325fc646e5d2",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "f9bb970f4b6e3de7da51c4e4b82ba27a3a706ad3b784061fb28f98c1b8bc835b",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "284004786a4e2cfecb402eaa07a87c40e31cf88436f8d635ad1ce0987f4b9ae9",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "4a2f5668f4214036909daf6ffe86bdd4b548fdbff0f664cf281daa08858b8c1b",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -86970,8 +87061,8 @@
       "path": "workshop/PhobosWarDeclared/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "35f1ecab6127aab879b6d9815b14fda4600ce07aa84c70aedfb84b858eb81178",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "9e6b06b5834a1b10dc1a50fc0d2512d4f54b98fc57ee2acadd3f809bba4d15ca",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/development/custom-gas-research.md",
@@ -87005,8 +87096,8 @@
       "path": "workshop/PhobosSpacerStories/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "38267c40a93f8ff4bd81c0ce658b8167fbd0d68f0eab55e8e06f7906ffe2e37d",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "93b0a696e0edfed52e206f42100c72ded152947b0f6d72f78e1c621a2b355d48",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "docs/spacer-stories-item-reference.md",
@@ -87119,8 +87210,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d79e241a3754d8a550674353d2ca2fc1009910eae7707dcba6dbf05677baea14",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "eba8c6c7cb60a06ccc48f232569a1756b57970347fe356914001240274849271",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -87131,8 +87222,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b500393948ee86fa0676116a36475e10707ea338d03d842561c129c0c48b65c4",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "1fe73f62d717303bf6a6659250e7bed58bf7354f58f541498f85a8c57d2bf434",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -87161,8 +87252,8 @@
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "67d150c1700a491735bb96aa26f016ba4eaa231c2789d9e82c315623a8576d81",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "e7cada8ff85e8cc94dc29ccf92503b9f69dd00d6df6ad626e7221acafe4b2ea8",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "mods/PhobosWarDeclared/schematics/safe.json",
@@ -87282,8 +87373,8 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "78207a12e14732cbafb1a330572124500676ed9f54829a4b5f487fa7f31539e9",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "fdbd4b81a1115591b525cb710fae80680c5b8498fe0d3f9a15b75f62b67d1115",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
       "path": "mods/PhobosSpacerStories/README.md",

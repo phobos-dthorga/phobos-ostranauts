@@ -149,6 +149,7 @@ RemainderNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturin
 AddOnNativeChecks.Run(repo, Check);
 StoryNativeData.Native = native;
 StoryNativeChecks.Run(repo, Check);
+GigNativeChecks.Run(native, Check);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
 LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);

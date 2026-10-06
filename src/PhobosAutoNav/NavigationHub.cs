@@ -160,7 +160,7 @@ internal sealed partial class NavigationService
         view.NoWake = bool.TryParse(own.GetReactorGPMValue("bNWZ"), out bool noWake) ? noWake : (bool?)null;
         view.Safety = !co.mapGUIPropMaps.TryGetValue("Panel A", out var map) || !map.TryGetValue("bTorchSafety", out var safe) ?
             true : bool.TryParse(safe, out bool safety) ? safety : (bool?)null;
-        view.CycleLimit = view.Safety == true ? NavModTorchDrive.GetLimiterSafetyMax(own) : 1;
+        view.CycleLimit = TorchCycle.Limit(own, view.Safety == true);
         view.FlowLimit = Math.Min(1, view.CycleLimit * 2);
         view.CanManual = (view.WorkingNavigation || view.WorkingFire) && (!AutoNavCore.Engaged || console == co) &&
             !core.HasCond("IsDamaged") && TowFlight.Problem(own) == null && CrewSim.system != null && !CrewSim.system.IsInAtmo(own);

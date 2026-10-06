@@ -67,7 +67,7 @@ internal sealed partial class TorchDriveController
         if (!Owns(candidate) && ThrustRequested(candidate)) return false;
         if (reactor != null && reactor != core) return false;
         double maxG = Plugin.TorchMaximumG.Value;
-        double full = candidate.GetMaxTorchThrust(CycleLimit(candidate)) / AutoNavCore.M_TO_AU;
+        double full = TorchCycle.Acceleration(candidate, TorchSafetyOn(candidate)) / AutoNavCore.M_TO_AU;
         if (!TorchRules.Finite(full, maxG) || full <= 0 || maxG <= 0 || maxG > 2) return false;
         acceleration = Math.Min(full, maxG * TorchRules.StandardGravity);
         Reason = "Torch.zone";
@@ -91,7 +91,7 @@ internal sealed partial class TorchDriveController
     }
 
     // The console's torch safety keeps the game's 2 g limiter; a pilot who has switched it off may use the whole slider.
-    private static float CycleLimit(Ship candidate) => TorchSafetyOn(candidate) ? NavModTorchDrive.GetLimiterSafetyMax(candidate) : 1f;
+    private static float CycleLimit(Ship candidate) => TorchCycle.Limit(candidate, TorchSafetyOn(candidate));
     private static bool TorchSafetyOn(Ship candidate)
     {
         try

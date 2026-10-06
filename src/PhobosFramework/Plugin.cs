@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.122.0";
+    public const string Version = "0.123.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -91,6 +91,12 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Processing.RoomHeat.MachineHeatScale = Config.Bind("Heat", "MachineHeatScale", Processing.RoomHeat.DefaultMachineHeatScale,
             new BepInEx.Configuration.ConfigDescription(Text.Get("RoomHeat.setting"),
                 new BepInEx.Configuration.AcceptableValueRange<double>(Processing.RoomHeat.MinMachineHeatScale, Processing.RoomHeat.MaxMachineHeatScale))).Value;
+        // Fair gig deadlines (0.123.0; owner direction, 6 October 2026): a far gig allows what the player's torch ships need.
+        Trading.GigDeadlines.Enabled = Config.Bind("Gigs", "FairDeadlines", true, Text.Get("Gigs.setting_fair")).Value;
+        Trading.GigDeadlines.Margin = Config.Bind("Gigs", "TripMargin", Trading.GigTimeRules.DefaultMargin, new BepInEx.Configuration.ConfigDescription(Text.Get("Gigs.setting_margin"),
+            new BepInEx.Configuration.AcceptableValueRange<double>(Trading.GigTimeRules.MinMargin, Trading.GigTimeRules.MaxMargin))).Value;
+        Trading.GigDeadlines.DockingHours = Config.Bind("Gigs", "DockingHours", Trading.GigTimeRules.DefaultDockingHours, new BepInEx.Configuration.ConfigDescription(Text.Get("Gigs.setting_docking"),
+            new BepInEx.Configuration.AcceptableValueRange<double>(Trading.GigTimeRules.MinDockingHours, Trading.GigTimeRules.MaxDockingHours))).Value;
         Trading.MarketStock.AvailabilityMultiplier = Config.Bind("Economy", "StockAvailabilityMultiplier", 1d,
             new BepInEx.Configuration.ConfigDescription(Text.Get("Plugin.chance_multiplier_for_registered_equipment_offers_to"),
                 new BepInEx.Configuration.AcceptableValueRange<double>(.25, 4))).Value;

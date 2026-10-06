@@ -17,8 +17,8 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.122.0**, Shipbreaker **0.84.0**, Auto Nav
-**0.34.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.123.0**, Shipbreaker **0.84.0**, Auto Nav
+**0.34.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -441,6 +441,41 @@ letter waits for your answer, your replies. A reply that needs something first (
 an item, a skill) is shown locked with what it needs. You confirm a reply before it is
 sent and cannot take it back. Dismissing a story goal still sets that correspondence
 aside. In the F3 console, `phobosframework story letters` opens the window.
+
+## Fair gig deadlines
+
+Since Framework 0.123.0 a far Gig Nexus delivery allows the time your own ships need.
+The game alone gives a far gig 70 hours per AU in a straight line, whatever ship takes
+it. That is quicker than its own long-range ferry (80 hours per AU), so a well-paid
+gig could ask for an impossible trip.
+
+How the time is set, for an offer the game counts as far (beyond 5,000 km and with no
+transit link):
+
+1. For each torch-equipped ship you own, loaded or not, Framework takes the drive's full
+   acceleration at the game's own 2 g limiter (the console's torch safety).
+2. It times the straight-line trip on the game's own planner: accelerate to halfway,
+   then brake; on a trip long enough to reach the torch speed limit (a tenth of light
+   speed), coast at it in the middle.
+3. It averages those trip times across your torch ships, multiplies by `TripMargin`
+   (1.25: a quarter more for course changes and lighter burns) and adds `DockingHours`
+   (4 hours to undock, dock and turn in).
+4. If that is longer than the game's own time, the gig allows it. It is never shorter.
+
+For example, a 0.7 AU delivery with one ship at 1 g: the trip takes about 57.4 hours,
+the game allowed 0.7 × 70 = 49 hours, and the gig now allows 57.4 × 1.25 + 4 ≈ 75.8 hours.
+
+The speed bonuses (×8 within a third of the time, ×4 within two fifths, ×2 within two
+thirds) follow the new allowance, so a direct trip at your fleet's pace earns the base
+pay or ×2. The offer's text at the Gig Nexus names the destination, its distance from
+the pickup and how the time was set. With no torch ship of yours, the game's own time
+stands and the text says how long the game's ferry would take.
+
+Settings, in `BepInEx/config/phobosgekko.ostranauts.framework.cfg`, section `Gigs`:
+`FairDeadlines` (on), `TripMargin` (1 to 3) and `DockingHours` (0 to 48). Limits: the
+distance is measured when the offer is listed, as the game measures it, and fuel is not
+counted (a refuelled torch is assumed). Gigs you have already taken keep their deadline;
+offers already on a board are corrected the next time it lists them.
 
 ## Crew standing orders
 

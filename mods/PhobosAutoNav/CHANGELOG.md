@@ -28,6 +28,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.34.1] - 2026-10-06 - Draft
+
+### Changed
+
+- The torch drive's slider limit and full acceleration now come from Phobos Framework's shared torch rating, which Framework 0.123.0's fair gig deadlines also use. The rule is unchanged: the game's 2 g limiter with the console's torch safety on, the whole slider with it off. Flight behaves as before.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.123.0. No save changes. Not yet tried in the game.
+
 ## [0.34.0] - 2026-10-05 - Draft
 
 ### Changed

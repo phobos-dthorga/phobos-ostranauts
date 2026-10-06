@@ -275,6 +275,10 @@ namespace PhobosAutoNav
 
 namespace Ostranauts.ShipGUIs.NavStation { internal static class NavModTorchDrive { internal static float GetLimiterSafetyMax(Ship ship) => .5f; } }
 namespace PhobosAutoNav {
+    // Stands in for Auto Nav's seam onto Framework's torch rating (Framework 0.123.0), with the same rule.
+    internal static class TorchCycle {
+        internal static float Limit(Ship ship, bool safetyOn) => safetyOn ? Ostranauts.ShipGUIs.NavStation.NavModTorchDrive.GetLimiterSafetyMax(ship) : 1f;
+    }
     internal static class DockingAdapter {
         internal static string? Problem;
         internal static string? ReadAvailablePorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }

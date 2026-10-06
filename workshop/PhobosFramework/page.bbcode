@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.122.0
+[b]Version:[/b] 0.123.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods: it adds no machinery of its own and keeps the content mods' controls, crew work and supplies consistent.
@@ -21,6 +21,9 @@ The shared toolbox behind the Phobos mods: it adds no machinery of its own and k
 [*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as read-only copies; your own files in BepInEx/config override them, checked first; recipes conserve mass. Share them as an add-on.
 [*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, goal chains with rewards, small talk, loading tips, encyclopedia articles and data files, tied to stations, threads, named people (goals show their faces), standing and the clock. Click a story goal to read its letters and reply. Removing a story file never breaks a save.
 [/list]
+
+[h2]Fair gig deadlines[/h2]
+The game gives a far gig 70 hours per AU in a straight line, quicker than its own ferry. Framework times the trip for each torch ship you own (accelerate at the game's 2 g limiter, brake to arrive), averages them, adds a quarter and 4 hours to dock and turn in, and never shortens the game's own time. 0.7 AU at 1 g: 49 hours becomes 76. Speed bonuses follow. No torch ship: the game's time stands. Settings: Gigs.
 
 [h2]Getting started[/h2]
 [list]

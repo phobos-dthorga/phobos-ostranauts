@@ -60,18 +60,10 @@ internal static class WarService
 
     // ---- Ship scope ------------------------------------------------------------------------------
 
-    internal static bool PlayerShip(Ship? ship) => ship != null && !ship.bDestroyed && !string.IsNullOrEmpty(ship.strRegID) &&
-        CrewSim.coPlayer != null && CrewSim.system?.GetShipOwner(ship.strRegID) == CrewSim.coPlayer.strID;
+    // The player's ships through Framework's shared rule (Framework 0.123.0), which is the rule this service used.
+    internal static bool PlayerShip(Ship? ship) => Phobos.Ostranauts.Framework.Flight.PlayerFleet.Owns(ship);
 
-    private static List<Ship> PlayerShips()
-    {
-        playerShips.Clear();
-        var ships = CrewSim.system?.dictShips;
-        if (ships != null)
-            foreach (var s in ships.Values)
-                if (PlayerShip(s) && s.LoadState >= Ship.Loaded.Edit) playerShips.Add(s);
-        return playerShips;
-    }
+    private static List<Ship> PlayerShips() => Phobos.Ostranauts.Framework.Flight.PlayerFleet.Owned(playerShips, includeUnloaded: false);
 
     private static Record For(Ship ship)
     {

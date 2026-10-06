@@ -184,6 +184,12 @@ namespace Ostranauts.ShipGUIs.Utilities
 }
 namespace PhobosAutoNav
 {
+    // Stands in for Auto Nav's seam onto Framework's torch rating (Framework 0.123.0), with the same rule.
+    internal static class TorchCycle
+    {
+        internal static float Limit(Ship ship, bool safetyOn) => safetyOn ? Ostranauts.ShipGUIs.NavStation.NavModTorchDrive.GetLimiterSafetyMax(ship) : 1f;
+        internal static double Acceleration(Ship ship, bool safetyOn) => ship.GetMaxTorchThrust(Limit(ship, safetyOn));
+    }
     internal sealed class Setting<T> { internal T Value; internal Setting(T value) { Value = value; } }
     internal static class Plugin
     {

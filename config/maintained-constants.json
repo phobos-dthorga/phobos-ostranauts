@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.122.0",
+      "value": "0.123.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.34.0",
+      "value": "0.34.1",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -583,7 +583,7 @@
     "AutoNav.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.102.0",
+      "value": "0.123.0",
       "description": "Current AutoNav required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1898,7 +1898,7 @@
     "WarDeclared.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.3.0",
+      "value": "0.3.1",
       "description": "PhobosWarDeclared published source/package version.",
       "targets": [
         {
@@ -1952,7 +1952,7 @@
     "WarDeclared.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.104.0",
+      "value": "0.123.0",
       "description": "Current War Has Been Declared required Framework version, shared with local installer admission.",
       "targets": [
         {

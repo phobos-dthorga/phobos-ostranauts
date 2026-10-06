@@ -40,6 +40,7 @@ public static class FrameworkLifecycle
         Crew.CrewWork.Reset();
         Audio.CompletionCues.Player?.Stop();
         Audio.MachineSounds.Player?.Stop();
+        Trading.GigDeadlines.Reset();
         Diagnostics.NativePerformance.WorldChanging();
         Observations.NativeRoomAlarms.Reset();
         FrameworkPlugin.RefreshLanguage();

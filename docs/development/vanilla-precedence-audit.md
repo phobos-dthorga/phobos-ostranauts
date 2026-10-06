@@ -519,3 +519,16 @@ Owner report: every reload logged the stores aboard as destroyed with their cont
 - **Verdict.** Keep the guard and track the unload itself: a Harmony prefix on `Ship.Destroy` counts an unload
   under way and a finalizer always clears it. Nothing native is blocked or changed. A store destroyed in play,
   outside a ship's unload, is still reported and still releases its contents.
+
+## Fair gig deadlines (Framework 0.123.0, 6 October 2026)
+
+**Owner report and direction.** Well-paid gigs ask for implausibly long journeys in a couple of days. The owner
+asked for the deadline to come from the player's own ships: a torch drive is the first requirement, and with several
+torch ships their average is used. The deadline is a minimum, and the calculation must not cause hitching.
+
+| Finding | Native evidence | Verdict |
+| --- | --- | --- |
+| A far gig allows 70 hours per AU in a straight line, whatever ship takes it, while pay grows with distance. | `GigManager.CheckLocal`: `fTimeMult = max(1, rangeTo * 70) / fDuration` beyond 5,000 km, unless the ends share a transit link. Its ferry's `PriceLongRange` times 80 hours per AU. | Fixed 0.123.0: a postfix on `CheckLocal`, for offers not yet taken, raises `fTimeMult` to the player's torch fleet's average trip on the game's own planner (`PlanTrip4Sub`'s accelerate, coast and brake), times `TripMargin`, plus `DockingHours`. It never lowers it. |
+| The deadline, the shown duration and the speed bonuses all read `fDuration × fTimeMult`. | `TakeJob` sets `fEpochExpired` from it; `GetTier` and `GetDisplayGigText` divide it by 3, 2.5 and 1.5. | Kept: one saved field drives all three, so they agree. The bonus windows widen with the allowance (agent choice, open to owner revision). |
+| The game's own expiry and turn-in refusal. | `TurnInJob` refuses after `fEpochExpired`. | Kept untouched: nothing is refused or extended after a gig is taken. |
+| The offer's text shows no destination or route, and a drop-off it cannot resolve shows the pickup's id. | `GetDisplayGigText` writes `value2 = jjs.strRegIDPickup` before resolving the drop-off. | Fixed 0.123.0 for far offers: a postfix appends the destination, its straight-line distance and how the time was set. The game's own lines are untouched. |

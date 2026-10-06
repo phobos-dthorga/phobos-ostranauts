@@ -4,6 +4,10 @@ Draft dates record preparation, not Workshop publication.
 
 ## [Unreleased]
 
+### Documentation
+
+- The Workshop page now says this collection changes no gigs, and points to Phobos Framework 0.123.0's fair gig deadlines for far deliveries.
+
 ## [0.3.1] - 2026-10-06 - Draft
 
 ### Changed

@@ -1204,6 +1204,26 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: sound files, story faces and letters, fair gig deadlines (L82)
+
+L82 covers Framework 0.120.0 to 0.123.0, Spacer Stories 0.3.1, Auto Nav 0.34.1 and War Has Been Declared 0.3.1. It also
+re-reviews Manufacturing 0.57.1's charge-machine link check (another session's change), which runs only when a panel
+applies a choice.
+
+- **Sound files (0.120.0).** Each sound is read from disk once, on first use, in place of the assembly.
+- **Story faces (0.121.0).** A face is composed once per correspondent per session, as one pass over its portrait
+  parts (about 43,000 pixels each), and cached.
+- **Small-talk grammar (0.121.0).** A lead-in is prepared once per text and language. Each story line then costs one
+  dictionary lookup more than before.
+- **Letters window (0.122.0).** While the window is open, it rebuilds its view every two real seconds from the story
+  record and redraws only when something changed. Nothing runs while it is closed.
+- **Fair gig deadlines (0.123.0).** When a Gig Nexus lists its offers, each far offer costs a few multiplications.
+  The player's ships are swept, and their torch drives rated, at most every ten real seconds.
+- **Shared code.** Auto Nav's torch limit and War Has Been Declared's ship list call Framework's shared helpers with
+  the same rules, so their cost is unchanged.
+
+No per-frame work was added. No capture accompanies this change.
+
 ## 6 October: machine work sounds (L81)
 
 L81 — Framework 0.119.0 with Manufacturing 0.57.0, Shipbreaker 0.84.0 and Agriculture 0.64.0. Every frame: one fade step per voiced machine (at most twelve, four by default), each a volume write only when it changes. Four times a real second: one walk of the registered machine family (the shared world sweep) with two condition lookups per machine, or a session read for the three machines with their own test, then a sort of the working ones by distance. Clips are decoded once, on first use, into about 1 MB each of float memory (at most eight, about 8 MB). No work, power or record is touched. No capture accompanies this change; a room with many working machines is the case to record.
