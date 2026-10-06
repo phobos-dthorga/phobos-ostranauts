@@ -89895,14 +89895,16 @@
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "591b411e7b48c3c5b2359997cf7e7cd03e46f655715e7f774ba1400d86d3d878",
+      "sha256": "a4d3307a14a668aef6b17a819520af149770c02f74d6176e66f44603f60cb698",
+      "review20261007ChangeNotes": "Reviewed 2026-10-07: the Steam change note now covers every version since the item’s last upload; developer guide wording only, no player text changed.",
       "review": "2026-09-29 (War Has Been Declared, documentation pass): War Has Been Declared no longer awaits a cover; both held mods wait on owner gameplay checks."
     },
     {
       "path": "docs/development/workshop-upload-preparation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ea4744950a2c1c9a4303b4c2f5fbfe4960c7e799d52449617bc26e8098c6755e",
+      "sha256": "30861f0f9acc999b7db57a1c707ef8dadf50b60c03f6eb5c52fa916d43811eb0",
+      "review20261007ChangeNotes": "Reviewed 2026-10-07: the Steam change note now covers every version since the item’s last upload; developer guide wording only, no player text changed.",
       "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
     },
     {

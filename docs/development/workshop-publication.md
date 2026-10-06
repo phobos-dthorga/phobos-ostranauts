@@ -124,8 +124,10 @@ headings through h3, italic and underline. These are text drafts, not screenshot
 or a claim that the live Workshop editor has been tested. Preview the exact text
 in Steam before submission; render/layout differences may need adjustment.
 
-The uploader sends the page as the description and the current version's
-document as the change note, so edit them here, not on Steam. Pages must stay at
+The uploader sends the page as the description and, as the change note, the
+generated document of every version since the last upload to that item (newest
+first; see [change notes](workshop-upload-preparation.md#change-notes)), so edit
+them here, not on Steam. Pages must stay at
 or below 7,500 UTF-8 bytes (Steam's limit is 8,000) and contain no ASCII double
 quotes or backslashes; the check enforces both. Required items, tags and a first
 visual check still happen in Steam's own editor after upload.

@@ -98,7 +98,29 @@ Start-Sleep -Seconds 1
 Check ((Catalogue $repo).mods.PhobosFramework.itemId -eq '4242') 'Returned item ID must be recorded'
 Fails { & $uploader @common -Mod Framework -Operation Create | Out-Null } 'already has item 4242'
 Check (& python (Join-Path $repo 'scripts/prepare-workshop.py') --verify $prepared.directory | ConvertFrom-Json).status -eq 'verified-offline' 'Candidate must stay unchanged'
+Check ((Catalogue $repo).mods.PhobosFramework.uploadedVersion -eq '1.0.0') 'A create must record the uploaded version'
 Remove-Item Env:PHOBOS_FAKE_STEAM_ID
+
+# Two releases later, the update's change note covers both, newest first, and records the new version.
+Put $repo 'mods/PhobosFramework/mod_info.json' '[{"strName":"Phobos Framework","strModVersion":"1.0.2"}]'
+Put $repo 'mods/PhobosFramework/CHANGELOG.md' "# Changelog`n`n## [Unreleased]`n`nNone.`n`n## [1.0.2] - 2026-09-30 - Draft`n`n### Fixed`n`n- Second fix.`n`n## [1.0.1] - 2026-09-30 - Draft`n`n### Fixed`n`n- First fix.`n`n## [1.0.0] - 2026-09-29 - Draft`n`n### Added`n`n- Example.`n"
+Put $repo 'workshop/PhobosFramework/page.bbcode' "[h1]Phobos Framework[/h1]`n[b]Version:[/b] 1.0.2`n[b]Publication status:[/b] Draft`n"
+& python (Join-Path $repo 'scripts/workshop-release-notes.py') --write | Out-Null
+Remove-Item -LiteralPath (Join-Path $repo 'dist/PhobosFramework-P0/Mods/PhobosFramework') -Recurse -Force
+Copy-Item -LiteralPath (Join-Path $repo 'mods/PhobosFramework') -Destination (Join-Path $repo 'dist/PhobosFramework-P0/Mods/PhobosFramework') -Recurse
+$update = (& python (Join-Path $repo 'scripts/prepare-workshop.py') --mod Framework --prepare) -join "`n" | ConvertFrom-Json
+Check ($update.operation -eq 'update' -and ($update.changeNoteVersions -join ',') -eq '1.0.2,1.0.1') "Change note must cover 1.0.2 and 1.0.1: $($update.changeNoteVersions -join ',')"
+$note = Get-Content -LiteralPath (Join-Path $update.directory 'content/documentation/Release-notes.bbcode') -Raw
+Check ($note.IndexOf('Framework 1.0.2') -lt $note.IndexOf('Framework 1.0.1') -and $note -notmatch 'Framework 1\.0\.0') 'Change note must run newest first from after the last upload'
+Check ((& $uploader @common -Mod Framework -Operation Update -WhatIf) -contains 'Change note covers: 1.0.2, 1.0.1') 'Plan must name the versions in the change note'
+# A newer upload recorded after preparation makes the candidate's change note wrong.
+& python (Join-Path $repo 'scripts/prepare-workshop.py') --mod Framework --record-uploaded-version 1.0.1 | Out-Null
+Fails { & $uploader @common -Mod Framework -Operation Update | Out-Null } 'change note is out of date'
+Start-Sleep -Seconds 1
+$fresh = (& python (Join-Path $repo 'scripts/prepare-workshop.py') --mod Framework --prepare) -join "`n" | ConvertFrom-Json
+Check (($fresh.changeNoteVersions -join ',') -eq '1.0.2') 'A fresh candidate starts after the newly recorded version'
+& $uploader @common -Mod Framework -Operation Update | Out-Null
+Check ((Catalogue $repo).mods.PhobosFramework.uploadedVersion -eq '1.0.2') 'An update must record the uploaded version'
 
 # --- Local-copy removal ----------------------------------------------------------------
 $game = Join-Path $fixtures 'game'

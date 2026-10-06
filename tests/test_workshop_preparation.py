@@ -177,6 +177,60 @@ class PreparationTests(unittest.TestCase):
         self.assertEqual(w.plan(self.root, self.name)[0]['operation'], 'update')
         self.assertNotIn(b'\r\n', (self.root / 'config/workshop-publishing.json').read_bytes())
 
+    def release(self, entries, uploaded=None):
+        """Rewrite the fixture at the first entry's version with the given (version, body) changelog entries."""
+        current = entries[0][0]
+        self.put('mods/PhobosExample/mod_info.json', '[{"strName":"Example","strModVersion":"%s"}]' % current)
+        self.put('mods/PhobosExample/CHANGELOG.md', '# Changelog\n\n## [Unreleased]\n\nNone.\n\n' + ''.join(
+            f'## [{v}] - 2026-09-26 - Draft\n\n### Fixed\n\n- {body}\n\n' for v, body in entries))
+        self.put('workshop/PhobosExample/page.bbcode', f'[h1]Example[/h1]\n[b]Version:[/b] {current}\n[b]Publication status:[/b] Draft\n')
+        notes = w.module(self.root, 'notes', 'scripts/workshop-release-notes.py')
+        for path, (_, data) in notes.plan(self.root, [self.name], None)[1].items():
+            path.write_bytes(data)
+        shutil.rmtree(self.root / 'dist/PhobosExample-P0/Mods/PhobosExample')
+        shutil.copytree(self.root / 'mods/PhobosExample', self.root / 'dist/PhobosExample-P0/Mods/PhobosExample')
+        path = self.root / 'config/workshop-publishing.json'
+        config = json.loads(path.read_text())
+        config['mods'][self.name].update(itemId='4242', uploadedVersion=uploaded)
+        path.write_text(json.dumps(config))
+
+    def test_change_note_covers_every_version_since_the_last_upload(self):
+        self.release([('1.0.2', 'Second fix.'), ('1.0.1', 'First fix.'), ('1.0.0', 'Example.')], uploaded='1.0.0')
+        report, content, _ = w.plan(self.root, self.name)
+        note = content['documentation/Release-notes.bbcode'].decode('utf-8')
+        self.assertEqual(report['changeNoteVersions'], ['1.0.2', '1.0.1'])
+        self.assertLess(note.index('Example 1.0.2'), note.index('Example 1.0.1'))
+        self.assertNotIn('Example 1.0.0', note)
+        # Without a recorded upload, or repeating the same version, only the current version is described.
+        for uploaded in (None, '1.0.2'):
+            self.release([('1.0.2', 'Second fix.'), ('1.0.1', 'First fix.'), ('1.0.0', 'Example.')], uploaded=uploaded)
+            self.assertEqual(w.plan(self.root, self.name)[0]['changeNoteVersions'], ['1.0.2'])
+
+    def test_change_note_names_versions_that_do_not_fit(self):
+        long = 'Long fix. ' * 800
+        self.release([('1.0.3', 'Third fix.'), ('1.0.2', long), ('1.0.1', 'First fix.'), ('1.0.0', 'Example.')], uploaded='1.0.0')
+        report, content, _ = w.plan(self.root, self.name)
+        note = content['documentation/Release-notes.bbcode'].decode('utf-8')
+        self.assertEqual((report['changeNoteVersions'], report['changeNoteOmitted']), (['1.0.3'], ['1.0.2', '1.0.1']))
+        self.assertTrue(note.endswith('Earlier changes in versions 1.0.1 to 1.0.2 are listed in CHANGELOG.md, which comes with the mod.\n'))
+        self.assertLessEqual(len(note.encode('utf-8')), w.TEXT_MAX_BYTES)
+
+    def test_record_uploaded_version(self):
+        with self.assertRaisesRegex(ValueError, 'no item ID'):
+            w.record_uploaded_version(self.root, self.name, '1.0.0')
+        w.record_item_id(self.root, self.name, '4242')
+        with self.assertRaisesRegex(ValueError, 'numbers like'):
+            w.record_uploaded_version(self.root, self.name, '1.0')
+        self.assertEqual(w.record_uploaded_version(self.root, self.name, '1.0.0')['status'], 'recorded')
+        self.assertEqual(w.record_uploaded_version(self.root, self.name, '1.0.0')['status'], 'unchanged')
+        self.assertEqual(w.plan(self.root, self.name)[0]['uploadedVersion'], '1.0.0')
+        path = self.root / 'config/workshop-publishing.json'
+        config = json.loads(path.read_text())
+        config['mods'][self.name]['itemId'] = None
+        path.write_text(json.dumps(config))
+        with self.assertRaisesRegex(ValueError, 'uploadedVersion'):
+            w.catalogue(self.root)
+
     def test_publication_order(self):
         config = {'mods': {'PhobosB': {'requires': ['PhobosA']}, 'PhobosA': {'requires': []}, 'PhobosC': {'requires': ['PhobosB', 'PhobosA']}}}
         self.assertEqual(w.publication_order(config), ['PhobosA', 'PhobosB', 'PhobosC'])

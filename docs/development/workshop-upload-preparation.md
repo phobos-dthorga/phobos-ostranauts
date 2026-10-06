@@ -149,10 +149,33 @@ What it does, in order:
    `./scripts/upload-workshop.ps1 -Reconcile <receipt dir> -ItemId <id>` or
    `-NotCreated`. A blind retry could create a duplicate.
 
+6. Records the version it sent as the mod's `uploadedVersion` in
+   `config/workshop-publishing.json` (commit that): after a Create that returned an
+   ID, after an Update whose SteamCMD run exited 0, and on `-Reconcile -ItemId`.
+   A failed Update records nothing, so the next change note repeats its versions.
+
 SteamCMD's exit code is not proof of success, so receipts end as
 `created-unverified` or `submitted-unverified`. Every upload replaces the Workshop
 title, description (from `page.bbcode`), change note and cover with the candidate's;
 edit the repository copy, not the Steam page text.
+
+### Change notes
+
+Each upload adds one entry to the item's Change Notes tab. Preparation builds it
+from the generated `workshop/<ModId>/releases/<version>.bbcode` of every changelog
+version after the item's `uploadedVersion`, up to the current one, newest first,
+so versions that were never uploaded on their own still reach players. A first
+upload, or one with no recorded version, carries the current version alone (the
+page describes the rest). If the combined note would pass Steam's 8,000-byte
+limit, the oldest versions are left out and a closing line names them and points
+to the CHANGELOG.md packaged with the mod. The manifest lists the versions as
+`changeNoteVersions` and `changeNoteOmitted`, and the upload plan prints them. A
+candidate prepared before another upload of the same mod was recorded is refused;
+prepare a fresh one.
+
+Each version's heading still says Draft until its changelog entry is marked
+Released, so the first public upload's note reads Draft; how to handle that is
+an open owner choice.
 
 ### After each upload, on Steam
 

@@ -22,6 +22,7 @@ TEXT_MAX_BYTES = 7999
 # Our own conservative cover budget (assets/workshop/README.md), not a Valve figure.
 PREVIEW_MAX_BYTES = 1_000_000
 VISIBILITY = {'public': 0, 'friends': 1, 'private': 2, 'unlisted': 3}
+VERSION = re.compile(r'\d+\.\d+\.\d+')
 
 
 def digest(data):
@@ -80,6 +81,10 @@ def catalogue(root):
             ids.append(item_id)
         if set(item['requires']) - known or name in item['requires']:
             raise ValueError('Invalid dependency')
+        # The last version sent to this item; its change notes begin after it (optional, written by the uploader).
+        uploaded = item.get('uploadedVersion')
+        if uploaded is not None and (item_id is None or not isinstance(uploaded, str) or not VERSION.fullmatch(uploaded)):
+            raise ValueError('uploadedVersion must be a version number, and only on a mod with an item ID')
     for item_id in value['externalRequiredItems']:
         if not re.fullmatch(r'[1-9][0-9]*', item_id) or item_id not in value.get('externalRequiredItemNames', {}):
             raise ValueError('External required items need a decimal ID and a name')
@@ -114,6 +119,35 @@ def limit(label, data, maximum):
         raise ValueError(f'{label} is {len(data)} UTF-8 bytes; Steam accepts at most {maximum}. Shorten it before upload')
 
 
+def version_key(version):
+    return tuple(int(part) for part in version.split('.'))
+
+
+def change_note(root, notes, name, version, uploaded):
+    """Steam's change note: every changelog version after the last one uploaded to the item, newest first.
+    A first upload (or a repeat of the same version) carries the current version alone. Versions that would
+    push the note past Steam's limit are named in a closing line instead, oldest dropped first."""
+    releases = notes.parse_changelog((root / 'mods' / name / 'CHANGELOG.md').read_text(encoding='utf-8-sig'))
+    since = version_key(uploaded or version)
+    versions = sorted((v for v in releases if since < version_key(v) <= version_key(version)), key=version_key, reverse=True) or [version]
+    texts = []
+    for release in versions:
+        _, outputs = notes.plan(root, [name], release)
+        before, after = next(iter(outputs.values()))
+        if before != after:
+            raise ValueError('Generated release notes are stale; regenerate them')
+        texts.append(after)
+
+    def closing(left):
+        span = left[0] if len(left) == 1 else f'{left[-1]} to {left[0]}'
+        word = 'version' if len(left) == 1 else 'versions'
+        return f'Earlier changes in {word} {span} are listed in CHANGELOG.md, which comes with the mod.\n'.encode('utf-8')
+    for count in range(len(texts), 0, -1):
+        note = b'\n'.join(texts[:count]) + (b'\n' + closing(versions[count:]) if count < len(texts) else b'')
+        if len(note) <= TEXT_MAX_BYTES or count == 1:
+            return note, versions[:count], versions[count:]
+
+
 def plan(root, name):
     config = catalogue(root)
     if name not in config['mods']:
@@ -125,16 +159,14 @@ def plan(root, name):
     if not re.fullmatch(r'\d+\.\d+\.\d+', version):
         raise ValueError('Invalid version')
     notes = module(root, 'release_notes', 'scripts/workshop-release-notes.py')
-    _, outputs = notes.plan(root, [name], version)
-    if any(before != after for before, after in outputs.values()):
-        raise ValueError('Generated release notes are stale; regenerate them')
+    uploaded = item.get('uploadedVersion') if item['itemId'] else None
+    note, covered, omitted = change_note(root, notes, name, version, uploaded)
     page = (root / 'workshop' / name / 'page.bbcode').read_bytes()
-    change_note = next(iter(outputs.values()))[1]
     limit('Workshop title', info['strName'].encode('utf-8'), TITLE_MAX_BYTES)
     limit('Workshop page description', page.decode('utf-8-sig').encode('utf-8'), TEXT_MAX_BYTES)
-    limit('Release change note', change_note, TEXT_MAX_BYTES)
+    limit('Release change note', note, TEXT_MAX_BYTES)
     quote(page.decode('utf-8-sig'))
-    quote(change_note.decode('utf-8'))
+    quote(note.decode('utf-8'))
     package = root / 'dist' / f'{name}-P0'
     native = files(package / 'Mods' / name)
     # The data copies built into the DLL ship with a first-line read-only note (scripts/read-only-data-headers.py).
@@ -185,7 +217,7 @@ def plan(root, name):
             target = 'documentation/' + relative
             payload[target] = data
     payload['documentation/Workshop-page.bbcode'] = page
-    payload['documentation/Release-notes.bbcode'] = change_note
+    payload['documentation/Release-notes.bbcode'] = note
     blockers = [item['hold']] if item['hold'] else []
     if 'preview.png' not in payload:
         blockers.append('No preview.png; prepare a cover before upload')
@@ -204,8 +236,9 @@ def plan(root, name):
               'itemId': item['itemId'], 'operation': 'update' if item['itemId'] else 'create',
               'visibility': 'private', 'uploadEnabled': False, 'blockers': blockers,
               'requiredItems': dependencies, 'requiredItemDetails': required, 'subscriptionTested': False,
+              'uploadedVersion': uploaded, 'changeNoteVersions': covered, 'changeNoteOmitted': omitted,
               'sizes': {'titleBytes': len(info['strName'].encode('utf-8')), 'descriptionBytes': len(page),
-                        'changeNoteBytes': len(change_note)},
+                        'changeNoteBytes': len(note)},
               'files': {p: digest(data) for p, data in sorted(payload.items())}}
     return report, payload, info['strName']
 
@@ -309,6 +342,24 @@ def record_item_id(root, name, item_id):
     return {'status': 'recorded', 'mod': name, 'itemId': item_id, 'catalogue': CATALOGUE}
 
 
+def record_uploaded_version(root, name, version):
+    """Save the version just sent to a mod's item, so the next change note starts after it."""
+    if not VERSION.fullmatch(version or ''):
+        raise ValueError('Uploaded versions are numbers like 1.2.3')
+    path = root / CATALOGUE
+    config = json.loads(path.read_text(encoding='utf-8-sig'))
+    if name not in config['mods']:
+        raise ValueError('Unknown mod')
+    if not config['mods'][name]['itemId']:
+        raise ValueError(f'{name} has no item ID; record the item before its uploaded version')
+    if config['mods'][name].get('uploadedVersion') == version:
+        return {'status': 'unchanged', 'mod': name, 'uploadedVersion': version}
+    config['mods'][name]['uploadedVersion'] = version
+    path.write_bytes((json.dumps(config, indent=2, ensure_ascii=False) + '\n').encode('utf-8'))
+    catalogue(root)
+    return {'status': 'recorded', 'mod': name, 'uploadedVersion': version, 'catalogue': CATALOGUE}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mod')
@@ -316,6 +367,7 @@ def main():
     parser.add_argument('--verify', type=Path)
     parser.add_argument('--status', action='store_true', help='Publishing overview of every mod; read-only')
     parser.add_argument('--record-item-id', metavar='ID', help='Save a real Steam item ID for --mod')
+    parser.add_argument('--record-uploaded-version', metavar='VERSION', help='Save the version just uploaded to the item of --mod')
     parser.add_argument('--upload-vdf', type=Path, metavar='CANDIDATE', help='Write an upload VDF for a verified candidate')
     parser.add_argument('--visibility', default='private', choices=sorted(VISIBILITY))
     parser.add_argument('--output', type=Path)
@@ -333,6 +385,10 @@ def main():
             if not args.mod:
                 raise ValueError('--record-item-id needs --mod')
             report = record_item_id(ROOT, name, args.record_item_id)
+        elif args.record_uploaded_version:
+            if not args.mod:
+                raise ValueError('--record-uploaded-version needs --mod')
+            report = record_uploaded_version(ROOT, name, args.record_uploaded_version)
         elif args.upload_vdf:
             if not args.output:
                 raise ValueError('--upload-vdf needs --output')

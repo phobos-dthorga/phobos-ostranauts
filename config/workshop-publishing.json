@@ -2,59 +2,67 @@
   "appId": "1022980",
   "mods": {
     "PhobosFramework": {
-      "itemId": null,
+      "itemId": "3814698080",
       "requires": [],
-      "hold": null
+      "hold": null,
+      "uploadedVersion": "0.127.1"
     },
     "PhobosAgriculture": {
-      "itemId": null,
+      "itemId": "3814698904",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": null
+      "hold": null,
+      "uploadedVersion": "0.66.0"
     },
     "PhobosShipbreaker": {
-      "itemId": null,
+      "itemId": "3814711909",
       "requires": [
         "PhobosFramework",
         "PhobosAutoNav"
       ],
-      "hold": null
+      "hold": null,
+      "uploadedVersion": "0.85.0"
     },
     "PhobosAutoNav": {
-      "itemId": null,
+      "itemId": "3814708796",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": null
+      "hold": null,
+      "uploadedVersion": "0.35.0"
     },
     "PhobosManufacturing": {
-      "itemId": null,
+      "itemId": "3814709399",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Unpublished draft: first operational release awaiting owner gameplay checks."
+      "hold": "Unpublished draft: first operational release awaiting owner gameplay checks.",
+      "uploadedVersion": "0.58.0"
     },
     "PhobosWarDeclared": {
-      "itemId": null,
+      "itemId": "3814710699",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Held draft: first release awaiting owner gameplay checks."
+      "hold": "Held draft: first release awaiting owner gameplay checks.",
+      "uploadedVersion": "0.3.1"
     },
     "PhobosMedical": {
-      "itemId": null,
+      "itemId": "3814709929",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Held draft: first release awaiting owner gameplay checks."
+      "hold": "Held draft: first release awaiting owner gameplay checks.",
+      "uploadedVersion": "0.5.1"
     },
     "PhobosSpacerStories": {
-      "itemId": null,
+      "itemId": "3814710184",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Held draft: data-only story collection awaiting owner review of its appearance and pacing in the game."
+      "hold": "Held draft: data-only story collection awaiting owner review of its appearance and pacing in the game.",
+      "uploadedVersion": "0.3.1"
     },
     "PhobosBank": {
       "itemId": null,

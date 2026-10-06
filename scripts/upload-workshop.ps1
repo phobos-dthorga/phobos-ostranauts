@@ -88,6 +88,7 @@ if ($PSCmdlet.ParameterSetName -eq 'Reconcile') {
     if ($ItemId) {
         if ($receipt.operation -eq 'update' -and $ItemId -ne $receipt.itemId) { throw "This update targeted item $($receipt.itemId)." }
         if ($receipt.operation -eq 'create') { Invoke-Preparer @('--mod', $receipt.mod, '--record-item-id', $ItemId) | Out-Null }
+        Invoke-Preparer @('--mod', $receipt.mod, '--record-uploaded-version', $receipt.version) | Out-Null
         $receipt.itemId = $ItemId
         $receipt.status = 'reconciled-submitted'
     } else {
@@ -125,6 +126,10 @@ $current = $entry.itemId
 if ($manifest.operation -ne $Operation.ToLowerInvariant()) { throw "Candidate is prepared for $($manifest.operation), not $Operation." }
 if ($current -and -not $manifest.itemId) { throw "$id already has item $current. Prepare a fresh candidate, which will update it instead of creating a duplicate." }
 if ($manifest.itemId -and $manifest.itemId -ne $current) { throw 'Catalogue item ID changed since this candidate was prepared. Prepare a fresh candidate.' }
+# The change note lists every version since the last upload; a newer upload since preparing makes it wrong.
+if ($manifest.ContainsKey('changeNoteVersions') -and $current -and $manifest.uploadedVersion -ne $entry['uploadedVersion']) {
+    throw 'Another upload was recorded since this candidate was prepared, so its change note is out of date. Prepare a fresh candidate.'
+}
 $version = (@(Get-Content -LiteralPath (Join-Path $root "mods/$id/mod_info.json") -Raw | ConvertFrom-Json))[0].strModVersion
 if ($manifest.version -ne $version) { throw "Candidate is $($manifest.version) but the source is now $version. Prepare a fresh candidate." }
 
@@ -155,6 +160,11 @@ Write-Output "Upload plan: $($Operation.ToLowerInvariant()) $id $version as $Vis
 Write-Output "Candidate: $Candidate"
 if ($manifest.itemId) { Write-Output "Item: https://steamcommunity.com/sharedfiles/filedetails/?id=$($manifest.itemId)" }
 Write-Output "Required items to set on Steam afterwards: $($required -join '; ')"
+if ($manifest.ContainsKey('changeNoteVersions')) {
+    $covers = "Change note covers: $($manifest.changeNoteVersions -join ', ')"
+    if (@($manifest.changeNoteOmitted).Count -gt 0) { $covers += " (too long for Steam, so it points to CHANGELOG.md for $($manifest.changeNoteOmitted -join ', '))" }
+    Write-Output $covers
+}
 if ($blockers.Count -gt 0) { Write-Output "Proceeding past (private, acknowledged): $($blockers -join '; ')" }
 
 if (-not $SteamCmdPath -or -not (Test-Path -LiteralPath $SteamCmdPath -PathType Leaf)) {
@@ -198,10 +208,17 @@ if ($receipt.operation -eq 'create' -and $returned -ne '0') {
     $receipt.itemId = $returned
     Write-Json $receipt (Join-Path $receiptDir 'receipt.json')
     Invoke-Preparer @('--mod', $id, '--record-item-id', $returned) | Out-Null
+    Invoke-Preparer @('--mod', $id, '--record-uploaded-version', $version) | Out-Null
     $receipt.status = 'created-unverified'
-    Write-Output "Steam returned item $returned; recorded in config/workshop-publishing.json (commit it)."
+    Write-Output "Steam returned item $returned; recorded with version $version in config/workshop-publishing.json (commit it)."
 } elseif ($receipt.operation -eq 'create') {
     Write-Warning "No item ID came back. Check your Workshop items on Steam before anything else, then run: ./scripts/upload-workshop.ps1 -Reconcile '$receiptDir' -ItemId <id> (or -NotCreated)."
+} elseif ($receipt.steamCmdExitCode -eq 0) {
+    # The next change note starts after this version. A failed run records nothing, so its versions are described again next time.
+    Invoke-Preparer @('--mod', $id, '--record-uploaded-version', $version) | Out-Null
+    Write-Output "Recorded version $version as uploaded in config/workshop-publishing.json (commit it)."
+} else {
+    Write-Warning "SteamCMD exited with code $($receipt.steamCmdExitCode); version $version was not recorded as uploaded. Check the item on Steam; if the update did arrive, run: ./scripts/upload-workshop.ps1 -Reconcile '$receiptDir' -ItemId $($receipt.itemId)"
 }
 Write-Json $receipt (Join-Path $receiptDir 'receipt.json')
 Write-Output "Receipt: $receiptDir"
