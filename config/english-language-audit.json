@@ -84360,8 +84360,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "b80548cc0b97386b4708bb03ee313e7ffbb08e264a4bb4f0eebb92cf19dde432",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "f0f6011c98f70474dbf2855bd6350e65d761c96e80201cfe65672a2cfdc0454f",
+      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -85567,6 +85567,13 @@
       "decision": "new",
       "sha256": "09d4d37121f7d613e5c469c151375ff3c9586bbf741de331c0da7a21a445e791",
       "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips."
+    },
+    {
+      "path": "docs/development/spacer-stories-rewrite-handoff.md",
+      "scope": "contributor index and source-backed story authoring record",
+      "decision": "new",
+      "sha256": "f3252b35b0a1df06df24031f601aabdefa0a0cc9505886e11a3583bfc6510dc9",
+      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff."
     }
   ],
   "surfaces": [
