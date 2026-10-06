@@ -72,6 +72,8 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Fusion-powered industry: ideas and research sequence](fusion-industry-roadmap.md)
 - [Fusion furnace and instrument panel: feasibility and design](fusion-smelter-research.md)
 - [Health research: evidence, coverage and unresolved behavior](health-evidence-and-gaps.md)
+- [Ostranauts health conditions and directions of change](health-condition-directions.md): harmful, ordinary and beneficial states, native responses, limits and Phobos possibilities
+- [Health intervention opportunities for Phobos mods](health-intervention-opportunities.md): research-only care, rehabilitation, social comfort, risky products and snake oil for later selection and Claude implementation
 - [Industrial control console and equipment panels](industrial-control-console.md)
 - [Industrial control panels: text mockups](industrial-control-mockups.md)
 - [Equipment in the native INSTALL catalogue](install-catalogue.md)

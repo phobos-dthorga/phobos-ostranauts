@@ -87674,10 +87674,11 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "e50be4553254720a710c97908b748c83118c94e91b293f391ef14539829a507c",
+      "sha256": "26feeeec41ab37f9b62e600d41334bf02fe3f851daef0ca3f1a9ea9070cf1292",
       "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
-      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
+      "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -88923,8 +88924,9 @@
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "a5745baf69242e96f14afdfd075096809556e1902f500a9047adc0ab5ccd5761",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "e9b75faf61fa73fdf73cd52f76484ad9311631d548af5093295283b3f40e725c",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation.",
+      "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -88981,6 +88983,20 @@
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
       "sha256": "770694633dd2b3c058b944e7ba8fe61bb0f6a71e541425822051ea2f623eab75",
       "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+    },
+    {
+      "path": "docs/development/health-condition-directions.md",
+      "scope": "research/developer: native health, positive and neutral states, direction of change and source limits",
+      "decision": "new",
+      "sha256": "ff6a572d8f8c613ab6fb67b6113b9bd16e37063985cac8351930a1705f4042bd",
+      "review": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
+    },
+    {
+      "path": "docs/development/health-intervention-opportunities.md",
+      "scope": "research/developer: proposed treatments, habitation, trade-offs, snake oil, attribution and Claude handoff",
+      "decision": "new",
+      "sha256": "b545150d885816b24039c63f5171c5e4ada762fb0894ea8968fc858de5aa9e61",
+      "review": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
     }
   ],
   "surfaces": [

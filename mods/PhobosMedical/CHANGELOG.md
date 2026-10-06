@@ -8,6 +8,7 @@ not Steam publication.
 ### Changed
 
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
+- Added research records mapping native health states, existing responses and possible future care, rehabilitation and dubious wellness products. These are design possibilities for later selection, not new treatments; the game and saved state are unchanged.
 
 ## [0.5.1] - 2026-10-06 - Draft
 
