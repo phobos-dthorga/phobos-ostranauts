@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction, commissioned by phobosgekko on 6 October 2026; agent-authored choices open to owner revision. Vanilla evidence, literary influences and mechanical limits: docs/development/spacer-stories-vanilla-expansion.md. This pack does not change native plots, gigs, faction scores, station rules or NPCs.",
+  "people": {
+    "spacertales-dara-osei": {
+      "name": "Dara Osei",
+      "role": "freight estimator",
+      "home": "oklg",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-noor-iman": {
+      "name": "Noor Iman",
+      "role": "salvage records clerk",
+      "home": "oklg",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-laleh-ade": {
+      "name": "Laleh Ade",
+      "role": "berth association secretary",
+      "home": "oklg-flot",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-ren-wu": {
+      "name": "Ren Wu",
+      "role": "housing petition copyist",
+      "home": "bcrs-old",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-matti-sorell": {
+      "name": "Matti Sorell",
+      "role": "freight claims translator",
+      "home": "bcer",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-june-havel": {
+      "name": "June Havel",
+      "role": "shipyard family archivist",
+      "home": "svir-shipyard",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-pema-das": {
+      "name": "Pema Das",
+      "role": "unfinished works archivist",
+      "home": "ejdr",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-wen-park": {
+      "name": "Wen Park",
+      "role": "maintenance visa correspondent",
+      "home": "mhng",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-simone-kerr": {
+      "name": "Simone Kerr",
+      "role": "research night-shift clerk",
+      "home": "mvol-lab",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-ines-duarte": {
+      "name": "Ines Duarte",
+      "role": "aerostat freight correspondent",
+      "home": "vnca",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-tomas-bell": {
+      "name": "Tomas Bell",
+      "role": "family letters custodian",
+      "home": "jptn",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    },
+    "spacertales-rafe-kito": {
+      "name": "Rafe Kito",
+      "role": "dockside account keeper",
+      "home": "coho",
+      "notes": "Original offscreen correspondent; no character is spawned and no office or kiosk is added."
+    }
+  },
+  "threads": {
+    "spacertales-reasonable-freight": {
+      "title": "What the journey actually costs",
+      "place": "oklg",
+      "people": [
+        "spacertales-dara-osei",
+        "spacertales-june-havel"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-salvage-kin": {
+      "title": "The names attached to salvage",
+      "place": "oklg",
+      "people": [
+        "spacertales-noor-iman"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-berth-neighbours": {
+      "title": "A berth is also an address",
+      "place": "oklg-flot",
+      "people": [
+        "spacertales-laleh-ade"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-old-ring-tenants": {
+      "title": "The people in the old ring",
+      "place": "bcrs-old",
+      "people": [
+        "spacertales-ren-wu"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-ceres-translations": {
+      "title": "Two descriptions of one shipment",
+      "place": "bcer",
+      "people": [
+        "spacertales-matti-sorell"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-titan-families": {
+      "title": "The yard and the family",
+      "place": "svir-shipyard",
+      "people": [
+        "spacertales-june-havel",
+        "spacertales-dara-osei"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-lunar-leftovers": {
+      "title": "Work left unfinished",
+      "place": "ejdr",
+      "people": [
+        "spacertales-pema-das"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-maintenance-visas": {
+      "title": "The price of staying",
+      "place": "mhng",
+      "people": [
+        "spacertales-wen-park"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-deimos-night-work": {
+      "title": "Who keeps the laboratories open",
+      "place": "mvol-lab",
+      "people": [
+        "spacertales-simone-kerr"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-venus-after-loss": {
+      "title": "Freight after a loss",
+      "place": "vnca",
+      "people": [
+        "spacertales-ines-duarte"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-europa-distance": {
+      "title": "Letters across the blockade",
+      "place": "jptn",
+      "people": [
+        "spacertales-tomas-bell"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    },
+    "spacertales-hollow-accounts": {
+      "title": "What the dockside book leaves out",
+      "place": "coho",
+      "people": [
+        "spacertales-rafe-kito",
+        "spacertales-matti-sorell"
+      ],
+      "notes": "Agent-selected home within Framework's existing places. Incidents and documents are fiction; this does not establish a new station-wide law, faction policy or historical event."
+    }
+  }
+}

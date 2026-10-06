@@ -1,0 +1,1172 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction, commissioned by phobosgekko on 6 October 2026; agent-authored choices open to owner revision. Vanilla evidence, literary influences and mechanical limits: docs/development/spacer-stories-vanilla-expansion.md. This pack does not change native plots, gigs, faction scores, station rules or NPCs.",
+  "arcs": {
+    "spacertales-estimate-with-a-return": {
+      "title": "The estimate includes coming home",
+      "thread": "spacertales-reasonable-freight",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-freight-estimate-notice"
+        ],
+        "dockedAt": [
+          "OKLG"
+        ]
+      },
+      "steps": [
+        {
+          "id": "quote",
+          "delivery": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "[player-first], the circle's notice was mine. Here is the case: a broker offered a handsome sum for a delivery, then priced the journey as though the ship would vanish after unloading. The captain had to come back for their child. I am sending both estimates. Give the copyist an hour; you can get on with your own business."
+            }
+          },
+          "objective": {
+            "title": "Read the freight estimate at [place]",
+            "description": "Allow one hour for a comparison copy, then be docked at this station. No fee, goods or departure are required."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "return",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "The broker counted fuel once. The captain counted two journeys, a queue and a watch that somebody else would have to cover. Neither used the same word for profit."
+            }
+          }
+        },
+        {
+          "id": "return",
+          "delivery": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "The captain has answered. They were willing to quote for the job; they were not willing to pretend the return did not exist. The broker said another ship would take it. The captain said they hoped that ship had read the same figures. We are paying readers a small fee from the circle's copying fund, not offering you the delivery."
+            }
+          },
+          "objective": {
+            "title": "Receive the captain's reply",
+            "description": "After three more hours, be docked at [place] to receive the complete comparison. The circle pays 300 credits once. There is no departure deadline."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 3
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "Three hundred credits for the comparison, and the two estimates on a card. The circle has changed its own sample form to include a return column. The job board, naturally, has not asked our opinion."
+            },
+            "files": [
+              "spacertales-return-estimate-file"
+            ],
+            "setFlags": [
+              "spacertales-return-column-kept"
+            ],
+            "credits": 300
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-names-under-the-label": {
+      "title": "Names under the sale label",
+      "thread": "spacertales-salvage-kin",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-salvage-name-notice"
+        ],
+        "dockedAt": [
+          "OKLG"
+        ]
+      },
+      "steps": [
+        {
+          "id": "copy",
+          "delivery": {
+            "message": {
+              "person": "spacertales-noor-iman",
+              "text": "The notice was for a small pump sold three times. Its sale cards are immaculate. Its maintenance label is crowded. I am copying the label because the most recent seller wanted to cut it off. Somebody added dates, somebody added a warning, and somebody wrote a name over a name. None of that establishes who owns the pump today."
+            }
+          },
+          "objective": {
+            "title": "Receive the old maintenance label",
+            "description": "Allow one hour for the copied account. It requires no equipment purchase or salvage trip."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "compare",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-noor-iman",
+              "text": "The overwritten name belonged to the worker who trained the next maintainer. It was not an attempt to hide the owner."
+            }
+          }
+        },
+        {
+          "id": "compare",
+          "delivery": {
+            "message": {
+              "person": "spacertales-noor-iman",
+              "text": "For a plain comparison, bring a Bingham-12 EVA battery you already have. I need a reader to compare a current object's short name with the copied pump account; no test, dismantling or serial check is involved. Keep it afterwards. You will see how little a sale name can hold about a thing's working life."
+            }
+          },
+          "objective": {
+            "title": "Compare the battery labels at [place]",
+            "description": "Bring a Bingham-12 EVA battery in your carried inventory while docked here. Any battery of that kind counts; it is kept, and no charge or serial is checked."
+          },
+          "tests": [
+            {
+              "kind": "dock-at"
+            },
+            {
+              "kind": "have-item",
+              "item": "ItmBattery03",
+              "count": 1,
+              "consume": false
+            }
+          ],
+          "next": "voices",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-noor-iman",
+              "text": "The short label does its job. The old working notes do another. The seller had treated the second job as clutter."
+            }
+          }
+        },
+        {
+          "id": "voices",
+          "delivery": {
+            "message": {
+              "person": "spacertales-noor-iman",
+              "text": "The former maintainer says the warning was added after a colleague worked an extra watch and forgot a small fault. The colleague was embarrassed, so the warning names the fault rather than the person. The training name stays. The seller has agreed to let the copied label accompany the pump. That is as far as my authority reaches."
+            }
+          },
+          "objective": {
+            "title": "Wait for the former maintainer's reply",
+            "description": "Allow two hours for the reply and archive card. No wages, ownership or equipment state changes."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-noor-iman",
+              "text": "The card keeps the label and the explanation. Nobody has won the pump. Somebody's work has stopped being mistaken for a stain."
+            },
+            "files": [
+              "spacertales-working-label-file"
+            ],
+            "setFlags": [
+              "spacertales-working-names-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-address-while-away": {
+      "title": "An address while away",
+      "thread": "spacertales-berth-neighbours",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-berth-address-notice"
+        ],
+        "dockedAt": [
+          "OKLG_FLOT"
+        ]
+      },
+      "steps": [
+        {
+          "id": "sheet",
+          "delivery": {
+            "message": {
+              "person": "spacertales-laleh-ade",
+              "text": "I wrote the association's notice. A neighbour came home from a run to find their letters marked gone away. They had left a return contact; it had been filed with their old berth number. I am copying the neighbours' proposal. We can fix our own sheet without pretending to fix the whole station."
+            }
+          },
+          "objective": {
+            "title": "Wait for the neighbours' contact sheet",
+            "description": "Allow one hour for a copy. Nobody gains access to your ship, tenancy or contacts."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "reply",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-laleh-ade",
+              "text": "The proposal names an agreed message-holder beside the berth. Some people have a relative. Some have the person who keeps a meal warm."
+            }
+          }
+        },
+        {
+          "id": "reply",
+          "delivery": {
+            "message": {
+              "person": "spacertales-laleh-ade",
+              "text": "There was an argument about the word responsible. A neighbour who agreed to hold a letter had not agreed to pay a debt or speak for a captain. We replaced the word with willing to receive messages. That sounds small until somebody waves an unpaid bill at your door."
+            }
+          },
+          "objective": {
+            "title": "Receive the revised sheet at [place]",
+            "description": "Allow four more hours, then be docked here. Receive the neighbours' agreement on an archive card. It does not register your own address."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 4
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-laleh-ade",
+              "text": "The revised copy names what the neighbours actually agreed to do. The missing letters have been found. The neighbour brought back tea and refuses to admit that this was the purpose of the voyage."
+            },
+            "files": [
+              "spacertales-away-address-file"
+            ],
+            "setFlags": [
+              "spacertales-message-holder-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-petition-keeps-its-age": {
+      "title": "The petition keeps its age",
+      "thread": "spacertales-old-ring-tenants",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-old-ring-notice"
+        ],
+        "dockedAt": [
+          "BCRS_OLD"
+        ]
+      },
+      "steps": [
+        {
+          "id": "covers",
+          "delivery": {
+            "message": {
+              "person": "spacertales-ren-wu",
+              "text": "Our first cover was stained. Our second was neat. Our third had a new filing date. The contractor now talks about a recent petition. There is a latch beside a berth that has rattled through all three covers. I want the oldest date on the next copy. Give me two hours to find the carbon sheet."
+            }
+          },
+          "objective": {
+            "title": "Receive the old petition covers",
+            "description": "Allow two hours for the copied covers. This correspondence changes no building or rent."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "next": "comparison",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-ren-wu",
+              "text": "The carbon has the first date, three signatures and a drawing of the latch. One signature belongs to a neighbour who has since moved."
+            }
+          }
+        },
+        {
+          "id": "comparison",
+          "delivery": {
+            "message": {
+              "person": "spacertales-ren-wu",
+              "text": "The drawing is legible enough for somebody with civil engineering to compare it now. Otherwise an old colleague will annotate it over the next six hours. This is a reading exercise, not an inspection of the building. The neighbour who moved says they still wake up expecting the rattle."
+            }
+          },
+          "objective": {
+            "title": "Receive the dated comparison at [place]",
+            "description": "Allow six more hours and be docked here. A civil engineering skill can finish the drawing comparison sooner; it performs no repair."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 6
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-ren-wu",
+              "text": "The oldest date is back on the copy. Nobody has claimed the latch is fixed. The tenants have a longer, more accurate account of asking."
+            },
+            "files": [
+              "spacertales-petition-age-file"
+            ],
+            "setFlags": [
+              "spacertales-petition-date-kept"
+            ]
+          },
+          "branches": [
+            {
+              "tests": [
+                {
+                  "kind": "condition",
+                  "condition": "SkillEngCivil"
+                },
+                {
+                  "kind": "dock-at"
+                }
+              ],
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "spacertales-ren-wu",
+                  "text": "Your civil engineering background makes the old sketch readable without the colleague's annotation. The oldest date stays. The repair still belongs to the contractor."
+                },
+                "files": [
+                  "spacertales-petition-age-file"
+                ],
+                "setFlags": [
+                  "spacertales-petition-date-kept"
+                ]
+              },
+              "notes": "A skill changes the route and reply; it does not repair a building, inspect damage or alter faction standing."
+            }
+          ]
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-two-descriptions": {
+      "title": "Two descriptions of one box",
+      "thread": "spacertales-ceres-translations",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-ceres-wording-notice"
+        ],
+        "dockedAt": [
+          "BCER"
+        ]
+      },
+      "steps": [
+        {
+          "id": "sender",
+          "delivery": {
+            "message": {
+              "person": "spacertales-matti-sorell",
+              "text": "The sender calls the box household effects. They used the equipment to earn the money that kept their household fed. The broker calls it used equipment. The broker is not wrong about what is inside. Give me an hour to copy the rest of the sender's letter."
+            }
+          },
+          "objective": {
+            "title": "Receive the sender's account",
+            "description": "Allow one hour for the first description. No cargo is supplied or requested."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "broker",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-matti-sorell",
+              "text": "The sender has itemised the same objects as the broker, then added the people who used them."
+            }
+          }
+        },
+        {
+          "id": "broker",
+          "delivery": {
+            "message": {
+              "person": "spacertales-matti-sorell",
+              "text": "The broker's reply says people are not freight. The sender says that is why the people are in the letter instead of the box. I am keeping both accounts. A comparison is useful without pretending it resolves customs, wages or the rights of the buyer."
+            }
+          },
+          "objective": {
+            "title": "Read the paired accounts at [place]",
+            "description": "After three more hours, be docked here to receive the archive. Neither description changes prices, duties or faction standing."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 3
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-matti-sorell",
+              "text": "Two descriptions, one list of contents, and a letter nobody was billing by weight. The paired account is yours to read."
+            },
+            "files": [
+              "spacertales-two-descriptions-file"
+            ],
+            "setFlags": [
+              "spacertales-paired-accounts-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-yard-supper-letter": {
+      "title": "The supper after launch",
+      "thread": "spacertales-titan-families",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-titan-yard-notice"
+        ],
+        "dockedAt": [
+          "SVIR_Shipyard"
+        ]
+      },
+      "steps": [
+        {
+          "id": "launch",
+          "delivery": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "The launch notice says the service craft left on schedule. A family letter says supper did not. Both refer to the same evening. The worker stayed to cover a sick colleague's watch, then came home to a meal put away. I would like those two accounts kept beside each other."
+            }
+          },
+          "objective": {
+            "title": "Receive the yard launch letter",
+            "description": "Allow one hour for the first copy. This grants no shipyard access or work contract."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "supper",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "The family's reply does not blame the sick colleague. It asks why nobody knew who could be spared before the launch dinner was advertised."
+            }
+          }
+        },
+        {
+          "id": "supper",
+          "delivery": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "A supervisor offered to put the worker's name in the next bulletin. The family asked for one evening when the bulletin did not need a hero. Their revised invitation says after the last watch, with a meal saved for anybody covering it. The archive can keep that. It cannot make the yard honour it."
+            }
+          },
+          "objective": {
+            "title": "Receive the family's reply at [place]",
+            "description": "Allow four more hours, then be docked here. The correspondence pays no launch bonus and changes no work roster."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 4
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "The copy includes the launch notice, the family letter and the new invitation. The craft had an on-time departure. The people may yet get an on-time supper."
+            },
+            "files": [
+              "spacertales-yard-supper-file"
+            ],
+            "setFlags": [
+              "spacertales-yard-family-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-unfinished-lunar-account": {
+      "title": "The unfinished account",
+      "thread": "spacertales-lunar-leftovers",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-luna-works-notice"
+        ],
+        "dockedAt": [
+          "EJDR"
+        ]
+      },
+      "steps": [
+        {
+          "id": "list",
+          "delivery": {
+            "message": {
+              "person": "spacertales-pema-das",
+              "text": "The contractor's final account closes everything. The works list leaves a meal room without a door and a cable run marked next shift. I have no authority to send anyone into the site, and no reason to think that would be safe. The useful journey here is from one page to the other."
+            }
+          },
+          "objective": {
+            "title": "Receive the abandoned works list",
+            "description": "Allow two hours for the list. No expedition or entry into an abandoned site is required."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "next": "marks",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-pema-das",
+              "text": "Next shift appears in two hands. The second worker had copied the first worker's note before leaving."
+            }
+          }
+        },
+        {
+          "id": "marks",
+          "delivery": {
+            "message": {
+              "person": "spacertales-pema-das",
+              "text": "A reader with mechanical engineering may recognise the work sequence now. Otherwise a former contractor is preparing an annotation. Their reply includes the workers' meal order because they object to the suggestion that the place was always empty. They had expected another shift."
+            }
+          },
+          "objective": {
+            "title": "Read the annotated list at [place]",
+            "description": "After six hours, be docked here. Mechanical engineering can read the notes sooner; neither route inspects or repairs the site."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 6
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-pema-das",
+              "text": "The closing account is unchanged. Beside it, the archive now keeps what was still supposed to happen."
+            },
+            "files": [
+              "spacertales-unfinished-works-file"
+            ],
+            "setFlags": [
+              "spacertales-unfinished-work-kept"
+            ]
+          },
+          "branches": [
+            {
+              "tests": [
+                {
+                  "kind": "condition",
+                  "condition": "SkillEngMechanical"
+                },
+                {
+                  "kind": "dock-at"
+                }
+              ],
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "spacertales-pema-das",
+                  "text": "Your mechanical engineering background makes the work sequence readable. It shows an interrupted job, not evidence of why the workers left. The meal order stays beside it."
+                },
+                "files": [
+                  "spacertales-unfinished-works-file"
+                ],
+                "setFlags": [
+                  "spacertales-unfinished-work-kept"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-view-from-the-shift": {
+      "title": "The view from the maintenance shift",
+      "thread": "spacertales-maintenance-visas",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-visa-letter-notice"
+        ],
+        "dockedAt": [
+          "MHNG"
+        ]
+      },
+      "steps": [
+        {
+          "id": "terms",
+          "delivery": {
+            "message": {
+              "person": "spacertales-wen-park",
+              "text": "I wrote the notice. My brother can live here while he does the maintenance work. He keeps saying how lucky he is. His letter asks whether we can postpone another visit because he has taken an extra shift. I am copying the terms beside the letter. Neither says that he is allowed enough time to be happy about his luck."
+            }
+          },
+          "objective": {
+            "title": "Receive the worker's visa account",
+            "description": "Allow two hours for the letter. It grants no visa, residency, employment or access."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "next": "hours",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-wen-park",
+              "text": "The terms describe entry and work. His letter describes the cost of leaving them. Those are different kinds of permission."
+            }
+          }
+        },
+        {
+          "id": "hours",
+          "delivery": {
+            "message": {
+              "person": "spacertales-wen-park",
+              "text": "We told him we could postpone the visit. We also told him he did not need to describe every missed evening as a privilege. He answered with a picture of the water and a promise to write after his next day off. I have stopped asking him when that will be."
+            }
+          },
+          "objective": {
+            "title": "Receive the family's answer at [place]",
+            "description": "Allow four more hours and be docked here. This closes the correspondence without paying a debt or changing the worker's terms."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 4
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-wen-park",
+              "text": "Here is the account with both kinds of permission kept in it. The view is lovely. His family would still rather see him."
+            },
+            "files": [
+              "spacertales-shift-view-file"
+            ],
+            "setFlags": [
+              "spacertales-visa-hours-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-the-extra-voice": {
+      "title": "The extra voice on the shift",
+      "thread": "spacertales-deimos-night-work",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-deimos-shift-notice"
+        ],
+        "dockedAt": [
+          "MVOL_Lab"
+        ]
+      },
+      "steps": [
+        {
+          "id": "shift",
+          "delivery": {
+            "message": {
+              "person": "spacertales-simone-kerr",
+              "text": "The service account has an extra voice on it. We were checking supplies after a rented project closed. The recording contains someone saying the tea is ready. Two staff remember the remark. Neither remembers a third person. We want the service work copied, with the uncertainty left in."
+            }
+          },
+          "objective": {
+            "title": "Receive the night-shift account",
+            "description": "Allow one hour for a copied account. No laboratory access or research result is provided."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "sound",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-simone-kerr",
+              "text": "The remark sounds ordinary. Its place in the recording is what the staff disagree about."
+            }
+          }
+        },
+        {
+          "id": "sound",
+          "delivery": {
+            "message": {
+              "person": "spacertales-simone-kerr",
+              "text": "A reader with electrical engineering can compare the written recording notes now; otherwise a former technician will add an annotation in six hours. The notes suggest a replayed line, but do not prove one. The cleaner says we should also record who made the tea that actually arrived."
+            }
+          },
+          "objective": {
+            "title": "Receive the recording notes at [place]",
+            "description": "Allow six hours and be docked here. Electrical engineering can compare the copied notes sooner. No real recording, device or room is inspected."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 6
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-simone-kerr",
+              "text": "The notes keep both explanations and name the cleaner's work. We have no discovery to announce. I would still prefer to work this watch with company."
+            },
+            "files": [
+              "spacertales-extra-voice-file"
+            ],
+            "setFlags": [
+              "spacertales-night-account-kept"
+            ]
+          },
+          "branches": [
+            {
+              "tests": [
+                {
+                  "kind": "condition",
+                  "condition": "SkillEngElectronic"
+                },
+                {
+                  "kind": "dock-at"
+                }
+              ],
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "spacertales-simone-kerr",
+                  "text": "Your electrical engineering background lets us skip the annotation. The written timing notes remain inconclusive. The cleaner's name is now in the account. I would still prefer company on this watch."
+                },
+                "files": [
+                  "spacertales-extra-voice-file"
+                ],
+                "setFlags": [
+                  "spacertales-night-account-kept"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-invoice-for-the-missing": {
+      "title": "An invoice for the missing",
+      "thread": "spacertales-venus-after-loss",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-venus-invoice-notice"
+        ],
+        "dockedAt": [
+          "VNCA"
+        ]
+      },
+      "steps": [
+        {
+          "id": "charges",
+          "delivery": {
+            "message": {
+              "person": "spacertales-ines-duarte",
+              "text": "The freight notice was mine. These invoices followed a shipment that never arrived. They have dates and amounts. The family letters have questions. I have removed the route and identifying names because a rumour about missing cargo can attract people who are not interested in finding the crew."
+            }
+          },
+          "objective": {
+            "title": "Receive the delayed shipment account",
+            "description": "Allow two hours for the invoice copies. No search or cargo delivery is required."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "next": "waiting",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-ines-duarte",
+              "text": "The accounts disagree about the cargo's loss date. The family letters do not agree to a date for stopping the search."
+            }
+          }
+        },
+        {
+          "id": "waiting",
+          "delivery": {
+            "message": {
+              "person": "spacertales-ines-duarte",
+              "text": "The insurer says the cargo account is closed. The family asks that its latest address remain on the correspondence. Those requests do not contradict each other. The office has put them on separate sheets. It is a small correction, and the family asked us not to call it closure."
+            }
+          },
+          "objective": {
+            "title": "Receive the family copy at [place]",
+            "description": "Allow five more hours and be docked here. No recovery, insurance payment or search mission follows."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 5
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-ines-duarte",
+              "text": "The copied account closes the cargo claim and leaves the return contact intact. There is still no confirmed news of the missing crew."
+            },
+            "files": [
+              "spacertales-missing-invoice-file"
+            ],
+            "setFlags": [
+              "spacertales-return-contact-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-politics-in-the-envelope": {
+      "title": "Politics in the family envelope",
+      "thread": "spacertales-europa-distance",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-europa-letter-notice"
+        ],
+        "dockedAt": [
+          "JPTN"
+        ]
+      },
+      "steps": [
+        {
+          "id": "first",
+          "delivery": {
+            "message": {
+              "person": "spacertales-tomas-bell",
+              "text": "One relative supports the trade restrictions. The other lives with their cost. Both letters arrived with instructions to keep the other enclosed, which seems a promising way to begin an argument. I am copying them with their corrected return addresses. Those mattered to both writers."
+            }
+          },
+          "objective": {
+            "title": "Receive the first family letter",
+            "description": "Allow one hour for the copy. The letter gives no passage or route through the blockade."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "answer",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-tomas-bell",
+              "text": "The first letter asks whether the younger cousin is eating. The second answers that question before returning to the politics."
+            }
+          }
+        },
+        {
+          "id": "answer",
+          "delivery": {
+            "message": {
+              "person": "spacertales-tomas-bell",
+              "text": "They have asked me to send both letters as a pair. Neither wants the argument mistaken for a break in the family. They also asked me to leave the recipe in, though one insists the other copied it badly. You can preserve a political disagreement and still pass on supper."
+            }
+          },
+          "objective": {
+            "title": "Receive the paired letters at [place]",
+            "description": "After four hours, be docked here for the archive card. The blockade, cargo permissions and faction standing remain unchanged."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 4
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-tomas-bell",
+              "text": "The paired copy is complete. No border opened. Two relatives still know where to send the next letter."
+            },
+            "files": [
+              "spacertales-family-envelope-file"
+            ],
+            "setFlags": [
+              "spacertales-family-envelope-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-a-meal-or-a-debt": {
+      "title": "A meal, wages, or a debt",
+      "thread": "spacertales-hollow-accounts",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-hollow-book-notice"
+        ],
+        "dockedAt": [
+          "COHO"
+        ]
+      },
+      "steps": [
+        {
+          "id": "payer",
+          "delivery": {
+            "message": {
+              "person": "spacertales-rafe-kito",
+              "text": "The meal-and-berth notice concerns a helper who covered a crowded evening. They ate afterwards. The payer called the meal a loan. The helper called it part of their wages. The cook kept a third book. I am copying that one too. It is the only one that says who bought the food."
+            }
+          },
+          "objective": {
+            "title": "Receive the dockside book",
+            "description": "Allow one hour for the payer's account. No debt, payment or collection is attached to your character."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "cook",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-rafe-kito",
+              "text": "The cook had been paying for the helper's portion. The payer had charged for something they had not supplied."
+            }
+          }
+        },
+        {
+          "id": "cook",
+          "delivery": {
+            "message": {
+              "person": "spacertales-rafe-kito",
+              "text": "The cook wants the charge removed. The payer offers to make it an allowance instead. The helper says a loan that becomes an allowance still sounds like somebody doing them a favour. They worked the evening. Eventually the payer wrote meal with shift. That is the wording in all three copies now."
+            }
+          },
+          "objective": {
+            "title": "Receive the compared books at [place]",
+            "description": "After four hours, be docked here. The parties settle their own account; your money and faction standing are unchanged."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 4
+            },
+            {
+              "kind": "dock-at"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-rafe-kito",
+              "text": "Meal with shift. The corrected entry is less generous-sounding and more accurate. The cook has kept their book."
+            },
+            "files": [
+              "spacertales-meal-book-file"
+            ],
+            "setFlags": [
+              "spacertales-meal-wages-kept"
+            ]
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    },
+    "spacertales-a-letter-that-can-wait": {
+      "title": "A letter that can wait",
+      "thread": "spacertales-reasonable-freight",
+      "chance": 0.008,
+      "repeatable": false,
+      "requires": {
+        "newsSeen": [
+          "spacertales-freight-estimate-notice"
+        ],
+        "dockedAt": [
+          "OKLG"
+        ],
+        "arcsDone": [
+          "spacertales-estimate-with-a-return"
+        ],
+        "filesRead": [
+          "spacertales-return-estimate-file"
+        ]
+      },
+      "steps": [
+        {
+          "id": "copy",
+          "delivery": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "You read the return estimate. Here is a different arrangement: a copied family letter for [person:spacertales-june-havel], who keeps yard letters on Titan. Take it when your own work brings you there. No deposit, no expiry, no emergency. The receipt pays 600 credits once, far too little to justify a special voyage."
+            }
+          },
+          "objective": {
+            "title": "Receive the unhurried family letter",
+            "description": "Allow one hour for the copy. The next goal is a journey to Titan's shipyards with no deadline. Dismiss this chain if that journey is not for you."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "next": "journey",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "The letter is on this card. Its copy is enough; no particular card or cargo must survive the trip. If you go, the receiving correspondence will recognise that you were given the text."
+            },
+            "files": [
+              "spacertales-waiting-letter-file"
+            ],
+            "setFlags": [
+              "spacertales-waiting-letter-issued"
+            ]
+          }
+        },
+        {
+          "id": "journey",
+          "delivery": {
+            "message": {
+              "person": "spacertales-dara-osei",
+              "text": "The letter asks whether a repaired chair is still in the family room. It also apologises for a joke that nobody can now remember. [person:spacertales-june-havel] expects a copy when a ship comes that way. The paper may travel slowly. The apology has already waited years."
+            }
+          },
+          "objective": {
+            "title": "Visit the shipyards on Titan when convenient",
+            "description": "Dock at the Titan shipyard station when your own route takes you there. No arrival deadline, return trip or carried card is required. Receipt pays 600 credits once."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "SVIR_Shipyard"
+            }
+          ],
+          "next": "answer",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "I have the letter's copy. The chair is here. I remember the joke. Its author would be relieved to learn that it was not nearly as good as they feared. I will copy the answer before you go."
+            }
+          }
+        },
+        {
+          "id": "answer",
+          "delivery": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "The answer belongs in the yard archive as well as the family. Someone repaired that chair between launches, using time they could have spent elsewhere. I am paying the agreed receipt fee. Nobody is buying your next departure with it. Keep the reply whether or not your ship ever takes the return route."
+            }
+          },
+          "objective": {
+            "title": "Receive the family answer",
+            "description": "Allow one hour, then be docked at the Titan shipyard station for the reply and 600-credit receipt. There is no requirement to go back."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            },
+            {
+              "kind": "dock-at",
+              "station": "SVIR_Shipyard"
+            }
+          ],
+          "next": "end",
+          "onComplete": {
+            "message": {
+              "person": "spacertales-june-havel",
+              "text": "Six hundred credits, the answer on a card and no clock started for a return. I have left a place in the archive for another ordinary letter."
+            },
+            "files": [
+              "spacertales-waiting-reply-file"
+            ],
+            "setFlags": [
+              "spacertales-waiting-letter-received"
+            ],
+            "credits": 600
+          }
+        }
+      ],
+      "notes": "No expiry, no deposit, no item consumption and no standing effect. Docking checks are location checks, not proof of visiting a desk or meeting an NPC. Messages and archive copies are the actual interaction."
+    }
+  }
+}

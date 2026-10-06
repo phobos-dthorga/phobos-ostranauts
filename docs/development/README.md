@@ -50,7 +50,8 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Chemical storage, process fluids and industrial hazards](chemical-storage-and-process-fluids.md)
 - [Custom gases: research study](custom-gas-research.md): what adding water vapour, hydrogen or a new gas would take, and the risk to saves
 - [Story and worldview content — design record (Framework 0.107.0)](story-system-design.md): TV news, adverts and story arcs, their save footprint, and the work still to come
-- [Phobos Spacer Stories — authoring collection](spacer-stories-authoring.md): eleven makers, 220 schema entries, nine correspondence chains and their archive documents
+- [Phobos Spacer Stories — authoring collection](spacer-stories-authoring.md): original maker collection and its place-based rewrite; current expansion linked within
+- [Phobos Spacer Stories — vanilla world expansion](spacer-stories-vanilla-expansion.md): 164 new entries, thirteen chains, setting evidence, literary influences and suggestions for fairer gigs
 - [Phobos Spacer Stories — rewrite handoff for ChatGPT](spacer-stories-rewrite-handoff.md): what the rewrite onto places, people and threads must do, may do and must not do
 - [Dependency maintenance and fallback plan](dependency-contingencies.md)
 - [Documentation consistency audit — 28 September 2026](documentation-consistency-audit.md)

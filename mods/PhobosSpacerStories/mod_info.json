@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/spacer-stories-authoring.md",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.2.0",
-    "strNotes": "Company histories, TV news and adverts, crew talk, loading lore and nine short correspondence chains with archive documents on data cards, each story set at a station with named correspondents. Requires Phobos Framework 0.114.0 or newer. Stories about other Phobos equipment appear with the relevant mods. Original fiction; no money or existing goods are taken, and each chain gives one data card. Data-only development candidate; in-game evaluation pending."
+    "strModVersion": "0.3.0",
+    "strNotes": "Vanilla station life and Phobos maker stories: news, adverts, crew talk, loading lore, encyclopedia articles, 22 chains and 23 archive files. Requires Phobos Framework 0.114.0 or newer; equipment stories appear with their relevant mods. New chains have no expiry, deposit or item consumption; two once-only fees total 900 credits. Data-only held draft; build-check update and gameplay review pending."
   }
 ]

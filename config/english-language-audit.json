@@ -85088,8 +85088,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "eeccc840e145fe8d17833bb6009b2f06ae1c63a1d733ad0499d46b6ca450e970",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
+      "sha256": "09ec3ad19ad448f2965f8debf9bc92c94df2f304b1f6405c2b98547dc33b8aab",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "SUPPORT.md",
@@ -85263,8 +85263,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "f70a1f7a93ce5f126c5e7348f4dbd729475cc4c75ccad5c03b5bc0c2626c64cb",
-      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "sha256": "82e7a346d21dba5b228e82e53481603d70698d968d6934abef2d790995be54f8",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     },
@@ -86452,22 +86452,22 @@
       "path": "docs/development/spacer-stories-authoring.md",
       "scope": "contributor index and source-backed story authoring record",
       "decision": "new",
-      "sha256": "9ae24e4bb5e1a9aece5db796efec950eabc9f7cbbd8c7a496408c1a0a0fb3c76",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "6f7a187783c489e58d5a8ce113c3ccf3695a878cade61179890bf40938cfa8c3",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "workshop/PhobosSpacerStories/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "b2ba5d46e75dc11527bd592367def6c5ae3b02f6a294ef1e56e91d6df4bee6e7",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "f41a4fdb07d989faf7b2f8d7c52d78ff305c1cc1128d92c756feb328b2ca4117",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "docs/spacer-stories-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "95af328825db7a6e1a0b71513887e14253b9f2f6453882eb1fe644970357b1ad",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "9143c5c11243341c96586d1fffd5002369ff2289ad69cbdbf8f1787310a677f8",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "docs/development/crew-upkeep-design.md",
@@ -86513,14 +86513,21 @@
       "decision": "new",
       "sha256": "2151d35cd25ed83d3bfa6f56b2055ddfae320de395c50cb51227ad89b71ade0a",
       "review": "New player guide, 6 October 2026."
+    },
+    {
+      "path": "docs/development/spacer-stories-vanilla-expansion.md",
+      "scope": "contributor research and design: vanilla setting evidence, literary influences, original story choices, gigs and verification handoff",
+      "decision": "new",
+      "sha256": "95a8c4b2491f88ce99782d0fa13a47d3352de9a14fa5d5cd69cf3a9fad6a0173",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1e42cc8da31addf5352f0530d63a728c7d70409fa253e0857904687dc004ddcb",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "62ebee4b9ff7d3213408406008101ed115202f0d8d22b49677f60f5ef314c7b6",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -86656,14 +86663,14 @@
     {
       "path": "mods/PhobosSpacerStories/mod_info.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "c23c1efc0caeb3dd460de8ee851a745bedf6585c926adacd2c88126ea1e645e6",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "fd06f3adaa4608ddebc9a79a3773e349f6819637080a1f97972232ad3dbc496b",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos-addon.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "e25941e3b85458d99645d39f1100a00f4e3a6d50491a6963a94cd355e0a2515c",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "afdb130e10d2f4ba84ed4e57179160a3ee8d48c90f6c3693405a445b8fde4a14",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
@@ -86722,14 +86729,14 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "199096eccace3208a3e6eda7f4ec2deef4092508f0a08f1a891d8f860d429ad9",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "e37c11e1dcb19f83a814298f030ff6e3a75ff34c6f8aded05359dcc6b222c60c",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "mods/PhobosSpacerStories/README.md",
       "scope": "story add-on source overview and review limits",
-      "sha256": "cd6cd2445ca345637f7db57a3122098a6be1cc4cc6878fa21a2ee9559204b878",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "e4b247ad26b2e6923ba1b250f07c086fee4bce30de50216ed863e46ae1e62245",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     },
     {
       "path": "assets/phobos-audio/work-sounds-v1/README.md",
@@ -86771,6 +86778,30 @@
       "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261006OneShotRemoval": "Reviewed 6 October 2026: owner-requested deletion of four obsolete one-shot WAVs. Removed links and claims that files remain; kept eight loop candidates and original MP3 provenance. No player-facing game text changed."
+    },
+    {
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/10-vanilla-threads.json",
+      "scope": "original inline English story text, placed people and threads, goal contracts and card documents",
+      "sha256": "a3acfd38c1ce84d9b6cfa2347e042bf331f684864c604c8093d51071e130e355",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+    },
+    {
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/11-station-life.json",
+      "scope": "original inline English story text, placed people and threads, goal contracts and card documents",
+      "sha256": "f485f4baa183a69dcdd5c78e2c417a4bc8d5f95294bf1b89c03ced1b94aafab7",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+    },
+    {
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/12-vanilla-correspondence.json",
+      "scope": "original inline English story text, placed people and threads, goal contracts and card documents",
+      "sha256": "10ecbbc63fa1c60d19f9185dcc5ae15e7271ea4723205f3ebbe386fd14d9cf61",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+    },
+    {
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/13-vanilla-archives.json",
+      "scope": "original inline English story text, placed people and threads, goal contracts and card documents",
+      "sha256": "d894c15c5e2452a4f372b95e2203d38b50b00211a6b4178cf8d7835d11884218",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
     }
   ],
   "hardcodedReview": {

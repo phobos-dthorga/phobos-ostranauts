@@ -4,6 +4,23 @@ Draft dates record preparation, not Workshop publication.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-06 - Draft
+
+### Added
+
+- Expanded life around vanilla Ostranauts with 164 new story entries: 37 news items, 13 adverts, 59 small-talk lines, 16 loading tips, twelve encyclopedia articles, thirteen chains and fourteen readable files. Twelve new correspondents and twelve threads ground the writing at the game's existing stations.
+- Stories of freight estimates, salvage workers, berth neighbours, Ceres housing, lunar work left unfinished, maintenance visas, Deimos night shifts, Venusian losses, family letters around the Atlantis blockade, Titan launches and dockside wages. Most additions need only Framework; a few optional lines connect them with Phobos equipment.
+- Three skill-based paths shorten written comparisons. A local battery-label comparison keeps the carried battery and checks neither its charge nor history.
+- A freight comparison pays 300 credits once. Reading its card opens an optional letter to Titan's shipyards that pays 600 credits once, waits for the captain's own route and requires no return trip. None of the new chains has an expiry, deposit, penalty or repeatable payment.
+- Thirteen outcome reports wait for saved story flags; private talk waits for the relevant correspondence or file. News introduces every new chain before it can start at its home station.
+
+### Compatibility and limits
+
+- Existing story files, entry ids and step ids are unchanged. New progress, flags, files and payment bookkeeping use Framework's existing story record and the game's data-card and credit systems. Requires Framework 0.114.0; no native gigs, plots, factions, NPCs or station rules are changed.
+- All thirteen files pass the story checker. The actual add-on loader resolves the collection in 128 optional-mod combinations, with old and unknown story record fields retained. In-game pacing, cards and older saves remain for owner review.
+- Held draft. The normal build's native suite stops at its old nine-file inventory check; Claude's code handoff is recorded in the expansion document. No package, installation or Workshop publication is claimed.
+- Setting evidence and the thematic influences of Ursula K. Le Guin, C. J. Cherryh and William Gibson are recorded in the development document. All new incidents are original community fiction, not official canon or adaptations of those writers' stories.
+
 ## [0.2.0] - 2026-10-06 - Draft
 
 ### Changed

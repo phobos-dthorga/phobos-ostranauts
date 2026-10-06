@@ -1,16 +1,22 @@
 # Phobos Spacer Stories: authoring record
 
-Prepared 6 October 2026 at the owner's request. **220 original entries**, about
+Initial collection prepared 6 October 2026 at the owner's request: **220 original entries**, about
 **13,700 words**, in nine story-schema files. The owner asked for the bulk of company,
 product and world writing overnight, with content that would make sense alongside
 vanilla Ostranauts. All new storytelling behaviour is data in the existing schema.
+
+The initial inventory below is historical. The place-based 0.2.0 rewrite added
+nine outcome headlines; the [0.3.0 vanilla-world expansion](spacer-stories-vanilla-expansion.md)
+adds 164 entries in four more overlays. The current total is 393 content entries,
+22 chains, 50 steps and 23 readable files. That expansion record contains the new
+setting evidence, literary influences, rewards, travel choices and code handoff.
 
 ## Read the collection
 
 The data-only add-on is [Phobos Spacer Stories](../../mods/PhobosSpacerStories), a
 first-party Phobos mod that players subscribe to separately. Its
-[manifest](../../mods/PhobosSpacerStories/phobos-addon.json) requires
-Framework 0.110.0 for native data-card files. It adds no plugin, equipment definition,
+[manifest](../../mods/PhobosSpacerStories/phobos-addon.json) carries the current
+Framework minimum. It adds no plugin, equipment definition,
 native plot, world location, interaction or schematic. It is held from Workshop
 publication until the owner has checked it in the game.
 

@@ -2143,7 +2143,7 @@
       ]
     },
     "PhobosSpacerStories": {
-      "intro": "Phobos Spacer Stories adds no items, equipment or recipes. It is a data-only story collection that Phobos Framework reads: TV news and adverts, crew talk, loading lore, encyclopedia articles and nine correspondence chains. Each finished chain gives one of the game's own Renbao R014 Data Cards holding a Framework story file, read on any computer or PDA. See [writing story content](writing-story-content.md).",
+      "intro": "Phobos Spacer Stories adds no equipment or recipes. It is a data-only story collection about vanilla station life and Phobos makers: TV news and adverts, crew talk, loading lore, encyclopedia articles and 22 chains with 23 readable archive files. Files arrive on the game's Renbao R014 Data Cards and can be read on any computer or PDA. New local stories have no expiry; one optional letter waits for a convenient trip to Titan. Two once-only fees total 900 credits; no new chain takes money or goods. Vanilla gigs are unchanged. See [writing story content](writing-story-content.md) and the [expansion record](development/spacer-stories-vanilla-expansion.md).",
       "groups": []
     }
   },
