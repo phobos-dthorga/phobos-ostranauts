@@ -94,6 +94,14 @@ delivery in the changelog and design record, and add or amend only the rule here
   text; direct in controls, warnings and recovery steps. No forced dialect, gratuitous profanity
   or humour that hides a fault. Say what happened, what it means and what the player can do;
   never promise an action or recovery the code does not support.
+- Equipment and marketed-product descriptions speak as the fictional maker's salesperson or
+  spokesperson addressing a customer in Ostranauts' world. Lead with why a working spacer would
+  buy it, give each maker a consistent voice, and weave accurate specifications and limits into
+  the pitch. Ground the copy in vanilla life, work and scarcity; keep it original and compatible
+  with established lore. Do not put developer commentary, gameplay simplifications or a recipe
+  manual in the sales copy. Controls, faults, safety warnings and operating guides stay direct;
+  a sales voice never hides a hazard or promises an unsupported capability. Apply this to
+  existing descriptions as well as new ones; see `docs/development/player-language.md`.
 - Every command says what it did, and every refusal says why; never ship a silent success or a
   silent refusal. A machine's panel, status and crew order name the one thing it waits for.
 - Keep useful game terms and explain unfamiliar ones (shared glossary); keep implementation

@@ -11,6 +11,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.64.1] - 2026-10-06 - Draft
+
+### Changed
+
+- Rewrote cultivation, galley, irrigation and workup equipment, plus seed and nutrient supplies, in Verdemorrow's in-world voice. Recovery limits and process-water restrictions remain explicit.
+
+### Compatibility and limits
+
+- Wording only. Equipment identities, translation keys, values, controls and saved state are unchanged. Checked offline; the owner still reviews the descriptions in the game.
+
 ## [0.64.0] - 2026-10-06 - Draft
 
 ### Added

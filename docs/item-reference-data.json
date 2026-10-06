@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.64.0",
+      "version": "0.64.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -11901,7 +11901,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.34.1",
+      "version": "0.34.2",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -13859,7 +13859,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.124.0",
+      "version": "0.124.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -18381,7 +18381,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.57.1",
+      "version": "0.57.2",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -50434,7 +50434,7 @@
     {
       "id": "PhobosMedical",
       "name": "Phobos Medical",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -51895,7 +51895,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.84.0",
+      "version": "0.84.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -65096,13 +65096,13 @@
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/story.json": "5c886e369688f9fa55e40de7ae2c085169f03158a84266a758df30c995285603",
     "mods/PhobosAgriculture/framework/vessels.json": "d6942325965702159288fcd5db7a69f568e3fe5f1f67441d8b019cde21eb6607",
-    "mods/PhobosAgriculture/mod_info.json": "ead09cc69e3389a49b9a3e33ca7f8ef5cd9182662d956787c2c9c9f12dab47ac",
-    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "db8da0a9b7c1d05178b9003881f705bdc7e7c046c1c55153906be0dc52914286",
+    "mods/PhobosAgriculture/mod_info.json": "22cc43a1c630fbbdaf9352bf6578c51f953fe75aad990933f0b46b6ffd464300",
+    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "b5307f8edb7294b8feca5a6ca4a42e7a0e9080d5c06baf367ce1cea74c66f656",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
     "mods/PhobosAutoNav/framework/recipes.json": "73ac4fb09d7c72ea816cf5c1b5a3f4221f25a6a5c457704216e45e8bcac7876e",
-    "mods/PhobosAutoNav/mod_info.json": "eba8c6c7cb60a06ccc48f232569a1756b57970347fe356914001240274849271",
+    "mods/PhobosAutoNav/mod_info.json": "ed0773dfa9ca9d468e36f299afe55bc11b8870c9e5e0213a4088dbd4059555b9",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "aeb56508f8195fb5849bb820c5bc20beec3cfb62f196e8eb7cfd9745e7d03b7f",
     "mods/PhobosFramework/framework/economy.json": "df481857100cb2ff278c86ace8fa12ad94ced38c78acac192442dd4779d13bc1",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
@@ -65111,7 +65111,7 @@
     "mods/PhobosFramework/framework/story.json": "aa91df95003426b1020e63fea6f6741e6cb230a189ea53bc58885fdb4fedf414",
     "mods/PhobosFramework/framework/upkeep.json": "defafa6c7b1b2d061ea41023c70ec35bb37602f69b6c2aa40b09afc57186e372",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "0fc59c237f12c2287a1374bf94ab13892576263d06ebd7ae3cf32cf494c18de1",
+    "mods/PhobosFramework/mod_info.json": "fd4c92e2203f7ff285c21ba198592523ea872b5753767e1db83e9f94d6531376",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "83fa147afc250148ce96baaa9d30b8129d142e9b10fca55282b96054c0a725fc",
@@ -65122,12 +65122,12 @@
     "mods/PhobosManufacturing/framework/outcomes.json": "93496fdcf637872c55b59747b12fbbb8a6f6f294558dee69caeeae407d71192e",
     "mods/PhobosManufacturing/framework/process-recipes.json": "344eeaffbaa6e7589791a101273c8624017577a02a9af8bb2ec45e5ebde71b69",
     "mods/PhobosManufacturing/framework/vessels.json": "fcfebcbf4f522dacb2c0cc124d43645b4ac739b80e66529b74d89e60fa4580cf",
-    "mods/PhobosManufacturing/mod_info.json": "dc3378ebee58d4175c7b5ec964f65149759e72dc6789fdc9ce0f23d90b1aa210",
+    "mods/PhobosManufacturing/mod_info.json": "c40992ed0b6361b0bcb9458716fe909b6208c06b256730ade773f2b21c6e9390",
     "mods/PhobosMedical/data/conditions/phobos_medical.json": "d0ba8eb226d8747bb8788462899804b48d1cff74462fc31d8af4d861e15c1f03",
     "mods/PhobosMedical/framework/care.json": "90ee93bf6f073137282da3dbbd54b343c0f2ac8325a1e82366eeb2afb9b8775a",
     "mods/PhobosMedical/framework/economy.json": "8e95f9579601722de619bde463568c243ec971e1ab2d5f653d5128473929b3c9",
     "mods/PhobosMedical/framework/equipment-names.json": "38730bef918eb4dbaad2aa84f92a1c61f90fcecbde9f3a260bff272ad3e574aa",
-    "mods/PhobosMedical/mod_info.json": "094a67533654cd46ff2c01da92da20284ee2173d63e03019b914956873f62514",
+    "mods/PhobosMedical/mod_info.json": "299567f457f8e60c13706b87fc793cbeebe50f30dc1cf7ea0e0897a6778f4e34",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -65138,7 +65138,7 @@
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "d3dba0b11d4d078440489b5ef407ee96e9888946fb99bf10aebad60d3483ac75",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "6f7d4889c5a20d8fa02ba44732c053f193b06f8d5ef8f01f51e4fd51ffd99bbf",
+    "mods/PhobosShipbreaker/mod_info.json": "04eb3ecc15b6db0cb70c15fbd698c297c4d0aad91d3a41de19838b9e6c0244cd",
     "mods/PhobosSpacerStories/mod_info.json": "dc343c5de1a142d90585a6c2f0f1ba3d2ccb42489b1a33d71c8758a084bca36d",
     "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json": "5fb9b87c2c8b6ee3768f47f1f06afa2cd5e6f55a018880f7af60fc4b5f7d8ec9",
     "mods/PhobosSpacerStories/phobos/PhobosFramework/story/02-flight-and-rebuild.json": "7af1ae5725b303282386b716b9c0577522578d4740f26b388a0145aaa3ad2017",
@@ -65201,8 +65201,8 @@
     "src/PhobosAgriculture/Panel.cs": "1cb1862da24835fde2b07c761c1686daaf310c92198f15dd5af5cb12070f2d2e",
     "src/PhobosAgriculture/PanelConfiguration.cs": "74696b4f9b11a633a623de26101a9aba85f596fe7a07cf7e69d7c4b7c380245e",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "e3d7a27ea1d515d7e7bc7744da887d184a1c81bb03b4c1f02dc0e648936e177e",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "e255b9f3843ae76f3f35815033c4337b3bb23e54430e2b455a6edf4261550d5c",
-    "src/PhobosAgriculture/Plugin.cs": "2c4a38e6e684e231237e1aba5479d1e28df0b28b4bbaad35e04493a63d1adf10",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "24190b7325df4d97b60fb382f9fc08086a582f05a3d7281a4349b45ac85c1603",
+    "src/PhobosAgriculture/Plugin.cs": "7d93b4989516a5ba10c32ccfe40ec5601e47857de318f55a4c2391eb788c1e5e",
     "src/PhobosAgriculture/RecoveryService.cs": "6fb19aa3fc69ed82314959cb1c1f65d307728e8c0b71adbffd44e880d1c232ae",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
     "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
@@ -65272,8 +65272,8 @@
     "src/PhobosAutoNav/NavigationWeaponGroups.cs": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "f376199224f4058d229bc0bbeb6ff4fcfc477e4e305ca341357d496805e9edda",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "77226d7d16de9b57f7fb577d78c2e04cb5137e20cd86d0867da09fa0e146f8ac",
-    "src/PhobosAutoNav/Plugin.cs": "09d15ad452cb7efd17c46cb995d4acb4cca80cabc3bc98bc917db0aa2c92a4d4",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "bf0805128902ba65b3298238466916be50ee0a00d6f341ee999ba6be101f26c6",
+    "src/PhobosAutoNav/Plugin.cs": "b88bc293ba319f4bcc1f9f3d87d27c7c4a18296891e195d3e2a4dc30de172c17",
     "src/PhobosAutoNav/RegionalEconomy.cs": "6d88800bbdf4af8e7f11728a3bd683350cd99349910f05558e623cf29260e035",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "07d1a17b28f1a26bfa7bd427b28983658a686bd3c7df949f224bcc43df24aa37",
@@ -65463,8 +65463,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "d37b9477d7ff470b2dd7b18d55385aa434159afd646e3fac0202c344d42b79c1",
-    "src/PhobosFramework/Plugin.cs": "7e32461ad192e98c5bf0fe8ca94700cb59b606ee46ee7bd9bc090a09fa71c14a",
+    "src/PhobosFramework/PhobosFramework.csproj": "3f7cb1bce809bd3a3ee37f3653909d19a5e8a9faec3b6c38305a2a4c5a2c51b9",
+    "src/PhobosFramework/Plugin.cs": "15867a1c3caa684f3c3a19bba32c7e70653788a4f2baa0fad7195be607bfd83d",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "d9ddefe2a5076da7ff78e3cbe5cb8cc1365734e1e7a91e183d181039e31bd978",
@@ -65579,8 +65579,8 @@
     "src/PhobosManufacturing/ManifoldService.cs": "98f8d4f084440c131399634e6bf94b11d00da3b933f90dc9d720ae40ac07cd73",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "bf0834062c9b052219828fbd36ba6e1946233327acb08f2d34b4fdd2aa6d04aa",
-    "src/PhobosManufacturing/Plugin.cs": "23e733ab13e38f5fe190903ae73f5d5d5a9f43fb40ca28c16f64240a6ce490f8",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "f6034ddf165d93497627470bd033adc744bd523614fb17fd1a208d6c39c5a1f2",
+    "src/PhobosManufacturing/Plugin.cs": "465329d7bd5894a88800f670448b226ea4b052868b05a0aa27eecaade0592e6e",
     "src/PhobosManufacturing/ProcessorService.cs": "72fbde99a79d96084b9887f0043cbada42869690f0987f23898fba91565a537e",
     "src/PhobosManufacturing/Provider.cs": "5ce81191cd4ef1c3897e042ea75deffc6d69a2210c8db98b171564880eb58d30",
     "src/PhobosManufacturing/RegulatorService.cs": "422e0c18b2f8745fb25fe162d441c1fd755ba5978e4b3b40e8393f3dd9e7ab40",
@@ -65603,8 +65603,8 @@
     "src/PhobosMedical/MonitorService.cs": "bc68fab4893fe73e7e4193111bd14ee9a8121e8b590e81bde2c8f6a1c59bb877",
     "src/PhobosMedical/Panel.cs": "b071f5c9b3e8b257066a3425a1d29b4ceae08fd6cd45fde51c3546656dacdba9",
     "src/PhobosMedical/PerformanceMetrics.cs": "6135015ea8139ebca06a8e3a7d877814e5a91718f054a86704aac13bb4064530",
-    "src/PhobosMedical/PhobosMedical.csproj": "5ed66dd9f740230784c29e5bb14fccdd869ece79833c2ef30a17b8e857956201",
-    "src/PhobosMedical/Plugin.cs": "60f1b735e9a030aad87f2fc39f6f555ca75b977e5bf4438f263352fded325e66",
+    "src/PhobosMedical/PhobosMedical.csproj": "96b74fa7e16380cc6f4c57cbbb6145a7fc86a3275f56655c9737036a341d8215",
+    "src/PhobosMedical/Plugin.cs": "4534d3903f1ec04d4be3d2d7ceefaf75cbd5d5a1e410837be286146db9051113",
     "src/PhobosMedical/Provider.cs": "b1090f900b3c65f40d39fa916a309bde1d06652a68584ad8e4807eefeef4bf2b",
     "src/PhobosMedical/Text.cs": "6c77a11b4b3765a6ec861115f8c74948cf9fd1db0c33225b7062bb1cf62c3400",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "7c483c0788fe1312e5e93428068eda7f14280f5d6f76eb4b3a5dc769df736181",
@@ -65692,9 +65692,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "166abedc891978b79a71df39aea348cbcb8f07b532eb94e68868a9fa1c10dd0d",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "d86dc006eaa6cd4dbf2dd562a277b19e4c937f2ecb5e485f1b52bc07cb8bfa79",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "a3ad98537e8770640d50e2118af0f8638997ac982bbb8fc9cca394ba6e518c12",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "cff94d2c4b380aa9813c8fa9690718e103c443cbad4802a49c386ad7671eb90b",
+    "src/PhobosShipbreaker/Plugin.cs": "b8933dfacbb4ba6d133b85d4070410971e81e7cd69cddadfb810eed7489c31c9",
     "src/PhobosShipbreaker/PowerKinds.cs": "c0409cb8e737a45dc9a61da9b00594d346fabff1b16454f17a910a68a0a436b8",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "f46ea1410c1a991a11167c9859595496bed84c8eb0fe9d72dc97b7bc32fdb1f6",
@@ -65732,12 +65732,12 @@
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "7c5dfd6e03a588571acc93e21e924f58cf8e0d0fd0aa3a9016b6d28220efdc4a",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "578fe701cf436912fbfbb508c8ad82d1143add19ff1481c8f9f1d2086aa577b4",
     "tests/PhobosNative.Tests/Program.cs": "141126ed0eecc4cb67747f80c27655b42e1425e28da86c138f0b1bfecc493fb8",
-    "translations/PhobosAgriculture/en.json": "1fe8ac722836984a1178e7c1067f9ca43a7a744885bfdcc334c3e7a54d7c65c4",
-    "translations/PhobosAutoNav/en.json": "92c9c39d56097bc0323786e61c0ff19b51a42e2bb18a0ef43d347d612bf35276",
-    "translations/PhobosFramework/en.json": "a2b1145f9005e48828ea1476d215b9d448f96edd843bfdb02941f7ca94464cfe",
-    "translations/PhobosManufacturing/en.json": "1b57ff14c92340800d5daa9e249b7c95aa85f4f7e4f94b13c3c1cdb4cf622429",
-    "translations/PhobosMedical/en.json": "c35f6c03ef2112b700ab0b9555cb9d087a330b39484cfb771e1d9f0eea5032ac",
-    "translations/PhobosShipbreaker/en.json": "9f94da10bcdc9b6dd9e7cb5d2d44b2de7319c2e22a15bb577698413ee52bc9ed",
+    "translations/PhobosAgriculture/en.json": "e9ceade1e7edae967b8525fb85d4e8e47ac84de4f0b80a0b1f7d180a5dc2b9b2",
+    "translations/PhobosAutoNav/en.json": "25d5c730283a1cf46f19f9c4d221b5bd67777a94ccede9269de81a4095532327",
+    "translations/PhobosFramework/en.json": "7755a5f4795de0707a87a4dd7d37fa779b04429891b395a4920a90b607a624a9",
+    "translations/PhobosManufacturing/en.json": "ddddaa700668edf30fd682414dede8de97f6f463a45ede0ed91033029cfa50a5",
+    "translations/PhobosMedical/en.json": "dd99f814fff743e8993d9cd8bf43da48a7da78fff7ac9cee13ff764d99250c5b",
+    "translations/PhobosShipbreaker/en.json": "bede95e7dbdd0e0dd663d504e9b6dfabf91ec864a2725e8510ab6cf4b024421e",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"
   }
 }

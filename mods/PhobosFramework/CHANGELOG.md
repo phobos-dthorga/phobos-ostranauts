@@ -29,6 +29,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.124.1] - 2026-10-06 - Draft
+
+### Changed
+
+- Gas and process-water lines, conveyor belts, water silos and drain canisters now use their makers' in-world product voice, with handling limits and warnings retained.
+
+### Compatibility and limits
+
+- Wording only. Equipment identities, translation keys, values, controls and saved state are unchanged. Checked offline; the owner still reviews the descriptions in the game.
+
 ## [0.124.0] - 2026-10-06 - Draft
 
 ### Added

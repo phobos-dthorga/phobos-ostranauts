@@ -10,6 +10,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 
 ## Reference index
 
+- [Maker voices in product descriptions](maker-product-copy.md)
 - [Claude Code onboarding handoff](claude-code-handoff.md)
 - [Claude: direct PixelLab MCP access handoff](claude-pixellab-mcp-handoff.md)
 - [Bulk agricultural storage: artwork audit and pilot brief](agriculture-bulk-storage-art.md)

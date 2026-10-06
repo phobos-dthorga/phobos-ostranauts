@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko; guidance adapted from Gravy/mrkmg's Auto Navigate",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.34.1",
+    "strModVersion": "0.34.2",
     "strNotes": "Asterel modules for Polaris: N1 navigation and docking, N2 Rendezvous and Follow, N3 selected volleys and optional RCS aiming. Use Edit to place the shared flight hub. Departure checks crew, connections and clearance; avoidance uses tracked contacts. Disengage cuts thrust and leaves the ship coasting. Cease Fire keeps offensive fire on hold until Return to ship controls. Loading never rearms weapons. Requires Phobos Framework; disable original Auto Navigate before engagement. See the installation guide for current requirements. Adapted from Gravy/mrkmg's Auto Navigate; upstream reuse review remains pending. Unpublished development candidate; in-game evaluation pending."
   }
 ]

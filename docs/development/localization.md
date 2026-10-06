@@ -52,9 +52,10 @@ quotes (`\"`) inside a value. Files contain one flat object of string values.
 
 The mandatory [player-language rule and glossary](player-language.md) apply to
 all existing and future English text. Review the situation, consequence and
-available action; use a practical working-spacer voice in descriptions while
-keeping controls and warnings direct. Write for interested players without
-assuming engineering or programming knowledge. Keep precise log diagnostics,
+available action. Equipment and marketed-product descriptions use the fictional
+maker's sales voice, grounded in spacer work and the vanilla world, with truthful
+specifications and limits. Keep controls and warnings direct. Write for interested
+players without assuming engineering or programming knowledge. Keep precise log diagnostics,
 research attribution and technical evidence in their appropriate contexts.
 Record retained entries as well as rewrites in the English audit ledger.
 

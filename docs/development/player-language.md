@@ -45,6 +45,39 @@ Preserve `Phobos'`, the established brand and model, and a recognizable equipmen
 type. A shorter nickname in a panel does not replace a full equipment name.
 Do not add machine model numbers to ordinary food or materials.
 
+## The maker's sales voice
+
+Owner direction, 6 October 2026: equipment and marketed-product descriptions
+should sound like the fictional maker's salesperson or spokesperson addressing
+a customer inside Ostranauts' world. This applies retrospectively across the
+mods. The [copy review](maker-product-copy.md) records the first full equipment pass.
+
+Start with a reason a working spacer would buy the product: another useful shift
+from salvage, a reserve between ports, somewhere for an injured crewmate to rest,
+or a little comfort in a ship that is becoming home. Let the maker speak through
+that promise. Keep its voice consistent with its product family and established
+fiction. Write original prose compatible with vanilla lore; do not copy game
+descriptions or invent canon, endorsements, warranty terms or historic contracts
+to lend the pitch authority.
+
+Specifications belong in a brochure when they help the customer choose. Weave
+mass, footprint, power, capacity and supported supplies into short paragraphs.
+State the limits and hazards plainly. A CR-4 drawing half an EC-4's power does
+not make the whole CR-4/K2/X2 installation cost half as much to run. A patient
+monitor observes; it does not treat. Recovery still needs replenishment.
+
+Keep detailed recipe lists, scientific sources, simplified-model explanations
+and step-by-step operation in the relevant guides and panels. Do not put
+developer commentary such as simplified for play or a fictional coolant label
+into an in-world sales pitch. Preserve those disclosures in development records
+and player guidance. Materials, waste and internal compartments need a truthful
+identity and useful handling information; they do not all need a sales pitch.
+
+Controls, refusals, faults and safety warnings remain direct. Their job is to
+say what happened and what the player can do. The maker's voice may frame a
+purchase; it must never obscure a warning or replace a supported instruction
+with a promise.
+
 ## Shared glossary
 
 | Term | Player meaning and usage |
@@ -92,8 +125,9 @@ as a crew member would encounter them. A correct sentence can still be too dense
   players can find the right item.
 - Use electricity used for kWh and power for kW. Keep pressure, temperature,
   quantities and operating limits precise even when the surrounding prose is plain.
-- Give equipment descriptions a practical opening, followed by loading,
-  connections and hazards. Break long instructions into short paragraphs.
+- Give equipment descriptions the maker's reason to buy, followed by useful
+  specifications and honest limits. Keep detailed loading and recipe instructions
+  in the operating guide; retain essential connections and hazards in the copy.
 - Leave a little character in descriptions. Leave it out of failure messages.
   A fault needs a clear consequence and a supported next action, not a joke.
 

@@ -9,6 +9,16 @@ not Steam publication.
 
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 
+## [0.5.1] - 2026-10-06 - Draft
+
+### Changed
+
+- Rewrote the Ward-3 bed and Vigil-2 monitor descriptions in Halewright's in-world product voice. The monitor still observes only; the bed still needs power and a pressurised room for recuperation.
+
+### Compatibility and limits
+
+- Wording only. Equipment identities, translation keys, values, controls and saved state are unchanged. Checked offline; the owner still reviews the descriptions in the game.
+
 ## [0.5.0] - 2026-10-06 - Draft
 
 ### Added
