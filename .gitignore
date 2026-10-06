@@ -37,3 +37,4 @@ Thumbs.db
 
 # Claude Code session scratchpad, including nested git worktrees.
 /.claude/
+*.stackdump
