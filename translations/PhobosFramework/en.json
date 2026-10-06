@@ -901,6 +901,7 @@
   "Story.letters_not_yet": "Not yet",
   "Story.letters_opened": "Letters opened.",
   "Story.letters_unavailable": "The Letters window opens in a running game, with no other window that refuses to close.",
+  "Story.letters_unsaved": "The letters of the correspondence {0} could not be saved and were left out of this save; its progress is saved. Please report this with your Player.log.",
   "Story.file_default_name": "DATA.TXT",
   "Story.file_corrupted": "The file is corrupted. Nothing readable is left.",
   "Story.file_given": "You received {0}. Open its files on any computer or PDA.",

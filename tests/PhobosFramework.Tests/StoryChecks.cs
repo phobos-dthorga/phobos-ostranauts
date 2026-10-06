@@ -219,6 +219,22 @@ internal static class StoryChecks
         check(!back.Letters.ContainsKey("broken") && back.Encode()["letters.broken"] == "letter,x,,5", "A letters entry that is not ours is kept as written, never used");
         for (int i = 0; i < StoryRecord.MaxLetters + 5; i++) record.AddLetter("long", new StoryLetter("letter", StoryLetter.Opening, null, i));
         check(record.Letters["long"].Count == StoryRecord.MaxLetters && record.Letters["long"][0].Epoch == 5, "An arc keeps its newest letters, the oldest going first");
+        // Framework 0.124.1: every saved value passes the store's own check (0.122.0 wrote commas, which it refuses), and a
+        // long correspondence is split across keys and read back whole.
+        var full = new StoryRecord();
+        for (int i = 0; i < StoryRecord.MaxLetters; i++) full.AddLetter("spacertales-a-long-correspondence", new StoryLetter("a-step-with-a-long-name-" + i % 7, i % 3 == 0 ? StoryLetter.Reply : StoryLetter.Opening, i % 3 == 0 ? "the-reply-" + i : null, 65627498854.03 + i * 3600));
+        var saved = full.Encode();
+        var letterKeys = saved.Keys.Where(k => k.StartsWith("letters.", StringComparison.Ordinal)).OrderBy(k => k, StringComparer.Ordinal).ToList();
+        check(letterKeys.Count > 1 && letterKeys.All(k => Phobos.Ostranauts.Framework.Persistence.ObjectStateStore.SafeValue(saved[k])), "Sixty-four dated letters are saved as several runs the store accepts: " + letterKeys.Count);
+        check(saved.Values.All(Phobos.Ostranauts.Framework.Persistence.ObjectStateStore.SafeValue), "Every field of a full record passes the store's value check");
+        var reread = StoryRecord.Decode(saved).Letters["spacertales-a-long-correspondence"];
+        check(reread.Count == StoryRecord.MaxLetters && reread.Select(l => l.Step + l.Kind + l.Choice + l.Epoch).SequenceEqual(full.Letters["spacertales-a-long-correspondence"].Select(l => l.Step + l.Kind + l.Choice + l.Epoch)),
+            "The runs read back as one correspondence, in order");
+        check(StoryRecord.Decode(new Dictionary<string, string> { ["letters.offer"] = "letter,d,,10;letter,a,accept,20.5" }).Letters["offer"][1].Choice == "accept", "The 0.122.0 comma form still reads");
+        var torn = new Dictionary<string, string>(saved); torn[letterKeys[1]] = "not;ours";
+        var kept2 = StoryRecord.Decode(torn);
+        check(!kept2.Letters.ContainsKey("spacertales-a-long-correspondence") && kept2.Encode()[letterKeys[1]] == "not;ours" && kept2.Encode()[letterKeys[0]] == saved[letterKeys[0]],
+            "A run that is not ours keeps every piece of that correspondence as written");
         check(StoryLetter.IsKind("b0") && StoryLetter.IsKind("a") && !StoryLetter.IsKind("bx") && !StoryLetter.IsKind("z"), "Only our letter kinds are read");
     }
 

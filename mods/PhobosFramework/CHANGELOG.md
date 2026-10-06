@@ -39,6 +39,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Wording only. Equipment identities, translation keys, values, controls and saved state are unchanged. Checked offline; the owner still reviews the descriptions in the game.
 
+## [0.124.2] - 2026-10-06 - Draft
+
+### Fixed
+
+- Story letters could stop the story record saving. Since 0.122.0 the letters kept for the Letters window were written with commas, which the save store refuses, so once any correspondence had a letter the whole story record (arcs, flags, news seen) was refused on save, with a refusal line in the log. Letters are now written in the store's own form and a long correspondence is split across several entries; a run the store would still refuse leaves out only that correspondence's letters, with a log line, never the rest of the record. Found by code review on 6 October 2026; not seen in play.
+
+### Save compatibility
+
+- Automatic. No record written by 0.122.0 to 0.124.0 holds letters (the store refused them), so nothing needs converting; the old form is still read in case.
+
 ## [0.124.0] - 2026-10-06 - Draft
 
 ### Added

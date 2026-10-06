@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-06",
-  "baselineCommit": "f1e01f24f2f7ba3c8441a95622b6ec288bf32f34",
+  "baselineCommit": "ba1d9827214fe7eba6781f659a91f086a8b164d9",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -921,7 +921,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "2c4a38e6e684e231237e1aba5479d1e28df0b28b4bbaad35e04493a63d1adf10",
+      "sha256": "7d93b4989516a5ba10c32ccfe40ec5601e47857de318f55a4c2391eb788c1e5e",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -1006,7 +1006,8 @@
           173
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosAgriculture/RecoveryService.cs",
@@ -2430,7 +2431,7 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "09d15ad452cb7efd17c46cb995d4acb4cca80cabc3bc98bc917db0aa2c92a4d4",
+      "sha256": "b88bc293ba319f4bcc1f9f3d87d27c7c4a18296891e195d3e2a4dc30de172c17",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -2478,7 +2479,8 @@
           228
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/RegionalEconomy.cs",
@@ -6314,7 +6316,7 @@
     },
     {
       "path": "src/PhobosFramework/Persistence/ObjectStateStore.cs",
-      "sha256": "e52a67be3b2f4a74625191d2fbe4f9a48ac6d02d0c6280673446e55805c9269a",
+      "sha256": "b1e97f34f1e2b1a82c6a9ae1a8f7066909bcfc728fc6134db30265695bf4b32a",
       "role": "definition/state validation and load compatibility",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
@@ -6332,7 +6334,8 @@
           75
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-29",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosFramework/Persistence/PlaceholderHealthLoad.cs",
@@ -6451,7 +6454,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "7e32461ad192e98c5bf0fe8ca94700cb59b606ee46ee7bd9bc090a09fa71c14a",
+      "sha256": "f596856d4763205991ecc5be87a9ea04d6d7bc2dd2480d3269a766e720b69c04",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -6538,7 +6541,8 @@
           130
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosFramework/Processing/EnergyReceipt.cs",
@@ -7692,7 +7696,7 @@
     },
     {
       "path": "src/PhobosFramework/Story/StoryRecord.cs",
-      "sha256": "f967559f264b0060410c00e8c790de6a65325701b93969e9466749c0d7510dc5",
+      "sha256": "6f3f75b28c905531daabd206bab8a2e7a5948c2054388633293e140cc868140b",
       "role": "story content: packs, goals and TV news picks",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -7709,17 +7713,21 @@
       "indicators": {
         "collection": [
           58,
-          66,
-          78,
-          109,
-          318,
-          319,
-          392,
-          404,
-          405
+          67,
+          144,
+          170,
+          366,
+          367,
+          440,
+          452,
+          453
+        ],
+        "persistence_or_io": [
+          172
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosFramework/Text.cs",
@@ -9276,7 +9284,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "23e733ab13e38f5fe190903ae73f5d5d5a9f43fb40ca28c16f64240a6ce490f8",
+      "sha256": "465329d7bd5894a88800f670448b226ea4b052868b05a0aa27eecaade0592e6e",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -9369,7 +9377,8 @@
           363
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosManufacturing/ProcessorService.cs",
@@ -9910,7 +9919,7 @@
     },
     {
       "path": "src/PhobosMedical/Plugin.cs",
-      "sha256": "60f1b735e9a030aad87f2fc39f6f555ca75b977e5bf4438f263352fded325e66",
+      "sha256": "4534d3903f1ec04d4be3d2d7ceefaf75cbd5d5a1e410837be286146db9051113",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -9949,7 +9958,8 @@
           168
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosMedical/Provider.cs",
@@ -11754,7 +11764,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "cff94d2c4b380aa9813c8fa9690718e103c443cbad4802a49c386ad7671eb90b",
+      "sha256": "b8933dfacbb4ba6d133b85d4070410971e81e7cd69cddadfb810eed7489c31c9",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -11830,7 +11840,8 @@
           278
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-06",
+      "carried": "2026-10-06"
     },
     {
       "path": "src/PhobosShipbreaker/PowerKinds.cs",

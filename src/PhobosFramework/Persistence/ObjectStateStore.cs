@@ -98,9 +98,11 @@ public sealed class ObjectStateStore
             if (!char.IsLetterOrDigit(value[i]) && value[i] != '.' && value[i] != '_' && value[i] != '-') return false;
         return true;
     }
+    /// <summary>The longest value a field may hold; consumers with longer lists split them across keys.</summary>
+    public const int MaxValueLength = 512;
     public static bool SafeValue(string? value)
     {
-        if (string.IsNullOrWhiteSpace(value) || value!.Length > 512) return false;
+        if (string.IsNullOrWhiteSpace(value) || value!.Length > MaxValueLength) return false;
         for (int i = 0; i < value.Length; i++)
         {
             char c = value[i];

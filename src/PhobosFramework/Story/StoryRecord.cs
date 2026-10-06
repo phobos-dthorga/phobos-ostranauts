@@ -60,13 +60,15 @@ public sealed class StoryRecord
         while (list.Count > MaxLetters) list.RemoveAt(0);
     }
 
-    /// <summary>"step,kind,choice,epoch" entries joined by ";"; null when any part is not ours.</summary>
+    /// <summary>"step|kind|choice|epoch" entries joined by ";" (Framework 0.124.1; 0.122.0 wrote commas, which the save
+    /// store refuses, so no such record was ever saved; its form is still read). Null when any part is not ours.</summary>
     private static List<StoryLetter>? TryLetters(string value)
     {
         var list = new List<StoryLetter>();
         foreach (string entry in value.Split(';'))
         {
-            var parts = entry.Split(',');
+            var parts = entry.Split('|');
+            if (parts.Length != 4) parts = entry.Split(',');
             if (parts.Length != 4 || !StorySchema.IsId(parts[0], StorySchema.MaxStepIdLength) || !StoryLetter.IsKind(parts[1]) ||
                 parts[2].Length > 0 && !StorySchema.IsId(parts[2], StorySchema.MaxStepIdLength)) return null;
             double? epoch = parts[3].Length == 0 ? null : Epoch(parts[3]);
@@ -75,8 +77,30 @@ public sealed class StoryRecord
         }
         return list.Count is > 0 and <= MaxLetters ? list : null;
     }
-    private static string Encode(IEnumerable<StoryLetter> letters) => string.Join(";", letters.Select(l =>
-        l.Step + "," + l.Kind + "," + (l.Choice ?? "") + "," + (l.Epoch is double e ? e.ToString("R", CultureInfo.InvariantCulture) : "")));
+    private static string Encode(StoryLetter l) => l.Step + "|" + l.Kind + "|" + (l.Choice ?? "") + "|" + (l.Epoch is double e ? e.ToString("R", CultureInfo.InvariantCulture) : "");
+    /// <summary>An arc's letters as the store takes them: runs of ";"-joined entries, each within the store's value
+    /// length, the first under <c>letters.&lt;arc&gt;</c> and the rest under <c>letters.&lt;arc&gt;.1</c>, <c>.2</c> and on.</summary>
+    private static IEnumerable<(string Suffix, string Value)> EncodeLetters(IEnumerable<StoryLetter> letters)
+    {
+        var run = new System.Text.StringBuilder(); int index = 0;
+        foreach (var letter in letters)
+        {
+            string entry = Encode(letter);
+            if (run.Length > 0 && run.Length + 1 + entry.Length > Persistence.ObjectStateStore.MaxValueLength)
+            { yield return (index == 0 ? "" : "." + index, run.ToString()); run.Clear(); index++; }
+            if (run.Length > 0) run.Append(';');
+            run.Append(entry);
+        }
+        if (run.Length > 0) yield return (index == 0 ? "" : "." + index, run.ToString());
+    }
+    /// <summary>Splits <c>letters.&lt;arc&gt;</c> or <c>letters.&lt;arc&gt;.&lt;n&gt;</c> into the arc and the run's place.</summary>
+    private static (string Arc, int Index)? LettersKey(string key)
+    {
+        string rest = key.Substring(LettersPrefix.Length);
+        int dot = rest.LastIndexOf('.');
+        if (dot > 0 && int.TryParse(rest.Substring(dot + 1), NumberStyles.None, CultureInfo.InvariantCulture, out int index)) return (rest.Substring(0, dot), index);
+        return StorySchema.IsId(rest) ? (rest, 0) : null;
+    }
     /// <summary>Story data files the player has opened (Framework 0.110.0).</summary>
     public HashSet<string> Read { get; } = new(StringComparer.Ordinal);
     /// <summary>Story flags set by arc outcomes (Framework 0.114.0), with the game time each was set.</summary>
@@ -96,8 +120,20 @@ public sealed class StoryRecord
     public static StoryRecord Decode(IReadOnlyDictionary<string, string> fields)
     {
         var record = new StoryRecord();
+        // Letters arrive in runs under letters.<arc>, letters.<arc>.1 and on (0.124.1); gathered, then read in order.
+        var runs = new Dictionary<string, SortedDictionary<int, string>>(StringComparer.Ordinal);
         foreach (var pair in fields ?? new Dictionary<string, string>())
         {
+            if (pair.Key.StartsWith(LettersPrefix, StringComparison.Ordinal))
+            {
+                var place = LettersKey(pair.Key);
+                if (place != null)
+                {
+                    if (!runs.TryGetValue(place.Value.Arc, out var parts)) runs[place.Value.Arc] = parts = new SortedDictionary<int, string>();
+                    parts[place.Value.Index] = pair.Value;
+                    continue;
+                }
+            }
             if (pair.Key.StartsWith(ArcPrefix, StringComparison.Ordinal) && TryArc(pair.Value, out var arc)) record.Arcs[pair.Key.Substring(ArcPrefix.Length)] = arc;
             else if (pair.Key.StartsWith(SeenPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Seen.Add(pair.Key.Substring(SeenPrefix.Length));
             else if (pair.Key.StartsWith(SeenPrefix, StringComparison.Ordinal) && Epoch(pair.Value) is double seenAt)
@@ -105,10 +141,15 @@ public sealed class StoryRecord
             else if (pair.Key.StartsWith(FlagPrefix, StringComparison.Ordinal) && Epoch(pair.Value) is double setAt) record.Flags[pair.Key.Substring(FlagPrefix.Length)] = setAt;
             else if (pair.Key.StartsWith(ReadPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Read.Add(pair.Key.Substring(ReadPrefix.Length));
             else if (pair.Key.StartsWith(FacePrefix, StringComparison.Ordinal) && Social.PortraitRules.ValidParts(pair.Value.Split('|'))) record.Faces[pair.Key.Substring(FacePrefix.Length)] = pair.Value.Split('|');
-            else if (pair.Key.StartsWith(LettersPrefix, StringComparison.Ordinal) && TryLetters(pair.Value) is List<StoryLetter> letters) record.Letters[pair.Key.Substring(LettersPrefix.Length)] = letters;
             else if (pair.Key == QueueKey) record.Queue.AddRange(pair.Value.Split('|').Where(id => id.Length > 0).Take(MaxQueue));
             else if (pair.Key == BeganKey && double.TryParse(pair.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double began) && !double.IsNaN(began) && !double.IsInfinity(began)) record.Began = began;
             else record.kept[pair.Key] = pair.Value;
+        }
+        foreach (var pair in runs)
+        {
+            // A run that is not ours keeps every piece as written, so a later version can still read it.
+            if (TryLetters(string.Join(";", pair.Value.Values)) is List<StoryLetter> letters) record.Letters[pair.Key] = letters;
+            else foreach (var piece in pair.Value) record.kept[LettersPrefix + pair.Key + (piece.Key == 0 ? "" : "." + piece.Key)] = piece.Value;
         }
         return record;
     }
@@ -123,7 +164,14 @@ public sealed class StoryRecord
         foreach (var id in Read) fields[ReadPrefix + id] = "1";
         foreach (var pair in Flags) fields[FlagPrefix + pair.Key] = pair.Value.ToString("R", CultureInfo.InvariantCulture);
         foreach (var pair in Faces) fields[FacePrefix + pair.Key] = string.Join("|", pair.Value);
-        foreach (var pair in Letters) if (pair.Value.Count > 0) fields[LettersPrefix + pair.Key] = Encode(pair.Value);
+        foreach (var pair in Letters)
+        {
+            if (pair.Value.Count == 0) continue;
+            var runs = EncodeLetters(pair.Value).ToList();
+            // A run the store would refuse would refuse the whole record: that arc's letters are left out instead, and said.
+            if (runs.Any(r => !Persistence.ObjectStateStore.SafeValue(r.Value))) { FrameworkLifecycle.Log(Text.Get("Story.letters_unsaved", pair.Key)); continue; }
+            foreach (var (suffix, value) in runs) fields[LettersPrefix + pair.Key + suffix] = value;
+        }
         if (Queue.Count > 0) fields[QueueKey] = string.Join("|", Queue.Take(MaxQueue));
         if (Began is double b) fields[BeganKey] = b.ToString("R", CultureInfo.InvariantCulture);
         return fields;
