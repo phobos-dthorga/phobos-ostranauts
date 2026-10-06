@@ -59,6 +59,8 @@ internal static class Loans
 
     internal static LoanBook Book => book;
 
+    internal static bool SaveBook() => Save();
+
     private static bool Save()
     {
         if (owner == null || owner.bDestroyed) return false;
@@ -144,7 +146,14 @@ internal static class Loans
     /// and keeps the late flags. Cheap when there are no loans.</summary>
     internal static void Poll()
     {
-        if (CrewSim.coPlayer == null || !Attach(out _) || book.Loans.Count == 0) return;
+        if (CrewSim.coPlayer == null || !Attach(out _)) return;
+        // A pre-approval that has run out (or whose lender is gone) is dropped, and the crew log says so.
+        if (book.Approval is Approval approval && !Financing.Stands(approval))
+        {
+            book.Approval = null; Save();
+            CrewSim.coPlayer.LogMessage(Text.Get("Financing.expired", Lenders.Name(approval.Lender)), "Neutral", CrewSim.coPlayer.strID);
+        }
+        if (book.Loans.Count == 0) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Loans);
         var player = owner!;
         double now = StarSystem.fEpoch;

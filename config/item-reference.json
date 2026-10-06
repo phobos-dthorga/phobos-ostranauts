@@ -2147,7 +2147,7 @@
       "groups": []
     },
     "PhobosBank": {
-      "intro": "Phobos Banking adds no items, equipment or recipes. It adds the CREDIT app to the PDA home screen, which lists what you owe from the game's own ledger (loans and mortgages, bills to pay and regular charges), lets you borrow from lenders where you are, and opens the game's Finances window, where bills are paid. Lenders are a data file you can extend. See [the player guide](bank-player-guide.md).",
+      "intro": "Phobos Banking adds no items, equipment or recipes. It adds the CREDIT app to the PDA home screen, which lists what you owe from the game's own ledger (loans and mortgages, bills to pay and regular charges), lets you borrow from lenders where you are or finance a ship or apartment at the broker, and opens the game's Finances window, where bills are paid. Lenders are a data file you can extend. See [the player guide](bank-player-guide.md).",
       "groups": []
     }
   },

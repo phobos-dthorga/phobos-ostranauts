@@ -86,6 +86,9 @@ public sealed partial class BankPanel : GUIData
     {
         C.Heading(shell.Detail, Text.Get("Overview.heading"));
         C.Label(shell.Detail, Text.Get("Overview.cash", Money(Debts.Cash())));
+        // A standing pre-approval for a broker purchase (Banking 0.3.0).
+        if (Financing.Current() is Approval approval)
+            C.Label(shell.Detail, Text.Get(approval.Kind == LenderSchema.Home ? "Financing.overview_home" : "Financing.overview_ship", Lenders.Name(approval.Lender), Money(approval.Limit), MathUtils.GetUTCFromS(approval.Expires)));
         if (summary.Debts.Count == 0) { C.Status(shell.Detail, Text.Get("Overview.clear"), Tone.Good); return; }
         if (summary.Loans > 0)
             C.Label(shell.Detail, Text.Get(BankRules.CountKey("Overview.loans", summary.Loans), summary.Loans, Money(summary.LoanBalance), Money(summary.NextInstalments)));

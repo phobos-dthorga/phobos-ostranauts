@@ -2,8 +2,9 @@
 
 Phobos Banking adds a **CREDIT** app to your PDA. It shows what you owe, read
 straight from your own ledger, lets you borrow from lenders where you are, and
-takes you to the game's Finances window to pay. Version 0.2.0 is a held draft:
-checked offline; the debts screen has been seen in play, borrowing not yet.
+finances a ship or an apartment at the broker, and takes you to the game's Finances
+window to pay. Version 0.3.0 is a held draft: checked offline; the debts screen has
+been seen in play, borrowing and broker financing not yet.
 
 ## Opening it
 
@@ -21,6 +22,8 @@ The F3 console does the same through `phobosbank`:
 | `phobosbank lenders` | Lists every lender: where it trades, its rate, what it would lend you now, or why not. |
 | `phobosbank borrow <lender> <amount>` | Takes a cash loan, as the panel's Borrow button does (for example `phobosbank borrow corvane-mutual 20000`). |
 | `phobosbank loans` | Lists your loans from Phobos lenders: borrowed, still owed, rate and interest billed so far. |
+| `phobosbank approve <lender> ship` or `home` | Asks a lender to pre-approve a ship or apartment purchase at a broker. |
+| `phobosbank withdraw` | Drops your pre-approval; brokers are back to their own terms. |
 | `phobosbank open` | Opens the Credit panel. |
 | `phobosbank finances` | Opens the game's Finances window. |
 
@@ -69,7 +72,8 @@ Select a lender for its terms:
   a whole loan would cost in interest if you paid every instalment on time.
 - **How much**: the smallest loan and the most you may owe them at once, and what you
   owe them now.
-- **What for**: cash; from 0.3.0 also ship or apartment purchases at a broker.
+- **What for**: cash, ship purchases at a ship broker, or apartments from a real-estate
+  broker, and the least you pay down for a purchase.
 
 Choose an amount with the stepper, check the first instalment and the interest
 estimate under it, then press **Borrow** and confirm. The money is paid into your
@@ -85,6 +89,30 @@ The shipped lenders (agent choices for the owner to review):
 
 You can add lenders of your own or change these: see
 [Adding a lender](editing-data-files.md#adding-a-lender).
+
+## Financing a ship or an apartment
+
+The game's brokers sell used ships, and on Venus apartments, on their own mortgage
+with at least half paid down. A lender can finance the purchase instead, with less
+paid down:
+
+1. At the lender's home, open **Lenders**, select the lender and press **Pre-approve a
+   ship purchase** (or **Pre-approve an apartment**). It stands for one game day, for up
+   to what the lender would lend you now.
+2. At a broker where that lender trades, buy as usual. The purchase window's down
+   payment now goes as low as the lender allows (Corvane Mutual 35%, Halcyon Bond 30%,
+   Aerie Savings Union 40% for apartments), or higher if the price is more than the
+   lender approved. The crew log says the terms when the window opens.
+3. Confirm. The mortgage the broker writes becomes the lender's, with its interest
+   billed at each shift change as on any of its loans. Selling the ship later repays
+   the lender from the sale first, as the game does for any mortgaged ship.
+
+The broker's own terms apply, and the crew log says why, when you have no
+pre-approval, when it is for the other kind of purchase, when the lender does not
+trade here or no longer lends to you, for a special offer (the broker finances those
+itself, from nothing down) and when the price is too small for one of the lender's
+loans. Paying in full uses nothing, and the pre-approval stays. **Withdraw
+pre-approval** drops it.
 
 ### How a loan works
 
@@ -142,8 +170,7 @@ ordinary mortgages owed to the lender's name, and no more interest is billed.
 
 ## Coming later
 
-Financing at the ship broker and the apartment broker comes in 0.3.0. Lenders who are
-not registered, and their stories, come after that. The research and plan are in
+Lenders who are not registered, and their stories, come later. The research and plan are in
 [PDA apps and a banking mod](development/pda-apps-and-banking-research.md).
 
 ## Requirements

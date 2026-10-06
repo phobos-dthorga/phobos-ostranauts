@@ -432,6 +432,39 @@ seen in play.
 - **Flags:** `bank-<lender>-borrowed`, `bank-<lender>-repaid` and `bank-<lender>-late`
   (set while any of the lender's bills is late), for round 5's stories.
 
+## Round 4 as built
+
+Phobos Banking 0.3.0, 7 October 2026, held draft (owner absent; agent choices labelled).
+It follows [Financing at the broker](#financing-at-the-broker) with one change of
+approach for safety: no rows are added to the broker's window, whose prefab cannot be
+read offline.
+
+- **Pre-approval in the app** (piece 4 as proposed): `Financing.PreApprove` records the
+  lender, ship or home, the limit (what the lender would lend now) and an expiry one
+  game day later (agent default) as the loan book's `approval` field. The loan poll
+  drops an expired one with a crew-log line.
+- **The lender's terms in the window** (pieces 1 and 2, simplified): a postfix on
+  `ConfirmBuyShipPopup.ShowPanel` lowers the slider's minimum (`sldrMortgage.minValue`)
+  to the lender's least down payment, raised where needed so the financed part stays
+  within the approval and above the lender's smallest loan (`LoanRules.MinDownShare`).
+  The window's own update runs from the slider. The terms go to the crew log rather than
+  a new row in the window; the payment line still shows the game's own instalment.
+  Kind: a kiosk definition containing `ResBroker` is the real-estate broker.
+- **The loan on confirm** (piece 3): a postfix on `GUIShipBroker.UpdateCash` finds the
+  mortgage line the broker just wrote (payor the user, payee the kiosk, description
+  "Mortgage on <registration>"), moves it and the first instalment the game raised with
+  it to the lender, and opens a loan of kind `ship` or `home` with the registration as
+  collateral. The description is unchanged, so `GetMortgageForShip` and the sale escrow
+  still repay the lender.
+- **Left to the broker** (crew log says why): no pre-approval, the other kind, the lender
+  not trading here or no longer lending, a special offer (the broker's own 0% down is
+  better), a price too small for the lender's smallest loan, paid in full, or more
+  financed than approved.
+- **Owner checks:** OKLG Bureaus with Corvane Mutual, Heifei District on Mars with
+  Halcyon Bond (needs Warm standing with Xinhua), and Porto do Encantado on Venus with
+  Aerie Savings Union for an apartment; then sell a financed ship and check the lender is
+  repaid.
+
 ## Proposed rounds
 
 1. **Framework `PdaApps` and the debts screen** (built; see above). The PDA icon, the panel, and the
@@ -443,7 +476,7 @@ seen in play.
 3. **Phobos Banking: lenders and the loan book** (built in Banking 0.2.0). The `lenders` pack (home place,
    `requires`, terms), one accredited lender, the per-shift interest line, the app's loan
    screens.
-4. **Financing at the broker.** The lender row, terms on screen, the loan on confirm and
+4. **Financing at the broker** (built in Banking 0.3.0). The lender row, terms on screen, the loan on confirm and
    pre-approval; owner tests at OKLG, Mars and Venus.
 5. **Non-accredited lenders and stories.** Higher-cost lenders, flags for what happened,
    and a story pack with ChatGPT's lore (officers as people, adverts, letters).

@@ -141,4 +141,14 @@ Check(LoanBook.Decode(new Dictionary<string, string> { ["loan.5"] = again["loan.
 Check(LoanBook.Decode(null).Loans.Count == 0 && LoanBook.Decode(new Dictionary<string, string>()).Next == 1, "no record is an empty book");
 Check(book.Open.Count() == 1 && book.Open.First().Number == 1, "only running loans are open");
 
+// ---- Financing at the broker (0.3.0) ------------------------------------------------------------------
+Check(LoanRules.MinDownShare(200000, 0.35, 250000, 5000) == 0.35, "a ship within the lender's limit takes the lender's own least down payment");
+Check(Near(LoanRules.MinDownShare(1000000, 0.35, 250000, 5000)!.Value, 0.75), "a dearer ship needs enough down that the rest fits the approved amount");
+Check(LoanRules.MinDownShare(4000, 0.35, 250000, 5000) == null, "a price below the lender's smallest loan cannot be financed");
+Check(LoanRules.MinDownShare(6000, 0.35, 250000, 5000) == null, "nor one where the lender's least down payment leaves less than its smallest loan");
+Check(LoanRules.MinDownShare(100000, 0.35, 3000, 5000) == null && LoanRules.MinDownShare(0, 0.35, 250000, 5000) == null, "an approval below the smallest loan, or no price, finances nothing");
+Check(LoanRules.MinDownShare(100000, 0.3, 100000, 5000) == 0.3, "the lender's own share wins when the limit covers the rest");
+foreach (var pair in lenderPack.lenders.Where(l => l.Value.offers.Contains(LenderSchema.Ship) || l.Value.offers.Contains(LenderSchema.Home)))
+    Check(pair.Value.minDownShare < 0.5, pair.Key + " finances a purchase from less than the broker's own 50% down");
+
 Console.WriteLine($"Phobos Banking checks passed: {checks}.");

@@ -146,6 +146,17 @@ public static class LoanRules
     public static double Clamp(double amount, double min, double headroom) =>
         headroom < min ? 0 : Math.Max(min, Math.Min(headroom, Math.Floor(amount / 100) * 100));
 
+    /// <summary>The lowest down payment, as a share of the price, at which a lender finances a broker purchase: its own
+    /// least share, or more when the price is above what it will finance. Null when it cannot finance even its smallest
+    /// loan at that price (Phobos Banking 0.3.0).</summary>
+    public static double? MinDownShare(double price, double lenderShare, double limit, double minPrincipal)
+    {
+        if (!(price > 0) || limit < minPrincipal || price < minPrincipal) return null;
+        double share = Math.Max(lenderShare, 1 - limit / price);
+        // Paying more down than this would leave less than the lender's smallest loan to finance.
+        return share > 1 - minPrincipal / price + 1e-9 ? null : Math.Min(1, share);
+    }
+
     /// <summary>The step the amount moves by in the app: a thousand for small loans, more for large ones, so the
     /// whole range is a few dozen presses at most.</summary>
     public static double Step(double min, double headroom) => headroom <= 50000 ? 1000 : headroom <= 250000 ? 5000 : 10000;

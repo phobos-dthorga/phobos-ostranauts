@@ -17,7 +17,7 @@ namespace PhobosBank;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = BankRules.Owner;
-    public const string Version = "0.2.0";
+    public const string Version = "0.3.0";
     public const string MinimumFrameworkVersion = "0.127.0";
     internal const string ModName = "Phobos Banking";
     internal static Action<string> Log = _ => { };
@@ -39,7 +39,7 @@ public sealed class Plugin : BaseUnityPlugin
     private static void Load()
     {
         Ready = DataHandler.dictModInfos?.Values.Any(m => m.strName == ModName && !m.GetIsDisabled()) == true;
-        Loans.Reset();
+        Loans.Reset(); Financing.Reset();
         if (!Ready) { Log(Text.Get("Content.missing_package")); return; }
         Lenders.Load();
         // The app appears only when the package is enabled, so a disabled mod leaves no icon behind.
@@ -95,6 +95,8 @@ internal static class ConsolePatch
                 __result = refusal == null; message = refusal ?? Text.Get("Console.opened"); break;
             case "finances": __result = Debts.OpenFinances(out message); break;
             case "lenders": message = DescribeLenders(); __result = true; break;
+            case "approve" when parts.Length == 4: __result = Financing.PreApprove(parts[2], parts[3].ToLowerInvariant(), out message); break;
+            case "withdraw": __result = Financing.Withdraw(out message); break;
             case "loans": message = Loans.Describe(); __result = true; break;
             case "borrow":
                 if (parts.Length != 4 || !double.TryParse(parts[3], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double amount))
@@ -139,5 +141,5 @@ internal static class ConsolePatch
 internal static class LoanReloadPatch
 {
     private static IEnumerable<MethodBase> TargetMethods() => typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame) || m.Name == nameof(CrewSim.NewGame));
-    private static void Prefix() => Loans.Reset();
+    private static void Prefix() { Loans.Reset(); Financing.Reset(); }
 }

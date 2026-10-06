@@ -1215,6 +1215,14 @@ reaches a Phobos task. In a time-skip, the native-precedence scan reads one more
 per task, and the free check scans the crew member's queue for a direct order instead
 of any action. `Plugin.cs` carries only the version. No capture accompanies this change.
 
+## 7 October: financing at the broker (L93)
+
+L93 — Phobos Banking 0.3.0. Two postfixes on the broker's purchase window and on its
+confirm run once each per purchase the player opens or confirms: a few lookups over the
+lenders, the player's loan book and the game's mortgage list. The loan poll gains one
+check of the pre-approval's expiry. Nothing runs per frame or per world tick. No capture
+accompanies this change.
+
 ## 7 October: lenders and loans (L92)
 
 L92 — Phobos Banking 0.2.0. A five-second real-time poll (`bank.poll_loans`) returns at

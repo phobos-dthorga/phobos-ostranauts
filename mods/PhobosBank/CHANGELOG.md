@@ -5,6 +5,21 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-07 - Draft
+
+### Added
+
+- Financing at the broker. Ask a lender for a pre-approval in the Credit panel (Pre-approve a ship purchase, or an apartment); it stands for one game day. At a ship broker or the Venus real-estate broker where that lender trades, the broker's own purchase window then lets the down payment go as low as the lender allows (Corvane Mutual 35%, Halcyon Bond 30%, Aerie Savings Union 40% for apartments) instead of the broker's 50%, within the approved amount, and the crew log states the terms. On confirming, the broker's mortgage becomes the lender's loan, with the lender's interest at each shift change. Selling the ship later repays the lender from the sale, as the game does for any mortgaged ship.
+- The overview shows a standing pre-approval; Withdraw pre-approval drops it.
+- F3 console: phobosbank approve lender ship or home, and phobosbank withdraw.
+
+### Compatibility and limits
+
+- Without a pre-approval, for a derelict, for a special offer (the broker finances those itself) or where the lender does not trade, the broker's window is exactly the game's own, and the crew log says why the lender is not used. A purchase paid in full uses nothing.
+- The purchase window's payment line still shows the game's own instalment; the lender's interest is billed separately and stated in the crew log.
+- Saves: a pre-approval is one more field in the loan book. A financed purchase is a loan like any other, with the ship or apartment named as its collateral.
+- Checked offline and against the game's broker code (the window's slider, the mortgage it writes, the kiosks); not yet seen in play.
+
 ## [0.2.0] - 2026-10-07 - Draft
 
 ### Added

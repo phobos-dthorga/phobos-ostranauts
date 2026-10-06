@@ -60,7 +60,20 @@ public sealed partial class BankPanel
         C.Label(shell.Detail, Text.Get("Lender.offers", string.Join(", ", l.offers.Select(o => Text.Get("Lender.offer_" + o)))) +
             (l.offers.Any(o => o != LenderSchema.Cash) ? " " + Text.Get("Lender.down", Percent(l.minDownShare)) : ""));
         C.Label(shell.Detail, Text.Get("Lender.repay", Percent(BankRules.LateFeeShare)));
+        // A pre-approval from this lender (Banking 0.3.0) shows whatever else is in the way, so it can be withdrawn.
+        if (Financing.Current() is Approval approval && approval.Lender == v.Id)
+        {
+            C.Status(shell.Detail, Text.Get(approval.Kind == LenderSchema.Home ? "Financing.standing_home" : "Financing.standing_ship", Money(approval.Limit), MathUtils.GetUTCFromS(approval.Expires)), Tone.Good);
+            C.Button(shell.Actions, Text.Get("Financing.withdraw_button"), () => { Financing.Withdraw(out string message); shell.Notice.text = message; Render(); });
+        }
         if (v.Unavailable != null) { C.Status(shell.Detail, v.Unavailable, Tone.Attention); return; }
+        foreach (string kind in l.offers.Where(o => o != LenderSchema.Cash))
+        {
+            string k = kind;
+            C.Button(shell.Actions, Text.Get(k == LenderSchema.Home ? "Financing.approve_home_button" : "Financing.approve_ship_button", Money(v.Headroom)),
+                () => { Financing.PreApprove(v.Id, k, out string message); shell.Notice.text = message; Render(); });
+        }
+        if (l.offers.Any(o => o != LenderSchema.Cash)) C.Label(shell.Detail, Text.Get("Financing.how", Percent(l.minDownShare)));
         if (!l.offers.Contains(LenderSchema.Cash)) { C.Status(shell.Detail, Text.Get("Lender.no_cash", v.Name), Tone.Neutral); return; }
 
         double step = LoanRules.Step(l.minPrincipal, v.Headroom);

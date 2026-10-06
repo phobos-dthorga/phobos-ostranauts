@@ -91,6 +91,22 @@ internal static class BankNativeChecks
         check(typeof(Ledger).GetMethod(nameof(Ledger.RecordTransaction)) != null && typeof(Ledger).GetMethod(nameof(Ledger.AddLI), new[] { typeof(LedgerLI) }) != null,
             "The ledger calls a loan uses are still there");
 
+        // ---- Financing at the broker (0.3.0) ------------------------------------------------------------
+        var popup = typeof(Ostranauts.ShipGUIs.ShipBroker.ConfirmBuyShipPopup);
+        var any = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        check(popup.GetField("sldrMortgage", any)?.FieldType == typeof(UnityEngine.UI.Slider), "The broker's purchase window still holds its down-payment slider as sldrMortgage");
+        check(popup.GetMethod("OnMortgageSliderchanged", any) != null, "and updates its price and payment line from the slider");
+        var broker = typeof(Ostranauts.ShipGUIs.ShipBroker.GUIShipBroker);
+        check(broker.GetMethod("UpdateCash", any, null, new[] { typeof(Ostranauts.Events.DTOs.ShipPurchaseDTO) }, null) != null && broker.GetField("_coUser", any)?.FieldType == typeof(CondOwner),
+            "The broker still writes its mortgage in UpdateCash for the user in _coUser");
+        check(typeof(GUIData).GetProperty("COSelf") != null || typeof(GUIData).GetField("COSelf") != null, "A broker window knows its kiosk (COSelf)");
+        check(strings.ContainsKey("GUI_FINANCE_MORTGAGE01"), "The broker's mortgage description still starts with the game's own words");
+        var kiosks = Directory.GetFiles(Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "condowners"), "*.json", SearchOption.AllDirectories)
+            .SelectMany(f => JArray.Parse(File.ReadAllText(f)).Select(t => (string?)t["strName"])).Where(n => n != null && n!.StartsWith("ItmKiosk", StringComparison.Ordinal)).ToList();
+        check(kiosks.Any(k => k!.Contains(BankRules.RealEstateKioskMark)) && kiosks.Any(k => k!.Contains("ShipBroker") && !k.Contains(BankRules.RealEstateKioskMark)),
+            "The real-estate broker kiosk is told apart from the ship broker by its name");
+        check(Enum.GetNames(typeof(Ostranauts.Events.DTOs.TransactionTypes)).Contains("Mortgage"), "A mortgage purchase is still its own transaction type");
+
         // ---- The icon ---------------------------------------------------------------------------------
         string icon = Path.Combine(repo, "mods", "PhobosBank", "images", BankRules.Icon.Replace('/', Path.DirectorySeparatorChar) + ".png");
         check(File.Exists(icon), "The CREDIT icon is in the package where the game looks: images/" + BankRules.Icon + ".png");
