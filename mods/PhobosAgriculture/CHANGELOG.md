@@ -11,6 +11,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.66.1] - 2026-10-07 - Draft
+
+### Fixed
+
+- A silo's reserve or link, or a W2's water target, could be refused with Settings changed or access was lost while water or nutrient was moving in or out of the silo, because the panel counted the silo's contents as a setting. Panels now compare only the settings they show (Framework 0.127.2).
+- The silo reserve and W2 water target choices now open with the current setting marked.
+
+### Dependencies
+
+- Needs Phobos Framework 0.127.2 or later.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.66.0] - 2026-10-06 - Draft
 
 ### Changed

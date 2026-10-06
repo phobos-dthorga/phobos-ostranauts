@@ -142,6 +142,17 @@ internal static class NetworkChecks
         check(Phobos.Ostranauts.Framework.Controls.EquipmentField.Unlisted(offered, a => a.StartsWith("filter:", StringComparison.Ordinal)).SequenceEqual(new[] { "haul:on", "haul:off" }) &&
               Phobos.Ostranauts.Framework.Controls.EquipmentField.Unlisted(offered, a => a.Contains(":")).Count == 0, "Choices a provider offers but does not list as configuration are found");
 
+        // A panel's stamp is its settings, never its live readings (Framework 0.127.2): a running X2 refused every Apply as stale.
+        static Phobos.Ostranauts.Framework.Controls.EquipmentField Setting(string value, string current) =>
+            new("Oxygen to", value, new[] { ("canister:a", "A"), ("canister:none", "Cabin") }, current);
+        static Phobos.Ostranauts.Framework.Controls.EquipmentField Vent(string value) => new("Vent", value, new[] { ("vent:1", "1 kg") });
+        string stamp = Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.Settings(new[] { Setting("A, 3% done", "canister:a"), Vent("40 kg") });
+        check(stamp == Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.Settings(new[] { Setting("A, 97% done", "canister:a"), Vent("12 kg") }) &&
+              stamp == Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.Settings(new[] { Setting("A, 3% done", "canister:a") }),
+            "A panel's settings stamp ignores readings and one-off commands that come and go");
+        check(stamp != Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.Settings(new[] { Setting("Cabin", "canister:none"), Vent("40 kg") }),
+            "A panel's settings stamp changes when a setting does");
+
         var joined = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, ports, new[] { (0, 1) });
         check(joined.ParticipantsConnected(0, 2) && joined.Hops(0, 2) == 5, "Touching joins as if piped, and joins chain through the network");
         check(!joined.ParticipantsConnected(3, 0), "An untouched participant stays apart");

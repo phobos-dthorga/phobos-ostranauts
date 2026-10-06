@@ -38,7 +38,9 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     }
     public bool IsConfiguration(string action) => action.StartsWith("use:", StringComparison.Ordinal) || action.StartsWith("send:", StringComparison.Ordinal) ||
         action.StartsWith("alerts:", StringComparison.Ordinal) || action.StartsWith("bed:", StringComparison.Ordinal);
-    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosState." + MedicalRules.Record, "PhobosState." + MedicalRules.MonitorRecord });
+    // The settings the panel shows, never the bed record: it also holds the patient, when they lay down and whether an
+    // outage was announced, so a change made as someone got into or out of the bed was refused as stale (0.5.2).
+    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.Of(co, Fields(co));
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");

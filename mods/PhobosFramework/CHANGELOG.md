@@ -29,6 +29,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.127.2] - 2026-10-07 - Draft
+
+### Fixed
+
+- A setting changed in a Control Panel could be refused with Settings changed or access was lost, again and again, while the equipment was working or its contents were moving (owner report, 7 October 2026). The panel compared the settings saved when you opened the choice with those at Apply, but that comparison also covered what the machine was doing: its progress, its hold or the water in a tank. Those change every few moments, so Apply could almost never land. Panels now compare only the settings they show. A real change made elsewhere while the choice is open, from a console, an F3 command or another panel, is still caught.
+- Water tanks: the reserve can be changed while water is being drawn from or delivered to the tank.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.127.1] - 2026-10-07 - Draft
 
 ### Fixed

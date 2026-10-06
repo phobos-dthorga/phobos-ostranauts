@@ -16,6 +16,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(ChargeMachines.All.Select(m => m.Spec.Installed).Concat(new[] { ProcessorRules.Installed, SabatierRules.Installed, CrackerRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed, BottlerRules.Installed, FeederRules.Installed })
         .Concat(GasStores.All.Select(s => s.Installed)).Concat(LiquidStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
+    // A saved destination id, or "none" for no destination (the cabin air on the X2), as its choice spells it.
+    private static string Or(string id) => id.Length == 0 ? "none" : id;
     /// <summary>Every snapshot group this provider reports; each has a "Group." name in the catalogue, registered with
     /// Framework so consoles that list every mod's equipment show them in our words.</summary>
     internal static readonly string[] Groups = { "refinery", "leach", "acid-plant", "fermenter", "electrolysis-cell", "carbothermal-reactor", "bottler", "processor", "filler", "regulator", "manifold", "feeder", "reactor", "cracker", "store" };
@@ -53,7 +55,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             yield return LinkField(Text.Get("Provider.store_field"), "store:", co, ProcessorService.HydrogenLink, true, ProcessorService.StoreCandidates(co));
             yield return new(Text.Get("Provider.canister_field"), ProcessorService.CanisterName(co),
                 ProcessorService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, LinkChoices.Label(co, c, LineFamilies.Gas, true))).Concat(new[] { ("canister:none", Text.Get("Processor.cabin")) }),
-                "", StoreNote(co, ProcessorService.CanistersAboard(co, ProcessorRules.CanisterTrigger), ProcessorService.CanisterCandidates(co), ManufacturingRules.Oxygen));
+                "canister:" + Or(ProcessorService.CanisterId(co)), StoreNote(co, ProcessorService.CanistersAboard(co, ProcessorRules.CanisterTrigger), ProcessorService.CanisterCandidates(co), ManufacturingRules.Oxygen));
         }
         else if (FeederRules.IsFamily(co.strCODef))
         {
@@ -71,7 +73,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             yield return LinkField(Text.Get("Provider.hydrogen_field"), "hydrogen:", co, SabatierService.HydrogenLink, false, SabatierService.HydrogenCandidates(co));
             yield return new(Text.Get("Provider.co2_field"), SabatierService.CanisterName(co),
                 SabatierService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, LinkChoices.Label(co, c, LineFamilies.Gas, false))).Concat(new[] { ("canister:none", Text.Get("Provider.link_none")) }),
-                "", StoreNote(co, ProcessorService.CanistersAboard(co, SabatierRules.CanisterTrigger), SabatierService.CanisterCandidates(co),
+                "canister:" + Or(SabatierService.CanisterId(co)), StoreNote(co, ProcessorService.CanistersAboard(co, SabatierRules.CanisterTrigger), SabatierService.CanisterCandidates(co),
                     ManufacturingRules.CarbonDioxide, ManufacturingRules.CarbonMonoxide));
             yield return LinkField(Text.Get("Provider.water_out_field"), "water:", co, SabatierService.WaterLink, true, SabatierService.WaterCandidates(co));
             yield return LinkField(Text.Get("Provider.methane_field"), "methane:", co, SabatierService.MethaneLink, true, SabatierService.MethaneCandidates(co));
@@ -90,7 +92,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
                 new[] { ("order:first", Text.Get("Provider.order_first")), ("order:last", Text.Get("Provider.order_last")) }, ManifoldService.First(co) ? "order:first" : "order:last");
             foreach (var source in ManifoldService.Sources(co))
                 yield return new(ObjectPresentation.Name(source.Id), Text.Get(source.Enabled ? "Provider.on" : "Provider.off"),
-                    new[] { ("source-on:" + source.Id, Text.Get("Provider.on")), ("source-off:" + source.Id, Text.Get("Provider.off")), ("unlink:" + source.Id, Text.Get("Provider.unlink")) });
+                    new[] { ("source-on:" + source.Id, Text.Get("Provider.on")), ("source-off:" + source.Id, Text.Get("Provider.off")), ("unlink:" + source.Id, Text.Get("Provider.unlink")) },
+                    (source.Enabled ? "source-on:" : "source-off:") + source.Id);
             if (ManifoldService.Sources(co).Count < ManifoldRules.MaxSources)
                 yield return new(Text.Get("Provider.add_source_field"), Text.Get("Provider.link_none"),
                     ManifoldService.Candidates(co).Where(c => ManifoldService.Sources(co).All(x => x.Id != c.strID)).Select(c => ("link:" + c.strID, ObjectPresentation.Name(c))),
@@ -109,7 +112,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
                 choices.Add(("unlink:" + link.Id, Text.Get("Provider.unlink")));
                 string current = link.Kind == FillerLinkKind.Store ? Text.Get(link.Enabled ? "Provider.on" : "Provider.off")
                     : Text.Get(link.Kind == FillerLinkKind.Source ? "Provider.role_source" : "Provider.role_target");
-                yield return new(ObjectPresentation.Name(link.Id), current, choices);
+                string chosen = link.Kind == FillerLinkKind.Store ? (link.Enabled ? "source-on:" : "source-off:") : link.Kind == FillerLinkKind.Source ? "draw:" : "target:";
+                yield return new(ObjectPresentation.Name(link.Id), current, choices, chosen + link.Id);
             }
             var linked = new HashSet<string>(state.Links.Select(l => l.Id), StringComparer.Ordinal);
             if (state.OfKind(FillerLinkKind.Store).Count() < FillerRules.MaxStores)
@@ -162,9 +166,10 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         .Any(p => action.StartsWith(p, StringComparison.Ordinal))
         // Every charge machine's link prefix comes from its own spec, so a new link (the CR-4's monoxide:) is never left off this list.
         || ChargeMachines.All.Any(m => m.Links.Any(l => action.StartsWith(l.ActionPrefix, StringComparison.Ordinal)));
-    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order", Phobos.Ostranauts.Framework.Inventory.StoreFeedRecord.Key, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Key,
-        "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
-        "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record, "PhobosState." + BottlerRules.Record, "PhobosState." + FeederRules.Record }.Concat(ChargeMachines.All.Select(m => "PhobosState." + m.Spec.Record)).Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).Concat(LiquidStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
+    // The settings the panel shows, never the machines' own records: those also hold a cycle's energy, a hold or a
+    // store's contents, which change every power step, so every Apply on a working machine was refused as stale (0.58.1).
+    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.Of(co, Fields(co), "PhobosMaterialPort.", "PhobosState.crew-order",
+        Phobos.Ostranauts.Framework.Inventory.StoreFeedRecord.Key, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Key);
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");

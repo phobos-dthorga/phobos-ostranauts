@@ -20,6 +20,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.58.1] - 2026-10-07 - Draft
+
+### Fixed
+
+- Choosing where a working X2 sends its oxygen, or changing any other setting on a running machine, was refused with Settings changed or access was lost every time (owner report, 7 October 2026). The panel counted each machine's progress and every store's contents as settings, and those change every few moments while it works. Panels now compare only the settings they show (Framework 0.127.2). Applies to every Manufacturing machine and store panel.
+- The X2's Oxygen to and the K2's carbon dioxide choices now open with the current destination marked, and the P1 propellant manifold's and L2 filling station's link rows open with each link's current setting marked.
+
+### Dependencies
+
+- Needs Phobos Framework 0.127.2 or later.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.58.0] - 2026-10-06 - Draft
 
 ### Changed

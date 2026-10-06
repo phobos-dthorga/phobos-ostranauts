@@ -129,7 +129,9 @@ public sealed class WaterTankProvider : IEquipmentProvider, IEquipmentPanelField
     }
     public bool IsConfiguration(string action) => action.StartsWith("reserve:", StringComparison.Ordinal) || action.StartsWith("draw:", StringComparison.Ordinal) ||
         action.StartsWith("to-waste:", StringComparison.Ordinal);
-    public string ConfigurationStamp(CondOwner co) => Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort." }.Concat(WaterTanks.All.Select(t => "PhobosState." + t.Record)).ToArray());
+    // The reserve the panel shows, never the tank record: that also holds the water aboard, which changes with every
+    // draw or delivery, so a reserve change on a tank in use was refused as stale (0.127.2).
+    public string ConfigurationStamp(CondOwner co) => Controls.ConfigurationStamp.Of(co, Fields(co), "PhobosMaterialPort.");
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");

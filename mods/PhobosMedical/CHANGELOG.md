@@ -10,6 +10,20 @@ not Steam publication.
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Added research records mapping native health states, existing responses and possible future care, rehabilitation and dubious wellness products. These are design possibilities for later selection, not new treatments; the game and saved state are unchanged.
 
+## [0.5.2] - 2026-10-07 - Draft
+
+### Fixed
+
+- A Ward-3 setting could be refused with Settings changed or access was lost when a patient got into or out of the bed while the choice was open, because the panel counted who was in the bed as a setting. Panels now compare only the settings they show (Framework 0.127.2).
+
+### Dependencies
+
+- Needs Phobos Framework 0.127.2 or later.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.5.1] - 2026-10-06 - Draft
 
 ### Changed

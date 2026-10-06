@@ -8,7 +8,9 @@ namespace PhobosAgriculture;
 
 internal static class PanelConfiguration
 {
-    internal static string Stamp(CondOwner co)=>ConfigurationStamp.For(co,"PhobosMaterialPort.","PhobosState.AgricultureWaterMode","PhobosState.crew-order","PhobosState.AgricultureBulk")+
+    // A tank's settings come from its fields, never its records: "PhobosState.AgricultureBulk" also matched the water held
+    // and its transfer journals, so a tank in use refused every change as stale (0.66.1).
+    internal static string Stamp(CondOwner co)=>ConfigurationStamp.Of(co,Provider.FieldsOf(co),"PhobosMaterialPort.","PhobosState.AgricultureWaterMode","PhobosState.crew-order")+
         (Definitions.Machine(co)?Service.Get(co).DoseId+"|"+Service.Get(co).Routed:"");
     internal static bool Apply(CondOwner co,string expected,string action,out string reason)
     {

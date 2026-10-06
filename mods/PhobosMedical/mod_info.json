@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.5.1",
-    "strNotes": "Adds the Halewright Ward-3 Medical Bed: lay an unconscious casualty in it, let the injured rest in it awake, or sleep in it. While powered and in air it keeps the patient recuperating with the game's own medical-rest healing; without power it is an ordinary bed. Tunable through the care data pack. Requires Phobos Framework 0.111.0 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
+    "strModVersion": "0.5.2",
+    "strNotes": "Adds the Halewright Ward-3 Medical Bed: lay an unconscious casualty in it, let the injured rest in it awake, or sleep in it. While powered and in air it keeps the patient recuperating with the game's own medical-rest healing; without power it is an ordinary bed. Tunable through the care data pack. Requires Phobos Framework 0.127.2 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
   }
 ]

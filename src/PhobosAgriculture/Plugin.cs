@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.125.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.127.2")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.66.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.66.1";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -138,14 +138,26 @@ internal static class ReloadPatch
 
 internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
-    public IEnumerable<EquipmentField> Fields(CondOwner co)
+    public IEnumerable<EquipmentField> Fields(CondOwner co)=>FieldsOf(co);
+    /// <summary>The tank and W2 settings, each with its current choice, which the panel stamp is built from (0.66.1).</summary>
+    internal static IEnumerable<EquipmentField> FieldsOf(CondOwner co)
     {
         if(!BulkDefinitions.IsTank(co)&&!IrrigationDefinitions.IsSupply(co))yield break;
         string peer=BulkService.Peer(co);
         yield return new(Text.Get("bulk_connection"),ObjectPresentation.Name(peer),BulkService.Candidates(co).Select(c=>("bulk-link:"+c.strID,LinkChoices.Label(co,c,Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWater,false))).Concat(new[]{("bulk-link:none",Text.Get("bulk-link:none"))}),
             "bulk-link:"+(peer.Length==0?"none":peer),()=>BulkService.LinkNote(co));
-        if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",BulkService.Read(co).ReserveKg),BulkDefinitions.ReserveChoices(BulkDefinitions.CapacityOf(co)).Select(n=>("bulk-reserve:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
-        if(IrrigationDefinitions.IsSupply(co))yield return new(Text.Get("bulk_target"),BulkService.TryTarget(co,out double target)?Text.Get("bulk_kg",target):Text.Get("protected"),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
+        if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))
+        {
+            double reserve=BulkService.Read(co).ReserveKg;
+            yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",reserve),BulkDefinitions.ReserveChoices(BulkDefinitions.CapacityOf(co)).Select(n=>("bulk-reserve:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))),
+                "bulk-reserve:"+reserve.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        }
+        if(IrrigationDefinitions.IsSupply(co))
+        {
+            bool known=BulkService.TryTarget(co,out double target);
+            yield return new(Text.Get("bulk_target"),known?Text.Get("bulk_kg",target):Text.Get("protected"),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))),
+                known?"bulk-target:"+target.ToString(System.Globalization.CultureInfo.InvariantCulture):"");
+        }
     }
     public bool IsConfiguration(string action)=>action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-routed"||action=="water-legacy"||action=="unlink-water"||action.StartsWith("bulk-link:",StringComparison.Ordinal)||action.StartsWith("bulk-reserve:",StringComparison.Ordinal)||action.StartsWith("bulk-target:",StringComparison.Ordinal);
     public string ConfigurationStamp(CondOwner co)=>PanelConfiguration.Stamp(co);
