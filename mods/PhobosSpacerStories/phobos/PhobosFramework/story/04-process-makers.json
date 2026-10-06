@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
   "articles": {
     "spacertales-fennmark-history": {
       "section": "phobos-makers",
@@ -12,7 +12,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-history": {
       "section": "phobos-makers",
@@ -23,7 +24,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-history": {
       "section": "phobos-makers",
@@ -34,7 +36,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-history": {
       "section": "phobos-makers",
@@ -45,7 +48,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-process-plant-history": {
       "section": "phobos-spacer-life",
@@ -56,97 +60,98 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     }
   },
   "broadcasts": {
     "spacertales-fennmark-vessel-list": {
       "title": "The obvious instruction",
-      "region": "Outer System",
-      "text": "Fennmark has restored a store-identification paragraph removed from its latest catalogue. The editor responsible considered it too obvious to print. Service contractors say the paragraph was removed in the same quarter that customers began sending photographs of unlabelled stores and asking which was which. The revised catalogue calls identification an owner's responsibility. Contractors call it a start.",
+      "text": "At [place], Fennmark has restored a store-identification paragraph removed from its latest catalogue. The editor responsible considered it too obvious to print. Service contractors say the paragraph was removed in the same quarter that customers began sending photographs of unlabelled stores and asking which was which. The revised catalogue calls identification an owner's responsibility. Contractors call it a start.",
       "mention": "Fennmark's put the label-your-stores bit back in the catalogue. Obvious wasn't quite obvious enough.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-fennmark-package-price": {
       "title": "Equipment around the equipment",
-      "region": "Outer System",
-      "text": "A Fennmark distributor has revised a processing quotation after a customer noticed it excluded all stores and connecting lines. The distributor says the price was for the active equipment only. The customer says a machine with nowhere to send output is a rather expensive shelf. Fennmark has asked that future quotations explain the supported job as well as the machine.",
+      "text": "At [place], a Fennmark distributor has revised a processing quotation after a customer noticed it excluded all stores and connecting lines. The distributor says the price was for the active equipment only. The customer says a machine with nowhere to send output is a rather expensive shelf. Fennmark has asked that future quotations explain the supported job as well as the machine.",
       "mention": "Fennmark dealer quoted a plant with no stores. Customer said they could buy a shelf cheaper.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-department": {
       "title": "A division of one",
-      "region": "Outer System",
-      "text": "Tolvane has rejected a contractor's description of its service shop as a complete atmosphere division. The firm's current contract supplies ammonia-cracking equipment and related service, not every system aboard the customer's ships. The contractor says the phrase was intended as praise. Tolvane says praise should fit the invoice.",
+      "text": "At [place], Tolvane has rejected a contractor's description of its service shop as a complete atmosphere division. The firm's current contract supplies ammonia-cracking equipment and related service, not every system aboard the customer's ships. The contractor says the phrase was intended as praise. Tolvane says praise should fit the invoice.",
       "mention": "Tolvane won't let that contractor call it a whole atmosphere department. One machine isn't the whole cabin.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-air-word": {
       "title": "A useful distinction",
-      "region": "Outer System",
-      "text": "Tolvane has issued a correction to dealer copy describing a nitrogen stream as breathable air. The company says the distinction is essential to understanding the AX-2's job and the equipment required around it. The dealer has agreed to replace the claim. Customers have asked why the correction needed to come from the maker rather than the person selling them the machine.",
+      "text": "At [place], Tolvane has issued a correction to dealer copy describing a nitrogen stream as breathable air. The company says the distinction is essential to understanding the AX-2's job and the equipment required around it. The dealer has agreed to replace the claim. Customers have asked why the correction needed to come from the maker rather than the person selling them the machine.",
       "mention": "Tolvane had to explain that nitrogen isn't a cabin full of air. Dealer should've known before taking deposits.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-buckets": {
       "title": "The bucket campaign",
-      "region": "Outer System",
-      "text": "Lixivar service staff have asked dealers to retire the phrase every batch has value. Customers responding to the campaign have submitted containers of cleaning waste, unidentified liquids and one dry bucket with a valuation request. The company says its equipment needs supported, identified feed. The dry bucket's owner says the bucket is identified and would like an answer.",
+      "text": "At [place], Lixivar service staff have asked dealers to retire the phrase every batch has value. Customers responding to the campaign have submitted containers of cleaning waste, unidentified liquids and one dry bucket with a valuation request. The company says its equipment needs supported, identified feed. The dry bucket's owner says the bucket is identified and would like an answer.",
       "mention": "Lixivar's bucket advert went wrong again. Somebody wanted them to recover the value in an empty bucket.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-handover": {
       "title": "A liquid with a past",
-      "region": "Outer System",
-      "text": "A processing contractor's sale has stalled over missing feed records. The buyer says the vessels contain material the seller described only as useful later. Lixivar has declined to certify the load from photographs. The seller says its long history aboard the plant should establish value. The buyer says it establishes a long history aboard the plant.",
+      "text": "At [place], a processing contractor's sale has stalled over missing feed records. The buyer says the vessels contain material the seller described only as useful later. Lixivar has declined to certify the load from photographs. The seller says its long history aboard the plant should establish value. The buyer says it establishes a long history aboard the plant.",
       "mention": "Useful later was the whole record for that Lixivar load. Later has finally arrived.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-photograph": {
       "title": "A wider photograph",
-      "region": "Outer System",
-      "text": "Oxsmith's latest brochure has gained a foldout after customers requested photographs showing the equipment around its hot-processing machines. The company says the wider view better represents a working installation. A printer says the original machine photograph was excellent until the stores, connections and heat equipment entered the frame. Buyers say that was when it became informative.",
+      "text": "At [place], Oxsmith's latest brochure has gained a foldout after customers requested photographs showing the equipment around its hot-processing machines. The company says the wider view better represents a working installation. A printer says the original machine photograph was excellent until the stores, connections and heat equipment entered the frame. Buyers say that was when it became informative.",
       "mention": "Oxsmith's brochure needs a foldout now. They finally photographed the rest of the plant.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-slogan": {
       "title": "Not quite anywhere",
-      "region": "Outer System",
-      "text": "Oxsmith has withdrawn a distributor's air from anywhere campaign. The company says its machines accept supported feeds, recover specific products and need substantial electricity and heat handling. It also notes that recovered oxygen is not a complete cabin atmosphere. The distributor is considering a shorter slogan. Service technicians have asked to read it before it is printed.",
+      "text": "At [place], Oxsmith has withdrawn a distributor's air from anywhere campaign. The company says its machines accept supported feeds, recover specific products and need substantial electricity and heat handling. It also notes that recovered oxygen is not a complete cabin atmosphere. The distributor is considering a shorter slogan. Service technicians have asked to read it before it is printed.",
       "mention": "Oxsmith's correcting air from anywhere. Plenty of small print survived, just not anywhere.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     }
   },
   "adverts": {
@@ -156,7 +161,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-fennmark-stores-ad": {
       "text": "Fennmark bulk stores\nThe right substance, in the right vessel, with the right connection. A row of matching stores is not a row of interchangeable contents. Leave a label your next shift can read.",
@@ -164,7 +170,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-ax-ad": {
       "text": "Phobos' Tolvane AX-2 Ammonia Cracker\nA specific job, in a specific space. Supported ammonia cracking for crews who have planned the feeds and stores. Nitrogen is not a complete cabin atmosphere. Tolvane prints that in the large type.",
@@ -172,7 +179,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-lc-ad": {
       "text": "Phobos' Lixivar LC-3 Leach and Crystallise Unit\nSeparate the useful from the load. Identified feeds, supported recipes, and products that still need somewhere to go. Lixivar: ask what is in the vessel before asking what it is worth.",
@@ -180,7 +188,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-acid-ad": {
       "text": "Lixivar acid equipment\nA dedicated plant, proper tanks and a line made for the job. Sulfuric acid belongs in its own supported route. The pale sage finish does not make it galley furniture.",
@@ -188,7 +197,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-ec-ad": {
       "text": "Phobos' Oxsmith EC-4 Electrolysis Cell\nThere is useful material in supported rock feed. Getting it out takes electricity, heat handling and a plant planned around the products. Oxsmith: buy the job with your eyes open.",
@@ -196,7 +206,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-cr-ad": {
       "text": "Phobos' Oxsmith CR-4 Carbothermal Reactor\nA different hot route for supported rock feed, using methane. Different feed bills, different outputs. Ask what your stores can handle before choosing which route your ship needs.",
@@ -204,19 +215,21 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     }
   },
   "chatter": {
     "spacertales-fennmark-label-story": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "The best plant foreman I knew wrote labels you could read from the doorway. Never needed to explain why.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-fennmark-store-joke": {
       "moment": "joke",
@@ -226,17 +239,19 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-fennmark-unpaid-space": {
       "moment": "complaint",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Broker charged for the machine, the stores, the lines and delivery. Dock charged for all the space in between.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-fennmark-route-jargon": {
       "moment": "jargon",
@@ -246,17 +261,19 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-narrow-job": {
       "moment": "small-talk",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Tolvane knows what its machine does. Wish the last person selling me one did.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-easy-air": {
       "moment": "worry",
@@ -266,17 +283,19 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-teal-story": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "First Tolvane unit I saw was half hidden behind orange stores. Crew said the matching plant cost more than the useful one.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-bucket-joke": {
       "moment": "joke",
@@ -286,17 +305,19 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-no-list": {
       "moment": "worry",
-      "speakers": "anyone",
-      "line": "There's a process vessel aboard with no feed list. I don't like inheriting somebody else's probably.",
+      "speakers": "crew",
+      "line": "If we're taking on a process vessel, I want its feed list. I don't like inheriting somebody else's probably.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-keeper": {
       "moment": "superstition",
@@ -306,37 +327,44 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-seller-complaint": {
       "moment": "complaint",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Port wants a history for the process load. The seller's entire history was trust me.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-foldout": {
       "moment": "small-talk",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Oxsmith's new brochure unfolds. About time the stores fitted in the picture.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "newsSeen": [
+          "spacertales-oxsmith-photograph"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-heat-story": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "An owner showed me a lovely Oxsmith refit drawing. I asked where the heat went. We started a second drawing.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-rock-question": {
       "moment": "question",
@@ -346,7 +374,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-account-joke": {
       "moment": "joke",
@@ -356,17 +385,22 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-process-last-bucket": {
       "moment": "jargon",
-      "speakers": "anyone",
-      "line": "The last vessel on a route matters as much as the first. Full output storage can stop good work.",
+      "speakers": "crew",
+      "line": "That Slingwright letter counted the loading as well as the feeder. Material doesn't reach the intake because the caption says it did.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "filesRead": [
+          "spacertales-loading-fee-file"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     },
     "spacertales-process-label-question": {
       "moment": "question",
@@ -376,17 +410,22 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-process-profit-worry": {
       "moment": "worry",
-      "speakers": "anyone",
-      "line": "I know what the batch should sell for. I'm still adding up everything it takes to make it.",
+      "speakers": "crew",
+      "line": "Before starting a batch, I'm adding up what it takes to make it. The sale price is the easy number.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "owns": [
+          "PhobosVolatilesRefineryInstalled"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     }
   },
   "tips": {
@@ -396,7 +435,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-scope": {
       "text": "Tolvane declined an offer to become a contractor's complete atmosphere division. Its staff preferred an accurate description of the one job they were supplying.",
@@ -404,7 +444,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-bucket-history": {
       "text": "Lixivar calls a notorious dealer promotion the bucket campaign. The firm learned that every batch has value invites more unidentified buckets than identifiable business.",
@@ -412,7 +453,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-wide-picture": {
       "text": "Oxsmith's equipment brochures became wider after customers asked to see the rest of a working plant. The machinery was unchanged. The photograph was more honest.",
@@ -420,7 +462,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-mixed-plant-paint": {
       "text": "Offworld process plants often carry several makers' colours. Crews prefer the right stores and connections to a more expensive row of matching enamel.",
@@ -428,7 +471,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-mixed-plant-trade"
     }
   }
 }

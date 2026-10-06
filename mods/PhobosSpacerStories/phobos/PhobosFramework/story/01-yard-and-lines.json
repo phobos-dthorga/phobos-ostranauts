@@ -1,18 +1,14 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
   "articles": {
     "spacertales-rivetline-history": {
       "section": "phobos-makers",
       "label": "Rivetline",
       "title": "Rivetline: the next shift",
       "body": "Rivetline's oldest surviving catalogue is a list of bins, brackets and lifting fixtures. Beside each price is the weight a tired yard worker would have to move. The company dates its beginnings from that list; former contractors date them from the unpaid invoices attached to it. Neither account makes much mention of a founder.\n\nIts first customers worked where mixed cargo became somebody else's problem: salvage yards, scrap docks and ships carrying material that no longer resembled the manifest. Rivetline sold equipment for holding that material, taking it apart and getting it to the next operation. The machinery acquired the firm's name as crews began asking for the fittings they already knew.\n\nThe Phobos' Rivetline D4 Dismantling Fixture, R4 Scrap Reclaimer and F6 Electric Furnace belong to the same idea. Recover something useful, keep track of the rest, and leave the next shift a job it can finish. The G4 Exterior Grabber and H4 Sealed Hull Chute bring supported cargo aboard; the Ablatine laser is another maker's tool. Rivetline has never been the name on every machine in a yard.\n\nRivetline's water silos, material bins, belts and drain canisters are less impressive in a sales photograph. They are also the things crews miss first when a process has nowhere to put its output. Used-equipment dealers describe the line as dependable. Owners usually add that dependable still needs repairs.\n\nThe firm's recent publicity prefers stories of independent shipbreakers. Its older brochures preferred photographs of large contractors. Rivetline says its customers have changed. Yard workers say only the size of the invoice has.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-ablatine-history": {
       "section": "phobos-makers",
@@ -23,7 +19,8 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     },
     "spacertales-mixed-yard": {
       "section": "phobos-spacer-life",
@@ -34,86 +31,86 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-rivetline-drain-history": {
       "section": "phobos-spacer-life",
       "label": "The drain-can trade",
       "title": "The business end of a pipe",
       "body": "Rivetline's D20 drain-can line grew out of a complaint from yard crews: everyone sold a pipe that carried material; fewer sales representatives wanted to discuss what stayed inside it when the work stopped. The answer was a portable can with an unromantic job.\n\nA Phobos' Rivetline D20 Drain Canister holds contents drained from supported lines. It is finite storage, and water recovered from a process belongs with process water. It is not a promise that everything carried in a pipe can be made harmless or useful.\n\nThe company's catalogue editor tried calling the can a service vessel. Customers continued asking for the drain can. Current catalogues use both terms.\n\nUsed cans tell the history of a ship in scratches and borrowed labels. Crews argue about whose handwriting is worst, then discover that the only legible label describes the contents from two jobs ago.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     }
   },
   "broadcasts": {
     "spacertales-rivetline-tender": {
       "title": "A tender in pieces",
-      "region": "Outer System",
-      "text": "Rivetline has withdrawn a freight broker's right to describe its latest yard tender as a complete recovery package. The broker had separated the bins, drain cans and belt fittings into optional extras. Operators complained that the quoted package could make output but had nowhere to put it. Rivetline says the revised tender will list every supplied part. The broker says the old price remains available to customers with very good imaginations.",
+      "text": "At [place], Rivetline has withdrawn a freight broker's right to describe its latest yard tender as a complete recovery package. The broker had separated the bins, drain cans and belt fittings into optional extras. Operators complained that the quoted package could make output but had nowhere to put it. Rivetline says the revised tender will list every supplied part. The broker says the old price remains available to customers with very good imaginations.",
       "mention": "Rivetline's bargain yard package forgot the bins. Apparently somewhere to put the scrap cost extra.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-rivetline-drain-can": {
       "title": "Found after stocktaking",
-      "region": "Outer System",
-      "text": "A dockside stocktake has recovered a missing consignment of Rivetline drain cans from the shelf marked office supplies. The receiver says they were filed as document containers after a clerk read service records on the freight note. Rivetline is circulating a photograph of the product beside a filing cabinet. The clerk has asked which cabinet is included in the price.",
-      "mention": "They lost the Rivetline drain cans in office supplies. Best organised spill on the dock.",
+      "text": "The receiving desk at [place] has found service records written where an old freight note should describe Rivetline drain cans. A clerk copied a heading into the cargo column. The desk wants a current D20 comparison before it circulates a correction. The cans have acquired a filing error; they have not acquired an owner.",
+      "mention": "At [place] they're checking whether service records meant drain cans. Apparently the heading travelled better than the cargo.",
+      "thread": "spacertales-second-shift-ledger",
       "requires": {
-        "mods": [
-          "PhobosFramework"
+        "arcsAtStep": [
+          "spacertales-misfiled-can.example"
         ]
       }
     },
     "spacertales-rivetline-night-shift": {
       "title": "The next shift",
-      "region": "Outer System",
-      "text": "Independent yard crews are disputing a Rivetline publicity story crediting a contractor's management with a successful emergency refit. Workers say the photographs show machinery they bought and repaired themselves after the contractor's own equipment stopped. Rivetline has agreed to change the captions. The contractor has requested that its logo remain visible on the borrowed overalls.",
-      "mention": "Rivetline had to redo those yard photographs. The crew owned the machines; the boss owned the overalls.",
+      "text": "Workers' letters retained at [place] describe Rivetline equipment repaired and bought from wages while replacements for the Sable Margin were delayed. A later catalogue comparison has been filed separately. The receiving clerk says identifying material does not prove who supplied an old batch. Contractors have asked for a shorter summary; the signatures remain.",
+      "mention": "The Sable Margin repair letters kept their signatures. Shortening a file isn't the same as paying its workers.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
+        ],
+        "arcsDone": [
+          "spacertales-yard-signatures"
         ]
-      }
+      },
+      "thread": "spacertales-second-shift-ledger"
     },
     "spacertales-rivetline-whole-price": {
       "title": "One piece, one argument",
-      "region": "Outer System",
-      "text": "Used-equipment brokers have complained about Rivetline advice to price an intact machine before breaking it into saleable material. One broker says the circular undervalues the skilled work of separating a good machine into less valuable pieces. Rivetline says the circular was written after an owner did exactly that and asked the company to make up the difference.",
+      "text": "At [place], used-equipment brokers have complained about Rivetline advice to price an intact machine before breaking it into saleable material. One broker says the circular undervalues the skilled work of separating a good machine into less valuable pieces. Rivetline says the circular was written after an owner did exactly that and asked the company to make up the difference.",
       "mention": "Someone broke a working machine for the metal and asked Rivetline to refund the mistake.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-ablatine-broker-correction": {
       "title": "The missing attachment",
-      "region": "Outer System",
-      "text": "Ablatine has asked brokers to withdraw copy showing an ML-2 mining head recovering an unattached asteroid. The firm's correction says the tool works on targets attached to the ship and does not tow, moor or capture them. The broker responsible calls the image illustrative. Ablatine says the illustration has already cost its service desk three shifts.",
+      "text": "At [place], Ablatine has asked brokers to withdraw copy showing an ML-2 mining head recovering an unattached asteroid. The firm's correction says the tool works on targets attached to the ship and does not tow, moor or capture them. The broker responsible calls the image illustrative. Ablatine says the illustration has already cost its service desk three shifts.",
       "mention": "Ablatine's correcting that advert again. A laser isn't a tow cable, however nicely they photograph it.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     },
     "spacertales-ablatine-repair-roster": {
       "title": "Leave, pending",
-      "region": "Outer System",
-      "text": "Ablatine service contractors have objected to an advert promising personal attention from the technician who built each customer's laser head. Several of those technicians no longer work for the firm; one says she has been waiting for personal attention to her leave request. Ablatine will replace the promise with a department address. Contractors have asked whether the department is allowed leave.",
+      "text": "At [place], Ablatine service contractors have objected to an advert promising personal attention from the technician who built each customer's laser head. Several of those technicians no longer work for the firm; one says she has been waiting for personal attention to her leave request. Ablatine will replace the promise with a department address. Contractors have asked whether the department is allowed leave.",
       "mention": "Ablatine promised the original technician. The original technician would like a holiday.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     }
   },
   "adverts": {
@@ -123,7 +120,8 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-rivetline-f6-ad": {
       "text": "Phobos' Rivetline F6 Electric Furnace\nYou brought the scrap. We brought the furnace. Electricity and a route for the heat are still your department. Rivetline: leave something useful for the next shift.",
@@ -131,23 +129,16 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-rivetline-storage-ad": {
       "text": "Rivetline stores and lines\nToday's output should not be tomorrow's obstacle. Water silos, material bins and the fittings between them. Measure the space before you buy. Your boots will thank you.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-rivetline-drain-ad": {
       "text": "Phobos' Rivetline D20 Drain Canister\nThe pipe stopped. Its contents didn't disappear. A portable can for the part of the job nobody puts in the photograph. Check what you are draining and leave room in the can.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-ablatine-ad": {
       "text": "Phobos' Ablatine ML-2 Mining Laser\nA beam with a job. Work supported targets attached to your ship with a dedicated mining head. Mooring is still mooring. Mining is still work. Ablatine: read the whole sentence before ordering.",
@@ -155,49 +146,52 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     }
   },
   "chatter": {
     "spacertales-yard-old-bins": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "First yard I worked in had three Rivetline bins and no working cutter. We were very good at storing the problem.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-drain-joke": {
       "moment": "joke",
       "speakers": "anyone",
       "line": "A drain can is what you buy after discovering that the pipe remembers more than you do.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-broker-complaint": {
       "moment": "complaint",
-      "speakers": "anyone",
-      "line": "Dock paperwork called the drain can hazardous cargo. Empty. They charged me to prove it.",
+      "speakers": "locals",
+      "line": "That drain-can report at [place] needed a filing correction before anyone could argue about the contents. Paperwork gets its own berth.",
+      "thread": "spacertales-second-shift-ledger",
       "requires": {
-        "mods": [
-          "PhobosFramework"
+        "newsSeen": [
+          "spacertales-rivetline-drain-can"
         ]
       }
     },
     "spacertales-yard-furnace-worry": {
       "moment": "worry",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "The furnace is paid for. Now I'm worrying about everything you need around a furnace.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
+        ],
+        "owns": [
+          "PhobosFurnaceInstalled"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-red-collar": {
       "moment": "superstition",
@@ -207,7 +201,8 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     },
     "spacertales-yard-cutter-jargon": {
       "moment": "jargon",
@@ -217,65 +212,75 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     },
     "spacertales-yard-every-owner": {
       "moment": "question",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "If every part aboard came from a different wreck, whose ship did we buy?",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-cheap-machine": {
       "moment": "small-talk",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "A cheap Rivetline machine is cheap until you find out why the seller stopped using it.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-labels": {
       "moment": "small-talk",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "I recognise that drain-can label. I wrote it three ships ago. Wish I could read it.",
+      "thread": "spacertales-yard-trade",
       "requires": {
-        "mods": [
-          "PhobosFramework"
+        "owns": [
+          "PhobosLineDrainCanister"
         ]
       }
     },
     "spacertales-yard-tomorrow-pile": {
       "moment": "joke",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "The tomorrow pile has been aboard longer than the captain. I think it outranks us now.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-white-head": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Saw an Ablatine head so clean I thought it was new. Owner said he'd spent his whole first shift cleaning the one he could afford.",
       "requires": {
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     },
     "spacertales-yard-tender-bins": {
       "moment": "complaint",
-      "speakers": "anyone",
-      "line": "Port wants a storage plan before it lets me move a bin. Buying a bin was my storage plan.",
+      "speakers": "locals",
+      "line": "That Rivetline tender wanted a storage plan but sold the bins separately. Apparently the plan needed a financing plan.",
+      "thread": "spacertales-yard-trade",
       "requires": {
+        "newsSeen": [
+          "spacertales-rivetline-tender"
+        ],
         "mods": [
-          "PhobosFramework"
+          "PhobosShipbreaker"
         ]
       }
     }
@@ -283,11 +288,7 @@
   "tips": {
     "spacertales-rivetline-catalogue": {
       "text": "Rivetline's oldest catalogue listed the weight beside every price. Yard crews still say a bargain is something you can afford to carry twice.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-ablatine-correction": {
       "text": "Ablatine became known for a correction longer than the advert it corrected. Beam technicians call this a complete product description.",
@@ -295,15 +296,12 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-beam-contractors"
     },
     "spacertales-drain-can-history": {
       "text": "The Phobos' Rivetline D20 Drain Canister acquired its name from customers. Rivetline's first catalogue called it a service vessel. Nobody asked for one by that name.",
-      "requires": {
-        "mods": [
-          "PhobosFramework"
-        ]
-      }
+      "thread": "spacertales-yard-trade"
     },
     "spacertales-yard-two-prices": {
       "text": "A shipbreaker learns two prices for every intact part: what it sells for whole, and what remains after the work of taking it apart. The second is not a bonus on top of the first.",
@@ -311,7 +309,8 @@
         "mods": [
           "PhobosShipbreaker"
         ]
-      }
+      },
+      "thread": "spacertales-yard-trade"
     }
   }
 }

@@ -1,29 +1,31 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
   "articles": {
     "spacertales-alembrine-history": {
       "section": "phobos-makers",
       "label": "Alembrine",
       "title": "Alembrine: the second use of a harvest",
-      "body": "Alembrine began with vessel and pipe work for small fermenting shops. The name recalls an alembic, an old kind of still. Customers cared less about the word than about equipment they could keep clean, supplied and working in limited space. Copper and brass made the firm's equipment easy to distinguish from the rest of a process room.\n\nThe Phobos' Alembrine Copperhead-3 Fermenter-Still joined the vessels into a supported production job. The Corker-2 Bottling Unit gave suitable cask ethanol another route into bottled spirit. Both require actual supplies. A still does not make a harvest surplus merely because a customer would like a drink.\n\nSome of Alembrine's earliest orders came from customers already using Verdemorrow equipment. The makers' publicity calls this a natural partnership. Crews call it an argument over whether the grain belongs to supper, planting stock or the still. The correct answer changes with the person holding the invoice.\n\nA dealer once described Alembrine spirit as essential voyage provision. The firm's technical staff asked for the phrase to be removed from an equipment leaflet. The dealer moved it to an advert. Alembrine has since tried to distinguish the process business from the stories people tell about its bottles.\n\nOne story credits a bottle with settling a dispute over a borrowed pump. Another says the bottle started it. Both tellers agree that the pump never came back.",
+      "body": "Alembrine began with vessel and pipe work for small fermenting shops. The name recalls an alembic, an old kind of still. Customers cared less about the word than about equipment they could keep clean, supplied and working in limited space. Copper and brass made the firm's equipment easy to distinguish from the rest of a process room.\n\nThe Phobos' Alembrine Copperhead-3 Fermenter-Still joined the vessels into a supported production job. The Corker-2 Bottling Unit gave suitable cask ethanol another route into bottled spirit. Both require actual supplies. A still does not make a harvest surplus merely because a customer would like a drink.\n\nSome of Alembrine's earliest orders came from customers already using Verdemorrow equipment. The makers' publicity calls this a natural partnership. Crews call it an argument over whether the grain belongs to supper, planting stock or the still. The correct answer changes with the person holding the invoice.\n\nA dealer once described Alembrine spirit as essential voyage provision. The firm's technical staff asked for the phrase to be removed from an equipment leaflet. The dealer moved it to an advert. Alembrine has since tried to distinguish the process business from the stories people tell about its bottles.\n\nAlembrine's correspondence desk separates equipment questions from the social uses of its product. Service letters name feed, vessels and bottling supplies. Customer letters concern gifts, favours and whose turn it is to pay. Filing them together does not make them the same business.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-slingwright-history": {
       "section": "phobos-makers",
       "label": "Slingwright",
       "title": "Slingwright: the load that remained",
-      "body": "Slingwright's first customers were small processing crews who discovered that a profitable batch still left material aboard. Recovery machinery gave the remainder a name. Storage gave it a location. Neither necessarily gave it a departure.\n\nThe Phobos' Slingwright RM-1 Reaction Mass Feeder supplies a supported route for declared terminal remainders into reaction mass. It is a dedicated powered job with accepted feed, not an invitation to throw every object aboard into the thrusters. Useful feed still belongs in its useful process when that is the better choice.\n\nThe firm's early advertisements showed a clean machinery space. Customers objected that the feeder did not carry the remaining crates to itself. Slingwright replaced the photograph with one showing a worker loading it. The worker then objected to the original fee.\n\nThe company's name joins sling and wright: a maker of something that throws. Sales staff have tried giving it a grander origin. Crew prefer the shorter one.\n\nIndependent operators usually discover Slingwright after discovering the storage bill for the rest of their plant. Large contractors tend to discover it after receiving a complaint about the crew's growing tomorrow pile. Both ask whether they can keep the output and send somebody else the leftovers.",
+      "body": "Slingwright's first customers were small processing crews who discovered that a profitable batch still left material aboard. Recovery machinery gave the remainder a name. Storage gave it a location. Neither necessarily gave it a departure.\n\nThe Phobos' Slingwright RM-1 Reaction Mass Feeder supplies a supported route for declared terminal remainders into reaction mass. It is a dedicated powered job with accepted feed, not an invitation to throw every object aboard into the thrusters. Useful feed still belongs in its useful process when that is the better choice.\n\nA feeder brochure has room for a machine and a short description. A working plant needs room for the accepted stock and for the person supplying it. Slingwright's service literature discusses that space more plainly than its sales photographs. Crews read both before agreeing to a refit.\n\nThe company's name joins sling and wright: a maker of something that throws. Sales staff have tried giving it a grander origin. Crew prefer the shorter one.\n\nIndependent operators usually discover Slingwright after discovering the storage bill for the rest of their plant. Large contractors tend to discover it after receiving a complaint about the crew's growing tomorrow pile. Both ask whether they can keep the output and send somebody else the leftovers.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     },
     "spacertales-galley-process-boundary": {
       "section": "phobos-spacer-life",
@@ -35,60 +37,89 @@
           "PhobosAgriculture",
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-galley-trade"
     }
   },
   "broadcasts": {
     "spacertales-alembrine-pump-story": {
       "title": "The borrowed pump",
-      "region": "Outer System",
-      "text": "Alembrine dealers are debating two incompatible accounts of a promotional bottle sent to settle a disagreement over a borrowed pump. One account says the bottle reconciled the owners; the other says it arrived at the wrong ship and widened the quarrel. The firm says neither account came from its process department. The pump's owner says any correction should include the pump's current location.",
+      "text": "At [place], Alembrine dealers are debating two incompatible accounts of a promotional bottle sent to settle a disagreement over a borrowed pump. One account says the bottle reconciled the owners; the other says it arrived at the wrong ship and widened the quarrel. The firm says neither account came from its process department. The pump's owner says any correction should include the pump's current location.",
       "mention": "That Alembrine bottle either fixed the pump argument or started it. Nobody's found the pump.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "arcsAtStep": [
+          "spacertales-borrowed-pump.accounts"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-provision-word": {
       "title": "Voyage provision",
-      "region": "Outer System",
-      "text": "Alembrine has asked an equipment dealer to separate spirit advertising from its operating leaflet. The dealer had described bottled spirit as essential voyage provision next to the fermenter specifications. The firm's technical staff say the machine requires feed and proper process supplies, while a crew's essential provisions include meals. The dealer says meals were outside the campaign's scope.",
+      "text": "At [place], Alembrine has asked an equipment dealer to separate spirit advertising from its operating leaflet. The dealer had described bottled spirit as essential voyage provision next to the fermenter specifications. The firm's technical staff say the machine requires feed and proper process supplies, while a crew's essential provisions include meals. The dealer says meals were outside the campaign's scope.",
       "mention": "Alembrine's still leaflet accidentally made the spirit sound like supper. Cook might disagree.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-grain-dispute": {
       "title": "The cupboard meeting",
-      "region": "Outer System",
-      "text": "A joint Verdemorrow and Alembrine display has been delayed after its host crew used the demonstration grain for a hot meal. Dealers say the intended demonstration was a complete shipboard supply chain. The cook says the grain completed one. The next display will reserve separate stocks for planting, cooking and process feed.",
+      "text": "At [place], a joint Verdemorrow and Alembrine display has been delayed after its host crew used the demonstration grain for a hot meal. Dealers say the intended demonstration was a complete shipboard supply chain. The cook says the grain completed one. The next display will reserve separate stocks for planting, cooking and process feed.",
       "mention": "They cooked the grain for that Verdemorrow and Alembrine display. Sounds like a successful demonstration to me.",
       "requires": {
         "mods": [
           "PhobosAgriculture",
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-galley-trade"
     },
     "spacertales-slingwright-worker-photo": {
       "title": "Somebody still loads it",
-      "region": "Outer System",
-      "text": "Slingwright is replacing publicity photographs that implied the RM-1 cleared a machinery room without anyone supplying its feed. The new image shows a worker loading supported remainder stock. The worker has asked to be paid again because the first fee covered neither lifting nor being used to correct the advert. Slingwright's sales office is consulting the original agreement.",
-      "mention": "Slingwright's new photo includes the worker. Worker wants the lifting included in the fee.",
+      "text": "The Slingwright desk at [place] has retrieved a worker's letter about an RM-1 publicity photograph. The writer supplied the loading that left the room clear, but the caption credited the feeder alone. Sales filed the complaint as an image correction. The desk is separating the equipment claim from the disputed fee; no payment has been reported.",
+      "mention": "Slingwright's letter at [place] counts the worker who loaded the feeder. The fee is still another question.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ],
+        "arcsAtStep": [
+          "spacertales-last-vessel.reply"
+        ]
+      },
+      "thread": "spacertales-loading-work"
+    },
+    "spacertales-slingwright-valuable-stock": {
+      "title": "A useful distinction",
+      "text": "At [place], a Slingwright dealer has withdrawn advice to send all processing output to the reaction-mass feeder. Operators pointed out that finished material and useful feed have other purposes, while the RM-1 has a defined list of terminal remainders it accepts. The dealer says all was intended informally. Customers say their invoices are rather formal.",
+      "mention": "Slingwright dealer said throw all the output in the feeder. Apparently all was only advertising.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      },
+      "thread": "spacertales-loading-work"
+    },
+    "spacertales-alembrine-letter-call": {
+      "title": "Labels wanted, bottles kept",
+      "thread": "spacertales-still-correspondence",
+      "text": "Alembrine's customer letters desk at [place] is comparing old product descriptions with current bottled stock. Operators with a Copperhead-3 are invited to read the correspondence. A present bottle can help identify a label, but will not be taken or treated as proof of an old batch.",
+      "mention": "Alembrine's desk at [place] is comparing labels. Keeping your bottle sounds like the useful part.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
       }
     },
-    "spacertales-slingwright-valuable-stock": {
-      "title": "A useful distinction",
-      "region": "Outer System",
-      "text": "A Slingwright dealer has withdrawn advice to send all processing output to the reaction-mass feeder. Operators pointed out that finished material and useful feed have other purposes, while the RM-1 has a defined list of terminal remainders it accepts. The dealer says all was intended informally. Customers say their invoices are rather formal.",
-      "mention": "Slingwright dealer said throw all the output in the feeder. Apparently all was only advertising.",
+    "spacertales-slingwright-letter-call": {
+      "title": "Loading belongs in the picture",
+      "thread": "spacertales-loading-work",
+      "text": "The Slingwright correspondence desk at [place] has asked RM-1 operators to read a retained worker's account of equipment publicity. The desk wants loading work described alongside the feeder's accepted stock. It is offering a copy of the letters, not a job, a payment or a request to run a batch.",
+      "mention": "Slingwright has loading letters at [place]. Reading them won't use up your feed.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -103,7 +134,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-corker-ad": {
       "text": "Phobos' Alembrine Corker-2 Bottling Unit\nSuitable cask ethanol into Alembrine spirit, with the required bottling supplies. Give the product a label and give the cook a different cupboard.",
@@ -111,15 +143,17 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-brand-ad": {
-      "text": "Alembrine\nCopper, brass and the end of a long shift. Process equipment for the feed you have actually set aside. Borrowed pumps are a separate matter.",
+      "text": "Alembrine\nCopper, brass and the end of a long shift. Process equipment for the feed you have actually set aside. Meals, planting stock and process feed deserve their own places.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-slingwright-rm-ad": {
       "text": "Phobos' Slingwright RM-1 Reaction Mass Feeder\nThe remainder still weighs something. Give accepted terminal remainder stock its supported route into reaction mass. Powered machinery; somebody still has to supply the feed.",
@@ -127,30 +161,40 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     }
   },
   "chatter": {
     "spacertales-alembrine-pump-gossip": {
       "moment": "small-talk",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "The bottle made it back. The borrowed pump didn't. That's the Alembrine story I believe.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "filesRead": [
+          "spacertales-pump-accounts-file"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-cook-story": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "Cook caught a dealer carrying our grain towards the still. Called the whole demonstration supper and took it back.",
       "requires": {
         "mods": [
           "PhobosAgriculture",
           "PhobosManufacturing"
+        ],
+        "owns": [
+          "PhobosVerdemorrowFirstlight4Installed",
+          "PhobosFermenterStillInstalled"
         ]
-      }
+      },
+      "thread": "spacertales-galley-trade"
     },
     "spacertales-alembrine-three-labels": {
       "moment": "jargon",
@@ -161,17 +205,22 @@
           "PhobosAgriculture",
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-galley-trade"
     },
     "spacertales-alembrine-bottle-joke": {
       "moment": "joke",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "Alembrine gives the end of a shift a bottle. The captain gives it another shift.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "owns": [
+          "PhobosFermenterStillInstalled"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-ceremony": {
       "moment": "superstition",
@@ -181,48 +230,62 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-grain-worry": {
       "moment": "worry",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "I'm less worried about the still than the argument over what grain we're allowed to put in it.",
       "requires": {
         "mods": [
           "PhobosAgriculture",
           "PhobosManufacturing"
+        ],
+        "owns": [
+          "PhobosFermenterStillInstalled"
         ]
-      }
+      },
+      "thread": "spacertales-galley-trade"
     },
     "spacertales-alembrine-permit": {
       "moment": "complaint",
-      "speakers": "anyone",
-      "line": "Dock called the still industrial equipment until it saw the advert. Then it found a different form.",
+      "speakers": "locals",
+      "line": "That Alembrine leaflet called spirit voyage provision. The cook deserves a chance to read the next draft.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "newsSeen": [
+          "spacertales-alembrine-provision-word"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-slingwright-pile-joke": {
       "moment": "joke",
-      "speakers": "anyone",
+      "speakers": "crew",
       "line": "Bought a feeder for the tomorrow pile. Now the tomorrow pile is waiting to be loaded.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
+        ],
+        "owns": [
+          "PhobosReactionMassFeederInstalled"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     },
     "spacertales-slingwright-last-job": {
       "moment": "story",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Last plant I worked had a Slingwright feeder bought after every store was full. I've seen better orders of work.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     },
     "spacertales-slingwright-finished-stock": {
       "moment": "jargon",
@@ -232,7 +295,8 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     },
     "spacertales-slingwright-philosophy": {
       "moment": "question",
@@ -242,27 +306,30 @@
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     },
     "spacertales-slingwright-rent": {
       "moment": "complaint",
-      "speakers": "anyone",
+      "speakers": "locals",
       "line": "Port charges storage on remainder stock. Seems the one thing a batch makes reliably is another bill.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     }
   },
   "tips": {
     "spacertales-alembrine-pump-lore": {
-      "text": "Alembrine's best-known customer story concerns a bottle and a borrowed pump. People disagree about what the bottle achieved. Everyone agrees the pump is still missing.",
+      "text": "Alembrine keeps customer correspondence separately from process records. A bottle may carry an apology or a favour; its label cannot prove that either reached the right person.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-three-cupboards": {
       "text": "Ships running both Verdemorrow and Alembrine equipment tend to invent three labels early: food, planting stock and process feed. Arguments survive even good labels.",
@@ -271,15 +338,17 @@
           "PhobosAgriculture",
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-galley-trade"
     },
     "spacertales-slingwright-load-history": {
-      "text": "Slingwright's early publicity showed a clean plant. Its replacement showed the person loading the feeder. Customers found the second image more helpful; the worker found it more expensive.",
+      "text": "Slingwright sells a route for accepted remainder stock, not a pair of hands. Working crews allow room for loading when they allow room for a feeder.",
       "requires": {
         "mods": [
           "PhobosManufacturing"
         ]
-      }
+      },
+      "thread": "spacertales-loading-work"
     }
   }
 }
