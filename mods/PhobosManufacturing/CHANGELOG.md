@@ -20,6 +20,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.57.1] - 2026-10-06 - Draft
+
+### Fixed
+
+- The CR-4 carbothermal reactor could not link a carbon monoxide store (owner report, 6 October 2026). Choosing one on the Control Panel and pressing Apply said a fault in the mod stopped the setting being saved, so the reactor never had anywhere to send its carbon monoxide. Apply now links the store. Every batch machine's link choices are now accepted from the same list that offers them, so a new link cannot be left out again.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved; the link is the same record the other CR-4 links already use.
+
+### Compatibility and limits
+
+- Requires Framework 0.119.0. Checked offline; not yet seen in the game.
+
 ## [0.57.0] - 2026-10-06 - Draft
 
 ### Added

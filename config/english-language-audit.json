@@ -85634,8 +85634,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5399e8336ecf5eb9d1dac4c26efde61d35d6faf84992fe30212e4fa2a55a7ff5",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "3504237c0754ebd013e0ae72ac9a4b16dbfd26d4d7af2c67794318e1f4bdca25",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1)."
     },
     {
       "path": "SUPPORT.md",
@@ -86949,8 +86949,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "40a96f0106d5622da03d2f51a94f378c65d47795d92ea505c74678ba121c4dd1",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "062a92912831c1821c5a47db3eaddf417e557737be549158a2a01d36b727d5af",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1)."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -87137,8 +87137,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a96d8bbde817494b5bc044519bd2aa8022cf88321198c9f26c2898952fdfda0d",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "dc3378ebee58d4175c7b5ec964f65149759e72dc6789fdc9ce0f23d90b1aa210",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1)."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
