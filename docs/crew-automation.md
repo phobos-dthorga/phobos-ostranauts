@@ -86,7 +86,11 @@ as the game's own pickup needs; keep that floor and the way to it open, or the
 order says no crew can reach the item. If the game still turns a pickup down or
 drops a step part-way, the order names who could not get to what and tries again
 after the wait described below (Framework 0.126.1). Selecting
-a portrait does not make that person the worker. The job reserves its equipment,
+a portrait does not make that person the worker. To send one crew member now,
+select them, right-click the machine and choose the game's Resume Task(s): they
+take the order's waiting step as a direct order, whatever their AutoTask, shift
+or duty settings, and fetch its cargo first. If they cannot, their log says why
+(Framework 0.126.2). The job reserves its equipment,
 inputs and output space, then checks them again before finishing. Tasks from
 other mods remain available.
 

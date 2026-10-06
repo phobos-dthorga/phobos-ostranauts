@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.126.1",
+      "value": "0.126.2",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {

@@ -54,6 +54,21 @@ public static class CrewWork
         // Crew upkeep (Framework 0.111.0): a ship-wide job at this machine, allowed by the upkeep switches instead of
         // the machine's own order, with no provider. Created is real time, so a task nobody takes can be withdrawn.
         internal UpkeepKind? Upkeep; internal float Created;
+        // The player sent this crew member with the game's Resume task (Framework 0.126.2): a direct order, as the game
+        // treats a resumed painted job, so AutoTask, shift and duty priority do not apply.
+        internal bool Direct;
+    }
+    /// <summary>The admission a job's worker must keep: a direct order skips what only governs automatic work.</summary>
+    internal static bool EligibleFor(Job j, CondOwner actor, out string reason, int? hour = null) =>
+        j.Direct ? DirectEligible(actor, j.Offer, out reason) : Eligible(actor, j.Offer, out reason, hour: hour);
+    /// <summary>Who may take an order step the player hands them directly: awake, out of combat, aboard, ours, and allowed
+    /// that kind of work under Crew &amp; Training (a patient never treats themselves).</summary>
+    internal static bool DirectEligible(CondOwner actor, CrewWorkOffer offer, out string reason)
+    {
+        reason = Message("resume_unfit");
+        return actor != null && !actor.bDestroyed && actor.aQueue != null && actor.bAlive && !actor.HasCond("IsDead") && !actor.HasCond("Unconscious") &&
+            !actor.HasCond("IsInCombat") && actor.Company != null && actor.Company == CrewSim.coPlayer?.Company && actor.ship == offer.Target.ship &&
+            CrewSpecialities.Allowed(actor, offer.Role) && !(offer.ExcludedActor.Length > 0 && offer.ExcludedActor == actor.strID);
     }
     /// <summary>Whether a job may still run: its machine's order is enabled, or its upkeep switch is on.</summary>
     internal static bool Allowed(Job j) => j.Upkeep != null ? Upkeep.Enabled(j.Upkeep.Value) : Order(j.Equipment).Permission == WorkPermission.Enabled;
@@ -360,7 +375,7 @@ public static class CrewWork
     }
     internal static bool Admit(Job j, CondOwner actor, Interaction ia)
     {
-        if (!Allowed(j) || !CanManage(j.Equipment) || !Eligible(actor, j.Offer, out var reason) || !Upkeep.Suits(j.Upkeep, j.Offer, actor)) return false;
+        if (!Allowed(j) || !CanManage(j.Equipment) || !EligibleFor(j, actor, out var reason) || !Upkeep.Suits(j.Upkeep, j.Offer, actor)) return false;
         if (!Path(actor, j.Offer.Target) || !CrewLogistics.Prepare(actor, j.Offer) || Upkeep.SkilledFirst(j.Upkeep) && PreferredAvailable(actor, j.Offer) ||
             !Reservations.Acquire(j.Lease, Keys(j))) return false;
         j.Worker = actor; j.Interaction = ia;
@@ -372,8 +387,8 @@ public static class CrewWork
     }
     /// <summary>Queues the game's pickup ahead of a haul's delivery. False when the game refuses it on the spot (no way to
     /// the cargo, or the crew member cannot walk): it drops the pickup before the delivery is queued, so the delivery
-    /// would otherwise go ahead with empty hands.</summary>
-    internal static bool QueuePickup(Job j)
+    /// would otherwise go ahead with empty hands. A direct order puts the pickup in front of the delivery already queued.</summary>
+    internal static bool QueuePickup(Job j, bool inFront = false)
     {
         var item = j.Offer.Cargo;
         if (item == null || item.RootParent() == j.Worker || j.Interaction == null) return true;
@@ -381,7 +396,7 @@ public static class CrewWork
         if (pickup == null) return false;
         pickup.bManual=false;
         pickup.AddDependent(j.Interaction); j.Pickup = pickup;
-        return j.Worker!.QueueInteraction(item, pickup);
+        return j.Worker!.QueueInteraction(item, pickup, inFront);
     }
     /// <summary>The claim is withdrawn when its pickup was refused: the order says why and backs off (Framework 0.126.1).</summary>
     internal static void PickupRefused(Job j)
@@ -407,9 +422,56 @@ public static class CrewWork
         }
         Release(j, true);
     }
+    /// <summary>Set while the game's Resume task runs: Phobos steps are kept out of its own loop, which assumes every
+    /// claim succeeds and threw when one was refused (owner report, 7 October 2026).</summary>
+    internal static bool Resuming;
+    // Looked up on first use, never in the type initializer: the offline suites load this class without a game.
+    private static System.Reflection.MethodInfo? finalizeTask;
+    private static System.Reflection.MethodInfo? FinalizeTask => finalizeTask ??=
+        typeof(WorkManager).GetMethod("FinalizeTask", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+    /// <summary>The player chose Resume task on a Phobos machine: the crew member who chose it takes the order's waiting
+    /// step now as a direct order, carrying the cargo first (Framework 0.126.2). The game cancels everything a crew member
+    /// has queued when it issues a player order, so the pickup goes in front of the delivery afterwards; a resumed haul
+    /// used to walk over empty-handed. True when the step was handled here; otherwise the game's own resume runs without
+    /// Phobos steps, and any refusal is in the crew member's log.</summary>
+    internal static bool Resume(WorkManager manager, CondOwner? co, string? target)
+    {
+        var job = co == null || target == null ? null : Jobs.Values.FirstOrDefault(j => j.Upkeep == null && j.Task.strTargetCOID == target);
+        if (co == null || job == null) return false;
+        string refusal = DirectRefusal(job, co);
+        var ia = refusal.Length == 0 ? DataHandler.GetInteraction(WorkId) : null;
+        if (ia == null || FinalizeTask == null) { if (refusal.Length > 0) Tell(co, "resume_unable", co.FriendlyName, refusal); return false; }
+        // The game's own claim, through the claim patches below: the task shows as claimed and the job is reserved. The
+        // direct flag never outlives a failed claim, so the order's automatic work keeps its usual admission.
+        job.Direct = true; bool claimed = false;
+        try { claimed = ReferenceEquals(FinalizeTask.Invoke(manager, new object[] { co, job.Task, ia, job.Offer.Target }), job.Task) && job.Worker == co; }
+        finally { if (!claimed) job.Direct = false; }
+        if (!claimed) { Tell(co, "resume_unable", co.FriendlyName, Message("resume_reserved")); return false; }
+        co.AIIssueOrder(job.Offer.Target, ia, bPlayerOrdered: true, null);
+        // Crew other than the player may turn a direct order down, as the game lets them; nothing failed.
+        if (!co.aQueue.Contains(ia)) { Release(job, true); return true; }
+        if (!QueuePickup(job, inFront: true))
+        { PickupRefused(job); Tell(co, "resume_unable", co.FriendlyName, Message("resume_no_cargo", job.Offer.Cargo?.strNameFriendly ?? "")); return true; }
+        manager.IdleRemove(co);
+        Tell(co, "resume_started", co.FriendlyName, job.Offer.Label);
+        return true;
+    }
+    /// <summary>Why a crew member cannot take a step directly, checked in the same order as the claim; empty when they can.</summary>
+    private static string DirectRefusal(Job j, CondOwner co)
+    {
+        if (j.Worker != null) return Message("resume_taken", j.Worker.FriendlyName);
+        if (!Allowed(j) || !CanManage(j.Equipment)) return Message("resume_off");
+        if (!DirectEligible(co, j.Offer, out var reason)) return reason;
+        if (!Reservations.Available(j.Lease, Keys(j))) return Message("resume_reserved");
+        if (!Path(co, j.Offer.Target)) return Message("resume_no_path");
+        if (!CrewLogistics.Prepare(co, j.Offer)) return Message("resume_no_cargo", j.Offer.Cargo?.strNameFriendly ?? "");
+        return "";
+    }
+    private static void Tell(CondOwner co, string key, params object[] args) =>
+        co.LogMessage(Message(key, args), key == "resume_started" ? "Neutral" : "Bad", co.strName);
     internal static bool Complete(Job j, bool skipping = false, int? workHour = null)
     {
-        if (j.Worker == null || !Allowed(j) || !Eligible(j.Worker, j.Offer, out var reason,hour:workHour)) return false;
+        if (j.Worker == null || !Allowed(j) || !EligibleFor(j, j.Worker, out var reason, workHour)) return false;
         if (j.Upkeep != null)
         {
             try { return Upkeep.Finish(j.Worker, j.Equipment, j.Offer, j.Upkeep.Value, j.Seconds, skipping, out _); }
@@ -443,7 +505,7 @@ public static class CrewWork
         foreach (var j in Jobs.Values.ToArray())
         {
             if (j.Equipment == null || j.Equipment.bDestroyed || !Allowed(j) ||
-                !all.Contains(j.Task) || j.Interaction != null && (j.Interaction.bCancel || j.Worker == null || !Eligible(j.Worker, j.Offer, out _))) Release(j, true);
+                !all.Contains(j.Task) || j.Interaction != null && (j.Interaction.bCancel || j.Worker == null || !EligibleFor(j, j.Worker, out _))) Release(j, true);
             else if (Dropped(j)) StepDropped(j);
             else if(j.Worker==null && j.Upkeep==null)
             {
@@ -502,8 +564,31 @@ internal static class CrewTaskClaim
     {
         if (!CrewWork.Jobs.TryGetValue(task, out var j)) return;
         if (__result != task) { if (j.Worker != null) CrewWork.Release(j, false); return; }
+        // A direct order queues its pickup once the game has issued the order (CrewWork.Resume).
+        if (j.Direct) return;
         // A refused pickup ends the claim here, so the game never queues the delivery and the crew member stays free.
         if (!CrewWork.QueuePickup(j)) { CrewWork.PickupRefused(j); __result = null; }
+    }
+}
+/// <summary>The game's Resume task (Framework 0.126.2): a Phobos step on the target is taken here as a direct order;
+/// otherwise the game's own resume runs with Phobos steps left out of its list.</summary>
+[HarmonyPatch(typeof(WorkManager), nameof(WorkManager.ResumeTask))]
+internal static class CrewTaskResume
+{
+    private static bool Prefix(WorkManager __instance, CondOwner co, string strCOID)
+    {
+        CrewWork.Resuming = true;
+        try { return !CrewWork.Resume(__instance, co, strCOID); }
+        catch (Exception e) { FrameworkLifecycle.Log(CrewWork.Message("fault", e.Message)); return true; }
+    }
+    private static Exception? Finalizer(Exception? __exception) { CrewWork.Resuming = false; return __exception; }
+}
+[HarmonyPatch(typeof(WorkManager), nameof(WorkManager.GetAllTasksForCOID))]
+internal static class CrewTaskResumeList
+{
+    private static void Postfix(List<Task2> __result)
+    {
+        if (CrewWork.Resuming && __result != null) __result.RemoveAll(t => t != null && t.strInteraction == CrewWork.WorkId);
     }
 }
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]

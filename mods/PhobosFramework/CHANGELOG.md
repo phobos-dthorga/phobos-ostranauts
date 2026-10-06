@@ -29,6 +29,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.126.2] - 2026-10-07 - Draft
+
+### Fixed
+
+- Choosing the game's Resume Task(s) on a Phobos machine could throw an error and do nothing (owner report, 7 October 2026). The game's resume assumes every task it picks can be claimed; when a standing order's step could not be, it went on without a crew member. Phobos steps are now kept out of the game's own resume and handled by Framework, and the game's resume still runs for any other task on that machine.
+- Resume Task(s) on a Phobos machine now works as a direct order: the crew member who chose it takes the order's waiting step now, whatever their AutoTask, shift or duty settings, as the game treats a resumed job. The step is still checked for health, ship, Crew & Training permission, reach and cargo, and if it cannot go ahead the crew member's log says why. A resumed haul fetches its cargo first: the game cancels everything queued when it issues a player order, which used to drop the pickup and send the crew member over empty-handed.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.126.1] - 2026-10-06 - Draft
 
 ### Fixed

@@ -1204,6 +1204,15 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: Resume Task(s) on Phobos machines (L90)
+
+L90 — Framework 0.126.2, owner report. A postfix on `WorkManager.GetAllTasksForCOID` reads
+one flag and returns unless the game's Resume Task(s) is running, when it drops Phobos
+steps from that one target's list. The resume itself (a player click) finds the target's
+job in the job table and runs the same checks a claim does. Discovery, the task filter
+and claims are unchanged. `Plugin.cs` carries only the version. No capture accompanies
+this change.
+
 ## 6 October: crew-order path checks leave the crew's walk alone (L89)
 
 L89 — Framework 0.126.1, owner report. Each crew-order path check now clears the crew
