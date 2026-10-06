@@ -87466,6 +87466,32 @@
       ],
       "before": "{0} would not open. The game log says why.",
       "after": "{0} would not open. The game log says why."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.pickup_unreachable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New text for Framework 0.126.1: names who could not get to which cargo and the one thing the player can do (clear the floor in front of the store and the way there); the retry line around it gives the wait.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:391"
+      ],
+      "before": "{0} could not get to {1} to pick it up. Keep the floor in front of the store clear and the way there open.",
+      "after": "{0} could not get to {1} to pick it up. Keep the floor in front of the store clear and the way there open."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.step_dropped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New text for Framework 0.126.1: says who dropped which step and the usual cause (cargo or machine out of reach) without claiming a cause the code cannot know; the retry line around it gives the wait.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:405"
+      ],
+      "before": "{0} dropped this step before finishing it: {1}. Usually the cargo or the machine was out of reach.",
+      "after": "{0} dropped this step before finishing it: {1}. Usually the cargo or the machine was out of reach."
     }
   ],
   "documents": [
@@ -87473,8 +87499,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f15016484b4b6ad41d05b07408faa4433e57ac227c4dae3ba2ccc89a79eb38cc",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "26d3e92345f21c53c1bc4d0b5967a1151197cc4e007fc63e47bfffbd52556add",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1 crew order fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "SUPPORT.md",
@@ -87634,15 +87660,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8ad7183ae6a82ec8ebc130d75e65cb926fa2004e801fdd2f50e8574c8f9c6927",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "65845564bb770b43c31f8854f15ceadccee3d965deed8e0eb3a52d2975b3cbac",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1 crew order fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "30c776e0a21a7b005f4c805f557e65dd4760ca19f8292483c632b38b4eaa945e",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "fb945309e307dfd6dde40c7018fa3d4a57abbf8dad5584bfc44f6db7b8ea92c9",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1: added how crew reach a store (clear floor beside its front, as the game pickup needs) and what an order says when a pickup is refused or a step dropped; leads with the player action."
     },
     {
       "path": "docs/development/README.md",
@@ -88312,9 +88338,10 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "24b79966f440175b11017644d09445ae00c0f6f0fd8ae5ff01c129329e1b5cd9",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause.",
-      "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata."
+      "sha256": "701d1ad599dab9160597a689a405224185107c0cb689d8e2d78a294761d6272a",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1: added L89 (crew-order path checks); developer wording states the extra work and that no capture accompanies it.",
+      "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
+      "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -88609,8 +88636,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "faacc38522c65724644b16e92264c2e331b9403a952102b762c4cabc369fc7fb",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "37563c140d65d7036d26ee9d45d1fcf795d166ad993db1df9c58d18cc0893867",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1: regenerated by the item-reference updater; only the version changed."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -88742,8 +88769,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e92872112f21f1264fe1320d8cc9b9b9ac31bd3397f7d253cd175d21185a19bd",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "9ad49de7490fcec554b2f08a6ae654ba9782c6ed2e4f52ac7cf31d8dfa8f0b22",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1 crew order fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -88882,8 +88909,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "385afc5145d8df162a5a8dfd626339545e2448cb7ec14b8d11b0790318874fa0",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "319682455d99e8e41c41362c5d2d8aeac5f2ff7fa3ba176133a1d10d19e317cb",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1 crew order fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -89012,8 +89039,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "366d94bac696bbf92344071f009cdc6a2fa2f7f731e43337aa2909d1ef00850d",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "9a0e05907e575f5081728223896265c32c985c2cb26db37660563449b976273a",
+      "review": "Reviewed 2026-10-06 for Framework 0.126.1 crew order fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

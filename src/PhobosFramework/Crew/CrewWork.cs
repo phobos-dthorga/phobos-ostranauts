@@ -183,9 +183,33 @@ public static class CrewWork
     internal static bool Path(CondOwner actor, CondOwner target)
     {
         if (actor.ship != target.ship || target.HasCond("IsLocked") || target.objContainer?.Locked == true) return false;
+        return Reachable(actor, target, WorkId);
+    }
+    /// <summary>The game's own pickup that fetches a haul's cargo, queued ahead of the delivery.</summary>
+    internal const string PickupId = "PickupItem";
+    /// <summary>Whether a crew member can walk to a haul's cargo at the reach of the game's own pickup: one tile from the
+    /// store's use point, where our own action allows two. Checked at our action's reach, a claim was admitted that the
+    /// pickup then could not make, so the crew member set off for the machine empty-handed (Framework 0.126.1).</summary>
+    internal static bool CanPickUp(CondOwner actor, CondOwner item) =>
+        actor.ship == item.ship && !item.HasCond("IsLocked") && Reachable(actor, item, PickupId);
+    /// <summary>Whether a crew member could walk to do one of the game's actions at a target, at that action's own reach,
+    /// without disturbing where they are walking now. The game's path check leaves the walk target on the checked place
+    /// whenever its same-frame memory already holds the answer (Pathfinder.CheckGoal returns early without putting it
+    /// back). Two waiting orders that share a store checked the same place twice each discovery pass, so the first crew
+    /// member on the roster never counted as arrived at whatever they were doing and stood still (owner report, 6 October
+    /// 2026). The game's own task search clears that memory around each check; this does the same and puts the walk
+    /// target back (Framework 0.126.1).</summary>
+    internal static bool Reachable(CondOwner actor, CondOwner target, string action)
+    {
+        var ia = DataHandler.GetInteraction(action);
+        if (ia == null) return false;
         Diagnostics.Performance.Increment(Diagnostics.Performance.CrewPathChecks);
-        var ia = DataHandler.GetInteraction(WorkId);
-        return ia != null && ia.Triggered(actor, target, bStats: false, bIgnoreItems: false, bCheckPath: true, bFetchItems: false);
+        var walker = actor.Pathfinder;
+        if (walker == null) return ia.Triggered(actor, target, bStats: false, bIgnoreItems: false, bCheckPath: true, bFetchItems: false);
+        var tile = walker.tilDest; float range = walker.fRangeGoal; var destination = walker.coDest;
+        walker.ResetMemory();
+        try { return ia.Triggered(actor, target, bStats: false, bIgnoreItems: false, bCheckPath: true, bFetchItems: false); }
+        finally { walker.tilDest = tile; walker.fRangeGoal = range; walker.coDest = destination; walker.ResetMemory(); }
     }
     // The native task search asks about every Phobos task for every crew member on each AI turn; within one step
     // nothing moves, so a path or preparation answer is reused for that step and forgotten with it. The claim
@@ -346,13 +370,42 @@ public static class CrewWork
         ia.fDuration = ia.fDurationOrig = j.Seconds / 3600; ia.strTitle = j.Offer.Label;
         Active[ia] = j; return true;
     }
-    internal static void QueuePickup(Job j)
+    /// <summary>Queues the game's pickup ahead of a haul's delivery. False when the game refuses it on the spot (no way to
+    /// the cargo, or the crew member cannot walk): it drops the pickup before the delivery is queued, so the delivery
+    /// would otherwise go ahead with empty hands.</summary>
+    internal static bool QueuePickup(Job j)
     {
         var item = j.Offer.Cargo;
-        if (item == null || item.RootParent() == j.Worker || j.Interaction == null) return;
-        var pickup = DataHandler.GetInteraction("PickupItem");
+        if (item == null || item.RootParent() == j.Worker || j.Interaction == null) return true;
+        var pickup = DataHandler.GetInteraction(PickupId);
+        if (pickup == null) return false;
         pickup.bManual=false;
-        pickup.AddDependent(j.Interaction); j.Pickup = pickup; j.Worker!.QueueInteraction(item, pickup);
+        pickup.AddDependent(j.Interaction); j.Pickup = pickup;
+        return j.Worker!.QueueInteraction(item, pickup);
+    }
+    /// <summary>The claim is withdrawn when its pickup was refused: the order says why and backs off (Framework 0.126.1).</summary>
+    internal static void PickupRefused(Job j)
+    {
+        if (j.Upkeep == null)
+        {
+            string reason = Message("pickup_unreachable", j.Worker?.FriendlyName ?? "", j.Offer.Cargo?.strNameFriendly ?? "");
+            Notice(j.Equipment, reason); RecordOutcome(j.Equipment, false, reason);
+        }
+        Release(j, true);
+    }
+    /// <summary>The worker no longer has the claimed step queued, although it was neither finished nor cancelled. The game
+    /// drops a step that way when the crew member cannot reach its target or when the pickup ahead of it is abandoned
+    /// (which takes the delivery with it), then puts its task back on the list still marked as claimed; the order then
+    /// waited on that claim until the game was reloaded (Framework 0.126.1).</summary>
+    private static bool Dropped(Job j) => j.Interaction != null && j.Worker?.aQueue != null && !j.Worker.aQueue.Contains(j.Interaction);
+    private static void StepDropped(Job j)
+    {
+        if (j.Upkeep == null)
+        {
+            string reason = Message("step_dropped", j.Worker?.FriendlyName ?? "", j.Offer.Label);
+            Notice(j.Equipment, reason); RecordOutcome(j.Equipment, false, reason);
+        }
+        Release(j, true);
     }
     internal static bool Complete(Job j, bool skipping = false, int? workHour = null)
     {
@@ -391,6 +444,7 @@ public static class CrewWork
         {
             if (j.Equipment == null || j.Equipment.bDestroyed || !Allowed(j) ||
                 !all.Contains(j.Task) || j.Interaction != null && (j.Interaction.bCancel || j.Worker == null || !Eligible(j.Worker, j.Offer, out _))) Release(j, true);
+            else if (Dropped(j)) StepDropped(j);
             else if(j.Worker==null && j.Upkeep==null)
             {
                 var eligible=crew.Where(c=>Eligible(c,j.Offer,out _)).ToArray();
@@ -444,10 +498,12 @@ internal static class CrewTaskClaim
         if (CrewWork.Jobs.TryGetValue(task, out var j) && CrewWork.Admit(j, co, iact)) return true;
         __result = null; return false;
     }
-    private static void Postfix(Task2 task, Task2? __result)
+    private static void Postfix(Task2 task, ref Task2? __result)
     {
         if (!CrewWork.Jobs.TryGetValue(task, out var j)) return;
-        if (__result == task) CrewWork.QueuePickup(j); else if (j.Worker != null) CrewWork.Release(j, false);
+        if (__result != task) { if (j.Worker != null) CrewWork.Release(j, false); return; }
+        // A refused pickup ends the claim here, so the game never queues the delivery and the crew member stays free.
+        if (!CrewWork.QueuePickup(j)) { CrewWork.PickupRefused(j); __result = null; }
     }
 }
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]

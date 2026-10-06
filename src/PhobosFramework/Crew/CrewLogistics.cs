@@ -89,7 +89,7 @@ public static class CrewLogistics
         if (item == null) return true;
         return Loose(item) && AtOrigin(actor, item, offer) && offer.Destination?.objContainer?.Locked == false &&
             Fits(offer.Destination,item,out _) &&
-            actor.CanTakeItemsSimulated(new List<CondOwner> { item }) && CrewWork.Path(actor, item);
+            actor.CanTakeItemsSimulated(new List<CondOwner> { item }) && CrewWork.CanPickUp(actor, item);
     }
     internal static bool Deliver(CrewWorkContext context, CrewWorkOffer offer, out string reason)
     {
@@ -100,7 +100,7 @@ public static class CrewLogistics
         if (context.Skipping)
         {
             // The skip charges the walk to the item (or its container) and to the destination, then moves the unit.
-            if (!AtOrigin(context.Actor, item, offer) || !CrewWork.Path(context.Actor, offer.Origin ?? item) || !CrewWork.Path(context.Actor, destination)) return false;
+            if (!AtOrigin(context.Actor, item, offer) || !CrewWork.CanPickUp(context.Actor, item) || !CrewWork.Path(context.Actor, destination)) return false;
         }
         else if (item.RootParent() != context.Actor || !CrewWork.LocalAccess(context.Actor, destination, 2)) return false;
         var transfer=new UnitItemTransfer(item,destination);

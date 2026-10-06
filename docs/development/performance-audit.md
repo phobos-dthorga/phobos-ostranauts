@@ -1204,6 +1204,18 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: crew-order path checks leave the crew's walk alone (L89)
+
+L89 — Framework 0.126.1, owner report. Each crew-order path check now clears the crew
+member's same-frame path memory before and after its search and puts back three
+pathfinder fields, as the game's own task search does; the search itself is unchanged and
+still counts as `CrewPathChecks`. A second check of one store within a frame (two waiting
+orders sharing it) now searches again instead of reading the memory whose early return
+caused the fault. A haul's cargo is checked with the game's pickup action instead of the
+order's own: one search either way. The discovery pass adds one scan of each claimed
+step's worker queue (a handful of actions). `Plugin.cs` carries only the version. No
+capture accompanies this change.
+
 ## 6 October: press twice in Auto Nav (L88)
 
 L88 — Auto Nav 0.35.0, owner rule. Each hub refresh now asks whether a flight holds the

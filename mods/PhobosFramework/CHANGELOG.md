@@ -29,6 +29,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.126.1] - 2026-10-06 - Draft
+
+### Fixed
+
+- A crew member could freeze on the spot, doing nothing at all, while two or more waiting orders drew on the same store (owner report, 6 October 2026; seen with Manufacturing loading orders sharing a material bin). Checking whether the crew could reach that store moved the first crew member's walk target in the game's own path search, so whatever they were doing never counted as arrived. Orders now check reach without touching anyone's walk, as the game's own task search does.
+- Crew no longer set off for a machine empty-handed. An order offered a load whose store was close enough for its own step but too far for the game's pickup (one tile from the floor in front of the store), so the game dropped the pickup and the crew member walked over with nothing. Orders now judge reach by the game's own pickup, and if the game still refuses the pickup the claim is withdrawn on the spot: the order says who could not get to what, and tries again after the usual short wait.
+- A claimed order step that the game dropped without finishing it (the crew member could not reach the cargo or the machine, or the pickup ahead of it was abandoned) no longer leaves the order stuck. The game had put the task back on its list still marked as claimed, and the order waited on that claim, naming the crew member, until the game was reloaded. The order now notices, says what happened and tries again.
+
+### Save compatibility
+
+- Automatic. Claims are not saved; an order stuck this way picks up again after a reload, and no longer gets stuck.
+
 ## [0.126.0] - 2026-10-06 - Draft
 
 ### Added

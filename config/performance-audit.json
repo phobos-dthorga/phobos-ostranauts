@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-06",
-  "baselineCommit": "422bd6810af0432c4a96e1685de5b71c55957f4c",
+  "baselineCommit": "1e50c8e9a074ed2e595088050da981f1dd178e7a",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -3836,7 +3836,7 @@
     },
     {
       "path": "src/PhobosFramework/Crew/CrewLogistics.cs",
-      "sha256": "1557cd0b5bdcab9cbf4da55ad49d8b850bd766779861707e5abd67ee78ebfb46",
+      "sha256": "f5d4ab74b17b98afbbfdb6395b718bf6ae3416a49900e47c4abf6cb0032f5749",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -3846,7 +3846,8 @@
         "FF1",
         "FF2",
         "L6",
-        "L76"
+        "L76",
+        "L89"
       ],
       "indicators": {
         "collection": [
@@ -4073,7 +4074,7 @@
     },
     {
       "path": "src/PhobosFramework/Crew/CrewWork.cs",
-      "sha256": "e797b1abbb94d3f5a9bc3771ea781020a17f17e00c18d233f1d69994f7ec1a93",
+      "sha256": "eb355438ac0579debc0c67f3243fafda27f358ab1107b7ff3b54daf987210bd2",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -4088,46 +4089,47 @@
         "L71",
         "L72",
         "L73",
-        "L76"
+        "L76",
+        "L89"
       ],
       "indicators": {
         "collection": [
           65,
           66,
           144,
-          216,
-          222,
           240,
-          294,
-          390,
-          396,
-          402,
-          404,
-          409,
-          413
+          246,
+          264,
+          318,
+          443,
+          450,
+          456,
+          458,
+          463,
+          467
         ],
         "discovery": [
           75,
-          288
+          312
         ],
         "persistence_or_io": [
           76,
           80,
           92,
           112,
-          296,
-          363
+          320,
+          416
         ],
         "profiling": [
-          186,
-          290,
-          434
+          206,
+          314,
+          488
         ],
         "runtime_hook": [
-          285,
-          427,
-          438,
-          453
+          309,
+          481,
+          492,
+          509
         ]
       },
       "reviewed": "2026-10-06"
@@ -6695,7 +6697,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "07e90d51a5a8ed561957131efa3e21fbf59ab40ca23ed9427e0771cbca9ee84d",
+      "sha256": "d605f733c30f780927059f1e673ae8efa15e825c6af086d119280702689e8ae0",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -6773,7 +6775,8 @@
         "L82",
         "L83",
         "L85",
-        "L86"
+        "L86",
+        "L89"
       ],
       "indicators": {
         "collection": [

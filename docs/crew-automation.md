@@ -80,7 +80,12 @@ allow eligible crew; Exterior permission starts off. Change permissions per
 person under Crew & Training, then Apply. Turning off AutoTask or a duty cancels that worker's
 generated work without deleting cargo.
 
-Crew travel to the equipment and carry supplies one item at a time. Selecting
+Crew travel to the equipment and carry supplies one item at a time. To take
+something out of a store they must stand on clear floor right beside its front,
+as the game's own pickup needs; keep that floor and the way to it open, or the
+order says no crew can reach the item. If the game still turns a pickup down or
+drops a step part-way, the order names who could not get to what and tries again
+after the wait described below (Framework 0.126.1). Selecting
 a portrait does not make that person the worker. The job reserves its equipment,
 inputs and output space, then checks them again before finishing. Tasks from
 other mods remain available.

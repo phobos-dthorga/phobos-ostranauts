@@ -310,6 +310,8 @@
   "Crew.fault": "Work stopped after a fault: {0}",
   "Crew.haul": "Move {0} to {1}",
   "Crew.cargo_blocked": "Cargo moved, access changed, or destination has no free space.",
+  "Crew.pickup_unreachable": "{0} could not get to {1} to pick it up. Keep the floor in front of the store clear and the way there open.",
+  "Crew.step_dropped": "{0} dropped this step before finishing it: {1}. Usually the cargo or the machine was out of reach.",
   "Crew.done": "Completed.",
   "Crew.work": "Carry out a standing order",
   "Crew.skilled": "Skilled in {0}",
