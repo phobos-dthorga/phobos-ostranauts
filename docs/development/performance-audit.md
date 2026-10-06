@@ -1204,6 +1204,15 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: press twice in Auto Nav (L88)
+
+L88 — Auto Nav 0.35.0, owner rule. Each hub refresh now asks whether a flight holds the
+console: three field reads and, when none runs, one read of the console's saved flight
+record, the same read the flight page already makes. A flight press builds its warning
+once and, on the second press, stops through the existing Stop path. Flight guidance,
+the per-frame controller and the sensor sweep are unchanged. No capture accompanies
+this change.
+
 ## 6 October: press twice in Manufacturing and Shipbreaker (L87)
 
 L87 — Manufacturing 0.58.0 and Shipbreaker 0.85.0, owner rule. Only command and panel

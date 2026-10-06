@@ -75,15 +75,20 @@ internal sealed partial class NavigationService
     internal bool RequestIndustrial(string permission, CondOwner co, string module, string target,
         double facing, Func<string?> bindingProblem, out string message, IndustrialMove move = IndustrialMove.CaptureApproach, double bearing = 0, double gap = 0)
     {
-        message = Text.Get("Industrial.busy");
+        // The one thing in the way, by name (Auto Nav 0.35.0); until then one text covered every case. Another mod asks
+        // for this, so a flight it would interrupt is the player's to stop at the navigation console.
+        message = industrial != null ? Text.Get("Industrial.positioning") : AutoNavCore.Engaged ? Text.Get("Industrial.flight") :
+            autoAim ? Text.Get("Industrial.aiming") : OtherControllerBusy() ? Text.Get("NavigationService.disengage_other_flight_automation_first") :
+            !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : Text.Get("Industrial.unavailable");
         if (industrial != null || AutoNavCore.Engaged || autoAim || OtherControllerBusy() ||
             string.IsNullOrWhiteSpace(permission) || bindingProblem == null || !ArrivalBrake.Finite(facing) ||
             CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || !Plugin.Enabled.Value) return false;
         message = co.ship.IsDocked() ? Text.Get("NavigationService.undock_before_engagement") : HardwareProblem(co) ?? bindingProblem() ?? "";
         if (message.Length != 0) return false;
         if (co.HasCond("IsDamagedSoftware")) { message = Text.Get("Docking.software"); return false; }
-        if (DisplaySnapshot(co) != null || !CanReplaceFlight(co) || !HasIndustrialModule(co, module))
-        { message = Text.Get("Industrial.busy"); return false; }
+        if (DisplaySnapshot(co) != null) { message = Text.Get("Industrial.flight"); return false; }
+        if (!CanReplaceFlight(co)) { message = Text.Get("Persistence.invalid_state"); return false; }
+        if (!HasIndustrialModule(co, module)) { message = Text.Get("Departure.module"); return false; }
         var contact = SenseTarget(co, target);
         if (!contact.Usable) { message = Text.Get(contact.MessageKey); return false; }
         var candidate = new IndustrialFlight { Permission = permission, Console = co, Carrier = co.ship, Module = module,

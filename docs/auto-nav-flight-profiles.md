@@ -66,8 +66,9 @@ only consoles without stored preferences. Separate ships, consoles and saves do
 not share these saved records. Propulsion preference and the other general
 configuration settings retain their existing behaviour.
 
-Active and suspended flights retain their captured profile; stop before changing
-numeric settings. `phobosnav fly 0.5` requests 500 m for that flight only, without
+Active and suspended flights retain their captured profile. Since Auto Nav 0.35.0 a
+numeric setting changed while one runs or waits is saved for the next flight, and the
+panel and F3 say so. `phobosnav fly 0.5` requests 500 m for that flight only, without
 changing the saved distance default. Resume uses the saved destination and profile.
 Missing old preference records require no migration. Unknown or invalid records
 are retained and block new settings/flights until explicitly reset with

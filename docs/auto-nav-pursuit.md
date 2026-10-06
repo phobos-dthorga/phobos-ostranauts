@@ -31,7 +31,9 @@ No extracted native artwork is distributed. UI interaction awaits owner evaluati
 2. **Rendezvous** approaches that separation, matches motion and finishes.
    **Follow** on the Pursuit page continues maintaining a band while the target moves.
    These modes always request zero arrival speed, independently of ordinary Fly's
-   saved arrival-speed preference. Stop the current flight before selecting another.
+   saved arrival-speed preference. Selecting another mode while a flight runs or waits
+   asks first: the second press stops that flight, as Stop does, and starts the new
+   one (Auto Nav 0.35.0). The ship coasts with thrust cut in between.
 3. Optional fire control now requires the separate [N3 Fire Control System](auto-nav-fire-control.md).
    Its Fire page owns target/group selection, limited volleys, Auto Aim and guarded
    Engage. Cease Fire retains Follow and offensive hold; Return to ship controls releases

@@ -136,7 +136,7 @@ public sealed partial class AutoNavPanel : NavModBase
         var strip = Box(layer, "actions");
         // Opaque fixed footer protects controls from scrolled native text meshes.
         strip.gameObject.AddComponent<Image>().color = PolarisWidgets.Surface;
-        AddButton(Cell(strip, 0, 3), "resume", Text.Get("Hub.resume"), () => Plugin.Service.ResumeSaved(COSelf));
+        AddButton(Cell(strip, 0, 3), "resume", Text.Get("Hub.resume"), () => Guarded("resume", () => Plugin.Service.ResumeSaved(COSelf)));
         AddButton(Cell(strip, 1, 3), "stop", Text.Get("Hub.disengage"), () => Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")));
         AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => { CloseOverlay(); Plugin.Service.CeaseFire(); });
         draftActions=Box(layer,"coast");
@@ -147,8 +147,8 @@ public sealed partial class AutoNavPanel : NavModBase
         BuildNavigation(pages["navigation"]); BuildPursuit(pages["pursuit"]); BuildFire(pages["fire"]); BuildSystems(pages["systems"]);
         var dep = ScrollBody(pages["departure"], "Departure", out var depScroll);
         foreach (string action in new[] { "depart-mode", "depart", "depart-continue", "depart-resume", "depart-stop" })
-          { string command = action; var button=PolarisWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(!preferencesDirty||command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command); }), FlowButtonHeight);
-            buttons[command]=button;
+          { string command = action; var button=PolarisWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command);else Guarded(command,()=>Plugin.Service.DepartureAction(COSelf, command)); }), FlowButtonHeight);
+            buttons[command]=button; buttonLabels[command]=button.GetComponentInChildren<TMP_Text>(); guardedCaptions[command]=Text.Get("Departure." + action);
           Style(button.GetComponentInChildren<TMP_Text>(),CommandTextSize); }
         labels["departure"] = PanelWidgets.Label(dep, "", flowing: true);
         Style(labels["departure"],CommandTextSize); labels["departure"].textWrappingMode=TextWrappingModes.Normal;
@@ -200,9 +200,9 @@ public sealed partial class AutoNavPanel : NavModBase
     private void BuildNavigation(RectTransform parent)
     {
         var actions = Box(parent, "nav.actions");
-        AddButton(Cell(actions, 0, 3), "approach", Text.Get("Hub.approach"), () => Plugin.Service.Engage(COSelf));
-        AddButton(Cell(actions, 1, 3), "dock", Text.Get("Hub.dock"), () => Plugin.Service.Dock(COSelf));
-        AddButton(Cell(actions, 2, 3), "approachdock", Text.Get("Hub.approachdock"), () => Plugin.Service.ApproachDock(COSelf));
+        AddButton(Cell(actions, 0, 3), "approach", Text.Get("Hub.approach"), () => Guarded("approach", () => Plugin.Service.Engage(COSelf)));
+        AddButton(Cell(actions, 1, 3), "dock", Text.Get("Hub.dock"), () => Guarded("dock", () => Plugin.Service.Dock(COSelf)));
+        AddButton(Cell(actions, 2, 3), "approachdock", Text.Get("Hub.approachdock"), () => Guarded("approachdock", () => Plugin.Service.ApproachDock(COSelf)));
         labels["metrics"] = Readout(Box(parent, "nav.metrics"), 26);
         preferences = PanelWidgets.Rect(parent, "Preferences"); PanelWidgets.Fill(preferences);
         var prop = Box(preferences, "nav.propulsion");
@@ -226,9 +226,9 @@ public sealed partial class AutoNavPanel : NavModBase
     private void BuildPursuit(RectTransform parent)
     {
         var actions = Box(parent, "pursuit.actions");
-        AddButton(Cell(actions, 0, 2), "rendezvous", Text.Get("Hub.rendezvous"), () => Plugin.Service.StartPursuit(COSelf, false));
-        AddButton(Cell(actions, 1, 2), "follow", Text.Get("Hub.follow"), () => Plugin.Service.StartPursuit(COSelf, true));
-        AddButton(Box(parent, "pursuit.combat"), "combat", Text.Get("Combat.enter"), () => Plugin.Service.ToggleCombat(COSelf));
+        AddButton(Cell(actions, 0, 2), "rendezvous", Text.Get("Hub.rendezvous"), () => Guarded("rendezvous", () => Plugin.Service.StartPursuit(COSelf, false)));
+        AddButton(Cell(actions, 1, 2), "follow", Text.Get("Hub.follow"), () => Guarded("follow", () => Plugin.Service.StartPursuit(COSelf, true)));
+        AddButton(Box(parent, "pursuit.combat"), "combat", Text.Get("Combat.enter"), () => Guarded("combat", () => Plugin.Service.ToggleCombat(COSelf)));
         Setting(parent, "pursuit.cruise", "pursuitCruise", () => DraftSpeed(false,-1), () => DraftSpeed(false,1));
         Setting(parent, "pursuit.separation", "pursuitSeparation", () => DraftArrival(-1), () => DraftArrival(1));
         var help = ScrollBody(Box(parent, "pursuit.help"), "Track instructions", out _);
@@ -350,7 +350,11 @@ public sealed partial class AutoNavPanel : NavModBase
         fullWarning = view.Restriction;
         Caption("restriction", fullWarning);
         Enable("warningDetails", !string.IsNullOrWhiteSpace(fullWarning));
-        Enable("resume", !preferencesDirty && nav.Resumable && view.WorkingNavigation);
+        // Auto Nav 0.35.0: unsaved settings and a flight that holds the console no longer disable these; the first press
+        // says what will be done (apply the settings, stop the flight) and the second does it.
+        bool replace = view.FlightHolds && !nav.Warning;
+        foreach (var guarded in guardedCaptions) if (buttonLabels.ContainsKey(guarded.Key) && guarded.Key != "combat") ButtonCaption(guarded.Key, guard.Label(guarded.Key, guarded.Value));
+        Enable("resume", nav.Resumable && view.WorkingNavigation);
         Enable("stop", nav.CanStop || view.AutoAiming || view.FirePermitted);
         Enable("cease", view.Active || view.FirePermitted || view.AutoAiming || view.FireHeld);
         // Keep this edge even while Fire is hidden, so its safety cover closes on cessation.
@@ -368,9 +372,9 @@ public sealed partial class AutoNavPanel : NavModBase
             Caption("clearance", view.Clearance); Caption("ports", Text.Get("Hub.ports", view.OwnPort, view.TargetPort));
             Caption("alignment", Text.Get("Hub.alignment", Number(view.AlignmentDegrees, "+0.00;-0.00;0.00")));
             Caption("progress", Text.Get("Hub.progress." + view.DockProgress));
-            Enable("approach", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingNavigation);
-            Enable("dock", !preferencesDirty && nav.CanDock && view.WorkingNavigation);
-            Enable("approachdock", !preferencesDirty && view.CanApproachDock);
+            Enable("approach", (nav.CanFly && !nav.Resumable || replace) && view.WorkingNavigation);
+            Enable("dock", (nav.CanDock || replace) && view.WorkingNavigation);
+            Enable("approachdock", view.CanApproachDock || replace && view.WorkingNavigation);
             Enable("propulsion", nav.CanAdjustPropulsion && view.WorkingNavigation);
             if (propulsionKnob != null)
             {
@@ -383,14 +387,14 @@ public sealed partial class AutoNavPanel : NavModBase
             foreach (var button in settings) Presentation.Enabled(button, nav.CanAdjustArrival && view.WorkingNavigation);
         if (page == "pursuit")
         {
-            ButtonCaption("combat", Text.Get(view.Combat ? "Combat.leave" : "Combat.enter"));
-            Enable("combat", view.Combat || !preferencesDirty && view.CanCombat);
+            ButtonCaption("combat", guard.Label("combat", Text.Get(view.Combat ? "Combat.leave" : "Combat.enter")));
+            Enable("combat", view.Combat || view.CanCombat);
             Caption("pursuitHelp", (view.Active ? view.Movement + "\n" + nav.Range + "\n" + Text.Get("Combat.separation", nav.ArrivalKM,
                 view.EffectiveSeparationKM ?? nav.ArrivalKM) + "\n\n" : "") + Text.Get("FCS.pursuit_help"));
             Caption("pursuitCruise", Text.Get("Hub.cruise_value", nav.CruiseMS));
             Caption("pursuitSeparation", Text.Get("Hub.separation_value", nav.ArrivalKM));
-            Enable("rendezvous", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit);
-            Enable("follow", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit);
+            Enable("rendezvous", (nav.CanFly && !nav.Resumable || replace) && view.WorkingPursuit);
+            Enable("follow", (nav.CanFly && !nav.Resumable || replace) && view.WorkingPursuit);
         }
         if (page == "fire")
         {
@@ -415,8 +419,7 @@ public sealed partial class AutoNavPanel : NavModBase
         }
         if (page == "departure")
         {
-            Caption("departure", preferencesDirty ? Plugin.Service.PanelDepartureLabel(departureDraft) + "\n" + ConsoleWidgets.Text("apply_first") : Plugin.Service.DepartureDescription(COSelf));
-            Enable("depart", !preferencesDirty); Enable("depart-continue", !preferencesDirty); Enable("depart-resume", !preferencesDirty);
+            Caption("departure", preferencesDirty ? Plugin.Service.PanelDepartureLabel(departureDraft) + "\n" + Text.Get("Hub.apply_first") : Plugin.Service.DepartureDescription(COSelf));
         }
         if (page == "details")
         {
@@ -424,6 +427,25 @@ public sealed partial class AutoNavPanel : NavModBase
             Caption("details", view.CompletionCue + "\n\n" + nav.Details + "\n\n" + NativeSensorSuite.Describe(COSelf?.ship, view.TargetId) +
                 "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf));
         }
+    }
+    /// <summary>Press twice to go ahead (Auto Nav 0.35.0): the button whose second press is awaited.</summary>
+    private readonly PressGuard guard = new();
+    private readonly Dictionary<string, string> guardedCaptions = new(StringComparer.Ordinal);
+    /// <summary>Runs a flight command through the second-press rule. Unsaved settings are applied first, after a warning;
+    /// a flight the command must stop is the service's own offer. Either arms the button.</summary>
+    private void Guarded(string id, Action action)
+    {
+        guard.Press(id, () =>
+        {
+            if (preferencesDirty)
+            {
+                if (!Confirmations.Ask(Text.Get("Hub.apply_first"), false, out var warning)) { Plugin.Service.Report(warning); return false; }
+                if (!ApplyPreferenceDraft()) return false;
+            }
+            action();
+            // The services report through their status; an offer they made arms the button.
+            return false;
+        });
     }
     private void Caption(string id, string value) => Presentation.Text(labels[id], value);
     private void ButtonCaption(string id, string value) => Presentation.Text(buttonLabels[id], value);

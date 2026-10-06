@@ -25,13 +25,16 @@ internal sealed partial class NavigationService
         CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && !co!.HasCond("IsDamaged") &&
         (presentation?.Navigation ?? co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged")));
 
+    /// <summary>Since Auto Nav 0.35.0 a setting is saved for the next flight even while one runs or waits; the running
+    /// or suspended flight keeps the profile it started with, as it always has. Until then this refused.</summary>
     private bool CanChangePreferences(CondOwner? co)
     {
         if (!SettingsHardwareReady(co)) { status = Text.Get("Preferences.console_required"); return false; }
-        if (AutoNavCore.Engaged || DisplaySnapshot(co) != null)
-        { status = Text.Get("Preferences.captured"); return false; }
-        return CanReplaceFlight(co!);
+        if (!CanReplaceFlight(co!)) { status = Text.Get("Persistence.invalid_state"); return false; }
+        return true;
     }
+    /// <summary>The note added when a setting is saved while a flight keeps its own.</summary>
+    private string NextFlightNote(CondOwner? co) => AutoNavCore.Engaged || DisplaySnapshot(co) != null ? " " + Text.Get("Preferences.next_flight") : "";
 
     internal bool SetFlightSetting(CondOwner? co, FlightSetting setting, double value)
     {
@@ -48,17 +51,8 @@ internal sealed partial class NavigationService
             FlightPreferences.MaximumCruiseMS, Math.Min(FlightPreferences.MaximumArrivalMS, before.CruiseMS),
             ApproachRules.MinimumArrivalKM, ApproachRules.MaximumArrivalKM); return false; }
         if (!PreferenceStore(co!).TryWrite(after.Encode())) { status = Text.Get("Preferences.invalid"); return false; }
-        status = Text.Get("Preferences.saved", after.CruiseMS, after.ArrivalMS, after.ArrivalKM);
+        status = Text.Get("Preferences.saved", after.CruiseMS, after.ArrivalMS, after.ArrivalKM) + NextFlightNote(co);
         return true;
-    }
-
-    internal void StepPanelSpeed(CondOwner? co, bool arrival, int direction)
-    {
-        if (!CanChangePreferences(co)) return;
-        if (!ReadPreferences(co!, out var preferences)) { status = Text.Get("Preferences.invalid"); return; }
-        double value = InstrumentRules.StepSpeed(arrival ? preferences.ArrivalMS : preferences.CruiseMS,
-            direction, arrival, preferences.CruiseMS);
-        SetFlightSetting(co, arrival ? FlightSetting.ArrivalSpeed : FlightSetting.Cruise, value);
     }
     internal FlightPreferences PanelPreferences(CondOwner co)=>ReadPreferences(co,out var value)?value:default;
     internal string PanelPreferenceStamp(CondOwner co)=>string.Join("|",PanelPreferences(co).Encode().OrderBy(p=>p.Key).Select(p=>p.Key+":"+p.Value))+"|"+Plugin.PreferTorch.Value;
@@ -71,7 +65,7 @@ internal sealed partial class NavigationService
         if(!PreferenceStore(co).TryWrite(value.Encode())){status=Text.Get("Preferences.invalid");return false;}
         SetTorchPreference(torch);
         CrewSettingsChanged(co);
-        status=Phobos.Ostranauts.Framework.Controls.ConsoleText.Get("applied");return true;
+        status=Phobos.Ostranauts.Framework.Controls.ConsoleText.Get("applied")+NextFlightNote(co);return true;
     }
     partial void CrewSettingsChanged(CondOwner co);
 

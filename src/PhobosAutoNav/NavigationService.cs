@@ -108,7 +108,6 @@ internal sealed partial class NavigationService
 
     internal void Engage(CondOwner? co, float? arrivalKM = null, SavedFlightMode mode = SavedFlightMode.Active)
     {
-        if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
         try
         {
             if (!Plugin.Enabled.Value) { status = Text.Get("NavigationService.mod_disabled_in_settings"); return; }
@@ -119,8 +118,11 @@ internal sealed partial class NavigationService
             string? problem = HardwareProblem(co);
             if (problem == null && mode != SavedFlightMode.Active && !HasPursuit(co)) problem = Text.Get("Pursuit.module_required");
             if (problem != null) { status = problem; return; }
-            if (!CanReplaceFlight(co!)) return;
-            if (DisplaySnapshot(co) != null) { status = Text.Get("Preferences.captured"); return; }
+            // Auto Nav 0.35.0: a flight holding this console is stopped on the second press, after the new target is
+            // known to be a real choice; until then this refused with "already engaged" or "captured".
+            if (!TargetChosen(co!)) { status = Text.Get("NavigationService.select_another_ship_or_station_planetary_travel"); return; }
+            if (!ClearFlightFor(co)) return;
+            if (!CanReplaceFlight(co!)) { status = Text.Get("Persistence.invalid_state"); return; }
             console = co;
             savedFlight = null;
             if (Throttle <= 0) { status = Text.Get("NavigationService.set_the_nav_console_throttle_above_zero"); return; }
@@ -237,6 +239,13 @@ internal sealed partial class NavigationService
         }
     }
 
+    /// <summary>Whether the navigation crosshair holds another ship, station or asteroid to fly to.</summary>
+    private static bool TargetChosen(CondOwner co)
+    {
+        var contact = GUIOrbitDraw.CrossHairTarget;
+        bool asteroid = contact?.Ship == null && contact?.stellarObj != null;
+        return asteroid || contact?.Ship != null && contact.Ship != co.ship && !contact.Ship.bDestroyed && !contact.Ship.HideFromSystem && !contact.Ship.IsStationHidden();
+    }
     internal void Disengage(string reason, bool keepWeapons = false)
     {
         StopExtended(reason);
@@ -271,6 +280,12 @@ internal sealed partial class NavigationService
     }
 
     internal bool Command(string[] words, out string response)
+    {
+        // A trailing confirm word goes ahead with the steps a refusal offered (Auto Nav 0.35.0).
+        words = Phobos.Ostranauts.Framework.Controls.Confirmations.TakeWord(words, out bool confirmed);
+        using (Overrides.Scope(confirmed)) return CommandChecked(words, out response);
+    }
+    private bool CommandChecked(string[] words, out string response)
     {
         try
         {

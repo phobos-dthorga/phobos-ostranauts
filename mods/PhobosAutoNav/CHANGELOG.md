@@ -28,6 +28,29 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.35.0] - 2026-10-06 - Draft
+
+### Changed
+
+- No more stopping first (Framework 0.125.0, owner rule). Approach, Dock, Approach & Dock, Rendezvous, Follow and Undock & Depart no longer refuse because another flight, a suspended flight, a departure or a positioning job holds the console. The first press says that it will be stopped, as Stop does, so thrust is cut and the ship coasts; the second press stops it and starts the new one. The new target is checked first, so a press never stops a flight for nothing. This is an agent choice, following the owner's preference for warnings over refusals.
+- An unfinished saved departure is cancelled on the same second press when you depart again. A departure still detaching keeps its refusal: resume it to finish.
+- Unsaved hub settings no longer grey out the flight buttons. The first press says they will be applied, and the second applies them and acts.
+- Choosing another weapon group while this console holds the current one returns it to ship controls on the second press.
+- A cruise, arrival or default setting changed while a flight runs or waits is saved for the next flight instead of being refused; the running or waiting flight keeps the profile it started with, and the message says so.
+- Refusals now name the one thing in the way instead of a list: for departure (the attachment, the module, a ground station, the console, an atmosphere, the throttle, another controller), for combat (already on, the flight, the pilot, the weapons console) and for industrial positioning requested by Phobos Shipbreaker (another job, a flight, aiming).
+- F3: end a command with confirm to go ahead when it offers to stop a flight first.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved. A stopped flight is recorded as Stopped, exactly as the Stop button records it.
+
+### Compatibility and limits
+
+- Requires Framework 0.125.0.
+- Another console's flight, another mod's flight control, and towing or docking connections are still refused with their reason.
+- Removed two texts no code used and one uncalled panel method.
+- Checked offline with the flight, docking, coupled, sensor, torch and fire checks; not yet tested in play.
+
 ## [0.34.2] - 2026-10-06 - Draft
 
 ### Changed

@@ -185,16 +185,41 @@ entry whose key no longer exists fails the check.
 - **Still refused:** the shared pairing refusal for furnace and laser cooling, where
   the other end serves other equipment and unpairing it is limited by temperature.
 
-## Round still to come
+## Delivered in Auto Nav 0.35.0
 
-`python scripts/audit-panel-overrides.py --pending` lists it. Auto Nav needs:
+- **Flights and docking.** Approach, Dock, Approach & Dock, Rendezvous, Follow and
+  departure no longer refuse because a flight, a suspended flight, a departure or a
+  positioning job holds the console.
+  - The new target is checked first.
+  - The second press stops whatever holds the console through `Stop`, exactly as the
+    Stop button does, so thrust is cut and the ship coasts. The new flight then starts.
+  - This is the agent choice listed above. `ClearFlightFor` in
+    `NavigationPersistence.cs` is the one place it happens.
+- **Departure.** An unfinished saved departure is cancelled on the same second press.
+  One still detaching, or an unreadable record, still refuses.
+- **Hub drafts.** Unsaved settings no longer disable the flight buttons. The first
+  press says they will be applied (`Hub.apply_first`), and the second applies them
+  and acts.
+- **Weapons.** A weapon group this console holds is returned to ship controls on the
+  second press of another group.
+- **Settings during a flight.** A setting changed while a flight runs or waits is
+  saved for the next flight instead of refused, and the message says so. The running
+  or waiting flight keeps its captured profile. This is an agent choice: it removes
+  the refusal without stopping anything. Two Auto Nav checks that asserted the old
+  refusal now assert the new rule.
+- **Refusals that name one cause.** Departure, combat and industrial positioning now
+  name the one blocking condition. Industrial positioning is requested by Shipbreaker,
+  so a flight it would interrupt stays the player's to stop at the navigation console.
+- **F3.** `NavigationService.Command` takes a trailing `confirm`. A check confirms
+  that `fly confirm` stops a suspended flight.
+- **Removed:** ten refusal keys, the unused `Instruments.arrival_locked` and
+  `NavigationService.stop_approach_assist_s_test_pulse_first`, and the uncalled
+  `StepPanelSpeed`. `SetPanelTorch` and `StepPanelArrival` stay: the instrument
+  checks call them.
+- **Tests.** The Sensors, Docking and Coupled check projects now reference
+  Newtonsoft.Json and link `Overrides.cs`, as Framework's text catalog needs.
 
-- docking, departure and return-fire (A);
-- unsaved-draft gating, since its buttons are disabled today rather than refused;
-- the active-flight agent choice above;
-- splitting `Industrial.busy`, `Departure.hardware`, `Combat.unavailable` and
-  `Preferences.captured`;
-- removing two unused keys and three uncalled methods.
+With this round no do-first refusal is pending.
 
 ## Verification and limits
 

@@ -216,7 +216,8 @@ internal sealed partial class NavigationService
 
     internal void ResumeSaved(CondOwner? co)
     {
-        if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
+        // Since Auto Nav 0.35.0 each case says which: this console's flight is already running, or another console's is.
+        if (AutoNavCore.Engaged) { status = Text.Get(console == co ? "Persistence.already_flying" : "Persistence.other_console"); return; }
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || co == null || co.bDestroyed || co.ship != CrewSim.coPlayer?.ship)
         { status = Text.Get("Persistence.open_console"); return; }
         try
@@ -295,6 +296,32 @@ internal sealed partial class NavigationService
     }
 
     internal bool HasResumableFlight(CondOwner co) => !AutoNavCore.Engaged && DisplaySnapshot(co) != null;
+    /// <summary>A check the hub makes itself, shown where the service's own messages are (Auto Nav 0.35.0).</summary>
+    internal void Report(string text) => status = text;
+    /// <summary>Whether a flight, departure or positioning job holds this console, or it keeps a suspended flight.</summary>
+    internal bool FlightHolds(CondOwner? co) => AutoNavCore.Engaged || industrial != null || Departing() || co != null && DisplaySnapshot(co) != null;
+    /// <summary>Whether a departure manoeuvre runs. The departure file answers through this hook, so builds and checks
+    /// that leave departure out still compile.</summary>
+    partial void DepartureRunning(ref bool running);
+    private bool Departing() { bool running = false; DepartureRunning(ref running); return running; }
+    /// <summary>Press twice to go ahead (Auto Nav 0.35.0; owner rule): whatever holds this console is stopped on the second
+    /// press, exactly as Stop does, so the ship coasts with thrust cut. <paramref name="extra"/> is another step the caller
+    /// takes after this returns true, already worded. False, with the warning or reason in the status, otherwise.</summary>
+    private bool ClearFlightFor(CondOwner? co, string? extra = null)
+    {
+        bool active = AutoNavCore.Engaged || industrial != null || Departing();
+        bool suspended = !active && co != null && DisplaySnapshot(co) != null;
+        if (!active && !suspended && extra == null) return true;
+        if (AutoNavCore.Engaged && console != null && co != null && console != co && console.ship != co.ship)
+        { status = Text.Get("Instruments.other_console"); return false; }
+        string warning = string.Join(" ", new[] { active ? Text.Get("Overrides.stop_flight") : suspended ? Text.Get("Overrides.stop_suspended") : null, extra }.Where(s => s != null));
+        if (!Phobos.Ostranauts.Framework.Controls.Confirmations.Ask(warning, Overrides.Confirmed, out var message)) { status = message; return false; }
+        if (!active && !suspended) return true;
+        Stop(co, Text.Get("Overrides.stopped_for_change"));
+        if (AutoNavCore.Engaged || industrial != null || Departing() || co != null && DisplaySnapshot(co) != null)
+        { status = Text.Get("Persistence.write_failed"); return false; }
+        return true;
+    }
     internal void FlyOrResume(CondOwner co) { if (HasResumableFlight(co)) ResumeSaved(co); else Engage(co); }
     internal void Stop(CondOwner? co, string reason)
     {
@@ -320,7 +347,7 @@ internal sealed partial class NavigationService
     {
         if (co == null || co.bDestroyed || co.ship != CrewSim.coPlayer?.ship || !co.HasCond("IsInstalled"))
         { status = Text.Get("Persistence.open_console"); return; }
-        if (AutoNavCore.Engaged && co != console) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
+        if (AutoNavCore.Engaged && co != console) { status = Text.Get("Persistence.other_console"); return; }
         if (AutoNavCore.Engaged) Disengage(Text.Get("NavigationService.stopped_by_pilot_coasting"));
         Store(co).Clear(); console = co; savedFlight = null; status = Text.Get("Persistence.forgotten");
     }

@@ -9,7 +9,6 @@ internal sealed partial class NavigationService
 
     internal void ApproachDock(CondOwner? co, string? boundTarget = null)
     {
-        if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
         try
         {
             if (!Plugin.Enabled.Value || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
@@ -17,10 +16,12 @@ internal sealed partial class NavigationService
             string? problem = HardwareProblem(co);
             if (problem != null) { status = problem; return; }
             if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
-            if (!CanReplaceFlight(co!) || DisplaySnapshot(co) != null) { status = Text.Get("Docking.stop_first"); return; }
+            if (!CanReplaceFlight(co!)) { status = Text.Get("Persistence.invalid_state"); return; }
             var selected = boundTarget == null ? GUIOrbitDraw.CrossHairTarget?.Ship : CrewSim.system.GetShipByRegID(boundTarget);
             var target = selected == null ? null : TargetRef.FromShipId(selected.strRegID);
             if (target == null || selected == co!.ship) { status = Text.Get("Docking.select"); return; }
+            // A flight holding this console is stopped on the second press (Auto Nav 0.35.0).
+            if (!ClearFlightFor(co)) return;
             var sensing = SenseTarget(co, target.ShipId);
             if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             problem = DockingAdapter.SelectPorts(co!.ship, selected!, out string ownPort, out string targetPort);

@@ -26,6 +26,9 @@ internal sealed class HubSnapshot
     internal int Volleys = 1, Remaining;
     internal string WeaponCard = "", WeaponLabel = "", Ownership = "";
     internal bool WorkingNavigation, WorkingPursuit, Active, CanApproachDock, CanEngage, CanSelectWeapons, FirePermitted;
+    /// <summary>A flight, departure or positioning job holds this console, or it keeps a suspended flight (Auto Nav 0.35.0):
+    /// a new flight's first press offers to stop it.</summary>
+    internal bool FlightHolds;
     internal string Restriction = "", OffensiveTarget = "", OwnPort = "", TargetPort = "", Clearance = "", FireReason = "";
     internal int WeaponGroup;
     internal WeaponGroupReading[] Groups = Array.Empty<WeaponGroupReading>();
@@ -62,6 +65,7 @@ internal sealed partial class NavigationService
         view.Restriction = view.Navigation.Warning || view.Navigation.Resumable ||
             page != "fire" && Fire.State == FireState.Fault && status == Text.Get(Fire.Reason) ? view.Navigation.Notice : status;
         if (read == null) return view;
+        view.FlightHolds = FlightHolds(co);
         bool powered = !co!.HasCond("IsOff") && co.HasCond("IsPowered") && !co.HasCond("IsDamaged");
         view.WorkingNavigation = powered && read.Navigation;
         view.WorkingPursuit = powered && read.Pursuit;

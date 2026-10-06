@@ -4,7 +4,7 @@
     <Compile Include="../../src/PhobosAutoNav/NavigationPresentation.cs" Link="NavigationPresentation.cs" /><Compile Include="../../src/PhobosAutoNav/Core/*.cs" Link="%(Filename)%(Extension)" /></ItemGroup>
   <ItemGroup><ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" /></ItemGroup>
   <ItemGroup><Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" /></ItemGroup>
-  <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" /><Compile Include="../../src/PhobosAutoNav/PerformanceMetrics.cs" Link="PerformanceMetrics.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/PhobosAutoNav/Overrides.cs" Link="Overrides.cs" /><Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" /><Compile Include="../../src/PhobosAutoNav/PerformanceMetrics.cs" Link="PerformanceMetrics.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" /></ItemGroup>
   <ItemGroup>
     <Compile Include="../../src/PhobosAutoNav/NavigationSensors.cs" Link="NavigationSensors.cs" />

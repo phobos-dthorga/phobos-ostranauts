@@ -51,11 +51,17 @@ internal sealed partial class NavigationService
             }
             if(action=="depart-resume") { ResumeDeparture(co!); return; }
             if(action!="depart" && action!="depart-continue") return;
-            if(AutoNavCore.Engaged || industrial!=null || departure!=null || OtherControllerBusyExceptIndustrial() || DisplaySnapshot(co)!=null)
-            { status=Text.Get("Industrial.busy"); return; }
+            if(OtherControllerBusyExceptIndustrial()) { status=Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
+            // Auto Nav 0.35.0: a flight holding this console is stopped, and an unfinished saved departure cancelled, on the
+            // second press; until then both refused. A departure still detaching, or an unreadable record, still refuses.
             var existing=DepartureStore(co!).Read(out var old);
-            if(existing!=SavedStateStatus.Missing && (existing!=SavedStateStatus.Ready || !old.TryGetValue("phase",out var phase) || phase!="Complete" && phase!="Cancelled"))
-            { status=Text.Get("Departure.resume"); return; }
+            if(existing!=SavedStateStatus.Missing && existing!=SavedStateStatus.Ready) { status=Text.Get("Persistence.invalid_state"); return; }
+            string? phase=existing==SavedStateStatus.Ready && old.TryGetValue("phase",out var p) ? p : null;
+            bool unfinished=existing==SavedStateStatus.Ready && phase!="Complete" && phase!="Cancelled";
+            if(unfinished && (phase=="DetachPending" || !DepartureRules.Valid(old))) { status=Text.Get("Departure.detach_pending"); return; }
+            if(!ClearFlightFor(co,unfinished?Text.Get("Overrides.cancel_departure"):null)) return;
+            if(unfinished && DepartureStore(co!).Read(out var stale)==SavedStateStatus.Ready && DepartureRules.Valid(stale) && stale["phase"]!="Complete" && stale["phase"]!="Cancelled")
+            { var cancelled=new Departure { Console=co!,Fields=stale.ToDictionary(f=>f.Key,f=>f.Value) };cancelled["phase"]="Cancelled";SaveDeparture(cancelled); }
             var attachments=co!.ship.GetDockedShipsAndPortIDs();
             if(attachments.Count!=1) { status=Text.Get("Departure.attachment"); return; }
             var link=attachments.Single(); var peer=link.Value;
@@ -93,11 +99,17 @@ internal sealed partial class NavigationService
     private static string? DepartureProblem(Departure d,bool attached)
     {
         var co=d.Console; var own=co.ship; var peer=CrewSim.system?.GetShipByRegID(d["peer"]);
-        if(CrewSim.system==null||CrewSim.coPlayer==null||own==null||peer==null) return Text.Get("Departure.hardware");
-        if(!Plugin.Enabled.Value || co.strID!=d["console"] || CrewSim.coPlayer?.strID!=d["owner"] || own.strRegID!=d["ship"] ||
-            !IsLocalConsole(co) || !HasIndustrialModule(co,d["module"]) || peer==null || peer.bDestroyed || peer.IsGroundStation() ||
-            co.HasCond("IsDamaged") || co.HasCond("IsDamagedSoftware") || !co.HasCond("IsPowered") || co.HasCond("IsOff") ||
-            CrewSim.system!.IsInAtmo(own) || ReadThrottle(co)<=0 || OtherControllerBusyExceptIndustrial()) return Text.Get("Departure.hardware");
+        // The one thing in the way, by name (Auto Nav 0.35.0); until then one text listed every condition.
+        if(CrewSim.system==null||CrewSim.coPlayer==null||own==null||peer==null||peer.bDestroyed) return Text.Get("Departure.peer_missing");
+        if(!Plugin.Enabled.Value) return Text.Get("NavigationService.mod_disabled");
+        if(co.strID!=d["console"] || CrewSim.coPlayer?.strID!=d["owner"] || own.strRegID!=d["ship"]) return Text.Get("Persistence.binding_changed");
+        if(!IsLocalConsole(co)) return Text.Get("Persistence.open_console");
+        if(!HasIndustrialModule(co,d["module"])) return Text.Get("Departure.module");
+        if(peer.IsGroundStation()) return Text.Get("Departure.ground");
+        if(co.HasCond("IsDamaged") || co.HasCond("IsDamagedSoftware") || !co.HasCond("IsPowered") || co.HasCond("IsOff")) return Text.Get("Departure.console");
+        if(CrewSim.system!.IsInAtmo(own)) return Text.Get("Departure.atmosphere");
+        if(ReadThrottle(co)<=0) return Text.Get("NavigationService.set_the_nav_console_throttle_above_zero");
+        if(OtherControllerBusyExceptIndustrial()) return Text.Get("NavigationService.disengage_other_flight_automation_first");
         if(own.RCSCount<=0||own.GetRCSRemain()<=0||own.objSS==null||!ArrivalBrake.Finite(own.RCSAccelMax)||own.RCSAccelMax<=0) return Text.Get("Departure.reserve");
         var nativeProblem=NativeControlProblem(co);if(nativeProblem!=null)return nativeProblem;
         if(!CrewAboard(own)) return Text.Get("Departure.crew");
@@ -186,7 +198,8 @@ internal sealed partial class NavigationService
     }
     private void ResumeDeparture(CondOwner co)
     {
-        if(departure!=null || industrial!=null || AutoNavCore.Engaged) { status=Text.Get("Industrial.busy"); return; }
+        // A flight or positioning job holding this console is stopped on the second press (Auto Nav 0.35.0).
+        if(!ClearFlightFor(co)) return;
         if(DepartureStore(co).Read(out var fields)!=SavedStateStatus.Ready || !DepartureRules.Valid(fields))
         { status=Text.Get("Persistence.invalid_state");return; }
         var d=new Departure { Console=co,Fields=fields.ToDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal) };
@@ -240,6 +253,7 @@ internal sealed partial class NavigationService
         }
         if(AutoNavCore.Engaged) { d["phase"]="Complete"; if(!SaveDeparture(d)) Disengage(Text.Get("Persistence.write_failed")); }
     }
+    partial void DepartureRunning(ref bool running) => running = running || departure != null;
     partial void StopExtended(string reason)
     {
         var d=departure; departure=null;

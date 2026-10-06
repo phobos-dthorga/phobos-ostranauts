@@ -99,30 +99,9 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Combat.unavailable",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "Split: another flight system (A) from modules and the pilot (refused)."
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "Cue.start_first",
       "class": "status",
       "note": "Nothing to alert on yet."
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Departure.hardware",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "Split: other flight controls (A) from hardware, atmosphere and throttle (refused)."
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Departure.resume",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "A: the second press stops the saved departure first."
     },
     {
       "mod": "PhobosAutoNav",
@@ -132,44 +111,15 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Docking.stop_first",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "A: the second press stops the suspended flight and selects Dock."
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "FCS.busy",
       "class": "refused",
       "note": "Another console holds the weapons."
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "FCS.return_first",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "A: the second press returns the group to ship controls first."
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Industrial.busy",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "Split: flight or aiming (A, stop it) from a missing module, an unreadable record or a foreign controller (refused)."
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Instruments.arrival_locked",
-      "class": "unused",
-      "round": "AutoNav",
-      "note": "No code uses it."
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "NavigationService.already_engaged_stop_before_changing_the_flight",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "Agent choice: the second press stops the active flight (the ship coasts with thrust cut) and makes the change."
+      "key": "Hub.apply_first",
+      "class": "offered",
+      "note": "The hub applies unsaved settings on the second press of a flight button (Auto Nav 0.35.0); until then those buttons were disabled."
     },
     {
       "mod": "PhobosAutoNav",
@@ -185,23 +135,21 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "NavigationService.stop_approach_assist_s_test_pulse_first",
-      "class": "unused",
-      "round": "AutoNav",
-      "note": "Approach Assist is retired; no code uses it."
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "NavigationService.undock_before_engagement",
       "class": "refused",
       "note": "Undocking is the game's own action and the player's call."
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Preferences.captured",
-      "class": "pending",
-      "round": "AutoNav",
-      "note": "A for a suspended flight (stop forgets it); the active-flight case follows the agent choice above. Split first."
+      "key": "Overrides.stop_flight",
+      "class": "status",
+      "note": "A second-press warning: the flight will be stopped, as Stop does."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Overrides.stop_suspended",
+      "class": "status",
+      "note": "A second-press warning: the suspended flight will be stopped."
     },
     {
       "mod": "PhobosAutoNav",

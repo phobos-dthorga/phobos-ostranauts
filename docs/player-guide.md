@@ -18,7 +18,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
   availability depends on ordinary merchant restocking.
 
 **Prepared versions:** Phobos Framework **0.126.0**, Shipbreaker **0.85.0**, Auto Nav
-**0.34.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.35.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -404,7 +404,8 @@ carry on like an ordinary flight once their checks pass. No fire permission or l
 thrust is saved; page changes and display refresh cannot authorize actions.
 [Qualified sensor contact](auto-nav-sensors.md) is required throughout. Missing
 measurements are unavailable, not zero. Saved flights keep their exact hardware,
-target and profile; stop before replacing them. Every switched-on sensor counts;
+target and profile. Starting another flight, dock or departure while one holds the
+console asks first; the second press stops it, as Stop does, and starts the new one. Every switched-on sensor counts;
 Details and `phobosnav sensors` show each sensor's signal and any that are off.
 When the target or a nearby hazard is too faint, Auto Nav switches on the fewest
 sensors that fix it, non-emitting first, warns you and later switches off only its

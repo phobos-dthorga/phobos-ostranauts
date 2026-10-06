@@ -4434,24 +4434,6 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Docking.stop_first",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationApproachDock.cs:20",
-        "src/PhobosAutoNav/NavigationDocking.cs:29"
-      ],
-      "before": "Stop the current or suspended flight before selecting Dock. Resume keeps its original destination.",
-      "after": "Stop the current or suspended flight before selecting Dock. Resume keeps its original destination.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "Docking.select",
       "category": "status/warning",
       "decision": "retain",
@@ -5448,44 +5430,6 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Instruments.arrival_locked",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosAutoNav/NavigationHub.cs:53",
-        "src/PhobosAutoNav/NavigationInstruments.cs:22",
-        "src/PhobosAutoNav/NavigationInstruments.cs:23",
-        "src/PhobosAutoNav/NavigationInstruments.cs:52",
-        "src/PhobosAutoNav/NavigationInstruments.cs:56",
-        "src/PhobosAutoNav/NavigationInstruments.cs:57",
-        "src/PhobosAutoNav/NavigationInstruments.cs:58",
-        "src/PhobosAutoNav/NavigationInstruments.cs:60",
-        "src/PhobosAutoNav/NavigationInstruments.cs:77",
-        "src/PhobosAutoNav/NavigationInstruments.cs:78",
-        "src/PhobosAutoNav/NavigationInstruments.cs:79",
-        "src/PhobosAutoNav/NavigationInstruments.cs:82",
-        "src/PhobosAutoNav/NavigationInstruments.cs:85",
-        "src/PhobosAutoNav/NavigationInstruments.cs:86",
-        "src/PhobosAutoNav/NavigationInstruments.cs:87",
-        "src/PhobosAutoNav/NavigationInstruments.cs:88",
-        "src/PhobosAutoNav/NavigationInstruments.cs:89",
-        "src/PhobosAutoNav/NavigationInstruments.cs:90",
-        "src/PhobosAutoNav/NavigationInstruments.cs:91",
-        "src/PhobosAutoNav/NavigationInstruments.cs:97",
-        "src/PhobosAutoNav/NavigationInstruments.cs:124",
-        "src/PhobosAutoNav/NavigationInstruments.cs:128"
-      ],
-      "before": "Stop the active or suspended flight before changing its arrival distance.",
-      "after": "Stop the active or suspended flight before changing its arrival distance.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "Instruments.torch_locked",
       "category": "status/warning",
       "decision": "retain",
@@ -6186,27 +6130,6 @@
       ],
       "before": "TARGET",
       "after": "TARGET",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "NavigationService.already_engaged_stop_before_changing_the_flight",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationApproachDock.cs:12",
-        "src/PhobosAutoNav/NavigationDocking.cs:19",
-        "src/PhobosAutoNav/NavigationPersistence.cs:161",
-        "src/PhobosAutoNav/NavigationPersistence.cs:247",
-        "src/PhobosAutoNav/NavigationService.cs:108"
-      ],
-      "before": "Already engaged; stop before changing the flight",
-      "after": "Already engaged; stop before changing the flight",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -7051,94 +6974,6 @@
         "decision": "rewrite",
         "reason": "Describe thrust, motion, weapon permission and the next pilot action; retain coasting and firing consequences.",
         "before": "Simulation step invalid; flight stopped"
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "NavigationService.stop_approach_assist_s_test_pulse_first",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosAutoNav/AutoNavPanel.cs:117",
-        "src/PhobosAutoNav/AutoNavPanel.cs:123",
-        "src/PhobosAutoNav/NavigationApproachDock.cs:12",
-        "src/PhobosAutoNav/NavigationApproachDock.cs:19",
-        "src/PhobosAutoNav/NavigationApproachDock.cs:62",
-        "src/PhobosAutoNav/NavigationApproachDock.cs:69",
-        "src/PhobosAutoNav/NavigationAvoidance.cs:98",
-        "src/PhobosAutoNav/NavigationDocking.cs:19",
-        "src/PhobosAutoNav/NavigationDocking.cs:27",
-        "src/PhobosAutoNav/NavigationDocking.cs:71",
-        "src/PhobosAutoNav/NavigationInstruments.cs:61",
-        "src/PhobosAutoNav/NavigationInstruments.cs:70",
-        "src/PhobosAutoNav/NavigationPersistence.cs:74",
-        "src/PhobosAutoNav/NavigationPersistence.cs:161",
-        "src/PhobosAutoNav/NavigationPersistence.cs:170",
-        "src/PhobosAutoNav/NavigationPersistence.cs:172",
-        "src/PhobosAutoNav/NavigationPersistence.cs:173",
-        "src/PhobosAutoNav/NavigationPersistence.cs:184",
-        "src/PhobosAutoNav/NavigationPersistence.cs:200",
-        "src/PhobosAutoNav/NavigationPersistence.cs:247",
-        "src/PhobosAutoNav/NavigationPersistence.cs:248",
-        "src/PhobosAutoNav/NavigationService.cs:22",
-        "src/PhobosAutoNav/NavigationService.cs:43",
-        "src/PhobosAutoNav/NavigationService.cs:44",
-        "src/PhobosAutoNav/NavigationService.cs:45",
-        "src/PhobosAutoNav/NavigationService.cs:46",
-        "src/PhobosAutoNav/NavigationService.cs:47",
-        "src/PhobosAutoNav/NavigationService.cs:52",
-        "src/PhobosAutoNav/NavigationService.cs:53",
-        "src/PhobosAutoNav/NavigationService.cs:54",
-        "src/PhobosAutoNav/NavigationService.cs:108",
-        "src/PhobosAutoNav/NavigationService.cs:111",
-        "src/PhobosAutoNav/NavigationService.cs:112",
-        "src/PhobosAutoNav/NavigationService.cs:115",
-        "src/PhobosAutoNav/NavigationService.cs:123",
-        "src/PhobosAutoNav/NavigationService.cs:126",
-        "src/PhobosAutoNav/NavigationService.cs:127",
-        "src/PhobosAutoNav/NavigationService.cs:129",
-        "src/PhobosAutoNav/NavigationService.cs:137",
-        "src/PhobosAutoNav/NavigationService.cs:140",
-        "src/PhobosAutoNav/NavigationService.cs:147",
-        "src/PhobosAutoNav/NavigationService.cs:155",
-        "src/PhobosAutoNav/NavigationService.cs:157",
-        "src/PhobosAutoNav/NavigationService.cs:169",
-        "src/PhobosAutoNav/NavigationService.cs:172",
-        "src/PhobosAutoNav/NavigationService.cs:173",
-        "src/PhobosAutoNav/NavigationService.cs:174",
-        "src/PhobosAutoNav/NavigationService.cs:175",
-        "src/PhobosAutoNav/NavigationService.cs:187",
-        "src/PhobosAutoNav/NavigationService.cs:202",
-        "src/PhobosAutoNav/NavigationService.cs:209",
-        "src/PhobosAutoNav/NavigationService.cs:214",
-        "src/PhobosAutoNav/NavigationService.cs:236",
-        "src/PhobosAutoNav/NavigationService.cs:256",
-        "src/PhobosAutoNav/NavigationService.cs:258",
-        "src/PhobosAutoNav/NavigationService.cs:267",
-        "src/PhobosAutoNav/NavigationService.cs:272",
-        "src/PhobosAutoNav/NavigationService.cs:273",
-        "src/PhobosAutoNav/NavigationService.cs:283",
-        "src/PhobosAutoNav/NavigationService.cs:284",
-        "src/PhobosAutoNav/NavigationService.cs:287",
-        "src/PhobosAutoNav/NavigationService.cs:345",
-        "src/PhobosAutoNav/NavigationService.cs:349",
-        "src/PhobosAutoNav/NavigationService.cs:352",
-        "src/PhobosAutoNav/NavigationService.cs:355",
-        "src/PhobosAutoNav/NavigationService.cs:362",
-        "src/PhobosAutoNav/NavigationService.cs:364",
-        "src/PhobosAutoNav/NavigationService.cs:365",
-        "src/PhobosAutoNav/NavigationService.cs:366",
-        "src/PhobosAutoNav/NavigationService.cs:368",
-        "src/PhobosAutoNav/NavigationService.cs:372",
-        "src/PhobosAutoNav/NavigationService.cs:379"
-      ],
-      "before": "Stop Approach Assist's test pulse first",
-      "after": "Stop Approach Assist's test pulse first",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
       }
     },
     {
@@ -9077,25 +8912,6 @@
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Preferences.captured",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationPreferences.cs:32",
-        "src/PhobosAutoNav/NavigationService.cs:120"
-      ],
-      "before": "Stop the active or suspended flight before changing its profile or destination.",
-      "after": "Stop the active or paused flight before changing its settings or destination.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Describe thrust, motion, weapon permission and the next pilot action; retain coasting and firing consequences.",
-        "before": "Stop the active or suspended flight before changing its profile or destination."
       }
     },
     {
@@ -12556,24 +12372,6 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "FCS.return_first",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationPursuit.cs:71"
-      ],
-      "before": "Return group to Native first",
-      "after": "Return this group to ship controls first",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Describe thrust, motion, weapon permission and the next pilot action; retain coasting and firing consequences.",
-        "before": "Return group to Native first"
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "FCS.returned",
       "category": "status/warning",
       "decision": "retain",
@@ -13329,26 +13127,6 @@
         "decision": "rewrite",
         "reason": "Describe thrust, motion, weapon permission and the next pilot action; retain coasting and firing consequences.",
         "before": "Offensive target: {0}\nDisplayed weapon: {1}\nStatus: {2}\nAiming reference: {3}"
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Industrial.busy",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/IndustrialNavigation.cs:63",
-        "src/PhobosAutoNav/IndustrialNavigation.cs:71",
-        "src/PhobosAutoNav/NavigationDeparture.cs:54",
-        "src/PhobosAutoNav/NavigationDeparture.cs:158"
-      ],
-      "before": "Stop existing flight or aiming control before requesting an industrial working pose.",
-      "after": "Stop flight or aiming control before positioning for industrial work.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
       }
     },
     {
@@ -14164,23 +13942,6 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Departure.resume",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationDeparture.cs:57"
-      ],
-      "before": "A saved departure remains. Use Resume to reconcile it, or Stop to cancel its remaining intent.",
-      "after": "A saved departure remains. Resume checks it before continuing; Stop cancels the remaining manoeuvre.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "Departure.attachment",
       "category": "status/warning",
       "decision": "rewrite",
@@ -14196,25 +13957,6 @@
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
-      "key": "Departure.hardware",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationDeparture.cs:93",
-        "src/PhobosAutoNav/NavigationDeparture.cs:97"
-      ],
-      "before": "Departure requires an operational local N1/N2 console, RCS and free-space conditions. Ground stations or conflicting controls are unsupported.",
-      "after": "Departure needs a working N1/N2 console aboard, working RCS and a ship in open space. Stop other flight controls first. Departure from ground stations is not supported.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Describe thrust, motion, weapon permission and the next pilot action; retain coasting and firing consequences.",
-        "before": "Departure requires an operational local N1/N2 console, RCS and free-space conditions. Ground stations or conflicting controls are unsupported."
       }
     },
     {
@@ -41542,25 +41284,6 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Combat.unavailable",
-      "category": "control/status/help",
-      "decision": "new",
-      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
-      "trace": "literal or movement-reason family",
-      "references": [
-        "src/PhobosAutoNav/NavigationCombat.cs",
-        "src/PhobosAutoNav/AutoNavPanel.cs"
-      ],
-      "before": "Combat needs working N2 and N3 in this console, a clear flight controller and the pilot at the controls.",
-      "after": "Combat needs working N2 and N3 modules in this console and the pilot at the controls. Stop any other flight system first.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Describe thrust, motion, weapon permission and the next pilot action; retain coasting and firing consequences.",
-        "before": "Combat needs working N2 and N3 in this console, a clear flight controller and the pilot at the controls."
-      }
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "Combat.select",
       "category": "control/status/help",
       "decision": "new",
@@ -65214,6 +64937,292 @@
       "after": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg fire control system, leaving three 0.6 kg board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply."
     },
     {
+      "mod": "PhobosAutoNav",
+      "key": "Overrides.stop_flight",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "The current flight or manoeuvre will be stopped first, as Stop does: thrust is cut and the ship coasts on its present course.",
+      "after": "The current flight or manoeuvre will be stopped first, as Stop does: thrust is cut and the ship coasts on its present course."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Overrides.stop_suspended",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "The suspended flight will be stopped first, as Stop does, and cannot be resumed afterwards.",
+      "after": "The suspended flight will be stopped first, as Stop does, and cannot be resumed afterwards."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Overrides.stopped_for_change",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Stopped for the new flight. The ship coasts until it takes over.",
+      "after": "Stopped for the new flight. The ship coasts until it takes over."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Overrides.cancel_departure",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "The unfinished saved departure will be cancelled, and the new one starts from here.",
+      "after": "The unfinished saved departure will be cancelled, and the new one starts from here."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Overrides.return_fire",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "This weapon group will be returned to ship controls first.",
+      "after": "This weapon group will be returned to ship controls first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Persistence.already_flying",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "This console's flight is already under way.",
+      "after": "This console's flight is already under way."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Persistence.other_console",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Another navigation console aboard is flying the ship. Its flight has to end there before this console's saved flight can change.",
+      "after": "Another navigation console aboard is flying the ship. Its flight has to end there before this console's saved flight can change."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.detach_pending",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "The ship is still detaching from its last departure. Resume it to finish.",
+      "after": "The ship is still detaching from its last departure. Resume it to finish."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.peer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "The ship or station you are attached to is no longer there to depart from.",
+      "after": "The ship or station you are attached to is no longer there to depart from."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.module",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "This console needs a working industrial navigation module.",
+      "after": "This console needs a working industrial navigation module."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.ground",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Departure from ground stations is not supported; launch with the game's own controls.",
+      "after": "Departure from ground stations is not supported; launch with the game's own controls."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.console",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "This navigation console must be powered, switched on and undamaged.",
+      "after": "This navigation console must be powered, switched on and undamaged."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.atmosphere",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Departure needs open space; the ship is inside an atmosphere.",
+      "after": "Departure needs open space; the ship is inside an atmosphere."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Industrial.positioning",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Another positioning job already holds the ship's flight controls.",
+      "after": "Another positioning job already holds the ship's flight controls."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Industrial.flight",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "An Auto Nav flight holds this ship. Stop it at the navigation console to position for industrial work.",
+      "after": "An Auto Nav flight holds this ship. Stop it at the navigation console to position for industrial work."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Industrial.aiming",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Weapons aiming holds the ship's attitude. Release it at the navigation console to position for industrial work.",
+      "after": "Weapons aiming holds the ship's attitude. Release it at the navigation console to position for industrial work."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Industrial.unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Industrial positioning is not available right now.",
+      "after": "Industrial positioning is not available right now."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.active",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Combat control is already on.",
+      "after": "Combat control is already on."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.flight",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Combat control needs this console's own approach, rendezvous or follow flight, or none; it cannot take over docking, departure or another console's flight.",
+      "after": "Combat control needs this console's own approach, rendezvous or follow flight, or none; it cannot take over docking, departure or another console's flight."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.pilot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "The pilot must be at this console, aboard this ship, for combat control.",
+      "after": "The pilot must be at this console, aboard this ship, for combat control."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Preferences.next_flight",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Saved for the next flight; the flight under way or waiting keeps the settings it started with.",
+      "after": "Saved for the next flight; the flight under way or waiting keeps the settings it started with."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Hub.apply_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.0: press twice to go ahead (Framework 0.125.0 owner rule); a refusal names the one thing in the way.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Your unsaved settings will be applied first.",
+      "after": "Your unsaved settings will be applied first."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "LineContents.action_drain",
       "category": "control label",
@@ -87464,8 +87473,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f9d865905ce31857b8553faa941a5bc50b103f52ef1f252d780d00561122e212",
-      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
+      "sha256": "f15016484b4b6ad41d05b07408faa4433e57ac227c4dae3ba2ccc89a79eb38cc",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "SUPPORT.md",
@@ -87541,8 +87550,8 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "b31e81007f4338be0273e4d4d076e0d54ec483a73af14579325b79937096c760",
-      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
+      "sha256": "2c952a39c442bdf31853594452b938c5fb208b646719bc1f1932b6c1158987f7",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/auto-nav-docking.md",
@@ -87569,15 +87578,15 @@
       "path": "docs/auto-nav-flight-profiles.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "8802db3eab44c0befa21698212ca1ac44d07215d2b0719d6c7ece78f1eb9b7ae",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "69a22d3bd4ef97c296d7fbbc5f233bb23c09434b7400a71800380b007e48e747",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "16ad3a7a8101a55e246fd1d7fe8a64cfaedf795fbb6c7926ee10e833724cba56",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "118fa666d85be96b903793ee2521623b92edd5f32675eab3e2d40cf562e6e8e2",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -87590,8 +87599,8 @@
       "path": "docs/auto-nav-pursuit.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "fc8c6367c77b954cf4d54376e2fec70135ed639b6397ef31219dca608fde2e84",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "2da4d6504ac4d6ca3ef806c063337f9d7c687e4d48fbb89434215c72e0455b5a",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/auto-nav-sensors.md",
@@ -87625,8 +87634,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "32ffc7f210ad4cd901c17c4940df38362176bfaaa4d3a0eb751a8e3777f1cdfa",
-      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
+      "sha256": "8ad7183ae6a82ec8ebc130d75e65cb926fa2004e801fdd2f50e8574c8f9c6927",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/crew-automation.md",
@@ -88303,8 +88312,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "a82f71e569b90f0d207cde07eafafea535d2cc0c0842625c2020b933032e4a73",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code.",
+      "sha256": "24b79966f440175b11017644d09445ae00c0f6f0fd8ae5ff01c129329e1b5cd9",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata."
     },
     {
@@ -88733,8 +88742,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ba428ea5543afefec8a8eccab04fe898ea9d0d924d00f2089da632ff1378b6d6",
-      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
+      "sha256": "e92872112f21f1264fe1320d8cc9b9b9ac31bd3397f7d253cd175d21185a19bd",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -88866,8 +88875,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "17dbfc323225463d5c6e8e0e47bf8bd9b92e693016cb567b8ba14aa54cd3ad86",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "e20527b376b73be9933f68a25d130b733a05ae6dd35b373e3ecfdcb71c3f7801",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -88922,8 +88931,8 @@
       "path": "docs/development/panel-override-audit.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "989f696c567380cb62b57fb54ef8c135e92bc0fe7b470b7d0ca56a5f7ecd3a22",
-      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
+      "sha256": "72d33041bb6f447c5a348960806c5eba3edeb70aac2102808f5461dcc040cf89",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "docs/bank-player-guide.md",
@@ -88951,8 +88960,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "073c11e004120406d82d369e18218dff355964629800784127d11d111270ef4a",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "824d9b897820e17f48e8077b606e0357be6836e8e8ce67dd716c5a4322c28cb0",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -88991,8 +89000,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ed0773dfa9ca9d468e36f299afe55bc11b8870c9e5e0213a4088dbd4059555b9",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "a242adc34ee4d45a411f7f4f9ab581f55e2c608176653a7b06584b25647a8794",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",

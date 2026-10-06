@@ -54,10 +54,14 @@ internal static class PreferenceChecks
             CruiseMS = 80, ArrivalMS = .2, ArrivalKM = .5, Coast = new CoastSettings(3,10,.75,2), Mode = SavedFlightMode.Suspended };
         var flightStore = new ObjectStateStore(one.mapGUIPropMaps, FlightSnapshot.StoreName, "one", 1);
         flightStore.TryWrite(flight.Encode()); flightStore.Read(out var before);
-        check(!service.SetFlightSetting(one, FlightSetting.Cruise, 300) && service.ReadInstruments(one).CruiseMS == 80,
-            "Suspended flight retains captured settings instead of defaults");
-        flightStore.Read(out var after); check(before.SequenceEqual(after), "Rejected settings do not rewrite flight intent");
-        check(!service.ApplyPanelPreferences(one,service.PanelPreferenceStamp(one),draftProfile,false),"Panel apply also preserves suspended flight authority");
+        // Auto Nav 0.35.0 (press twice to go ahead, owner rule): a setting is saved for the next flight while one waits,
+        // instead of being refused; the waiting flight keeps the profile it started with.
+        check(service.SetFlightSetting(one, FlightSetting.Cruise, 300) && service.ReadInstruments(one).CruiseMS == 80 && service.PanelPreferences(one).CruiseMS == 300,
+            "Suspended flight retains captured settings; the change is saved for the next flight");
+        flightStore.Read(out var after); check(before.SequenceEqual(after), "Saving a setting never rewrites flight intent");
+        check(service.ApplyPanelPreferences(one,service.PanelPreferenceStamp(one),draftProfile,false) && service.ReadInstruments(one).CruiseMS == 80,
+            "Panel apply also leaves the suspended flight's own profile alone");
+        flightStore.Read(out var afterPanel); check(before.SequenceEqual(afterPanel), "Panel apply never rewrites flight intent");
         flightStore.Clear();
         var protectedMap = new Dictionary<string,string> { ["schema"] = "99", ["owner"] = "one", ["data.future"] = "keep" };
         one.mapGUIPropMaps["PhobosState." + FlightPreferences.StoreName] = protectedMap;

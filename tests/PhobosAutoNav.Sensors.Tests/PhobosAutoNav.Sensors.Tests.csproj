@@ -16,6 +16,7 @@
     <Compile Include="../../src/PhobosAutoNav/NavigationService.cs" Link="NavigationService.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationStep.cs" Link="NavigationStep.cs" />
     <Compile Include="../../src/PhobosAutoNav/IndustrialNavigation.cs" Link="IndustrialNavigation.cs" />
+    <Compile Include="../../src/PhobosAutoNav/Overrides.cs" Link="Overrides.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationHub.cs" Link="NavigationHub.cs" />
@@ -26,4 +27,5 @@
   </ItemGroup>
   <ItemGroup><Compile Include="../Support/AutoNavFireDouble.cs" Link="AutoNavFireDouble.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationPursuit.cs" Link="NavigationPursuit.cs" /></ItemGroup>
+  <ItemGroup><Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" /></ItemGroup>
 </Project>

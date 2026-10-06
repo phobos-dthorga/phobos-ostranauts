@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-06",
-  "baselineCommit": "b001caac5abd550e0683901bd37e7596cbf93dcf",
+  "baselineCommit": "422bd6810af0432c4a96e1685de5b71c55957f4c",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -1421,16 +1421,17 @@
     },
     {
       "path": "src/PhobosAutoNav/AutoNavPanel.cs",
-      "sha256": "004b8f84d193bee09fbb8558a3155d3b9f4250a89c6cbc5d2688d3b380a5770b",
+      "sha256": "a4d0495085fe18a4c84c499caebbfb7cbae8dd3b94a8be0ebd0e22bac4581083",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "P2",
         "P8",
         "C1",
         "T1",
-        "FF0"
+        "FF0",
+        "L88"
       ],
       "indicators": {
         "ui_mutation": [
@@ -1447,11 +1448,11 @@
           138,
           170,
           238,
-          499,
-          501,
-          509,
-          520,
-          524
+          521,
+          523,
+          531,
+          542,
+          546
         ],
         "runtime_hook": [
           282
@@ -1463,8 +1464,7 @@
           321
         ]
       },
-      "reviewed": "2026-09-29",
-      "carried": "2026-10-01"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/AutoNavPanelDialogs.cs",
@@ -1844,16 +1844,17 @@
     },
     {
       "path": "src/PhobosAutoNav/IndustrialNavigation.cs",
-      "sha256": "7f82ea6aa518bd89bf08443999100ea073b6326135be25f15892fa6dc4ca5bd5",
+      "sha256": "297a5365f6646c460df7a1b19acea624ba8500d6bb101c54f2a59311efb9ec5b",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R2",
         "T1",
         "FF0",
         "FF5",
-        "FF6"
+        "FF6",
+        "L88"
       ],
       "indicators": {
         "collection": [
@@ -1861,7 +1862,7 @@
           43
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NativeContactReader.cs",
@@ -1989,18 +1990,19 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationApproachDock.cs",
-      "sha256": "ac0b5bf1d98dfb8f0655041c9de91cb6302c33df62799a982ba3da6f494ec12d",
+      "sha256": "e4ebccb04fa37f4354b3a04863d74530dbee583437be5d707c63b9e68df21835",
       "role": "navigation, native boundary or flight policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R2",
         "FF0",
         "FF5",
-        "FF6"
+        "FF6",
+        "L88"
       ],
       "indicators": {},
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationAvoidance.cs",
@@ -2037,39 +2039,41 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationCombat.cs",
-      "sha256": "40a27a7bd7c0742728cb4a67990d9dce623b5822f159e14af78fa182bddedfaf",
+      "sha256": "e1b870b8f9963979a3985ddb3e38000379192858caed29005c58ac2e3ef215a2",
       "role": "navigation authority and transient Combat lifecycle",
       "findings": [
         "C1",
         "T2",
         "FF5",
-        "FF6"
+        "FF6",
+        "L88"
       ],
       "indicators": {
         "persistence_or_io": [
-          59,
-          61,
-          69,
-          72,
-          76
+          73,
+          75,
+          83,
+          86,
+          90
         ]
       },
       "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
-      "reviewed": "2026-09-29"
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationDeparture.cs",
-      "sha256": "9c5bda63851f7cd770cea1805fa52d3d9c20b459602fccdbd14ad0a238e69932",
+      "sha256": "3620040b8523bc94ca6432e184bd6a3a09d2a86abeae32786b3fdeddf48e5a8b",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R2",
         "C1",
         "FF0",
         "FF5",
-        "FF6"
+        "FF6",
+        "L88"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -2077,46 +2081,48 @@
           23,
           28,
           48,
-          56,
-          190,
-          237,
-          254
+          57,
+          63,
+          203,
+          250,
+          268
         ],
         "discovery": [
-          104,
-          113,
-          121,
-          127
+          116,
+          125,
+          133,
+          139
         ],
         "collection": [
-          236
+          249
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationDocking.cs",
-      "sha256": "24bcbdcc8f9113865f291b578b92876dad0aac56eac20f2b70af63465fe5c901",
+      "sha256": "c9f24a0981de5763d2db3466d76d5c7efde3bb605c347e45d23c1d59888d0914",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R2",
         "C1",
         "FF0",
         "FF5",
-        "FF6"
+        "FF6",
+        "L88"
       ],
       "indicators": {
         "profiling": [
           96
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationHub.cs",
-      "sha256": "ffc4cb947159c47d892ce69df565e72daaa9ccc6a24c13f600779bf1de3bc9c1",
+      "sha256": "a0f8c9a55d68c7ce596b2038a0fc232bff30b04768aa996855f467eab98c47f8",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -2127,22 +2133,23 @@
         "T1",
         "T2",
         "FF0",
-        "L82"
+        "L82",
+        "L88"
       ],
       "indicators": {
         "persistence_or_io": [
-          45,
-          46,
-          47,
           48,
           49,
-          53,
-          161,
-          194,
-          195
+          50,
+          51,
+          52,
+          56,
+          165,
+          198,
+          199
         ],
         "profiling": [
-          58
+          61
         ]
       },
       "reviewed": "2026-10-06"
@@ -2181,17 +2188,18 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationPersistence.cs",
-      "sha256": "fe8923ff6a5ba3aebdbc7e01237eb53b13a2870768b7a7a3f824de06111112ac",
+      "sha256": "1dfdec8bc25ec53714df804c38d7ccec298b9f37f70c59b920e1cc1ea955d810",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
-      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R2",
         "C1",
         "FF0",
         "FF5",
         "FF6",
-        "L44"
+        "L44",
+        "L88"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -2212,36 +2220,38 @@
           78,
           79,
           80,
-          81
+          81,
+          317
         ],
         "profiling": [
           175,
-          282
+          283
         ]
       },
-      "reviewed": "2026-10-05"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationPreferences.cs",
-      "sha256": "b61aa9381bfcfab3001fc58e50ea4f486dae4e12310d3c0005000c5f12d19b5c",
+      "sha256": "f07ae25c6e3098eaa0d17934bcb7117bb9b574908c3cd88a6ba71742088dc2ec",
       "role": "navigation, native boundary or flight policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "P2"
+        "P2",
+        "L88"
       ],
       "indicators": {
-        "discovery": [
-          26
+        "persistence_or_io": [
+          11,
+          15,
+          53,
+          65
         ],
         "collection": [
-          64
-        ],
-        "persistence_or_io": [
-          50,
-          71
+          58
         ]
-      }
+      },
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationPresentation.cs",
@@ -2262,17 +2272,18 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationPursuit.cs",
-      "sha256": "0d6f4fb5b90e2b5422336375d6b44adaa55305ad6e429023c1d4955e2610689a",
+      "sha256": "218063253ecf84353b961af9778cbd10a5c11d82c8be651d31bb6a98821dfe89",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "P2",
         "P8",
         "C1",
         "T2",
         "FF0",
-        "L19"
+        "L19",
+        "L88"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -2281,20 +2292,20 @@
           23,
           27,
           35,
-          185
+          191
         ],
         "collection": [
-          125,
-          133
+          131,
+          139
         ],
         "discovery": [
-          184
+          190
         ],
         "profiling": [
-          191
+          197
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationSensorAssist.cs",
@@ -2337,24 +2348,25 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationService.cs",
-      "sha256": "19bf439c5b292c73f77cddf8b6043342703842e908a5884a5f080f0912b29202",
+      "sha256": "d56af615b5a01fd3af364fec8cf72c73bdd710fb5e295f032ed0485be60d14c5",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
         "P2",
         "C1",
         "T1",
         "FF0",
         "FF5",
-        "FF6"
+        "FF6",
+        "L88"
       ],
       "indicators": {
         "persistence_or_io": [
           41,
           92,
-          153,
-          375
+          155,
+          390
         ],
         "discovery": [
           91
@@ -2363,10 +2375,10 @@
           91
         ],
         "profiling": [
-          171
+          173
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/NavigationStep.cs",
@@ -2433,6 +2445,18 @@
       "sha256": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1"
     },
     {
+      "path": "src/PhobosAutoNav/Overrides.cs",
+      "sha256": "eb80dad44525dab008e687547b4c0ae62eed17c3b63a1c93e4cfdc73ff3e3c83",
+      "role": "navigation, native boundary or flight policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L88"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-06"
+    },
+    {
       "path": "src/PhobosAutoNav/PanelDepartureSettings.cs",
       "sha256": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
       "role": "navigation, native boundary or flight policy",
@@ -2459,7 +2483,7 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "b88bc293ba319f4bcc1f9f3d87d27c7c4a18296891e195d3e2a4dc30de172c17",
+      "sha256": "2ce4917dfdc126dbed5ad12e82db5224e17a0beae89ac1d535fe0a57959c387c",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -2480,7 +2504,8 @@
         "L21",
         "L44",
         "L56",
-        "L82"
+        "L82",
+        "L88"
       ],
       "indicators": {
         "runtime_hook": [
@@ -2507,8 +2532,7 @@
           228
         ]
       },
-      "reviewed": "2026-10-06",
-      "carried": "2026-10-06"
+      "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosAutoNav/RegionalEconomy.cs",

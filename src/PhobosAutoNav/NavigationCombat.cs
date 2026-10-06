@@ -27,18 +27,32 @@ internal sealed partial class NavigationService
         EnterCombat(co);
     }
 
+    private string? CombatProblem(CondOwner? co)
+    {
+        if (combatActive) return Text.Get("Combat.active");
+        if (!Plugin.Enabled.Value) return Text.Get("NavigationService.mod_disabled");
+        if (CrewSim.objInstance?.FinishedLoading != true) return Text.Get("NavigationService.world_is_loading");
+        if (!HasPursuit(co)) return Text.Get("Pursuit.module_required");
+        if (FireHardwareProblem(co) is string fire) return Text.Get(fire);
+        if (HardwareProblem(co) is string hardware) return hardware;
+        if (OtherControllerBusy()) return Text.Get("NavigationService.disengage_other_flight_automation_first");
+        if (!CoordinatedFlight(co)) return Text.Get("Combat.flight");
+        if (AutoNavCore.Engaged && !FlightBindingValid()) return Text.Get("Persistence.binding_changed");
+        if (!IsLocalConsole(co) || CrewSim.GetSelectedCrew()?.ship != co!.ship) return Text.Get("Combat.pilot");
+        if (fireConsole != co || Fire.OtherOwner(co!.strID)) return Text.Get("FCS.busy");
+        if (!CanReplaceFlight(co)) return Text.Get("Persistence.invalid_state");
+        return null;
+    }
     internal void EnterCombat(CondOwner? co)
     {
         try
         {
-            if (combatActive || !Plugin.Enabled.Value || CrewSim.objInstance?.FinishedLoading != true ||
-                !HasPursuit(co) || FireHardwareProblem(co) != null || HardwareProblem(co) != null ||
-                OtherControllerBusy() || !CoordinatedFlight(co) || AutoNavCore.Engaged && !FlightBindingValid() ||
-                !IsLocalConsole(co) || CrewSim.GetSelectedCrew()?.ship != co!.ship ||
-                fireConsole != co || Fire.OtherOwner(co!.strID) ||
-                !FirePreferences(co, out int group, out int volleys, out _) || !ReadPreferences(co, out var preferences) ||
-                !CanReplaceFlight(co))
-            { status = Text.Get("Combat.unavailable"); return; }
+            // The one thing in the way, by name (Auto Nav 0.35.0); until then one text listed every condition.
+            string? blocked = CombatProblem(co);
+            if (blocked != null) { status = blocked; return; }
+            if (co == null) return;
+            if (!FirePreferences(co, out int group, out int volleys, out _) || !ReadPreferences(co!, out var preferences))
+            { status = Text.Get("Preferences.invalid"); return; }
             var target = FireTarget;
             if (AttachedFireTarget(co, target)) { status = Text.Get("FCS.attached_target"); return; }
             if (target == null || !ReadContact(co, target).Usable || aimReference == null)

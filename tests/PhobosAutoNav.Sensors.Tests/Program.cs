@@ -214,8 +214,11 @@ f.Service.Engage(f.Console, .75f);
 var capturedProfile = Read(f.Console);
 Check(capturedProfile.CruiseMS == 200 && capturedProfile.ArrivalMS == .2 && capturedProfile.ArrivalKM == .75,
     "Flight captures console defaults with a one-flight distance override");
-Check(!f.Service.Command(new[] { "phobosnav", "cruise", "300" }, out _) &&
-    !f.Service.Command(new[] { "phobosnav", "defaults" }, out _), "F3 cannot replace an active profile");
+// Auto Nav 0.35.0 (press twice to go ahead, owner rule): F3 saves a setting for the next flight while one runs,
+// instead of refusing; the running flight keeps the profile it captured.
+Check(f.Service.Command(new[] { "phobosnav", "cruise", "300" }, out _) && Read(f.Console).CruiseMS == 200,
+    "F3 saves for the next flight and never replaces an active profile");
+Check(f.Service.Command(new[] { "phobosnav", "cruise", "200" }, out _), "F3 can put the next flight's setting back while flying");
 f.Service.Stop(f.Console, "test");
 Check(f.Service.ReadInstruments(f.Console).ArrivalKM == .5, "One-flight override does not replace console distance");
 f.Console.mapGUIPropMaps["PhobosState." + FlightPreferences.StoreName]["schema"] = "999";
@@ -229,7 +232,11 @@ Check(f.Service.Command(new[] { "phobosnav", "defaults" }, out _) &&
 f.Service.Engage(f.Console); Signal(f.Own, .1); f.Service.Tick(f.Own.objSS, 1, false);
 Signal(f.Own, 1);
 Check(!f.Service.Command(new[] { "phobosnav", "fly" }, out _) && Read(f.Console).Mode == SavedFlightMode.Suspended,
-    "Direct F3 Fly cannot silently replace suspended intent; Resume or Stop is required");
+    "Direct F3 Fly cannot silently replace suspended intent; it offers to stop it first");
+// Auto Nav 0.35.0 (press twice to go ahead): confirming stops the suspended flight exactly as Stop does.
+f.Service.Command(new[] { "phobosnav", "fly", "confirm" }, out _);
+Check(Read(f.Console).Mode != SavedFlightMode.Suspended, "F3 Fly with confirm stops the suspended flight, as Stop does");
+f.Service.Stop(f.Console, "test");
 
 f = Setup(); f.Service.StartPursuit(f.Console,true);
 Check(!AutoNavCore.Engaged,"N1 alone cannot grant pursuit instrument commands");

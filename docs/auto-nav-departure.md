@@ -17,6 +17,8 @@ Polaris console. Ordinary **Fly** never disconnects the ship.
 | Resume departure | Check the saved departure against the current connection before continuing. Loading never restores departure thrust. |
 | Stop departure | Stop further movement; keep the record of any unfinished disconnect. |
 
+Since Auto Nav 0.35.0, **Undock & Depart** or **Undock & Continue** with an unfinished saved departure, or while a flight holds the console, asks first. The second press stops that flight, as Stop does, cancels the saved departure, and starts the new one. A departure still detaching is not cancelled; resume it to finish. With unsaved settings on the hub, the first press says they will be applied, and the second applies them and acts.
+
 ```mermaid
 flowchart TD
     Ready{"Crew aboard, airlocks sealed, nav powered, RCS reserve, one connection, clearance?"}

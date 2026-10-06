@@ -73,7 +73,13 @@ internal sealed partial class NavigationService
     internal void SelectWeapons(CondOwner? co, int group)
     {
         if (!BindFire(co) || group < 1 || group > 9 || !FirePreferences(co, out _, out int volleys, out bool held)) return;
-        if (held || Fire.Owns(co!.strID)) { status = Text.Get("FCS.return_first"); return; }
+        // Auto Nav 0.35.0: the group is returned to ship controls on the second press; until then this refused.
+        if (held || Fire.Owns(co!.strID))
+        {
+            if (!Phobos.Ostranauts.Framework.Controls.Confirmations.Ask(Text.Get("Overrides.return_fire"), Overrides.Confirmed, out var warning)) { status = warning; return; }
+            ReturnFireToNative(co);
+            if (!FirePreferences(co, out _, out volleys, out held) || held || Fire.Owns(co!.strID)) return;
+        }
         CeaseFire();
         if (!SaveFirePreferences(co!, group, volleys, false)) { status = Text.Get("Preferences.invalid"); return; }
         aimReference = viewedWeapon = null; Fire.Invalidate();
