@@ -12,7 +12,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Spacer Stories files failed the offline story 
 if ($LASTEXITCODE -ne 0) { throw 'Native definition checks failed.' }
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
 $package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosSpacerStories -Readme 'mods/PhobosSpacerStories/README.md' -DataOnly -ExtraDocs @(
-    'docs/writing-story-content.md', 'docs/development/spacer-stories-authoring.md')
+    'docs/writing-story-content.md', 'docs/development/spacer-stories-authoring.md', 'docs/development/spacer-stories-vanilla-expansion.md')
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath "$package.zip" -Force
 Write-Output "Package: $package.zip"
 Write-Output 'Prepared only. No game files, load order or saves were changed; offline checks are not gameplay validation.'

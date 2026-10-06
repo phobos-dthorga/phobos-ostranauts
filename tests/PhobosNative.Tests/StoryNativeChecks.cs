@@ -104,9 +104,16 @@ internal static class StoryNativeChecks
         var autoNav = PhobosAutoNav.EquipmentContent.Prepare();
         var all = StoryLibrary.Build(new[] { ("framework", frameworkPack), ("agriculture", agriculture) }.Concat(stories), frameworkPack.settings, _ => true,
             id => DataHandler.dictCOs.ContainsKey(id) || autoNav.Objects.ContainsKey(id), c => DataHandler.dictConds.ContainsKey(c));
-        check(stories.Count == 9 && all.Problems.Count == 0, "Phobos Spacer Stories loads whole against the game's data: " + string.Join("; ", all.Problems.Take(10)));
-        check(all.Arcs.Count == library.Arcs.Count + 9 && all.Files.Count == library.Files.Count + 9 && all.Articles.Values.All(a => all.Sections.ContainsKey(a.Value.section)),
-            "Its nine chains and nine files load, and every article sits in a known section");
+        check(stories.Count > 0 && all.Problems.Count == 0, "Phobos Spacer Stories loads whole against the game's data: " + string.Join("; ", all.Problems.Take(10)));
+        // Counted from the add-on's own files, so a new volume needs no edit here (Spacer Stories 0.3.0 has 13 overlays).
+        int Added<T>(Func<StoryPack, Dictionary<string, T>> table) => stories.Sum(s => table(s.Pack).Count);
+        check(all.Arcs.Count == library.Arcs.Count + Added(p => p.arcs) && all.Files.Count == library.Files.Count + Added(p => p.files) &&
+              all.Broadcasts.Count == library.Broadcasts.Count + Added(p => p.broadcasts) && all.Adverts.Count == library.Adverts.Count + Added(p => p.adverts) &&
+              all.Chatter.Count == library.Chatter.Count + Added(p => p.chatter) && all.Tips.Count == library.Tips.Count + Added(p => p.tips) &&
+              all.Articles.Count == library.Articles.Count + Added(p => p.articles) && all.People.Count == library.People.Count + Added(p => p.people) &&
+              all.Threads.Count == library.Threads.Count + Added(p => p.threads),
+            "Every chain, file, news item, advert, line, tip, article, person and thread it authors loads, none dropped or merged away");
+        check(all.Articles.Values.All(a => all.Sections.ContainsKey(a.Value.section)), "Every article sits in a known section");
         check(stories.SelectMany(s => s.Pack.broadcasts.Keys.Concat(s.Pack.adverts.Keys).Concat(s.Pack.chatter.Keys).Concat(s.Pack.tips.Keys).Concat(s.Pack.articles.Keys)
             .Concat(s.Pack.arcs.Keys).Concat(s.Pack.files.Keys)).All(id => id.StartsWith("spacertales-", StringComparison.Ordinal)), "Every id carries the add-on's own prefix");
 
