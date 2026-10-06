@@ -102,7 +102,60 @@ drawing confused with a current one**, and **a worker left out of a feeder's
 publicity photograph and its fee**. Some disputes stay unresolved. Completion
 means the correspondence closed, not that the world awarded a convenient verdict.
 
+## Rewrite onto places, people and threads (0.2.0)
+
+The owner disabled the collection on 6 October 2026 because its stories came "out of
+nowhere with absolutely no relation to anything or anywhere". Framework 0.114.0 added
+places, people, threads and progress gates; ChatGPT rewrote the collection under the
+[rewrite handoff](spacer-stories-rewrite-handoff.md) (owner commit `0f49e77a`), and
+Claude reviewed it against the handoff's rules.
+
+| Thread (after `spacertales-`) | Home place | Cast |
+| --- | --- | --- |
+| second-shift-ledger | `oklg` | Neri Vale, Mera Dain, Kes Arven, Sen, Alin |
+| flight-service | `oklg` | Kes Arven, Neri Vale |
+| yard-trade | `oklg` | open |
+| beam-contractors | `bwvn` (Weaver's Needle) | open |
+| refit-drawings | `oklg-flot` (the Flotilla) | Neri Vale |
+| galley-trade | `oklg-flot` | Mera Dain, Neri Vale, Sen, Alin |
+| mixed-plant-trade | `bcer` (Port Mojave) | Orra Pell |
+| still-correspondence | `coho` (Corsair's Hollow) | Edda Rusk |
+| sickbay-correspondence | `mvol-med` (Central Medical Facility) | Ilen Marr |
+| loading-work | `svir-shipyard` (Titan Shipyards) | Tavi Sen |
+
+Homes were ChatGPT's choices under the handoff (it took the suggested OKLG, Ceres and
+Deimos homes); the owner may revise any of them.
+
+**Review (6 October 2026).** Every handoff rule holds: all 220 earlier ids and every
+step id kept (now 229 story entries, 9 of them new outcome-news items, plus 9 people
+and 10 threads); every arc, news item, advert, small-talk line and file in a thread; every
+thread and home a Framework place; every letter from a cast member with no free-text
+sender; all fifteen known spoilers gated (news and talk on `arcsAtStep`, `arcsDone`,
+`filesRead`) or reworded as background (tips and articles); no `dock-at` to any
+station; no Framework mod gate; no standing change. All 181 new or changed strings were
+read: in voice, no claimed mechanic the code lacks, item names matching the game's.
+Small talk is now 26 crew, 30 locals and 28 anyone. Flags were not used; chains connect
+through `arcsDone`, `filesRead` and `newsSeen`. Standalone chains start only after
+their own introductory news has been shown, and only at their home place.
+
+| Chain id after the spacertales- prefix | Home | Starts when (besides being at home) |
+| --- | --- | --- |
+| misfiled-can | `oklg` | The receiving-desk notice has been shown |
+| yard-signatures | `oklg` | First chain done, SABLE_FREIGHT.TXT opened; Shipbreaker present |
+| meal-in-the-margin | `oklg` | First chain done, file opened; Agriculture and a Firstlight-4 aboard |
+| asterel-old-number | `oklg` | First chain done, file opened; Auto Nav and an N1 module aboard |
+| drawing-after-damage | `oklg-flot` | First chain done, file opened; War Has Been Declared present |
+| four-leaflets | `bcer` | The mixed-plant news shown; Manufacturing and a V4 aboard |
+| borrowed-pump | `coho` | The Alembrine letters notice shown; Manufacturing and a Copperhead-3 aboard |
+| room-for-one-more | `mvol-med` | The Halewright archive notice shown; Medical and a Ward-3 aboard |
+| last-vessel | `svir-shipyard` | The Slingwright letters notice shown; Manufacturing and an RM-1 aboard |
+
+Steps that finish at a station now finish at the chain's home (`dock-at` with no
+station), and "being here already counts" in their text is true of that test.
+
 ## Goals, pacing and saved structures
+
+The table below describes 0.1.x; the 0.2.0 start conditions are in the section above.
 
 Agent defaults: independent starts use chances of 0.003 or 0.005 at Framework's
 ordinary check; the three ledger follow-ups use 0.01 only after their opening

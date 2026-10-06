@@ -5,7 +5,7 @@ Current prepared Agriculture requires Framework 0.111.0 for shared crew work and
 Current prepared Manufacturing requires Framework 0.116.0 for room heat, native gas and vessel damage services.
 Current prepared War Has Been Declared requires Framework 0.104.0 for the shared build-site and combat-observation services.
 Current prepared Phobos Medical requires Framework 0.111.0 for the shared patient services and rectangular equipment.
-Current prepared Phobos Spacer Stories requires Framework 0.110.0 for story packs, small talk and data-card files.
+Current prepared Phobos Spacer Stories requires Framework 0.114.0 for story packs, small talk and data-card files.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package
 compatibility floors remain supported. Build before installation; preview with

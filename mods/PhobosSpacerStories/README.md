@@ -4,7 +4,8 @@
 
 A complete, original story collection for the existing Phobos equipment makers:
 company histories, crew life, TV news and adverts, small talk, loading lore, nine
-correspondence chains and nine archive documents on data cards.
+correspondence chains and nine archive documents on data cards. Since 0.2.0 every
+story belongs to a thread with a home station and named correspondents.
 
 All stories live in the JSON files under `phobos/PhobosFramework/story/`. The
 collection uses the existing add-on loader and requires Phobos Framework 0.110.0.
