@@ -55,6 +55,45 @@ class PreparationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Stale package'):
             w.plan(self.root, self.name)
 
+    def test_read_only_copies_carry_their_note(self):
+        self.put('src/PhobosExample/PhobosExample.csproj', '<Project><ItemGroup><EmbeddedResource Include="../../mods/PhobosExample/framework/economy.json" LogicalName="x" /></ItemGroup></Project>')
+        self.put('mods/PhobosExample/framework/economy.json', '{"schemaVersion": 1, "schema": "economy"}\n')
+        self.put('dist/PhobosExample-P0/Mods/PhobosExample/framework/economy.json', '{"schemaVersion": 1, "schema": "economy"}\n')
+        with self.assertRaisesRegex(ValueError, 'Stale package: PhobosExample/framework/economy.json'):
+            w.plan(self.root, self.name)
+        headers = w.module(ROOT, 'headers', 'scripts/read-only-data-headers.py')
+        headers.stamp(self.root, self.name, self.root / 'dist/PhobosExample-P0')
+        report, content, _ = w.plan(self.root, self.name)
+        self.assertTrue(content['framework/economy.json'].startswith(b'// Read-only copy.'))
+
+    def test_framework_sounds(self):
+        self.put('config/workshop-publishing.json', json.dumps({'appId':'1022980', 'mods':{'PhobosFramework':{'itemId':None,'requires':[],'hold':None}}, 'externalRequiredItems':['3741030124'], 'externalRequiredItemNames':{'3741030124':'BepInEx Mod Loader'}}))
+        shutil.move(self.root / 'mods/PhobosExample', self.root / 'mods/PhobosFramework')
+        shutil.move(self.root / 'workshop/PhobosExample', self.root / 'workshop/PhobosFramework')
+        for path in (self.root / 'workshop/PhobosFramework/releases').glob('*'):
+            path.unlink()
+        note_spec = importlib.util.spec_from_file_location('notes', self.root / 'scripts/workshop-release-notes.py')
+        notes = importlib.util.module_from_spec(note_spec)
+        note_spec.loader.exec_module(notes)
+        for path, (_, data) in notes.plan(self.root, ['PhobosFramework'], None)[1].items():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+        shutil.rmtree(self.root / 'dist/PhobosExample-P0')
+        shutil.copytree(self.root / 'mods/PhobosFramework', self.root / 'dist/PhobosFramework-P0/Mods/PhobosFramework')
+        for dll in ('PhobosFramework.dll', 'Phobos.Scope.Recording.dll'):
+            self.put(f'dist/PhobosFramework-P0/BepInEx/plugins/PhobosFramework/{dll}', 'fixture ' + dll)
+            self.put(f'src/PhobosFramework/bin/Release/netstandard2.1/{dll}', 'fixture ' + dll)
+        self.put('assets/loop.wav', 'fixture loop')
+        self.put('config/framework-sounds.json', json.dumps({'files': {'sounds/machine-loop-a.wav': 'assets/loop.wav'}}))
+        with self.assertRaisesRegex(ValueError, 'Packaged sound sounds/machine-loop-a.wav'):
+            w.plan(self.root, 'PhobosFramework')
+        self.put('dist/PhobosFramework-P0/BepInEx/plugins/PhobosFramework/sounds/machine-loop-a.wav', 'fixture loop')
+        _, content, _ = w.plan(self.root, 'PhobosFramework')
+        self.assertIn('BepInEx/plugins/PhobosFramework/sounds/machine-loop-a.wav', content)
+        self.put('dist/PhobosFramework-P0/BepInEx/plugins/PhobosFramework/sounds/extra.wav', 'not mapped')
+        with self.assertRaisesRegex(ValueError, 'Unexpected plugin'):
+            w.plan(self.root, 'PhobosFramework')
+
     def test_missing_data(self):
         (self.root / 'mods/PhobosExample/data/README.md').unlink()
         (self.root / 'dist/PhobosExample-P0/Mods/PhobosExample/data/README.md').unlink()

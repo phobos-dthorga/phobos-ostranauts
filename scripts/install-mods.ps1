@@ -305,7 +305,8 @@ foreach ($mod in $Mods) {
     if (-not $dataOnly) {
         foreach ($pluginFile in Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force) {
             $relativePluginFile = [IO.Path]::GetRelativePath($pluginSource, $pluginFile.FullName).Replace('\', '/')
-            if ($relativePluginFile -ne "$id.dll" -and -not ($needsScope -and $relativePluginFile -eq 'Phobos.Scope.Recording.dll') -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
+            if ($relativePluginFile -ne "$id.dll" -and -not ($needsScope -and $relativePluginFile -eq 'Phobos.Scope.Recording.dll') -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$' -and
+                -not ($mod -eq 'Framework' -and $relativePluginFile -match '^sounds/[a-z0-9-]+\.wav$')) {
                 throw "Unexpected plugin package files for $id."
             }
         }
@@ -597,6 +598,19 @@ foreach ($mod in $Mods) {
             }
             $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json
             $modFiles += [pscustomobject]@{ Source = $file.FullName; Target = (Join-Path $pluginTarget "translations/$($file.Name)"); Backup = "$id/plugin/translations/$($file.Name)" }
+        }
+    }
+    # Framework's sounds are loose files beside the plugin from 0.120.0; earlier packages carried them inside the DLL.
+    $soundSource = Join-Path (Split-Path -Parent $dllSource) 'sounds'
+    if ($mod -eq 'Framework' -and $version -ge [version]'0.120.0') {
+        foreach ($name in @('completion') + @('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' | ForEach-Object { "machine-loop-$_" })) {
+            if (-not (Test-Path -LiteralPath (Join-Path $soundSource "$name.wav") -PathType Leaf)) { throw "Package is incomplete: $id/sounds/$name.wav" }
+        }
+    }
+    if ($mod -eq 'Framework' -and (Test-Path -LiteralPath $soundSource)) {
+        foreach ($file in Get-ChildItem -LiteralPath $soundSource -Recurse -File -Force) {
+            if ($file.DirectoryName -ne $soundSource -or $file.Name -notmatch '^[a-z0-9-]+\.wav$') { throw "Unexpected sound package file: $($file.FullName)" }
+            $modFiles += [pscustomobject]@{ Source = $file.FullName; Target = (Join-Path $pluginTarget "sounds/$($file.Name)"); Backup = "$id/plugin/sounds/$($file.Name)" }
         }
     }
     foreach ($file in Get-ChildItem -LiteralPath $nativeSource -Recurse -File -Force) {

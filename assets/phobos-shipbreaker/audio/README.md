@@ -9,8 +9,10 @@ Reproduce with `python scripts/synthesize-completion-cue.py`; verify without
 writing with `--check`. Python's standard library is sufficient. No network,
 API credentials, random seed or paid generation is involved. `completion.json`
 records the recipe, format, duration, measured peak/RMS and source/export hashes.
-The sample is embedded once into the Framework plugin, so runtime playback requires
-no external file loader or network access.
+Until Framework 0.119.0 the sample was embedded in the Framework plugin. Since
+0.120.0 it ships unchanged as `sounds/completion.wav` beside the plugin, where a
+player may replace it (see the [shared completion cues](../../../docs/shared-completion-cues.md)
+guide). Playback reads only that local file, with no network access.
 
 The raw preview is louder than the default in-game level (35% before the native
 effects mixer). Do not normalize it to full scale. The source amplitude ceiling

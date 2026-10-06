@@ -29,6 +29,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.120.0] - 2026-10-06 - Draft
+
+### Added
+
+- Sounds you can replace (owner decision, 6 October 2026). The completion cue and the eight machine loops are now ordinary WAV files in the sounds folder beside the Framework plugin, not hidden inside its DLL. A file of the same name in BepInEx/config/PhobosFramework/sounds/ plays instead: 16-bit PCM, mono or stereo, up to 10 seconds for a loop and half a second for the cue. A replacement loop is levelled to the game's appliance loudness like the shipped ones, and a louder cue is turned down to the shipped cue's quiet peak. A file that cannot be read is named in the log and the shipped sound plays. The log also names every replacement in use. The machine work sounds guide lists which machines play each loop.
+- The read-only data copies in every Phobos mod's framework folder now say so on their first line (owner request, 6 October 2026). The game reads those tables from inside each mod's DLL, so editing a copy changes nothing. The note names the folder to use instead, where a .json file of any name is applied on top. The editing data files guide explains both.
+
+### Changed
+
+- Framework's DLL is about 4 MB smaller, now that the sounds sit beside it.
+
+### Save compatibility
+
+- Automatic. Nothing is saved.
+
+### Compatibility and limits
+
+- Install with the repository's installer or the Workshop package. A DLL copied on its own plays no sounds, and the log names each missing file. Only the completion cue and machine loops can be replaced; recipes and other tables still change through data files. Not yet heard in the game.
+
 ## [0.119.0] - 2026-10-06 - Draft
 
 ### Added

@@ -44,6 +44,40 @@ In `BepInEx/config/phobosgekko.ostranauts.framework.cfg`, section `Audio`:
 The game's own effects and master volume apply on top. At start-up the log says
 what loudness the sounds were levelled to.
 
+## Replacing a sound
+
+Since Framework 0.120.0 the sounds are ordinary files you can see, in
+`BepInEx/plugins/PhobosFramework/sounds/`:
+
+| File | Played by |
+| --- | --- |
+| `completion.wav` | the completion cue ([shared completion cues](shared-completion-cues.md)) |
+| `machine-loop-a.wav` | V4, R4, Groundwork B2 |
+| `machine-loop-b.wav` | X2, RM-1, W2 |
+| `machine-loop-c.wav` | SA-3, AX-2, Hearth-2 |
+| `machine-loop-d.wav` | EC-4, D4 |
+| `machine-loop-e.wav` | LC-3, A2, T2 |
+| `machine-loop-f.wav` | K2, F6 |
+| `machine-loop-g.wav` | CR-4, L2, C2 |
+| `machine-loop-h.wav` | Copperhead-3, Corker-2, Firstlight-4 |
+
+Do not edit those: an update puts them back. To use a sound of your own:
+
+1. Save it as a WAV file, uncompressed 16-bit PCM, mono or stereo, at 8,000 to
+   96,000 samples a second. Most sound editors call this "WAV (Microsoft) signed
+   16-bit PCM". A machine loop may run up to 10 seconds and should loop without a
+   click; the completion cue may run up to half a second.
+2. Name it exactly like the file it replaces, for example `machine-loop-d.wav`.
+3. Put it in `BepInEx/config/PhobosFramework/sounds/` (the folder is created the
+   first time the game loads with Framework 0.120.0).
+4. Start the game. The log says which replacements are playing.
+
+Every machine on that loop plays your sound, each at its own pitch. Your loop is
+levelled to the scrubber's loudness like the shipped ones, so it cannot play louder
+than the game's own machines; a louder completion cue is turned down to the
+shipped cue's quiet peak. If your file cannot be read, the log says why and the
+shipped sound plays instead. Delete your file to go back to the shipped sound.
+
 ## Owner checks
 
 1. Start a V4 batch: the loop fades in; Pause it and the loop fades out.
@@ -54,6 +88,11 @@ what loudness the sounds were levelled to.
 4. Set `MachineSoundVolume` to 0: silence, and every machine keeps working.
 5. Pause the game, time-skip and reload: no burst of queued sound, and a machine
    is only heard once it is working again.
+6. Since 0.120.0: copy any shipped loop into `BepInEx/config/PhobosFramework/sounds/`
+   under another loop's name (for example `machine-loop-h.wav` saved as
+   `machine-loop-a.wav`): the V4 now plays it, and the log names the replacement.
+   Replace it with a text file renamed `.wav`: the log says it was ignored and the
+   shipped loop plays.
 
 The sounds are ElevenLabs-generated (attribution: ElevenLabs, elevenlabs.io); see
 the [audio record](../assets/phobos-audio/washer-motor-pump-v1/README.md).

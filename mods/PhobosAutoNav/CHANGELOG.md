@@ -8,6 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Changed
 
+- The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified flight, docking and weapon messages. Return to Native is now Return to ship controls, with the same effect: the ship may resume automatic firing. Commands and saved flights stay the same.
 
 ### Documentation

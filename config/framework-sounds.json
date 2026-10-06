@@ -1,0 +1,14 @@
+{
+  "notes": "Framework's loose sound files (Framework 0.120.0): each published name under BepInEx/plugins/PhobosFramework/ and the repository file it is copied from. The build copies them, Workshop preparation checks them, and the Framework tests check every name the code asks for is here. A player replaces one with a file of the same name in BepInEx/config/PhobosFramework/sounds/.",
+  "files": {
+    "sounds/completion.wav": "assets/phobos-shipbreaker/audio/completion.wav",
+    "sounds/machine-loop-a.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-a.wav",
+    "sounds/machine-loop-b.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-b.wav",
+    "sounds/machine-loop-c.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-c.wav",
+    "sounds/machine-loop-d.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-d.wav",
+    "sounds/machine-loop-e.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-e.wav",
+    "sounds/machine-loop-f.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-f.wav",
+    "sounds/machine-loop-g.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-g.wav",
+    "sounds/machine-loop-h.wav": "assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-h.wav"
+  }
+}

@@ -62,20 +62,25 @@ guarantee suppression during every native warning. No alarm suite is added.
 
 ## Implementation and checking
 
-Framework owns `Audio.CompletionWatch`, the embedded WAV, player, volume, scope
+Framework owns `Audio.CompletionWatch`, the cue's WAV, player, volume, scope
 checks and spacing. Content services establish completion facts and check access;
 panels delegate actions and show results. Never infer completion from translated
 text or panel refresh. No recipe, inventory, flight rule or save schema changes.
 
 The original [audio records](../assets/phobos-shipbreaker/audio/README.md) retain
 the waveform's provenance: ChatGPT-authored procedural synthesis under the project
-MIT licence, not a recording or audio-model voice. Only Framework embeds it at
-runtime. Documentation previews are not separate audio players. See the
+MIT licence, not a recording or audio-model voice. Only Framework plays it. It was
+embedded in the plugin until 0.119.0; since 0.120.0 it ships as
+`BepInEx/plugins/PhobosFramework/sounds/completion.wav`. A file of the same name in
+`BepInEx/config/PhobosFramework/sounds/` replaces it (16-bit PCM WAV, at most half a
+second). A louder replacement is turned down to the shipped cue's quiet peak, and
+one that cannot be read falls back to the shipped cue. Documentation previews are
+not separate audio players. See the
 [first-trial guide](development/shipbreaker-completion-cue.md).
 
 Automated checks cover separate producers sharing one channel, consumed watches,
-scope, mute, reload, malformed audio, the compiled provider's actual embedded
-sample, and navigation persistence for arrival, abort and Stop. Existing
+scope, mute, reload, malformed audio, the shipped sample, replacements and their
+fallback, and navigation persistence for arrival, abort and Stop. Existing
 agriculture checks cover growth/readiness and saves. These do not execute Unity
 playback or establish perceived loudness.
 

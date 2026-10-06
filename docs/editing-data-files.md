@@ -10,12 +10,26 @@ your game settings, and the mod reads it on top of the shipped one.
 ## Where the files are
 
 - The shipped tables: `mods/<Mod>/framework/<schema>.json` inside each Phobos mod
-  folder (for example `PhobosManufacturing/framework/economy.json`). Read them;
-  do not edit them, an update would overwrite your changes.
+  folder (for example `PhobosManufacturing/framework/economy.json`). **These are
+  read-only copies for you to look at.** The game reads the same tables from inside
+  the mod's own DLL, so editing a copy changes nothing in the game, and an update
+  overwrites it anyway. Since Phobos Framework 0.120.0 each copy says so on its first
+  line, a `//` note above the opening brace.
 - Your files: `BepInEx/config/<Mod>/<schema>/`, for example
   `BepInEx/config/PhobosManufacturing/economy/my-prices.json`. The folder is
-  created the first time the game loads with the mod installed. Every `.json`
-  file in it is applied, in name order.
+  created the first time the game loads with the mod installed. **Every `.json`
+  file in it is applied, whatever you name it**, in name order (`a-prices.json`
+  before `b-prices.json`), each on top of the ones before. So you can keep your
+  changes in several small files, and each still becomes part of the live tables
+  when the game loads. A file that breaks a rule is skipped with its reason, and the
+  others still apply (see [Seeing what happened](#seeing-what-happened)).
+
+Some files in a mod's `framework` folder are not tables you can change at all, and
+their first line says so too: `equipment-names.json` (brand and model names) and the
+`frozen-*.json` files (fingerprints of published recipes and crops). The one
+exception the other way is `recipes.json` in the Shipbreaker, Agriculture and Auto
+Nav folders: those construction recipes are read from the mod folder itself, carry
+no note, and are overwritten by every update, so do not edit them either.
 
 To share your changes with other players, see
 [publishing an add-on](publishing-an-add-on.md): the same files, in a mod folder of
@@ -78,6 +92,10 @@ to your settings (adjust the path to where you cloned or downloaded the schemas)
   { "fileMatch": ["**/BepInEx/config/Phobos*/materials/*.json", "**/framework/materials.json"], "url": "./schemas/materials.schema.json" }
 ]
 ```
+
+Strict JSON has no comments, so an editor may mark the first-line note in a shipped
+copy as an error. The note is meant for you to read, and the mod's loaders skip it.
+If you copy a shipped file as the start of your own, you can keep or delete it.
 
 Do not write a `$schema` line into a pack or an override file: unknown fields are
 refused, and that is one. The schemas check shape and ranges only; the rules that

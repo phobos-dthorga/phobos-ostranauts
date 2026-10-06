@@ -28,6 +28,7 @@ internal sealed class MachineAudio : IDisposable
     private readonly ConfigEntry<int> voices;
     private readonly Action<string> log;
     private readonly Dictionary<MachineLoop, (AudioClip Clip, double Rms)> clips = new();
+    private readonly HashSet<MachineLoop> unreadable = new();
     private readonly Dictionary<string, Voice> playing = new(StringComparer.Ordinal);
     private readonly List<CondOwner> scratch = new();
     private Discovery.WorldFamily? family;
@@ -95,15 +96,25 @@ internal sealed class MachineAudio : IDisposable
         log("Machine sounds levelled to the game's " + MachineSoundRules.ReferenceEmitter + " at " + MachineSoundRules.Dbfs(referenceLevel).ToString("0.0") + " dBFS.");
         return true;
     }
-    private (AudioClip Clip, double Rms) Clip(MachineLoop loop)
+    /// <summary>A loop's clip, read once from its file (0.120.0). A loop that cannot be read stays silent for the
+    /// session, said once in the log; every other loop still plays.</summary>
+    private (AudioClip Clip, double Rms)? Clip(MachineLoop loop)
     {
         if (clips.TryGetValue(loop, out var known)) return known;
-        using var stream = typeof(MachineAudio).Assembly.GetManifestResourceStream(MachineSoundRules.Resource(loop)) ??
-            throw new InvalidOperationException("Missing machine loop " + loop + ".");
-        var samples = CompletionCuePcm.Read(stream, MachineSoundRules.MaxLoopSamples, "machine loop");
-        var clip = AudioClip.Create("Phobos machine " + loop, samples.Length, 1, CompletionCuePcm.SampleRate, false);
-        if (!clip.SetData(samples, 0)) { UnityEngine.Object.Destroy(clip); throw new InvalidOperationException("Machine loop " + loop + " could not be loaded."); }
-        return clips[loop] = (clip, MachineSoundRules.Rms(samples));
+        if (unreadable.Contains(loop)) return null;
+        try
+        {
+            var pcm = SoundFiles.Load(SoundFiles.MachineLoop(loop), MachineSoundRules.MaxLoopSeconds, "machine loop " + loop);
+            var clip = AudioClip.Create("Phobos machine " + loop, pcm.Samples.Length, 1, pcm.SampleRate, false);
+            if (!clip.SetData(pcm.Samples, 0)) { UnityEngine.Object.Destroy(clip); throw new System.IO.InvalidDataException("Unity refused its samples."); }
+            return clips[loop] = (clip, MachineSoundRules.Rms(pcm.Samples));
+        }
+        catch (System.IO.InvalidDataException ex)
+        {
+            unreadable.Add(loop);
+            log("Machine loop " + loop + " is silent for this session: " + ex.Message);
+            return null;
+        }
     }
 
     private void Select()
@@ -134,7 +145,9 @@ internal sealed class MachineAudio : IDisposable
     private Voice? Start(CondOwner machine)
     {
         if (!MachineSounds.Entries.TryGetValue(machine.strCODef, out var entry)) return null;
-        var (clip, _) = Clip(entry.Loop);
+        var loaded = Clip(entry.Loop);
+        if (loaded == null) return null;
+        var clip = loaded.Value.Clip;
         var host = new GameObject("Phobos machine sound");
         host.transform.SetParent(machine.transform, false);
         var source = host.AddComponent<AudioSource>();

@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.119.0
+[b]Version:[/b] 0.120.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods, and it keeps their controls, crew work and supplies consistent across machines.
@@ -17,8 +17,8 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [*]When a Phobos autopilot switches ship sensors on, it remembers what it switched and turns off only those. Your own switch always wins, and the crew log tells you every time.
 [*]Content mods can put back the game's own build sites for destroyed parts.
 [*]Shared merchant stock, kiosk offers, salvage, repair, Restore and dismantling rules.
-[*]Machines give off a quarter of their heat (MachineHeatScale) and hum while they work, as loud as the game's own scrubber (MachineSoundVolume).
-[*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as readable files you can override in BepInEx/config, checked before use; recipes must conserve mass. Share them as an add-on: see the guides.
+[*]Machines give off a quarter of their heat (MachineHeatScale) and hum while they work, as loud as the game's own scrubber; the sounds are WAV files you can swap.
+[*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as read-only copies; your own files in BepInEx/config override them, checked first; recipes conserve mass. Share them as an add-on.
 [*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, goal chains with rewards, small talk, loading tips, encyclopedia articles and data files, tied to stations, threads, named people, standing and the clock; local news greets you on arrival. Removing a story file never breaks a save.
 [/list]
 

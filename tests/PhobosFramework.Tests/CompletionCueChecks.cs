@@ -46,18 +46,21 @@ internal static class CompletionCueChecks
         bool completed = watch.Commit("actor", "ship", true);
         check(completed && !gate.Take(20, 0, false) && !watch.Commit("actor", "ship", true), "Unmuting does not replay a muted completion");
 
-        using var audio = typeof(CompletionWatch).Assembly.GetManifestResourceStream("PhobosFramework.completion.wav")!;
-        using var copy = new MemoryStream(); audio.CopyTo(copy);
-        var bytes = copy.ToArray();
-        var samples = CompletionCuePcm.Read(new MemoryStream(bytes));
-        check(samples.Length / (double)CompletionCuePcm.SampleRate == .28, "Owned cue stays brief");
-        check(samples[0] == 0 && samples[samples.Length - 1] == 0 && samples.Max(s => Math.Abs(s)) <= .101, "Quiet peak and silent endpoints");
+        // The shipped cue, as the package build copies it into the plugin's sounds folder (0.120.0).
+        string repo = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+        var bytes = File.ReadAllBytes(Path.Combine(repo, "assets/phobos-shipbreaker/audio/completion.wav"));
+        PcmClip Read(byte[] data) => PcmWav.Read(new MemoryStream(data), SoundFiles.CompletionMaxSeconds, "completion cue");
+        var clip = Read(bytes);
+        var samples = clip.Samples;
+        check(clip.SampleRate == PcmWav.SampleRate && clip.Seconds == .28, "Owned cue stays brief");
+        check(samples[0] == 0 && samples[samples.Length - 1] == 0 && samples.Max(s => Math.Abs(s)) <= SoundFiles.CompletionPeak + .001, "Quiet peak and silent endpoints");
         check(samples.Zip(samples.Skip(1), (a,b) => Math.Abs(a-b)).Max() < .01, "No abrupt sample discontinuity");
         foreach (int offset in new[] { 0, 4, 8, 12, 16, 20, 22, 24, 28, 32, 34, 36, 40 })
         {
             var broken = (byte[])bytes.Clone(); broken[offset] ^= 0x40;
-            throws(() => CompletionCuePcm.Read(new MemoryStream(broken)), "Changed PCM header fails closed at " + offset);
+            throws(() => Read(broken), "Changed PCM header fails closed at " + offset);
         }
-        throws(() => CompletionCuePcm.Read(new MemoryStream(bytes.Take(43).ToArray())), "Truncated export rejected");
+        throws(() => Read(bytes.Take(43).ToArray()), "Truncated export rejected");
+        throws(() => Read(bytes.Concat(new byte[64]).ToArray()), "Stray bytes after the samples rejected");
     }
 }

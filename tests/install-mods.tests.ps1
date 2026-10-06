@@ -93,6 +93,15 @@ foreach ($mod in @('PhobosFramework', 'PhobosShipbreaker', 'PhobosAutoNav')) {
     Check ((Get-FileHash -LiteralPath $catalog).Hash -eq (Get-FileHash -LiteralPath $sourceCatalog).Hash) 'Translation catalog was not delivered unchanged'
 }
 Check ((Get-FileHash -LiteralPath $overrideFile).Hash -eq $overrideHash) 'Installation changed a community translation override'
+$soundPackage = Join-Path $PackageRoot 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/sounds'
+$packagedSounds = @(Get-ChildItem -LiteralPath $soundPackage -File)
+Check ($packagedSounds.Count -eq 9) 'Framework packages its completion cue and eight machine loops'
+foreach ($sound in $packagedSounds) {
+    $installedSound = Join-Path $fresh.OstranautsPath "BepInEx/plugins/PhobosFramework/sounds/$($sound.Name)"
+    Check ((Test-Path -LiteralPath $installedSound) -and (Get-FileHash -LiteralPath $installedSound).Hash -eq (Get-FileHash -LiteralPath $sound.FullName).Hash) "Sound $($sound.Name) was not delivered unchanged"
+}
+$readOnlyCopy = Join-Path (Split-Path -Parent $fresh.LoadOrderPath) 'PhobosFramework/framework/upkeep.json'
+Check ((Get-Content -LiteralPath $readOnlyCopy -TotalCount 1).StartsWith('// Read-only copy.')) 'Installed read-only data copy lacks its first-line note'
 $nativeRoot = Split-Path -Parent $fresh.LoadOrderPath
 $artwork = @(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosAutoNav/images') -Recurse -File)
 $expectedAutoArt = @(Get-ChildItem -LiteralPath (Join-Path $PackageRoot 'PhobosAutoNav-P0/Mods/PhobosAutoNav/images') -Recurse -File)
@@ -268,6 +277,13 @@ Remove-Item -LiteralPath $missingCatalog
 Fails { & $installer @incomplete | Out-Null } 'PhobosShipbreaker/translations/en.json'
 Check ((InstalledFiles $incomplete) -eq $before) 'Missing English catalog partially installed a package'
 [IO.File]::WriteAllBytes($missingCatalog, $catalogContents)
+# Framework 0.120.0 plays its sounds from loose files: a package missing one is refused before anything is copied.
+$missingSound = Join-Path $badPackages 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/sounds/machine-loop-d.wav'
+$soundContents = [IO.File]::ReadAllBytes($missingSound)
+Remove-Item -LiteralPath $missingSound
+Fails { & $installer @incomplete | Out-Null } 'PhobosFramework/sounds/machine-loop-d.wav'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing machine loop partially installed a package'
+[IO.File]::WriteAllBytes($missingSound, $soundContents)
 # The new panel cannot be released as a DLL-only update with missing artwork.
 $missingFaceplate = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosIndustrialPanel.png'
 $faceplateBytes = [IO.File]::ReadAllBytes($missingFaceplate)

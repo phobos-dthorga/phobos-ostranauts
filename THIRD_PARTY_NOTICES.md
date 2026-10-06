@@ -112,8 +112,9 @@ recoloured lane exports of that same fitting; see the [line-art record](assets/l
 
 ## Machine work sounds
 
-Framework 0.119.0 embeds eight looping machine sounds in its plugin, prepared
-from ElevenLabs Sound Effects v2 output. Attribution: **ElevenLabs —
+Framework ships eight looping machine sounds, prepared from ElevenLabs Sound
+Effects v2 output: embedded in its plugin in 0.119.0, and since 0.120.0 as
+`sounds/machine-loop-a.wav` to `-h.wav` beside the plugin. Attribution: **ElevenLabs —
 elevenlabs.io**. These generated files are excluded from this repository's MIT
 grant; their terms, generation records, hashes and the loop preparation are in the
 [audio licensing record](assets/phobos-audio/washer-motor-pump-v1/LICENSING.md) and

@@ -91,10 +91,10 @@ internal sealed class CompletionAudio : IDisposable
 
     private static AudioClip LoadClip()
     {
-        using var stream = typeof(CompletionAudio).Assembly.GetManifestResourceStream("PhobosFramework.completion.wav")
-            ?? throw new InvalidDataException("Missing completion cue.");
-        var samples = CompletionCuePcm.Read(stream);
-        var result = AudioClip.Create("Phobos completion", samples.Length, 1, CompletionCuePcm.SampleRate, false);
+        // A loose, replaceable file since 0.120.0; a missing or damaged one turns the cue off for the session.
+        var pcm = SoundFiles.Load(SoundFiles.Completion, SoundFiles.CompletionMaxSeconds, "completion cue");
+        var samples = SoundFiles.LimitPeak(pcm.Samples, SoundFiles.CompletionPeak);
+        var result = AudioClip.Create("Phobos completion", samples.Length, 1, pcm.SampleRate, false);
         if (!result.SetData(samples, 0)) { UnityEngine.Object.Destroy(result); throw new InvalidDataException("Cannot load completion cue."); }
         return result;
     }

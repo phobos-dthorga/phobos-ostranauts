@@ -38,7 +38,7 @@ Put $repo 'mods/PhobosFramework/data/README.md' 'Keep data'
 Put $repo 'mods/PhobosFramework/preview.png' 'fixture cover'
 Put $repo 'mods/PhobosFramework/CHANGELOG.md' "# Changelog`n`n## [Unreleased]`n`nNone.`n`n## [1.0.0] - 2026-09-29 - Draft`n`n### Added`n`n- Example.`n"
 Put $repo 'workshop/PhobosFramework/page.bbcode' "[h1]Phobos Framework[/h1]`n[b]Version:[/b] 1.0.0`n[b]Publication status:[/b] Draft`n"
-foreach ($script in 'prepare-workshop.py', 'workshop-release-notes.py') {
+foreach ($script in 'prepare-workshop.py', 'workshop-release-notes.py', 'read-only-data-headers.py') {
     New-Item -ItemType Directory -Force -Path (Join-Path $repo 'scripts') | Out-Null
     Copy-Item -LiteralPath (Join-Path $repoRoot "scripts/$script") -Destination (Join-Path $repo "scripts/$script")
 }

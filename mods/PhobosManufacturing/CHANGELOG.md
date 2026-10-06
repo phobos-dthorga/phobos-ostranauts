@@ -12,6 +12,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Changed
 
+- The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Redrew the Lixivar AT-2, AT-3 and AT-4 acid tanks and Alembrine Cask-2, Cask-3 and Cask-4 ethanol tanks with plain sealed tops and containment rims. Sage enamel and slate distinguish acid; steel, copper and brass distinguish ethanol. There are no painted readings, gauges or fill strips. All forms keep their existing image names, footprints and storage rules; other silos and small sprites are unchanged.
 
 - Redrew the L2 Canister Filling Station, A2 Cabin Air Regulator and Alembrine Corker-2 Bottling Unit with the same mechanical finish as the new reactor artwork. Each keeps its maker's colours, two-by-two footprint and existing image names on every form. The owner excluded the really small sprites, so materials, pipe tiles, one-tile equipment and floor remain unchanged. Production, prices, ports and saved state are unchanged.

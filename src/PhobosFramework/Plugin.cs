@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.119.0";
+    public const string Version = "0.120.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -67,6 +67,12 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         language = Config.Bind("Localization", "Language", "auto",
             Text.Get("Plugin.language_tag_such_as_en_fr_or"));
         RefreshLanguage();
+        // Sounds are loose files beside the plugin (0.120.0); a same-named file in the config folder replaces one.
+        Audio.SoundFiles.ShippedDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(typeof(FrameworkPlugin).Assembly.Location) ?? "", Audio.SoundFiles.Folder);
+        Audio.SoundFiles.OverrideDirectory = System.IO.Path.Combine(Paths.ConfigPath, "PhobosFramework", Audio.SoundFiles.Folder);
+        Audio.SoundFiles.Log = message => Logger.LogInfo(message);
+        try { System.IO.Directory.CreateDirectory(Audio.SoundFiles.OverrideDirectory); }
+        catch (Exception ex) when (ex is System.IO.IOException || ex is UnauthorizedAccessException) { Logger.LogWarning("Cannot create the sound replacement folder " + Audio.SoundFiles.OverrideDirectory + ": " + ex.Message); }
         try { Audio.CompletionCues.Player = new Audio.CompletionAudio(gameObject, Config, message => Logger.LogWarning(message)); }
         catch (Exception ex) { Logger.LogWarning("Optional completion audio unavailable: " + ex.Message); }
         // Machine work sounds (0.119.0): content mods register their machines; Framework plays them.

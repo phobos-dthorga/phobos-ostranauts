@@ -85088,8 +85088,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f3de2968d39641e072dbea53ff314d99217852158ae69999bfa9567d4cbeb8bd",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "eeccc840e145fe8d17833bb6009b2f06ae1c63a1d733ad0499d46b6ca450e970",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -85249,8 +85249,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "84e89463cb62e9f1f66df4cf5e564549433aab2ef56e69f755f6d45c839699fd",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "c309340e5a83a020f2e2c33efb8b7e1872c7fbae1a7c1331e6dd05333c583a87",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "docs/crew-automation.md",
@@ -86123,8 +86123,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "84c5da0c1e577e30d63023686b4558d5b662bb9de4bd7e39864afbafdae32449",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "26d19ca2b28a5bd5fd1572074db6661a7cab781fdcbe79731655959e1d095122",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -86144,8 +86144,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "378882f574fcfd67d7d5cdcc130cbd163321f3acbb8e85f6c9f34ec51e5adfd9",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "85ed5309a047bc9ab2b131726758da050639430b1ef5dd3644e6dcfaacb0cb5b",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -86270,8 +86270,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0cad2ffdad918ae6911023584c55a4dc15dcc26b23cfc8f2e6e6893d3d1b563f",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "9caf2f998de9cf7fa182b59956dcf38c66c3446e68a43e2f14b245434be4fc22",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -86305,8 +86305,8 @@
       "path": "docs/shared-completion-cues.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "85f53eb237bcb128984d6656a62bc268fd400bdf42adb4382333b0dcce2650bd",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "c8e4ac1c95c1d4e0d56fd19e098038c3835bc716d24bfd88a259880476ec3857",
+      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained. 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "docs/shipbreaker-bulk-silos.md",
@@ -86396,8 +86396,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9350410378771e1727521297b5a6b2b84c5e87f62ac3d0cce697094ee3746466",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "e9f138bc45f6ec8c7a32725badca5576985c2c13b0ef88f73c571b399b4125fa",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -86501,8 +86501,8 @@
       "path": "docs/development/machine-work-sounds-handoff.md",
       "scope": "developer audio production, source observations, implementation handoff and owner listening checks",
       "decision": "review audience separation and evidence limits",
-      "sha256": "e48a5853fefdf7c2fbae01b99bbff035581ca1e85beb89de5268c2a4525003e9",
-      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0).",
+      "sha256": "a4bf1dcf6fa1843f2b310427a20a5761d5aaa8f2435c3f44f828ceee74ec215e",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0).",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261006OneShotRemoval": "Reviewed 6 October 2026: owner-requested deletion of four obsolete one-shot WAVs. Removed links and claims that files remain; kept eight loop candidates and original MP3 provenance. No player-facing game text changed."
@@ -86511,7 +86511,7 @@
       "path": "docs/machine-work-sounds.md",
       "scope": "current player text",
       "decision": "new",
-      "sha256": "7b6b7f4e1ff6495933622996693bc7bd615cd1f79f975688d8f65fd83c0d83fa",
+      "sha256": "2151d35cd25ed83d3bfa6f56b2055ddfae320de395c50cb51227ad89b71ade0a",
       "review": "New player guide, 6 October 2026."
     }
   ],
@@ -86571,8 +86571,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7d588e3a665d6f397d2b3de86089c528fce218ff6d546b7bf013feec9126480d",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "77bb27e5a19b53ec4b7a32f101f214405f8e63c53b1374072add5ef2e1ebabaf",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

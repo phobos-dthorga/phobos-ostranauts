@@ -188,7 +188,17 @@ function New-PhobosPackage {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "translations/$Id") -Destination (Join-Path $pluginTarget 'translations') -Recurse
     }
     Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
+    # The data copies built into the DLL say on their first line that editing them changes nothing (owner, 6 October 2026).
+    python (Join-Path $RepoRoot 'scripts/read-only-data-headers.py') --mod $Id --package $package | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "Cannot add the read-only notes to $Id's data copies." }
     if ($Id -eq 'PhobosFramework') {
+        # Sounds ship as loose, replaceable files beside the plugin (0.120.0), named by the shared map.
+        $soundMap = (Get-Content -LiteralPath (Join-Path $RepoRoot 'config/framework-sounds.json') -Raw | ConvertFrom-Json).files
+        foreach ($sound in $soundMap.PSObject.Properties) {
+            $soundTarget = Join-Path $pluginTarget $sound.Name
+            New-Item -ItemType Directory -Force -Path (Split-Path -Parent $soundTarget) | Out-Null
+            Copy-Item -LiteralPath (Join-Path $RepoRoot $sound.Value) -Destination $soundTarget
+        }
         $recorder = Join-Path $RepoRoot 'src/PhobosFramework/bin/Release/netstandard2.1/Phobos.Scope.Recording.dll'
         $identity = [Reflection.AssemblyName]::GetAssemblyName($recorder)
         if ($identity.Name -ne 'Phobos.Scope.Recording' -or $identity.Version -lt [version]'0.1.1') {

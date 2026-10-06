@@ -27,9 +27,16 @@ every mod, each with a hard-coded loop and pitch chosen semi-randomly, at
 **volume in line with the vanilla game** (owner, 6 October 2026). The player guide
 is [machine work sounds](../machine-work-sounds.md).
 
-- **Shipped:** the eight loop WAVs, embedded in the Framework plugin
-  (`PhobosFramework.machine-loop-a.wav` to `-h.wav`), read by the same strict PCM16
-  reader as the completion cue with a ten-second bound. No MP3s or listen pages ship.
+- **Shipped:** the eight loop WAVs. In 0.119.0 they were embedded in the Framework
+  plugin. Since 0.120.0 (owner decision, 6 October 2026) they ship as loose files
+  in `BepInEx/plugins/PhobosFramework/sounds/` (`machine-loop-a.wav` to `-h.wav`),
+  copied by the package build from `config/framework-sounds.json`. A file of the
+  same name in `BepInEx/config/PhobosFramework/sounds/` replaces one
+  (`src/PhobosFramework/Audio/SoundFiles.cs`). The reader
+  (`src/PhobosFramework/Audio/PcmWav.cs`) takes 16-bit PCM, mono or stereo (mixed
+  to mono), at 8 to 96 kHz, skips editor notes, and has a ten-second bound. A
+  replacement that cannot be read falls back to the shipped file. A missing shipped
+  file silences that one loop. No MP3s or listen pages ship.
 - **Playback** (`src/PhobosFramework/Audio/MachineAudio.cs`): one positional looping
   source per voiced machine, on a child of the machine's own object, copying the
   vanilla `ItmAtmoScrubberOnSound` emitter's mixer bus (`Ambient`), falloff curve and
@@ -242,8 +249,8 @@ separate purpose and controls. No new generation is needed for this first slice.
    Cache clips once. Do not queue missed audio, change pitch with game speed
    or play a backlog after pause, focus change, reload or time-skip. Check the
    native pause behaviour and real-time work state before resuming.
-9. [CompletionCuePcm.Read](../../src/PhobosFramework/Audio/CompletionCuePcm.cs)
-   rejects files longer than **0.5 seconds**. Use a separately bounded reader
+9. CompletionCuePcm.Read (renamed [PcmWav.Read](../../src/PhobosFramework/Audio/PcmWav.cs)
+   in Framework 0.120.0, which bounds each sound by its own length) rejects files longer than **0.5 seconds**. Use a separately bounded reader
    or shared explicit limit for 5.75-second loops, with meaningful format and
    length tests; retain the cue's bounds. [Unity's AudioSource documentation](https://docs.unity3d.com/2019.4/Documentation/Manual/class-AudioSource.html)
    describes looping, mixer routing, priority and distance controls, but their

@@ -5,15 +5,16 @@ using System.Linq;
 namespace Phobos.Ostranauts.Framework.Audio;
 
 /// <summary>The eight washer/pump loops (Framework 0.119.0; ElevenLabs Sound Effects v2, see
-/// <c>assets/phobos-audio/washer-motor-pump-v1</c>). Each machine family is given one, hard-coded by its mod.</summary>
+/// <c>assets/phobos-audio/washer-motor-pump-v1</c>). Each machine family is given one, hard-coded by its mod; each loop
+/// is a file in Framework's sounds folder (<see cref="SoundFiles.MachineLoop"/>) a player may replace.</summary>
 public enum MachineLoop { A, B, C, D, E, F, G, H }
 
 /// <summary>The machine-sound rules with no game types, so the offline checks run them: loudness matching, which
 /// working machines are voiced, fades and start offsets. Nothing here touches work, power or saved records.</summary>
 public static class MachineSoundRules
 {
-    /// <summary>The longest loop the reader accepts: ten seconds.</summary>
-    public const int MaxLoopSamples = CompletionCuePcm.SampleRate * 10;
+    /// <summary>The longest loop the reader accepts, shipped or a player's replacement.</summary>
+    public const double MaxLoopSeconds = 10;
     /// <summary>Fade in and out (handoff trial values), in real seconds; never at each repeat of the loop.</summary>
     public const float AttackSeconds = .15f, ReleaseSeconds = .2f;
     /// <summary>The vanilla appliance loop ours are levelled to, and its volume and level if it cannot be measured.</summary>
@@ -24,8 +25,6 @@ public static class MachineSoundRules
     /// <summary>A machine's own pitch is kept within the game's own variation for its loops (0.95-1.05), widened a
     /// little for size: big machines lower, small ones higher. Never changed with game speed.</summary>
     public const float MinPitch = .75f, MaxPitch = 1.25f;
-
-    public static string Resource(MachineLoop loop) => "PhobosFramework.machine-loop-" + char.ToLowerInvariant(loop.ToString()[0]) + ".wav";
 
     /// <summary>The root-mean-square level of a clip, 0 to 1 of full scale.</summary>
     public static double Rms(IReadOnlyList<float> samples)

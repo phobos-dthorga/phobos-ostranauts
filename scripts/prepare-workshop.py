@@ -137,8 +137,12 @@ def plan(root, name):
     quote(change_note.decode('utf-8'))
     package = root / 'dist' / f'{name}-P0'
     native = files(package / 'Mods' / name)
+    # The data copies built into the DLL ship with a first-line read-only note (scripts/read-only-data-headers.py).
+    headers = module(ROOT, 'read_only_headers', 'scripts/read-only-data-headers.py')
+    read_only = set(headers.read_only_files(root, name))
     for relative, data in source.items():
-        if native.get(relative) != data:
+        expected = headers.stamped(name, relative, data) if relative in read_only else data
+        if native.get(relative) != expected:
             raise ValueError(f'Stale package: {name}/{relative}; rebuild first')
     # A data-only add-on (a story collection) has no plugin source: its manifest and phobos/ files are the mod.
     data_only = not (root / 'src' / name).is_dir() and 'phobos-addon.json' in source
@@ -154,9 +158,16 @@ def plan(root, name):
         raise ValueError('A data-only add-on carries no plugin payload')
     if not allowed_dlls <= plugins.keys():
         raise ValueError('Required plugin assembly missing')
+    # Framework's loose sounds (0.120.0): exactly the mapped files, each identical to its repository source.
+    sounds = {}
+    if name == 'PhobosFramework' and (root / 'config/framework-sounds.json').is_file():
+        sounds = json.loads((root / 'config/framework-sounds.json').read_text(encoding='utf-8-sig'))['files']
     for relative in plugins:
-        if relative not in allowed_dlls and not re.fullmatch(r'translations/[A-Za-z0-9-]+\.json', relative):
+        if relative not in allowed_dlls and relative not in sounds and not re.fullmatch(r'translations/[A-Za-z0-9-]+\.json', relative):
             raise ValueError(f'Unexpected plugin payload: {relative}')
+    for relative, origin in sounds.items():
+        if plugins.get(relative) != checked(root / origin).read_bytes():
+            raise ValueError(f'Packaged sound {relative} is missing or stale; rebuild first')
     # A matching compiled output prevents a package from silently keeping an older DLL.
     for dll in allowed_dlls:
         compiled = checked(root / 'src' / name / 'bin/Release/netstandard2.1' / dll)
