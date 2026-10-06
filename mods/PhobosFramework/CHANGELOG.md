@@ -29,6 +29,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.127.0] - 2026-10-07 - Draft
+
+### Added
+
+- Story services for other mods. A mod can now ask where you are as the story system sees it (the region and the place you are docked at), check a story requirement block against your game, mark what happened with story flags, and start a story arc only when its requirements hold. Phobos Banking uses them so a lender can be local to a station, ask for standing with a faction, and leave flags a story can follow.
+- F3 story try starts an arc the way another mod would: only if its requirements and place hold, and says what blocks it otherwise.
+- For mod authors: StoryLocation, StoryGates, StoryFlags, StoryArcs.TryBegin, the public requirement validator and library reference checks, and GameClock, the game's own calendar.
+
+### Changed
+
+- Story time counts the game's own day, 87,658 seconds, instead of 86,400. Content that waits a number of days (afterDays, beforeDays, and how long people mention news) now waits whole game days, about 21 minutes more per day than before.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved by Framework; flags other mods set are kept with the story flags already in your story record.
+
+### Compatibility and limits
+
+- Checked offline, and against the game's own calendar code; not yet seen in play.
+
 ## [0.126.2] - 2026-10-07 - Draft
 
 ### Fixed

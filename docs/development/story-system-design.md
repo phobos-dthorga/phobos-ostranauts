@@ -453,6 +453,33 @@ read every arc and keep the new key untouched.
   replies would change a published step's meaning for saves part-way through it. New
   content uses replies; the ChatGPT prompt says when.
 
+## Round 9: story services for other mods and the game's day (Framework 0.127.0)
+
+Planned in the [PDA apps and banking research](pda-apps-and-banking-research.md) so that
+Phobos Banking's lenders can be local, gated and remembered as story content is. Each is
+public, documented and usable by any mod:
+
+- `StoryLocation.Region`, `DockedPlace` and `Near(place)`: where the player is, from the
+  same facts the arcs read (the runner's `GameFacts`, now internal rather than private).
+- `StoryGates.Blocked(requires, thread)`: a story `requires` block checked against the live
+  game and the player's story record, with the F3 report's wording.
+- `StorySchema.ValidateRequires(requires, where)`: the block's form, for another pack that
+  carries one; `StoryLibrary.UnknownReference`, `UnknownPlace` and `UnknownPerson` check
+  the entries it names once the library is built.
+- `StoryFlags.Has`, `SetAt`, `Set` and `Clear`: the flags arc outcomes set, saved in the
+  same record. A change saves at once and brings the next check forward.
+- `StoryArcs.TryBegin(arc, out message)`: starts an arc from code only when its
+  requirements, thread and place hold and it is not under way (or finished and not
+  repeatable). The limit on arcs starting by themselves does not apply. F3
+  `story try <arc>` uses it.
+- **The game's day.** `afterDays`, `beforeDays` and `mentionDays` counted 86,400-second
+  days; they now count the game's own 87,658.125-second day (`GameClock`, shared, checked
+  natively against `CrewSim.SEC_PER_DAY` and `MathUtils`). A window of 10 days now opens
+  about 3.5 hours of game time later than before (10 times 1,258 seconds). Saved story records are unchanged.
+- `GameClock` also numbers shifts as the game does and counts the shift changes between
+  two times (`ShiftCount`), including the game year's extra last second, which the game
+  treats as the next year's first shift.
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another

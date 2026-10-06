@@ -106,6 +106,8 @@ public static class StoryContent
                 lines.Add(StoryArcs.Describe());
                 return string.Join("\n", lines);
             case "start" when id != null && words.Length == 4: return StoryArcs.StartCommand(id);
+            // Framework 0.127.0: start an arc the way another mod would, honouring its requirements and place.
+            case "try" when id != null && words.Length == 4: return StoryArcs.TryCommand(id);
             case "reset" when id != null && words.Length == 4: return StoryArcs.ResetCommand(id);
             case "news" when id != null && words.Length == 4: return StoryArcs.NewsCommand(id);
             case "check" when words.Length == 3: StoryArcs.Check(); return Text.Get("Story.checked");

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework;
 using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Story;
 
@@ -165,6 +166,39 @@ internal static class StoryChecks
         Round6(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round7(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round8(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+        Round9(check, json => Load(json, false));
+    }
+
+    /// <summary>Framework 0.127.0: the game's own day, and the story services other packs use (a lenders pack's
+    /// requirement block is checked by the same validator and against the same library).</summary>
+    private static void Round9(Action<bool, string> check, Func<string, StoryPack> load)
+    {
+        check(GameClock.DaySeconds == 87658.125 && GameClock.Days(GameClock.DaySeconds * 3) == 3 && GameClock.Seconds(2) == 175316.25, "A game day is the game's 87,658.125 seconds");
+        var facts = new Facts { Epoch = 86400 };
+        check(StoryRules.Days(new StoryRecord { Began = 0 }, facts) < 1, "86,400 seconds is no longer a whole story day");
+        check(!StoryRules.MentionFresh(0, GameClock.Seconds(10) + 1, 10) && StoryRules.MentionFresh(0, GameClock.Seconds(10), 10), "Mention days are game days");
+        check(GameClock.Shift(0) == 1 && GameClock.Shift(6 * 3600) == 2 && GameClock.Shift(18 * 3600) == 4 && GameClock.Shift(24.2 * 3600) == 4 && GameClock.Shift(GameClock.DaySeconds) == 1,
+            "Shifts are numbered as the game numbers them, the long last shift included");
+        check(GameClock.ShiftCount(GameClock.DaySeconds) - GameClock.ShiftCount(0) == 4 && GameClock.ShiftCount(6 * 3600) - GameClock.ShiftCount(6 * 3600 - 1) == 1 &&
+              GameClock.ShiftCount(23.9 * 3600) == GameClock.ShiftCount(18 * 3600), "The shift count rises once at each of the game's shift changes");
+        long last = GameClock.ShiftCount(0); bool rising = true;
+        for (double t = 0; t < 3 * GameClock.YearSeconds; t += 1800) { long c = GameClock.ShiftCount(t); if (c < last || c > last + 1) rising = false; last = c; }
+        check(rising, "The shift count never falls or jumps across three game years, year ends included");
+        check(GameClock.ShiftCount(GameClock.YearSeconds - 0.5) == GameClock.ShiftCount(GameClock.YearSeconds) &&
+              GameClock.ShiftCount(GameClock.YearSeconds - 0.5) == GameClock.ShiftCount(GameClock.YearSeconds - 1.5) + 1, "The year's last second is the next year's first shift, as the game sees it");
+
+        bool Throws(StoryRequires r) { try { StorySchema.ValidateRequires(r, "lenders.test"); return false; } catch (ArgumentException ex) { return ex.Message.Contains("lenders.test"); } }
+        check(!Throws(new StoryRequires { places = { "oklg" }, standing = { new StoryStanding { faction = "OKLGCorp", atLeast = "warm" } } }), "A sound requirement block passes the public validator");
+        check(Throws(new StoryRequires { places = { "OKLG Station" } }) && Throws(new StoryRequires { standing = { new StoryStanding { faction = "OKLGCorp", atLeast = "adored" } } }),
+            "A bad place key or tier is refused, naming where it is");
+        var library = StoryLibrary.Build(new[] { ("x", load(@"{ ""schemaVersion"": 1, ""schema"": ""story"",
+            ""places"": { ""oklg"": { ""station"": ""OKLG"", ""region"": ""K-Leg"", ""name"": ""K-Leg"" }, ""oklg-bureaus"": { ""station"": ""OKLG_BUR"", ""within"": ""oklg"", ""name"": ""the Bureaus"" } },
+            ""people"": { ""loan-officer"": { ""name"": ""Ines Varga"", ""home"": ""oklg"" } } }")) }, null, _ => true, null, null);
+        check(library.UnknownReference(new StoryRequires { places = { "oklg-bureaus" }, regions = { "oklg" } }) == null, "Known places pass the library check");
+        check(library.UnknownReference(new StoryRequires { places = { "venus" } }) != null && library.UnknownReference(new StoryRequires { regions = { "oklg-bureaus" } }) != null &&
+              library.UnknownReference(new StoryRequires { arcsDone = { "no-arc" } }) != null, "An unknown place, a part used as a region and an unknown arc are named");
+        check(library.UnknownPlace("oklg") == null && library.UnknownPlace("mars") != null && library.UnknownPlace(null) == null && library.UnknownPerson("loan-officer") == null && library.UnknownPerson("nobody") != null,
+            "Places and people are checked by key");
     }
 
     private const string Replies = @"{
@@ -479,7 +513,7 @@ internal static class StoryChecks
             "A placed crew line is said by crew while the player is there");
         check(StoryRules.Voices(lines["free-talk"], true, false, false) && StoryRules.Voices(lines["free-talk"], false, false, false), "An unplaced line is said anywhere");
         check(StoryRules.Voices(StorySchema.Locals, false) && !StoryRules.Voices(StorySchema.Locals, true), "locals on an unplaced line means others");
-        check(StoryRules.MentionFresh(900, 1000, 10) && !StoryRules.MentionFresh(null, 1000, 10) && !StoryRules.MentionFresh(0, 11 * 86400, 10) && StoryRules.MentionFresh(0, 9 * 86400, 10),
+        check(StoryRules.MentionFresh(900, 1000, 10) && !StoryRules.MentionFresh(null, 1000, 10) && !StoryRules.MentionFresh(0, 11 * GameClock.DaySeconds, 10) && StoryRules.MentionFresh(0, 9 * GameClock.DaySeconds, 10),
             "A mention is fresh for the mention days after its news was shown");
         check(record.SeenEpoch("ledger-news") == 900 && record.SeenEpoch("never") == null, "When news was shown is remembered");
         var old = StoryRecord.Decode(new Dictionary<string, string> { ["seen.old-news"] = "1", ["began"] = "250" });
@@ -567,16 +601,16 @@ internal static class StoryChecks
         check(library.Arcs.ContainsKey("debt-run"), "Conditions named by tests are checked against the game: known ones pass");
         check(!StoryLibrary.Build(new[] { ("x", pack) }, null, _ => true, _ => true, _ => false).Arcs.ContainsKey("debt-run"), "and an unknown condition in a branch test leaves the arc out");
 
-        var facts = new Facts { Epoch = 10 * 86400 };
-        var record = new StoryRecord { Began = 9 * 86400 };
+        var facts = new Facts { Epoch = 10 * GameClock.DaySeconds };
+        var record = new StoryRecord { Began = 9 * GameClock.DaySeconds };
         check(StoryRules.Days(record, facts) == 1 && StoryRules.Blocked(arc.requires, facts, record) != null, "One day of story time is too early for afterDays 2");
-        facts.Epoch = 12 * 86400;
+        facts.Epoch = 12 * GameClock.DaySeconds;
         check(StoryRules.Blocked(arc.requires, facts, record) == null, "Three days is inside the window");
-        facts.Epoch = 40 * 86400;
+        facts.Epoch = 40 * GameClock.DaySeconds;
         check(StoryRules.Blocked(arc.requires, facts, record) != null, "Thirty-one days is past beforeDays");
         check(StoryRules.Days(new StoryRecord(), facts) == 0, "A record that has not begun counts no days");
         var round = StoryRecord.Decode(record.Encode());
-        check(round.Began == 9 * 86400 && StoryRecord.Decode(new StoryRecord().Encode()).Began == null, "Story time's start round-trips, and an older record has none");
+        check(round.Began == 9 * GameClock.DaySeconds && StoryRecord.Decode(new StoryRecord().Encode()).Began == null, "Story time's start round-trips, and an older record has none");
 
         var offer = arc.steps[0];
         facts.Epoch = 0;

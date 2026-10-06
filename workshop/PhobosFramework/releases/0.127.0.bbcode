@@ -1,0 +1,28 @@
+[h1]Phobos Framework 0.127.0[/h1]
+[b]Draft - not published | 2026-10-07[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Story services for other mods. A mod can now ask where you are as the story system sees it (the region and the place you are docked at), check a story requirement block against your game, mark what happened with story flags, and start a story arc only when its requirements hold. Phobos Banking uses them so a lender can be local to a station, ask for standing with a faction, and leave flags a story can follow.
+[*]F3 story try starts an arc the way another mod would: only if its requirements and place hold, and says what blocks it otherwise.
+[*]For mod authors: StoryLocation, StoryGates, StoryFlags, StoryArcs.TryBegin, the public requirement validator and library reference checks, and GameClock, the game's own calendar.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Story time counts the game's own day, 87,658 seconds, instead of 86,400. Content that waits a number of days (afterDays, beforeDays, and how long people mention news) now waits whole game days, about 21 minutes more per day than before.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing new is saved by Framework; flags other mods set are kept with the story flags already in your story record.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Checked offline, and against the game's own calendar code; not yet seen in play.
+[/list]

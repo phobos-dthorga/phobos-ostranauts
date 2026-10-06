@@ -1204,6 +1204,14 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: story services and the game's day (L91)
+
+L91 — Framework 0.127.0. `StoryLocation`, `StoryGates` and `StoryFlags` build one story
+facts object per call, whose ship and place lookups run only when asked, as the story check
+already does; nothing calls them per frame. A flag change saves the story record once and
+brings the next story check forward. The story rules' day changes a constant only. No
+per-frame or world-tick work was added. No capture accompanies this change.
+
 ## 7 October: Resume Task(s) on Phobos machines (L90)
 
 L90 — Framework 0.126.2, owner report. A postfix on `WorkManager.GetAllTasksForCOID` reads

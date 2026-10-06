@@ -81931,13 +81931,13 @@
       "key": "Story.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed. 6 October 2026: lists story letters and story answer (Framework 0.122.0) and says replies are sent from the Letters window.",
+      "reason": "Framework 0.127.0: F3 story try says why an arc did not start, in the story report's own wording; the help lists the new command.",
       "trace": "literal reference",
       "references": [
-        "src/PhobosFramework/Story"
+        "src/PhobosFramework/Story/StoryContent.cs:128"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change> | story letters [arc] | story answer <arc> <reply>. None is needed: story content loads and runs by itself, and replies are sent from the Letters window; these are for authors testing it."
+      "after": "Story commands: phobosframework story | story start <arc> | story try <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change> | story letters [arc] | story answer <arc> <reply>. None is needed: story content loads and runs by itself, and replies are sent from the Letters window; these are for authors testing it."
     },
     {
       "mod": "PhobosFramework",
@@ -87700,6 +87700,19 @@
       ],
       "before": "Next instalment: {0}. It is the last one.",
       "after": "Next instalment: {0}. It is the last one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.try_refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.127.0: F3 story try says why an arc did not start, in the story report's own wording; the help lists the new command.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryArcs.Services.cs:23"
+      ],
+      "before": "Arc {0} did not start: {1}.",
+      "after": "Arc {0} did not start: {1}."
     }
   ],
   "documents": [
@@ -87707,8 +87720,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "85012e88b952e464f375fb791569c9606376e9c8fa97ee7aee3f42be74f63616",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.1.1: counted wording in the overview (one loan, all of them late) and the Back button on narrow screens."
+      "sha256": "672715592e1403cc171d9b2ca02f0f5beda860e5f20d1829c61b4b160544d23b",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "SUPPORT.md",
@@ -87868,8 +87881,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "35cd3b326e4e460a1164879b8be105cbfe58fef0c5be50a33a06f293428bfbdc",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2 Resume Task(s) fix: only the version line changed in this file; existing wording retained."
+      "sha256": "1b539d616651443c2cffd74e53b58690cd26d4191d8242023278f51276247387",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "docs/crew-automation.md",
@@ -88258,8 +88271,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c16e79977ccd6f3210d42d4b7cb33e2780caa4465a07036f5e14687b2dac5a5d",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "63846df42a7c3e8e1981301b780df50dbc75cfc0e02385c723244153a0f78d83",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -88547,8 +88560,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "84d5860d0ef6ef5d10ed8a6be5dfd421bdfd9d59c4a959ec49e5e2d1458a01f9",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2: added L90 (Resume Task(s) list filter); developer wording states the per-call cost and that no capture accompanies it.",
+      "sha256": "2aef9ed3afd099aec1766ef1a72f7f29d1a9b5ff8c26e49f02086b1eca0b25e4",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
     },
@@ -88763,8 +88776,8 @@
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "8cdc7cfa294c3e6b4e5e72a162de1c10039d3d8f9c17b1de2cf0a2a1e3bb6c4d",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "2f3f22fcdbee424cddcdcae88df3f74ba298050de3ab37c1cef58427d919ec63",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "docs/development/terminal-social-network.md",
@@ -88845,8 +88858,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9632bd82e509cdaa50edfd769d7a6151a429bcc73134bbaa224ec3cac693f757",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2: regenerated by the item-reference updater; only the version changed."
+      "sha256": "79b15604a84bdc7eb92efb59b494e22a1b77e0674e0060efba3dc90b78bcfc04",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -88978,8 +88991,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7c96b8edb159b339dc5532fbc81d935bb4ab806d53a71b92a7ef246f1cdb0391",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2 Resume Task(s) fix: only the version line changed in this file; existing wording retained."
+      "sha256": "659c51d33439d881e99c55a5f21bc4a4455d085a73e2cf5bed3dfc51e6cb4d65",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -89097,8 +89110,8 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "3f3073eb63ff182b599437854d228cbeed7635dc0913293b2a405dabeb746b1f",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
+      "sha256": "cfbd0de9ef66262681fe7629f572a4c7ecf403cf74eabbceeba5d289079e7cf2",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -89118,8 +89131,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a7b5ab38cac8bd4cd92b9fa585646aca7b7fd95180da797dc382db6e30fbdb1e",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2 Resume Task(s) fix: only the version line changed in this file; existing wording retained."
+      "sha256": "69d8ee9ca6dec9a67b07c82e57b067a64c66819910bcbd3117e4deb3357f66b0",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -89263,8 +89276,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "466459ecfe939c790414b7d925a9f12114cec62a0e9d62e4b6221810e915b437",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2 Resume Task(s) fix: only the version line changed in this file; existing wording retained."
+      "sha256": "54071546da5a1e2bda97f3141bc4c24479ccca2436ed34f4cfbb8d93eb6dbd9f",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

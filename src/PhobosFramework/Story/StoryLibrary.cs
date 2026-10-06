@@ -154,7 +154,7 @@ public sealed class StoryLibrary
             foreach (var pair in pack.files) Add(library.files, pair.Key, owner, pair.Value, null);
         }
         // References between entries, repeated until nothing more is refused: an arc may need another arc that was itself refused.
-        string? Place(string? id) => id != null && !library.places.ContainsKey(id) ? Text.Get("Story.unknown_place", id) : null;
+        string? Place(string? id) => library.UnknownPlace(id);
         string? Thread(string? id) => id != null && !library.threads.ContainsKey(id) ? Text.Get("Story.unknown_thread", id) : null;
         string? Person(string? id, string? thread)
         {
@@ -165,18 +165,7 @@ public sealed class StoryLibrary
             return null;
         }
         string? Mentioned(string? text, string? thread) => StorySchema.People(text).Select(p => Person(p, thread)).FirstOrDefault(p => p != null);
-        string? Reference(StoryRequires? r)
-        {
-            if (r == null) return null;
-            foreach (var id in r.arcsDone.Concat(r.arcsNotStarted).Concat(r.arcsActive)) if (!library.arcs.ContainsKey(id)) return Text.Get("Story.unknown_arc", id);
-            foreach (var at in r.arcsAtStep)
-                if (!StorySchema.TryArcStep(at, out var arc, out var step) || !library.arcs.TryGetValue(arc, out var entry) || entry.Value.steps.All(s => s.id != step)) return Text.Get("Story.unknown_step", at);
-            foreach (var id in r.filesRead) if (!library.files.ContainsKey(id)) return Text.Get("Story.unknown_file", id);
-            foreach (var id in r.newsSeen) if (!library.broadcasts.ContainsKey(id)) return Text.Get("Story.unknown_bulletin", id);
-            foreach (var id in r.places) if (Place(id) is string p) return p;
-            foreach (var id in r.regions) if (Place(id) is string p) return p; else if (!library.Places.IsRegional(id)) return Text.Get("Story.not_regional", id);
-            return null;
-        }
+        string? Reference(StoryRequires? r) => library.UnknownReference(r);
         string? Grounding(string? thread, string? place) => Thread(thread) ?? Place(place);
         bool Refuse<T>(Dictionary<string, StoryEntry<T>> table, Func<StoryEntry<T>, string?> problem)
         {
@@ -223,6 +212,26 @@ public sealed class StoryLibrary
             .ToList();
         return library;
     }
+
+    /// <summary>The first entry a requirement block names that this library does not have (an arc, an arc's step, a
+    /// file, a news item, a place, or a region that is not a regional place), or null. Other packs that carry a story
+    /// <c>requires</c> block (Framework 0.127.0) check it against the built library with this.</summary>
+    public string? UnknownReference(StoryRequires? r)
+    {
+        if (r == null) return null;
+        foreach (var id in r.arcsDone.Concat(r.arcsNotStarted).Concat(r.arcsActive)) if (!arcs.ContainsKey(id)) return Text.Get("Story.unknown_arc", id);
+        foreach (var at in r.arcsAtStep)
+            if (!StorySchema.TryArcStep(at, out var arc, out var step) || !arcs.TryGetValue(arc, out var entry) || entry.Value.steps.All(s => s.id != step)) return Text.Get("Story.unknown_step", at);
+        foreach (var id in r.filesRead) if (!files.ContainsKey(id)) return Text.Get("Story.unknown_file", id);
+        foreach (var id in r.newsSeen) if (!broadcasts.ContainsKey(id)) return Text.Get("Story.unknown_bulletin", id);
+        foreach (var id in r.places) if (UnknownPlace(id) is string p) return p;
+        foreach (var id in r.regions) if (UnknownPlace(id) is string p) return p; else if (!Places.IsRegional(id)) return Text.Get("Story.not_regional", id);
+        return null;
+    }
+    /// <summary>Why a place key is not one this library knows, or null when it is (or none is given).</summary>
+    public string? UnknownPlace(string? id) => id != null && !places.ContainsKey(id) ? Text.Get("Story.unknown_place", id) : null;
+    /// <summary>Why a person key is not one this library knows, or null when it is (or none is given).</summary>
+    public string? UnknownPerson(string? id) => id != null && !people.ContainsKey(id) ? Text.Get("Story.unknown_person", id) : null;
 
     /// <summary>Every outcome a step can have: its own, its branches' and its replies' (Framework 0.122.0).</summary>
     internal static IEnumerable<StoryOutcome?> Outcomes(StoryStep s) => new[] { s.onComplete }

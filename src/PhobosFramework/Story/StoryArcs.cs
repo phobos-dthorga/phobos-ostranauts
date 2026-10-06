@@ -107,7 +107,7 @@ public static partial class StoryArcs
     private static string? PlaceOf(string? thread, string? place) => StoryContent.Library.PlaceOf(thread, place);
 
     /// <summary>An entry's own requirements and its thread's, the thread's checked once per check.</summary>
-    private sealed class Gates
+    internal sealed class Gates
     {
         private readonly IStoryFacts facts;
         private readonly Dictionary<string, string?> threads = new(StringComparer.Ordinal);
@@ -660,7 +660,7 @@ public static partial class StoryArcs
     }
 
     /// <summary>The game, as the story rules see it. Lookups over a ship are made once per check, on first use.</summary>
-    private sealed class GameFacts : IStoryFacts
+    internal sealed class GameFacts : IStoryFacts
     {
         private readonly CondOwner player;
         private Dictionary<string, int>? installed, carried;

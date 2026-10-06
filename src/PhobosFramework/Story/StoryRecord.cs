@@ -301,8 +301,9 @@ public static class StoryRules
     /// <summary>Whether an hour lies in a window of the day; a window whose start is after its end wraps midnight.</summary>
     public static bool HourIn(int from, int to, int hour) => from <= to ? hour >= from && hour <= to : hour >= from || hour <= to;
 
-    /// <summary>Game days since the player's story record began; 0 before it has.</summary>
-    public static double Days(StoryRecord record, IStoryFacts facts) => record.Began is double began ? Math.Max(0, (facts.Epoch - began) / 86400) : 0;
+    /// <summary>Game days since the player's story record began; 0 before it has. A game day is the game's own
+    /// (<see cref="GameClock.DaySeconds"/>, Framework 0.127.0; earlier versions counted 86,400 seconds).</summary>
+    public static double Days(StoryRecord record, IStoryFacts facts) => record.Began is double began ? Math.Max(0, GameClock.Days(facts.Epoch - began)) : 0;
 
     public static bool Passed(StoryTest test, IStoryFacts facts, double stepStart) => test.kind switch
     {
@@ -428,7 +429,7 @@ public static class StoryRules
 
     /// <summary>Whether people still mention a news item: within the mention days of when it was first shown.</summary>
     public static bool MentionFresh(double? seenEpoch, double epoch, double mentionDays) =>
-        seenEpoch is double seen && epoch - seen >= 0 && epoch - seen <= mentionDays * 86400;
+        seenEpoch is double seen && epoch - seen >= 0 && epoch - seen <= GameClock.Seconds(mentionDays);
 
     /// <summary>The eligible small-talk lines, by moment.</summary>
     public static Dictionary<string, List<StoryLine>> ChatterPools(IEnumerable<StoryLine> lines, Func<StoryRequires?, bool> eligible)

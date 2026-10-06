@@ -287,6 +287,19 @@ conditions for added story content. The file format is in
 in [the story system design record](story-system-design.md). Consumers require
 **0.107.0**. First consumer: Agriculture 0.60.0.
 
+**Story services for other mods (0.127.0).** Content that is not a story pack can still be
+local, gated and remembered the way story content is:
+`StoryLocation.Region`, `DockedPlace` and `Near(place)` say where the player is;
+`StoryGates.Blocked(requires, thread)` checks a story `requires` block against the live game
+and returns the first reason it fails, or null; a pack of your own may carry such a block,
+checked with `StorySchema.ValidateRequires(requires, where)` when it loads and with
+`StoryContent.Library.UnknownReference(requires)` (and `UnknownPlace`, `UnknownPerson`) once
+the story library is built, in `FrameworkLifecycle.ContentLoaded`; `StoryFlags.Has`, `Set`
+and `Clear` mark what happened for story packs to react to; `StoryArcs.TryBegin(arc, out
+message)` starts an arc only when its requirements hold. `GameClock` holds the game's
+calendar: its 87,658.125-second day, shifts as the game numbers them and `ShiftCount` for
+the shift changes between two times. First consumer: Phobos Banking 0.2.0.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`

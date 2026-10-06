@@ -782,6 +782,12 @@ public static class StorySchema
         Credits => "amount, consume", Condition => "condition", _ => string.Join(", ", TestKinds)
     };
 
+    /// <summary>Checks a story <c>requires</c> block's form (Framework 0.127.0), for other packs that carry one, such
+    /// as Phobos Banking's lenders: throws <see cref="ArgumentException"/> naming <paramref name="where"/> and the
+    /// field. Whether the entries it names exist is <see cref="StoryLibrary.UnknownReference"/>'s check, made once
+    /// the story library is built.</summary>
+    public static void ValidateRequires(StoryRequires? requires, string where) => Requires(requires, where);
+
     private static void Requires(StoryRequires? r, string where)
     {
         if (r == null) return;

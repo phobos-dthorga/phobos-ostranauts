@@ -431,8 +431,8 @@ take only `mods`.
 | `arcsDone` | Each arc listed has been finished. |
 | `arcsNotStarted` | No arc listed has ever been started. |
 | `filesRead` | Each story data file listed has been opened. |
-| `afterDays`, `beforeDays` | Story time is at least `afterDays`, and less than `beforeDays`, game days. Story time starts when the player's story record begins: at the start of a new game, or for a game started before Framework 0.109.0 the first time it is loaded with it. |
-| `flags` | Every story flag listed is set. An arc's `onComplete` sets and clears flags with `setFlags` and `clearFlags` (up to four each). Flag ids are yours to choose; give them your prefix. |
+| `afterDays`, `beforeDays` | Story time is at least `afterDays`, and less than `beforeDays`, game days. A game day is the game's own, 87,658 seconds (about 24 hours 21 minutes; Framework 0.127.0 and later). Story time starts when the player's story record begins: at the start of a new game, or for a game started before Framework 0.109.0 the first time it is loaded with it. |
+| `flags` | Every story flag listed is set. An arc's `onComplete` sets and clears flags with `setFlags` and `clearFlags` (up to four each). Other mods set flags too (Framework 0.127.0): Phobos Banking marks loans taken, repaid and late, so a story can follow what the player did with money. Flag ids are yours to choose; give them your prefix. |
 | `notFlags` | None of the flags listed is set. |
 | `arcsActive` | Each arc listed is under way. |
 | `arcsAtStep` | Each `arc.step` listed is under way at that step, so news and talk can follow a story as it happens. |
@@ -505,6 +505,7 @@ override them in `BepInEx/config/PhobosFramework/story/`:
     `phobosframework story chatter <id>` makes the next small talk of that line's moment
     say it.
   - `phobosframework story start <arc>` starts an arc now, whatever its chance and requirements.
+  - `phobosframework story try <arc>` starts an arc only if its requirements and place hold, and says what blocks it otherwise, as another mod starting it would.
   - `phobosframework story check` runs the story check at once.
   - `phobosframework story reset <arc>` forgets an arc in this game so it can start again.
   - `phobosframework story items <words>` lists the item ids whose names contain the words.
