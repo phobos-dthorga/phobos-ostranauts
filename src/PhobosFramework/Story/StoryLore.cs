@@ -62,6 +62,28 @@ internal static class StoryLore
         foreach (var node in nodes) table[node.strName] = node;
     }
 
+    /// <summary>The section Framework's own help articles live in (Framework 0.117.0): what the About buttons open.</summary>
+    public const string OperationsSection = "phobos-operations";
+    /// <summary>The help articles' ids, in the order the F3 list shows them.</summary>
+    public static readonly string[] OperationsArticles = { "operations-standing-orders", "operations-upkeep", "operations-time-skips", "operations-store-links", "operations-maintenance" };
+
+    /// <summary>Opens the game's encyclopedia at one of our articles. Null when it opened; otherwise the reason it
+    /// could not: no loaded game, no such article, or the tree was built before the pack that holds it loaded.</summary>
+    internal static string? Open(string articleId)
+    {
+        if (string.IsNullOrEmpty(articleId) || !StoryContent.Library.Articles.ContainsKey(articleId)) return Text.Get("Help.missing", articleId ?? "");
+        var info = Info.instance;
+        if (info == null || CrewSim.coPlayer == null) return Text.Get("Help.no_game");
+        string name = NodePrefix + articleId;
+        if (info.mapNodes == null || !info.mapNodes.ContainsKey(name)) return Text.Get("Help.not_built");
+        try { info.OpenToNode(name); return null; }
+        catch (Exception ex) { FrameworkLifecycle.Log(Text.Get("Story.check_failed", ex.Message)); return Text.Get("Help.failed"); }
+    }
+    /// <summary>The articles of a section, by id and label, for the F3 list.</summary>
+    internal static IEnumerable<(string Id, string Label)> Articles(string section) =>
+        StoryContent.Library.Articles.Values.Where(a => a.Value.section == section).OrderBy(a => a.Id, StringComparer.Ordinal)
+            .Select(a => (a.Id, StoryContent.Words(a.Owner, a.Id + ".label", a.Value.label)));
+
     /// <summary>A share of loading-screen tips (<c>tipShare</c>) comes from story tips whose mods are installed.</summary>
     internal static JsonTip Tip(JsonTip original)
     {

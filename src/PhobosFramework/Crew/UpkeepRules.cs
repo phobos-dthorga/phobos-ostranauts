@@ -144,6 +144,21 @@ public static class UpkeepRules
 
     public static bool InspectionGood(double inspected, double epoch, double validHours) => inspected > 0 && epoch - inspected < validHours * 3600;
 
+    /// <summary>Why a machine is on the Upkeep list's "Needs attention" group (Framework 0.117.0), or None.</summary>
+    public enum Attention { None, Protected, Untuned, InspectionDue }
+    public const string AttentionGroup = "attention", FineGroup = "fine", InspectOnlyGroup = "inspect_only";
+    /// <summary>The attention a machine needs under the switches as set: a record that cannot be read always; no tune
+    /// yet while Tune machinery is on; an inspection never done or older than its valid hours while Inspection rounds
+    /// is on. With both switches off nothing but a protected record is listed, as the player asked for no upkeep.</summary>
+    public static Attention Needs(bool tunable, bool prot, double percent, double? inspectedHours, bool tuneOn, bool inspectOn, double validHours)
+    {
+        if (prot) return Attention.Protected;
+        if (tuneOn && tunable && percent < 0.05) return Attention.Untuned;
+        if (inspectOn && (inspectedHours == null || inspectedHours >= validHours)) return Attention.InspectionDue;
+        return Attention.None;
+    }
+    public static string Group(Attention attention, bool tunable) => attention != Attention.None ? AttentionGroup : tunable ? FineGroup : InspectOnlyGroup;
+
     /// <summary>A tuning session is worth offering only when a whole unskilled step still fits.</summary>
     public static bool TuneDue(double level, UpkeepPack pack) => level <= 1 - pack.tuneStep + 1e-9;
 

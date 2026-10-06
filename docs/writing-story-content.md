@@ -268,12 +268,19 @@ any is available (a setting, below). Tips cannot use placeholders.
 ### Encyclopedia (`sections` and `articles`)
 
 Articles appear in the game's encyclopedia, each under a section. Framework provides
-two shared sections, and any pack can add more:
+three shared sections, and any pack can add more:
 
 | Section id | Shown as |
 | --- | --- |
 | `phobos-makers` | Makers and brands |
 | `phobos-spacer-life` | Life between stations |
+| `phobos-operations` | Phobos operations (Framework 0.117.0) |
+
+Phobos operations holds Framework's own help: the articles the **About** buttons on
+the Crew panel and the Maintenance sheet open (`operations-standing-orders`,
+`operations-upkeep`, `operations-time-skips`, `operations-store-links`,
+`operations-maintenance`). A content mod may add articles on running its own
+equipment there; keep them practical and leave those five ids alone.
 
 An article has `section` (a section id from any loaded pack), `label` (its name in the
 list, up to 40 characters), `title` (up to 60), `body` (up to 4,000; separate

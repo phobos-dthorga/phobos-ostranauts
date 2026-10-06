@@ -33,6 +33,7 @@ FluidNetworkChecks.Run(Check);
 NetworkChecks.Run(Check);
 StoreRuleChecks.Run(Check);
 MaintenanceSheetChecks.Run(Check);
+CrewPanelRuleChecks.Run(Check);
 GridFitChecks.Run(Check);
 LineContentsChecks.Run(Check);
 WaterTankChecks.Run(Check);

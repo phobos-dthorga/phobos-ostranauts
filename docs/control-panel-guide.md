@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.116.0, Agriculture 0.63.0, Shipbreaker 0.83.0 and Auto Nav 0.34.0
+Framework 0.117.0, Agriculture 0.63.0, Shipbreaker 0.83.0 and Auto Nav 0.34.0
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished
@@ -15,15 +15,32 @@ technical information when you need to investigate a fault.
 
 Right-click a machine and choose **Maintenance** (Framework 0.116.0; called
 Maintenance information before) for its upkeep at a glance: its standing order
-and who is on it, its tune and last inspection, and what stops it being
-uninstalled or dismantled. **Open standing orders** and **Open upkeep
-switches** take you to the Crew panel on that machine's order or on the Upkeep
-tab. Pipes, belts and stores show only the removal notes.
+and who is on it (or one line saying it takes none, and how it is loaded), its
+tune and last inspection in a sentence, and what stops it being uninstalled or
+dismantled. **Open standing orders** and **Open upkeep switches** take you to
+the Crew panel on that machine; **About** opens the encyclopedia's article on
+install, repair, Restore and dismantling. Pipes, belts and stores show only the
+removal line.
 
-Crew operations has **Orders**, **Crew & Training** and **Time-skip** pages. The
-crew roster shortcut is **Orders & training**. Long lists scroll; on narrower
-screens, use Back to return from equipment details to the list. Long compact
-labels may end in an ellipsis; selected storage names wrap above their buttons.
+Crew operations has **Orders**, **Crew & Training**, **Upkeep** and **Time-skip**
+pages. The crew roster shortcut is **Orders & training**. Since Framework 0.117.0:
+
+- **Opened from a machine** (its Control Panel's Standing orders, or the
+  Maintenance sheet's buttons), Orders and Upkeep show that machine alone. A
+  machine that takes no crew orders says so and how it is loaded. **Show all
+  ship** widens to the whole ship; from the roster it starts there.
+- **Lists are in groups you can fold**, each with a count. Click a group's name
+  to fold or unfold it. Orders: **Needs you** (stopped or unreadable, open),
+  **Working** and **Not set up or off**. Upkeep: **Needs attention** (open),
+  **Looked after** and **Inspection only**. Each row names the machine, its
+  state and the one thing it waits for.
+- **About** on each page opens the matching Phobos operations article in the
+  game's encyclopedia; the footer says whether it opened. F3
+  `phobosframework articles` lists them.
+
+Long lists scroll; on narrower screens, use Back to return from equipment
+details to the list. Long compact labels may end in an ellipsis; selected storage
+names wrap above their buttons.
 
 Auto Nav keeps separate navigation, propulsion, fire and departure controls in
 Polaris. Stop and Cease Fire remain available while editing flight settings.
@@ -92,8 +109,11 @@ are reused unchanged. No game-derived art is redistributed.
 
 The native time-skip screen offers a separate Phobos estimate button in its lower
 left area. Its collision warnings and Go control are retained. The Phobos view
-separates crew/shift availability, onboard work and resource limits, and suspended
-exterior operations. Estimates describe current work and the selected horizon;
+gives each crew member one line for the hours ahead (working for 3 h, then
+resting for 2 h), then the enabled orders in three groups: **Will run** (the next
+step and its hands-on time), **Waits** (the one thing it waits for) and **Paused
+for the skip** (outside work and manoeuvres). F3 `phobosframework skip 3` prints
+the same for three hours. Estimates describe current work and the selected horizon;
 they are not promises that future power, supplies or access will remain available.
 Native and Framework execution rules, crew time budgets and material accounting
 are unchanged. Exterior work and manoeuvres still need explicit Resume afterwards.

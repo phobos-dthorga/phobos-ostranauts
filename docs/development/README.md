@@ -99,6 +99,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Field and shipboard medical system](medical-system-vision.md)
 - [Crew upkeep on long hauls](crew-upkeep-design.md)
 - [Store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0)](crew-loading-and-maintenance-sheet.md)
+- [Crew panel and Maintenance sheet clarity (Framework 0.117.0)](crew-panel-clarity.md)
 - [Merchant stock in useful quantities](merchant-stock.md)
 - [Faction kiosk stock for scrip](faction-kiosk-stock.md)
 - [Installed mods and extension opportunities](mod-extension-survey.md)

@@ -3,33 +3,35 @@ using System.Linq;
 using Phobos.Ostranauts.Framework;
 using Phobos.Ostranauts.Framework.Registration;
 
-/// <summary>Framework 0.116.0: the right-click Maintenance sheet (owner direction, 6 October 2026) shows an installed
-/// machine's standing orders and upkeep, with buttons into the Crew panel, then removal and repair for everything.</summary>
+/// <summary>Framework 0.116.0, compressed in 0.117.0: the right-click Maintenance sheet shows an installed machine's
+/// standing order and upkeep, each said once, then what blocks removal, with an About button for the rest.</summary>
 internal static class MaintenanceSheetChecks
 {
     internal static void Run(Action<bool, string> check)
     {
         string? Opened() => null;
-        MaintenanceSheet.Facts Facts(bool installed, bool orders, bool owned, string upkeep) =>
-            new() { Installed = installed, Orders = orders, Owned = owned, OrderStatus = "Load feed: Waiting", Upkeep = upkeep, Removal = "Empty it first." };
-        var pipe = MaintenanceSheet.Sections(Facts(true, false, true, ""), Opened, Opened);
-        check(pipe.Count == 1 && pipe[0].Heading.Length == 0 && pipe[0].Body == "Empty it first." && pipe[0].Links.Count == 0,
-            "A pipe or tank with no orders or upkeep shows only its removal notes, as before");
-        var loose = MaintenanceSheet.Sections(Facts(false, true, true, "Tune: none."), Opened, Opened);
-        check(loose.Count == 1, "A loose machine shows only removal notes: orders and upkeep belong to installed machines");
-        var tuned = MaintenanceSheet.Sections(Facts(true, false, true, "Tune: none."), Opened, Opened);
-        check(tuned.Count == 3 && tuned[0].Body == Text.Get("MaintenanceInfo.orders_none") && tuned[0].Links.Count == 0 &&
-              tuned[1].Body == "Tune: none." && tuned[1].Links.Count == 1 && tuned[2].Heading == Text.Get("MaintenanceInfo.removal_heading"),
-            "A machine with upkeep but no orders says it takes none, and offers the upkeep switches");
-        var ordered = MaintenanceSheet.Sections(Facts(true, true, true, "Tune: none."), Opened, Opened);
-        check(ordered[0].Body == "Load feed: Waiting" && ordered[0].Links.Single().Label == Text.Get("MaintenanceInfo.orders_open"),
-            "A machine with orders shows the order's state and a button to its standing orders");
-        var derelict = MaintenanceSheet.Sections(Facts(true, true, false, "Tune: none."), Opened, Opened);
-        check(derelict[0].Body == Text.Get("MaintenanceInfo.orders_not_owned") && derelict.All(s => s.Links.Count == 0),
-            "On someone else's ship the sheet says orders are for your own ship and offers no buttons");
+        MaintenanceSheet.Facts Facts(bool installed, bool orders, bool owned, string upkeep, string? blocker = null) =>
+            new() { Installed = installed, Orders = orders, Owned = owned, OrderStatus = "Load feed: Waiting", Loading = "Load it by hand through its Inventory.", Upkeep = upkeep, Blocker = blocker };
+        string about = Phobos.Ostranauts.Framework.Controls.ConsoleText.Get("about");
+        var pipe = MaintenanceSheet.Sections(Facts(true, false, true, ""), Opened, Opened, Opened);
+        check(pipe.Count == 1 && pipe[0].Heading.Length == 0 && pipe[0].Body == Text.Get("MaintenanceInfo.removal_clear") && pipe[0].Links.Single().Label == about,
+            "A pipe or tank shows one line on removal and an About button");
+        var blocked = MaintenanceSheet.Sections(Facts(true, false, true, "", "Empty the equipment first."), Opened, Opened, Opened);
+        check(blocked.Single().Body == "Empty the equipment first.", "What blocks removal replaces the all-clear line");
+        check(MaintenanceSheet.Sections(Facts(false, true, true, "Not tuned."), Opened, Opened, Opened).Count == 1, "A loose machine shows only removal");
+        var x2 = MaintenanceSheet.Sections(Facts(true, false, true, "Not tuned, not inspected yet."), Opened, Opened, Opened);
+        check(x2.Count == 3 && x2[0].Heading.Length == 0 && x2[0].Body == Text.Get("MaintenanceInfo.orders_none_line") + "\nLoad it by hand through its Inventory." &&
+              x2[0].Links.Count == 0 && x2[1].Body == "Not tuned, not inspected yet." && x2[1].Links.Count == 1 &&
+              x2[2].Heading == Text.Get("MaintenanceInfo.removal_heading") && x2[2].Links.Single().Label == about,
+            "A machine without orders says so in one unheaded line with how it is loaded; upkeep in a sentence; removal last");
+        var v4 = MaintenanceSheet.Sections(Facts(true, true, true, "Tuned +6%, inspected 3 h ago."), Opened, Opened, Opened);
+        check(v4[0].Body == "Load feed: Waiting" && v4[0].Links.Single().Label == Text.Get("MaintenanceInfo.orders_open"), "A machine with orders shows its state and a button to them");
+        var derelict = MaintenanceSheet.Sections(Facts(true, true, false, "Not tuned."), Opened, Opened, Opened);
+        check(derelict[0].Body == Text.Get("MaintenanceInfo.orders_not_owned") && derelict.Take(2).All(s => s.Links.Count == 0),
+            "On someone else's ship the sheet offers no buttons into the Crew panel");
         bool asked = false;
-        var link = MaintenanceSheet.Sections(Facts(true, true, true, ""), () => { asked = true; return "Select a crew member first."; }, Opened)[0].Links[0];
-        check(link.Open() == "Select a crew member first." && asked, "A button reports why it could not open the Crew panel");
+        var help = MaintenanceSheet.Sections(Facts(true, false, true, ""), Opened, Opened, () => { asked = true; return "Load a game first."; }).Last().Links.Single();
+        check(help.Open() == "Load a game first." && asked, "The About button reports why the encyclopedia could not open");
         check(Text.Get("MaintenanceInfo.title") == "Maintenance", "The right-click entry is called Maintenance");
     }
 }

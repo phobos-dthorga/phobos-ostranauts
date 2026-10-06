@@ -48,40 +48,71 @@ public static class CrewSkip
     // Footprint count for performance captures (Framework 0.104.0).
     internal static int Records => busy.Count + assignments.Count + completions.Count + unavailable.Count + nativeCare.Count + budgets.Count + faulted.Count + nextDecision.Count +
         stepped.Count + headStart.Count + equipment.Count;
-    internal static string Preview(Ship ship)
+    /// <summary>The Time-skip estimate (Framework 0.117.0), as rows the panel groups and the F3 command prints: each
+    /// crew member's coming shifts as runs, and each enabled order as what it will do, what it waits for, or that it
+    /// pauses for the skip.</summary>
+    public sealed class SkipPreview
     {
-        var lines=new List<string>{CrewWork.Message("skip_preview")};
-        var contexts=DataHandler.GetLoot("ACTFFWDContextPayloads").GetAllLootNames();
-        var members=CrewRoster.Members();
-        foreach(var actor in members.Where(a=>a.ship==ship))
+        public readonly List<(string Name, string Availability, string Runs)> Crew = new();
+        public readonly List<(string Id, string Name, string Group, string Detail)> Machines = new();
+    }
+    public const string WillRun = "will_run", Waits = "waits", Paused = "paused";
+    public static readonly IReadOnlyList<string> PreviewGroups = new[] { WillRun, Waits, Paused };
+    private static string ShiftWord(int shift) => Controls.ConsoleText.Get(shift == 2 ? "shift_working" : shift == 0 ? "shift_resting" : "shift_free");
+    internal static SkipPreview PreviewRows(Ship ship, int hours)
+    {
+        var preview = new SkipPreview();
+        hours = Math.Max(1, Math.Min(24, hours));
+        var contexts = DataHandler.GetLoot("ACTFFWDContextPayloads")?.GetAllLootNames() ?? new List<string>();
+        var members = CrewRoster.Members();
+        foreach (var actor in members.Where(a => a.ship == ship))
         {
-            var care=contexts.Select(id=>DataHandler.GetInteraction(id)).FirstOrDefault(i=>i!=null&&i.Triggered(actor,actor));
-            string state=care?.strTitle??CrewWork.Message(actor.HasCond("IsAIManual")?"preview_manual":
-                actor.Company?.GetShift(StarSystem.nUTCHour,actor).nID!=2?"preview_rest":!CrewWork.Idle(actor)?"busy":"preview_available");
-            lines.Add(CrewWork.Message("preview_actor",actor.FriendlyName,state));
+            var care = contexts.Select(id => DataHandler.GetInteraction(id)).FirstOrDefault(i => i != null && i.Triggered(actor, actor));
+            string availability = care?.strTitle ?? Controls.ConsoleText.Get(actor.HasCond("IsAIManual") ? "autotask_off" : "autotask_on");
+            var shifts = Enumerable.Range(0, hours).Select(i => actor.Company?.GetShift((StarSystem.nUTCHour + i) % 24, actor).nID ?? 1);
+            string runs = ShiftRuns.Text(ShiftRuns.Compress(shifts), ShiftWord,
+                (word, h) => Controls.ConsoleText.Get("shift_first", word, h), (word, h) => Controls.ConsoleText.Get("shift_then", word, h));
+            preview.Crew.Add((Controls.ObjectPresentation.Name(actor), availability, runs));
         }
-        foreach(var co in CrewWork.Equipment(ship).Where(c=>CrewWork.Order(c).Permission==WorkPermission.Enabled))
+        foreach (var co in CrewWork.Equipment(ship).Where(c => CrewWork.Order(c).Permission == WorkPermission.Enabled))
         {
-            var provider=CrewWork.Provider(co)!; string detail=CrewWork.Message("skip_wait");
+            var provider = CrewWork.Provider(co)!;
+            string group = Paused, detail = CrewWork.Message("skip_wait");
             try
             {
-                if(provider is ICrewSkipProvider p && p.CanAdvance(co,out _))
+                if (provider is ICrewSkipProvider p && !OrderConfiguration.Fields(co).HasFlag(OrderFields.Target))
                 {
-                    var offer=provider.Next(co,CrewWork.Order(co),out var reason); detail=offer?.Label??reason;
-                    if(offer!=null)
+                    if (!p.CanAdvance(co, out var limit)) { group = Waits; detail = limit; }
+                    else
                     {
-                        var available=members.Where(a=>CrewWork.Eligible(a,offer,out _)).ToArray();
-                        if(available.Length==0)detail+=" — "+CrewWork.Message("crew_unavailable");
-                        else if(!available.Any(a=>CrewWork.Path(a,offer.Target)&&CrewLogistics.Prepare(a,offer)))
-                            detail+=" — "+CrewWork.Message("access_blocked");
+                        var offer = provider.Next(co, CrewWork.Order(co), out var blocker);
+                        if (offer == null) { group = Waits; detail = blocker; }
+                        else if (!members.Any(a => CrewWork.Eligible(a, offer, out _))) { group = Waits; detail = offer.Label + " · " + CrewWork.Message("crew_unavailable"); }
+                        else { group = WillRun; detail = Controls.ConsoleText.Get("skip_work", offer.Label, offer.Seconds / 60); }
                     }
                 }
             }
-            catch { detail=CrewWork.Message("protected"); }
-            lines.Add(co.strNameFriendly+": "+detail);
+            catch { group = Waits; detail = CrewWork.Message("protected"); }
+            preview.Machines.Add((co.strID, Controls.ObjectPresentation.Name(co), group, detail));
         }
-        return string.Join("\n",lines);
+        return preview;
     }
+    /// <summary>F3: <c>phobosframework skip [hours]</c>, the same estimate as text.</summary>
+    internal static string Preview(Ship ship, int hours)
+    {
+        var preview = PreviewRows(ship, hours);
+        var lines = new List<string> { CrewWork.Message("skip_preview") };
+        foreach (var (name, availability, runs) in preview.Crew) lines.Add(name + ": " + availability + " · " + runs);
+        foreach (string group in PreviewGroups)
+        {
+            var rows = preview.Machines.Where(m => m.Group == group).ToList();
+            if (rows.Count == 0) continue;
+            lines.Add(Controls.ConsoleText.Get("skip_group_" + group) + " (" + rows.Count + ")");
+            foreach (var row in rows) lines.Add("  " + row.Name + ": " + row.Detail);
+        }
+        return string.Join("\n", lines);
+    }
+
     internal static void Begin(IEnumerable<GUIFFWDRow> rows)
     {
         Managed=false; workedSeconds=availableSeconds=0; assignments.Clear(); busy.Clear(); completions.Clear(); unavailable.Clear(); budgets.Clear(); faulted.Clear(); headStart.Clear();

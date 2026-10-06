@@ -49,8 +49,9 @@ internal static class StoryNativeChecks
             "The TV asks the game for one headline and one advert at a time");
 
         // Framework 0.108.0: small talk, loading tips and encyclopedia articles.
-        check(library.Chatter.Count == 6 && library.Tips.Count == 2 && library.Sections.Count == 2 && library.Articles.Count == 2 && library.Lines.Count == 9,
-            "The seed's small talk (six lines and three news mentions), tips and articles load");
+        // Framework 0.117.0 adds the Phobos operations section and its five help articles.
+        check(library.Chatter.Count == 6 && library.Tips.Count == 2 && library.Sections.Count == 3 && library.Articles.Count == 7 && library.Lines.Count == 9,
+            "The seed's small talk (six lines and three news mentions), tips and articles load, with Framework's five help articles");
         foreach (var pair in StoryMoments.Interactions)
             foreach (var name in pair.Value)
                 check(DataHandler.dictInteractions.TryGetValue(name, out var interaction) && !string.IsNullOrEmpty(interaction.strDesc), "A moment's small talk is the game's own: " + name);
@@ -66,8 +67,18 @@ internal static class StoryNativeChecks
                 check(vanilla.Contains(token.Value), "A lead-in uses only grammar tokens the game's own lines use: " + moment + " " + token.Value);
         }
         var nodes = StoryLore.Nodes(library, _ => true, (owner, key, inline) => inline);
-        check(nodes.Count == 4 && nodes.All(n => n.Parent == null || nodes.Any(p => p.Name == n.Parent)) && nodes.All(n => n.Name.StartsWith(StoryLore.NodePrefix, StringComparison.Ordinal)),
-            "Both shared sections show with Agriculture's articles; every parent is ours and no name is the game's");
+        check(nodes.Count == 10 && nodes.All(n => n.Parent == null || nodes.Any(p => p.Name == n.Parent)) && nodes.All(n => n.Name.StartsWith(StoryLore.NodePrefix, StringComparison.Ordinal)),
+            "Both shared sections show with Agriculture's articles, and the Phobos operations section with its five; every parent is ours and no name is the game's");
+        // Framework 0.117.0: every About button names an article that becomes a node under the operations section, and
+        // the encyclopedia still opens a node by its name (Info.OpenToNode looks it up in mapNodes, keyed by strName).
+        foreach (string article in StoryLore.OperationsArticles)
+            check(nodes.Any(n => n.Name == StoryLore.NodePrefix + article && n.Parent == StoryLore.NodePrefix + StoryLore.OperationsSection),
+                "An About button's article is in the encyclopedia under Phobos operations: " + article);
+        foreach (string article in new[] { "operations-standing-orders", "operations-upkeep", "operations-time-skips", Phobos.Ostranauts.Framework.Registration.MaintenanceInformation.Article })
+            check(StoryLore.OperationsArticles.Contains(article), "The panel's About button opens a listed article: " + article);
+        check(typeof(Info).GetMethod("OpenToNode", new[] { typeof(string) }) != null && typeof(Info).GetField("mapNodes")?.FieldType == typeof(System.Collections.Generic.Dictionary<string, InfoNode>) &&
+              typeof(Info).GetField("instance", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static) != null,
+            "The encyclopedia still opens a node by name through its own instance");
         check(typeof(DataHandler).GetMethod("GetTip")?.ReturnType == typeof(JsonTip) && typeof(Info).GetMethod("BuildHierarchyFromJSON") != null,
             "Loading tips come one at a time, and the encyclopedia builds its tree in the method we prepare for");
 

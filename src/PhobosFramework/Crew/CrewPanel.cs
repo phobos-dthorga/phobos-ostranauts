@@ -6,24 +6,33 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Phobos.Ostranauts.Framework.Controls;
+using Phobos.Ostranauts.Framework.Inventory;
 using W = Phobos.Ostranauts.Framework.Controls.PanelWidgets;
 using C = Phobos.Ostranauts.Framework.Controls.ConsoleWidgets;
 
 namespace Phobos.Ostranauts.Framework.Crew;
 
-/// <summary>Read-only presentation with isolated drafts and checked service actions.</summary>
+/// <summary>Read-only presentation with isolated drafts and checked service actions. Since Framework 0.117.0 (owner
+/// direction, 6 October 2026) the panel opened from a machine shows that machine alone until Show all ship; the lists
+/// are collapsible groups by state with the ones that need the player open; each page keeps one short line and an
+/// About button that opens the encyclopedia article, and the per-machine facts stay here.</summary>
 public sealed class CrewPanel : GUIData
 {
     public const string Key = "PhobosCrewPanel";
-    private string shipId="", equipmentId="", view="orders", query="", crewId="", roleExpected="";
+    public const string OrdersView="orders",UpkeepView="upkeep";
+    private string shipId="", equipmentId="", focusId="", view=OrdersView, query="", crewId="", roleExpected="", upkeepSelected="", listSignature="";
+    private bool shipWide;
     private ConsoleShell shell=null!;
     private RectTransform rows=null!;
+    private GroupedList? list;
     private OrderDraft? draft;
     private readonly Dictionary<CrewRole,bool> roleDraft=new(), roleOriginal=new();
     private readonly Dictionary<string,TMP_Text> summaries=new();
-    private readonly Dictionary<string,Button> orderRows=new(),tabs=new();
+    private readonly Dictionary<string,Button> tabs=new();
     private readonly Dictionary<string,Action<double>> training=new();
     private readonly Dictionary<string,(float List,float Detail,string Query)> positions=new();
+    // Which groups each view keeps folded: remembered while the game runs, not saved (agent default).
+    private static readonly Dictionary<string,HashSet<string>> folded=new(StringComparer.Ordinal);
     private TMP_Text? status;
     private TMP_Text? diagnostics;
     private bool detailsOpen;
@@ -31,16 +40,16 @@ public sealed class CrewPanel : GUIData
     private int previewHours=1;
     private global::Ostranauts.Core.Models.Tuple<string,CondOwner>? returnPanel;
     private Ship? Ship=>CrewSim.system?.GetShipByRegID(shipId);
+    private bool Focused=>focusId.Length>0&&!shipWide;
     internal static void ShowPreview(Ship ship,int hours=1)
     {var previous=CrewSim.tplCurrentUI;if(Show(ship.ShipCO)){var panel=CrewSim.goUI.GetComponent<CrewPanel>();panel.returnPanel=previous;panel.previewHours=Math.Max(1,Math.Min(6,hours));panel.view="skip";panel.BuildView();}}
     public static void Button(Transform parent,CondOwner? co=null)=>C.Button(parent,CrewWork.Message("open"),()=>Show(co));
-    public const string OrdersView="orders",UpkeepView="upkeep";
     /// <summary>Opens on one tab (Framework 0.116.0: the right-click Maintenance sheet's buttons): the orders tab with
-    /// this machine's order, or the upkeep switches. Any other view opens the orders tab.</summary>
+    /// this machine's card, or the upkeep tab with its card. Any other view opens the orders tab.</summary>
     public static bool Show(CondOwner? co,string view)
     {
         if(!Show(co))return false;
-        if(view==UpkeepView){var panel=CrewSim.goUI.GetComponent<CrewPanel>();panel.view=view;panel.BuildView();}
+        if(view==UpkeepView){var panel=CrewSim.goUI.GetComponent<CrewPanel>();panel.view=view;panel.upkeepSelected=panel.focusId;panel.BuildView();}
         return true;
     }
     /// <summary>Why <see cref="Show(CondOwner)"/> would refuse for this object now, or null when it would open.</summary>
@@ -61,6 +70,8 @@ public sealed class CrewPanel : GUIData
         var root=W.Rect(CrewSim.goIntUIPanel.transform,Key);W.Fill(root);
         CrewSim.goUI=root.gameObject;var panel=root.gameObject.AddComponent<CrewPanel>();
         panel.shipId=ship.strRegID;panel.equipmentId=co!=null&&CrewWork.Provider(co)!=null?co.strID:"";
+        // Opened from a machine (not the ship itself): that machine alone, until Show all ship.
+        panel.focusId=co!=null&&co!=ship.ShipCO&&co.HasCond("IsInstalled")?co.strID:"";
         panel.Init(actor,new Dictionary<string,string>(),Key);panel.strFriendlyName=CrewWork.Message("open");panel.bActive=true;
         CrewSim.tplLastUI=CrewSim.tplCurrentUI;CrewSim.tplCurrentUI=new global::Ostranauts.Core.Models.Tuple<string,CondOwner>(Key,actor);
         CanvasManager.instance.ShipGUI();CrewSim.SetUIArrows();panel.Build();return true;
@@ -69,8 +80,8 @@ public sealed class CrewPanel : GUIData
     private void Build()
     {
         shell=ConsoleShell.Create(transform,C.Text("crew_title"),C.Slate);shell.Dirty=Dirty;shell.Apply=Apply;shell.Discard=Discard;
-        foreach(var tab in new[]{"orders","crew","upkeep","skip"}){var id=tab;tabs[id]=C.Button(shell.Navigation,C.Text(tab),()=>shell.Navigate(()=>{RememberView();view=id;query=positions.TryGetValue(view,out var saved)?saved.Query:"";BuildView();RestoreView();}));}
-        C.Button(shell.Navigation,C.Text("back"),()=>shell.Navigate(()=>{equipmentId=crewId="";Discard();shell.Page(false);}));
+        foreach(var tab in new[]{OrdersView,"crew",UpkeepView,"skip"}){var id=tab;tabs[id]=C.Button(shell.Navigation,C.Text(tab),()=>shell.Navigate(()=>{RememberView();view=id;query=positions.TryGetValue(view,out var saved)?saved.Query:"";BuildView();RestoreView();}));}
+        C.Button(shell.Navigation,C.Text("back"),()=>shell.Navigate(()=>{equipmentId=crewId=upkeepSelected="";Discard();shell.Page(false);}));
         C.Button(shell.Navigation,C.Text("close"),shell.Close);BuildView();
     }
     private void RememberView()=>positions[view]=(shell.ListScroll.verticalNormalizedPosition,shell.DetailScroll.verticalNormalizedPosition,query);
@@ -80,35 +91,64 @@ public sealed class CrewPanel : GUIData
         shell.ListScroll.verticalNormalizedPosition=positions.TryGetValue(view,out var saved)?saved.List:1;
         shell.DetailScroll.verticalNormalizedPosition=positions.TryGetValue(view,out saved)?saved.Detail:1;
     }
+    /// <summary>The groups a view keeps folded, seeded with its defaults the first time it is shown.</summary>
+    private static HashSet<string> Folded(string view)
+    {
+        if(folded.TryGetValue(view,out var set))return set;
+        IEnumerable<string> seed=view==OrdersView?OrderGroups.DefaultFolded:view==UpkeepView?new[]{UpkeepRules.FineGroup,UpkeepRules.InspectOnlyGroup}:new[]{CrewSkip.Paused};
+        return folded[view]=new HashSet<string>(seed,StringComparer.Ordinal);
+    }
     private void BuildView()
     {
-        draft=null;roleDraft.Clear();roleOriginal.Clear();status=diagnostics=null;summaries.Clear();shell.EmergencyStop=null;W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);
+        draft=null;roleDraft.Clear();roleOriginal.Clear();status=diagnostics=null;summaries.Clear();list=null;listSignature="";shell.EmergencyStop=null;W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);
         foreach(var tab in tabs)C.Accent(tab.Value,C.Slate,tab.Key==view);
         if(Ship==null)return;
         if(view=="skip"){BuildSkip();return;}
-        if(view=="upkeep"){BuildUpkeep();return;}
+        if(view==UpkeepView){BuildUpkeep();return;}
+        if(view==OrdersView&&Focused&&CrewWork.Resolve(focusId) is CondOwner focus){shell.Page(true);if(CrewWork.Provider(focus)!=null)Edit(focus);else NoOrdersCard(focus);return;}
         C.Input(shell.List,C.Text("search"),query,s=>{query=s;Populate();});
         rows=W.Rect(shell.List,"Rows");var group=rows.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlWidth=group.childControlHeight=true;group.childForceExpandHeight=false;
+        if(view==OrdersView)list=new GroupedList(rows,Folded(OrdersView));
         Populate();
-        if(view=="orders"&&CrewWork.Resolve(equipmentId) is CondOwner co)Edit(co);
+        if(view==OrdersView&&CrewWork.Resolve(equipmentId) is CondOwner co)Edit(co);
         else if(view=="crew"&&CrewWork.Resolve(crewId) is CondOwner actor)EditCrew(actor);
-        else {C.Heading(shell.Detail,C.Text(view=="orders"?"orders":"crew"));C.Label(shell.Detail,C.Text(view=="orders"?"orders_intro":"crew_intro"));shell.Page(false);}
+        else if(view==OrdersView){C.Heading(shell.Detail,C.Text(OrdersView));C.Label(shell.Detail,OrdersSummary());Help.About(shell.Detail,"operations-standing-orders",shell.Notice);shell.Page(false);}
+        else {C.Heading(shell.Detail,C.Text("crew"));C.Label(shell.Detail,C.Text("crew_intro"));shell.Page(false);}
+    }
+    private IEnumerable<CondOwner> OrderEquipment()=>Ship==null?Array.Empty<CondOwner>():CrewWork.Equipment(Ship)
+        .Where(c=>(ObjectPresentation.Name(c)+" "+ObjectPresentation.Location(c)).IndexOf(query,StringComparison.CurrentCultureIgnoreCase)>=0).OrderBy(ObjectPresentation.Name);
+    private List<GroupedList.Row> OrderRows()=>OrderEquipment().Select(co=>{var item=co;var s=CrewWork.ReadStatus(co);
+        return new GroupedList.Row(OrderGroups.Group(s.State),co.strID,Summary(co),()=>shell.Navigate(()=>Edit(item)));}).ToList();
+    private static IReadOnlyList<(string Key,string Label)> GroupLabels(IEnumerable<string> keys,string prefix)=>keys.Select(k=>(k,C.Text(prefix+k))).ToArray();
+    private string OrdersSummary()
+    {
+        var states=OrderEquipment().Select(c=>OrderGroups.Group(CrewWork.ReadStatus(c).State)).ToList();
+        return C.Text("orders_summary",states.Count(g=>g==OrderGroups.NeedsYou),states.Count(g=>g==OrderGroups.Working),states.Count(g=>g==OrderGroups.Off));
     }
     private void Populate()
     {
-        W.Clear(rows);summaries.Clear();orderRows.Clear();if(Ship==null)return;
-        var choices=view=="orders"?CrewWork.Equipment(Ship):CrewRoster.Members().Where(c=>c.ship==Ship);
-        foreach(var co in choices.Where(c=>(ObjectPresentation.Name(c)+" "+ObjectPresentation.Location(c)).IndexOf(query,StringComparison.CurrentCultureIgnoreCase)>=0).OrderBy(ObjectPresentation.Name))
+        if(Ship==null)return;
+        if(view==OrdersView&&list!=null)
         {
-            var item=co;var b=C.Button(rows,Summary(co),()=>shell.Navigate(()=>{if(view=="orders")Edit(item);else EditCrew(item);}),C.RowHeight);
+            float scroll=shell.ListScroll.verticalNormalizedPosition;
+            var orderRows=OrderRows();listSignature=GroupedList.Signature(orderRows);
+            list.Render(GroupLabels(OrderGroups.Order,"group_"),orderRows,equipmentId,Populate);
+            if(orderRows.Count==0)C.Label(rows,C.Text("no_orders_equipment"));
+            Canvas.ForceUpdateCanvases();shell.ListScroll.verticalNormalizedPosition=scroll;
+            return;
+        }
+        W.Clear(rows);summaries.Clear();
+        foreach(var co in CrewRoster.Members().Where(c=>c.ship==Ship).Where(c=>(ObjectPresentation.Name(c)+" "+ObjectPresentation.Location(c)).IndexOf(query,StringComparison.CurrentCultureIgnoreCase)>=0).OrderBy(ObjectPresentation.Name))
+        {
+            var item=co;var b=C.Button(rows,Summary(co),()=>shell.Navigate(()=>EditCrew(item)),C.RowHeight);
             var label=b.GetComponentInChildren<TMP_Text>();label.fontSize=16;summaries[co.strID]=label;
-            orderRows[co.strID]=b;C.Accent(b,C.Green,co.strID==(view=="orders"?equipmentId:crewId));
+            C.Accent(b,C.Green,co.strID==crewId);
         }
     }
     private string Summary(CondOwner co)
     {
         if(view=="crew")return ObjectPresentation.ListName(co)+"\n"+Availability(co);
-        var s=CrewWork.ReadStatus(co);return ObjectPresentation.ListName(co)+"\n"+s.Label+" · "+s.Worker;
+        return OrderGroups.RowText(ObjectPresentation.ListName(co),CrewWork.ReadStatus(co),CrewWork.Message("unassigned"));
     }
     private static string Availability(CondOwner actor)
     {
@@ -122,10 +162,21 @@ public sealed class CrewPanel : GUIData
     private void Header(CondOwner co)
     {
         shell.SelectionOrigin=co;
-        foreach(var entry in orderRows)C.Accent(entry.Value,C.Green,entry.Key==co.strID);
+        if(list!=null)foreach(var entry in list.Buttons)C.Accent(entry.Value,C.Green,entry.Key==co.strID);
         var row=C.Row(shell.Detail,96);ObjectPresentation.Picture(row,co,72);var caption=C.Label(row,ObjectPresentation.Name(co)+"\n"+ObjectPresentation.Location(co));C.Size(caption.transform,96);C.Fixed(caption);
         C.Button(shell.Detail,C.Text("display_name"),()=>Nickname(co));
+        if(Focused)C.Button(shell.Detail,C.Text("show_all_ship"),()=>shell.Navigate(()=>{shipWide=true;BuildView();}));
     }
+    /// <summary>The card for a machine without crew orders (Framework 0.117.0): how it is loaded, and its upkeep.</summary>
+    private void NoOrdersCard(CondOwner co)
+    {
+        W.Clear(shell.Detail);W.Clear(shell.Actions);Header(co);
+        status=C.Status(shell.Detail,C.Text("orders_none_card")+"\n"+LoadingText(co));
+        string upkeep=Upkeep.Summary(co);
+        if(upkeep.Length>0){C.Heading(shell.Detail,C.Text(UpkeepView));C.Label(shell.Detail,upkeep);}
+        Help.About(shell.Detail,"operations-standing-orders",shell.Notice);
+    }
+    internal static string LoadingText(CondOwner co)=>OrderGroups.LoadingText(C.Text("loaded_by_hand"),StoreFeed.Describe(co),StoreDelivery.Describe(co));
     private void Edit(CondOwner co)
     {
         if(CrewWork.Order(co).Protected)
@@ -188,7 +239,7 @@ public sealed class CrewPanel : GUIData
         string expected=ObjectPresentation.Nickname(co),value=expected;C.Heading(body,C.Text("display_name"));C.Label(body,co.FriendlyName);
         C.Input(body,C.Text("nickname_hint"),value,s=>value=s);var message=C.Label(body,"");
         void Close(){shell.CancelOverlay=null;Destroy(overlay.gameObject);}
-        shell.CancelOverlay=Close;C.Button(body,C.Text("apply"),()=>{if(ObjectPresentation.Rename(co,expected,value,out var reason)){Close();Populate();}else message.text=reason;});C.Button(body,C.Text("cancel"),Close);
+        shell.CancelOverlay=Close;C.Button(body,C.Text("apply"),()=>{if(ObjectPresentation.Rename(co,expected,value,out var reason)){Close();if(rows!=null)Populate();}else message.text=reason;});C.Button(body,C.Text("cancel"),Close);
     }
     private void EditCrew(CondOwner actor)
     {
@@ -208,43 +259,57 @@ public sealed class CrewPanel : GUIData
         shell.Notice.text=reason;return done;
     }
     private void Discard(){draft=null;roleDraft.Clear();roleOriginal.Clear();BuildView();}
-    // Crew upkeep (Framework 0.111.0): two ship-wide switches; each press goes to the checked service and says what it did.
-    private void BuildUpkeep(string said="")
+
+    // Crew upkeep (Framework 0.111.0; redrawn in 0.117.0): four ship-wide switches in a row each, then the machines in
+    // groups with the ones that need attention open; a machine's card on the right. Each press goes to the checked
+    // service and its answer goes to the footer.
+    private List<GroupedList.Row> UpkeepRows()=>Upkeep.Report(Ship).Select(r=>{var row=r;
+        return new GroupedList.Row(UpkeepRules.Group(Upkeep.Needs(row),row.Tunable),row.Id,Upkeep.RowText(row),()=>{upkeepSelected=row.Id;BuildUpkeep();});}).ToList();
+    private void BuildUpkeep()
     {
-        W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);
-        C.Heading(shell.List,C.Text("upkeep"));C.Label(shell.List,C.Text("upkeep_intro"));
+        W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);status=null;
+        C.Heading(shell.List,C.Text(UpkeepView));
         foreach(var kind in Upkeep.Kinds)
         {
-            var k=kind;bool on=Upkeep.Enabled(k);string word=Upkeep.Word(k),name=C.Text("upkeep_"+word);
-            C.Label(shell.List,name+": "+C.Text(on?"upkeep_on":"upkeep_off")+"\n"+C.Text("upkeep_"+word+"_help"));
-            C.Button(shell.List,C.Text(on?"upkeep_switch_off":"upkeep_switch_on",name),()=>BuildUpkeep(Upkeep.Set(k,!on)));
+            var k=kind;bool on=Upkeep.Enabled(k);string word=Upkeep.Word(k);
+            var row=C.Row(shell.List,C.ControlHeight);var label=C.Label(row,C.Text("upkeep_"+word)+": "+C.Text(on?"upkeep_on":"upkeep_off"));C.Fixed(label);
+            var button=C.Button(row,C.Text(on?"upkeep_turn_off":"upkeep_turn_on"),()=>{shell.Notice.text=Upkeep.Set(k,!on);BuildUpkeep();});C.Size(button.transform,C.ControlHeight,120);
         }
-        if(said.Length>0)C.Label(shell.List,said);
-        C.Heading(shell.Detail,C.Text("upkeep_machines"));C.Label(shell.Detail,Upkeep.Describe(Ship));
+        C.Heading(shell.List,C.Text("upkeep_machines"));
+        rows=W.Rect(shell.List,"Rows");var group=rows.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlWidth=group.childControlHeight=true;group.childForceExpandHeight=false;
+        list=new GroupedList(rows,Folded(UpkeepView));
+        var upkeepRows=UpkeepRows();listSignature=GroupedList.Signature(upkeepRows);
+        list.Render(GroupLabels(new[]{UpkeepRules.AttentionGroup,UpkeepRules.FineGroup,UpkeepRules.InspectOnlyGroup},"group_"),upkeepRows,upkeepSelected,BuildUpkeep);
+        if(upkeepRows.Count==0)C.Label(rows,Text.Get("Upkeep.report_none"));
+        string selected=upkeepSelected.Length>0?upkeepSelected:Focused?focusId:"";
+        if(CrewWork.Resolve(selected) is CondOwner machine&&Upkeep.FamilyOf(machine.strCODef)!=null)
+        {
+            shell.Page(true);upkeepSelected=machine.strID;Header(machine);
+            status=C.Status(shell.Detail,Upkeep.MachineReport(machine));
+            if(!Focused)C.Button(shell.Detail,C.Text("back"),()=>{upkeepSelected="";BuildUpkeep();});
+        }
+        else
+        {
+            shell.Page(false);upkeepSelected="";C.Heading(shell.Detail,C.Text(UpkeepView));C.Label(shell.Detail,C.Text("upkeep_line"));
+            var groups=upkeepRows.Select(r=>r.Group).ToList();
+            C.Label(shell.Detail,C.Text("upkeep_summary",groups.Count(g=>g==UpkeepRules.AttentionGroup),groups.Count(g=>g==UpkeepRules.FineGroup),groups.Count(g=>g==UpkeepRules.InspectOnlyGroup)));
+            Help.About(shell.Detail,"operations-upkeep",shell.Notice);
+        }
     }
+    // The Time-skip estimate (redrawn in 0.117.0): one column, the crew's coming shifts as runs, then the orders in
+    // groups: what will run, what waits and why, what pauses for the skip.
     private void BuildSkip()
     {
-        shell.Page(true);C.Heading(shell.List,C.Text("skip"));C.Label(shell.List,C.Text("skip_estimate"));C.Label(shell.List,C.Text("skip_native"));
+        shell.Page(true);C.Heading(shell.Detail,C.Text("skip"));C.Label(shell.Detail,C.Text("skip_line",previewHours));Help.About(shell.Detail,"operations-time-skips",shell.Notice);
+        var preview=CrewSkip.PreviewRows(Ship!,previewHours);
         C.Heading(shell.Detail,C.Text("crew"));
-        foreach(var actor in CrewRoster.Members().Where(c=>c.ship==Ship))
-        {
-            C.Label(shell.Detail,ObjectPresentation.Name(actor)+"\n"+Availability(actor));
-            var shifts=Enumerable.Range(0,previewHours).Select(i=>C.Text("hour_shift",i+1,C.Text(actor.Company.GetShift((StarSystem.nUTCHour+i)%24,actor).nID==2?"working":actor.Company.GetShift((StarSystem.nUTCHour+i)%24,actor).nID==0?"resting":"free_time")));
-            C.Label(shell.Detail,string.Join(" · ",shifts));
-        }
+        foreach(var (name,availability,runs) in preview.Crew)C.Label(shell.Detail,name+"\n"+availability+" · "+runs);
         C.Heading(shell.Detail,C.Text("onboard"));
-        var equipment=CrewWork.Equipment(Ship!).Where(c=>CrewWork.Order(c).Permission==WorkPermission.Enabled).ToArray();
-        if(!equipment.Any(c=>CrewWork.Provider(c) is ICrewSkipProvider))C.Label(shell.Detail,C.Text("no_onboard_work"));
-        foreach(var co in equipment.Where(c=>CrewWork.Provider(c) is ICrewSkipProvider))
-        {
-            var provider=CrewWork.Provider(co)!;string detail=CrewWork.Message("skip_wait");
-            try{if(((ICrewSkipProvider)provider).CanAdvance(co,out var limit)){var offer=provider.Next(co,CrewWork.Order(co),out var blocker);detail=offer==null?blocker:C.Text("skip_work",offer.Label,offer.Seconds/60);if(offer!=null&&!CrewRoster.Members().Any(a=>CrewWork.Eligible(a,offer,out _)))detail+=" · "+CrewWork.Message("crew_unavailable");}else detail=limit;}
-            catch{detail=CrewWork.Message("protected");}
-            C.Label(shell.Detail,ObjectPresentation.Name(co)+"\n"+detail);
-        }
-        C.Heading(shell.Detail,C.Text("suspended_operations"));
-        foreach(var co in equipment.Where(c=>CrewWork.Provider(c) is not ICrewSkipProvider || OrderConfiguration.Fields(c).HasFlag(OrderFields.Target)))C.Label(shell.Detail,ObjectPresentation.Name(co)+"\n"+CrewWork.Message("skip_wait"));
-        if(!equipment.Any(c=>CrewWork.Provider(c) is not ICrewSkipProvider || OrderConfiguration.Fields(c).HasFlag(OrderFields.Target)))C.Label(shell.Detail,C.Text("no_suspended_work"));
+        if(preview.Machines.Count==0)C.Label(shell.Detail,C.Text("no_onboard_work"));
+        rows=W.Rect(shell.Detail,"Rows");var group=rows.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlWidth=group.childControlHeight=true;group.childForceExpandHeight=false;
+        list=new GroupedList(rows,Folded("skip"));
+        var skipRows=preview.Machines.Select(m=>new GroupedList.Row(m.Group,m.Id,m.Name+"\n"+m.Detail,()=>{})).ToList();
+        list.Render(GroupLabels(CrewSkip.PreviewGroups,"skip_group_"),skipRows,null,()=>{RememberView();BuildView();RestoreView();});
         C.Button(shell.Actions,C.Text(returnPanel==null?"close":"back"),()=>
         {
             var previous=returnPanel;CrewSim.LowerUI();if(CrewSim.goUI!=null||previous==null||previous.Item2==null||previous.Item2.bDestroyed)return;
@@ -256,8 +321,17 @@ public sealed class CrewPanel : GUIData
     {
         if(!bActive||CrewSim.goUI!=gameObject||shell==null||Time.unscaledTime<next)return;next=Time.unscaledTime+1;
         if(Ship==null||CrewSim.GetSelectedCrew()?.ship!=Ship){shell.ForceClose();return;}
+        // Lists refresh their text in place; a machine that changed group redraws the list, keeping the scroll.
+        if(list!=null&&(view==OrdersView||view==UpkeepView))
+        {
+            var current=view==OrdersView?OrderRows():UpkeepRows();
+            string signature=GroupedList.Signature(current);
+            if(signature!=listSignature){if(view==OrdersView)Populate();else BuildUpkeep();}
+            else foreach(var row in current)list.Refresh(row.Id,row.Text);
+        }
         foreach(var entry in summaries){var co=CrewWork.Resolve(entry.Key);entry.Value.text=co==null?C.Text("unavailable"):Summary(co);}
-        if(status!=null){var co=view=="orders"?CrewWork.Resolve(equipmentId):null;var actor=view=="crew"?CrewWork.Resolve(crewId):null;status.text=co!=null?StatusText(co):actor!=null?Availability(actor):C.Text("unavailable");}
+        if(status!=null){var co=view==OrdersView?CrewWork.Resolve(equipmentId.Length>0?equipmentId:focusId):view==UpkeepView?CrewWork.Resolve(upkeepSelected):null;var actor=view=="crew"?CrewWork.Resolve(crewId):null;
+            status.text=co!=null?(view==UpkeepView?Upkeep.MachineReport(co):CrewWork.Provider(co)!=null?StatusText(co):C.Text("orders_none_card")+"\n"+LoadingText(co)):actor!=null?Availability(actor):C.Text("unavailable");}
         if(view=="crew"&&status!=null&&CrewWork.Resolve(crewId) is CondOwner trainee)foreach(var bar in training)bar.Value(CrewSpecialities.Progress(trainee,bar.Key));
     }
 }

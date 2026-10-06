@@ -19,6 +19,10 @@ internal static class FrameworkConsole
     internal static Func<string[], string>? Story { get; set; }
     /// <summary>The <c>upkeep ...</c> commands (Framework 0.111.0), set by the plugin for the same reason.</summary>
     internal static Func<string[], string>? Upkeep { get; set; }
+    /// <summary>The <c>help [article]</c> command (Framework 0.117.0): the Phobos operations encyclopedia articles.</summary>
+    internal static Func<string[], string>? Help { get; set; }
+    /// <summary>The <c>skip [hours]</c> command (Framework 0.117.0): the Time-skip estimate as text.</summary>
+    internal static Func<string[], string>? Skip { get; set; }
     private static bool Prefix(ref string strInput, ref bool __result)
     {
         var words = (strInput ?? "").Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -46,6 +50,18 @@ internal static class FrameworkConsole
         {
             __result = true;
             strInput += "\n" + Upkeep(words);
+            return false;
+        }
+        if (command == "help" && words.Length == 3 && Help != null || command == "articles" && Help != null)
+        {
+            __result = true;
+            strInput += "\n" + Help(words);
+            return false;
+        }
+        if (command == "skip" && Skip != null)
+        {
+            __result = true;
+            strInput += "\n" + Skip(words);
             return false;
         }
         if (command == "story" && Story != null)

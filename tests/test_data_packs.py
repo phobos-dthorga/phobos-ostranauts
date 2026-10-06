@@ -171,7 +171,15 @@ class DataPackTests(unittest.TestCase):
         validate.story(framework, 'test', framework=True)
         self.assertEqual(framework['settings'], {'broadcastShare': 0.3, 'advertShare': 0.3, 'checkSeconds': 30, 'maxActiveArcs': 2,
                                                  'chatterShare': 0.4, 'tipShare': 0.3, 'localWeight': 4, 'farWeight': 1, 'mentionDays': 10})
-        self.assertEqual(sorted(framework['sections']), ['phobos-makers', 'phobos-spacer-life'])
+        self.assertEqual(sorted(framework['sections']), ['phobos-makers', 'phobos-operations', 'phobos-spacer-life'])
+        # Framework 0.117.0: the About buttons' articles, all under Phobos operations, plain text within the limits.
+        self.assertEqual(sorted(framework['articles']), ['operations-maintenance', 'operations-standing-orders', 'operations-store-links',
+                                                         'operations-time-skips', 'operations-upkeep'])
+        for key, article in framework['articles'].items():
+            with self.subTest(article=key):
+                self.assertEqual(article['section'], 'phobos-operations')
+                self.assertLessEqual(len(article['body']), 4000)
+                self.assertNotIn('requires', article)
         with self.assertRaises(validate.Problem):
             validate.story(broken(lambda p: p.update(settings={'broadcastShare': 0.3})), 'test', framework=False)
 

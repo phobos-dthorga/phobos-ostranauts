@@ -430,6 +430,49 @@
       "label": "Life between stations",
       "title": "Life between stations",
       "body": "Notes on keeping a crew fed, healthy and working far from the nearest dock."
+    },
+    "phobos-operations": {
+      "notes": "Framework 0.117.0: how Phobos equipment is run. The panels' About buttons open these articles; other packs may add articles here.",
+      "label": "Phobos operations",
+      "title": "Phobos operations",
+      "body": "How to keep Phobos equipment working: crew orders, upkeep, time-skips, store links and maintenance. Every Phobos panel has an About button that opens the article for that page."
+    }
+  },
+  "articles": {
+    "operations-standing-orders": {
+      "notes": "Framework 0.117.0: the Orders page, and the right-click Maintenance sheet's order line.",
+      "section": "phobos-operations",
+      "label": "Standing orders",
+      "title": "Standing orders",
+      "body": "A standing order tells your crew to keep one machine going: what work to do, where to take supplies from, and where to put what it makes. Open it from the machine's Control Panel (Standing orders), from its right-click Maintenance sheet, or from the crew roster (Orders & training).\n\nOrders start switched off. Choose the work, the supply store (or Anywhere aboard) and the product store, then Apply and Enable / Resume. A crew member on shift, with AutoTask on and the Operate or Haul duty, does the steps one at a time.\n\nOpened from a machine, the panel shows that machine alone. Show all ship lists every machine with orders, in three groups. Needs you: stopped or unreadable orders, waiting for your Resume or a look at the machine. Working: running, or waiting for feed, space or a free crew member; the line says which. Not set up or off: orders never switched on. Click a group's name to fold or unfold it.\n\nChanging an enabled order pauses it until you choose Resume. Stop acts at once. Some machines take no crew orders at all: you load them by hand, or link a feed store and a product store on their Control Panel, and the card says so.\n\nCrew never take supplies from someone's hands, a locked container, or anything that is not really a store, such as a gun's magazine or a battery charger."
+    },
+    "operations-upkeep": {
+      "notes": "Framework 0.117.0: the Upkeep page; the text the four switch help paragraphs used to hold.",
+      "section": "phobos-operations",
+      "label": "Upkeep",
+      "title": "Upkeep on long hauls",
+      "body": "Upkeep is work for idle crew on shift, with AutoTask on, after every standing order has been seen to. Four switches on the Upkeep page apply to every ship of yours, in this order of priority.\n\nTune machinery: crew tune Phobos machines so they work a little faster, drawing that much more power while they do. A full tune is worth up to 10 percent as shipped. The tune fades as the machine works, so there is always more to do. Recipes, yields and the electricity per job never change.\n\nInspection rounds: crew check each machine about once a day. An inspected machine holds its tune longer, and anything it is waiting for goes in the crew log.\n\nHousekeeping: crew put supplies lying on the deck away, into a store already holding the same kind or a material bin that takes them. Nothing is taken from hands, machines or locked stores, and nothing is moved with nowhere to go.\n\nPractice at machines: crew not yet skilled at a machine practise at it, learning its speciality as fast as studying at a terminal.\n\nThe machine list shows what needs attention first: a machine not tuned yet while tuning is on, an inspection due while rounds are on, or a record that could not be read. The rest is folded."
+    },
+    "operations-time-skips": {
+      "notes": "Framework 0.117.0: the Time-skip estimate page.",
+      "section": "phobos-operations",
+      "label": "Time-skips",
+      "title": "Time-skips and crew work",
+      "body": "Before you skip time, the Phobos work estimate button on the game's time-skip screen shows what your crew and machines will do. It is an estimate only: supplies, power, heat, storage space and available crew are checked again as the skip runs.\n\nEach crew member's coming hours read as one line, such as working for 3 h, then resting. Machines with enabled orders fall into three groups. Will run: the next step and its hands-on time. Waits: the one thing it waits for. Paused: outside work and manoeuvres, which never run during a skip; resume them afterwards.\n\nRunning machines are stepped through the skip as if you had watched. To choose a duration, check collision warnings and press Go, return to the game's time-skip screen."
+    },
+    "operations-store-links": {
+      "notes": "Framework 0.117.0: feed stores, product stores and what counts as a store.",
+      "section": "phobos-operations",
+      "label": "Store links",
+      "title": "Feed stores and product stores",
+      "body": "A machine can take feed from one store and send products to one store, as well as being loaded by hand. Choose them on its Control Panel, under Take feed from and Send products to.\n\nA store must touch the machine, within one tile, or be joined to it by conveyor belt. Nothing is linked across open floor. The list says why each other store aboard is not offered.\n\nOnly real stores count: crates, racks, bins, lockers and the like. A ship weapon's magazine, a battery charger, a scrubber's filter holder, a nav console, a sink or a toilet has a container, but nobody keeps ore in one, so those are never offered and crew never take anything out of them. Equipment from other mods can be added in a player data file.\n\nIf a chosen store is gone, locked, out of reach or no longer counts as a store, the machine's status says so: choose another."
+    },
+    "operations-maintenance": {
+      "notes": "Framework 0.117.0: the right-click Maintenance sheet; the text MaintenanceInfo.basics used to hold.",
+      "section": "phobos-operations",
+      "label": "Maintenance",
+      "title": "Maintenance, removal and repair",
+      "body": "Right-click a Phobos machine and choose Maintenance to see, in one place, its standing order, its upkeep, and anything that stops it being taken up.\n\nInstall puts a complete loose machine in place. Uninstall takes it up. Repair replaces broken parts; Restore fixes wear on an intact item. Dismantle breaks it down for salvage. Each job still needs crew access, tools and materials, as the game's own jobs do.\n\nEmpty a machine, its feed and any stack before dismantling it: cargo must be moved out first, and a stack must be split so the other units stay whole. If something blocks a job, the sheet names it.\n\nThe buttons on the sheet open the crew panel on that machine's order or on the upkeep switches."
     }
   }
 }

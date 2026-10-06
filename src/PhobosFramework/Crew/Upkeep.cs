@@ -189,6 +189,72 @@ public static class Upkeep
         return string.Join("\n", lines);
     }
 
+    /// <summary>One machine on the Upkeep list (Framework 0.117.0): its tune as a percentage, hours since its last
+    /// inspection (null for never), and whether its record could be read.</summary>
+    public readonly struct UpkeepRow
+    {
+        public readonly string Id, Name;
+        public readonly bool Tunable, Protected;
+        public readonly double Percent;
+        public readonly double? InspectedHours;
+        public UpkeepRow(string id, string name, bool tunable, bool prot, double percent, double? inspectedHours)
+        { Id = id; Name = name; Tunable = tunable; Protected = prot; Percent = percent; InspectedHours = inspectedHours; }
+    }
+    /// <summary>Every machine taking upkeep on a ship (or on every crew ship), by name. One walk of the machine family;
+    /// the Upkeep view and the F3 report both read it.</summary>
+    public static List<UpkeepRow> Report(Ship? ship = null)
+    {
+        var ships = ship != null ? new[] { ship } : CrewRoster.Members().Select(c => c.ship).Distinct().ToArray();
+        var rows = new List<UpkeepRow>();
+        foreach (var (machine, family) in Machines(ships))
+        {
+            var state = State(machine);
+            bool tunable = family.Tunable && Settings.MaxTuningGain * Share(family) > 0;
+            rows.Add(new UpkeepRow(machine.strID, Controls.ObjectPresentation.Name(machine), tunable, state.Protected,
+                tunable ? (UpkeepRules.Rate(state.Level, Settings.MaxTuningGain, Share(family)) - 1) * 100 : 0,
+                state.Inspected <= 0 ? null : Math.Max(0, (StarSystem.fEpoch - state.Inspected) / 3600)));
+        }
+        return rows.OrderBy(r => r.Name, StringComparer.Ordinal).ToList();
+    }
+    /// <summary>What a listed machine needs under the switches as set now.</summary>
+    public static UpkeepRules.Attention Needs(UpkeepRow row) =>
+        UpkeepRules.Needs(row.Tunable, row.Protected, row.Percent, row.InspectedHours, Enabled(UpkeepKind.Tune), Enabled(UpkeepKind.Inspect), Pack.inspectionValidHours);
+    private static string Hours(double hours) => hours.ToString("0.#", CultureInfo.InvariantCulture);
+    private static string Percent(double percent) => percent.ToString("0.#", CultureInfo.InvariantCulture);
+    /// <summary>A list row: the name and its state, then the one thing about it.</summary>
+    public static string RowText(UpkeepRow row)
+    {
+        var needs = Needs(row);
+        string state = needs switch
+        {
+            UpkeepRules.Attention.Protected => Text.Get("Upkeep.row_protected"),
+            UpkeepRules.Attention.Untuned => Text.Get("Upkeep.row_untuned"),
+            UpkeepRules.Attention.InspectionDue => Text.Get("Upkeep.row_inspection_due"),
+            _ => !row.Tunable ? Text.Get("Upkeep.row_inspect_only") : row.Percent < 0.05 ? Text.Get("Upkeep.row_not_tuned") : Text.Get("Upkeep.row_tuned", Percent(row.Percent))
+        };
+        string detail = needs switch
+        {
+            UpkeepRules.Attention.Protected => Text.Get("Upkeep.row_protected_detail"),
+            UpkeepRules.Attention.Untuned => Text.Get("Upkeep.row_untuned_detail"),
+            _ => row.InspectedHours == null ? Text.Get("Upkeep.row_never_inspected") : Text.Get("Upkeep.row_inspected", Hours(row.InspectedHours.Value))
+        };
+        return row.Name + " — " + state + "\n" + detail;
+    }
+    /// <summary>One or two sentences on a machine's upkeep for a card or the Maintenance sheet (Framework 0.117.0):
+    /// its tune, its last inspection, and the two switches. Empty for a machine no family covers.</summary>
+    public static string Summary(CondOwner? co)
+    {
+        if (co == null || FamilyOf(co.strCODef) is not Family family) return "";
+        var state = State(co);
+        if (state.Protected) return Text.Get("Upkeep.status_protected");
+        bool tunable = family.Tunable && Settings.MaxTuningGain * Share(family) > 0;
+        double percent = tunable ? (UpkeepRules.Rate(state.Level, Settings.MaxTuningGain, Share(family)) - 1) * 100 : 0;
+        string tune = !tunable ? Text.Get("Upkeep.summary_inspect_only") : percent < 0.05 ? Text.Get("Upkeep.summary_not_tuned") : Text.Get("Upkeep.summary_tuned", Percent(percent));
+        string inspected = state.Inspected <= 0 ? Text.Get("Upkeep.summary_not_inspected") : Text.Get("Upkeep.summary_inspected", Hours(Math.Max(0, (StarSystem.fEpoch - state.Inspected) / 3600)));
+        string Shown(UpkeepKind kind) => Text.Get(Enabled(kind) ? "Upkeep.on" : "Upkeep.off");
+        return tune + ", " + inspected + ". " + Text.Get("Upkeep.summary_switches", Shown(UpkeepKind.Tune), Shown(UpkeepKind.Inspect));
+    }
+
     // ---- The ship-wide switches, kept on the player ----
 
     /// <summary>The word for a kind in text keys and F3: tune, inspect, practice or tidy.</summary>
@@ -568,16 +634,13 @@ public static class Upkeep
             Text.Get("Upkeep.report_settings", Settings.TuningMinutes, Settings.InspectionMinutes, (Settings.MaxTuningGain * 100).ToString("0.#", CultureInfo.InvariantCulture), Settings.TuneFadeHours),
             Text.Get("Upkeep.report_practice", Pack.practiceMinutes)
         };
-        var ships = ship != null ? new[] { ship } : CrewRoster.Members().Select(c => c.ship).Distinct().ToArray();
-        var machines = Machines(ships);
+        var machines = Report(ship);
         if (machines.Count == 0) lines.Add(Text.Get("Upkeep.report_none"));
-        foreach (var (machine, family) in machines.OrderBy(m => Controls.ObjectPresentation.Name(m.Machine), StringComparer.Ordinal).Take(MaxReported))
+        foreach (var row in machines.Take(MaxReported))
         {
-            var state = State(machine);
-            string tuneText = !family.Tunable ? Text.Get("Upkeep.report_not_tuned") : ((Rate(machine) - 1) * 100).ToString("0.#", CultureInfo.InvariantCulture) + "%";
-            string inspected = state.Inspected <= 0 ? Text.Get("Upkeep.report_never") :
-                Text.Get("Upkeep.report_hours_ago", Math.Max(0, (StarSystem.fEpoch - state.Inspected) / 3600).ToString("0.#", CultureInfo.InvariantCulture));
-            lines.Add(Text.Get("Upkeep.report_line", Controls.ObjectPresentation.Name(machine), tuneText, inspected));
+            string tuneText = !row.Tunable ? Text.Get("Upkeep.report_not_tuned") : Percent(row.Percent) + "%";
+            string inspected = row.InspectedHours == null ? Text.Get("Upkeep.report_never") : Text.Get("Upkeep.report_hours_ago", Hours(row.InspectedHours.Value));
+            lines.Add(Text.Get("Upkeep.report_line", row.Name, tuneText, inspected));
         }
         if (machines.Count > MaxReported) lines.Add(Text.Get("Upkeep.report_more", machines.Count - MaxReported));
         return string.Join("\n", lines);

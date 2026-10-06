@@ -8,24 +8,25 @@ namespace Phobos.Ostranauts.Framework.Registration;
 /// <summary>The right-click Maintenance sheet (named "Maintenance information" before Framework 0.116.0). It explains
 /// removal and repair without granting work permission or changing equipment, and since 0.116.0 it is also where a
 /// machine's standing orders and upkeep are found (owner direction, 6 October 2026): their state, with buttons into the
-/// Crew panel. The interaction ids each mod registers are unchanged, so saves and other mods are unaffected.</summary>
+/// Crew panel. Since 0.117.0 it says each thing once: one line for a machine without orders, one or two for its upkeep,
+/// the removal blocker, and an About button to the encyclopedia for the rest. The interaction ids each mod registers
+/// are unchanged, so saves and other mods are unaffected.</summary>
 public static class MaintenanceInformation
 {
+    public const string Article = "operations-maintenance";
     public static void Register(NativeDefinitions definitions, string action, Func<CondOwner, string>? extra = null)
     {
         var ids = definitions.Installables.Values.Where(j => j.strJobType != "install")
             .Select(j => j.strActionCO).Where(definitions.Objects.ContainsKey).Distinct().ToArray();
         ItemInformation.Register(definitions, action, Text.Get("MaintenanceInfo.title"), ids, co => MaintenanceSheet.Sections(Facts(co, extra),
             () => Crew.CrewPanel.Unavailable(co) ?? (Crew.CrewPanel.Show(co, Crew.CrewPanel.OrdersView) ? null : Crew.CrewWork.Message("panel_blocked")),
-            () => Crew.CrewPanel.Unavailable(co) ?? (Crew.CrewPanel.Show(co, Crew.CrewPanel.UpkeepView) ? null : Crew.CrewWork.Message("panel_blocked"))));
+            () => Crew.CrewPanel.Unavailable(co) ?? (Crew.CrewPanel.Show(co, Crew.CrewPanel.UpkeepView) ? null : Crew.CrewWork.Message("panel_blocked")),
+            () => Help.Open(Article)));
     }
     /// <summary>What the sheet says about one object, read from the services that own each part.</summary>
     private static MaintenanceSheet.Facts Facts(CondOwner co, Func<CondOwner, string>? extra)
     {
         string? bin = MaintenanceSafety.Actions.TryGetValue("ACT" + co.strCODef + "Dismantle", out var internalBin) ? internalBin : null;
-        string removal = Text.Get("MaintenanceInfo.basics") + "\n\n" + (MaintenanceSafety.Reason(co, bin) ?? Text.Get("MaintenanceInfo.empty"));
-        string more = extra == null ? "" : extra(co);
-        if (more.Length > 0) removal += "\n\n" + more;
         bool orders = Crew.CrewWork.Provider(co) != null;
         string status = "";
         if (orders)
@@ -36,7 +37,8 @@ public static class MaintenanceInformation
         return new MaintenanceSheet.Facts
         {
             Installed = co.HasCond("IsInstalled"), Orders = orders, Owned = Crew.CrewWork.CanManage(co), OrderStatus = status,
-            Upkeep = Crew.Upkeep.MachineReport(co), Removal = removal
+            Loading = Crew.CrewPanel.LoadingText(co), Upkeep = Crew.Upkeep.Summary(co),
+            Blocker = MaintenanceSafety.Reason(co, bin), Extra = extra == null ? "" : extra(co)
         };
     }
 }
@@ -48,9 +50,12 @@ public static class MaintenanceSheet
     public sealed class Facts
     {
         public bool Installed, Orders, Owned;
-        public string OrderStatus = "", Upkeep = "", Removal = "";
+        /// <summary>The order's state line; how a machine without orders is loaded; its upkeep in a sentence or two.</summary>
+        public string OrderStatus = "", Loading = "", Upkeep = "";
+        /// <summary>What stops removal now, or null; a content mod's own note.</summary>
+        public string? Blocker; public string Extra = "";
     }
-    public static IReadOnlyList<InformationSection> Sections(Facts facts, Func<string?> openOrders, Func<string?> openUpkeep)
+    public static IReadOnlyList<InformationSection> Sections(Facts facts, Func<string?> openOrders, Func<string?> openUpkeep, Func<string?> openHelp)
     {
         if (facts == null) throw new ArgumentNullException(nameof(facts));
         var sections = new List<InformationSection>();
@@ -58,7 +63,7 @@ public static class MaintenanceSheet
         if (machine)
         {
             string orders = Text.Get("MaintenanceInfo.orders_heading");
-            if (!facts.Orders) sections.Add(new InformationSection(orders, Text.Get("MaintenanceInfo.orders_none")));
+            if (!facts.Orders) sections.Add(new InformationSection("", Text.Get("MaintenanceInfo.orders_none_line") + (facts.Loading.Length > 0 ? "\n" + facts.Loading : "")));
             else if (!facts.Owned) sections.Add(new InformationSection(orders, Text.Get("MaintenanceInfo.orders_not_owned")));
             else sections.Add(new InformationSection(orders, facts.OrderStatus, new InformationLink(Text.Get("MaintenanceInfo.orders_open"), openOrders)));
         }
@@ -66,7 +71,9 @@ public static class MaintenanceSheet
             sections.Add(facts.Owned
                 ? new InformationSection(Text.Get("MaintenanceInfo.upkeep_heading"), facts.Upkeep, new InformationLink(Text.Get("MaintenanceInfo.upkeep_open"), openUpkeep))
                 : new InformationSection(Text.Get("MaintenanceInfo.upkeep_heading"), facts.Upkeep));
-        sections.Add(new InformationSection(machine ? Text.Get("MaintenanceInfo.removal_heading") : "", facts.Removal));
+        string removal = facts.Blocker ?? Text.Get("MaintenanceInfo.removal_clear");
+        if (facts.Extra.Length > 0) removal += "\n\n" + facts.Extra;
+        sections.Add(new InformationSection(machine ? Text.Get("MaintenanceInfo.removal_heading") : "", removal, new InformationLink(ConsoleText.Get("about"), openHelp)));
         return sections;
     }
 }

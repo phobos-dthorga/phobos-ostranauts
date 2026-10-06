@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.116.0";
+    public const string Version = "0.117.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -49,6 +49,9 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         FrameworkConsole.Loot = Registration.LootCarveRegistry.Describe;
         FrameworkConsole.Story = Story.StoryContent.Command;
         FrameworkConsole.Upkeep = Crew.Upkeep.Command;
+        // The Phobos operations articles and the Time-skip estimate (0.117.0), beside the panel buttons that use them.
+        FrameworkConsole.Help = Controls.Help.Command;
+        FrameworkConsole.Skip = words => CrewSim.GetSelectedCrew()?.ship is Ship ship ? Crew.CrewSkip.Preview(ship, words.Length >= 3 && int.TryParse(words[2], out int hours) ? hours : 1) : Text.Get("Help.no_game");
         // Crew upkeep (0.111.0): four player settings; the rest of its figures are the upkeep data pack.
         Crew.Upkeep.Settings = new Crew.UpkeepSettings
         {

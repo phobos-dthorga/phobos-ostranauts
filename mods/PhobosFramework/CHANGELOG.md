@@ -29,6 +29,30 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.117.0] - 2026-10-06 - Draft
+
+### Added
+
+- The Crew operations panel opened from a machine shows that machine alone: its order, or a line saying it takes no crew orders and how it is loaded, and its upkeep. Show all ship widens to the whole ship. Opened from the crew roster it starts with the whole ship.
+- The Orders list is in groups you can fold, with counts: Needs you (stopped or unreadable orders, open), Working (running or waiting for feed, space or crew) and Not set up or off. Each row names the machine, its state, its work and the one thing it waits for.
+- The Upkeep page has one row per switch with a Turn on or Turn off button, and its answer goes to the footer. Machines are grouped as Needs attention (not tuned yet while tuning is on, an inspection due while rounds are on, or a record that cannot be read), Looked after and Inspection only. Choosing a machine shows its tune and last inspection.
+- The Time-skip estimate reads each crew member's coming hours as one line (working for 3 h, then resting for 2 h) and groups the orders as Will run, Waits (with the reason) and Paused for the skip.
+- A Phobos operations section in the game's encyclopedia: standing orders, upkeep, time-skips, store links and maintenance. Each Crew panel page and the Maintenance sheet have an About button that opens the matching article and says in the footer whether it did.
+- F3: phobosframework articles lists those articles and phobosframework help with a name opens one; phobosframework skip with an optional number of hours prints the time-skip estimate.
+
+### Changed
+
+- The Maintenance sheet says each thing once: one line for a machine without crew orders, a sentence for its upkeep, then what blocks taking it up, or a line saying nothing does. The general explanation of install, repair, Restore and dismantling moved to the encyclopedia.
+- The long explanations on the Upkeep and Time-skip pages moved to the encyclopedia. The Upkeep switches and machine list stay on screen in a narrow window, where they were hidden before.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved. Which groups are folded is remembered until the game closes.
+
+### Compatibility and limits
+
+- Encyclopedia articles open by their name, as the game's own encyclopedia looks them up; a check confirms the game still offers that lookup. Whether the encyclopedia window shows above the Crew panel has not been seen in the game. If a story pack loads after the encyclopedia was built, About says so and asks for a restart. Checked offline; not yet seen in the game.
+
 ## [0.116.0] - 2026-10-06 - Draft
 
 ### Added

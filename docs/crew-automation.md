@@ -207,9 +207,17 @@ switch for the whole crew, off until you choose it.
 
 1. Open **Crew standing orders and training** (from the roster, an equipment
    panel, the C1 console or the Auto Nav hub) and choose the **Upkeep** tab.
-2. Switch on the kinds of work you want.
+2. Choose **Turn on** beside each kind of work you want; the footer says what
+   it switched.
 3. Leave the crew on shift with AutoTask on, as for standing orders.
    Housekeeping also needs the Haul duty.
+
+Below the switches, the machines are in groups (Framework 0.117.0): **Needs
+attention** lists a machine not tuned yet while tuning is on, one whose
+inspection is due while rounds are on, or one whose record could not be read;
+**Looked after** and **Inspection only** are folded. Choose a machine for its
+tune and last inspection. **About** opens the encyclopedia's upkeep article,
+which holds the full explanation of each switch.
 
 The F3 commands do the same: `phobosframework upkeep tune on` (or `off`), and
 likewise `inspect`, `practice` and `tidy`; `phobosframework upkeep` lists the
@@ -401,8 +409,9 @@ every fourth step, from the same supply as the machines; Phobos machines,
 crew-ordered equipment and rooms every step.
 
 The native time-skip screen retains its collision warnings, roster display and
-Go control. Its Phobos summary and detail view show intended onboard work and
-current blockers. This is a read-only indication, not a guaranteed production
+Go control. Its Phobos estimate (Framework 0.117.0) gives each crew member one
+line for the hours ahead and puts the enabled orders in **Will run**, **Waits**
+(with the reason) and **Paused for the skip**. This is a read-only indication, not a guaranteed production
 forecast: later shortages, heat, damage, route changes or crew needs may stop work.
 
 During a managed skip, the native world clock advances in steps of the chosen
