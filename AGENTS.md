@@ -396,11 +396,13 @@ delivery in the changelog and design record, and add or amend only the rule here
 - Prefer vanilla UI widgets and artwork at runtime; compose panels from reusable controls and
   live localized text; avoid art reruns or refactors for hypothetical future changes (the owner
   watches ChatGPT costs). Approved selections stay unless the owner reopens them.
-- Sounds only where usefulness is high: brief, quiet, never alarming, with volume and mute
-  (`docs/shared-completion-cues.md`). Occasional local mechanical sounds while equipment
-  actually works are welcome (owner, 2026-10-06); Codex creates the audio and handoff, Claude
-  does the wiring (`docs/development/machine-work-sounds-handoff.md`). No alarm suites,
-  ambient/operating loops or routine per-action sounds.
+- Sounds only where usefulness is high: quiet, never alarming, with volume and mute
+  (`docs/shared-completion-cues.md`). Cues stay brief. Local mechanical operating sounds
+  must be loopable for continuous playback while equipment actually works (owner,
+  2026-10-06, superseding the earlier occasional-snippet direction and operating-loop
+  exclusion). Codex creates the audio and handoff; Claude does the wiring
+  (`docs/development/machine-work-sounds-handoff.md`). No alarm suites, unrelated ambient
+  loops or routine per-action sounds.
 
 ## Builds, installation and verification
 

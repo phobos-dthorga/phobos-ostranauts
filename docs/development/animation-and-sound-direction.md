@@ -1,13 +1,15 @@
 # Future animation and restrained sound cues
 
-**Later owner direction, 6 October 2026:** explore and create occasional
-mechanical sounds while equipment works, with Codex responsible for audio and
-Claude responsible for wiring. The owner subsequently selected the ElevenLabs
-washer motor and liquid-pump texture and requested removal of this chat's Python
-samples. The [selected files and handoff](machine-work-sounds-handoff.md)
-extend this dated direction to short, local work snippets. Operating loops and
-alarm suites remain excluded. The historical recommendations below are retained;
-their blanket pump/machinery exclusions do not prohibit the new candidates.
+**Current owner direction, 6 October 2026:** Codex creates machine audio and
+the handoff; Claude handles game wiring. The owner selected the ElevenLabs
+washer motor and liquid-pump texture, removed this chat's procedural samples,
+then requested four more variations and explicitly required loopable sounds:
+eight variations in total. The [files and handoff](machine-work-sounds-handoff.md)
+now provide local continuous operating loops tied to actual work. This supersedes
+the earlier occasional-snippet direction and operating-loop exclusion. Alarm
+suites and unrelated ambient loops remain excluded. The September recommendations
+below are retained as history; their blanket pump/machinery exclusions do not
+prohibit these operating loops.
 
 Owner direction, **25 September 2026**, across Phobos Ostranauts mods.
 The subsequent authorized [suite-wide implementation](../shared-completion-cues.md)
@@ -48,7 +50,7 @@ motion, and preserve registration and provenance under the
 [resolution policy](artwork-resolution-policy.md). Recheck tool capabilities and
 cost before generation. This future-use note does not start a paid job.
 
-## Sound: owner requirements
+## Historical sound requirements: 25 September 2026
 
 - Consider adding sounds **retroactively to existing equipment and interactions**
   as well as future features, possibly through ChatGPT-assisted synthesis.
@@ -59,7 +61,7 @@ cost before generation. This future-use note does not start a paid job.
   samples or a new alarm system.
 - Each sample must be **brief**.
 
-## Proposed selection criteria
+## Historical proposed selection criteria
 
 Call a candidate **HIGH** when it helps notice a consequential change requiring
 action which is otherwise easy to miss. Call it **MEDIUM-HIGH** when it reliably

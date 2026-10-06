@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "date": "2026-10-06",
   "provider": "ElevenLabs",
   "model_id": "eleven_text_to_sound_v2",
@@ -11,10 +11,10 @@
     "prompt_influence": 0.75,
     "loop": false
   },
-  "credit_cost_total": 240,
-  "session_total_credits": 440,
-  "owner_selection": "Owner accepted this washer motor and liquid-pump direction and requested all four files be saved. No individual winner was selected.",
-  "status": "Owner selected the sound direction and retained all four candidates; no individual winner or in-game mix approval",
+  "credit_cost_total": 480,
+  "session_total_credits": 680,
+  "owner_selection": "Owner accepted A-D and requested four additional samples in the same likeness, E-H; eight total. Owner explicitly requires continuous loopable audio. Individual variants and in-game gain remain for owner review.",
+  "status": "Eight saved variants; loop WAVs prepared and checked offline. New E-H and derived A-H loop playback await owner listening; no runtime wiring or in-game mix approval.",
   "attribution": "Generated with ElevenLabs — elevenlabs.io",
   "licensing": {
     "repository_mit_excluded": true,
@@ -22,7 +22,7 @@
     "publication_guidance_url": "https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform",
     "account_evidence": "Owner reported an ElevenLabs subscription and 10,000 credits; plugin does not expose plan or agreement. No independent MIT or commercial-use grant inferred."
   },
-  "loop_ready": false,
+  "loop_ready": true,
   "export": {
     "script": "scripts/export-audio-candidates.py",
     "filter": "afade=t=in:st=0:d=0.025,afade=t=out:st=5.92:d=0.08",
@@ -30,9 +30,22 @@
     "fade_out_ms": 80,
     "gain_change": false,
     "encoding": "mono 44100 Hz PCM16 little-endian RIFF WAV",
-    "note": "Decoded from the retained MP3 with mono downmix and edge fades. No synthesis, normalisation, pitch change or new model generation.",
+    "note": "Legacy A-D one-shot recipe retained unchanged. All eight loop WAVs are decoded from their untouched provider MP3s, circularly crossfaded and DC-centred. No synthesis, loudness normalisation, pitch change or new model generation by the exporter.",
     "tool_version": "ffmpeg version n8.1.1-7-g3728de467d-20260519 Copyright (c) 2000-2026 the FFmpeg developers",
-    "script_sha256": "9db19dd3a6e7f81da3ddb79a6f8416c529d1a9d024c08cd04a62f23617bc3214"
+    "script_sha256": "984e19d6620a75e51da89bc35f558a8644cb3b2de42f677275862f59beb9bdc7",
+    "loop_recipe": {
+      "overlap_ms": 250,
+      "overlap_frames": 11025,
+      "output_frames": 253575,
+      "output_duration_seconds": 5.75,
+      "method": "Body x[K:N-K], then (1-w)*x[N-K+i]+w*x[i]; w=0.5-0.5*cos(pi*i/(K-1)), K=11025. Subtract the loop mean, round to PCM16. Both joins use originally adjacent source samples.",
+      "per_cycle_edge_fades": false,
+      "inserted_silence": false,
+      "loudness_normalisation": false,
+      "runtime_directory": "loops",
+      "legacy_one_shot_directory": "wav",
+      "downmix": "Arithmetic mean of left/right decoded float32 channels: 0.5*L + 0.5*R; all retained provider MP3s are stereo."
+    }
   },
   "clips": [
     {
@@ -63,6 +76,32 @@
         ],
         "bytes": 529244,
         "sha256": "0de690b319187a8adecbb3fe481878c05df31afa6703727b5663a0742b82b7ac"
+      },
+      "source_node_id": "MqQuYiyCJ0I7WawkJYL9",
+      "source_loop_requested": false,
+      "loop": {
+        "path": "loops/washer-motor-pump-a.wav",
+        "removed_dc": -0.001348676709,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -17.27,
+        "rms_dbfs": -26.745,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          1098,
+          1061
+        ],
+        "bytes": 507194,
+        "sha256": "b9aec74284bab44fd9378f612ddb28594c497b640db0e2cf2e840f6018da796f",
+        "seam_step_pcm16": 37,
+        "crossfade_join_step_pcm16": 85,
+        "ordinary_step_max_pcm16": 627,
+        "ordinary_step_p99_pcm16": 345,
+        "boundary_40ms_rms_dbfs": -27.546,
+        "boundary_zero_run_samples": 0
       }
     },
     {
@@ -93,6 +132,32 @@
         ],
         "bytes": 529244,
         "sha256": "854cfaa0490b7018d84325527d159895402d365bab2473f351c28214106c4f4b"
+      },
+      "source_node_id": "MqQuYiyCJ0I7WawkJYL9",
+      "source_loop_requested": false,
+      "loop": {
+        "path": "loops/washer-motor-pump-b.wav",
+        "removed_dc": -0.000177466908,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -12.569,
+        "rms_dbfs": -22.275,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          1715,
+          1688
+        ],
+        "bytes": 507194,
+        "sha256": "e9e827b2c3b861a17329861da8f76e33f814bc62ef9fa5ac2000fe439a239371",
+        "seam_step_pcm16": 27,
+        "crossfade_join_step_pcm16": 1,
+        "ordinary_step_max_pcm16": 1260,
+        "ordinary_step_p99_pcm16": 585,
+        "boundary_40ms_rms_dbfs": -21.098,
+        "boundary_zero_run_samples": 0
       }
     },
     {
@@ -123,6 +188,32 @@
         ],
         "bytes": 529244,
         "sha256": "4bc4b199e76c6122ea0b5cdb1ff84cffbe352ac1153100ea75f10daac5aeb968"
+      },
+      "source_node_id": "MqQuYiyCJ0I7WawkJYL9",
+      "source_loop_requested": false,
+      "loop": {
+        "path": "loops/washer-motor-pump-c.wav",
+        "removed_dc": -0.000161230285,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -19.918,
+        "rms_dbfs": -25.795,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          -1938,
+          -2134
+        ],
+        "bytes": 507194,
+        "sha256": "ed7968636b28a5fcd291d0528112f7f3a2aca0c6705e19773b2879f7ae7bec28",
+        "seam_step_pcm16": 196,
+        "crossfade_join_step_pcm16": 107,
+        "ordinary_step_max_pcm16": 797,
+        "ordinary_step_p99_pcm16": 392,
+        "boundary_40ms_rms_dbfs": -25.969,
+        "boundary_zero_run_samples": 0
       }
     },
     {
@@ -153,7 +244,208 @@
         ],
         "bytes": 529244,
         "sha256": "07d8d9e6ad9e039d7c43eb8bc0c5aff6400b0f063d75a39109e0fcfe10c215d9"
+      },
+      "source_node_id": "MqQuYiyCJ0I7WawkJYL9",
+      "source_loop_requested": false,
+      "loop": {
+        "path": "loops/washer-motor-pump-d.wav",
+        "removed_dc": -0.002498858109,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -19.152,
+        "rms_dbfs": -25.797,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          -1626,
+          -1693
+        ],
+        "bytes": 507194,
+        "sha256": "ff721dc5c0813bad6ab82c6f913723ca9168c1dd85a7a6eaa52ffc33bcba7923",
+        "seam_step_pcm16": 67,
+        "crossfade_join_step_pcm16": 139,
+        "ordinary_step_max_pcm16": 482,
+        "ordinary_step_p99_pcm16": 271,
+        "boundary_40ms_rms_dbfs": -26.798,
+        "boundary_zero_run_samples": 0
+      }
+    },
+    {
+      "variant": "E",
+      "generation_id": "cLz6Lr66tNFdwJyK9Wzk",
+      "session_id": "xIGSrGwMoNRjdhwkIdxF",
+      "created_at_unix_ms": 1791260837982,
+      "generation_credits": 60,
+      "source_node_id": "Qhn6H67S5fQYW6p5fOnm",
+      "source_loop_requested": true,
+      "original": {
+        "path": "originals/washer-motor-pump-e.mp3",
+        "format": "MP3; untouched provider download, not a lossless master",
+        "bytes": 114136,
+        "sha256": "2bfed1b249805bbfe8229e345501a1f82a3f66938729006318f5dd0d698e1c75"
+      },
+      "loop": {
+        "path": "loops/washer-motor-pump-e.wav",
+        "removed_dc": 1.2519336e-05,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -18.242,
+        "rms_dbfs": -25.153,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          1666,
+          1777
+        ],
+        "bytes": 507194,
+        "sha256": "dcca8ef075da48fbd1c982e9ebecb12dd188e91f56b8cbce3184783f4bd34c1b",
+        "seam_step_pcm16": 111,
+        "crossfade_join_step_pcm16": 79,
+        "ordinary_step_max_pcm16": 374,
+        "ordinary_step_p99_pcm16": 198,
+        "boundary_40ms_rms_dbfs": -26.097,
+        "boundary_zero_run_samples": 0
+      }
+    },
+    {
+      "variant": "F",
+      "generation_id": "FPR4Sq0VcOxInObLu88Z",
+      "session_id": "UQd8xXzA0eHQGiEYI0WV",
+      "created_at_unix_ms": 1791260838015,
+      "generation_credits": 60,
+      "source_node_id": "Qhn6H67S5fQYW6p5fOnm",
+      "source_loop_requested": true,
+      "original": {
+        "path": "originals/washer-motor-pump-f.mp3",
+        "format": "MP3; untouched provider download, not a lossless master",
+        "bytes": 114136,
+        "sha256": "89354358f9ec8930ec1a9615806c2f818a59df3112f061fb475aa50943a963c5"
+      },
+      "loop": {
+        "path": "loops/washer-motor-pump-f.wav",
+        "removed_dc": -0.00066497883,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -12.841,
+        "rms_dbfs": -22.803,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          -184,
+          206
+        ],
+        "bytes": 507194,
+        "sha256": "3aa5627f8a91e392ef78d77081393a6e7b8b0b51636a31a71cc189e2bc2a46fd",
+        "seam_step_pcm16": 390,
+        "crossfade_join_step_pcm16": 15,
+        "ordinary_step_max_pcm16": 2063,
+        "ordinary_step_p99_pcm16": 1001,
+        "boundary_40ms_rms_dbfs": -23.4,
+        "boundary_zero_run_samples": 0
+      }
+    },
+    {
+      "variant": "G",
+      "generation_id": "DYatklzNHaGGAIM8a3rE",
+      "session_id": "Hm3ciSsgXJcloQsmgEtq",
+      "created_at_unix_ms": 1791260838046,
+      "generation_credits": 60,
+      "source_node_id": "Qhn6H67S5fQYW6p5fOnm",
+      "source_loop_requested": true,
+      "original": {
+        "path": "originals/washer-motor-pump-g.mp3",
+        "format": "MP3; untouched provider download, not a lossless master",
+        "bytes": 114136,
+        "sha256": "a64d03404bca4a0f238cc54b006a7c6902760abbd27252137e383bf38a79f9fb"
+      },
+      "loop": {
+        "path": "loops/washer-motor-pump-g.wav",
+        "removed_dc": -0.000574050141,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -14.194,
+        "rms_dbfs": -23.111,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          2083,
+          2254
+        ],
+        "bytes": 507194,
+        "sha256": "deeef0746d6ce5ba54515a82f57ed23bdfeb9fd51434407f27cb12c59e96700e",
+        "seam_step_pcm16": 171,
+        "crossfade_join_step_pcm16": 112,
+        "ordinary_step_max_pcm16": 757,
+        "ordinary_step_p99_pcm16": 381,
+        "boundary_40ms_rms_dbfs": -23.899,
+        "boundary_zero_run_samples": 0
+      }
+    },
+    {
+      "variant": "H",
+      "generation_id": "3logm2matOWvTbvyJ6vs",
+      "session_id": "pxp0f9UN0ZWxU74nANEK",
+      "created_at_unix_ms": 1791260838069,
+      "generation_credits": 60,
+      "source_node_id": "Qhn6H67S5fQYW6p5fOnm",
+      "source_loop_requested": true,
+      "original": {
+        "path": "originals/washer-motor-pump-h.mp3",
+        "format": "MP3; untouched provider download, not a lossless master",
+        "bytes": 114136,
+        "sha256": "60055bc9131217a8611cd6ba0e180c84d06a8404d8b3b1978ae68e029770e438"
+      },
+      "loop": {
+        "path": "loops/washer-motor-pump-h.wav",
+        "removed_dc": -0.000386885649,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "sample_rate_hz": 44100,
+        "frames": 253575,
+        "duration_seconds": 5.75,
+        "peak_dbfs": -17.084,
+        "rms_dbfs": -25.541,
+        "clipped_samples": 0,
+        "first_last_pcm16": [
+          1338,
+          1320
+        ],
+        "bytes": 507194,
+        "sha256": "51be9e57fc4c79e0ee03b30c62d784d68b94d19f0f2d8b8d9df7dd645365591d",
+        "seam_step_pcm16": 18,
+        "crossfade_join_step_pcm16": 39,
+        "ordinary_step_max_pcm16": 1407,
+        "ordinary_step_p99_pcm16": 372,
+        "boundary_40ms_rms_dbfs": -26.895,
+        "boundary_zero_run_samples": 0
       }
     }
-  ]
+  ],
+  "additional_loop_generation": {
+    "flow_id": "P3PdhUE0PUsdogoEqt3H",
+    "node_id": "Qhn6H67S5fQYW6p5fOnm",
+    "model_id": "eleven_text_to_sound_v2",
+    "prompt": "A well-maintained washing machine running smoothly, steady low electric motor hum blended with a soft liquid circulation pump and muted water flow, smooth, even and subdued.",
+    "model_parameters": {
+      "duration_seconds": 6,
+      "prompt_influence": 0.75,
+      "loop": true
+    },
+    "variants": [
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "credit_cost_total": 240
+  },
+  "loop_readiness": "Prepared loops only: circular overlap, no inserted silence or per-cycle edge fades. Boundary checks are offline signal checks, not a perceptual or in-game test."
 }

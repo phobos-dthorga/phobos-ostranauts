@@ -5,5 +5,6 @@
 *.aseprite binary
 *.psd binary
 *.ogg binary
+*.mp3 binary
 *.wav binary
 *.zip binary

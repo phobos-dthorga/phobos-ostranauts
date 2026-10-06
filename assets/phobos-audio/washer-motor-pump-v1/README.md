@@ -1,53 +1,62 @@
 # Phobos washer motor and liquid-pump sounds — elevenlabs.io
 
-Selected by phobosgekko on **6 October 2026** after auditioning the four
-ElevenLabs previews: a washing machine in good working order, blending its
-electric motor with a liquid pump. The owner retained **all four variations**;
-no individual winner or in-game mix has been selected.
+**Eight distinct variations, A–H**, saved on 6 October 2026. The owner selected
+the A–D ElevenLabs previews: a washing machine in good working order, blending
+its electric motor with a liquid pump. E–H are four additional variations of the
+same prompt. The owner requires loopable audio; new variations, exact gain and
+equipment assignments remain for owner listening.
 
-These are six-second sound files for Claude's integration work. Nothing is
-wired into a mod, installed or tested in Ostranauts.
+Open [listen.html](listen.html) to hear each prepared WAV repeat. All eight
+**loop WAVs** are 5.75 seconds, mono, 44,100 Hz, signed PCM16 little-endian RIFF.
+Nothing is wired into a mod, installed or tested in Ostranauts.
 
-Open [listen.html](listen.html) to compare the saved originals and prepared WAVs.
-
-| Variation | Untouched ElevenLabs download | Prepared WAV |
+| Variation | Untouched ElevenLabs download | Loop WAV for Claude |
 | --- | --- | --- |
-| A | [MP3](originals/washer-motor-pump-a.mp3) | [WAV](wav/washer-motor-pump-a.wav) |
-| B | [MP3](originals/washer-motor-pump-b.mp3) | [WAV](wav/washer-motor-pump-b.wav) |
-| C | [MP3](originals/washer-motor-pump-c.mp3) | [WAV](wav/washer-motor-pump-c.wav) |
-| D | [MP3](originals/washer-motor-pump-d.mp3) | [WAV](wav/washer-motor-pump-d.wav) |
+| A | [MP3](originals/washer-motor-pump-a.mp3) | [Loop](loops/washer-motor-pump-a.wav) |
+| B | [MP3](originals/washer-motor-pump-b.mp3) | [Loop](loops/washer-motor-pump-b.wav) |
+| C | [MP3](originals/washer-motor-pump-c.mp3) | [Loop](loops/washer-motor-pump-c.wav) |
+| D | [MP3](originals/washer-motor-pump-d.mp3) | [Loop](loops/washer-motor-pump-d.wav) |
+| E | [MP3](originals/washer-motor-pump-e.mp3) | [Loop](loops/washer-motor-pump-e.wav) |
+| F | [MP3](originals/washer-motor-pump-f.mp3) | [Loop](loops/washer-motor-pump-f.wav) |
+| G | [MP3](originals/washer-motor-pump-g.mp3) | [Loop](loops/washer-motor-pump-g.wav) |
+| H | [MP3](originals/washer-motor-pump-h.mp3) | [Loop](loops/washer-motor-pump-h.wav) |
 
-The original provider files are MP3, **not lossless masters**. WAV copies are
-mono, 44,100 Hz, signed PCM16 little-endian RIFF. Export adds a 25 ms fade-in and
-80 ms fade-out to prevent abrupt sample edges. It applies no loudness
-normalisation, pitch change, synthesis or additional model generation.
-All WAVs have zero first/last samples and no clipped samples. Variation B has
-higher measured RMS than the others; Claude should review the playback gain.
+The original six-second provider MP3s are preserved byte-for-byte; they are
+**not lossless masters**. A–D were generated with looping disabled, E–H with
+looping enabled. All eight loop WAVs were prepared from those originals with
+channel averaging, a 250 ms circular crossfade and uniform DC removal. The
+overlap shortens each repeat to 5.75 seconds. No silence, per-cycle edge fades,
+loudness normalisation, pitch change or synthesized sound is added.
 
-The [manifest](manifest.json) keeps the exact prompt, model settings, provider
-flow/node/session/generation IDs, original and WAV hashes, measured properties,
-credit costs and export recipe. Generating the selected four cost **240 credits**.
-The ratchet and pink-noise preview rounds cost 80 and 120 credits respectively:
-**440 credits total for this chat**. Saving and converting these files caused
-no further model generation or credit spend.
+Both joins use originally adjacent source samples. Checks find no clipped
+samples, no silent boundary and wrap steps below each file's ordinary 99th
+percentile sample step. This is offline signal evidence; listen over several
+repeats for a noticeable swell or repeating motif, then review in the game mix.
+B, F and G are measurably louder than some other variations.
+
+The previous six-second, faded A–D WAVs remain unchanged in [wav/](wav).
+They are **one-shot exports**, not the runtime loop assets. Claude should use
+**loops/** and fade playback gain only at machine start/stop, never each repeat.
+See the [Claude handoff](../../../docs/development/machine-work-sounds-handoff.md).
+
+The [manifest](manifest.json) keeps prompts, settings, provider IDs, hashes,
+measured levels/boundaries and the reproducible export recipe. The new E–H
+round cost **240 credits**; both washer rounds cost **480 credits**. Including
+the earlier ratchet (80) and pink-noise (120) previews, this chat used **680
+credits**. Local preparation adds no generation charge.
 
 Generated with **ElevenLabs — elevenlabs.io**. See [LICENSING.md](LICENSING.md):
 these generated audio files do not inherit the repository's MIT licence.
-The request is a fictional machine sound design, not a scientific acoustic
-model or a field recording of a particular washing machine.
+This is fictional machine sound design, not a scientific acoustic model or
+a recording of a particular washing machine.
 
-The [Claude handoff](../../../docs/development/machine-work-sounds-handoff.md)
-describes eligible work, quiet local playback, decoding bounds, optional
-consumers and owner listening checks. These files were generated with looping
-disabled and exported with fades; they are **not seamless loops**.
-
-To rebuild WAVs from the retained MP3s, run
-`python scripts/export-audio-candidates.py --write --ffmpeg <executable>`.
-Verify without changing files with
+Rebuild from the saved MP3s with
+`python scripts/export-audio-candidates.py --write --ffmpeg <executable>`;
+verify hashes, format, levels and joins without changing files with
 `python scripts/export-audio-candidates.py --check`.
-This exporter does not create sounds; it decodes the saved provider output.
+The exporter prepares provider output; it does not synthesize new sounds.
 
-The owner explicitly asked to delete the Python audio samples made earlier in
-this chat. [retired-session-audio.json](retired-session-audio.json) lists the 38
-removed WAVs and their hashes from commit b8331d5e. The older Shipbreaker
-completion cue was preserved.
+The owner asked to remove only the procedural audio made earlier in this chat.
+[retired-session-audio.json](retired-session-audio.json) records the 38 removed
+WAVs from commit b8331d5e. They remain removed; the older Shipbreaker completion
+cue is preserved.
