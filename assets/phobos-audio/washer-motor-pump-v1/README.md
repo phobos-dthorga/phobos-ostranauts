@@ -34,9 +34,11 @@ percentile sample step. This is offline signal evidence; listen over several
 repeats for a noticeable swell or repeating motif, then review in the game mix.
 B, F and G are measurably louder than some other variations.
 
-The previous six-second, faded A–D WAVs remain unchanged in [wav/](wav).
-They are **one-shot exports**, not the runtime loop assets. Claude should use
-**loops/** and fade playback gain only at machine start/stop, never each repeat.
+At the owner's request, the earlier six-second, faded A–D one-shot WAVs were
+removed from the `wav/` folder. Their former paths and hashes remain in the
+[manifest](manifest.json) for provenance; the exporter will not recreate them.
+Claude should use **loops/** and fade playback gain only at machine start/stop,
+never each repeat.
 See the [Claude handoff](../../../docs/development/machine-work-sounds-handoff.md).
 
 The [manifest](manifest.json) keeps prompts, settings, provider IDs, hashes,
@@ -58,5 +60,5 @@ The exporter prepares provider output; it does not synthesize new sounds.
 
 The owner asked to remove only the procedural audio made earlier in this chat.
 [retired-session-audio.json](retired-session-audio.json) records the 38 removed
-WAVs from commit b8331d5e. They remain removed; the older Shipbreaker completion
-cue is preserved.
+WAVs from commit b8331d5e. That earlier removal is separate from today's four
+deleted one-shot exports. The older Shipbreaker completion cue is preserved.

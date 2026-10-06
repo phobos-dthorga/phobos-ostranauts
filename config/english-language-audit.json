@@ -86475,10 +86475,11 @@
       "path": "docs/development/machine-work-sounds-handoff.md",
       "scope": "developer audio production, source observations, implementation handoff and owner listening checks",
       "decision": "review audience separation and evidence limits",
-      "sha256": "c673eff3e928ab42ba832369d1ea915fe74657e1f3849078d78eab0d021e3f68",
+      "sha256": "ea550a062303da843c33a6183604d7b883841392d54f0ab853f8f8a3a92aab8c",
       "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
-      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
+      "review20261006OneShotRemoval": "Reviewed 6 October 2026: owner-requested deletion of four obsolete one-shot WAVs. Removed links and claims that files remain; kept eight loop candidates and original MP3 provenance. No player-facing game text changed."
     }
   ],
   "surfaces": [
@@ -86717,9 +86718,10 @@
       "path": "assets/phobos-audio/washer-motor-pump-v1/README.md",
       "scope": "selected audio asset review/provenance/terms; no installed controls",
       "decision": "retain clear wording and distinguish listening approval from game integration",
-      "sha256": "f6300a771c599226b8c1eb5c90417121bba0b29185cc67bce73285f772c0ca28",
+      "sha256": "2102d861758995b6f267de7b26b8e28b2c0863330db197bfe52059400d30a45f",
       "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
-      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
+      "review20261006OneShotRemoval": "Reviewed 6 October 2026: owner-requested deletion of four obsolete one-shot WAVs. Removed links and claims that files remain; kept eight loop candidates and original MP3 provenance. No player-facing game text changed."
     },
     {
       "path": "assets/phobos-audio/washer-motor-pump-v1/LICENSING.md",
@@ -86732,9 +86734,10 @@
       "path": "assets/phobos-audio/washer-motor-pump-v1/listen.html",
       "scope": "selected audio asset review/provenance/terms; no installed controls",
       "decision": "retain clear wording and distinguish listening approval from game integration",
-      "sha256": "14847d3f0c28121a73b8983e675fbfc9c10328f816a383935e681b57d447db61",
+      "sha256": "2ad960296aa49a307f81536b58ee6cbec8880dd7c8bcd7cff97a592b42942a49",
       "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
-      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
+      "review20261006OneShotRemoval": "Reviewed 6 October 2026: owner-requested deletion of four obsolete one-shot WAVs. Removed links and claims that files remain; kept eight loop candidates and original MP3 provenance. No player-facing game text changed."
     }
   ],
   "hardcodedReview": {

@@ -22,10 +22,10 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def properties(path, looping=False):
+def properties(path):
     with wave.open(str(path), "rb") as clip:
         info = (clip.getnchannels(), clip.getsampwidth(), clip.getframerate(), clip.getnframes())
-        if info != (1, 2, RATE, LOOP_FRAMES if looping else SOURCE_FRAMES):
+        if info != (1, 2, RATE, LOOP_FRAMES):
             raise ValueError(f"Unexpected WAV format or length: {path.name}: {info}")
         samples = array.array("h", clip.readframes(clip.getnframes()))
     if sys.byteorder != "little":
@@ -34,37 +34,36 @@ def properties(path, looping=False):
     rms = math.sqrt(sum((v / 32768) ** 2 for v in samples) / len(samples))
     clipped = sum(v in (-32768, 32767) for v in samples)
     edges = [samples[0], samples[-1]]
-    if clipped or (not looping and edges != [0, 0]):
-        raise ValueError(f"Clipping or unfaded one-shot edges: {path.name}")
+    if clipped:
+        raise ValueError(f"Clipped loop: {path.name}")
     result = {"channels": 1, "sample_width_bytes": 2, "sample_rate_hz": RATE,
             "frames": len(samples), "duration_seconds": len(samples) / RATE,
             "peak_dbfs": round(20 * math.log10(max(peak, 1e-15)), 3),
             "rms_dbfs": round(20 * math.log10(max(rms, 1e-15)), 3),
             "clipped_samples": clipped, "first_last_pcm16": edges,
             "bytes": path.stat().st_size, "sha256": digest(path)}
-    if looping:
-        steps = sorted(abs(b - a) for a, b in zip(samples, samples[1:]))
-        p99 = steps[int(0.99 * (len(steps) - 1))]
-        seam = abs(samples[0] - samples[-1])
-        join = abs(samples[-OVERLAP] - samples[-OVERLAP - 1])
-        # A loop need not end at zero. Its two joins must behave like ordinary
-        # adjacent samples, with no artificial edge fade or silent seam.
-        window = RATE // 50
-        boundary = samples[-window:] + samples[:window]
-        boundary_rms = math.sqrt(sum((v / 32768) ** 2 for v in boundary) / len(boundary))
-        zero_gap = 0
-        for sequence in (reversed(samples), iter(samples)):
-            for value in sequence:
-                if value:
-                    break
-                zero_gap += 1
-        if seam > p99 or join > p99 or boundary_rms < rms * 0.1 or zero_gap > 8:
-            raise ValueError(f"Discontinuous or silent loop boundary: {path.name}")
-        result.update({"seam_step_pcm16": seam, "crossfade_join_step_pcm16": join,
-                       "ordinary_step_max_pcm16": steps[-1],
-                       "ordinary_step_p99_pcm16": p99,
-                       "boundary_40ms_rms_dbfs": round(20 * math.log10(max(boundary_rms, 1e-15)), 3),
-                       "boundary_zero_run_samples": zero_gap})
+    steps = sorted(abs(b - a) for a, b in zip(samples, samples[1:]))
+    p99 = steps[int(0.99 * (len(steps) - 1))]
+    seam = abs(samples[0] - samples[-1])
+    join = abs(samples[-OVERLAP] - samples[-OVERLAP - 1])
+    # A loop need not end at zero. Its two joins must behave like ordinary
+    # adjacent samples, with no artificial edge fade or silent seam.
+    window = RATE // 50
+    boundary = samples[-window:] + samples[:window]
+    boundary_rms = math.sqrt(sum((v / 32768) ** 2 for v in boundary) / len(boundary))
+    zero_gap = 0
+    for sequence in (reversed(samples), iter(samples)):
+        for value in sequence:
+            if value:
+                break
+            zero_gap += 1
+    if seam > p99 or join > p99 or boundary_rms < rms * 0.1 or zero_gap > 8:
+        raise ValueError(f"Discontinuous or silent loop boundary: {path.name}")
+    result.update({"seam_step_pcm16": seam, "crossfade_join_step_pcm16": join,
+                   "ordinary_step_max_pcm16": steps[-1],
+                   "ordinary_step_p99_pcm16": p99,
+                   "boundary_40ms_rms_dbfs": round(20 * math.log10(max(boundary_rms, 1e-15)), 3),
+                   "boundary_zero_run_samples": zero_gap})
     return result
 
 
@@ -115,16 +114,19 @@ def main():
         raise ValueError("Expected the eight washer candidates A-H in audition order")
     # Validate every input before overwriting any export.
     for row in manifest["clips"]:
-        for key, folder, suffix in (("original", "originals", ".mp3"), ("wav", "wav", ".wav"),
+        if "wav" in row:
+            raise ValueError("Retired one-shot exports must not be referenced by a clip")
+        for key, folder, suffix in (("original", "originals", ".mp3"),
                                     ("loop", "loops", ".wav")):
-            if key == "wav" and key not in row:
-                continue
             path = PACK / row[key]["path"]
             if path.parent != PACK / folder or path.suffix != suffix:
                 raise ValueError("Unexpected audio path in manifest")
         original = PACK / row["original"]["path"]
         if digest(original) != row["original"]["sha256"]:
             raise ValueError(f"Original hash changed: {original.name}")
+    legacy_dir = PACK / "wav"
+    if legacy_dir.exists() and any(legacy_dir.iterdir()):
+        raise ValueError("Retired one-shot directory is not empty")
     if args.write:
         ffmpeg = args.ffmpeg or shutil.which("ffmpeg")
         if not ffmpeg:
@@ -134,36 +136,23 @@ def main():
         manifest["export"]["tool_version"] = version
         for row in manifest["clips"]:
             original = PACK / row["original"]["path"]
-            if "wav" in row:
-                output = PACK / row["wav"]["path"]
-                output.parent.mkdir(parents=True, exist_ok=True)
-                # Preserve the original A-D one-shot export recipe byte-for-byte.
-                command = [ffmpeg, "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
-                           "-i", str(original), "-map", "0:a:0", "-ac", "1", "-ar", str(RATE),
-                           "-af", manifest["export"]["filter"], "-c:a", "pcm_s16le",
-                           "-map_metadata", "-1", "-bitexact", str(output)]
-                subprocess.run(command, check=True)
-                row["wav"] = {"path": row["wav"]["path"], **properties(output)}
             output = PACK / row["loop"]["path"]
             removed_dc = make_loop(ffmpeg, original, output)
             row["loop"] = {"path": row["loop"]["path"], "removed_dc": removed_dc,
-                           **properties(output, looping=True)}
+                           **properties(output)}
         manifest["export"]["script_sha256"] = digest(Path(__file__))
         manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     else:
         if digest(Path(__file__)) != manifest["export"]["script_sha256"]:
             raise ValueError("Exporter changed; review and export again")
         for row in manifest["clips"]:
-            for key in ("wav", "loop"):
-                if key not in row:
-                    continue
-                actual = {"path": row[key]["path"], **properties(PACK / row[key]["path"], key == "loop")}
-                if key == "loop":
-                    actual["removed_dc"] = row[key]["removed_dc"]
-                if actual != row[key]:
-                    raise ValueError(f"WAV hash or measured properties changed: {row['variant']}/{key}")
+            expected = row["loop"]
+            actual = {"path": expected["path"], "removed_dc": expected["removed_dc"],
+                      **properties(PACK / expected["path"])}
+            if actual != expected:
+                raise ValueError(f"Loop WAV hash or measured properties changed: {row['variant']}")
     print(json.dumps({"status": "exported" if args.write else "verified", "clips": 8,
-                      "loop_wavs": 8, "retained_one_shot_wavs": 4,
+                      "loop_wavs": 8, "removed_one_shot_wavs": 4,
                       "originals_preserved": True, "new_generation": False,
                       "channels": 1, "sample_rate_hz": RATE, "loop_duration_seconds": LOOP_FRAMES / RATE}, indent=2))
 

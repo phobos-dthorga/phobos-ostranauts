@@ -30,8 +30,8 @@ Saved in [washer-motor-pump-v1](../../assets/phobos-audio/washer-motor-pump-v1/R
   candidates A–H**, 5.75 seconds each, mono 44,100 Hz signed PCM16 RIFF WAV.
 - [originals/](../../assets/phobos-audio/washer-motor-pump-v1/originals):
   eight untouched six-second provider MP3s, not lossless source masters.
-- [wav/](../../assets/phobos-audio/washer-motor-pump-v1/wav): the previous
-  six-second A–D **one-shot** exports, retained byte-for-byte. Do not loop these.
+- The previous six-second A–D **one-shot** exports under `wav/` were deleted
+  at the owner's request. The manifest records their old paths and hashes.
 - [Manifest](../../assets/phobos-audio/washer-motor-pump-v1/manifest.json):
   prompts/settings, all provider IDs, source/export hashes, measured levels,
   joins, credit costs and the complete export recipe.
@@ -53,8 +53,9 @@ Every prepared loop is decoded from its untouched original, using an explicit
 left/right average, **250 ms circular raised-cosine crossfade**, uniform DC
 removal and PCM16 export. The overlap reduces six seconds to **253,575 samples
 (5.75 seconds)**. No silence, per-cycle fade, loudness normalisation, pitch
-change or synthesized sound is added. All originals and old one-shot exports
-remain intact. Python prepares files only; it creates no new sound.
+change or synthesized sound is added. All originals remain intact. The old
+one-shot exports have been deleted. Python prepares files only; it creates no
+new sound.
 
 The circular crossfade places both joins on originally adjacent source samples.
 Offline checks find zero clipped samples, no silent boundary and wrap steps
@@ -102,6 +103,12 @@ completion cue is unchanged. Historical text/recipes remain labelled retired,
 and their generator requires an explicit restoration flag. No ratchet or
 pink-noise files were downloaded or deleted from ElevenLabs.
 
+In a later owner request on **6 October 2026**, Codex also removed the four
+faded one-shot WAV exports from `wav/`. These are separate from the 38 earlier
+procedural files. The manifest keeps the former one-shot paths, hashes and
+export recipe as history; `scripts/export-audio-candidates.py` now writes and
+checks **only** the eight files in `loops/`.
+
 ## Proposed first consumers
 
 **Agent proposal:** start with wet processing or a powered pump whose operation
@@ -130,8 +137,8 @@ Read [AGENTS.md](../../AGENTS.md), this record, the current source and the
 separate purpose and controls. No new generation is needed for this first slice.
 
 1. Use **loops/washer-motor-pump-a.wav through -h.wav** as runtime candidates.
-   Preserve all originals, one-shot exports, IDs, hashes and terms; record the
-   adopted variants and gain. Package only selected loop WAVs, not provider
+   Preserve all originals, the removed-export record, IDs, hashes and terms;
+   record the adopted variants and gain. Package only selected loop WAVs, not provider
    MP3s, listen pages or removed procedural samples.
 2. Framework owns shared loading, mixing and emitter lifetime when the first
    consumer needs them. Content services identify actual work. Panels and UI
@@ -191,8 +198,9 @@ Rebuild with `python scripts/export-audio-candidates.py --write --ffmpeg <execut
 check with `python scripts/export-audio-candidates.py --check`.
 The latter verifies all original hashes, format, levels, boundary metrics,
 export hashes and exporter hash. The eight loop files have 253,575 samples
-at 44,100 Hz, no clipped samples or silent wrap. A–D originals/one-shot exports
-and the older completion cue are unchanged. Export is reproducible with the
+at 44,100 Hz, no clipped samples or silent wrap. All eight MP3 originals,
+loop WAVs and the older completion cue are unchanged. The four one-shot WAVs
+are absent. Export is reproducible with the
 recorded FFmpeg build. No Unity/game listening or performance test was run.
 
 Owner checks after Claude wires the first consumer:
