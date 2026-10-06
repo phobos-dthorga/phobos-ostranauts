@@ -10,6 +10,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.64.0] - 2026-10-06 - Draft
+
+### Added
+
+- Working sounds (Framework 0.119.0): the Firstlight-4, Hearth-2, Groundwork B2 and W2 each play their own motor-and-pump loop while power above standby reaches them, so a rack sounds while its lamps are lit and the W2 while it pumps. Hoppers, reservoirs and conduits stay silent.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Requires Framework 0.119.0. Not yet heard in the game.
+
 ## [0.63.0] - 2026-10-06 - Draft
 
 ### Added

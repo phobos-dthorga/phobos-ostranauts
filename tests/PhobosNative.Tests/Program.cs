@@ -155,6 +155,7 @@ LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, me
 InventoryNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 StoreNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 MaintenanceSheetNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
+MachineSoundNativeChecks.Run(Check);
 VesselContentsNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, game, Check);
 PowerPointNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 TrayFitNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);

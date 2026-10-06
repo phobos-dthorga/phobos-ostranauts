@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.111.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.119.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.63.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.64.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -43,6 +43,8 @@ public sealed class Plugin : BaseUnityPlugin
         EquipmentProviders.Register(new Provider());
         Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(new AgricultureBulkSupplies());
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new AgricultureCrewProvider());
+        // Working sounds (0.64.0): each machine's loop, played by Framework.
+        MachineSoundTable.Register();
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Agriculture", Text.Get("crew_skill_agriculture"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture));
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Cooking", Text.Get("crew_skill_cooking"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Cooking));
         // Crew upkeep (0.63.0): racks, the Hearth-2, the B2 and the W2 can be tuned and inspected. An inspection reports

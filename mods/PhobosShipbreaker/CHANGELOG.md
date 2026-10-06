@@ -31,6 +31,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.84.0] - 2026-10-06 - Draft
+
+### Added
+
+- Working sounds (Framework 0.119.0): the D4, R4, T2 and C2 each play their own motor-and-pump loop while they work and are powered, and the F6 while it heats a batch with power arriving. The G4 grabber and ML-2 laser stay silent because they work outside the hull, where no sound carries; bins, chutes, the console and the furnace's radiator and ports are passive.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Requires Framework 0.119.0. Not yet heard in the game.
+
 ## [0.83.0] - 2026-10-06 - Draft
 
 ### Added

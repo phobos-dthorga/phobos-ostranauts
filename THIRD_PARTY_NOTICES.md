@@ -109,3 +109,13 @@ or included. Exact requests, source hashes, provider terms, usage and rejected
 projection candidates are recorded in the [irrigation provenance](assets/phobos-agriculture/irrigation-generation-records.json).
 The irrigation, Fennmark gas and F6-C coolant pipe sheets are deterministic,
 recoloured lane exports of that same fitting; see the [line-art record](assets/line-art/README.md).
+
+## Machine work sounds
+
+Framework 0.119.0 embeds eight looping machine sounds in its plugin, prepared
+from ElevenLabs Sound Effects v2 output. Attribution: **ElevenLabs —
+elevenlabs.io**. These generated files are excluded from this repository's MIT
+grant; their terms, generation records, hashes and the loop preparation are in the
+[audio licensing record](assets/phobos-audio/washer-motor-pump-v1/LICENSING.md) and
+[manifest](assets/phobos-audio/washer-motor-pump-v1/manifest.json). Only the eight
+prepared loop WAVs ship; the provider MP3s and listen page do not.

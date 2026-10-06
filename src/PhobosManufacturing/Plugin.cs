@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.56.2";
-    public const string MinimumFrameworkVersion = "0.116.0";
+    public const string Version = "0.57.0";
+    public const string MinimumFrameworkVersion = "0.119.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -38,6 +38,8 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
         // "Load feed by crew" on the charge machines and the RM-1 (0.56.0).
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FeedCrewProvider());
+        // Working sounds (0.57.0): each machine's loop, played by Framework.
+        MachineSoundTable.Register();
         // Crew upkeep (0.55.0): every working machine can be tuned and inspected; the A2 regulator is inspected only,
         // because it holds a set point and has no work rate to raise. The game's mechanical skill counts as skilled.
         foreach (var kind in new[] { MachineKind.Charge, MachineKind.Processor, MachineKind.Sabatier, MachineKind.Filler, MachineKind.Cracker, MachineKind.Bottler, MachineKind.Feeder })

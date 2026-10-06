@@ -68,6 +68,7 @@ common failures and useful reports.
 - [Scrap reclaimer — prepared 0.9.0 candidate](scrap-reclaimer.md)
 - [Installing machines and maintenance](section-assembly-and-maintenance.md)
 - [Quiet completion cues across Phobos mods](shared-completion-cues.md)
+- [Machine work sounds: what hums, when, and the settings](machine-work-sounds.md)
 - [Process water silo and ice thaw unit](shipbreaker-bulk-silos.md)
 - [Material bins](shipbreaker-material-bins.md)
 - [Mining laser](shipbreaker-mining-laser.md)

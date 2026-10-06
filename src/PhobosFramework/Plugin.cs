@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.118.0";
+    public const string Version = "0.119.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -69,6 +69,9 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         RefreshLanguage();
         try { Audio.CompletionCues.Player = new Audio.CompletionAudio(gameObject, Config, message => Logger.LogWarning(message)); }
         catch (Exception ex) { Logger.LogWarning("Optional completion audio unavailable: " + ex.Message); }
+        // Machine work sounds (0.119.0): content mods register their machines; Framework plays them.
+        try { Audio.MachineSounds.Player = new Audio.MachineAudio(Config, message => Logger.LogInfo(message)); }
+        catch (Exception ex) { Logger.LogWarning("Optional machine sounds unavailable: " + ex.Message); }
         // Work carries on after a reload (0.95.0; owner decision, 5 October 2026): on by default.
         Persistence.ResumeAfterLoad.Enabled = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("ResumeAfterLoad.setting")).Value;
         // Time-skip step (0.112.0; owner report, 6 October 2026): the player trades the skip's freeze against its detail.
@@ -107,7 +110,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Trading.BulkSupplies.RegisterBuyback(Items.WaterTankService.Buyback);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
-    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); Persistence.ContainerFit.Poll(); Liquids.VesselContentsDisplay.Poll(); Data.DataFileNotice.Poll(); Story.StoryArcs.Poll(); }
+    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Audio.MachineSounds.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); Persistence.ContainerFit.Poll(); Liquids.VesselContentsDisplay.Poll(); Data.DataFileNotice.Poll(); Story.StoryArcs.Poll(); }
     private void OnApplicationQuit() => Diagnostics.NativePerformance.Shutdown();
-    private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; FrameworkLifecycle.ContentLoaded -= Story.StoryContent.Load; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
+    private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; FrameworkLifecycle.ContentLoaded -= Story.StoryContent.Load; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Audio.MachineSounds.Player?.Dispose(); Audio.MachineSounds.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
 }

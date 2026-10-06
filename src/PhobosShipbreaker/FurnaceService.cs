@@ -138,6 +138,13 @@ internal static partial class FurnaceService
         co.objCOParent == null && co.ship != null && (int)co.ship.LoadState >= 2;
     private static bool Intact(CondOwner co) => Mounted(co) && !co.HasCond("IsDamaged");
     private static bool ControlsReady(CondOwner co) => Intact(co) && !co.HasCond("IsLocked") && !co.HasCond("IsOverrideOff") && !co.HasCond("IsSignalOff");
+    /// <summary>Heating a batch with power arriving now (0.84.0, for its working sound): armed, in a heating phase and
+    /// with a fresh receipt above the instruments' own draw. Read-only.</summary>
+    internal static bool HeatingNow(CondOwner co)
+    {
+        var s = Get(co); var b = s.State.Batch;
+        return !s.Protected && b.Armed && b.Heating && StarSystem.fEpoch - s.LastReceiptEpoch <= FurnaceRules.ProbeFreshSeconds && s.DeliveredKW > FurnaceRules.InstrumentKW;
+    }
     internal static bool ProbeValid(CondOwner co) => ControlsReady(co) && StarSystem.fEpoch - Get(co).LastReceiptEpoch <= FurnaceRules.ProbeFreshSeconds;
     private static CondOwner? Room(CondOwner co) => co.ship?.GetRoomAtWorldCoords1(co.GetPos("use"), false)?.CO;
     private static bool RoomValues(CondOwner? room, out double kelvin, out double moles)

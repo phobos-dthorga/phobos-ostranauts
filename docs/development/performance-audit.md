@@ -1203,3 +1203,7 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 ## 6 October: Uninstall always offered (L80)
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
+
+## 6 October: machine work sounds (L81)
+
+L81 — Framework 0.119.0 with Manufacturing 0.57.0, Shipbreaker 0.84.0 and Agriculture 0.64.0. Every frame: one fade step per voiced machine (at most twelve, four by default), each a volume write only when it changes. Four times a real second: one walk of the registered machine family (the shared world sweep) with two condition lookups per machine, or a session read for the three machines with their own test, then a sort of the working ones by distance. Clips are decoded once, on first use, into about 1 MB each of float memory (at most eight, about 8 MB). No work, power or record is touched. No capture accompanies this change; a room with many working machines is the case to record.

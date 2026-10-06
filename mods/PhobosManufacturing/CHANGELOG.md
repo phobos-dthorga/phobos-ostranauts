@@ -19,6 +19,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.57.0] - 2026-10-06 - Draft
+
+### Added
+
+- Working sounds (Framework 0.119.0): the V4, LC-3, SA-3, Copperhead-3, EC-4, CR-4, X2, K2, AX-2, L2, Corker-2 and RM-1 each play their own motor-and-pump loop while they work and are powered, big machines a little lower, small ones a little higher. The A2 sounds only while gas is actually flowing into the room. Stores, tanks, lines and the P1 manifold stay silent.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Requires Framework 0.119.0. Not yet heard in the game.
+
 ## [0.56.2] - 2026-10-06 - Draft
 
 ### Fixed

@@ -39,6 +39,7 @@ public static class FrameworkLifecycle
     {
         Crew.CrewWork.Reset();
         Audio.CompletionCues.Player?.Stop();
+        Audio.MachineSounds.Player?.Stop();
         Diagnostics.NativePerformance.WorldChanging();
         Observations.NativeRoomAlarms.Reset();
         FrameworkPlugin.RefreshLanguage();
@@ -80,6 +81,7 @@ public static class FrameworkLifecycle
         Discovery.WorldFamilies.Reset();
         // Upkeep families are judged by definition too (Framework 0.111.0).
         Crew.Upkeep.ForgetDefinitions();
+        Audio.MachineSounds.ForgetDefinitions();
     }
 }
 

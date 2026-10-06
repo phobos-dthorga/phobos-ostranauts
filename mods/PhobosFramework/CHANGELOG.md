@@ -29,6 +29,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.119.0] - 2026-10-06 - Draft
+
+### Added
+
+- Machine work sounds for every Phobos mod (owner request, 6 October 2026): a machine plays a steady motor-and-pump loop while it actually works, fading in when work starts and out when it stops, idles, runs out of power or is unloaded. Each content mod chooses each machine's loop and pitch; Framework plays them.
+- The sounds are set up like the game's own appliance loops: the same sound bus, distance falloff and range as the air scrubber, so they fade with distance, follow the game's volume settings and muffle in thin air as its own machines do. Each loop is levelled to the scrubber's measured loudness when the game starts, and the log says what it measured.
+- Only the nearest working machines are heard at once (four by default), so a room full of machinery does not drone together. Two settings in the Audio section: MachineSoundVolume (0 to 1, 0 mutes, separate from the completion cue) and MachineSoundVoices (0 to 12).
+
+### Save compatibility
+
+- Automatic. Nothing is saved; sound never changes work, power or records.
+
+### Compatibility and limits
+
+- Eight loops generated with ElevenLabs Sound Effects (attribution: ElevenLabs, elevenlabs.io) ship inside the plugin; they are not covered by the repository MIT licence. The sounds have not yet been heard in the game; the loudness match, the number of voices and each machine's choice await the owner's listening.
+
 ## [0.118.0] - 2026-10-06 - Draft
 
 ### Added

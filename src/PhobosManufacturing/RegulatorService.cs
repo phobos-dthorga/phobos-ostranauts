@@ -27,8 +27,12 @@ internal static class RegulatorService
         internal RegulatorState State = new();
         internal bool Protected, BreachNoticed;
         internal double LastTick = double.NaN;
+        /// <summary>Game time it last let gas into the room (0.57.0, for its working sound); not saved.</summary>
+        internal double LastFed = double.NegativeInfinity;
         internal string Status = Text.Get("Regulator.off");
     }
+    /// <summary>Gas flowed in the last two game seconds, as the game's own air pump decides its sound.</summary>
+    internal static bool Feeding(CondOwner co) => co != null && !co.bDestroyed && StarSystem.fEpoch - Get(co).LastFed <= 2;
     private static ConditionalWeakTable<CondOwner, Session> sessions = new();
     internal static void Reset() => sessions = new();
     private static ObjectStateStore Store(CondOwner co) => new(co.mapGUIPropMaps, RegulatorRules.Record, Plugin.Id, 1);
@@ -123,6 +127,7 @@ internal static class RegulatorService
         double taken = BulkVessel.Drain(store, Math.Min(wantKg, BulkVessel.Snapshot(store).AvailableKg), Text.Get("Regulator.draw_reason"), false);
         if (taken <= 0) { lines.Add(Text.Get("Regulator.needs", Text.Get("Filler.gas_" + species), Text.Get("Regulator.store_empty"))); return 0; }
         RoomGas.Emit(air, species, taken);
+        s.LastFed = StarSystem.fEpoch;
         lines.Add(Text.Get("Regulator.feeding", Text.Get("Filler.gas_" + species)));
         return taken;
     }

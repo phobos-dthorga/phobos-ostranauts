@@ -188,6 +188,13 @@ internal static partial class Service
     /// <summary>The definition's own idle draw. Every installed appliance keeps it, so the game's power state
     /// (IsPowered) follows the real connection even when nothing runs or the machine is protected.</summary>
     internal const double StandbyKW = .02;
+    /// <summary>Power above standby arrived in the last few game seconds (0.64.0, for its working sound): lamps lit, a
+    /// cooker or bench working, a W2 pumping. Read-only.</summary>
+    internal static bool Working(CondOwner co)
+    {
+        var s = Get(co);
+        return !s.Protected && StarSystem.fEpoch - s.LastPower <= 5 && s.DeliveredKW > StandbyKW * 2.5;
+    }
     internal static double Requested(CondOwner co, double nativeAmount)
     {
         var s = Get(co);

@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.118.0
+[b]Version:[/b] 0.119.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods, and it keeps their controls, crew work and supplies consistent across machines.
@@ -17,8 +17,8 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [*]When a Phobos autopilot switches ship sensors on, it remembers what it switched and turns off only those. Your own switch always wins, and the crew log tells you every time.
 [*]Content mods can put back the game's own build sites for destroyed parts.
 [*]Shared merchant stock, kiosk offers, salvage, repair, Restore and dismantling rules.
-[*]Machines give off a quarter of their heat (MachineHeatScale setting).
-[*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as readable files you can override in BepInEx/config, checked before use; recipes must conserve mass. Publish your files as an add-on for others: see the editing and add-on guides.
+[*]Machines give off a quarter of their heat (MachineHeatScale) and hum while they work, as loud as the game's own scrubber (MachineSoundVolume).
+[*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as readable files you can override in BepInEx/config, checked before use; recipes must conserve mass. Share them as an add-on: see the guides.
 [*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, goal chains with rewards, small talk, loading tips, encyclopedia articles and data files, tied to stations, threads, named people, standing and the clock; local news greets you on arrival. Removing a story file never breaks a save.
 [/list]
 
@@ -47,12 +47,12 @@ Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/bl
 [/list]
 
 [h2]Saves and limits[/h2]
-Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removal is not a clean uninstall. Updates do not refill existing shops or old loot. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass; in-game evaluation of recent features is ongoing.
+Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removal is not a clean uninstall. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass; in-game evaluation of recent features is ongoing.
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or any research institution cited in the guides. Research informs the design; compact equipment, yields and operating limits remain gameplay choices.
 The optional integrations remain the work of their authors: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora's Ship's Water[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS's Common Sense modules[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla's Study at Terminals[/url]. Linking to them does not imply their endorsement.
-Original artwork uses AI-assisted production; provenance and licensing are recorded separately.
+Artwork and machine sounds (ElevenLabs, elevenlabs.io) are AI-assisted; provenance and terms are recorded separately.
 
 [h2]Guides and support[/h2]
 [list]

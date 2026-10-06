@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.118.0</Version>
+    <Version>0.119.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -28,6 +28,15 @@
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../translations/PhobosFramework/en.json" LogicalName="PhobosFramework.en.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../assets/phobos-shipbreaker/audio/completion.wav" LogicalName="PhobosFramework.completion.wav" /></ItemGroup>
+  <!-- Machine work loops (0.119.0): ElevenLabs-generated, excluded from the MIT grant; see assets/phobos-audio/washer-motor-pump-v1/LICENSING.md. -->
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-a.wav" LogicalName="PhobosFramework.machine-loop-a.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-b.wav" LogicalName="PhobosFramework.machine-loop-b.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-c.wav" LogicalName="PhobosFramework.machine-loop-c.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-d.wav" LogicalName="PhobosFramework.machine-loop-d.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-e.wav" LogicalName="PhobosFramework.machine-loop-e.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-f.wav" LogicalName="PhobosFramework.machine-loop-f.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-g.wav" LogicalName="PhobosFramework.machine-loop-g.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-audio/washer-motor-pump-v1/loops/washer-motor-pump-h.wav" LogicalName="PhobosFramework.machine-loop-h.wav" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../assets/phobos-industrial-console/source/PhobosIndustrialPanel.png" LogicalName="PhobosFramework.console.png" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/equipment-names.json" LogicalName="PhobosFramework.equipment-names.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/economy.json" LogicalName="PhobosFramework.economy.json" /></ItemGroup>

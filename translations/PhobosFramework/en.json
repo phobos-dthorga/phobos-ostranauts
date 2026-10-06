@@ -4,6 +4,8 @@
   "PlaceholderHealthLoad.retained": "Ship {0}: retained {1} saved construction markers using their recorded remaining health instead of the generic zero-health template. Damage and construction progress are unchanged.",
   "Audio.volume_help": "Completion sounds for all Phobos mods, 0 to 1 (0 mutes). Also follows the game's effects volume. Choose a notification for each job you want to hear about. Missed alerts do not play later.",
   "Audio.volume_label": "All Phobos ready alerts: {0}% (change / mute)",
+  "Audio.machine_volume_help": "Working sounds of Phobos machines, 0 to 1 (0 mutes). At 1 each machine is as loud as the game's own air scrubber, and it follows the game's volume settings like the game's own machines.",
+  "Audio.machine_voices_help": "How many working Phobos machines are heard at once, the nearest first (0 to 12). Fewer keeps a room of machines from droning together.",
   "BatchPlacement.input_was_not_consumed": "Input was not consumed",
   "ConstructionHooks.construction_blocked_before_native_effects": "Construction blocked before native effects: {0}",
   "ConstructionHooks.construction_blocked_or_already_applied_check_station": "Construction blocked or already applied: {0}. Check station, arrived materials, contents and unit mass.",

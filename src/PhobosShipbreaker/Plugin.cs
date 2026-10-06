@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.83.0";
+    public const string Version = "0.84.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -45,6 +45,8 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading += LoadContent;
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new IndustrialCrewProvider());
+        // Working sounds (0.84.0): each machine's loop, played by Framework.
+        MachineSoundTable.Register();
         var vessels = new VesselProvider();
         Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Register(vessels);
         VesselPanel.Register(vessels);

@@ -20,6 +20,72 @@ New E–H, prepared A–H loop playback, consumer assignments and gain await own
 listening. General ambience, alarm suites and routine per-action audio are
 outside this delivery.
 
+## Wiring delivered (Framework 0.119.0, 6 October 2026)
+
+Claude wired all eight loops at the owner's request: **every working machine** in
+every mod, each with a hard-coded loop and pitch chosen semi-randomly, at
+**volume in line with the vanilla game** (owner, 6 October 2026). The player guide
+is [machine work sounds](../machine-work-sounds.md).
+
+- **Shipped:** the eight loop WAVs, embedded in the Framework plugin
+  (`PhobosFramework.machine-loop-a.wav` to `-h.wav`), read by the same strict PCM16
+  reader as the completion cue with a ten-second bound. No MP3s or listen pages ship.
+- **Playback** (`src/PhobosFramework/Audio/MachineAudio.cs`): one positional looping
+  source per voiced machine, on a child of the machine's own object, copying the
+  vanilla `ItmAtmoScrubberOnSound` emitter's mixer bus (`Ambient`), falloff curve and
+  range. That replaces this brief's effects-bus proposal (step 7), because the
+  owner asked for parity with vanilla machine sounds.
+- **Gain** (agent choice): each loop is levelled at start-up to the scrubber's
+  measured loudness (its `fVolumeSteady` times the RMS of its clip). If the clip
+  cannot be read, the fallback is 0.1 on a -24 dBFS loop. `MachineSoundVolume`
+  (default 1) scales the result.
+- **Fades and voices:** 150 ms attack and 200 ms release, at start and stop only. Up
+  to four nearest voices by default (`MachineSoundVoices`, 0 to 12). Start
+  positions are staggered by a stable hash of the machine id.
+- **Eligibility:** a machine's power override condition while it is powered (the
+  condition that switches it to its working draw). Three machines use their own
+  tests: Agriculture (power above standby received in the last five seconds), the
+  F6 (heating, armed, with a fresh receipt) and the A2 (gas fed in the last two
+  seconds, as the game's air pump decides its sound).
+- **Pause:** as with the game's own loops, sounds continue while the game is paused
+  if the machine was working.
+
+| Machine | Loop | Pitch |
+| --- | --- | --- |
+| V4 refinery | A | 0.85 |
+| LC-3 leach unit | E | 0.95 |
+| SA-3 acid plant | C | 0.92 |
+| Copperhead-3 fermenter-still | H | 1.00 |
+| EC-4 electrolysis cell | D | 0.82 |
+| CR-4 carbothermal reactor | G | 0.88 |
+| X2 processor | B | 1.08 |
+| K2 Sabatier reactor | F | 1.05 |
+| AX-2 ammonia cracker | C | 1.10 |
+| L2 filling station | G | 1.12 |
+| A2 cabin air regulator | E | 1.15 |
+| Corker-2 bottling unit | H | 1.10 |
+| RM-1 reaction mass feeder | B | 1.20 |
+| D4 dismantling fixture | D | 0.80 |
+| R4 scrap reclaimer | A | 0.90 |
+| T2 ice thaw unit | E | 1.06 |
+| C2 residue collector | G | 1.18 |
+| F6 electric furnace | F | 0.78 |
+| Firstlight-4 rack | H | 0.95 |
+| Hearth-2 cooker | C | 1.02 |
+| Groundwork B2 bench | A | 1.10 |
+| Groundwork W2 supply | B | 1.00 |
+
+**Left silent** (agent choice; the owner may revise):
+- The G4 and ML-2 work outside the hull, and this brief approved no acoustic
+  routing for them.
+- The Ward-3 bed is "in use" for a patient's whole stay. The Medical session
+  advised against a loop beside a sleeping patient.
+- The Vigil-2 monitor has no moving parts.
+- Passive equipment makes no sound.
+
+Owner listening is still required: loudness against vanilla, each machine's loop,
+the voice count, and pause behaviour.
+
 ## Saved assets and loop preparation
 
 Saved in [washer-motor-pump-v1](../../assets/phobos-audio/washer-motor-pump-v1/README.md):

@@ -41,3 +41,9 @@ Version 0.5.0 material-port pairing is independently authored Phobos code. Its
 native property-map persistence approach was checked against the locally installed
 game's electrical connection and item-save behaviour. It contains no copied game
 source and does not replace or modify the native electrical connection records.
+
+Framework 0.119.0 carries eight looping machine work sounds inside its plugin
+DLL, prepared from ElevenLabs Sound Effects v2 output. Attribution: **ElevenLabs —
+elevenlabs.io**. These generated sounds are not covered by the repository MIT
+licence. Their terms and generation records are in the repository's
+`assets/phobos-audio/washer-motor-pump-v1/LICENSING.md` and `manifest.json`.

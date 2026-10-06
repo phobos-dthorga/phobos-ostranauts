@@ -85055,6 +85055,32 @@
       ],
       "before": "The bottling unit has an unfinished batch. Finish or Cancel it first.",
       "after": "The bottling unit has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Audio.machine_volume_help",
+      "category": "help",
+      "decision": "add",
+      "reason": "Machine work sounds settings (Framework 0.119.0): what each setting does and its range in plain words; 0 mutes.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Working sounds of Phobos machines, 0 to 1 (0 mutes). At 1 each machine is as loud as the game's own air scrubber, and it follows the game's volume settings like the game's own machines.",
+      "after": "Working sounds of Phobos machines, 0 to 1 (0 mutes). At 1 each machine is as loud as the game's own air scrubber, and it follows the game's volume settings like the game's own machines."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Audio.machine_voices_help",
+      "category": "help",
+      "decision": "add",
+      "reason": "Machine work sounds settings (Framework 0.119.0): what each setting does and its range in plain words; 0 mutes.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "How many working Phobos machines are heard at once, the nearest first (0 to 12). Fewer keeps a room of machines from droning together.",
+      "after": "How many working Phobos machines are heard at once, the nearest first (0 to 12). Fewer keeps a room of machines from droning together."
     }
   ],
   "documents": [
@@ -85062,8 +85088,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "865fa96c89c5c78bfd692bd268dc09429f72e0a4aa9729999642131a8fe950fa",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
+      "sha256": "f3de2968d39641e072dbea53ff314d99217852158ae69999bfa9567d4cbeb8bd",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -85076,8 +85102,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "b1e778e9b7734bfdb1b4624ab4db484f2bcc32eb9c9ddca9e0aafa7b771b5609",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "14aca20cf5bb04439b082d8f61b89f632a8bb1056ee4bec0ae483011dd26cf16",
+      "review": "Framework 0.107.0 story content review, 6 October 2026 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -85090,8 +85116,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e722ab512ceb0eecf98a56e02f8fa991df3a0a25be5adf8f1f3859d533c068c4",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "13c6d2696a6e68759210c88b466221eca3a939204e3aea8f2b70120cad27c827",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -85223,8 +85249,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4a76a9cb60ccd107bf7d61ab01c11f78b0ebc8d6eb98ed6c42f127f5dd02b6d2",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "84e89463cb62e9f1f66df4cf5e564549433aab2ef56e69f755f6d45c839699fd",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/crew-automation.md",
@@ -85856,8 +85882,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "0ba81f5a705ea5ade587660d15cc1498d8fe910a38a082f21831e9a905401179",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1).",
+      "sha256": "fd1913ae2597780b6da5899535bea5bf5954628290a96ff0b2be53f6d15ba990",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0).",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata."
     },
     {
@@ -86118,8 +86144,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b8ea97524dd5943a59786c347941fa6fedf14fde2d9a513a224436b179bd6cf0",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "378882f574fcfd67d7d5cdcc130cbd163321f3acbb8e85f6c9f34ec51e5adfd9",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -86174,15 +86200,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b3531e52ceb3ad944785bb9aba9852ab0c266b2b8d7224249f69fe5730cf473e",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "0b6a16187d061af2f4645a0b0697ffe36567816894b96ca2e1eb20dda226b056",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "53d436b9b9d0a4a295e849c7ef207a6e04b9655d47a5e16e654f1f701bb47601",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "e85faa5ccc8f94693961eb6bf527a51a0c096a39e409cc21fa4f0ecaeeb67519",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/item-references.md",
@@ -86202,8 +86228,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "4302882a2a0f4e46eb803dfb440acae8a7e2ba23a5ef2b2acec8167422dcdc7f",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
+      "sha256": "5a77cdffa855d84bd1158110c6cfa35cf2937b221c5c7fda5bea9fd0e9b42428",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -86244,8 +86270,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f39386af2d679a6703ebbaf11423aa324f81d27e7773bfc0e2e8028e28a26ef2",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "0cad2ffdad918ae6911023584c55a4dc15dcc26b23cfc8f2e6e6893d3d1b563f",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -86300,8 +86326,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "6c81d54e8bdad8cdd3f85d58e327ea353ba3a844d1eeb28a7c2a852997dcd9a5",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "c6d5b77eb6afa1cabd9670e92ecf51c17ecb70f1d80cad404731a732f7c761d9",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -86356,8 +86382,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0a384217c28b5ef6b621a1da2c14575f7a162ed1b9619947e65adf569f870538",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "ebcc2a706a03589bac5d7965f8cdf062f9d1391bfdbb82ff821a80de2c29d170",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -86370,15 +86396,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4429d117cabced8dec772e0aadb180156e02f7c4b651d156da05f316e0a7201a",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "9350410378771e1727521297b5a6b2b84c5e87f62ac3d0cce697094ee3746466",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1fc2585eeb0335734dadbd6eb8b9f335547c90d5e902739205c46009c7727011",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
+      "sha256": "40a96f0106d5622da03d2f51a94f378c65d47795d92ea505c74678ba121c4dd1",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -86391,8 +86417,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3bacb546fde09a3179d59d394776c24f6d4ea24becf564fb16d9cc61652f8214",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "917c15906615ed4174540f23bb32295cd163e9c59cacc81ff82b4c4322f54907",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -86475,11 +86501,18 @@
       "path": "docs/development/machine-work-sounds-handoff.md",
       "scope": "developer audio production, source observations, implementation handoff and owner listening checks",
       "decision": "review audience separation and evidence limits",
-      "sha256": "ea550a062303da843c33a6183604d7b883841392d54f0ab853f8f8a3a92aab8c",
-      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "sha256": "e48a5853fefdf7c2fbae01b99bbff035581ca1e85beb89de5268c2a4525003e9",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0).",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261006OneShotRemoval": "Reviewed 6 October 2026: owner-requested deletion of four obsolete one-shot WAVs. Removed links and claims that files remain; kept eight loop candidates and original MP3 provenance. No player-facing game text changed."
+    },
+    {
+      "path": "docs/machine-work-sounds.md",
+      "scope": "current player text",
+      "decision": "new",
+      "sha256": "7b6b7f4e1ff6495933622996693bc7bd615cd1f79f975688d8f65fd83c0d83fa",
+      "review": "New player guide, 6 October 2026."
     }
   ],
   "surfaces": [
@@ -86503,8 +86536,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "377960955b3d7a27258b03b8d2367ce69054dcfdcaa58c28abc25ee0556b9f9e",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "ead09cc69e3389a49b9a3e33ca7f8ef5cd9182662d956787c2c9c9f12dab47ac",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -86538,14 +86571,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "53110718348c266d69077fbc86ccf489737cd54cb7ed4330a9758b016d337c73",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "7d588e3a665d6f397d2b3de86089c528fce218ff6d546b7bf013feec9126480d",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d8bc58eeb367f89317430c461d1cdf28aa4becc4649ded5e516ea3b5aba510cb",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
+      "sha256": "a96d8bbde817494b5bc044519bd2aa8022cf88321198c9f26c2898952fdfda0d",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -86562,8 +86595,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c3ffd2f9f7d61ee4405add6dc53e564da35c0c3d2a6b3deeee33c8e9817a1f46",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "6f7d4889c5a20d8fa02ba44732c053f193b06f8d5ef8f01f51e4fd51ffd99bbf",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
