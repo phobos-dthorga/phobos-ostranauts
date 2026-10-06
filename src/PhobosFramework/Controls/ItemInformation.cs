@@ -23,7 +23,9 @@ public sealed class InformationLink
 {
     public string Label { get; }
     public Func<string?> Open { get; }
-    public InformationLink(string label, Func<string?> open) { Label = label ?? ""; Open = open ?? (() => null); }
+    /// <summary>The button's tint (Framework 0.118.0): attention when what it opens needs the player.</summary>
+    public Tone Tone { get; }
+    public InformationLink(string label, Func<string?> open, Tone tone = Tone.Neutral) { Label = label ?? ""; Open = open ?? (() => null); Tone = tone; }
 }
 
 /// <summary>Opt-in item instructions with no inventory or machinery authority: read-only text, and since Framework
@@ -115,7 +117,8 @@ public sealed class ItemInformation : GUIData
             foreach (var link in section.Links)
             {
                 var l = link;
-                ConsoleWidgets.Button(row, l.Label, () => { string? why = l.Open(); if (why != null && notice != null) notice.text = why; });
+                var button = ConsoleWidgets.Button(row, l.Label, () => { string? why = l.Open(); if (why != null && notice != null) notice.text = why; });
+                ConsoleWidgets.Accent(button, l.Tone);
             }
         }
         notice = ConsoleWidgets.Label(body, "");

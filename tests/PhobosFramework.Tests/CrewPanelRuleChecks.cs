@@ -50,6 +50,23 @@ internal static class CrewPanelRuleChecks
         check(UpkeepRules.Group(UpkeepRules.Attention.Untuned, true) == UpkeepRules.AttentionGroup && UpkeepRules.Group(A, true) == UpkeepRules.FineGroup &&
               UpkeepRules.Group(A, false) == UpkeepRules.InspectOnlyGroup, "Machines fall into needs attention, looked after, or inspection only");
 
+        // Framework 0.118.0: colour as a signal. Three meanings only, and each sits beside a word that says the same.
+        check(Tones.ForOrder(OrderState.Blocked) == Tone.Attention && Tones.ForOrder(OrderState.Stopped) == Tone.Attention &&
+              Tones.ForOrder(OrderState.Running) == Tone.Good && Tones.ForOrder(OrderState.Waiting) == Tone.Neutral &&
+              Tones.ForOrder(OrderState.Disabled) == Tone.Neutral && Tones.ForOrder(OrderState.NeedsSetup) == Tone.Neutral,
+            "Stopped and unreadable orders are amber, running ones green, waiting and unset ones plain");
+        check(OrderGroups.Order.All(g => (Tones.ForOrderGroup(g) == Tone.Attention) == (g == OrderGroups.NeedsYou)), "Only the Needs you group header is amber");
+        check(Tones.ForUpkeepGroup(UpkeepRules.AttentionGroup) == Tone.Attention && Tones.ForUpkeepGroup(UpkeepRules.FineGroup) == Tone.Neutral &&
+              Tones.ForUpkeepGroup(UpkeepRules.InspectOnlyGroup) == Tone.Neutral && Tones.ForUpkeep(UpkeepRules.Attention.InspectionDue) == Tone.Attention &&
+              Tones.ForUpkeep(UpkeepRules.Attention.None) == Tone.Neutral, "Upkeep that needs attention is amber; the rest is plain");
+        check(Tones.ForSkipGroup(CrewSkip.WillRun) == Tone.Good && Tones.ForSkipGroup(CrewSkip.Waits) == Tone.Attention && Tones.ForSkipGroup(CrewSkip.Paused) == Tone.Neutral,
+            "In the time-skip estimate, what will run is green, what waits amber, what pauses plain");
+        check(Tones.ForApply(true) == Tone.Good && Tones.ForApply(false) == Tone.Neutral, "Apply lights only while there are changes to apply");
+        check(Tones.ForResume(false, WorkPermission.Stopped, OrderState.Stopped) == Tone.Good && Tones.ForResume(false, WorkPermission.Suspended, OrderState.Stopped) == Tone.Good &&
+              Tones.ForResume(false, WorkPermission.Disabled, OrderState.Disabled) == Tone.Good && Tones.ForResume(true, WorkPermission.Stopped, OrderState.Stopped) == Tone.Neutral &&
+              Tones.ForResume(false, WorkPermission.Enabled, OrderState.Running) == Tone.Neutral && Tones.ForResume(false, WorkPermission.Disabled, OrderState.NeedsSetup) == Tone.Neutral,
+            "Resume lights when nothing is pending and an order with work chosen is not running; never while changes wait or work is not chosen");
+
         // The shared collapsible list: header text and the signature that decides a redraw.
         check(GroupedList.HeaderText(true, "Working", 4) == "+ Working (4)" && GroupedList.HeaderText(false, "Needs you", 1) == "- Needs you (1)",
             "A folded group shows +, an open one -, each with its count");

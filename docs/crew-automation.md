@@ -217,7 +217,10 @@ attention** lists a machine not tuned yet while tuning is on, one whose
 inspection is due while rounds are on, or one whose record could not be read;
 **Looked after** and **Inspection only** are folded. Choose a machine for its
 tune and last inspection. **About** opens the encyclopedia's upkeep article,
-which holds the full explanation of each switch.
+which holds the full explanation of each switch. Since Framework 0.118.0 the
+Upkeep tab counts the machines needing attention, "Upkeep (3)", and amber marks
+what needs you across the Crew panel; see the
+[control panel guide](control-panel-guide.md#finding-controls).
 
 The F3 commands do the same: `phobosframework upkeep tune on` (or `off`), and
 likewise `inspect`, `practice` and `tidy`; `phobosframework upkeep` lists the

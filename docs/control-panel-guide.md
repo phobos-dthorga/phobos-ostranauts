@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.117.0, Agriculture 0.63.0, Shipbreaker 0.83.0 and Auto Nav 0.34.0
+Framework 0.118.0, Agriculture 0.63.0, Shipbreaker 0.83.0 and Auto Nav 0.34.0
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished
@@ -37,6 +37,14 @@ pages. The crew roster shortcut is **Orders & training**. Since Framework 0.117.
 - **About** on each page opens the matching Phobos operations article in the
   game's encyclopedia; the footer says whether it opened. F3
   `phobosframework articles` lists them.
+- **Colour repeats what the words say** (Framework 0.118.0), and only three
+  colours are used. **Amber** means it needs you: a stopped or unreadable
+  order, an inspection due, work that waits; a tab with things needing you
+  reads "Orders (2)" and is amber. **Green** means working, or the one button
+  that moves things forward now: Apply while you have changes, Resume when a
+  stopped order is ready to go again. **Slate** is everything else. Stop is
+  always amber and in the same place. Every colour sits beside a word or count
+  that says the same thing, so nothing depends on telling colours apart.
 
 Long lists scroll; on narrower screens, use Back to return from equipment
 details to the list. Long compact labels may end in an ellipsis; selected storage

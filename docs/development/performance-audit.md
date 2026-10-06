@@ -1191,3 +1191,7 @@ L76 — Framework 0.116.0, Manufacturing 0.56.0. `CrewWork.IsStore` adds one dic
 ## 6 October: Crew panel and Maintenance sheet clarity (L77)
 
 L77 — Framework 0.117.0. All of it runs only while a panel is open. The Orders list reads each machine's order status once a real second, as before, and now also builds one signature string to decide whether a machine changed group; only then is the list redrawn, otherwise row text is updated in place. The Upkeep page walks the upkeep machine family once when drawn and once a real second while open (`Upkeep.Report`, the same walk the F3 report always made, with the cached tune records). The Time-skip estimate calls each enabled order's `Next` once when drawn, as before. The Maintenance sheet's upkeep sentence replaces its three lines at the same one-second reread. Opening an encyclopedia article is one dictionary lookup. No per-frame or world-tick work was added. No capture accompanies this change.
+
+## 6 October: colour as a signal (L78)
+
+L78 — Framework 0.118.0. While the Crew panel is open, once a real second: the tab counts read each crew-ordered machine's status and walk the upkeep machine family once (on the Orders page the list already makes the same sweep, so it is now made twice per refresh), and Apply and Resume are re-tinted from the draft and the order. Colour writes happen only when a tint changes. The Maintenance sheet's upkeep tint reads one machine's record, not the ship. No per-frame or world-tick work was added. No capture accompanies this change.

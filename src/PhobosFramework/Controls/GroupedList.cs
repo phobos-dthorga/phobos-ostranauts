@@ -38,7 +38,10 @@ public sealed class GroupedList
 
     /// <summary>Draws the groups in the given order, skipping empty ones. A folded group holding the selected row is
     /// opened for this draw, so a selection is never hidden.</summary>
-    public void Render(IReadOnlyList<(string Key, string Label)> groups, IReadOnlyList<Row> rows, string? selectedId, Action rebuild)
+    public void Render(IReadOnlyList<(string Key, string Label)> groups, IReadOnlyList<Row> rows, string? selectedId, Action rebuild) =>
+        Render(groups.Select(g => (g.Key, g.Label, Tone.Neutral)).ToArray(), rows, selectedId, rebuild);
+    /// <summary>As above, each group header tinted by its tone (Framework 0.118.0): slate when neutral, as before.</summary>
+    public void Render(IReadOnlyList<(string Key, string Label, Tone Tone)> groups, IReadOnlyList<Row> rows, string? selectedId, Action rebuild)
     {
         PanelWidgets.Clear(host); labels.Clear(); buttons.Clear();
         foreach (var group in groups)
@@ -48,7 +51,7 @@ public sealed class GroupedList
             if (members.Length == 0) continue;
             bool collapsed = folded.Contains(key) && !(selectedId != null && members.Any(r => r.Id == selectedId));
             var header = C.Button(host, HeaderText(collapsed, group.Label, members.Length), () => { if (!folded.Add(key)) folded.Remove(key); rebuild(); });
-            C.Accent(header, C.Slate);
+            C.Accent(header, Tones.Of(group.Tone));
             if (collapsed) continue;
             foreach (var row in members)
             {

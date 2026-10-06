@@ -99,6 +99,41 @@ shows above the raised Crew panel has not been seen in the game.
 - **The order editor stays as it was:** fields, Apply, Discard, Resume, Stop, and the
   Details & diagnostics toggle.
 
+## Colour as a signal (Framework 0.118.0)
+
+The owner asked (6 October 2026) whether buttons, tabs and cards should be coloured by
+priority where that helps, and not where it would mislead. Before this, colour meant almost
+nothing: green marked a selection or Apply, amber Stop, slate structure, and a blocked
+order's card looked like a running one's.
+
+**Owner choices.** Scope: the Crew panel and the Maintenance sheet (the shared Control Panel
+and the C1 console are untouched). Apply and Resume light only when they are the next step.
+
+**The rule.** The owner's standing rule is that states are distinct text and colour is
+supplementary (`industrial-control-mockups.md:226`), so every tint sits beside a word or a
+count saying the same thing. A player who cannot tell amber from green loses nothing. Three
+meanings, using the panel's existing three colours (`Controls/Tone.cs`):
+
+| Tone | Colour | Where |
+| --- | --- | --- |
+| Attention | Amber | Needs you and Needs attention headers, Waits; stopped or unreadable order cards; upkeep cards that are due; a tab with a count; the sheet's buttons when what they open needs you |
+| Good | Green | Running order cards; Will run; Apply with changes pending; Resume when ready |
+| Neutral | Slate or plain | everything else |
+
+**Agent defaults (owner may revise):**
+- **No red.** Nothing on these panels is an alarm. Red would compete with the game's own
+  danger colours and would cry wolf over a stopped order.
+- **No priority ranking beyond "needs you".** A finer ranking (urgent, soon, later) would
+  invent judgements the data does not support, which is the misinformation the owner was
+  wary of.
+- **Waiting stays plain.** An order waiting for feed or crew is the crew's business, not the
+  player's.
+- **Stop stays fixed amber.** It is a safety control: one place, one colour.
+- **Status cards lean 30% toward their tone.** The text stays the panel's usual ink for
+  contrast.
+- **Tabs count, then tint.** "Orders (2)" carries the signal; the tint only repeats it. The
+  current tab keeps the slate selection.
+
 ## Saved structures
 
 None. Nothing new is saved, the folds are not saved, and the removed text keys were panel

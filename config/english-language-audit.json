@@ -85029,6 +85029,19 @@
       ],
       "before": "Tune machinery: {0}. Inspection rounds: {1}.",
       "after": "Tune machinery: {0}. Inspection rounds: {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.tab_count",
+      "category": "label",
+      "decision": "add",
+      "reason": "Tab counts (Framework 0.118.0): the count of things needing the player on a tab, so the amber tint never carries the signal alone.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} ({1})",
+      "after": "{0} ({1})"
     }
   ],
   "documents": [
@@ -85036,8 +85049,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "50c0d2288c477129c518299b02b36efc651c028b7ad754b55ad4e20eb77875b3",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "bc83064ec61b593967ebc5281679a3c1f9223dbdb9c00d33ac18f664b5711e4a",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -85197,15 +85210,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a0157d2ba82995696d7469cddea665ba3499662521a1e611f73abd1e54a6dedd",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "4a76a9cb60ccd107bf7d61ab01c11f78b0ebc8d6eb98ed6c42f127f5dd02b6d2",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5b0e15b96b4cfd7d376f872f8d3d3e51b4b483fa2d82e882c481d2856e1f6078",
-      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "0fd299ac78f4eb289b5a8e4f30fa0d9ca66e800a527a1d38470d411d17e653c7",
+      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "docs/development/README.md",
@@ -85826,8 +85839,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "5eb51ad5dca76b0553c10b5d3a27959ecfa0491976e1409ca1f173e7f64bad7d",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "d7dd657c13aea3dd8f3c4e3fafda28d4d39b617da85aea6702663ab3ff32de2e",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -86087,8 +86100,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a7d72330bb1d189b1fd20a7c26a6a5ff3521aff30e59e75a89ee30c205f46184",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "b8ea97524dd5943a59786c347941fa6fedf14fde2d9a513a224436b179bd6cf0",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -86213,8 +86226,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "486c9bb4eb2aa57fc5ed89a0aba5ce90909ed4baaf216b940a4f87c142644996",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "f39386af2d679a6703ebbaf11423aa324f81d27e7773bfc0e2e8028e28a26ef2",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -86339,8 +86352,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "18aad3bcd0ee7f4d2b760883b1cec838e482dd4704c93423f1f4a49587f397b5",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "4429d117cabced8dec772e0aadb180156e02f7c4b651d156da05f316e0a7201a",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -86437,7 +86450,7 @@
       "path": "docs/development/crew-panel-clarity.md",
       "scope": "development",
       "decision": "new",
-      "sha256": "b31bf3827259853f28a69415132386bc042e2c0bce9b29721356c0978648546d",
+      "sha256": "fd9a1ef268380a4dbad3073b41db392f241b063d462a90b60a11d778a57688c7",
       "review": "New design record, 6 October 2026."
     }
   ],
@@ -86497,8 +86510,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e203c89d820006ea9325ed678f1780ef921a64eff495969c21fd49db193ae9c0",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "53110718348c266d69077fbc86ccf489737cd54cb7ed4330a9758b016d337c73",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

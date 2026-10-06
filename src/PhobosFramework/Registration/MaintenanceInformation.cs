@@ -27,16 +27,19 @@ public static class MaintenanceInformation
     private static MaintenanceSheet.Facts Facts(CondOwner co, Func<CondOwner, string>? extra)
     {
         string? bin = MaintenanceSafety.Actions.TryGetValue("ACT" + co.strCODef + "Dismantle", out var internalBin) ? internalBin : null;
-        bool orders = Crew.CrewWork.Provider(co) != null;
+        bool orders = Crew.CrewWork.Provider(co) != null, needsYou = false;
         string status = "";
         if (orders)
         {
             var s = Crew.CrewWork.ReadStatus(co);
             status = Text.Get("MaintenanceInfo.orders_status", s.Work, s.Label, s.Worker) + (s.Detail.Length > 0 ? "\n" + s.Detail : "");
+            needsYou = Tones.ForOrder(s.State) == Tone.Attention;
         }
+        bool upkeepDue = Crew.Upkeep.Needs(co) != Crew.UpkeepRules.Attention.None;
         return new MaintenanceSheet.Facts
         {
             Installed = co.HasCond("IsInstalled"), Orders = orders, Owned = Crew.CrewWork.CanManage(co), OrderStatus = status,
+            OrderNeedsYou = needsYou, UpkeepNeedsAttention = upkeepDue,
             Loading = Crew.CrewPanel.LoadingText(co), Upkeep = Crew.Upkeep.Summary(co),
             Blocker = MaintenanceSafety.Reason(co, bin), Extra = extra == null ? "" : extra(co)
         };
@@ -50,6 +53,9 @@ public static class MaintenanceSheet
     public sealed class Facts
     {
         public bool Installed, Orders, Owned;
+        /// <summary>The order is stopped or unreadable; the upkeep list has this machine under Needs attention
+        /// (Framework 0.118.0). Each tints its button amber.</summary>
+        public bool OrderNeedsYou, UpkeepNeedsAttention;
         /// <summary>The order's state line; how a machine without orders is loaded; its upkeep in a sentence or two.</summary>
         public string OrderStatus = "", Loading = "", Upkeep = "";
         /// <summary>What stops removal now, or null; a content mod's own note.</summary>
@@ -65,11 +71,13 @@ public static class MaintenanceSheet
             string orders = Text.Get("MaintenanceInfo.orders_heading");
             if (!facts.Orders) sections.Add(new InformationSection("", Text.Get("MaintenanceInfo.orders_none_line") + (facts.Loading.Length > 0 ? "\n" + facts.Loading : "")));
             else if (!facts.Owned) sections.Add(new InformationSection(orders, Text.Get("MaintenanceInfo.orders_not_owned")));
-            else sections.Add(new InformationSection(orders, facts.OrderStatus, new InformationLink(Text.Get("MaintenanceInfo.orders_open"), openOrders)));
+            else sections.Add(new InformationSection(orders, facts.OrderStatus,
+                new InformationLink(Text.Get("MaintenanceInfo.orders_open"), openOrders, facts.OrderNeedsYou ? Tone.Attention : Tone.Neutral)));
         }
         if (machine && facts.Upkeep.Length > 0)
             sections.Add(facts.Owned
-                ? new InformationSection(Text.Get("MaintenanceInfo.upkeep_heading"), facts.Upkeep, new InformationLink(Text.Get("MaintenanceInfo.upkeep_open"), openUpkeep))
+                ? new InformationSection(Text.Get("MaintenanceInfo.upkeep_heading"), facts.Upkeep,
+                    new InformationLink(Text.Get("MaintenanceInfo.upkeep_open"), openUpkeep, facts.UpkeepNeedsAttention ? Tone.Attention : Tone.Neutral))
                 : new InformationSection(Text.Get("MaintenanceInfo.upkeep_heading"), facts.Upkeep));
         string removal = facts.Blocker ?? Text.Get("MaintenanceInfo.removal_clear");
         if (facts.Extra.Length > 0) removal += "\n\n" + facts.Extra;

@@ -22,5 +22,10 @@ internal static class MaintenanceSheetNativeChecks
         }
         check(sets.SelectMany(d => d.Objects.Values).First(o => o.strName == "PhobosVolatilesRefineryInstalled").aInteractions.Contains("PhobosManufacturingMaintenanceInformation"),
             "The V4 carries the Maintenance entry");
+        // Framework 0.118.0: colour as a signal uses the panel's three existing colours, and no others.
+        check(Phobos.Ostranauts.Framework.Controls.Tones.Of(Phobos.Ostranauts.Framework.Controls.Tone.Attention) == Phobos.Ostranauts.Framework.Controls.ConsoleWidgets.Amber &&
+              Phobos.Ostranauts.Framework.Controls.Tones.Of(Phobos.Ostranauts.Framework.Controls.Tone.Good) == Phobos.Ostranauts.Framework.Controls.ConsoleWidgets.Green &&
+              Phobos.Ostranauts.Framework.Controls.Tones.Of(Phobos.Ostranauts.Framework.Controls.Tone.Neutral) == Phobos.Ostranauts.Framework.Controls.ConsoleWidgets.Slate,
+            "Amber for attention, green for good, slate for everything else");
     }
 }

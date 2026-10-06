@@ -383,6 +383,7 @@
   "Console.close": "Close",
   "Console.about": "About…",
   "Console.about_opened": "Opened in the encyclopedia.",
+  "Console.tab_count": "{0} ({1})",
   "Console.show_all_ship": "Show all ship",
   "Console.orders_summary": "{0} need you · {1} working · {2} not set up or off",
   "Console.no_orders_equipment": "Nothing aboard takes crew orders.",

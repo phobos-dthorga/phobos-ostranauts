@@ -29,6 +29,14 @@ internal static class MaintenanceSheetChecks
         var derelict = MaintenanceSheet.Sections(Facts(true, true, false, "Not tuned."), Opened, Opened, Opened);
         check(derelict[0].Body == Text.Get("MaintenanceInfo.orders_not_owned") && derelict.Take(2).All(s => s.Links.Count == 0),
             "On someone else's ship the sheet offers no buttons into the Crew panel");
+        // Framework 0.118.0: a button is amber when what it opens needs the player; About never is.
+        var calm = MaintenanceSheet.Sections(Facts(true, true, true, "Tuned +6%."), Opened, Opened, Opened);
+        check(calm.SelectMany(s => s.Links).All(l => l.Tone == Phobos.Ostranauts.Framework.Controls.Tone.Neutral), "With nothing needing the player, every button is plain");
+        var due = Facts(true, true, true, "Not tuned."); due.OrderNeedsYou = true; due.UpkeepNeedsAttention = true;
+        var urgent = MaintenanceSheet.Sections(due, Opened, Opened, Opened);
+        check(urgent[0].Links.Single().Tone == Phobos.Ostranauts.Framework.Controls.Tone.Attention && urgent[1].Links.Single().Tone == Phobos.Ostranauts.Framework.Controls.Tone.Attention &&
+              urgent.Last().Links.Single().Tone == Phobos.Ostranauts.Framework.Controls.Tone.Neutral,
+            "A stopped order and due upkeep tint their buttons amber; About stays plain");
         bool asked = false;
         var help = MaintenanceSheet.Sections(Facts(true, false, true, ""), Opened, Opened, () => { asked = true; return "Load a game first."; }).Last().Links.Single();
         check(help.Open() == "Load a game first." && asked, "The About button reports why the encyclopedia could not open");

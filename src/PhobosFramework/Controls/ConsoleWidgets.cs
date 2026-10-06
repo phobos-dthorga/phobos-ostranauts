@@ -26,9 +26,24 @@ public static class ConsoleWidgets
     public static TMP_Text Label(Transform p,string text,bool flowing=true)=>PanelWidgets.Label(p,text,flowing);
     public static TMP_Text Heading(Transform p,string text)
     {var t=Label(p,text);t.color=Green;t.fontStyle=FontStyles.Bold;return t;}
+    private static readonly Color StatusCard=new(.12f,.18f,.21f);
+    /// <summary>A status card tinted by its tone (Framework 0.118.0): neutral as before; attention and good lean 30%
+    /// toward amber or green. The words inside always carry the state; the tint only repeats it.</summary>
+    public static TMP_Text Status(Transform parent,string text,Tone tone)
+    {var label=Status(parent,text);Retint(label,tone);return label;}
+    /// <summary>Changes a status card's tint in place, for a live refresh.</summary>
+    public static void Retint(TMP_Text? status,Tone tone)
+    {
+        var image=status==null?null:status.transform.parent?.GetComponent<Image>();
+        if(image==null)return;
+        var color=tone==Tone.Neutral?StatusCard:Color.Lerp(StatusCard,Tones.Of(tone),.3f);
+        if(image.color!=color)image.color=color;
+    }
+    /// <summary>A button tinted by its tone (Framework 0.118.0): plain when neutral, otherwise the usual accent.</summary>
+    public static void Accent(Button button,Tone tone)=>Accent(button,Tones.Of(tone),tone!=Tone.Neutral);
     public static TMP_Text Status(Transform parent,string text)
     {
-        var card=PanelWidgets.Rect(parent,"Live status");card.gameObject.AddComponent<Image>().color=new Color(.12f,.18f,.21f);
+        var card=PanelWidgets.Rect(parent,"Live status");card.gameObject.AddComponent<Image>().color=StatusCard;
         var layout=card.gameObject.AddComponent<VerticalLayoutGroup>();layout.padding=new RectOffset(12,12,8,8);layout.childControlWidth=layout.childControlHeight=true;layout.childForceExpandHeight=false;
         return Label(card,text);
     }

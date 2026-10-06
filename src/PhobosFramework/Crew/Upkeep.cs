@@ -206,16 +206,22 @@ public static class Upkeep
     {
         var ships = ship != null ? new[] { ship } : CrewRoster.Members().Select(c => c.ship).Distinct().ToArray();
         var rows = new List<UpkeepRow>();
-        foreach (var (machine, family) in Machines(ships))
-        {
-            var state = State(machine);
-            bool tunable = family.Tunable && Settings.MaxTuningGain * Share(family) > 0;
-            rows.Add(new UpkeepRow(machine.strID, Controls.ObjectPresentation.Name(machine), tunable, state.Protected,
-                tunable ? (UpkeepRules.Rate(state.Level, Settings.MaxTuningGain, Share(family)) - 1) * 100 : 0,
-                state.Inspected <= 0 ? null : Math.Max(0, (StarSystem.fEpoch - state.Inspected) / 3600)));
-        }
+        foreach (var (machine, family) in Machines(ships)) rows.Add(RowFor(machine, family));
         return rows.OrderBy(r => r.Name, StringComparer.Ordinal).ToList();
     }
+    private static UpkeepRow RowFor(CondOwner machine, Family family)
+    {
+        var state = State(machine);
+        bool tunable = family.Tunable && Settings.MaxTuningGain * Share(family) > 0;
+        return new UpkeepRow(machine.strID, Controls.ObjectPresentation.Name(machine), tunable, state.Protected,
+            tunable ? (UpkeepRules.Rate(state.Level, Settings.MaxTuningGain, Share(family)) - 1) * 100 : 0,
+            state.Inspected <= 0 ? null : Math.Max(0, (StarSystem.fEpoch - state.Inspected) / 3600));
+    }
+    /// <summary>What one installed, undamaged machine needs under the switches as set now (Framework 0.118.0), without
+    /// walking the ship; None for anything the Upkeep list would not show.</summary>
+    public static UpkeepRules.Attention Needs(CondOwner? co) =>
+        co == null || co.bDestroyed || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || FamilyOf(co.strCODef) is not Family family
+            ? UpkeepRules.Attention.None : Needs(RowFor(co, family));
     /// <summary>What a listed machine needs under the switches as set now.</summary>
     public static UpkeepRules.Attention Needs(UpkeepRow row) =>
         UpkeepRules.Needs(row.Tunable, row.Protected, row.Percent, row.InspectedHours, Enabled(UpkeepKind.Tune), Enabled(UpkeepKind.Inspect), Pack.inspectionValidHours);

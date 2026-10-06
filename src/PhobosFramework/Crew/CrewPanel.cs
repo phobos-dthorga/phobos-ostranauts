@@ -35,6 +35,8 @@ public sealed class CrewPanel : GUIData
     private static readonly Dictionary<string,HashSet<string>> folded=new(StringComparer.Ordinal);
     private TMP_Text? status;
     private TMP_Text? diagnostics;
+    // The buttons that light green when they are the next step (Framework 0.118.0).
+    private Button? applyButton, resumeButton;
     private bool detailsOpen;
     private float next;
     private int previewHours=1;
@@ -91,6 +93,31 @@ public sealed class CrewPanel : GUIData
         shell.ListScroll.verticalNormalizedPosition=positions.TryGetValue(view,out var saved)?saved.List:1;
         shell.DetailScroll.verticalNormalizedPosition=positions.TryGetValue(view,out saved)?saved.Detail:1;
     }
+    /// <summary>Tabs name how many things need the player there, "Orders (2)", and a tab other than the current one with
+    /// a count is tinted amber (Framework 0.118.0). The count is the signal; the tint repeats it.</summary>
+    private void RefreshTabs()
+    {
+        int orders=0,upkeep=0;
+        if(Ship!=null)
+        {
+            orders=CrewWork.Equipment(Ship).Count(c=>Tones.ForOrder(CrewWork.ReadStatus(c).State)==Tone.Attention);
+            upkeep=Upkeep.Report(Ship).Count(r=>Upkeep.Needs(r)!=UpkeepRules.Attention.None);
+        }
+        foreach(var tab in tabs)
+        {
+            int count=tab.Key==OrdersView?orders:tab.Key==UpkeepView?upkeep:0;
+            string text=count>0?C.Text("tab_count",C.Text(tab.Key),count):C.Text(tab.Key);
+            var label=tab.Value.GetComponentInChildren<TMP_Text>();if(label!=null&&label.text!=text)label.text=text;
+            if(tab.Key==view)C.Accent(tab.Value,C.Slate);else C.Accent(tab.Value,count>0?Tone.Attention:Tone.Neutral);
+        }
+    }
+    /// <summary>Apply lights while there are changes to apply; Resume lights when nothing is pending and the order, with
+    /// work chosen, is not running (Framework 0.118.0). Both still work whenever they did before.</summary>
+    private void RefreshActions()
+    {
+        if(applyButton!=null)C.Accent(applyButton,Tones.ForApply(Dirty()));
+        if(resumeButton!=null&&CrewWork.Resolve(equipmentId) is CondOwner co)C.Accent(resumeButton,Tones.ForResume(Dirty(),CrewWork.Order(co).Permission,CrewWork.ReadStatus(co).State));
+    }
     /// <summary>The groups a view keeps folded, seeded with its defaults the first time it is shown.</summary>
     private static HashSet<string> Folded(string view)
     {
@@ -100,8 +127,8 @@ public sealed class CrewPanel : GUIData
     }
     private void BuildView()
     {
-        draft=null;roleDraft.Clear();roleOriginal.Clear();status=diagnostics=null;summaries.Clear();list=null;listSignature="";shell.EmergencyStop=null;W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);
-        foreach(var tab in tabs)C.Accent(tab.Value,C.Slate,tab.Key==view);
+        draft=null;roleDraft.Clear();roleOriginal.Clear();status=diagnostics=null;applyButton=resumeButton=null;summaries.Clear();list=null;listSignature="";shell.EmergencyStop=null;W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);
+        RefreshTabs();
         if(Ship==null)return;
         if(view=="skip"){BuildSkip();return;}
         if(view==UpkeepView){BuildUpkeep();return;}
@@ -119,7 +146,7 @@ public sealed class CrewPanel : GUIData
         .Where(c=>(ObjectPresentation.Name(c)+" "+ObjectPresentation.Location(c)).IndexOf(query,StringComparison.CurrentCultureIgnoreCase)>=0).OrderBy(ObjectPresentation.Name);
     private List<GroupedList.Row> OrderRows()=>OrderEquipment().Select(co=>{var item=co;var s=CrewWork.ReadStatus(co);
         return new GroupedList.Row(OrderGroups.Group(s.State),co.strID,Summary(co),()=>shell.Navigate(()=>Edit(item)));}).ToList();
-    private static IReadOnlyList<(string Key,string Label)> GroupLabels(IEnumerable<string> keys,string prefix)=>keys.Select(k=>(k,C.Text(prefix+k))).ToArray();
+    private static IReadOnlyList<(string Key,string Label,Tone Tone)> GroupLabels(IEnumerable<string> keys,string prefix,Func<string,Tone> tone)=>keys.Select(k=>(k,C.Text(prefix+k),tone(k))).ToArray();
     private string OrdersSummary()
     {
         var states=OrderEquipment().Select(c=>OrderGroups.Group(CrewWork.ReadStatus(c).State)).ToList();
@@ -132,7 +159,7 @@ public sealed class CrewPanel : GUIData
         {
             float scroll=shell.ListScroll.verticalNormalizedPosition;
             var orderRows=OrderRows();listSignature=GroupedList.Signature(orderRows);
-            list.Render(GroupLabels(OrderGroups.Order,"group_"),orderRows,equipmentId,Populate);
+            list.Render(GroupLabels(OrderGroups.Order,"group_",Tones.ForOrderGroup),orderRows,equipmentId,Populate);
             if(orderRows.Count==0)C.Label(rows,C.Text("no_orders_equipment"));
             Canvas.ForceUpdateCanvases();shell.ListScroll.verticalNormalizedPosition=scroll;
             return;
@@ -189,7 +216,7 @@ public sealed class CrewPanel : GUIData
         float scroll=shell.DetailScroll.verticalNormalizedPosition;
         W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);Header(co);var provider=CrewWork.Provider(co)!;var value=draft!.Value;
         shell.EmergencyStop=()=>StopOrder(co);
-        status=C.Status(shell.Detail,StatusText(co));C.Heading(shell.Detail,C.Text("configuration"));
+        status=C.Status(shell.Detail,StatusText(co),Tones.ForOrder(CrewWork.ReadStatus(co).State));C.Heading(shell.Detail,C.Text("configuration"));
         var recipes=provider.Recipes(co);C.Field(shell.Detail,C.Text("process"),recipes.Contains(value.Recipe)?provider.RecipeLabel(value.Recipe):CrewWork.Message("choose_work"),()=>Choices(C.Text("process"),recipes.Select(r=>(r,provider.RecipeLabel(r))),id=>{value.Recipe=id;RenderOrder(co);}));
         var fields=OrderConfiguration.Fields(co);
         if(fields.HasFlag(OrderFields.Stock))C.Stepper(shell.Detail,C.Text("stock"),value.Stock,1,256,n=>value.Stock=n);
@@ -204,9 +231,9 @@ public sealed class CrewPanel : GUIData
         var detailButton=C.Button(shell.Detail,C.Text(detailsOpen?"hide_diagnostics":"diagnostics"),()=>{});
         diagnostics=C.Label(shell.Detail,C.Text("technical_identity",co.strCODef,co.strID));diagnostics.gameObject.SetActive(detailsOpen);
         detailButton.onClick.AddListener(()=>{detailsOpen=!detailsOpen;diagnostics.gameObject.SetActive(detailsOpen);detailButton.GetComponentInChildren<TMP_Text>().text=C.Text(detailsOpen?"hide_diagnostics":"diagnostics");});
-        C.Accent(C.Button(shell.Actions,C.Text("apply"),()=>Apply()),C.Green);C.Button(shell.Actions,C.Text("discard"),Discard);
-        C.Button(shell.Actions,C.Text("resume"),()=>{if(Dirty()){shell.Notice.text=C.Text("apply_first");return;}CrewWork.SetPermission(co,WorkPermission.Enabled);Edit(co);});
-        C.Accent(C.Button(shell.Actions,C.Text("stop"),()=>StopOrder(co)),C.Amber);
+        applyButton=C.Button(shell.Actions,C.Text("apply"),()=>Apply());C.Button(shell.Actions,C.Text("discard"),Discard);
+        resumeButton=C.Button(shell.Actions,C.Text("resume"),()=>{if(Dirty()){shell.Notice.text=C.Text("apply_first");return;}CrewWork.SetPermission(co,WorkPermission.Enabled);Edit(co);});
+        C.Accent(C.Button(shell.Actions,C.Text("stop"),()=>StopOrder(co)),C.Amber);RefreshActions();
         Canvas.ForceUpdateCanvases();shell.DetailScroll.verticalNormalizedPosition=scroll;
     }
     private void StopOrder(CondOwner co)
@@ -248,7 +275,7 @@ public sealed class CrewPanel : GUIData
         C.Heading(shell.Detail,C.Text("permissions"));
         foreach(CrewRole role in Enum.GetValues(typeof(CrewRole))){var r=role;bool allowed=CrewSpecialities.Allowed(actor,role);roleDraft[r]=roleOriginal[r]=allowed;C.Check(shell.Detail,CrewWork.Message(role.ToString()),allowed,v=>roleDraft[r]=v);}
         training.Clear();C.Heading(shell.Detail,C.Text("training"));foreach(var skill in CrewSpecialities.All)training[skill.Id]=C.Progress(shell.Detail,skill.Label,CrewSpecialities.Progress(actor,skill.Id));
-        C.Button(shell.Actions,C.Text("apply"),()=>Apply());C.Button(shell.Actions,C.Text("discard"),Discard);
+        applyButton=C.Button(shell.Actions,C.Text("apply"),()=>Apply());resumeButton=null;C.Button(shell.Actions,C.Text("discard"),Discard);RefreshActions();
     }
     private bool Apply()
     {
@@ -279,13 +306,13 @@ public sealed class CrewPanel : GUIData
         rows=W.Rect(shell.List,"Rows");var group=rows.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlWidth=group.childControlHeight=true;group.childForceExpandHeight=false;
         list=new GroupedList(rows,Folded(UpkeepView));
         var upkeepRows=UpkeepRows();listSignature=GroupedList.Signature(upkeepRows);
-        list.Render(GroupLabels(new[]{UpkeepRules.AttentionGroup,UpkeepRules.FineGroup,UpkeepRules.InspectOnlyGroup},"group_"),upkeepRows,upkeepSelected,BuildUpkeep);
+        list.Render(GroupLabels(new[]{UpkeepRules.AttentionGroup,UpkeepRules.FineGroup,UpkeepRules.InspectOnlyGroup},"group_",Tones.ForUpkeepGroup),upkeepRows,upkeepSelected,BuildUpkeep);
         if(upkeepRows.Count==0)C.Label(rows,Text.Get("Upkeep.report_none"));
         string selected=upkeepSelected.Length>0?upkeepSelected:Focused?focusId:"";
         if(CrewWork.Resolve(selected) is CondOwner machine&&Upkeep.FamilyOf(machine.strCODef)!=null)
         {
             shell.Page(true);upkeepSelected=machine.strID;Header(machine);
-            status=C.Status(shell.Detail,Upkeep.MachineReport(machine));
+            status=C.Status(shell.Detail,Upkeep.MachineReport(machine),Tones.ForUpkeep(Upkeep.Needs(machine)));
             if(!Focused)C.Button(shell.Detail,C.Text("back"),()=>{upkeepSelected="";BuildUpkeep();});
         }
         else
@@ -309,7 +336,7 @@ public sealed class CrewPanel : GUIData
         rows=W.Rect(shell.Detail,"Rows");var group=rows.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlWidth=group.childControlHeight=true;group.childForceExpandHeight=false;
         list=new GroupedList(rows,Folded("skip"));
         var skipRows=preview.Machines.Select(m=>new GroupedList.Row(m.Group,m.Id,m.Name+"\n"+m.Detail,()=>{})).ToList();
-        list.Render(GroupLabels(CrewSkip.PreviewGroups,"skip_group_"),skipRows,null,()=>{RememberView();BuildView();RestoreView();});
+        list.Render(GroupLabels(CrewSkip.PreviewGroups,"skip_group_",Tones.ForSkipGroup),skipRows,null,()=>{RememberView();BuildView();RestoreView();});
         C.Button(shell.Actions,C.Text(returnPanel==null?"close":"back"),()=>
         {
             var previous=returnPanel;CrewSim.LowerUI();if(CrewSim.goUI!=null||previous==null||previous.Item2==null||previous.Item2.bDestroyed)return;
@@ -329,9 +356,12 @@ public sealed class CrewPanel : GUIData
             if(signature!=listSignature){if(view==OrdersView)Populate();else BuildUpkeep();}
             else foreach(var row in current)list.Refresh(row.Id,row.Text);
         }
+        RefreshTabs();RefreshActions();
         foreach(var entry in summaries){var co=CrewWork.Resolve(entry.Key);entry.Value.text=co==null?C.Text("unavailable"):Summary(co);}
         if(status!=null){var co=view==OrdersView?CrewWork.Resolve(equipmentId.Length>0?equipmentId:focusId):view==UpkeepView?CrewWork.Resolve(upkeepSelected):null;var actor=view=="crew"?CrewWork.Resolve(crewId):null;
-            status.text=co!=null?(view==UpkeepView?Upkeep.MachineReport(co):CrewWork.Provider(co)!=null?StatusText(co):C.Text("orders_none_card")+"\n"+LoadingText(co)):actor!=null?Availability(actor):C.Text("unavailable");}
+            status.text=co!=null?(view==UpkeepView?Upkeep.MachineReport(co):CrewWork.Provider(co)!=null?StatusText(co):C.Text("orders_none_card")+"\n"+LoadingText(co)):actor!=null?Availability(actor):C.Text("unavailable");
+            // The card's tint follows its words (Framework 0.118.0).
+            C.Retint(status,co==null?Tone.Neutral:view==UpkeepView?Tones.ForUpkeep(Upkeep.Needs(co)):CrewWork.Provider(co)!=null?Tones.ForOrder(CrewWork.ReadStatus(co).State):Tone.Neutral);}
         if(view=="crew"&&status!=null&&CrewWork.Resolve(crewId) is CondOwner trainee)foreach(var bar in training)bar.Value(CrewSpecialities.Progress(trainee,bar.Key));
     }
 }
