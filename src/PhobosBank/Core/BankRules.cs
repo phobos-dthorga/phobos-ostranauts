@@ -52,6 +52,14 @@ public static class BankRules
     /// <summary>The late fee the game will add at the next shift change on an unpaid bill.</summary>
     public static double LateFee(double unpaid) => unpaid <= PaidOffBelow ? 0 : unpaid * LateFeeShare;
 
+    /// <summary>The catalogue key for a count: the <c>_one</c> form for exactly one, so each language words both (the
+    /// catalogues have no plural rules of their own).</summary>
+    public static string CountKey(string key, int count) => count == 1 ? key + "_one" : key;
+
+    /// <summary>How the overview says how many bills are late: all of them (one or several), one of several, or some.</summary>
+    public static string LateKey(int bills, int late) =>
+        late >= bills ? (bills == 1 ? "Overview.late_it" : "Overview.late_all") : late == 1 ? "Overview.late_one" : "Overview.late_some";
+
     /// <summary>Whether the game has marked a line late: it prefixes overdue loan instalments with one word and names late
     /// fees with another (the game's own strings, passed in, so the check follows the player's language).</summary>
     public static bool IsLate(string? description, string? overdueWord, string? lateFeeWord) =>

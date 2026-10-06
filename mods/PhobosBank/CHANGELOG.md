@@ -5,6 +5,17 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-07 - Draft
+
+### Fixed
+
+- The overview counts properly: one loan, two loans, one bill waiting, all of them late, and so on, instead of loan(s) and bill(s). A loan on its last instalment says so.
+- The Back button shows only on a narrow screen, where it pages from a debt back to the list. On a wide screen the list and the details sit side by side, so it had nothing to do.
+
+### Compatibility and limits
+
+- Wording and layout only. Nothing saved changes. Owner tested 0.1.0 in play on 6 October 2026: the CREDIT icon and its tooltip show on the PDA home screen and the panel opens and lists the ledger.
+
 ## [0.1.0] - 2026-10-06 - Draft
 
 ### Added

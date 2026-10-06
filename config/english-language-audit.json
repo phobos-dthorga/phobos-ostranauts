@@ -87080,53 +87080,40 @@
       "mod": "PhobosBank",
       "key": "Overview.loans",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "decision": "rewrite",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/BankPanel.cs:85"
+        "src/PhobosBank/BankPanel.cs:88"
       ],
       "before": "{0} loan(s) with {1} still to repay. Next instalments: {2} in all, charged at the next shift change.",
-      "after": "{0} loan(s) with {1} still to repay. Next instalments: {2} in all, charged at the next shift change."
+      "after": "{0} loans with {1} still to repay. Next instalments: {2} in all, charged at the next shift change."
     },
     {
       "mod": "PhobosBank",
       "key": "Overview.bills",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "decision": "rewrite",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/BankPanel.cs:88"
+        "src/PhobosBank/BankPanel.cs:91"
       ],
       "before": "{0} bill(s) waiting, {1} in all.",
-      "after": "{0} bill(s) waiting, {1} in all."
-    },
-    {
-      "mod": "PhobosBank",
-      "key": "Overview.bills_late",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosBank/BankPanel.cs:87"
-      ],
-      "before": "{0} bill(s) waiting, {1} in all. {2} of them are late: every shift a bill stays unpaid, the creditor adds {3}% of it as a late fee.",
-      "after": "{0} bill(s) waiting, {1} in all. {2} of them are late: every shift a bill stays unpaid, the creditor adds {3}% of it as a late fee."
+      "after": "{0} bills waiting, {1} in all."
     },
     {
       "mod": "PhobosBank",
       "key": "Overview.charges",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "decision": "rewrite",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/BankPanel.cs:89"
+        "src/PhobosBank/BankPanel.cs:95"
       ],
       "before": "{0} regular charge(s) are set up against you. Each raises a new bill when it falls due.",
-      "after": "{0} regular charge(s) are set up against you. Each raises a new bill when it falls due."
+      "after": "{0} regular charges are set up against you. Each raises a new bill when it falls due."
     },
     {
       "mod": "PhobosBank",
@@ -87158,14 +87145,14 @@
       "mod": "PhobosBank",
       "key": "Loan.instalment",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "decision": "rewrite",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/BankPanel.cs:102"
+        "src/PhobosBank/BankPanel.cs:108"
       ],
       "before": "Next instalment: {0}, with {1} instalment(s) left.",
-      "after": "Next instalment: {0}, with {1} instalment(s) left."
+      "after": "Next instalment: {0}, with {1} instalments left."
     },
     {
       "mod": "PhobosBank",
@@ -87596,6 +87583,123 @@
       ],
       "before": "the order is not running.",
       "after": "the order is not running."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.loans_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:88"
+      ],
+      "before": "One loan with {1} still to repay. Next instalment: {2}, charged at the next shift change.",
+      "after": "One loan with {1} still to repay. Next instalment: {2}, charged at the next shift change."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.bills_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:91"
+      ],
+      "before": "One bill waiting: {1}.",
+      "after": "One bill waiting: {1}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.late_it",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Core/BankRules.cs:61"
+      ],
+      "before": "It is late.",
+      "after": "It is late."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.late_all",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Core/BankRules.cs:61"
+      ],
+      "before": "All {0} are late.",
+      "after": "All {0} are late."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.late_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Core/BankRules.cs:61"
+      ],
+      "before": "One of them is late.",
+      "after": "One of them is late."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.late_some",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Core/BankRules.cs:61"
+      ],
+      "before": "{0} of them are late.",
+      "after": "{0} of them are late."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.late_fee",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:92"
+      ],
+      "before": "Every shift a bill stays unpaid, the creditor adds {0}% of it as a late fee.",
+      "after": "Every shift a bill stays unpaid, the creditor adds {0}% of it as a late fee."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.charges_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:95"
+      ],
+      "before": "One regular charge is set up against you. It raises a new bill each time it falls due.",
+      "after": "One regular charge is set up against you. It raises a new bill each time it falls due."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.instalment_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.1.1: counted wording replaces loan(s) and bill(s); each count has its own one and many forms so every language can word both; placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:108"
+      ],
+      "before": "Next instalment: {0}. It is the last one.",
+      "after": "Next instalment: {0}. It is the last one."
     }
   ],
   "documents": [
@@ -87603,8 +87707,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8c007a738b1fcec7611fced06824f9bdfb4c1fc13eeb3f5939c3998b5c5725b4",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2 Resume Task(s) fix: only the version line changed in this file; existing wording retained."
+      "sha256": "85012e88b952e464f375fb791569c9606376e9c8fa97ee7aee3f42be74f63616",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.1.1: counted wording in the overview (one loan, all of them late) and the Back button on narrow screens."
     },
     {
       "path": "SUPPORT.md",
@@ -89078,15 +89182,15 @@
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "fa489bbb5d61c6b17d32ef1d3f05c420e3efa4169b806190cc6361bcfb14cc15",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "2f6a08bcb404602ed763c9a6bcd0f3b6efa0e59952e3fd699a8c6214681c5f49",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.1.1: counted wording in the overview (one loan, all of them late) and the Back button on narrow screens."
     },
     {
       "path": "docs/bank-item-reference.md",
       "scope": "generated item reference",
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
-      "sha256": "770694633dd2b3c058b944e7ba8fe61bb0f6a71e541425822051ea2f623eab75",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "c1e8a22e4475273b043280f4b96d81ad6bf4847814e631750b200984a509e329",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.1.1: counted wording in the overview (one loan, all of them late) and the Back button on narrow screens."
     },
     {
       "path": "docs/development/health-condition-directions.md",

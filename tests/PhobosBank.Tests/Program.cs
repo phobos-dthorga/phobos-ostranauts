@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using PhobosBank.Core;
 
@@ -50,5 +51,17 @@ summary.Debts[3].Amount += 0.01;
 Check(DebtSummary.Of(summary.Debts).Signature != before, "a changed amount changes the signature, so the panel redraws");
 Check(DebtSummary.Of(Array.Empty<Debt>()).Debts.Count == 0 && DebtSummary.Of(Array.Empty<Debt>()).Signature == "", "no debts, an empty summary");
 Check(Debt.MakeId(DebtKind.Bill, "A", 1.5, "x") != Debt.MakeId(DebtKind.Loan, "A", 1.5, "x"), "a bill and a loan never share an id");
+
+// ---- Counted wording (0.1.1) ------------------------------------------------------------------------
+Check(BankRules.CountKey("Overview.bills", 1) == "Overview.bills_one" && BankRules.CountKey("Overview.bills", 0) == "Overview.bills" && BankRules.CountKey("Overview.bills", 16) == "Overview.bills", "exactly one takes the _one form");
+Check(BankRules.LateKey(1, 1) == "Overview.late_it" && BankRules.LateKey(3, 3) == "Overview.late_all" && BankRules.LateKey(16, 1) == "Overview.late_one" && BankRules.LateKey(16, 14) == "Overview.late_some", "late bills are counted as the overview words them");
+string repo = AppContext.BaseDirectory;
+while (!Directory.Exists(Path.Combine(repo, "translations", "PhobosBank"))) repo = Path.GetDirectoryName(repo.TrimEnd(Path.DirectorySeparatorChar))!;
+var english = System.Text.Json.JsonDocument.Parse(File.ReadAllText(Path.Combine(repo, "translations", "PhobosBank", "en.json"))).RootElement;
+bool Has(string key) => english.TryGetProperty(key, out _);
+foreach (string key in new[] { "Overview.loans", "Overview.bills", "Overview.charges", "Loan.instalment" })
+    Check(Has(key) && Has(BankRules.CountKey(key, 1)), "both counted forms exist: " + key);
+foreach (var (bills, late) in new[] { (1, 1), (3, 3), (16, 1), (16, 14) }) Check(Has(BankRules.LateKey(bills, late)), "late wording exists for " + bills + "/" + late);
+foreach (var every in Enum.GetNames(typeof(ChargeEvery))) Check(Has("Every." + every), "charge frequency worded: " + every);
 
 Console.WriteLine($"Phobos Banking checks passed: {checks}.");

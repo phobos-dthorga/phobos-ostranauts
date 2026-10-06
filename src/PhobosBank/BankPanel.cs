@@ -23,6 +23,7 @@ public sealed class BankPanel : GUIData
     private ConsoleShell shell = null!;
     private string selected = "", signature = "";
     private float next;
+    private Button? back;
 
     /// <summary>Opens the panel. Returns null when it opened, or the reason it did not.</summary>
     public static string? Show()
@@ -42,7 +43,9 @@ public sealed class BankPanel : GUIData
     {
         shell = ConsoleShell.Create(transform, Text.Get("Panel.title"), C.Slate);
         C.Button(shell.Navigation, Text.Get("Panel.overview"), () => { selected = ""; shell.Page(true); Render(); });
-        C.Button(shell.Navigation, C.Text("back"), () => { shell.Page(false); Render(); });
+        // Back only pages from a debt to the list on a narrow screen; on a wide one both show at once.
+        back = C.Button(shell.Navigation, C.Text("back"), () => { shell.Page(false); Render(); });
+        back.gameObject.SetActive(shell.IsNarrow);
         C.Button(shell.Navigation, C.Text("close"), shell.Close);
         Render();
     }
@@ -82,11 +85,14 @@ public sealed class BankPanel : GUIData
         C.Label(shell.Detail, Text.Get("Overview.cash", Money(Debts.Cash())));
         if (summary.Debts.Count == 0) { C.Status(shell.Detail, Text.Get("Overview.clear"), Tone.Good); return; }
         if (summary.Loans > 0)
-            C.Label(shell.Detail, Text.Get("Overview.loans", summary.Loans, Money(summary.LoanBalance), Money(summary.NextInstalments)));
+            C.Label(shell.Detail, Text.Get(BankRules.CountKey("Overview.loans", summary.Loans), summary.Loans, Money(summary.LoanBalance), Money(summary.NextInstalments)));
         if (summary.Bills > 0)
-            C.Status(shell.Detail, summary.Late > 0 ? Text.Get("Overview.bills_late", summary.Bills, Money(summary.BillsDue), summary.Late, Percent(BankRules.LateFeeShare))
-                : Text.Get("Overview.bills", summary.Bills, Money(summary.BillsDue)), summary.Late > 0 ? Tone.Attention : Tone.Neutral);
-        if (summary.Charges > 0) C.Label(shell.Detail, Text.Get("Overview.charges", summary.Charges));
+        {
+            string bills = Text.Get(BankRules.CountKey("Overview.bills", summary.Bills), summary.Bills, Money(summary.BillsDue));
+            if (summary.Late > 0) bills += " " + Text.Get(BankRules.LateKey(summary.Bills, summary.Late), summary.Late) + " " + Text.Get("Overview.late_fee", Percent(BankRules.LateFeeShare));
+            C.Status(shell.Detail, bills, summary.Late > 0 ? Tone.Attention : Tone.Neutral);
+        }
+        if (summary.Charges > 0) C.Label(shell.Detail, Text.Get(BankRules.CountKey("Overview.charges", summary.Charges), summary.Charges));
         C.Label(shell.Detail, Text.Get("Overview.how_to_pay", Percent(BankRules.LateFeeShare)));
     }
 
@@ -99,7 +105,7 @@ public sealed class BankPanel : GUIData
         {
             case DebtKind.Loan:
                 C.Label(shell.Detail, Text.Get("Loan.balance", Money(debt.Amount)));
-                C.Label(shell.Detail, debt.ShiftsLeft > 0 ? Text.Get("Loan.instalment", Money(debt.Instalment), debt.ShiftsLeft) : Text.Get("Loan.term_over", Money(debt.Instalment)));
+                C.Label(shell.Detail, debt.ShiftsLeft > 0 ? Text.Get(BankRules.CountKey("Loan.instalment", debt.ShiftsLeft), Money(debt.Instalment), debt.ShiftsLeft) : Text.Get("Loan.term_over", Money(debt.Instalment)));
                 C.Label(shell.Detail, Text.Get("Loan.since", since));
                 C.Label(shell.Detail, Text.Get("Loan.explain", Percent(BankRules.LateFeeShare)));
                 break;
@@ -137,7 +143,9 @@ public sealed class BankPanel : GUIData
 
     private void Update()
     {
-        if (!bActive || CrewSim.goUI != gameObject || shell == null || Time.unscaledTime < next) return;
+        if (!bActive || CrewSim.goUI != gameObject || shell == null) return;
+        if (back != null && back.gameObject.activeSelf != shell.IsNarrow) back.gameObject.SetActive(shell.IsNarrow);
+        if (Time.unscaledTime < next) return;
         next = Time.unscaledTime + BankRules.PanelRefreshSeconds;
         // A paid bill, a new instalment or a late fee redraws the panel, keeping its scroll.
         if (Debts.Read().Signature != signature) Render();

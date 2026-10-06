@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-07",
-  "baselineCommit": "8932d425bfa1ba918833716cc2b94625898d87dc",
+  "baselineCommit": "0c89e39b710ea71003e16e3116c32c9fd68eed59",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -2657,39 +2657,41 @@
     },
     {
       "path": "src/PhobosBank/BankPanel.cs",
-      "sha256": "ddf7d152425afac0e9c520f330167cd54d48b060e85b7855dbcc9a1f8ab8f213",
+      "sha256": "c12b396a9b0c0d2f44dbdc1e7db37447babd08641b9435a99834a45d1b3e3197",
       "role": "shared presentation and input",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
       "findings": [
         "L86"
       ],
       "indicators": {
-        "collection": [
-          62,
-          63
-        ],
         "ui_mutation": [
-          123
+          48,
+          129,
+          147
+        ],
+        "collection": [
+          65,
+          66
         ],
         "runtime_hook": [
-          138,
-          147
+          144,
+          155
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-07"
     },
     {
       "path": "src/PhobosBank/Core/BankRules.cs",
-      "sha256": "77ee16fab1ec662c31049f7a6db7d0603535a519a0eefded9fe65b30f23e197b",
+      "sha256": "98827bef645f78b09e3a76f9101f51bd2b0e3a8c22e000d6f8e3c5850e968fbd",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
       "findings": [
         "L86"
       ],
       "indicators": {},
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-07"
     },
     {
       "path": "src/PhobosBank/Core/DebtBook.cs",
@@ -2754,10 +2756,10 @@
     },
     {
       "path": "src/PhobosBank/Plugin.cs",
-      "sha256": "f4fd754edc7913df36ddabb764f2719266ac175aa526bece298d37d7736a9e71",
+      "sha256": "8c48276c730901335239155f3833f95e8d89288cac72e3abfdc5ee33205aad28",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
       "findings": [
         "L86"
       ],
@@ -2772,7 +2774,7 @@
           58
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-07"
     },
     {
       "path": "src/PhobosBank/Text.cs",
