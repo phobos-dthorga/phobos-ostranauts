@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -26,4 +26,5 @@
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../translations/PhobosBank/en.json" LogicalName="PhobosBank.en.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosBank/framework/lenders.json" LogicalName="PhobosBank.lenders.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosBank/framework/story.json" LogicalName="PhobosBank.story.json" /></ItemGroup>
 </Project>

@@ -88783,6 +88783,19 @@
       ],
       "before": "The pre-approval from {0} has run out. Ask again in the Credit panel if you still need it.",
       "after": "The pre-approval from {0} has run out. Ask again in the Credit panel if you still need it."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.story_skipped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.4.0: a log line when a lender's story arc does not start, with the story system's reason.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:219"
+      ],
+      "before": "Phobos Banking did not start story arc {0}: {1}",
+      "after": "Phobos Banking did not start story arc {0}: {1}"
     }
   ],
   "documents": [
@@ -88790,8 +88803,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4f20017b9372726e23c1f64b10c0b22513eceece878002b1acb7c79d338d863b",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service.",
+      "sha256": "e8cb89a62fda19f44883a7cb18df2550f54c3e07f6f64f0ef99570ea36df2d8b",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
@@ -88966,8 +88979,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "26feeeec41ab37f9b62e600d41334bf02fe3f851daef0ca3f1a9ea9070cf1292",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
+      "sha256": "1e79e47f6589b74af0708a5cabfa7acf7ac830be66aa212e0060c322cdfc21c7",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
@@ -89294,8 +89307,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7f035f0c907b299a0aad8ed2a1d6fb0f4e754af93ecde2f348e78de222d2ddb1",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
+      "sha256": "69565ecb609e6316483a1c7479f492faede1605957d062c3adceb8b2a73661bb",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -89631,8 +89644,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "4abfdc217f8e155b79a51ece0127b0b1a9f0ee3edecad8a88155eb9174b3147f",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service.",
+      "sha256": "a867436741dcd3c3fc67f6f0711d06903d90acea6253800adbac7517ca9dee80",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
@@ -90248,8 +90261,8 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "48838aed478abe7217e2ddbd5db8e4fa52c88d2b07d73a248ce2f0453009568f",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service."
+      "sha256": "3b08db4cf5284f0adb879b291e6167a64df33ee56b3f9c3e208c08a5a061a1df",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
     },
     {
       "path": "docs/development/panel-override-audit.md",
@@ -90262,22 +90275,22 @@
       "path": "docs/bank-player-guide.md",
       "scope": "current player guide",
       "decision": "New player guide for Phobos Banking 0.1.0.",
-      "sha256": "d9804f460c895ea4c77afbe5a665da47920c3cf4efb29dac77ca1fa89d2a2a9e",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service."
+      "sha256": "7aa1cfddd8a0b353a0e072d7eed7306827b913952a67528697f0dd1a57893f4c",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
     },
     {
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "6b9508f0bdf709cd5e87be6ea13d269e7e12ad0e6ea7c68f9ef942459581ecba",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: identifies the generated cover as promotional art, not a gameplay screenshot, and says publication awaits owner gameplay checks."
+      "sha256": "7df7fb444a596109f5d9c0ef761cafca811003391822cfcf0215f8e0c6d2ef77",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
     },
     {
       "path": "docs/bank-item-reference.md",
       "scope": "generated item reference",
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
-      "sha256": "e3184f463ecbaab337b98ecb5e9733bcf219bef67e4e2ad5431414b44d9c415a",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service."
+      "sha256": "fb416b2e22ded354ca13c177a67cb8a6001009caac7267bb0897dfef11dafd58",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
     },
     {
       "path": "docs/development/health-condition-directions.md",
@@ -90292,6 +90305,13 @@
       "decision": "new",
       "sha256": "b545150d885816b24039c63f5171c5e4ada762fb0894ea8968fc858de5aa9e61",
       "review": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
+    },
+    {
+      "path": "docs/development/banking-stories-handoff.md",
+      "scope": "development handoff",
+      "decision": "New document; reviewed against player-language.md.",
+      "sha256": "43a78a7f3f40b05e2795667de7e2b2dfa47203429b85b762b08dd9107b072309",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
     }
   ],
   "surfaces": [

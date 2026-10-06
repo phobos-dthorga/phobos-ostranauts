@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.3.0",
+    "strModVersion": "0.4.0",
     "strNotes": "Adds a CREDIT app to the PDA home screen. It lists what you owe from your own ledger (mortgages, fines, bills and regular charges) and lets you borrow from lenders where you are, or have one finance a ship or apartment at the broker with less paid down: the loan is a mortgage line repaid by the shift in the Finances window, with the lender's interest billed at each shift change. Lenders are a data file you can extend. Requires Phobos Framework 0.127.0 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
   }
 ]

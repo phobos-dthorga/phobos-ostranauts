@@ -465,6 +465,26 @@ read offline.
   Aerie Savings Union for an apartment; then sell a financed ship and check the lender is
   repaid.
 
+## Round 5 as built
+
+Phobos Banking 0.4.0, 7 October 2026, held draft.
+
+- **Two unregistered lenders** (agent choices): Stillwater Advances at Port Independence,
+  Ganymede (0.08% a shift, about 21.5% over a whole loan, ships from 25% down) and the
+  Narrow Ledger at Corsair's Hollow (0.15%, about 40%, cash only, only while docked
+  there). Neither asks standing. Default still has only the game's consequences (owner
+  choice).
+- **Events start story arcs** by name: on `borrowed`, `late`, `late-long` (three game days,
+  agent default) and `repaid`, Phobos Banking calls Framework's `StoryArcs.TryBegin` for
+  `bank-<lender>-<event>` if the story library has it. TryBegin honours the arc's
+  requirements and ignores the limit on arcs starting by themselves. Flags are set first,
+  so an arc may require them. `bank-<lender>-late-long` joins the flags.
+- **Lender threads have no place**, so their letters reach the player anywhere; adverts
+  and news take the lender's place. Each lender names its officer (`person`).
+- **Banking's story pack** (`mods/PhobosBank/framework/story.json`, registered in Awake):
+  the officers, the threads and Corvane Mutual's four letters as a model. ChatGPT writes
+  the rest from the [stories handoff](banking-stories-handoff.md).
+
 ## Proposed rounds
 
 1. **Framework `PdaApps` and the debts screen** (built; see above). The PDA icon, the panel, and the
@@ -478,5 +498,5 @@ read offline.
    screens.
 4. **Financing at the broker** (built in Banking 0.3.0). The lender row, terms on screen, the loan on confirm and
    pre-approval; owner tests at OKLG, Mars and Venus.
-5. **Non-accredited lenders and stories.** Higher-cost lenders, flags for what happened,
+5. **Non-accredited lenders and stories** (built in Banking 0.4.0; the lore is ChatGPT's to write). Higher-cost lenders, flags for what happened,
    and a story pack with ChatGPT's lore (officers as people, adverts, letters).

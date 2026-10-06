@@ -3,8 +3,8 @@
 Phobos Banking adds a **CREDIT** app to your PDA. It shows what you owe, read
 straight from your own ledger, lets you borrow from lenders where you are, and
 finances a ship or an apartment at the broker, and takes you to the game's Finances
-window to pay. Version 0.3.0 is a held draft: checked offline; the debts screen has
-been seen in play, borrowing and broker financing not yet.
+window to pay. Version 0.4.0 is a held draft: checked offline; the debts screen has
+been seen in play, borrowing, broker financing and the lenders' letters not yet.
 
 ## Opening it
 
@@ -86,6 +86,8 @@ The shipped lenders (agent choices for the owner to review):
 | Corvane Mutual | Around OKLG | Anyone OKLGCorp does not dislike | 0.025% | 5,000 to 250,000, two at once | about 6.7% |
 | Halcyon Bond | Around Port Yangshan, Mars | Those warm with the Xinhua administration | 0.02% | 20,000 to 500,000, two at once | about 5.4% |
 | Aerie Savings Union | Around Long Beach Terminal, Venus | Anyone | 0.03% | 5,000 to 300,000, one at a time | about 8.1% |
+| Stillwater Advances (unregistered) | Around Port Independence, Ganymede | Anyone | 0.08% | 2,000 to 60,000, two at once; ships from 25% down | about 21.5% |
+| The Narrow Ledger (unregistered) | Docked at Corsair's Hollow, Ceres | Anyone who finds the counter | 0.15% | 1,000 to 30,000, three at once | about 40% |
 
 You can add lenders of your own or change these: see
 [Adding a lender](editing-data-files.md#adding-a-lender).
@@ -154,11 +156,30 @@ flowchart LR
     Late -- paid in Finances --> Paid
 ```
 
+Unregistered lenders lend to anyone, faster and dearer. Not paying them has the same
+consequences as any lender: the game's late fee. Their letters may sound colder.
+
+## Letters from your lenders
+
+Each lender has an officer who writes to you: when you borrow, when a bill turns late,
+when it has been late for three game days, and when you pay a loan off. Letters arrive
+wherever you are, in the crew log and in the Letters window (click the goal they bring,
+or F3 `phobosframework story letters`). A late letter may ask for a reply. Replies only
+change the story: bills are paid in the Finances window, and the game's late fee stands
+either way. Paying a loan off can earn a little standing with the lender's station.
+
+Phobos Banking 0.4.0 ships Corvane Mutual's letters; the other lenders' letters, adverts
+and news are being written.
+
 ## For story writers
 
 Each lender leaves story flags a story pack can react to: `bank-<lender>-borrowed`
 once you have borrowed from it, `bank-<lender>-repaid` once a loan from it is repaid,
-and `bank-<lender>-late` while any of its bills is late. See
+`bank-<lender>-late` while any of its bills is late and `bank-<lender>-late-long` once
+the oldest has been late for three game days. On each of those events Phobos Banking
+starts the story arc `bank-<lender>-<event>` (`borrowed`, `late`, `late-long`, `repaid`)
+if a story pack has one. The rules are in the
+[stories handoff](development/banking-stories-handoff.md) and
 [writing story content](writing-story-content.md).
 
 ## Saves and removal
@@ -170,7 +191,7 @@ ordinary mortgages owed to the lender's name, and no more interest is billed.
 
 ## Coming later
 
-Lenders who are not registered, and their stories, come later. The research and plan are in
+More letters, adverts and news for every lender are being written. The research and plan are in
 [PDA apps and a banking mod](development/pda-apps-and-banking-research.md).
 
 ## Requirements

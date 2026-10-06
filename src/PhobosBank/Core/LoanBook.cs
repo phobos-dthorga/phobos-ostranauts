@@ -175,5 +175,14 @@ public static class LoanRules
 
     /// <summary>Story flags a lender's loans set: borrowed, repaid, late.</summary>
     public static string Flag(string lender, string what) => "bank-" + lender + "-" + what;
-    public const string Borrowed = "borrowed", Repaid = "repaid", Late = "late";
+    public const string Borrowed = "borrowed", Repaid = "repaid", Late = "late", LateLong = "late-long";
+
+    /// <summary>The story arc a lender's event starts when a story pack has one (Phobos Banking 0.4.0): the
+    /// <c>bank-&lt;lender&gt;-&lt;event&gt;</c> arc for <c>borrowed</c>, <c>late</c>, <c>late-long</c> and <c>repaid</c>.</summary>
+    public static string Arc(string lender, string what) => "bank-" + lender + "-" + what;
+    public static readonly IReadOnlyList<string> Events = new[] { Borrowed, Late, LateLong, Repaid };
+
+    /// <summary>Whether bills have been late long enough for a lender's sterner letter: the oldest late bill raised at
+    /// least <see cref="BankRules.LateLongDays"/> game days ago.</summary>
+    public static bool LongLate(double? oldestLate, double now) => oldestLate is double t && now - t >= BankRules.LateLongDays * Phobos.Ostranauts.Framework.GameClock.DaySeconds;
 }

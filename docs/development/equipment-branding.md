@@ -313,7 +313,16 @@ none of these words in use.
 | Halcyon Bond | Port Yangshan, Mars | Halcyon days, calm and prosperous; a bond house for established captains, polite and a little exclusive |
 | Aerie Savings Union | Long Beach Terminal, Venus | An aerie is a high nest, for the cloud habitats; a members' savings union, warm and egalitarian |
 
-The research record also proposes **Stillwater Advances** and **the Narrow Ledger** for
-the unregistered lenders of a later round; they are reserved here, not yet used. The
+Phobos Banking 0.4.0 adds the two unregistered lenders the research proposed (agent
+choices):
+
+| Lender | Home | Etymology and voice |
+| --- | --- | --- |
+| Stillwater Advances | Port Independence, Ganymede | Still water, quick and quiet; an advances shop that admits it costs more |
+| The Narrow Ledger | Corsair's Hollow, Ceres | A ledger kept narrow, few names in it; a counter that lends to anyone, steep and knowing |
+
+Each lender's officer is a story person in Banking's story pack: Ines Varga (Corvane
+Mutual), Laurent Chao (Halcyon Bond), Maeve Okonjo (Aerie Savings Union), Dario Kessel
+(Stillwater Advances) and Pell (the Narrow Ledger). The
 game's own **Ogiso's Bank** and **Ogiso's Register** stay the game's: we refer to them
 and never speak for them.

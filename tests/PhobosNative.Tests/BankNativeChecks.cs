@@ -69,7 +69,14 @@ internal static class BankNativeChecks
         // The shipped lenders load through Framework's loader and name only places Framework's story pack knows.
         var lenderPack = DataPacks.LoadText<LenderPack>(DataPacks.ShippedText(Lenders.Source), "", BankRules.Owner, LenderSchema.Name, LenderSchema.Validate);
         var storyPack = DataPacks.LoadText<StoryPack>(File.ReadAllText(Path.Combine(repo, "mods", "PhobosFramework", "framework", "story.json")), "", "framework", StorySchema.Name, p => StorySchema.Validate(p, true));
-        var library = StoryLibrary.Build(new[] { ("framework", storyPack) }, null, _ => true, null, null);
+        var bankStory = DataPacks.LoadText<StoryPack>(DataPacks.ShippedText(new DataPackSource(BankRules.Owner, BankRules.ModFolder, StorySchema.Name, typeof(Plugin).Assembly, "PhobosBank.story.json")),
+            "", BankRules.Owner, StorySchema.Name, p => StorySchema.Validate(p, false));
+        // With the game's own items and conditions, as Framework builds it in play (Banking 0.4.0's story pack).
+        var library = StoryLibrary.Build(new[] { ("framework", storyPack), ("bank", bankStory) }, null, _ => true,
+            id => DataHandler.dictCOs.ContainsKey(id), c => DataHandler.dictConds.ContainsKey(c));
+        check(library.Problems.Count == 0 && library.Arcs.Count == bankStory.arcs.Count, "The embedded Banking story pack loads whole against the game's data: " + string.Join("; ", library.Problems));
+        check(bankStory.arcs.Values.SelectMany(a => a.steps).SelectMany(s => StoryLibrary.Outcomes(s)).SelectMany(o => o?.standing ?? new List<StoryStandingChange>()).All(c => FactionKnown(game, c.faction)),
+            "Every faction a Banking letter changes standing with is one of the game's");
         check(lenderPack.lenders.Count > 0 && lenderPack.lenders.All(l => LenderSchema.Unknown(l.Value, library) == null), "The embedded lenders pack loads and every lender's home is a known place");
         check(lenderPack.lenders.Values.SelectMany(l => l.requires?.standing ?? new List<StoryStanding>()).All(s => FactionKnown(game, s.faction)), "Every faction a lender asks standing with is one of the game's");
         // The game pays a loan down when a paid bill's description holds the loan's: an interest bill must never do so.

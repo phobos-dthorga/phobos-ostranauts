@@ -430,6 +430,8 @@ foreach ($mod in $Mods) {
             'data/conditions/phobos_bank.json'; 'images/phobos/bank/Credit.png'
             # 0.2.0 adds the lenders pack; the plugin embeds it, the folder copy is the players' reference.
             if ($version -ge [version]'0.2.0') { 'framework/lenders.json' }
+            # 0.4.0 adds the story pack: the lenders' officers, threads and letters.
+            if ($version -ge [version]'0.4.0') { 'framework/story.json' }
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.

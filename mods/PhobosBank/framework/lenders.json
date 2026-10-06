@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "lenders",
-  "notes": "Phobos Banking 0.2.0 lenders (agent choices, 7 October 2026, for the owner to review). Each lends where its home place is, to players who meet its requirements. Repayment follows the game's own mortgage schedule; the lender's interest is billed on the balance at each shift change. Terms are copied into a loan when it is taken, so changing a lender here never changes a loan already running. See docs/bank-player-guide.md and docs/editing-data-files.md.",
+  "notes": "Phobos Banking lenders (0.2.0; unregistered lenders 0.4.0) (agent choices, 7 October 2026, for the owner to review). Each lends where its home place is, to players who meet its requirements. Repayment follows the game's own mortgage schedule; the lender's interest is billed on the balance at each shift change. Terms are copied into a loan when it is taken, so changing a lender here never changes a loan already running. See docs/bank-player-guide.md and docs/editing-data-files.md.",
   "lenders": {
     "corvane-mutual": {
       "notes": "K-Leg's registered lender. Interest about 6.7% of the amount borrowed over a whole loan paid on time (tests/PhobosBank.Tests prints it).",
@@ -25,7 +25,8 @@
         "cash",
         "ship"
       ],
-      "minDownShare": 0.35
+      "minDownShare": 0.35,
+      "person": "corvane-ines-varga"
     },
     "halcyon-bond": {
       "notes": "Mars's registered lender, the cheapest (about 5.4% over a whole loan paid on time), for customers the Xinhua administration already likes.",
@@ -49,7 +50,8 @@
         "cash",
         "ship"
       ],
-      "minDownShare": 0.3
+      "minDownShare": 0.3,
+      "person": "halcyon-laurent-chao"
     },
     "aerie-savings": {
       "notes": "Venus's savings union: cash and apartment loans for anyone docked in Venus space (about 8.1% over a whole loan paid on time).",
@@ -65,7 +67,41 @@
         "cash",
         "home"
       ],
-      "minDownShare": 0.4
+      "minDownShare": 0.4,
+      "person": "aerie-maeve-okonjo"
+    },
+    "stillwater-advances": {
+      "notes": "Unregistered quick-money lender at Port Independence, Ganymede (Phobos Banking 0.4.0, agent choice). About 21% interest over a whole loan paid on time.",
+      "name": "Stillwater Advances",
+      "pitch": "Need it today? Stillwater Advances does not keep you waiting while a committee reads your file. Two thousand to sixty thousand, paid across before your coffee cools, and ships financed from a quarter down. Our rate is higher than the registered houses and we say so plainly. Miss a shift and the ledger adds its fee, same as anyone's.",
+      "accredited": false,
+      "home": "jfts",
+      "person": "stillwater-dario-kessel",
+      "ratePerShift": 0.0008,
+      "minPrincipal": 2000,
+      "maxPrincipal": 60000,
+      "maxLoans": 2,
+      "offers": [
+        "cash",
+        "ship"
+      ],
+      "minDownShare": 0.25
+    },
+    "narrow-ledger": {
+      "notes": "Unregistered lender at the counter in Corsair's Hollow, Ceres; lends only to a player docked there (Phobos Banking 0.4.0, agent choice). About 40% interest over a whole loan paid on time.",
+      "name": "The Narrow Ledger",
+      "pitch": "No standing, no references, no questions about where the last ship went. The Narrow Ledger lends small and lends fast to anyone who finds the counter. Our terms are steep because nobody else will have you, and we both know it. Pay by the shift and we stay friends.",
+      "accredited": false,
+      "home": "coho",
+      "person": "narrow-ledger-pell",
+      "ratePerShift": 0.0015,
+      "minPrincipal": 1000,
+      "maxPrincipal": 30000,
+      "maxLoans": 3,
+      "offers": [
+        "cash"
+      ],
+      "minDownShare": 0.5
     }
   }
 }

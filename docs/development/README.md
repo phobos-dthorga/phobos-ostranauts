@@ -113,6 +113,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Initial modding findings](modding-notes.md)
 - [Alternative PDA cartridge ideas](pda-cartridge-ideas.md)
 - [PDA apps and a banking mod: research](pda-apps-and-banking-research.md)
+- [Phobos Banking stories: handoff for ChatGPT](banking-stories-handoff.md): the lenders, their events and flags, and the rules for their letters, adverts and news
 - [Performance audit and practical playtesting](performance-audit.md)
 - [Phobos Framework: independent foundation](phobos-framework.md)
 - [Writing for the crew](player-language.md)

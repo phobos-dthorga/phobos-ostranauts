@@ -5,6 +5,20 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-07 - Draft
+
+### Added
+
+- Two unregistered lenders (agent choices for the owner to review): Stillwater Advances at Port Independence on Ganymede, which lends 2,000 to 60,000 and finances ships from 25% down, and the Narrow Ledger, which lends 1,000 to 30,000 to anyone docked at Corsair's Hollow on Ceres. Neither asks for standing; both cost more (about 21% and 40% in interest over a whole loan paid on time). Not paying them has only the game's own consequences, the late fee.
+- Letters from your lenders. Each lender has an officer who writes when you borrow, when a bill turns late, when it has been late for three game days, and when a loan is paid off. Letters reach you anywhere and appear in the Letters window; a late letter may ask for a reply. Replies change only the story; bills are paid in the Finances window. This version ships Corvane Mutual's letters; the other lenders' letters, adverts and news are being written.
+- For story writers: on each of those events Phobos Banking starts the story arc bank-lender-event (borrowed, late, late-long, repaid) when a story pack has one, and keeps the flag bank-lender-late-long beside the others.
+
+### Compatibility and limits
+
+- Saves: nothing new is saved by Phobos Banking. Letters are kept in Framework's story record, like any story correspondence.
+- Paying a Corvane Mutual loan off gains 2 standing with OKLGCorp, through the game's own faction score.
+- Checked offline and against the game's data (the story pack loads whole, every faction named exists); not yet seen in play.
+
 ### Changed
 
 - Replaced the placeholder Workshop cover scene with an original overhead pixel-art illustration of a spacer checking a debt overview on their PDA. The cover does not change gameplay.

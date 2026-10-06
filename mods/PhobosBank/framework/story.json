@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Phobos Banking story pack (0.4.0). The lenders' officers and threads, and one complete example set of letters for Corvane Mutual, written by Claude as wiring proof and a model; ChatGPT writes the rest (docs/development/banking-stories-handoff.md). Phobos Banking starts the arc bank-<lender>-<event> when the event happens, if it exists: borrowed, late, late-long, repaid.",
+  "people": {
+    "corvane-ines-varga": {
+      "name": "Ines Varga",
+      "role": "loans officer, Corvane Mutual",
+      "home": "oklg",
+      "faction": "OKLGCorp"
+    },
+    "halcyon-laurent-chao": {
+      "name": "Laurent Chao",
+      "role": "client manager, Halcyon Bond",
+      "home": "mtrs",
+      "faction": "Xinhua"
+    },
+    "aerie-maeve-okonjo": {
+      "name": "Maeve Okonjo",
+      "role": "members' adviser, Aerie Savings Union",
+      "home": "vnca"
+    },
+    "stillwater-dario-kessel": {
+      "name": "Dario Kessel",
+      "role": "advances clerk, Stillwater Advances",
+      "home": "jfts"
+    },
+    "narrow-ledger-pell": {
+      "name": "Pell",
+      "role": "the counter, the Narrow Ledger",
+      "home": "coho"
+    }
+  },
+  "threads": {
+    "bank-corvane-mutual": {
+      "title": "Corvane Mutual",
+      "notes": "Letters from K-Leg's registered lender. No place, so its letters reach the player anywhere.",
+      "people": [
+        "corvane-ines-varga"
+      ]
+    },
+    "bank-halcyon-bond": {
+      "title": "Halcyon Bond",
+      "notes": "Letters from Mars's bond house.",
+      "people": [
+        "halcyon-laurent-chao"
+      ]
+    },
+    "bank-aerie-savings": {
+      "title": "Aerie Savings Union",
+      "notes": "Letters from Venus's savings union.",
+      "people": [
+        "aerie-maeve-okonjo"
+      ]
+    },
+    "bank-stillwater-advances": {
+      "title": "Stillwater Advances",
+      "notes": "Letters from Ganymede's quick-money lender.",
+      "people": [
+        "stillwater-dario-kessel"
+      ]
+    },
+    "bank-narrow-ledger": {
+      "title": "The Narrow Ledger",
+      "notes": "Letters from the counter in Corsair's Hollow.",
+      "people": [
+        "narrow-ledger-pell"
+      ]
+    }
+  },
+  "arcs": {
+    "bank-corvane-mutual-borrowed": {
+      "title": "Corvane Mutual: a new loan",
+      "thread": "bank-corvane-mutual",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking when the player borrows from Corvane Mutual.",
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "corvane-ines-varga",
+              "text": "Welcome to Corvane Mutual, [player-first]. Your loan is on our books and the money is in your account. The first instalment is already on your ledger; the rest come by the shift. Pay them in your Finances window and we will get along fine."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-corvane-mutual-late": {
+      "title": "Corvane Mutual: a late bill",
+      "thread": "bank-corvane-mutual",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking when a Corvane Mutual bill turns late. The reply changes nothing in the ledger; the game's late fee stands either way.",
+      "steps": [
+        {
+          "id": "reminder",
+          "delivery": {
+            "message": {
+              "person": "corvane-ines-varga",
+              "text": "[player-first], one of your bills to Corvane Mutual has gone past its shift. The station adds its late fee at every shift change it stays unpaid, and there is nothing I can do about that. Can we expect it soon?"
+            }
+          },
+          "choices": [
+            {
+              "id": "pay",
+              "label": "It will be paid this shift",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "corvane-ines-varga",
+                  "text": "Good. Every bill is in your Finances window, oldest first. Thank you, [player-first]."
+                }
+              }
+            },
+            {
+              "id": "time",
+              "label": "Ask for a little patience",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "corvane-ines-varga",
+                  "text": "Noted. I cannot stop the late fee; that is the station's rule, not ours. Pay what you can, when you can, and keep me informed."
+                },
+                "setFlags": [
+                  "bank-corvane-mutual-asked-time"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "bank-corvane-mutual-late-long": {
+      "title": "Corvane Mutual: still unpaid",
+      "thread": "bank-corvane-mutual",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking when a Corvane Mutual bill has been late for three game days.",
+      "steps": [
+        {
+          "id": "notice",
+          "delivery": {
+            "message": {
+              "person": "corvane-ines-varga",
+              "text": "[player], your bills to Corvane Mutual have been late for days and the fees grow every shift. We have no wish to make this harder than it is. Pay what you can in your Finances window, the oldest first, and the rest will follow."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-corvane-mutual-repaid": {
+      "title": "Corvane Mutual: paid in full",
+      "thread": "bank-corvane-mutual",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking when a Corvane Mutual loan is repaid. A small standing gain with OKLGCorp through the game's own faction score.",
+      "steps": [
+        {
+          "id": "thanks",
+          "delivery": {
+            "message": {
+              "person": "corvane-ines-varga",
+              "text": "Paid in full, [player-first]. Corvane Mutual thanks you. Word of a good borrower gets around the yards, and our door stays open."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "onComplete": {
+            "standing": [
+              {
+                "faction": "OKLGCorp",
+                "change": 2
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

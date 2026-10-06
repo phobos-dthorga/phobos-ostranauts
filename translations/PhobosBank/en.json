@@ -144,5 +144,6 @@
   "Financing.how": "For a broker purchase, ask for a pre-approval here first. At a broker where this lender trades, the purchase window then lets you pay from {0}% down, and the mortgage becomes this lender's, with its interest.",
   "Financing.overview_ship": "Pre-approved by {0} for a ship purchase: up to {1}, until {2}.",
   "Financing.overview_home": "Pre-approved by {0} for an apartment: up to {1}, until {2}.",
-  "Financing.expired": "The pre-approval from {0} has run out. Ask again in the Credit panel if you still need it."
+  "Financing.expired": "The pre-approval from {0} has run out. Ask again in the Credit panel if you still need it.",
+  "Loans.story_skipped": "Phobos Banking did not start story arc {0}: {1}"
 }

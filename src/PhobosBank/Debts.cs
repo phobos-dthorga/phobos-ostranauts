@@ -63,11 +63,13 @@ internal static class Debts
     /// <summary>The game's running loans (its private mortgage list), or none when it cannot be read.</summary>
     internal static IEnumerable<LedgerLI> Mortgages() => CanReadLoans && MortgageField!.GetValue(null) is List<LedgerLI> list ? list : Enumerable.Empty<LedgerLI>();
 
-    /// <summary>Whether any unpaid bill to this creditor is late, by the game's own wording.</summary>
-    internal static bool LateTo(string payee, string playerId)
+    /// <summary>When the oldest late unpaid bill to this creditor was raised, by the game's own wording, or null when
+    /// none is late.</summary>
+    internal static double? LateSince(string payee, string playerId)
     {
         string overdue = DataHandler.GetString("GUI_FINANCE_OVERDUE"), late = DataHandler.GetString("GUI_FINANCE_LATE");
-        return (Ledger.GetUnpaidLIs(payee, playerId, null, false) ?? new List<LedgerLI>()).Any(l => l != null && BankRules.IsLate(l.strDesc, overdue, late));
+        var times = (Ledger.GetUnpaidLIs(payee, playerId, null, false) ?? new List<LedgerLI>()).Where(l => l != null && BankRules.IsLate(l.strDesc, overdue, late)).Select(l => l.fTime).ToList();
+        return times.Count == 0 ? null : times.Min();
     }
 
     /// <summary>Cash the player carries now (the game's money condition).</summary>

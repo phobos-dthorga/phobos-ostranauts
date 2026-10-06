@@ -74,7 +74,9 @@ LenderPack LoadLenders(string json) => DataPacks.LoadText<LenderPack>(json, "", 
 bool RefusedLenders(string json) { try { LoadLenders(json); return false; } catch (Exception ex) when (ex is ArgumentException || ex is FormatException) { return true; } }
 string WithLender(string find, string replace) { Check(shippedLenders.Contains(find), "fixture has " + find); return shippedLenders.Replace(find, replace); }
 var lenderPack = LoadLenders(shippedLenders);
-Check(lenderPack.lenders.Count >= 3 && lenderPack.lenders.Values.All(l => l.accredited), "the shipped pack holds the accredited lenders");
+Check(lenderPack.lenders.Values.Count(l => l.accredited) >= 3 && lenderPack.lenders.Values.Count(l => !l.accredited) >= 2, "the shipped pack holds accredited and unregistered lenders");
+Check(lenderPack.lenders.Values.Where(l => !l.accredited).All(l => l.requires == null) && lenderPack.lenders.Values.Where(l => !l.accredited).Min(l => l.ratePerShift) > lenderPack.lenders.Values.Where(l => l.accredited).Max(l => l.ratePerShift),
+    "unregistered lenders ask no standing and cost more than any registered one");
 Check(RefusedLenders(WithLender("\"ratePerShift\": 0.00025", "\"ratePerShift\": 0")), "a lender charges some interest");
 Check(RefusedLenders(WithLender("\"ratePerShift\": 0.00025", "\"ratePerShift\": 0.5")), "and not a ruinous rate");
 Check(RefusedLenders(WithLender("\"minPrincipal\": 5000,\n      \"maxPrincipal\": 250000", "\"minPrincipal\": 250000,\n      \"maxPrincipal\": 5000")), "the smallest loan is below the most owed");
@@ -87,7 +89,18 @@ Check(lenderPack.lenders.Keys.All(id => StorySchema.IsId(LoanRules.Flag(id, Loan
 Check(StorySchema.IsId(LoanRules.Flag(new string('a', LenderSchema.MaxIdLength), LoanRules.Borrowed)), "the longest lender id still makes a valid flag");
 // Every lender's home, person and requirements name entries Framework's own story pack has.
 var story = DataPacks.LoadText<StoryPack>(File.ReadAllText(Path.Combine(repo, "mods", "PhobosFramework", "framework", "story.json")), "", "framework", StorySchema.Name, p => StorySchema.Validate(p, true));
-var library = StoryLibrary.Build(new[] { ("framework", story) }, null, _ => true, null, null);
+var bankStory = DataPacks.LoadText<StoryPack>(File.ReadAllText(Path.Combine(repo, "mods", "PhobosBank", "framework", "story.json")), "", BankRules.Owner, StorySchema.Name, p => StorySchema.Validate(p, false));
+var library = StoryLibrary.Build(new[] { ("framework", story), ("bank", bankStory) }, null, _ => true, null, null);
+Check(library.Problems.Count == 0, "the Banking story pack loads whole beside Framework's: " + string.Join("; ", library.Problems));
+foreach (var arc in bankStory.arcs.Keys)
+    Check(lenderPack.lenders.Keys.Any(l => LoanRules.Events.Any(e => arc == LoanRules.Arc(l, e))), "story arc " + arc + " is a lender's event arc, so Phobos Banking starts it");
+foreach (var arc in bankStory.arcs.Values) Check(arc.chance == 0 && arc.repeatable && arc.thread != null, "an event arc starts only from its event, may come again, and belongs to its lender's thread");
+foreach (var pair in lenderPack.lenders) Check(pair.Value.person == null || bankStory.people.ContainsKey(pair.Value.person), "lender " + pair.Key + "'s officer is in the Banking story pack");
+foreach (var thread in bankStory.threads.Values) Check(thread.place == null, "a lender's thread has no place, so its letters reach the player anywhere");
+Check(lenderPack.lenders.Keys.All(id => LoanRules.Events.All(e => StorySchema.IsId(LoanRules.Arc(id, e)))) && StorySchema.IsId(LoanRules.Arc(new string('a', LenderSchema.MaxIdLength), LoanRules.LateLong)),
+    "every lender's event arc id is a valid story id, the longest lender id included");
+Check(LoanRules.LongLate(0, 3 * Phobos.Ostranauts.Framework.GameClock.DaySeconds) && !LoanRules.LongLate(0, 3 * Phobos.Ostranauts.Framework.GameClock.DaySeconds - 1) && !LoanRules.LongLate(null, 1e9),
+    "bills are late long after three game days");
 foreach (var pair in lenderPack.lenders) Check(LenderSchema.Unknown(pair.Value, library) == null, "lender " + pair.Key + " names only known places and people");
 Check(LenderSchema.Unknown(new LenderEntry { home = "atlantis-deep" }, library) != null, "an unknown home leaves a lender out");
 
@@ -98,7 +111,8 @@ foreach (var pair in lenderPack.lenders)
 {
     double share = LoanRules.TotalInterest(100000, pair.Value.ratePerShift) / 100000;
     Console.WriteLine("  " + pair.Key + ": a whole loan costs " + share.ToString("P2") + " in interest if paid on time");
-    Check(share > 0.03 && share < 0.12, "a whole loan from " + pair.Key + " costs between 3% and 12% in interest if paid on time");
+    Check(pair.Value.accredited ? share > 0.03 && share < 0.12 : share > 0.12 && share < 0.5,
+        "a whole loan from " + pair.Key + " costs " + (pair.Value.accredited ? "3% to 12%" : "12% to 50%") + " in interest if paid on time");
 }
 Check(LoanRules.TotalInterest(200000, 0.0002) > LoanRules.TotalInterest(100000, 0.0002) * 1.99, "interest grows with the amount borrowed");
 Check(LoanRules.Headroom(250000, 100000) == 150000 && LoanRules.Headroom(250000, 300000) == 0 && LoanRules.Headroom(250000, -5) == 250000, "headroom is the limit less what is owed");

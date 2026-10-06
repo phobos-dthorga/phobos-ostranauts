@@ -139,6 +139,7 @@ internal static class Loans
             Opened = StarSystem.fEpoch, BilledTo = GameClock.ShiftCount(StarSystem.fEpoch), Kind = kind, Collateral = collateral
         });
         Flag(LoanRules.Flag(lenderId, LoanRules.Borrowed), true);
+        Story(lenderId, LoanRules.Borrowed);
         return loan;
     }
 
@@ -165,7 +166,7 @@ internal static class Loans
             if (line == null || line.fAmount <= BankRules.PaidOffBelow || line.Paid)
             {
                 loan.State = line == null ? LoanState.Settled : LoanState.Repaid; loan.Closed = now; changed = true;
-                if (loan.State == LoanState.Repaid) Flag(LoanRules.Flag(loan.Lender, LoanRules.Repaid), true);
+                if (loan.State == LoanState.Repaid) { Flag(LoanRules.Flag(loan.Lender, LoanRules.Repaid), true); Story(loan.Lender, LoanRules.Repaid); }
                 player.LogMessage(Text.Get(loan.State == LoanState.Repaid ? "Loans.repaid" : "Loans.settled", loan.Payee), "Good", player.strID);
                 continue;
             }
@@ -184,19 +185,38 @@ internal static class Loans
                 }
             }
         }
-        // A lender's late flag stands while any of its bills is late.
+        // A lender's late flag stands while any of its bills is late, and its late-long flag once the oldest has been
+        // late for days; each turning on starts the lender's story arc for it, when a story pack has one (0.4.0).
         foreach (var lender in book.Loans.Values.Select(l => l.Lender).Distinct().ToArray())
         {
-            var payees = book.Loans.Values.Where(l => l.Lender == lender).Select(l => l.Payee).Distinct();
-            Flag(LoanRules.Flag(lender, LoanRules.Late), payees.Any(p => Debts.LateTo(p, player.strID)));
+            var since = book.Loans.Values.Where(l => l.Lender == lender).Select(l => l.Payee).Distinct()
+                .Select(p => Debts.LateSince(p, player.strID)).Where(t => t != null).DefaultIfEmpty(null).Min();
+            if (Flag(LoanRules.Flag(lender, LoanRules.Late), since != null)) Story(lender, LoanRules.Late);
+            if (Flag(LoanRules.Flag(lender, LoanRules.LateLong), LoanRules.LongLate(since, now))) Story(lender, LoanRules.LateLong);
         }
         if (changed) Save();
     }
 
-    private static void Flag(string flag, bool on)
+    /// <summary>Sets or clears a story flag; true when it has just been set.</summary>
+    private static bool Flag(string flag, bool on)
     {
-        try { if (on != StoryFlags.Has(flag)) { if (on) StoryFlags.Set(flag); else StoryFlags.Clear(flag); } }
-        catch (ArgumentException ex) { Plugin.Log(ex.Message); }
+        try
+        {
+            if (on == StoryFlags.Has(flag)) return false;
+            if (on) return StoryFlags.Set(flag);
+            StoryFlags.Clear(flag);
+            return false;
+        }
+        catch (ArgumentException ex) { Plugin.Log(ex.Message); return false; }
+    }
+
+    /// <summary>Starts the lender's story arc for an event when a story pack has one, honouring its requirements
+    /// (Phobos Banking 0.4.0). Arcs are optional: none means nothing happens.</summary>
+    private static void Story(string lender, string what)
+    {
+        string arc = LoanRules.Arc(lender, what);
+        if (!StoryContent.Library.Arcs.ContainsKey(arc)) return;
+        if (!StoryArcs.TryBegin(arc, out string message)) Plugin.Log(Text.Get("Loans.story_skipped", arc, message));
     }
 
     internal static string Percent(double share) => (share * 100).ToString(share * 100 < 0.1 ? "0.###" : "0.##");

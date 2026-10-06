@@ -17,7 +17,7 @@ namespace PhobosBank;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = BankRules.Owner;
-    public const string Version = "0.3.0";
+    public const string Version = "0.4.0";
     public const string MinimumFrameworkVersion = "0.127.0";
     internal const string ModName = "Phobos Banking";
     internal static Action<string> Log = _ => { };
@@ -31,6 +31,9 @@ public sealed class Plugin : BaseUnityPlugin
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
         PerformanceMetrics.Initialize();
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
+        // The lenders' officers, threads and letters (0.4.0): a story pack, loaded and checked by Framework.
+        Phobos.Ostranauts.Framework.Story.StoryContent.Register(new Phobos.Ostranauts.Framework.Data.DataPackSource(
+            BankRules.Owner, BankRules.ModFolder, Phobos.Ostranauts.Framework.Story.StorySchema.Name, typeof(Plugin).Assembly, "PhobosBank.story.json"));
         FrameworkLifecycle.ContentLoading += Load;
         FrameworkLifecycle.ContentLoaded += Loaded;
         Log(Text.Get("Plugin.loaded", Version));

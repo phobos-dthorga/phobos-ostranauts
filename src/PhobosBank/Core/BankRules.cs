@@ -33,6 +33,8 @@ public static class BankRules
     public const float LoanPollSeconds = 5;
     /// <summary>How long a lender's pre-approval for a broker purchase stands, in game days (agent default).</summary>
     public const double ApprovalDays = 1;
+    /// <summary>Game days a lender's bill may stay late before the late-long story event (agent default).</summary>
+    public const double LateLongDays = 3;
     /// <summary>The game's real-estate broker kiosks carry this in their definition name (ItmKioskResBroker01VENC); the
     /// ship brokers do not. The same broker window serves both.</summary>
     public const string RealEstateKioskMark = "ResBroker";

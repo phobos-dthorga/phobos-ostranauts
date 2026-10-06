@@ -1204,6 +1204,15 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: lenders' letters (L95)
+
+L95 — Phobos Banking 0.4.0. The five-second loan poll now finds the oldest late bill per
+lender (the same unpaid-bill lookup as before, keeping the earliest time) and, only when a
+lender's late or late-long flag turns on, or a loan is borrowed or repaid, asks the story
+system to start that lender's letter arc. The Banking story pack loads with the other
+story packs at content load. Nothing runs per frame or per world tick. No capture
+accompanies this change.
+
 ## 7 October: waiting order steps offered when the game finds no task (L94)
 
 L94 — Framework 0.127.1, owner report. A postfix on `WorkManager.ClaimNextTask` returns at
