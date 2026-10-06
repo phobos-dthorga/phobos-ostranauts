@@ -11,7 +11,8 @@ namespace Phobos.Ostranauts.Framework.Trading;
 /// allows is raised to what the player's own torch ships need (<see cref="GigTimeRules"/>), never lowered. The game
 /// saves that allowance with the gig and reads it for the deadline, the shown duration and the speed bonuses, so all
 /// three agree; a taken gig is never touched. The offer's text then says how its time was set. The player's ships and
-/// their accelerations are read at most every ten real seconds, so listing gigs costs a few multiplications per offer.</summary>
+/// their accelerations are read at most once a minute of real time by default (FleetRefreshSeconds, Framework 0.124.0),
+/// so listing gigs costs a few multiplications per offer.</summary>
 public static class GigDeadlines
 {
     public static bool Enabled { get; set; } = true;
@@ -19,7 +20,13 @@ public static class GigDeadlines
     public static double DockingHours { get; set; } = GigTimeRules.DefaultDockingHours;
     private static readonly List<Ship> ships = new();
     private static readonly List<double> accelerations = new();
-    private static readonly Cadence refresh = new(10);
+    private static Cadence refresh = new(GigTimeRules.DefaultFleetRefreshSeconds);
+    /// <summary>How often the player's ships are read again, in real seconds (the FleetRefreshSeconds setting).</summary>
+    public static double FleetRefreshSeconds
+    {
+        get => refresh.Seconds;
+        set => refresh = new Cadence(GigTimeRules.FleetRefreshSeconds(value));
+    }
 
     /// <summary>Full torch acceleration (AU/s², the game's 2 g limiter on) of each torch ship the player owns, loaded or not.</summary>
     internal static IReadOnlyList<double> Fleet()

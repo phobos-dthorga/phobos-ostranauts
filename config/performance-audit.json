@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-06",
-  "baselineCommit": "cbb9b0f2668f54ccd3c15a09448716bd038677f4",
+  "baselineCommit": "f1e01f24f2f7ba3c8441a95622b6ec288bf32f34",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -6451,7 +6451,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "68f3ec7e818a99649ee47785a3f858619cef8837f9188fd0cc5317c48fcb52df",
+      "sha256": "7e32461ad192e98c5bf0fe8ca94700cb59b606ee46ee7bd9bc090a09fa71c14a",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
@@ -6526,7 +6526,8 @@
         "L77",
         "L78",
         "L81",
-        "L82"
+        "L82",
+        "L83"
       ],
       "indicators": {
         "collection": [
@@ -6534,7 +6535,7 @@
           46
         ],
         "runtime_hook": [
-          128
+          130
         ]
       },
       "reviewed": "2026-10-06"
@@ -7817,41 +7818,43 @@
     },
     {
       "path": "src/PhobosFramework/Trading/GigDeadlines.cs",
-      "sha256": "fbef462188be8a1851b63000545603dd41f7216aa3b4dc54d3f143bfd7550eb7",
+      "sha256": "25ced8a0a052b2bd099329ec0c649d28c13ee1b07be12f422a8c43de1c9de3f9",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "L82"
+        "L82",
+        "L83"
       ],
       "indicators": {
         "collection": [
-          62,
-          79
+          69,
+          86
         ],
         "runtime_hook": [
-          85,
-          96
+          92,
+          103
         ],
         "persistence_or_io": [
-          92,
-          102
+          99,
+          109
         ]
       },
       "reviewed": "2026-10-06"
     },
     {
       "path": "src/PhobosFramework/Trading/GigTimeRules.cs",
-      "sha256": "ad11bc2dd2298a5cd5413f2c36902400f0f6535ffe54924ad4f86852b2904396",
+      "sha256": "8850686a2a272e826be6e649ac42ae2b0a9bca25bf82846c57894210098c20c7",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "L82"
+        "L82",
+        "L83"
       ],
       "indicators": {
         "collection": [
-          26
+          32
         ]
       },
       "reviewed": "2026-10-06"

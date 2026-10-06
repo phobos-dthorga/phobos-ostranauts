@@ -75,6 +75,7 @@
   "Gigs.setting_fair": "Fair gig deadlines: a far gig allows the time your own torch-equipped ships need to make the trip, averaged across them, instead of the game's 70 hours per AU in a straight line. Never shorter than the game's own time. Set false to keep the game's deadlines.",
   "Gigs.setting_margin": "How much longer than your torch ships' average trip a far gig allows, 1 to 3 times (1.25 adds a quarter for course changes and slower burns).",
   "Gigs.setting_docking": "Hours added to every far gig for undocking, docking and turning it in, 0 to 48.",
+  "Gigs.setting_refresh": "How often, in real seconds, your ships are read again for fair gig deadlines, 10 to 600 (default 60). Game speed does not change it. Raise it if listing gigs ever stutters; lower it if a newly bought ship should count sooner.",
   "Gigs.route": "Phobos: destination {0}, {1} km from the pickup in a straight line.",
   "Gigs.fair": "Time allowed: at least your {0} torch ship(s)' average trip of {1} at the 2 g limiter, times {2}, plus {3} hours to dock and turn in. The speed bonuses follow this time.",
   "Gigs.no_torch": "None of your ships has a torch drive, so the game's own time stands. Its long-range ferry would take about {0}.",

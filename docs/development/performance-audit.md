@@ -1204,6 +1204,12 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: fleet refresh setting (L83)
+
+L83 — Framework 0.124.0, owner request. Fair gig deadlines now read the player's ships at most once a minute of real
+time by default, not every ten seconds. The new FleetRefreshSeconds setting allows 10 to 600 seconds. Game speed does
+not shorten it. The work per read is unchanged. No capture accompanies this change.
+
 ## 6 October: sound files, story faces and letters, fair gig deadlines (L82)
 
 L82 covers Framework 0.120.0 to 0.123.0, Spacer Stories 0.3.1, Auto Nav 0.34.1 and War Has Been Declared 0.3.1. It also

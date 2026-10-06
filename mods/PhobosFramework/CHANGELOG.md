@@ -29,6 +29,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.124.0] - 2026-10-06 - Draft
+
+### Added
+
+- A FleetRefreshSeconds setting in the Gigs section (owner request, 6 October 2026): how often your ships are read again for fair gig deadlines, 10 to 600 real seconds. The default is now once a minute rather than every 10 seconds, since ships change rarely. Game speed, such as 16x, does not change real time, so it does not change this either.
+
+### Save compatibility
+
+- Automatic. Nothing is saved.
+
 ## [0.123.0] - 2026-10-06 - Draft
 
 ### Added

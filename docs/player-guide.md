@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.123.0**, Shipbreaker **0.84.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.124.0**, Shipbreaker **0.84.0**, Auto Nav
 **0.34.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -472,7 +472,10 @@ the pickup and how the time was set. With no torch ship of yours, the game's own
 stands and the text says how long the game's ferry would take.
 
 Settings, in `BepInEx/config/phobosgekko.ostranauts.framework.cfg`, section `Gigs`:
-`FairDeadlines` (on), `TripMargin` (1 to 3) and `DockingHours` (0 to 48). Limits: the
+`FairDeadlines` (on), `TripMargin` (1 to 3), `DockingHours` (0 to 48) and, since Framework
+0.124.0, `FleetRefreshSeconds` (10 to 600, default 60): how often your ships are read
+again, in real seconds, so a ship bought or refitted counts within a minute. Game speed
+does not change it. Limits: the
 distance is measured when the offer is listed, as the game measures it, and fuel is not
 counted (a refuelled torch is assumed). Gigs you have already taken keep their deadline;
 offers already on a board are corrected the next time it lists them.

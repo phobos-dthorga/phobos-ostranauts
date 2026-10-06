@@ -18,6 +18,12 @@ public static class GigTimeRules
     public const double FarAu = 3.342293712194078E-05;
     public const double DefaultMargin = 1.25, MinMargin = 1, MaxMargin = 3;
     public const double DefaultDockingHours = 4, MinDockingHours = 0, MaxDockingHours = 48;
+    /// <summary>How often, in real seconds, the player's ships are read again for the allowance (Framework 0.124.0;
+    /// owner choice: a minute, as ships rarely change and game speed does not change real time).</summary>
+    public const double DefaultFleetRefreshSeconds = 60, MinFleetRefreshSeconds = 10, MaxFleetRefreshSeconds = 600;
+
+    /// <summary>The refresh interval held to its range; nonsense falls back to the default.</summary>
+    public static double FleetRefreshSeconds(double seconds) => Clamp(seconds, MinFleetRefreshSeconds, MaxFleetRefreshSeconds, DefaultFleetRefreshSeconds);
 
     /// <summary>The hours a gig allows: the game's own hours, or the fleet's average trip with margin and docking time
     /// when that is longer. Trips that cannot be made (no acceleration) do not count.</summary>

@@ -37,6 +37,9 @@ internal static class GigChecks
         check(GigTimeRules.Allowance(1, new[] { 3600.0, double.PositiveInfinity, double.NaN, -5 }, 1.25, 4) == 1 * 1.25 + 4, "Trips that cannot be made do not count");
         check(GigTimeRules.Allowance(1, new[] { 3600.0 }, 99, -3) == 3 + 0 && GigTimeRules.Allowance(1, new[] { 3600.0 }, double.NaN, double.NaN) == 1.25 + 4,
             "Settings out of range are held to 1 to 3 times and 0 to 48 hours; nonsense falls back to the defaults");
+        check(GigTimeRules.DefaultFleetRefreshSeconds == 60 && GigTimeRules.FleetRefreshSeconds(1) == 10 && GigTimeRules.FleetRefreshSeconds(5000) == 600 &&
+              GigTimeRules.FleetRefreshSeconds(double.NaN) == 60 && GigTimeRules.FleetRefreshSeconds(120) == 120,
+            "The fleet is read again once a minute by default; the setting is held to 10 to 600 real seconds");
         check(GigTimeRules.FerryHours(.7) == .7 * 80 && GigTimeRules.GameHoursPerAu < GigTimeRules.FerryHoursPerAu, "The game's own ferry is slower than its gig allowance");
     }
 }
