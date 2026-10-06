@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import re
 import tempfile
 import unittest
 
@@ -74,6 +75,15 @@ class ReadOnlyHeaderTests(unittest.TestCase):
                 with self.subTest(mod=mod, file=relative):
                     note = h.header(mod, relative, (ROOT / 'mods' / mod / relative).read_bytes())
                     self.assertTrue(note.startswith(h.MARK) and '"' not in note and '\n' not in note)
+
+    def test_every_build_script_stamps_its_package(self):
+        # Workshop preparation expects the notes, so a build that packages by hand must add them itself.
+        for script in sorted((ROOT / 'scripts').glob('build-*.ps1')):
+            if script.name == 'build-package-support.ps1':
+                continue
+            with self.subTest(script=script.name):
+                text = script.read_text(encoding='utf-8-sig')
+                self.assertTrue(re.search(r'New-PhobosPackage\s+-RepoRoot', text) or 'read-only-data-headers.py' in text)
 
 
 if __name__ == '__main__':

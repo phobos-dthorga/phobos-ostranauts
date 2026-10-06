@@ -111,7 +111,10 @@ New-Item -ItemType Directory -Force -Path $pluginTarget, $nativeTarget | Out-Nul
 Copy-Item -LiteralPath $plugin -Destination $pluginTarget
 Copy-Item -LiteralPath (Join-Path $repoRoot 'translations/PhobosAutoNav') -Destination (Join-Path $pluginTarget 'translations') -Recurse
 Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
-$guide = Get-Content -LiteralPath (Join-Path $repoRoot 'docs/development/auto-navigate-adaptation.md') -Raw
+# The data copies built into the DLL say on their first line that editing them changes nothing, as New-PhobosPackage does.
+python (Join-Path $repoRoot 'scripts/read-only-data-headers.py') --mod PhobosAutoNav --package $package | Out-Host
+if ($LASTEXITCODE -ne 0) { throw "Cannot add the read-only notes to PhobosAutoNav's data copies." }
+$guide =Get-Content -LiteralPath (Join-Path $repoRoot 'docs/development/auto-navigate-adaptation.md') -Raw
 $guide = $guide.Replace('(../THIRD_PARTY_NOTICES.md)', '(THIRD_PARTY_NOTICES.md)')
 $guide = $guide.Replace('(../assets/phobos-autonav/README.md)', '(ARTWORK.md)')
 Set-Content -LiteralPath (Join-Path $package 'README.md') -Value $guide -Encoding utf8
