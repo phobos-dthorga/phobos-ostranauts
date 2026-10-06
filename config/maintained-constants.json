@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.125.0",
+      "value": "0.126.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -2890,6 +2890,106 @@
         {
           "path": "mods/PhobosSpacerStories/mod_info.json",
           "pattern": "Requires Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Bank.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.1.0",
+      "description": "PhobosBank (Phobos Banking) published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosBank/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosBank/PhobosBank.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosBank/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Banking\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosBank/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-bank.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
+      ]
+    },
+    "Bank.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosBank native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosBank/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "Bank.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.126.0",
+      "description": "Current Phobos Banking required Framework version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosBank/Plugin.cs",
+          "pattern": "MinimumFrameworkVersion = \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"Bank\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Phobos Banking requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\| \\*\\*Phobos Banking\\*\\* \\| [0-9.]+ \\|[^|]*\\| Requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosBank/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosBank/mod_info.json",
+          "pattern": "Requires Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "docs/bank-player-guide.md",
+          "pattern": "BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+) or newer",
           "count": 1
         }
       ],

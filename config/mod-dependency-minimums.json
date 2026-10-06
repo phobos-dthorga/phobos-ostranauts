@@ -32,6 +32,10 @@
     "SpacerStories.Framework": {
       "since": "0.1.0",
       "value": "0.114.0"
+    },
+    "Bank.Framework": {
+      "since": "0.1.0",
+      "value": "0.126.0"
     }
   }
 }

@@ -9,7 +9,8 @@
     "PhobosAutoNav",
     "PhobosMedical",
     "PhobosWarDeclared",
-    "PhobosSpacerStories"
+    "PhobosSpacerStories",
+    "PhobosBank"
   ],
   "rules": [
     {
@@ -225,6 +226,12 @@
       "key": "Tow.single",
       "class": "refused",
       "note": "Which connection to release is the player's choice."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Finances.busy",
+      "class": "refused",
+      "note": "The game's own interface lock (a scene change or a window it is holding) blocks every window; Credit cannot lift it, and the player only has to try again."
     },
     {
       "mod": "PhobosFramework",

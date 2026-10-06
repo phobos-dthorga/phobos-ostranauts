@@ -1371,9 +1371,20 @@ piped, and joins chain across the ship.
   and never as Equipment, by each family's own machine condition; the game's conduit
   trigger itself is never changed (it also drives the power conduit's jobs).
   Lane art: `scripts/export-line-art.py` and `assets/line-art/README.md`.
-- **PDA apps (design only, not built).** A mod's own app on the wrist PDA needs a
-  `pda_apps` data entry, two tooltip strings, an icon and a narrow hook on
-  `GUIPDA.OpenApp`; the proposed shared `PdaApps` service and its limits are in the
+- **`Pda.PdaApps` (0.126.0).** A mod's own app on the PDA home screen. Call
+  `PdaApps.Register(new PdaApp { Name, Icon, Label, Title, Tooltip, Open })` during
+  `ContentLoading`, once the mod knows its package is enabled. `Name` is lowercase
+  letters, digits and underscores, starting with a letter and never one of the game's own
+  app names (`PdaApps.NativeNames`); `Icon` is an image path under the mod's `images/`
+  folder without `.png`, drawn as the game draws its own (a white disc with a black glyph,
+  256 px; the game tints it); `Label`, `Title` and `Tooltip` are catalogue lookups.
+  Framework writes the icon entry and the `GUI_PDA_BUTTON_<NAME>` tooltip strings into the
+  game's tables after every content load, so the mod ships no `pda_apps` or `strings`
+  data. A tap closes the PDA and calls `Open`, which returns null when its panel opened
+  or the reason it did not (written to the player's log). Open a panel the way
+  `LettersPanel` does, with a `RaiseUI` restore prefix keyed by its name. The quick bar
+  under the home screen is the player's own setting and cannot be added to. Phobos
+  Banking is the first user; design record:
   [PDA apps and banking research](pda-apps-and-banking-research.md).
 - **`Controls.ProviderPanel`.** The shared equipment Control Panel (Operation,
   Connections, Details) over any `IEquipmentProvider` with `IEquipmentPanelFields`:

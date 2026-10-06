@@ -2145,6 +2145,10 @@
     "PhobosSpacerStories": {
       "intro": "Phobos Spacer Stories adds no equipment or recipes. It is a data-only story collection about vanilla station life and Phobos makers: TV news and adverts, crew talk, loading lore, encyclopedia articles and 22 chains with 23 readable archive files. Files arrive on the game's Renbao R014 Data Cards and can be read on any computer or PDA. New local stories have no expiry; one optional letter waits for a convenient trip to Titan. Two once-only fees total 900 credits; no new chain takes money or goods. Vanilla gigs are unchanged. See [writing story content](writing-story-content.md) and the [expansion record](development/spacer-stories-vanilla-expansion.md).",
       "groups": []
+    },
+    "PhobosBank": {
+      "intro": "Phobos Banking adds no items, equipment or recipes. It adds the CREDIT app to the PDA home screen, which lists what you owe from the game's own ledger (loans and mortgages, bills to pay and regular charges) and opens the game's Finances window, where bills are paid. It never pays, charges or lends anything. See [the player guide](bank-player-guide.md).",
+      "groups": []
     }
   },
   "sources": {

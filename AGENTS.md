@@ -390,6 +390,12 @@ delivery in the changelog and design record, and add or amend only the rule here
 - **War Has Been Declared.** Puts the game's own build sites back where combat destroyed parts
   on the player's ships; crew build them with real parts. What is replaced comes from strict
   player-editable schematic files; extend the format with tests and the guide together.
+- **Banking.** Phobos Banking (`PhobosBank`) builds on the game's own ledger: it shows the
+  debts the game already keeps, payment stays in the game's Finances window, and default has
+  only the game's own consequences until the owner reopens repossession. Loans may fund broker
+  purchases, integrated with the broker's own window; lenders local to stations build on the
+  story system's places, people and threads. Apps on the PDA go through Framework `PdaApps`.
+  Design record: `docs/development/pda-apps-and-banking-research.md`.
 - **Medical.** The Halewright brand (models a word plus footprint width); the Ward-3 bed is the
   visual baseline (`docs/development/medical-art-handoff.md`). Treatments perform the game's own
   wound slotting on real items; the monitor never heals; a patient never treats themselves

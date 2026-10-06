@@ -1,0 +1,9 @@
+[
+  {
+    "strName": "PhobosBankContent",
+    "strNameFriendly": "Phobos Banking content",
+    "strColor": "Neutral",
+    "nDisplaySelf": 2,
+    "nDisplayOther": 2
+  }
+]

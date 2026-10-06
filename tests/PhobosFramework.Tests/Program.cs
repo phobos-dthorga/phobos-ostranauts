@@ -37,6 +37,7 @@ MaintenanceSheetChecks.Run(Check);
 CrewPanelRuleChecks.Run(Check);
 MachineSoundChecks.Run(Check);
 GigChecks.Run(Check);
+PdaAppChecks.Run(Check);
 GridFitChecks.Run(Check);
 LineContentsChecks.Run(Check);
 WaterTankChecks.Run(Check);

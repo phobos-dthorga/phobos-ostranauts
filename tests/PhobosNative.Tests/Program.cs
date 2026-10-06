@@ -344,6 +344,7 @@ Check(nativeManeuver.GetParameters()[4].ParameterType==typeof(float),"Final swep
 RegionalEconomyChecks.Run(game, Check, Throws);
 StockQuantityChecks.Run(Check, Throws);
 FactionKioskChecks.Run(Check);
+BankNativeChecks.Run(game, repo, Check);
 // Last: it runs the game's own Installables.Create over every native install job.
 WarDeclaredNativeChecks.Run(game, Check);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

@@ -11,6 +11,7 @@
     <ProjectReference Include="../../src/PhobosManufacturing/PhobosManufacturing.csproj" />
     <ProjectReference Include="../../src/PhobosWarDeclared/PhobosWarDeclared.csproj" />
     <ProjectReference Include="../../src/PhobosMedical/PhobosMedical.csproj" />
+    <ProjectReference Include="../../src/PhobosBank/PhobosBank.csproj" />
     <Reference Include="Assembly-CSharp" HintPath="$(GameManaged)/Assembly-CSharp.dll" />
     <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" />
     <Reference Include="Newtonsoft.Json" HintPath="$(GameManaged)/Newtonsoft.Json.dll" />

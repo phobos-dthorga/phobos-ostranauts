@@ -21,12 +21,14 @@ MANIFEST = 'assets/workshop/composed.json'
 # Bold title glyphs, 10 rows; widths vary (M is wider, I is a bar).
 TITLE = {
     'A': ['.XXXX.', 'XXXXXX', 'XX..XX', 'XX..XX', 'XX..XX', 'XXXXXX', 'XXXXXX', 'XX..XX', 'XX..XX', 'XX..XX'],
+    'B': ['XXXXX.', 'XXXXXX', 'XX..XX', 'XX..XX', 'XXXXX.', 'XXXXX.', 'XX..XX', 'XX..XX', 'XXXXXX', 'XXXXX.'],
     'C': ['.XXXXX', 'XXXXXX', 'XX....', 'XX....', 'XX....', 'XX....', 'XX....', 'XX....', 'XXXXXX', '.XXXXX'],
     'D': ['XXXXX.', 'XXXXXX', 'XX..XX', 'XX..XX', 'XX..XX', 'XX..XX', 'XX..XX', 'XX..XX', 'XXXXXX', 'XXXXX.'],
     'E': ['XXXXXX', 'XXXXXX', 'XX....', 'XX....', 'XXXXX.', 'XXXXX.', 'XX....', 'XX....', 'XXXXXX', 'XXXXXX'],
     'F': ['XXXXXX', 'XXXXXX', 'XX....', 'XX....', 'XXXXX.', 'XXXXX.', 'XX....', 'XX....', 'XX....', 'XX....'],
     'G': ['.XXXXX', 'XXXXXX', 'XX....', 'XX....', 'XX.XXX', 'XX.XXX', 'XX..XX', 'XX..XX', 'XXXXXX', '.XXXXX'],
     'I': ['XX'] * 10,
+    'K': ['XX..XX', 'XX..XX', 'XX.XX.', 'XXXX..', 'XXX...', 'XXX...', 'XXXX..', 'XX.XX.', 'XX..XX', 'XX..XX'],
     'L': ['XX....'] * 8 + ['XXXXXX', 'XXXXXX'],
     'M': ['XX....XX', 'XXX..XXX', 'XXXXXXXX', 'XX.XX.XX', 'XX.XX.XX', 'XX....XX', 'XX....XX', 'XX....XX', 'XX....XX', 'XX....XX'],
     'N': ['XX..XX', 'XXX.XX', 'XXX.XX', 'XXXXXX', 'XXXXXX', 'XX.XXX', 'XX.XXX', 'XX..XX', 'XX..XX', 'XX..XX'],
@@ -55,6 +57,7 @@ SUBTITLE = {
     'U': ['X...X'] * 6 + ['.XXX.'],
     'V': ['X...X'] * 4 + ['X...X', '.X.X.', '..X..'],
     'W': ['X...X', 'X...X', 'X...X', 'X.X.X', 'X.X.X', 'XX.XX', 'X...X'],
+    'Y': ['X...X', 'X...X', '.X.X.', '..X..', '..X..', '..X..', '..X..'],
     '/': ['....X', '...X.', '...X.', '..X..', '.X...', '.X...', 'X....'],
     ' ': ['.....'] * 7,
 }

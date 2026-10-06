@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "tool": "scripts/export-bank-art.py",
+  "generation": "none: drawn from fixed shapes by the script, which is the source of record",
+  "files": {
+    "assets/phobos-bank/Credit-1024.png": {
+      "sha256": "506954ECEA79E38CD5AA7EE6F9FDBCE9196F8F8E271F09371FCF12480871A3CC",
+      "bytes": 8470
+    },
+    "mods/PhobosBank/images/phobos/bank/Credit.png": {
+      "sha256": "0FD16BD1FE396B44832A704BA54B588CE64093C1B372AF634DCEB30459DD1212",
+      "bytes": 8637
+    },
+    "assets/workshop/sources/PhobosBank-scene.png": {
+      "sha256": "37BD3ED4AF284CE1B08A7369EB3154E5282FADA9BDB8026986336186488059AF",
+      "bytes": 1434
+    }
+  },
+  "notes": {
+    "mods/PhobosBank/images/phobos/bank/Credit.png": "CREDIT PDA app icon, 256 px like the game's own; reduced from the 1024 px master with Lanczos filtering.",
+    "assets/workshop/sources/PhobosBank-scene.png": "Placeholder scene layer for the held Workshop cover, composed by compose-workshop-cover.py."
+  }
+}

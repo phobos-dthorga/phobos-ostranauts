@@ -321,6 +321,85 @@
         },
         "review": "First scene and final 512/256 compositions inspected: matching shared frame and pixel lettering, resting spacer and head cartridges readable at thumbnail size. Original promotional illustration, no gameplay screenshot or added treatment claim."
       }
+    },
+    {
+      "id": "PhobosBank",
+      "frame": {
+        "path": "assets/workshop/previews/PhobosShipbreaker-512.png",
+        "sha256": "DA1C37E468E7E3129107D048888F3D44066D763E6B8A1E3898C773E50233312E",
+        "note": "Reuses the Shipbreaker cover's border, PHOBOS label and footer; its title, subtitle and scene are replaced."
+      },
+      "scene": {
+        "path": "assets/workshop/sources/PhobosBank-scene.png",
+        "sha256": "37BD3ED4AF284CE1B08A7369EB3154E5282FADA9BDB8026986336186488059AF",
+        "crop": [
+          0,
+          0,
+          244,
+          170
+        ],
+        "scale": 2,
+        "window": [
+          12,
+          141,
+          498,
+          480
+        ]
+      },
+      "header": {
+        "background": [
+          24,
+          29,
+          32
+        ],
+        "clear": [
+          [
+            28,
+            44,
+            499,
+            106
+          ],
+          [
+            24,
+            113,
+            494,
+            136
+          ]
+        ],
+        "title": {
+          "text": "BANKING",
+          "x": 124,
+          "y": 48,
+          "cell": 6,
+          "body": [
+            237,
+            225,
+            202
+          ],
+          "highlight": [
+            255,
+            250,
+            225
+          ]
+        },
+        "subtitle": {
+          "text": "CREDIT / DEBT / REPAY",
+          "centre": 254,
+          "y": 120,
+          "advance": 11,
+          "colour": [
+            237,
+            225,
+            202
+          ]
+        }
+      },
+      "generation": {
+        "provider": "none",
+        "operation": "scripts/export-bank-art.py",
+        "date": "2026-10-06",
+        "note": "Placeholder scene drawn from fixed shapes by the script (agent choice while the mod is a held draft); replace it with a generated scene before publication if the owner wants one."
+      }
     }
   ],
   "rejected": [

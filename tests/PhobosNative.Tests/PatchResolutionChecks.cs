@@ -16,7 +16,7 @@ internal static class PatchResolutionChecks
         // declared on the target type with that name, narrowed by the argument types when the attribute gives them.
         var declared = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly;
         var assemblies = new[] { typeof(Phobos.Ostranauts.Framework.FrameworkPlugin), typeof(PhobosShipbreaker.Plugin), typeof(PhobosAutoNav.Plugin),
-            typeof(PhobosAgriculture.Plugin), typeof(PhobosManufacturing.Plugin), typeof(PhobosWarDeclared.Plugin), typeof(PhobosMedical.Plugin) }.Select(t => t.Assembly).Distinct().ToArray();
+            typeof(PhobosAgriculture.Plugin), typeof(PhobosManufacturing.Plugin), typeof(PhobosWarDeclared.Plugin), typeof(PhobosMedical.Plugin), typeof(PhobosBank.Plugin) }.Select(t => t.Assembly).Distinct().ToArray();
         int resolved = 0;
         foreach (var assembly in assemblies)
         {

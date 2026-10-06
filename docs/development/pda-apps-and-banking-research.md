@@ -3,8 +3,9 @@
 Research record, 6 October 2026. The owner asked for Phobos mods to add their own apps to
 the wrist PDA, beginning with a banking service that offers loans from accredited and
 non-accredited lenders, as a separate mod that may grow beyond loans. ChatGPT writes the
-lore; Claude designs the code and proposes names. **Nothing here is built or tested in
-play.** Observations come from the game 1.0.1.5 decompile (kept in ignored `.local`, line
+lore; Claude designs the code and proposes names. **Round 1 (Framework 0.126.0 `PdaApps`
+and Phobos Banking 0.1.0, the debts screen) is built and checked offline; nothing is tested
+in play yet.** See [Round 1 as built](#round-1-as-built). Observations come from the game 1.0.1.5 decompile (kept in ignored `.local`, line
 numbers below refer to it), the game's own data files and our code. Proposals are marked
 as such; owner choices carry the date.
 
@@ -342,9 +343,49 @@ cannot collide.
 The first round's four questions were answered by the owner on 6 October 2026; the
 answers are under the owner choices at the top.
 
+## Round 1 as built
+
+Framework 0.126.0 and Phobos Banking 0.1.0, 6 October 2026, held drafts. Checked offline
+(builds, `tests/PhobosBank.Tests`, `PdaAppChecks` in the Framework tests and
+`BankNativeChecks` against the installed game); owner gameplay checks pending.
+
+- **Registration differs from the proposal (agent choice).** The content mod ships no
+  `data/pda_apps` or `data/strings` files. `PdaApps.Register` takes the name, an icon path
+  and the label, title and tooltip as catalogue lookups, and Framework writes the icon
+  entry and both tooltip strings into the game's tables after every content load. The
+  label then follows the player's language, the text lives in the translation catalogue
+  like all our player text, and a disabled or removed mod leaves no icon behind. Banking
+  registers only when its package is enabled in the game's mod list.
+- **One opener instead of `Open` plus `Unavailable`.** `Open` returns null when the app
+  opened, or the reason it did not, which Framework writes to the player's log. An
+  exception is logged and the player is told the app would not open.
+- **Name rules.** Lowercase letters, digits and underscores, starting with a letter, never
+  one of the game's own app names. The native check compares Framework's list of game app
+  names with the literals in `GUIPDA.OpenApp` itself (the switch also passes `actions`, the
+  job-paint page, which is not an app).
+- **Loans are read from the private list** (`Ledger.aMortgage`, by reflection, checked
+  natively) rather than from `GetJSONSave`, which copies the whole ledger. Bills are the
+  public `GetUnpaidLIs(null, player, null, false)`; regular charges are the repeating lines
+  the same call adds with its repeating flag set.
+- **Mortgage figures.** The panel shows the game's own `MathUtils.MortgagePaymentPerShift`,
+  capped at the balance as the game caps the bill it raises. `BankRules` mirrors the
+  formula for the offline checks and the native check compares the two across a
+  mortgage's life. Observed in that comparison: the game counts days of 87,658.125 s as
+  four shifts each, so a new mortgage has 709 instalments to run, not the 720 its constant
+  names, and with one shift left the raw formula asks for 1.0021 times the balance before
+  the cap. Paid instalments come straight off the balance (`Ledger.PayLI`); the game adds
+  no interest to it.
+- **Late fees.** The game adds 17.5% of every unpaid one-time bill at each shift change
+  (`Ledger.Skip`, called from `StarSystem.Update`); late lines are recognised by the game's
+  own `GUI_FINANCE_OVERDUE` and `GUI_FINANCE_LATE` wording, so the check follows the
+  player's language.
+- **Icon and cover.** Drawn by `scripts/export-bank-art.py` in the style of the game's own
+  icons (a white disc with a black glyph, 256 px); the Workshop cover's scene is a
+  placeholder from the same script while the mod is held.
+
 ## Proposed rounds
 
-1. **Framework `PdaApps` and the debts screen.** The PDA icon, the panel, and the
+1. **Framework `PdaApps` and the debts screen** (built; see above). The PDA icon, the panel, and the
    player's existing debts with an "Open Finances" button: proves the hosting in play
    before any lending exists.
 2. **Framework story services and the day length.** `StoryLocation`, `StoryGates`, the

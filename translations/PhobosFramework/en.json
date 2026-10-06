@@ -1058,5 +1058,8 @@
   "StorySchema.standing_change": "{0}: at most {1} factions, each once, each changed by a number from -{2} to {2}, not 0.",
   "StorySchema.count": "{0}: atLeast from 0 to {1}, atMost from atLeast to {1}.",
   "StorySchema.months": "{0}: months from 1 to 12, each once.",
-  "StorySchema.hours": "{0}: from and to are hours from 0 to 23."
+  "StorySchema.hours": "{0}: from and to are hours from 0 to 23.",
+  "PdaApps.publish_failed": "PDA app {0} could not be added to the home screen: {1}",
+  "PdaApps.open_failed": "PDA app {0} failed to open: {1}",
+  "PdaApps.open_failed_player": "{0} would not open. The game log says why."
 }

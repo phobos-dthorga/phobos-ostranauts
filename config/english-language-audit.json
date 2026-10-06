@@ -86624,6 +86624,789 @@
       ],
       "before": "it could not restart, and the log has the details.",
       "after": "it could not restart, and the log has the details."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Plugin.loaded",
+      "category": "log",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:32"
+      ],
+      "before": "Phobos Banking {0} loaded.",
+      "after": "Phobos Banking {0} loaded."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Content.missing_package",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:38",
+        "src/PhobosBank/Plugin.cs:71"
+      ],
+      "before": "The Phobos Banking mod folder is not enabled in the game's mod list, so the CREDIT app is not on the PDA.",
+      "after": "The Phobos Banking mod folder is not enabled in the game's mod list, so the CREDIT app is not on the PDA."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Content.ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:47"
+      ],
+      "before": "Phobos Banking ready: the CREDIT app is on the PDA home screen.",
+      "after": "Phobos Banking ready: the CREDIT app is on the PDA home screen."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Content.loans_unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:46"
+      ],
+      "before": "Phobos Banking cannot read the game's running loans in this game version. Bills and regular charges still show; loans do not.",
+      "after": "Phobos Banking cannot read the game's running loans in this game version. Bills and regular charges still show; loans do not."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "App.label",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:43"
+      ],
+      "before": "CREDIT",
+      "after": "CREDIT"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "App.title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:43"
+      ],
+      "before": "Credit",
+      "after": "Credit"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "App.tooltip",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:43"
+      ],
+      "before": "What you owe: loans, bills waiting to be paid and regular charges, straight from your ledger.",
+      "after": "What you owe: loans, bills waiting to be paid and regular charges, straight from your ledger."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:36",
+        "src/PhobosBank/BankPanel.cs:43"
+      ],
+      "before": "Credit: what you owe",
+      "after": "Credit: what you owe"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.no_game",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:31",
+        "src/PhobosBank/Plugin.cs:82"
+      ],
+      "before": "There's no game running to look up debts for.",
+      "after": "There's no game running to look up debts for."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.other_window",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:33"
+      ],
+      "before": "Another window would not close, so Credit did not open. Close it and try again.",
+      "after": "Another window would not close, so Credit did not open. Close it and try again."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.overview",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:44"
+      ],
+      "before": "Overview",
+      "after": "Overview"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.list_empty",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:58"
+      ],
+      "before": "Nothing on the books.",
+      "after": "Nothing on the books."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.open_finances",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:73"
+      ],
+      "before": "Open Finances",
+      "after": "Open Finances"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Group.loans",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:65"
+      ],
+      "before": "Loans and mortgages",
+      "after": "Loans and mortgages"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Group.bills",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:66"
+      ],
+      "before": "Bills to pay",
+      "after": "Bills to pay"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Group.charges",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:67"
+      ],
+      "before": "Regular charges",
+      "after": "Regular charges"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Row.loan",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:130"
+      ],
+      "before": "{0}\n{1} left to repay",
+      "after": "{0}\n{1} left to repay"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Row.bill",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:131"
+      ],
+      "before": "{0}\n{1} due",
+      "after": "{0}\n{1} due"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Row.bill_late",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:131"
+      ],
+      "before": "{0}\n{1} due, late",
+      "after": "{0}\n{1} due, late"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Row.charge",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:132"
+      ],
+      "before": "{0}\n{1} every {2}",
+      "after": "{0}\n{1} every {2}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Every.Hour",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:113",
+        "src/PhobosBank/BankPanel.cs:132",
+        "src/PhobosBank/Plugin.cs:93"
+      ],
+      "before": "hour",
+      "after": "hour"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Every.Shift",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:113",
+        "src/PhobosBank/BankPanel.cs:132",
+        "src/PhobosBank/Plugin.cs:93"
+      ],
+      "before": "shift",
+      "after": "shift"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Every.Day",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:113",
+        "src/PhobosBank/BankPanel.cs:132",
+        "src/PhobosBank/Plugin.cs:93"
+      ],
+      "before": "day",
+      "after": "day"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Every.Month",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:113",
+        "src/PhobosBank/BankPanel.cs:132",
+        "src/PhobosBank/Plugin.cs:93"
+      ],
+      "before": "month",
+      "after": "month"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Every.Year",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:113",
+        "src/PhobosBank/BankPanel.cs:132",
+        "src/PhobosBank/Plugin.cs:93"
+      ],
+      "before": "year",
+      "after": "year"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Money",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:135"
+      ],
+      "before": "${0}",
+      "after": "${0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.heading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:81"
+      ],
+      "before": "Your accounts",
+      "after": "Your accounts"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.cash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:82",
+        "src/PhobosBank/Plugin.cs:84"
+      ],
+      "before": "Cash on hand: {0}",
+      "after": "Cash on hand: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.clear",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:83",
+        "src/PhobosBank/Plugin.cs:85"
+      ],
+      "before": "You owe nothing to anyone. Enjoy it while it lasts.",
+      "after": "You owe nothing to anyone. Enjoy it while it lasts."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.loans",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:85"
+      ],
+      "before": "{0} loan(s) with {1} still to repay. Next instalments: {2} in all, charged at the next shift change.",
+      "after": "{0} loan(s) with {1} still to repay. Next instalments: {2} in all, charged at the next shift change."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.bills",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:88"
+      ],
+      "before": "{0} bill(s) waiting, {1} in all.",
+      "after": "{0} bill(s) waiting, {1} in all."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.bills_late",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:87"
+      ],
+      "before": "{0} bill(s) waiting, {1} in all. {2} of them are late: every shift a bill stays unpaid, the creditor adds {3}% of it as a late fee.",
+      "after": "{0} bill(s) waiting, {1} in all. {2} of them are late: every shift a bill stays unpaid, the creditor adds {3}% of it as a late fee."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.charges",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:89"
+      ],
+      "before": "{0} regular charge(s) are set up against you. Each raises a new bill when it falls due.",
+      "after": "{0} regular charge(s) are set up against you. Each raises a new bill when it falls due."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.how_to_pay",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:90"
+      ],
+      "before": "Pay bills in the Finances window. A loan's instalment arrives as a bill each shift; a bill left unpaid at a shift change gains a {0}% late fee.",
+      "after": "Pay bills in the Finances window. A loan's instalment arrives as a bill each shift; a bill left unpaid at a shift change gains a {0}% late fee."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.balance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:101"
+      ],
+      "before": "Still to repay: {0}",
+      "after": "Still to repay: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.instalment",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:102"
+      ],
+      "before": "Next instalment: {0}, with {1} instalment(s) left.",
+      "after": "Next instalment: {0}, with {1} instalment(s) left."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.term_over",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:102"
+      ],
+      "before": "The loan's term has run out. The whole remaining balance, {0}, falls due as the next instalment.",
+      "after": "The loan's term has run out. The whole remaining balance, {0}, falls due as the next instalment."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.since",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:103"
+      ],
+      "before": "Taken out: {0}",
+      "after": "Taken out: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.explain",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:104"
+      ],
+      "before": "Each shift the lender sends the instalment as a bill. Pay it in the Finances window; left unpaid at the next shift change, it gains a {0}% late fee. Selling a mortgaged ship repays the lender from the sale first.",
+      "after": "Each shift the lender sends the instalment as a bill. Pay it in the Finances window; left unpaid at the next shift change, it gains a {0}% late fee. Selling a mortgaged ship repays the lender from the sale first."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Bill.amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:107"
+      ],
+      "before": "Amount due: {0}",
+      "after": "Amount due: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Bill.since",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:108"
+      ],
+      "before": "Raised: {0}",
+      "after": "Raised: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Bill.due",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:110"
+      ],
+      "before": "Unpaid at the next shift change, this bill gains a {0}% late fee ({1}).",
+      "after": "Unpaid at the next shift change, this bill gains a {0}% late fee ({1})."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Bill.late",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:109"
+      ],
+      "before": "Late. The next shift change adds another {0}% late fee ({1}) unless you pay it first.",
+      "after": "Late. The next shift change adds another {0}% late fee ({1}) unless you pay it first."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Charge.amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:113"
+      ],
+      "before": "{0} every {1}",
+      "after": "{0} every {1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Charge.since",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:114"
+      ],
+      "before": "Set up: {0}",
+      "after": "Set up: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Charge.explain",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:115"
+      ],
+      "before": "Each time it falls due, this charge raises a bill to pay in the Finances window.",
+      "after": "Each time it falls due, this charge raises a bill to pay in the Finances window."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Finances.no_game",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Debts.cs:69"
+      ],
+      "before": "There's no game running, so there are no Finances to open.",
+      "after": "There's no game running, so there are no Finances to open."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Finances.busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:32",
+        "src/PhobosBank/Debts.cs:70"
+      ],
+      "before": "The game is busy with another window just now. Try again in a moment.",
+      "after": "The game is busy with another window just now. Try again in a moment."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Finances.opened",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Debts.cs:72"
+      ],
+      "before": "Opened the Finances window.",
+      "after": "Opened the Finances window."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.help",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:74"
+      ],
+      "before": "phobosbank [debts|open|finances]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window.",
+      "after": "phobosbank [debts|open|finances]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.opened",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:72"
+      ],
+      "before": "Opened the Credit panel.",
+      "after": "Opened the Credit panel."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.loan",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:91"
+      ],
+      "before": "Loan from {0}: {1} to repay, next instalment {2}, {3} left. {4}",
+      "after": "Loan from {0}: {1} to repay, next instalment {2}, {3} left. {4}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.bill",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:92"
+      ],
+      "before": "Bill from {0}: {1} due. {2}",
+      "after": "Bill from {0}: {1} due. {2}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.bill_late",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:92"
+      ],
+      "before": "Late bill from {0}: {1} due. {2}",
+      "after": "Late bill from {0}: {1} due. {2}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.charge",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:93"
+      ],
+      "before": "Charge from {0}: {1} every {2}. {3}",
+      "after": "Charge from {0}: {1} every {2}. {3}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Debt.unknown_creditor",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Debts.cs:78"
+      ],
+      "before": "Unnamed creditor",
+      "after": "Unnamed creditor"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "PdaApps.publish_failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New text for Framework 0.126.0 PDA apps: precise diagnostics stay in the log; the player line says which app would not open and where the reason is.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Pda/PdaApps.cs:106"
+      ],
+      "before": "PDA app {0} could not be added to the home screen: {1}",
+      "after": "PDA app {0} could not be added to the home screen: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "PdaApps.open_failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New text for Framework 0.126.0 PDA apps: precise diagnostics stay in the log; the player line says which app would not open and where the reason is.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Pda/PdaApps.cs:131"
+      ],
+      "before": "PDA app {0} failed to open: {1}",
+      "after": "PDA app {0} failed to open: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "PdaApps.open_failed_player",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New text for Framework 0.126.0 PDA apps: precise diagnostics stay in the log; the player line says which app would not open and where the reason is.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Pda/PdaApps.cs:133"
+      ],
+      "before": "{0} would not open. The game log says why.",
+      "after": "{0} would not open. The game log says why."
     }
   ],
   "documents": [
@@ -86631,8 +87414,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9266aff010b7ae3ab05ada14f77d3d80f4a8ad6394eb630b41396ab6ca8fb3db",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "c359371d1da4c8422f7411ab445ba834c0fac20dc4cc698ea1e96b2564df6660",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "SUPPORT.md",
@@ -86645,8 +87428,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "14aca20cf5bb04439b082d8f61b89f632a8bb1056ee4bec0ae483011dd26cf16",
-      "review": "Framework 0.107.0 story content review, 6 October 2026 6 October 2026: reviewed for machine work sounds (Framework 0.119.0)."
+      "sha256": "545a9e208bff4b24c25bb93d48bd434f30ab65c5d529f633e1c033b5f5daf412",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -86792,8 +87575,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "81cb2d7fff9abb61ec3a19b7d110a814bf4b9fc007630d998f3b102f156522a1",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "33b2d9ced66eb74aaee6e8096f1222cf7ac61711b7d9e5a9258be405180c514d",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/crew-automation.md",
@@ -87181,8 +87964,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "00377669fd2b58734f1520074f452c2695ab91b32e200c25734f71c6602da72d",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "c16e79977ccd6f3210d42d4b7cb33e2780caa4465a07036f5e14687b2dac5a5d",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -87272,8 +88055,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "166607a9d7f01509bf8827728b6121179e37b052b669aebd9087f68d06ff1656",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "e3fa539ca34ee48ead5e743cba310a104169025748e0a493b17150f19cbd549d",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -87470,8 +88253,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "4eb52e0efad6c24832cd3b0bdea4710cac5e438670b9732f30d8e046d1ae5505",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
+      "sha256": "a82f71e569b90f0d207cde07eafafea535d2cc0c0842625c2020b933032e4a73",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata."
     },
     {
@@ -87767,8 +88550,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ecde9e6a31bbccf6a90d44caa28c38eb01f610140eb9cb130303ded710891554",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "faacc38522c65724644b16e92264c2e331b9403a952102b762c4cabc369fc7fb",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -87830,15 +88613,15 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "07fc2cf3c9713d3059b7f3233a000df1b2cdfd1ec1b04270fb478f44af4fe7bb",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "1fbb8206661db2c7d44493efab6ffd8c4114af2b362c360a4a957ef163b83bdd",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "d0431c4f76924b2e2ac3e6b53dd9cf70aaeca83fa7ebb2e2b21ba4fb2778b712",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "deba5ba658dddb8a676afebf28fb23f5d3d2020cfc7c04e8c0bb5b52f717eda2",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/lines-and-draining.md",
@@ -87900,8 +88683,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c5544aa639d978b60d8f3e8dfbbec44f454517bd5bec3f5fe52c295ef8bebe5c",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "2898647a7b8d451b97b8307cf6febaf3e060021bda44b97dc45d0774821015fc",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -88040,8 +88823,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e9ba4b98d53e76acd244e4f5799bb194288e295871eee05053d1e6c1040cf941",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "385afc5145d8df162a5a8dfd626339545e2448cb7ec14b8d11b0790318874fa0",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -88082,8 +88865,8 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "d73f68b76cd0801b7144c892ced11fbd6a7564ff96e39c560f1bb535d65926ea",
-      "review": "New research record, 6 October 2026: PDA apps and a banking mod; observed game behaviour and proposals are labelled."
+      "sha256": "b1c4776fe97f0b3e1a09d6db2666ffa7a2e710534d9b3ef1a31b60d45d09dc5e",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "docs/development/panel-override-audit.md",
@@ -88091,14 +88874,35 @@
       "decision": "new",
       "sha256": "88e02025b5222ca2d427d7dc0a0b36c523e7461253e0cb1b1217ea4e7f0120ec",
       "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+    },
+    {
+      "path": "docs/bank-player-guide.md",
+      "scope": "current player guide",
+      "decision": "New player guide for Phobos Banking 0.1.0.",
+      "sha256": "82d018f1515b0c92ea1bbb12842bebbb866b32ff8adab38772003f4f2bd39b0e",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+    },
+    {
+      "path": "workshop/PhobosBank/page.bbcode",
+      "scope": "Workshop page draft",
+      "decision": "New held Workshop page for Phobos Banking 0.1.0.",
+      "sha256": "fa489bbb5d61c6b17d32ef1d3f05c420e3efa4169b806190cc6361bcfb14cc15",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+    },
+    {
+      "path": "docs/bank-item-reference.md",
+      "scope": "generated item reference",
+      "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
+      "sha256": "770694633dd2b3c058b944e7ba8fe61bb0f6a71e541425822051ea2f623eab75",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "62ebee4b9ff7d3213408406008101ed115202f0d8d22b49677f60f5ef314c7b6",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+      "sha256": "073c11e004120406d82d369e18218dff355964629800784127d11d111270ef4a",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -88149,8 +88953,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "21781a91f574fdcc78e896bafd815e378134c53dffd37bdcb50ae5b9b017d611",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "366d94bac696bbf92344071f009cdc6a2fa2f7f731e43337aa2909d1ef00850d",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

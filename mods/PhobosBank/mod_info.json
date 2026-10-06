@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Banking",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "0.1.0",
+    "strNotes": "Adds a CREDIT app to the PDA home screen. It lists what you owe from your own ledger: Ogiso's Bank's starting mortgage, ship mortgages, fines, bills waiting to be paid and regular charges, with each loan's balance and next instalment, and a button into the Finances window where bills are paid. It reads the ledger only; it lends nothing yet. Requires Phobos Framework 0.126.0 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
+  }
+]

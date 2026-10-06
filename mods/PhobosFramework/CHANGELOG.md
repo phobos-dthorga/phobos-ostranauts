@@ -29,6 +29,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.126.0] - 2026-10-06 - Draft
+
+### Added
+
+- PDA apps. A content mod can put an app of its own on the PDA home screen. Framework adds its icon, label and tooltip each time the game loads, in your language, and opens the mod's panel when you tap it, closing the PDA as the game's Roster and Duties apps do. If the app cannot open, your log says why. The game's own apps are untouched. Phobos Banking's CREDIT app is the first.
+- For mod authors: the PdaApps service (Register with a name, icon, label, tooltip and opener).
+
+### Save compatibility
+
+- Automatic. Nothing is saved, and a removed mod leaves no icon behind.
+
+### Compatibility and limits
+
+- The quick bar under the PDA's home screen is the player's own list in the game's settings; apps appear on the home screen only.
+- Checked offline against the game's PDA code; not yet seen in play.
+
 ## [0.125.0] - 2026-10-06 - Draft
 
 ### Added

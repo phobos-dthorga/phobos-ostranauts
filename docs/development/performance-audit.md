@@ -1204,6 +1204,16 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: PDA apps and the Credit panel (L86)
+
+L86 — Framework 0.126.0 and Phobos Banking 0.1.0. `PdaApps` adds one dictionary lookup to
+each `GUIPDA.OpenApp` call (a tap on a PDA icon) and writes a few table entries once per
+content load. The Credit panel reads the player's ledger lines when it opens and every two
+real seconds while it stays open: one pass over the running loans, the player's unpaid
+bills and the repeating lines, measured as `bank.read_debts`, and redraws only when a line
+changes. Nothing runs while the panel is closed. No per-frame or world-tick work was added.
+No capture accompanies this change.
+
 ## 6 October: press twice to go ahead (L85)
 
 L85 — Framework 0.125.0 and Agriculture 0.66.0, owner rule. The change is in command

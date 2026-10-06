@@ -1,0 +1,58 @@
+[h1]Phobos Banking[/h1]
+[b]Version:[/b] 0.1.0
+[b]Publication status:[/b] Not published - held draft, awaiting owner gameplay checks
+
+Debt follows a spacer everywhere. Ogiso's Bank holds the mortgage you started with, the broker holds the one on your ship, and the station office books its fines the same way. Phobos Banking puts all of it on your wrist.
+
+[h2]What it does[/h2]
+[list]
+[*][b]A CREDIT app[/b] on the PDA home screen. Tap it and the PDA closes and the Credit panel opens, as the game's own Roster and Duties apps do.
+[*][b]Loans and mortgages[/b]: each one's lender, balance, next instalment, how many instalments are left and when it was taken out, worked out exactly as the game charges them.
+[*][b]Bills to pay[/b]: instalments, docking fees and late fees waiting in your ledger, late ones first, with the late fee the next shift change will add if a bill stays unpaid.
+[*][b]Regular charges[/b], such as crew wages, and how often each falls due.
+[*][b]An overview[/b]: cash on hand, the total left to repay, the next instalments and the bills waiting.
+[*][b]Open Finances[/b] takes you to the game's own Finances window, where bills are paid.
+[*]In the F3 console, phobosbank debts lists the same as text.
+[/list]
+
+[h2]How the game's debts work[/h2]
+[list]
+[*]Each shift a loan sends its instalment to your ledger as a bill.
+[*]A bill still unpaid at a shift change gains a late fee of 17.5% of it, and the fee is a bill too.
+[*]Selling a mortgaged ship repays the lender from the sale first.
+[*]The panel reads these from your ledger. It never pays, charges or lends anything.
+[/list]
+
+[h2]Coming later[/h2]
+This first version shows the debts the game already keeps. Lenders of our own, financing at the ship broker and local lenders with stories of their own are planned for later versions; none of them is in this one.
+
+[h2]Requirements[/h2]
+[list]
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.126.0 or newer.
+[*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
+[/list]
+
+[h2]Installing from the Workshop[/h2]
+[list]
+[*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
+[*]Subscribe to Phobos Banking and the Phobos items listed under Required items.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Check that the mods are enabled in the MODS screen.
+[/list]
+
+[h2]Saves and limits[/h2]
+[list]
+[*]Saves need nothing and nothing is saved. Remove the mod and the app goes; your ledger stays as it was.
+[*]The quick bar under the PDA's home screen is your own list in the game's settings; the app is on the home screen.
+[*]Automated checks pass; in-game checks are still pending.
+[/list]
+
+[h2]Credits[/h2]
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games or Kitfox Games. It reads the game's own ledger and opens its own Finances window. LOGUSS's Common Sense Cargo Manifest showed how a mod can add a PDA app; Phobos Framework does it independently.
+
+The CREDIT icon and the cover are original, drawn by a script; the cover is a placeholder while the mod is held.
+
+[h2]Guides and support[/h2]
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/bank-player-guide.md]Player guide[/url]
+[/list]

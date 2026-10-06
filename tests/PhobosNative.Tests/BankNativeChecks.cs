@@ -1,0 +1,111 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Phobos.Ostranauts.Framework.Pda;
+using PhobosBank;
+using PhobosBank.Core;
+
+/// <summary>Phobos Banking 0.1.0 and Framework 0.126.0 PDA apps against the installed game: the mortgage figures the
+/// panel mirrors, the private loan list it reads, the game's late wording, and the PDA's own app switch, icon entry and
+/// tooltip keys. Nothing here runs a game session or touches a ledger in play.</summary>
+internal static class BankNativeChecks
+{
+    internal static void Run(string game, string repo, Action<bool, string> check)
+    {
+        // ---- Mortgages ------------------------------------------------------------------------------
+        check(Debts.CanReadLoans, "The game's running loans are a private List<LedgerLI> named aMortgage, as the panel reads them");
+        check(Math.Abs(Ledger.MORTGAGE_RATE - BankRules.MortgageRatePerShift) < 1e-9, "The mirrored mortgage rate is the game's");
+        check(Ledger.CURRENCY == BankRules.Currency, "The mirrored currency is the game's");
+        double savedEpoch = StarSystem.fEpoch;
+        try
+        {
+            const double start = 1000000;
+            foreach (double elapsed in new[] { 0, 3600, BankRules.ShiftSeconds, BankRules.GameDaySeconds, 30 * BankRules.GameDaySeconds, 120 * BankRules.GameDaySeconds, BankRules.MortgageTermSeconds - BankRules.ShiftSeconds - 1 })
+            {
+                foreach (float balance in new[] { 97395f, 250000f, 910636f })
+                {
+                    var loan = new LedgerLI("Ogiso's Bank", "player", balance, "check", Ledger.CURRENCY, start, LedgerLI.Frequency.Mortgage);
+                    StarSystem.fEpoch = start + elapsed;
+                    // The game charges its formula's figure but never more than the balance (Ledger.ProcessRepeatingOfType).
+                    double native = Math.Min(MathUtils.MortgagePaymentPerShift(loan), balance), ours = BankRules.Instalment(balance, BankRules.ShiftsLeft(elapsed));
+                    check(Math.Abs(native - ours) <= 1e-3 * ours, $"The mirrored instalment matches the game's at {elapsed:0} s on {balance:0}: game {native:0.00}, ours {ours:0.00}");
+                }
+            }
+        }
+        finally { StarSystem.fEpoch = savedEpoch; }
+        check(SingleConstant(typeof(Ledger).GetMethod(nameof(Ledger.Skip))!, (float)BankRules.LateFeeShare), "The game's shift change still adds a 17.5% late fee");
+
+        // ---- The game's wording for late lines ---------------------------------------------------
+        var strings = GameStrings(game);
+        check(strings.ContainsKey("GUI_FINANCE_OVERDUE") && strings.ContainsKey("GUI_FINANCE_LATE"), "The game still names overdue instalments and late fees");
+        check(BankRules.IsLate(strings["GUI_FINANCE_OVERDUE"] + "Mortgage", strings["GUI_FINANCE_OVERDUE"], strings["GUI_FINANCE_LATE"]) &&
+              BankRules.IsLate(strings["GUI_FINANCE_LATE"] + "date", strings["GUI_FINANCE_OVERDUE"], strings["GUI_FINANCE_LATE"]), "The game's own late wording is recognised");
+
+        // ---- The PDA ---------------------------------------------------------------------------------
+        var open = typeof(GUIPDA).GetMethod(nameof(GUIPDA.OpenApp), BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string) }, null);
+        check(open != null, "GUIPDA.OpenApp(string) is public and static, as Framework's prefix expects");
+        var literals = Literals(open!);
+        // "actions" is the job-paint page the orders app opens, passed as an argument, not an app name.
+        var switchNames = literals.Where(s => s.Length > 0 && s != "actions" && s.All(c => c >= 'a' && c <= 'z')).ToHashSet(StringComparer.Ordinal);
+        check(switchNames.SetEquals(PdaApps.NativeNames), "Framework's list of the game's app names matches the game's own switch: " + string.Join(", ", switchNames.Except(PdaApps.NativeNames).Concat(PdaApps.NativeNames.Except(switchNames))));
+        var icons = JArray.Parse(File.ReadAllText(Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "pda_apps", "pda_apps.json")));
+        check(icons.All(i => PdaApps.NativeNames.Contains((string)i["strName"]!)), "Every icon the game ships is one of its own app names");
+        check(new[] { "strName", "strFriendlyName", "strIcon", "bHidden" }.All(p => typeof(JsonPDAAppIcon).GetProperty(p) != null), "A PDA icon entry still has a name, label, icon and hidden flag");
+        check(typeof(DataHandler).GetField(nameof(DataHandler.dictPDAAppIcons))?.IsStatic == true && typeof(DataHandler).GetField(nameof(DataHandler.dictStrings))?.IsStatic == true, "The icon and string tables Framework writes are public statics");
+        var tooltip = typeof(GUIPDAApp).GetMethod("SetToolTip", BindingFlags.NonPublic | BindingFlags.Instance);
+        var tooltipLiterals = tooltip == null ? new List<string>() : Literals(tooltip);
+        check(tooltipLiterals.Contains(PdaApps.TooltipPrefix) && tooltipLiterals.Contains(PdaApps.TitleSuffix), "The game still builds an app's tooltip keys as GUI_PDA_BUTTON_<NAME> and _TITLE");
+        check(PdaApps.NameProblem(BankRules.AppName) == null, "The CREDIT app's name passes Framework's rules");
+        check(typeof(GUIPDA).GetField(nameof(GUIPDA.instance))?.IsStatic == true && typeof(GUIPDA).GetProperty(nameof(GUIPDA.State))?.SetMethod?.IsPublic == true, "The PDA can be closed through its public instance and State");
+        check(typeof(CrewSim).GetMethod(nameof(CrewSim.ToggleFinances), Type.EmptyTypes) != null, "The game's Finances window still opens through CrewSim.ToggleFinances");
+
+        // ---- The icon ---------------------------------------------------------------------------------
+        string icon = Path.Combine(repo, "mods", "PhobosBank", "images", BankRules.Icon.Replace('/', Path.DirectorySeparatorChar) + ".png");
+        check(File.Exists(icon), "The CREDIT icon is in the package where the game looks: images/" + BankRules.Icon + ".png");
+        var header = File.ReadAllBytes(icon).Take(26).ToArray();
+        int Big(int at) => header[at] << 24 | header[at + 1] << 16 | header[at + 2] << 8 | header[at + 3];
+        check(Big(16) == 256 && Big(20) == 256 && header[25] == 6, "The CREDIT icon is a 256-pixel RGBA image like the game's own");
+    }
+
+    private static Dictionary<string, string> GameStrings(string game)
+    {
+        var strings = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (string file in Directory.GetFiles(Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "strings"), "*.json"))
+            foreach (var record in JArray.Parse(File.ReadAllText(file)))
+            {
+                var values = record["aValues"] as JArray;
+                if (values == null) continue;
+                for (int i = 0; i + 1 < values.Count; i += 2) strings[(string)values[i]!] = (string)values[i + 1]!;
+            }
+        return strings;
+    }
+
+    // String literals loaded by a method (ldstr), read from its IL.
+    private static List<string> Literals(MethodInfo method)
+    {
+        var il = method.GetMethodBody()?.GetILAsByteArray() ?? Array.Empty<byte>();
+        var found = new List<string>();
+        for (int i = 0; i + 4 < il.Length; i++)
+        {
+            if (il[i] != 0x72) continue;
+            int token = BitConverter.ToInt32(il, i + 1);
+            if ((token >> 24) != 0x70) continue;
+            try { found.Add(method.Module.ResolveString(token)); i += 4; } catch (ArgumentException) { }
+        }
+        return found;
+    }
+
+    // Whether a method loads the given single-precision constant (ldc.r4).
+    private static bool SingleConstant(MethodInfo method, float value)
+    {
+        var il = method.GetMethodBody()?.GetILAsByteArray() ?? Array.Empty<byte>();
+        var bytes = BitConverter.GetBytes(value);
+        for (int i = 0; i + 4 < il.Length; i++)
+            if (il[i] == 0x22 && il[i + 1] == bytes[0] && il[i + 2] == bytes[1] && il[i + 3] == bytes[2] && il[i + 4] == bytes[3]) return true;
+        return false;
+    }
+}

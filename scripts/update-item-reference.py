@@ -13,7 +13,7 @@ CONFIG = Path('config/item-reference.json')
 SLUGS = {'PhobosAutoNav': 'auto-nav', 'PhobosShipbreaker': 'shipbreaker',
          'PhobosAgriculture': 'agriculture', 'PhobosFramework': 'framework',
          'PhobosManufacturing': 'manufacturing', 'PhobosWarDeclared': 'war-declared', 'PhobosMedical': 'medical',
-         'PhobosSpacerStories': 'spacer-stories'}
+         'PhobosSpacerStories': 'spacer-stories', 'PhobosBank': 'bank'}
 
 
 def source_hashes(root):

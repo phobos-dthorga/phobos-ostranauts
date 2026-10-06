@@ -36,7 +36,7 @@ Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.
 Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
 # The maintained catalogue owns the current floors; check the rule, not a copied number.
 $maintainedMinimums = (Get-Content -LiteralPath (Join-Path $repoRoot 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json -AsHashtable).minimums
-foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework', 'Medical.Framework')) {
+foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework', 'Medical.Framework', 'Bank.Framework')) {
     $since = [version]$maintainedMinimums[$key].since
     $floor = [version]$maintainedMinimums[$key].value
     Check ($floor -ge [version]'0.30.1') "$key floor never drops below the Polaris fix baseline"
@@ -620,6 +620,18 @@ Check (((ReadOrder $medical).aLoadOrder -join ',') -eq 'core,PhobosFramework,Pho
 $medicalInstalled = InstalledFiles $medical
 & $installer @medical -Mods Medical | Out-Null
 Check ((InstalledFiles $medical) -eq $medicalInstalled) 'Medical repeat install changed files'
+
+# Phobos Banking needs only Framework.
+$bank = Fixture 'bank-only' @('core')
+$bankBefore = InstalledFiles $bank
+& $installer @bank -Mods Bank -WhatIf | Out-Null
+Check ((InstalledFiles $bank) -eq $bankBefore) 'Banking preview changed files'
+& $installer @bank -Mods Bank | Out-Null
+Check (((ReadOrder $bank).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosBank') 'Banking must select Framework and nothing else'
+& $installer @bank -Mods Bank -VerifyOnly | Out-Null
+$bankInstalled = InstalledFiles $bank
+& $installer @bank -Mods Bank | Out-Null
+Check ((InstalledFiles $bank) -eq $bankInstalled) 'Banking repeat install changed files'
 
 # Phobos Spacer Stories is data only: Framework plus its native folder, and never a plugin folder of its own.
 $stories = Fixture 'spacer-stories-only' @('core')
