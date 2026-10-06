@@ -120,17 +120,16 @@ public sealed class ConsoleShell : MonoBehaviour
     private void Confirm(Action continuation)
     {
         if(dialog!=null)return;
-        var shade=PanelWidgets.Rect(transform,"Unsaved changes");PanelWidgets.Fill(shade);dialog=shade.gameObject;
-        shade.gameObject.AddComponent<Image>().color=new Color(0,0,0,.9f);
-        var card=PanelWidgets.Rect(shade,"Confirmation");card.anchorMin=new Vector2(.1f,.15f);card.anchorMax=new Vector2(.9f,.85f);card.offsetMin=card.offsetMax=Vector2.zero;
-        var group=card.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=12;group.childControlHeight=group.childControlWidth=true;group.childForceExpandHeight=false;
-        ConsoleWidgets.Label(card,ConsoleWidgets.Text("unsaved"));
-        ConsoleWidgets.Button(card,ConsoleWidgets.Text("apply"),()=>{bool applied=Apply?.Invoke()==true;Dismiss();if(applied)continuation();});
-        ConsoleWidgets.Button(card,ConsoleWidgets.Text("discard"),()=>{Discard?.Invoke();Dismiss();continuation();});
-        ConsoleWidgets.Button(card,ConsoleWidgets.Text("keep_editing"),Dismiss);
-        if(EmergencyStop!=null)ConsoleWidgets.Button(card,ConsoleWidgets.Text("stop"),()=>{Dismiss();EmergencyStop?.Invoke();});
+        // The shared pick-one card (Framework 0.122.0); it closes itself before running the choice.
+        var choices=new System.Collections.Generic.List<ChoiceCard.Choice>
+        {
+            new(ConsoleWidgets.Text("apply"),()=>{dialog=null;if(Apply?.Invoke()==true)continuation();}),
+            new(ConsoleWidgets.Text("discard"),()=>{dialog=null;Discard?.Invoke();continuation();}),
+            new(ConsoleWidgets.Text("keep_editing"),()=>dialog=null)
+        };
+        if(EmergencyStop!=null)choices.Add(new(ConsoleWidgets.Text("stop"),()=>{dialog=null;EmergencyStop?.Invoke();}));
+        dialog=ChoiceCard.Show(transform,ConsoleWidgets.Text("unsaved"),choices);
     }
-    private void Dismiss(){if(dialog!=null)Destroy(dialog);dialog=null;}
     /// <summary>The LowerUI guard only applies while the raised panel is the one hosting this shell;
     /// closing any other panel proceeds natively. Overlays registered with the game's window stack
     /// (ObjectPicker) already close on Escape before LowerUI is reached.</summary>

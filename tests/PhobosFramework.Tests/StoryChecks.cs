@@ -164,6 +164,62 @@ internal static class StoryChecks
         Round5(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
         Round6(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round7(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+        Round8(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+    }
+
+    private const string Replies = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""arcs"": { ""offer"": { ""title"": ""An offer"", ""steps"": [
+        { ""id"": ""letter"", ""delivery"": { ""message"": { ""from"": ""Dara"", ""text"": ""Will you carry it?"" } }, ""objective"": { ""title"": ""Answer Dara"" },
+          ""choices"": [
+            { ""id"": ""accept"", ""label"": ""I'll carry it."", ""tests"": [ { ""kind"": ""credits"", ""amount"": 100 } ], ""onComplete"": { ""message"": { ""from"": ""Dara"", ""text"": ""Thank you."" }, ""setFlags"": [ ""offer-accepted"" ] }, ""next"": ""carry"" },
+            { ""id"": ""refuse"", ""label"": ""Not this time."", ""next"": ""end"" } ] },
+        { ""id"": ""carry"", ""objective"": { ""title"": ""Carry it"" }, ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ], ""onComplete"": { ""message"": { ""from"": ""Dara"", ""text"": ""Arrived."" } } } ] } }
+    }";
+
+    /// <summary>Framework 0.122.0: replies the player chooses in the Letters window, and the letters kept for it.</summary>
+    private static void Round8(Action<bool, string> check, Action<string, string> refused, Func<string, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Replies.Contains(find), "Fixture has " + find); return Replies.Replace(find, replace); }
+        var pack = load(Replies);
+        var arc = pack.arcs["offer"];
+        var letter = arc.steps[0];
+        check(letter.choices!.Count == 2 && letter.tests.Count == 0 && letter.choices[0].next == "carry" && letter.choices[1].tests.Count == 0, "A step with two replies loads");
+        refused(With("{ \"id\": \"refuse\", \"label\": \"Not this time.\", \"next\": \"end\" } ]", "]"), "A step offers at least two replies");
+        refused(With("\"choices\": [", "\"tests\": [ { \"kind\": \"wait\", \"hours\": 1 } ], \"choices\": ["), "A step with replies has no tests of its own");
+        refused(With("\"id\": \"refuse\"", "\"id\": \"accept\""), "A reply id is used once in its step");
+        refused(With("\"next\": \"carry\" },", "\"next\": \"elsewhere\" },"), "A reply leads to a step of the same arc or the end");
+        refused(With("\"label\": \"Not this time.\", ", ""), "A reply has a label");
+        refused(With("Not this time.", "Not <b>this</b> time."), "A reply's label is plain text");
+        refused(With("\"label\": \"Not this time.\"", "\"label\": \"" + new string('x', StorySchema.MaxChoiceLabel + 1) + "\""), "A reply's label has a length limit");
+
+        var facts = new Facts { Epoch = 7200 };
+        check(StoryRules.Outcome(letter, facts, 0) == null, "A step waiting for a reply never finishes by itself");
+        check(StoryRules.ChoiceBlocked(letter.choices[0], facts, 0)?.kind == StorySchema.Credits && StoryRules.ChoiceBlocked(letter.choices[1], facts, 0) == null,
+            "A reply with a test is locked until it passes; one without is open");
+        facts.Credits = 150;
+        check(StoryRules.ChoiceBlocked(letter.choices[0], facts, 0) == null, "Holding the credits unlocks it");
+
+        // Letters: kept as they arrive, or reconstructed for an arc begun before letters were kept.
+        var progress = new ArcProgress { State = ArcState.Active, Step = 1, StepId = "carry" };
+        var rebuilt = StoryRules.Letters(arc, progress, null);
+        check(rebuilt.Count == 1 && rebuilt[0].Step == "letter" && rebuilt[0].Kind == StoryLetter.Opening && rebuilt[0].Epoch == null,
+            "An older arc shows the letters its progress implies, without dates (the reply itself is not known)");
+        progress.State = ArcState.Done;
+        check(StoryRules.Letters(arc, progress, null).Select(l => l.Step + l.Kind).SequenceEqual(new[] { "letterd", "carryc" }), "A finished arc shows every step's letters");
+        var record = new StoryRecord();
+        record.AddLetter("offer", new StoryLetter("letter", StoryLetter.Opening, null, 10));
+        record.AddLetter("offer", new StoryLetter("letter", StoryLetter.Reply, "accept", 20.5));
+        check(StoryRules.Letters(arc, progress, record.Letters["offer"]).Count == 2, "Kept letters are shown as kept");
+        var fields = record.Encode();
+        fields["letters.broken"] = "letter,x,,5";
+        var back = StoryRecord.Decode(fields);
+        check(back.Letters["offer"].Count == 2 && back.Letters["offer"][1].Choice == "accept" && back.Letters["offer"][1].Epoch == 20.5 && back.Letters["offer"][0].Choice == null,
+            "Letters and replies survive a save");
+        check(!back.Letters.ContainsKey("broken") && back.Encode()["letters.broken"] == "letter,x,,5", "A letters entry that is not ours is kept as written, never used");
+        for (int i = 0; i < StoryRecord.MaxLetters + 5; i++) record.AddLetter("long", new StoryLetter("letter", StoryLetter.Opening, null, i));
+        check(record.Letters["long"].Count == StoryRecord.MaxLetters && record.Letters["long"][0].Epoch == 5, "An arc keeps its newest letters, the oldest going first");
+        check(StoryLetter.IsKind("b0") && StoryLetter.IsKind("a") && !StoryLetter.IsKind("bx") && !StoryLetter.IsKind("z"), "Only our letter kinds are read");
     }
 
     private const string Faces = @"{

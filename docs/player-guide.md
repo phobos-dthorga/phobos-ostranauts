@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.121.0**, Shipbreaker **0.84.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.122.0**, Shipbreaker **0.84.0**, Auto Nav
 **0.34.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -430,6 +430,17 @@ publication is implied by this prepared redesign.
 [Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.84.0 requires Framework 0.119.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Since Framework 0.119.0 working machines hum at the game's own appliance level ([machine work sounds](machine-work-sounds.md)). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture feeds every crop [one nutrient with the water](fluid-network-operations.md#one-nutrient-fed-with-the-water) through its W2 supply and irrigation conduits.
+
+## Story goals and letters
+
+Phobos story goals (from the mods' own stories and from Phobos Spacer Stories) show the
+face of the person who wrote and end with who they are from (Framework 0.121.0).
+**Click a story goal** in the GOALS list to open the **Letters** window (Framework
+0.122.0): each correspondence with its letters in order, the goal it is at and, when a
+letter waits for your answer, your replies. A reply that needs something first (credits,
+an item, a skill) is shown locked with what it needs. You confirm a reply before it is
+sent and cannot take it back. Dismissing a story goal still sets that correspondence
+aside. In the F3 console, `phobosframework story letters` opens the window.
 
 ## Crew standing orders
 

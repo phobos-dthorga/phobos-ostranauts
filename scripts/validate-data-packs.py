@@ -758,7 +758,7 @@ STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 
                 'line': 200, 'tip': 450, 'label': 40, 'article': 4000, 'branches': 4, 'credit_reward': 50000,
                 'credit_test': 1000000, 'days': 3650, 'file_name': 32, 'file_text': 3000, 'files': 5, 'image': 100,
                 'places': 64, 'people': 64, 'threads': 32, 'cast': 8, 'factions': 8, 'flags': 4, 'name': 40, 'weight_factor': 100, 'mention_days': 365,
-                'standing_change': 10, 'standing_changes': 2, 'crew': 50, 'speaker_factions': 4}
+                'standing_change': 10, 'standing_changes': 2, 'crew': 50, 'speaker_factions': 4, 'choices': 4, 'choice_label': 60}
 STORY_FILE_NAME = re.compile(r'^[A-Za-z0-9_.-]+$')
 STORY_IMAGE = re.compile(r'^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$')
 
@@ -1119,7 +1119,7 @@ def story(pack, where, framework=None):
         ids = set()
         for n, step in enumerate(steps):
             sw = f'{w}/steps/{n}'
-            fields(step, {'id', 'delivery', 'objective', 'tests', 'onComplete', 'next', 'branches'}, sw)
+            fields(step, {'id', 'delivery', 'objective', 'tests', 'onComplete', 'next', 'branches', 'choices'}, sw)
             story_id(step.get('id'), f'{sw}/id', STORY_LIMITS['step'])
             if step['id'] in ids:
                 raise Problem(f'{w}: uses the step id {step["id"]} twice')
@@ -1139,7 +1139,30 @@ def story(pack, where, framework=None):
                 story_words(objective.get('title'), STORY_LIMITS['objective'], f'{sw}/objective/title')
                 if objective.get('description', ''):
                     story_words(objective['description'], STORY_LIMITS['description'], f'{sw}/objective/description')
-            story_tests(step.get('tests'), sw, placed)
+            choices = step.get('choices')
+            if choices is not None:
+                # Framework 0.122.0: a step the player answers; no tests or branches of its own.
+                if step.get('tests') or step.get('branches') is not None:
+                    raise Problem(f'{sw}: a step with replies has no tests or branches of its own')
+                if not isinstance(choices, list) or not 2 <= len(choices) <= STORY_LIMITS['choices']:
+                    raise Problem(f'{sw}/choices: from 2 to {STORY_LIMITS["choices"]} replies')
+                choice_ids = set()
+                for choice in choices:
+                    cw = f'{sw}/choices/{choice.get("id") if isinstance(choice, dict) else "?"}'
+                    fields(choice, {'id', 'label', 'notes', 'tests', 'onComplete', 'next'}, cw)
+                    story_id(choice.get('id'), f'{cw}/id', STORY_LIMITS['step'])
+                    if choice['id'] in choice_ids:
+                        raise Problem(f'{sw}: uses the reply id {choice["id"]} twice')
+                    choice_ids.add(choice['id'])
+                    story_words(choice.get('label'), STORY_LIMITS['choice_label'], f'{cw}/label')
+                    tests = choice.get('tests', [])
+                    if tests:
+                        story_tests(tests, cw, placed)
+                    story_outcome(choice.get('onComplete'), cw)
+                    if 'next' not in choice:
+                        raise Problem(f'{cw}/next: a reply names the step it leads to, or end')
+            else:
+                story_tests(step.get('tests'), sw, placed)
             story_outcome(step.get('onComplete'), sw)
             branches = step.get('branches')
             if branches is not None:
@@ -1153,7 +1176,7 @@ def story(pack, where, framework=None):
                     if 'next' not in branch:
                         raise Problem(f'{bw}/next: a branch names the step it leads to, or end')
         for n, step in enumerate(steps):
-            targets = [step.get('next')] + [b.get('next') for b in step.get('branches') or []]
+            targets = [step.get('next')] + [b.get('next') for b in step.get('branches') or []] + [c.get('next') for c in step.get('choices') or []]
             for target in targets:
                 if target is not None and target != 'end' and target not in ids:
                     raise Problem(f'{w}/steps/{n}: next must be a step of the same arc or end, not {target!r}')

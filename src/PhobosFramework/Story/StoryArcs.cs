@@ -15,7 +15,7 @@ namespace Phobos.Ostranauts.Framework.Story;
 /// every load, requiring a hidden condition that is never set, and finishes the goal itself through the game's own
 /// RemoveObjective. If the pack is gone, the game reads the unknown test as its always-true Blank and the goal finishes
 /// by itself, so nothing is left broken.</summary>
-public static class StoryArcs
+public static partial class StoryArcs
 {
     /// <summary>The hidden condition every story goal test requires and no one ever has.</summary>
     public const string Never = "IsPhobosStoryGoalOpen";
@@ -179,6 +179,8 @@ public static class StoryArcs
         int completions = record.Arcs.TryGetValue(arc.Id, out var old) ? old.Completions : 0;
         var progress = new ArcProgress { State = ArcState.Active, Completions = completions };
         record.Arcs[arc.Id] = progress;
+        // A new run of the arc starts a new correspondence in the Letters window.
+        record.Letters.Remove(arc.Id);
         Enter(arc, progress, 0, facts);
     }
 
@@ -187,21 +189,32 @@ public static class StoryArcs
         var step = arc.Value.steps[index];
         progress.Step = index; progress.StepId = step.id; progress.StepStart = facts.Epoch;
         if (step.delivery?.message is StoryMessage message)
+        {
             Log(Sender(arc.Owner, arc.Id + "." + step.id + ".from", message), StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".message", message.text), PlaceOf(arc.Value.thread, arc.Value.place));
+            record.AddLetter(arc.Id, new StoryLetter(step.id, StoryLetter.Opening, null, facts.Epoch));
+        }
+        // A letter waiting for the player's reply says where to answer it (Framework 0.122.0).
+        if (step.choices != null) Log(null, Text.Get("Story.reply_hint"));
         if (step.delivery?.bulletin is string bulletin) record.Enqueue(bulletin);
         if (step.objective != null) Show(arc, step);
     }
 
-    /// <summary>Finishes a step by its own tests (<paramref name="outcome"/> -1) or by a branch: takes what those tests
-    /// consume, closes the goal through the game, gives the rewards and moves to the next step, the named one or the end.
-    /// Returns false and changes nothing when what is consumed could not all be taken.</summary>
+    /// <summary>Finishes a step by its own tests (<paramref name="outcome"/> -1) or by a branch.</summary>
     private static bool Finish(StoryEntry<StoryArc> arc, ArcProgress progress, int index, int outcome, IStoryFacts facts)
     {
         var step = arc.Value.steps[index];
         var branch = outcome >= 0 ? step.branches![outcome] : null;
-        var tests = branch?.tests ?? step.tests;
-        var result = branch == null ? step.onComplete : branch.onComplete;
-        string key = arc.Id + "." + step.id + (branch == null ? "" : ".b" + outcome);
+        return Finish(arc, progress, index, branch?.tests ?? step.tests, branch == null ? step.onComplete : branch.onComplete, branch?.next ?? step.next,
+            arc.Id + "." + step.id + (branch == null ? "" : ".b" + outcome), branch == null ? StoryLetter.Completion : "b" + outcome, null, facts);
+    }
+
+    /// <summary>Finishes a step by its own tests, a branch or the player's reply (<paramref name="choice"/>): takes what
+    /// those tests consume, closes the goal through the game, gives the rewards and moves to the next step, the named one
+    /// or the end. Returns false and changes nothing when what is consumed could not all be taken.</summary>
+    private static bool Finish(StoryEntry<StoryArc> arc, ArcProgress progress, int index, List<StoryTest> tests, StoryOutcome? result, string? nextId,
+        string key, string letterKind, string? choice, IStoryFacts facts)
+    {
+        var step = arc.Value.steps[index];
         var pay = tests.Where(t => t.kind == StorySchema.Credits && t.consume).Sum(t => t.amount);
         if (pay > 0 && facts.Credits < pay) return false;
         foreach (var test in tests.Where(t => t.kind == StorySchema.HaveItem && t.consume))
@@ -214,6 +227,8 @@ public static class StoryArcs
                 : Text.Get("Story.ledger_contact"), place);
         if (pay > 0) Pay(-pay, from, arc.Id);
         foreach (var objective in Open(StoryRules.GoalTest(arc.Id, step.id))) Remove(objective, completed: true);
+        // The Letters window keeps the reply and every letter that arrives (Framework 0.122.0).
+        if (choice != null || result?.message != null) record.AddLetter(arc.Id, new StoryLetter(step.id, letterKind, choice, facts.Epoch));
         if (result?.message is StoryMessage message)
             Log(Sender(arc.Owner, key + ".doneFrom", message), StoryContent.Words(arc.Owner, key + ".done", message.text), place);
         foreach (var reward in result?.items ?? new List<StoryReward>()) Give(reward.item, reward.count);
@@ -223,7 +238,7 @@ public static class StoryArcs
         if (result != null) { foreach (var flag in result.setFlags) record.SetFlag(flag, facts.Epoch); foreach (var flag in result.clearFlags) record.ClearFlag(flag); }
         // Standing (Framework 0.115.0; owner choice: small changes): through the game's own faction scores.
         if (result != null) foreach (var change in result.standing) Stand(change.faction, change.change);
-        int next = StoryRules.NextStep(arc.Value, index, branch?.next ?? step.next);
+        int next = StoryRules.NextStep(arc.Value, index, nextId);
         if (next >= 0) Enter(arc, progress, next, facts);
         else { progress.State = ArcState.Done; progress.Completions++; }
         return true;
@@ -549,6 +564,7 @@ public static class StoryArcs
                     var branches = arc.Value.steps[index].branches ?? new List<StoryBranch>();
                     for (int b = 0; b < branches.Count; b++)
                         lines.Add("    " + Text.Get("Story.branch_line", b + 1, branches[b].next, string.Join("; ", branches[b].tests.Select(t => StoryRules.Describe(t, facts, p.StepStart)))));
+                    lines.AddRange(ChoiceLines(arc, index, p, facts));
                 }
                 continue;
             }

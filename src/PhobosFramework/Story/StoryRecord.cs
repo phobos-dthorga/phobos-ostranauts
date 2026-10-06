@@ -7,6 +7,22 @@ namespace Phobos.Ostranauts.Framework.Story;
 
 public enum ArcState { Active, Done, Abandoned }
 
+/// <summary>One letter the player received in an arc, or a reply they sent (Framework 0.122.0). Only where it came from
+/// is kept: its text is read from the packs when shown, so a translation or a corrected letter shows as it is now.</summary>
+public sealed class StoryLetter
+{
+    /// <summary>A step's opening letter, its completion letter, a branch's (<c>b0</c> to <c>b3</c>) or the player's reply.</summary>
+    public const string Opening = "d", Completion = "c", Reply = "a";
+    public StoryLetter(string step, string kind, string? choice, double? epoch) { Step = step; Kind = kind; Choice = choice; Epoch = epoch; }
+    public string Step { get; }
+    public string Kind { get; }
+    /// <summary>The reply's choice id, for <see cref="Reply"/>.</summary>
+    public string? Choice { get; }
+    /// <summary>When it arrived (game epoch, seconds); null for one reconstructed from an older record.</summary>
+    public double? Epoch { get; }
+    public static bool IsKind(string kind) => kind == Opening || kind == Completion || kind == Reply || kind.Length == 2 && kind[0] == 'b' && kind[1] >= '0' && kind[1] <= '9';
+}
+
 /// <summary>Where the player is in one arc.</summary>
 public sealed class ArcProgress
 {
@@ -31,6 +47,36 @@ public sealed class StoryRecord
     /// <summary>The game face parts each correspondent was given (Framework 0.121.0), rolled once by the game's own face
     /// roll and kept, so a person looks the same for the whole save. The game's roll cannot be repeated from a seed.</summary>
     public Dictionary<string, string[]> Faces { get; } = new(StringComparer.Ordinal);
+    private const string LettersPrefix = "letters.";
+    /// <summary>The most letters kept for one arc; the oldest go first.</summary>
+    public const int MaxLetters = 64;
+    /// <summary>The letters each arc delivered and the replies sent (Framework 0.122.0), oldest first.</summary>
+    public Dictionary<string, List<StoryLetter>> Letters { get; } = new(StringComparer.Ordinal);
+
+    public void AddLetter(string arc, StoryLetter letter)
+    {
+        if (!Letters.TryGetValue(arc, out var list)) Letters[arc] = list = new List<StoryLetter>();
+        list.Add(letter);
+        while (list.Count > MaxLetters) list.RemoveAt(0);
+    }
+
+    /// <summary>"step,kind,choice,epoch" entries joined by ";"; null when any part is not ours.</summary>
+    private static List<StoryLetter>? TryLetters(string value)
+    {
+        var list = new List<StoryLetter>();
+        foreach (string entry in value.Split(';'))
+        {
+            var parts = entry.Split(',');
+            if (parts.Length != 4 || !StorySchema.IsId(parts[0], StorySchema.MaxStepIdLength) || !StoryLetter.IsKind(parts[1]) ||
+                parts[2].Length > 0 && !StorySchema.IsId(parts[2], StorySchema.MaxStepIdLength)) return null;
+            double? epoch = parts[3].Length == 0 ? null : Epoch(parts[3]);
+            if (parts[3].Length > 0 && epoch == null) return null;
+            list.Add(new StoryLetter(parts[0], parts[1], parts[2].Length == 0 ? null : parts[2], epoch));
+        }
+        return list.Count is > 0 and <= MaxLetters ? list : null;
+    }
+    private static string Encode(IEnumerable<StoryLetter> letters) => string.Join(";", letters.Select(l =>
+        l.Step + "," + l.Kind + "," + (l.Choice ?? "") + "," + (l.Epoch is double e ? e.ToString("R", CultureInfo.InvariantCulture) : "")));
     /// <summary>Story data files the player has opened (Framework 0.110.0).</summary>
     public HashSet<string> Read { get; } = new(StringComparer.Ordinal);
     /// <summary>Story flags set by arc outcomes (Framework 0.114.0), with the game time each was set.</summary>
@@ -59,6 +105,7 @@ public sealed class StoryRecord
             else if (pair.Key.StartsWith(FlagPrefix, StringComparison.Ordinal) && Epoch(pair.Value) is double setAt) record.Flags[pair.Key.Substring(FlagPrefix.Length)] = setAt;
             else if (pair.Key.StartsWith(ReadPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Read.Add(pair.Key.Substring(ReadPrefix.Length));
             else if (pair.Key.StartsWith(FacePrefix, StringComparison.Ordinal) && Social.PortraitRules.ValidParts(pair.Value.Split('|'))) record.Faces[pair.Key.Substring(FacePrefix.Length)] = pair.Value.Split('|');
+            else if (pair.Key.StartsWith(LettersPrefix, StringComparison.Ordinal) && TryLetters(pair.Value) is List<StoryLetter> letters) record.Letters[pair.Key.Substring(LettersPrefix.Length)] = letters;
             else if (pair.Key == QueueKey) record.Queue.AddRange(pair.Value.Split('|').Where(id => id.Length > 0).Take(MaxQueue));
             else if (pair.Key == BeganKey && double.TryParse(pair.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double began) && !double.IsNaN(began) && !double.IsInfinity(began)) record.Began = began;
             else record.kept[pair.Key] = pair.Value;
@@ -76,6 +123,7 @@ public sealed class StoryRecord
         foreach (var id in Read) fields[ReadPrefix + id] = "1";
         foreach (var pair in Flags) fields[FlagPrefix + pair.Key] = pair.Value.ToString("R", CultureInfo.InvariantCulture);
         foreach (var pair in Faces) fields[FacePrefix + pair.Key] = string.Join("|", pair.Value);
+        foreach (var pair in Letters) if (pair.Value.Count > 0) fields[LettersPrefix + pair.Key] = Encode(pair.Value);
         if (Queue.Count > 0) fields[QueueKey] = string.Join("|", Queue.Take(MaxQueue));
         if (Began is double b) fields[BeganKey] = b.ToString("R", CultureInfo.InvariantCulture);
         return fields;
@@ -223,6 +271,8 @@ public static class StoryRules
     /// tests all pass, or null when nothing does yet.</summary>
     public static int? Outcome(StoryStep step, IStoryFacts facts, double stepStart)
     {
+        // A choice step (Framework 0.122.0) waits for the player's answer; nothing finishes it by itself.
+        if (step.choices != null) return null;
         if (Passed(step, facts, stepStart)) return -1;
         if (step.branches == null) return null;
         for (int i = 0; i < step.branches.Count; i++)
@@ -255,6 +305,27 @@ public static class StoryRules
     }
 
     public static bool Passed(StoryStep step, IStoryFacts facts, double stepStart) => step.tests.All(t => Passed(t, facts, stepStart));
+
+    /// <summary>The first test keeping a reply locked (Framework 0.122.0), or null when it can be sent.</summary>
+    public static StoryTest? ChoiceBlocked(StoryChoice choice, IStoryFacts facts, double stepStart) => choice.tests.FirstOrDefault(t => !Passed(t, facts, stepStart));
+
+    /// <summary>The letters of an arc for the Letters window (Framework 0.122.0): those recorded as they arrived, or, for
+    /// an arc begun before letters were kept, what its progress shows it must have received, in step order and without
+    /// dates. A finished arc shows every step's letters; an open or set-aside one, those before its current step and
+    /// the current step's opening letter.</summary>
+    public static List<StoryLetter> Letters(StoryArc arc, ArcProgress progress, IReadOnlyList<StoryLetter>? recorded)
+    {
+        if (recorded != null && recorded.Count > 0) return recorded.ToList();
+        var letters = new List<StoryLetter>();
+        int current = progress.State == ArcState.Done ? arc.steps.Count : Math.Max(0, Resolve(arc, progress));
+        for (int i = 0; i < arc.steps.Count && i <= current; i++)
+        {
+            var step = arc.steps[i];
+            if (step.delivery?.message != null) letters.Add(new StoryLetter(step.id, StoryLetter.Opening, null, null));
+            if (i < current && step.onComplete?.message != null) letters.Add(new StoryLetter(step.id, StoryLetter.Completion, null, null));
+        }
+        return letters;
+    }
 
     /// <summary>One test and how far it has got, for the F3 report.</summary>
     public static string Describe(StoryTest test, IStoryFacts facts, double stepStart) => test.kind switch

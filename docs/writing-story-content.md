@@ -7,7 +7,8 @@ Phobos Framework lets anyone add to the world's story with a data file:
 - **Arcs**: a short chain of goals in the GOALS list, with messages from someone in
   the world, items to bring or install, places to dock, credits to pay or hold, and
   rewards in items or credits. A step can branch: what the player does decides what
-  comes next.
+  comes next. Since Framework 0.122.0 a step can also wait for the player's reply,
+  chosen in the Letters window.
 - **Small talk** (since Framework 0.108.0): lines people say in the game's own chatter,
   so crews and station folk talk about your news and topics.
 - **Loading tips**: lore shown on loading screens among the game's own.
@@ -23,9 +24,9 @@ Stories in `mods/PhobosSpacerStories`: nine files covering every kind of entry, 
 as its own data-only add-on.
 
 **Not available yet:** new kinds of conversation (lines ride on the game's existing
-small talk), characters approaching the player, faction reputation rewards, choices
-picked from a menu (branches are decided by tests), data files found as loot in the
-world (for now they come as arc rewards) and full-screen encounters. Do not write content that needs
+small talk), characters approaching the player, data files found as loot in the
+world (for now they come as arc rewards) and full-screen encounters. Replies the player
+picks are available since Framework 0.122.0 (see [Replies](#replies-choices)). Do not write content that needs
 them. The [design record](development/story-system-design.md#later-work) says where
 each stands.
 
@@ -366,6 +367,38 @@ skill, or give up after 48 hours:
 
 Steps may also jump back to an earlier step; each check moves an arc at most one step.
 
+### Replies (`choices`)
+
+Since Framework 0.122.0 a step can wait for the player to answer. Clicking a story goal
+in the GOALS list opens the **Letters** window: every correspondence the player has
+begun, its letters in order with the correspondent's face, and the replies. A step with
+`choices` offers two to four of them, has no `tests` or `branches` of its own, and
+finishes when the player sends one. Each reply has:
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `id` | yes | Lower case and hyphens, unique in the step. It is saved with the player's answer, so do not rename it after people play it. |
+| `label` | yes | The reply as the player sees it on its button, up to 60 characters. |
+| `tests` | no | Up to four tests the reply needs before it can be sent. Until they pass it shows locked, with what it needs ("needs you to carry 1 bottle of Alembrine Spirit"). |
+| `onComplete` | no | As a step's: the answer's letter, items, credits, files, flags and standing. |
+| `next` | yes | The step the reply leads to, or `end`. |
+
+```json
+{ "id": "offer",
+  "delivery": { "message": { "person": "dara-osei", "text": "Will you carry the sample to [place]?" } },
+  "objective": { "title": "Answer Dara about the sample" },
+  "choices": [
+    { "id": "accept", "label": "I'll carry it.", "next": "carry",
+      "onComplete": { "message": { "person": "dara-osei", "text": "Thank you." }, "setFlags": [ "myprefix-sample-taken" ] } },
+    { "id": "insured", "label": "I'll carry it, insured.", "tests": [ { "kind": "credits", "amount": 200, "consume": true } ], "next": "carry" },
+    { "id": "refuse", "label": "Not this time.", "next": "end" } ] }
+```
+
+The player confirms a reply before it is sent, and cannot take it back. Use `setFlags` to
+let later news, small talk and arcs follow the answer. Dismissing the goal still sets the
+whole correspondence aside, as it does for any goal. The console's
+`phobosframework story answer <arc> <reply>` sends a reply too, through the same checks.
+
 ### Tests
 
 | `kind` | Fields | Passes when |
@@ -569,7 +602,9 @@ Format:
                                     "items": [ { "item": "...", "count": 1 } ], "credits": 0, "files": [ "<file id>" ],
                                     "setFlags": [ "MYPREFIX-<flag>" ], "clearFlags": [ ] },
                     "next": "<step id or end>",
-                    "branches": [ { "tests": [ ... ], "next": "<step id or end>", "onComplete": { ... } } ] } ] } } }
+                    "branches": [ { "tests": [ ... ], "next": "<step id or end>", "onComplete": { ... } } ] },
+                  { "id": "...", "delivery": { ... }, "objective": { ... },
+                    "choices": [ { "id": "...", "label": "...", "tests": [ ... ], "onComplete": { ... }, "next": "<step id or end>" } ] } ] } } }
 
 Rules:
 - Ids: lower-case letters and digits joined by single hyphens, starting with MYPREFIX-.
@@ -636,8 +671,13 @@ Rules:
   MSUZCiv, VenusCrim, BeltPirates, OKLGCrim.
 - Use only item ids I list below. Rewards: at most five kinds of item, at most 20 of
   each, and at most 50000 credits, modest in value.
-- Nothing else is available: no menus of choices, no new kinds of conversation, no
-  new items or places.
+- A step may instead offer the player 2 to 4 replies ("choices"), each with an id, a
+  label of at most 60 characters, optional tests that must pass before it can be sent,
+  an optional onComplete and a required next. Such a step has no tests or branches of
+  its own and waits for the player's answer. Use replies where the captain would
+  really decide something (accept, refuse, haggle), not as a way to acknowledge a
+  letter; follow the answer with setFlags.
+- Nothing else is available: no new kinds of conversation, no new items or places.
 - Setting: Ostranauts, the Solar System of the near future; blue-collar spacers living
   by salvage, hauling and odd jobs. Practical, worn-in voice with occasional dry
   humour. No real people, companies or politics; do not copy the game's text; never

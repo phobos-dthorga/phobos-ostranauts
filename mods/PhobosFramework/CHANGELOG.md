@@ -29,6 +29,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.122.0] - 2026-10-06 - Draft
+
+### Added
+
+- A Letters window for story correspondence (owner choice, 6 October 2026). Click a story goal in the GOALS list to open it: every correspondence you have begun, open ones first, with its letters in order and dated, the writer's face, and the goal it is at. Letters no longer get lost among kiosk lines in the crew log. F3 phobosframework story letters opens it too.
+- Story replies. A story step can now wait for your answer: two to four replies, chosen in the Letters window, each leading the story its own way. A reply that needs something first (credits, an item, a skill) is shown locked with what it needs. You confirm a reply before it is sent, and it cannot be taken back. The crew log says when a letter is waiting for your answer. F3 phobosframework story answer sends a reply through the same checks.
+- Story writers can offer replies with a step's choices field; the story guide, its ChatGPT prompt, the checker and the JSON Schema cover them.
+- A shared pick-one card for any mod's panels, now also used for the console's unsaved-changes question.
+
+### Save compatibility
+
+- Automatic. Each correspondence's letters and replies join Framework's existing story record; older Framework versions keep them untouched and still read every arc. A correspondence begun earlier shows the letters its progress implies, without dates.
+
+### Compatibility and limits
+
+- Existing stories, including Spacer Stories, keep their current steps; replies appear as new content uses them. The window and replies have not yet been tried in the game.
+
 ## [0.121.0] - 2026-10-06 - Draft
 
 ### Added

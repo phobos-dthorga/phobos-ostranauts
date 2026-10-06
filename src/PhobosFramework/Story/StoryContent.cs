@@ -120,6 +120,9 @@ public static class StoryContent
             case "places" when words.Length == 3: return StoryArcs.PlacesCommand();
             case "people" when words.Length == 3: return StoryArcs.PeopleCommand();
             case "standing" when words.Length == 5: return StoryArcs.StandingCommand(words[3], words[4]);
+            // Letters and replies (Framework 0.122.0): the same service the Letters window's buttons use.
+            case "answer" when words.Length == 5: return StoryArcs.Answer(words[3], words[4]);
+            case "letters" when words.Length <= 4: return LettersPanel.Show(id) ? Text.Get("Story.letters_opened") : Text.Get("Story.letters_unavailable");
             default: return Text.Get("Story.help");
         }
     }

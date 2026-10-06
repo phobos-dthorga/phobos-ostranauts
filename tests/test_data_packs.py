@@ -155,6 +155,29 @@ class DataPackTests(unittest.TestCase):
                     validate.story(bad, 'test', framework=False)
                 self.assertNotEqual(schemas.problems(json.loads(writer.render('story')), bad), [])
 
+    def test_story_replies(self):
+        # Framework 0.122.0: a step the player answers in the Letters window, mirrored with the C# schema.
+        import copy
+        pack = {'schemaVersion': 1, 'schema': 'story', 'arcs': {'offer': {'title': 'An offer', 'steps': [
+            {'id': 'letter', 'objective': {'title': 'Answer Dara'}, 'choices': [
+                {'id': 'accept', 'label': "I'll carry it.", 'tests': [{'kind': 'credits', 'amount': 100}], 'next': 'carry'},
+                {'id': 'refuse', 'label': 'Not this time.', 'next': 'end'}]},
+            {'id': 'carry', 'tests': [{'kind': 'wait', 'hours': 1}]}]}}}
+        validate.story(pack, 'test', framework=False)
+        self.assertEqual(schemas.problems(json.loads(writer.render('story')), pack), [])
+        step = lambda p: p['arcs']['offer']['steps'][0]
+        for change in (lambda p: step(p)['choices'].pop(),
+                       lambda p: step(p).update(tests=[{'kind': 'wait', 'hours': 1}]),
+                       lambda p: step(p)['choices'][1].update(id='accept'),
+                       lambda p: step(p)['choices'][0].update(next='elsewhere'),
+                       lambda p: step(p)['choices'][1].pop('next'),
+                       lambda p: step(p)['choices'][1].update(label='x' * 61),
+                       lambda p: step(p)['choices'][1].update(colour='red')):
+            bad = copy.deepcopy(pack)
+            change(bad)
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+
     def test_story_packs(self):
         # Framework 0.107.0: story packs. The shipped seed is valid; each broken copy is refused, as the game's loader does.
         import copy

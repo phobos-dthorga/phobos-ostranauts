@@ -334,6 +334,24 @@ public sealed class StoryStep
     public string? next;
     /// <summary>Other ways the step can finish, each with its own tests, outcome and next step, checked after the step's own tests.</summary>
     public List<StoryBranch>? branches;
+    /// <summary>Replies the player chooses between in the Letters window (Framework 0.122.0). A step with choices has no
+    /// tests or branches of its own: it waits for the player's answer.</summary>
+    public List<StoryChoice>? choices;
+}
+
+/// <summary>One reply the player may send (Framework 0.122.0). Its tests, when it has any, must pass before it can be
+/// sent; until then it is shown locked, with the reason. Sending it finishes the step with its own outcome.</summary>
+public sealed class StoryChoice
+{
+    /// <summary>Unique in the step; saved with the player's answer, so keep it once published.</summary>
+    public string id = "";
+    /// <summary>The reply as the player sees it on its button.</summary>
+    public string label = "";
+    public string? notes;
+    public List<StoryTest> tests = new();
+    public StoryOutcome? onComplete;
+    /// <summary>A step id of the same arc, or <c>end</c>.</summary>
+    public string next = "";
 }
 
 /// <summary>Another way a step can finish (Framework 0.109.0): the first branch whose tests all pass decides what happens.</summary>
@@ -438,6 +456,7 @@ public static class StorySchema
     public const string DockAt = "dock-at", HaveItem = "have-item", Install = "install", Wait = "wait", Credits = "credits", Condition = "condition";
     public static readonly IReadOnlyList<string> TestKinds = new[] { DockAt, HaveItem, Install, Wait, Credits, Condition };
     public const string End = "end";
+    public const int MaxChoices = 4, MaxChoiceLabel = 60;
     public const int MaxBranches = 4, MaxCreditReward = 50000, MaxFileName = 32, MaxFileText = 3000, MaxFiles = 5, MaxImage = 100;
     private static readonly Regex FileName = new("^[A-Za-z0-9_.-]+$", RegexOptions.CultureInvariant);
     private static readonly Regex ImagePath = new("^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$", RegexOptions.CultureInvariant);
@@ -645,7 +664,8 @@ public static class StorySchema
                 if (step.objective.description.Length > 0) Words(step.objective.description, MaxObjectiveDescription, at + ".objective.description");
                 if (step.objective.person != null && !IsId(step.objective.person)) throw new ArgumentException(Text.Get("StorySchema.id", at + ".objective.person", MaxIdLength));
             }
-            Tests(step.tests, at, placed);
+            if (step.choices != null) Choices(step, at, placed);
+            else Tests(step.tests, at, placed);
             Outcome(step.onComplete, at);
             if (step.branches != null)
             {
@@ -667,6 +687,28 @@ public static class StorySchema
             if (step.next != null && step.next != End && !ids.Contains(step.next)) throw new ArgumentException(Text.Get("StorySchema.next", at, step.next));
             foreach (var branch in step.branches ?? new List<StoryBranch>())
                 if (branch.next != End && !ids.Contains(branch.next ?? "")) throw new ArgumentException(Text.Get("StorySchema.next", at + ".branches", branch.next ?? ""));
+            foreach (var choice in step.choices ?? new List<StoryChoice>())
+                if (choice.next != End && !ids.Contains(choice.next ?? "")) throw new ArgumentException(Text.Get("StorySchema.next", at + ".choices." + choice.id, choice.next ?? ""));
+        }
+    }
+
+    /// <summary>A choice step (Framework 0.122.0): two to four replies, and no tests or branches of its own.</summary>
+    private static void Choices(StoryStep step, string at, bool placed)
+    {
+        if (step.tests.Count > 0 || step.branches != null) throw new ArgumentException(Text.Get("StorySchema.choices_alone", at));
+        if (step.choices!.Count < 2 || step.choices.Count > MaxChoices) throw new ArgumentException(Text.Get("StorySchema.choices", at, MaxChoices));
+        var ids = new HashSet<string>(StringComparer.Ordinal);
+        for (int c = 0; c < step.choices.Count; c++)
+        {
+            var choice = step.choices[c] ?? throw new ArgumentException(Text.Get("StorySchema.empty", at + ".choices." + c));
+            if (!IsId(choice.id, MaxStepIdLength) || !ids.Add(choice.id)) throw new ArgumentException(Text.Get("StorySchema.choice_id", at + ".choices." + c, MaxStepIdLength));
+            string cat = at + ".choices." + choice.id;
+            Words(choice.label, MaxChoiceLabel, cat + ".label");
+            if (choice.tests == null || choice.tests.Count > MaxTests) throw new ArgumentException(Text.Get("StorySchema.tests", cat, MaxTests));
+            foreach (var test in choice.tests) Test(test, cat + ".tests", placed);
+            Outcome(choice.onComplete, cat);
+            if (choice.notes != null && choice.notes.Length > 2000) throw new ArgumentException(Text.Get("StorySchema.notes", cat));
+            if (string.IsNullOrEmpty(choice.next)) throw new ArgumentException(Text.Get("StorySchema.next", cat, ""));
         }
     }
 

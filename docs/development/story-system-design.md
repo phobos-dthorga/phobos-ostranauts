@@ -419,6 +419,40 @@ game-made faces for story goals and asked that vanilla goals be left alone.
 **Also in this round:** the small-talk grammar fix
 ([handoff and resolution](story-chatter-grammar-handoff.md)).
 
+## Round 8: the Letters window and replies (Framework 0.122.0)
+
+**Owner decisions (6 October 2026).** The owner approved ChatGPT's proposal of a
+deliberate answer facility, because skill branches are automatic and docking counted as
+answering a letter. The owner chose a Letters window, opened by clicking a story goal,
+over buttons drawn on the goal itself.
+
+**Design.**
+- A step may offer two to four `choices` (replies), each with optional tests that lock it
+  until they pass, an outcome and a required next step. Such a step has no tests or
+  branches of its own, so no check finishes it.
+- `StoryArcs.Answer` sends a reply through the same finish as a test or branch: it takes
+  what the reply's tests consume, closes the goal, gives the outcome and moves on.
+- The Letters window ([LettersPanel.cs](../../src/PhobosFramework/Story/LettersPanel.cs))
+  and F3 `story answer` both call it.
+- A prefix on the goal panel's `FocusObjective(CondOwner)` opens Letters for our goals
+  only; every other goal keeps the game's click.
+- The confirmation is the shared `ChoiceCard`, which the console's unsaved-changes
+  question now uses too.
+
+**Saved.** The record gains `letters.<arc>`: each letter's step, kind (opening,
+completion, branch or reply with its id) and arrival time, at most 64 an arc. Text is
+read from the packs when shown. An arc begun before 0.122.0 shows the letters its
+progress implies, without dates. `arc.` keeps exactly five parts, so older versions still
+read every arc and keep the new key untouched.
+
+**Agent choices.**
+- Finished and set-aside correspondence starts folded.
+- A sent reply needs one confirmation and cannot be taken back.
+- The crew log says when a letter waits for an answer.
+- Existing Spacer Stories steps are not converted: turning a dock-to-answer step into
+  replies would change a published step's meaning for saves part-way through it. New
+  content uses replies; the ChatGPT prompt says when.
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another
@@ -442,7 +476,7 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | **Data files as world loot** | Story files found in the world | Round 4 delivers files as arc rewards on the game's own data cards. Loot placement and odds are held for the owner. | None beyond round 4 |
 | **Reputation rewards** | Changing faction standing | Owner decision (6 October 2026): read and change, small. Gates and changes of up to 10 points a step come in the release after 0.114.0, after an in-play check of the player's faction name. | The game's own faction scores |
 | **More tests and gates** | Goals and gates beyond the present kinds | Round 5 added place, region, flag, arc-progress and news gates. Next: `standing`, `crewWith`, `crewCount`, `running`, `months`, `hours` and `[crew]`. Candidates after that: visit a kind of ship, talk to a kind of person. | None (code only) |
-| **Choices from a menu** | The player picks the next step from offered options | Round 3 branches are decided by tests. A menu needs a choice screen. | None beyond our record |
+| **Choices from a menu** | The player picks the next step from offered options | **Delivered in Framework 0.122.0** as replies in the Letters window (round 8 below). | Our record only |
 | **Encounter scenes** | Full-screen story scenes with pictures and choices | The game's encounters are interactions saved in history; ours would need Framework-owned ones and original art. | Names in history; needs design |
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |
 | **Other mods' story packs** | Manufacturing, Shipbreaker, Medical, Auto Nav and War Has Been Declared content | Each mod registers its own pack as Agriculture does; only Agriculture ships a seed. | None beyond this release's rules |

@@ -1623,11 +1623,275 @@
                     },
                     "minItems": 1,
                     "maxItems": 4
+                  },
+                  "choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                          "maxLength": 32,
+                          "description": "Unique within the step; saved with the player's answer, so keep it once published."
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 60,
+                          "description": "The reply as the player sees it on its button. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Free text for maintainers; ignored by the game."
+                        },
+                        "tests": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "description": "What the step waits for.",
+                                "enum": [
+                                  "dock-at",
+                                  "have-item",
+                                  "install",
+                                  "wait",
+                                  "credits",
+                                  "condition"
+                                ]
+                              },
+                              "station": {
+                                "type": "string",
+                                "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                                "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station. Left out, the arc's own place."
+                              },
+                              "item": {
+                                "type": "string",
+                                "pattern": "^[A-Za-z0-9_]+$",
+                                "description": "have-item and install only: an item definition id."
+                              },
+                              "count": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 100,
+                                "description": "have-item and install only: how many (default 1)."
+                              },
+                              "consume": {
+                                "type": "boolean",
+                                "description": "have-item only: the items are taken from the player when the step finishes."
+                              },
+                              "hours": {
+                                "type": "number",
+                                "exclusiveMinimum": 0,
+                                "maximum": 720,
+                                "description": "wait only: game hours since the step began."
+                              },
+                              "amount": {
+                                "type": "number",
+                                "exclusiveMinimum": 0,
+                                "maximum": 1000000,
+                                "description": "credits only: how many credits the player holds (taken when the step finishes, with consume)."
+                              },
+                              "condition": {
+                                "type": "string",
+                                "pattern": "^[A-Za-z0-9_]+$",
+                                "description": "condition only: a game condition the player has, such as a skill (SkillHacking)."
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          },
+                          "maxItems": 4,
+                          "description": "What the reply needs before it can be sent; shown locked, with the reason, until all pass."
+                        },
+                        "onComplete": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "message": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "from": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 40,
+                                  "description": "Who it is from, shown before the text in the crew log; leave out when person names them."
+                                },
+                                "person": {
+                                  "type": "string",
+                                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                                  "maxLength": 48,
+                                  "description": "The person it is from, shown as Name, role."
+                                },
+                                "text": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 400,
+                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                }
+                              },
+                              "required": [
+                                "text"
+                              ],
+                              "anyOf": [
+                                {
+                                  "required": [
+                                    "from"
+                                  ]
+                                },
+                                {
+                                  "required": [
+                                    "person"
+                                  ]
+                                }
+                              ]
+                            },
+                            "items": {
+                              "type": "array",
+                              "maxItems": 5,
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "item": {
+                                    "type": "string",
+                                    "pattern": "^[A-Za-z0-9_]+$"
+                                  },
+                                  "count": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 20
+                                  }
+                                },
+                                "required": [
+                                  "item"
+                                ]
+                              },
+                              "description": "Items given to the player, or put at their feet when they cannot carry them."
+                            },
+                            "credits": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 50000,
+                              "description": "Credits paid to the player, entered in the game's ledger."
+                            },
+                            "files": {
+                              "type": "array",
+                              "maxItems": 5,
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                              },
+                              "description": "Story data files given to the player on one data card."
+                            },
+                            "setFlags": {
+                              "type": "array",
+                              "maxItems": 4,
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                                "maxLength": 48
+                              },
+                              "description": "Story flags set on the player's record, for other entries' requirements."
+                            },
+                            "clearFlags": {
+                              "type": "array",
+                              "maxItems": 4,
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                                "maxLength": 48
+                              },
+                              "description": "Story flags cleared."
+                            },
+                            "standing": {
+                              "type": "array",
+                              "maxItems": 2,
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "faction": {
+                                    "type": "string",
+                                    "pattern": "^[A-Za-z0-9_]+$"
+                                  },
+                                  "change": {
+                                    "type": "number",
+                                    "minimum": -10,
+                                    "maximum": 10,
+                                    "description": "Points added to the faction's view of the player, not 0; a tier is 25."
+                                  }
+                                },
+                                "required": [
+                                  "faction",
+                                  "change"
+                                ]
+                              },
+                              "description": "Small changes to how factions regard the player, through the game's own scores."
+                            }
+                          },
+                          "description": "What happens when the step finishes."
+                        },
+                        "next": {
+                          "type": "string",
+                          "pattern": "^(end|[a-z0-9]+(-[a-z0-9]+)*)$",
+                          "description": "A step id of the same arc, or end."
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "label",
+                        "next"
+                      ],
+                      "description": "A reply the player may send from the Letters window (Framework 0.122.0)."
+                    },
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "description": "Replies the player chooses between in the Letters window; a step with replies has no tests or branches."
                   }
                 },
                 "required": [
-                  "id",
-                  "tests"
+                  "id"
+                ],
+                "oneOf": [
+                  {
+                    "required": [
+                      "tests"
+                    ],
+                    "not": {
+                      "required": [
+                        "choices"
+                      ]
+                    }
+                  },
+                  {
+                    "required": [
+                      "choices"
+                    ],
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "tests"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "branches"
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 ]
               },
               "minItems": 1,

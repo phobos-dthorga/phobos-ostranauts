@@ -352,6 +352,11 @@ def story():
     next_step = {'type': 'string', 'pattern': '^(end|[a-z0-9]+(-[a-z0-9]+)*)$', 'description': 'A step id of the same arc, or end.'}
     branch = obj({'notes': NOTES, 'tests': tests, 'onComplete': outcome, 'next': next_step}, ['tests', 'next'],
                  'Another way the step can finish: the first branch whose tests all pass decides, after the step\'s own tests.')
+    choice = obj({'id': {'type': 'string', 'pattern': story_id, 'maxLength': 32, 'description': 'Unique within the step; saved with the player\'s answer, so keep it once published.'},
+                  'label': text(60, 'The reply as the player sees it on its button.'), 'notes': NOTES,
+                  'tests': {'type': 'array', 'items': test, 'maxItems': 4, 'description': 'What the reply needs before it can be sent; shown locked, with the reason, until all pass.'},
+                  'onComplete': outcome, 'next': next_step}, ['id', 'label', 'next'],
+                 'A reply the player may send from the Letters window (Framework 0.122.0).')
     step = obj({
         'id': {'type': 'string', 'pattern': story_id, 'maxLength': 32, 'description': 'Unique within the arc; it names the goal in saves, so keep it once published.'},
         'delivery': obj({'message': message, 'bulletin': {'type': 'string', 'pattern': story_id, 'description': 'A broadcast id that the next TV news item shows.'}},
@@ -362,7 +367,10 @@ def story():
         'tests': tests,
         'onComplete': outcome,
         'next': {**next_step, 'description': 'The step that follows: a step id of the same arc, or end. By default the next in order.'},
-        'branches': {'type': 'array', 'items': branch, 'minItems': 1, 'maxItems': 4}}, ['id', 'tests'])
+        'branches': {'type': 'array', 'items': branch, 'minItems': 1, 'maxItems': 4},
+        'choices': {'type': 'array', 'items': choice, 'minItems': 2, 'maxItems': 4,
+                    'description': 'Replies the player chooses between in the Letters window; a step with replies has no tests or branches.'}}, ['id'],
+        extra={'oneOf': [{'required': ['tests'], 'not': {'required': ['choices']}}, {'required': ['choices'], 'not': {'anyOf': [{'required': ['tests']}, {'required': ['branches']}]}}]})
     weight = num(1, 100, integer=True, description='How often it is picked against other story entries (default 1).')
     once = {'type': 'boolean', 'description': 'Shown once in a save, then never again.'}
     author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}

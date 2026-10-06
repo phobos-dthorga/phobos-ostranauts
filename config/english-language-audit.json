@@ -81148,13 +81148,13 @@
       "key": "Story.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed. 6 October 2026: lists story letters and story answer (Framework 0.122.0) and says replies are sent from the Letters window.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Story"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change>. None is needed: story content loads and runs by itself; these are for authors testing it."
+      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change> | story letters [arc] | story answer <arc> <reply>. None is needed: story content loads and runs by itself, and replies are sent from the Letters window; these are for authors testing it."
     },
     {
       "mod": "PhobosFramework",
@@ -85120,6 +85120,513 @@
       ],
       "before": "{0} must be one of: {1}.",
       "after": "{0} must be one of: {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.choices",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Story checker (Framework 0.122.0): reply count, ids and the rule that a reply step has no tests or branches.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} offers from 2 to {1} replies.",
+      "after": "{0} offers from 2 to {1} replies."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.choices_alone",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Story checker (Framework 0.122.0): reply count, ids and the rule that a reply step has no tests or branches.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} has replies, so it has no tests or branches of its own: it waits for the player's answer.",
+      "after": "{0} has replies, so it has no tests or branches of its own: it waits for the player's answer."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.choice_id",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Story checker (Framework 0.122.0): reply count, ids and the rule that a reply step has no tests or branches.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} needs a reply id of lower-case letters, digits and hyphens, at most {1} characters, used once in its step.",
+      "after": "{0} needs a reply id of lower-case letters, digits and hyphens, at most {1} characters, used once in its step."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.choice_line",
+      "category": "status",
+      "decision": "add",
+      "reason": "F3 story report of a step's replies (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "reply {0}: {1} ({2})",
+      "after": "reply {0}: {1} ({2})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.choice_open",
+      "category": "status",
+      "decision": "add",
+      "reason": "F3 story report of a step's replies (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "can be sent",
+      "after": "can be sent"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.choice_locked",
+      "category": "status",
+      "decision": "add",
+      "reason": "F3 story report of a step's replies (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "locked: {0}",
+      "after": "locked: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.reply_hint",
+      "category": "status",
+      "decision": "add",
+      "reason": "Crew log lines for replies (Framework 0.122.0): a letter waits for an answer; what the player replied.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "A letter is waiting for your answer. Click its goal to read it and reply.",
+      "after": "A letter is waiting for your answer. Click its goal to read it and reply."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.replied",
+      "category": "status",
+      "decision": "add",
+      "reason": "Crew log lines for replies (Framework 0.122.0): a letter waits for an answer; what the player replied.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "You replied to {0}: {1}",
+      "after": "You replied to {0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.answered",
+      "category": "status/refusal",
+      "decision": "add",
+      "reason": "Story replies (Framework 0.122.0): what was sent, or why a reply was refused and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Reply sent to {0}: {1}",
+      "after": "Reply sent to {0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.answer_not_open",
+      "category": "status/refusal",
+      "decision": "add",
+      "reason": "Story replies (Framework 0.122.0): what was sent, or why a reply was refused and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "No open correspondence is called {0}. Its goal may be finished or set aside.",
+      "after": "No open correspondence is called {0}. Its goal may be finished or set aside."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.answer_no_choice",
+      "category": "status/refusal",
+      "decision": "add",
+      "reason": "Story replies (Framework 0.122.0): what was sent, or why a reply was refused and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "That correspondence is not waiting for a reply. Its goal says what it is waiting for.",
+      "after": "That correspondence is not waiting for a reply. Its goal says what it is waiting for."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.answer_unknown",
+      "category": "status/refusal",
+      "decision": "add",
+      "reason": "Story replies (Framework 0.122.0): what was sent, or why a reply was refused and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "There is no reply called {0}. The replies here are: {1}.",
+      "after": "There is no reply called {0}. The replies here are: {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.answer_locked",
+      "category": "status/refusal",
+      "decision": "add",
+      "reason": "Story replies (Framework 0.122.0): what was sent, or why a reply was refused and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "That reply cannot be sent yet: {0}.",
+      "after": "That reply cannot be sent yet: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.answer_failed",
+      "category": "status/refusal",
+      "decision": "add",
+      "reason": "Story replies (Framework 0.122.0): what was sent, or why a reply was refused and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The reply was not sent: what it gives up is no longer all there. Nothing was taken.",
+      "after": "The reply was not sent: what it gives up is no longer all there. Nothing was taken."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_dock",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "be docked at {0}",
+      "after": "be docked at {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_any_station",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "any station",
+      "after": "any station"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_item",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "carry {0} {1}",
+      "after": "carry {0} {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_install",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "have {0} {1} aboard",
+      "after": "have {0} {1} aboard"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_wait",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "wait {0} hours from the letter",
+      "after": "wait {0} hours from the letter"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_credits",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "hold {0} credits",
+      "after": "hold {0} credits"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.need_condition",
+      "category": "status",
+      "decision": "add",
+      "reason": "What a locked reply still needs, in the player's words (Framework 0.122.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "have {0}",
+      "after": "have {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_title",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Letters",
+      "after": "Letters"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_none",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "No letters yet. Correspondence starts with a story goal; its letters arrive here as well as in the crew log.",
+      "after": "No letters yet. Correspondence starts with a story goal; its letters arrive here as well as in the crew log."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_someone",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "A correspondent",
+      "after": "A correspondent"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_you",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "You replied",
+      "after": "You replied"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_group_open",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Open",
+      "after": "Open"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_group_done",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Finished",
+      "after": "Finished"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_group_aside",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Set aside",
+      "after": "Set aside"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_state_open",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Open correspondence",
+      "after": "Open correspondence"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_state_done",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Finished",
+      "after": "Finished"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_state_aside",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Set aside",
+      "after": "Set aside"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_now",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Now",
+      "after": "Now"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_reply",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Your reply",
+      "after": "Your reply"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_locked",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} (needs you to {1})",
+      "after": "{0} (needs you to {1})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_confirm",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Send this reply to {0}?\n\n{1}\n\nA sent reply cannot be taken back.",
+      "after": "Send this reply to {0}?\n\n{1}\n\nA sent reply cannot be taken back."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_send",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Send reply",
+      "after": "Send reply"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_not_yet",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Not yet",
+      "after": "Not yet"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_opened",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Letters opened.",
+      "after": "Letters opened."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.letters_unavailable",
+      "category": "label/status",
+      "decision": "add",
+      "reason": "Letters window (Framework 0.122.0, owner choice 6 October 2026): plain labels for correspondence, its groups and the reply confirmation, which says a reply cannot be taken back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The Letters window opens in a running game, with no other window that refuses to close.",
+      "after": "The Letters window opens in a running game, with no other window that refuses to close."
     }
   ],
   "documents": [
@@ -85127,8 +85634,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d30de4bb3b34a28212a0a2221954705837a027d321d70dd9f41c4fdb93ba717c",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "5399e8336ecf5eb9d1dac4c26efde61d35d6faf84992fe30212e4fa2a55a7ff5",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -85288,8 +85795,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e6e9545835939ad62e663e8a8e01219b77bffca0b03dbfd1c17683263d0aaefe",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "f5af48b111206084267d114fb3745d6242b957ef01623bb5609178d5343d2855",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "docs/crew-automation.md",
@@ -86183,8 +86690,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b11f62106c38d97f62945caecbd868fcfbd5310c4f43da1000c92d9497d5fe88",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "a1954918d60088eda8743b9d0985904c05d0079607c25903ea7ac0b02bbac027",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -86309,8 +86816,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8d3377911aa95146c98be37354d2b320c2d057b6aafa6e292c47881440490d5d",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "cc1267b2d74256fdfb4f54acc949e9739833c4b517be8107a1c8d05d69729b03",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -86435,8 +86942,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ec785d8407a5b1f977b6d88b268e2daa880e903feacbea7ba9a3bc2bea703443",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "284004786a4e2cfecb402eaa07a87c40e31cf88436f8d635ad1ce0987f4b9ae9",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -86477,15 +86984,15 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "ddf28c94f7b3aaf817cfa7964b1dd6ad03a7605a8b15a17ed80e54990d11e68b",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "3f3073eb63ff182b599437854d228cbeed7635dc0913293b2a405dabeb746b1f",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "1f71cdf6bfd905647046bb5aa9cae4003d328d0014e02e7bd82942f8e5fba7e9",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "8cdc7cfa294c3e6b4e5e72a162de1c10039d3d8f9c17b1de2cf0a2a1e3bb6c4d",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "docs/development/spacer-stories-authoring.md",
@@ -86624,8 +87131,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3334e7bd85df8bd9dc44dd72aabfbbe9bdd77565459204368b72059683cabdb6",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "b500393948ee86fa0676116a36475e10707ea338d03d842561c129c0c48b65c4",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

@@ -140,9 +140,9 @@ public sealed class StoryLibrary
             foreach (var pair in pack.adverts) Add(library.adverts, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.arcs)
             {
-                // Every test and outcome of the arc: each step's own and each branch's.
-                var tests = pair.Value.steps.SelectMany(s => s.tests.Concat((s.branches ?? new List<StoryBranch>()).SelectMany(b => b.tests))).ToList();
-                var outcomes = pair.Value.steps.SelectMany(s => new[] { s.onComplete }.Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete)));
+                // Every test and outcome of the arc: each step's own, each branch's and each reply's.
+                var tests = Tests(pair.Value).ToList();
+                var outcomes = pair.Value.steps.SelectMany(Outcomes);
                 Add(library.arcs, pair.Key, owner, pair.Value, pair.Value.requires,
                     tests.Where(t => t.item != null).Select(t => t.item!).Concat(outcomes.SelectMany(o => o?.items ?? new List<StoryReward>()).Select(r => r.item)),
                     tests.Where(t => t.condition != null).Select(t => t.condition!));
@@ -201,7 +201,7 @@ public sealed class StoryLibrary
             changed |= Refuse(library.chatter, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ?? Mentioned(e.Value.line, e.Value.thread));
             changed |= Refuse(library.arcs, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ??
                 e.Value.steps.Select(s => s.delivery?.bulletin).Where(b => b != null && !library.broadcasts.ContainsKey(b)).Select(b => Text.Get("Story.unknown_bulletin", b!)).FirstOrDefault() ??
-                e.Value.steps.SelectMany(s => new[] { s.onComplete }.Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete)))
+                e.Value.steps.SelectMany(Outcomes)
                     .SelectMany(o => o?.files ?? new List<string>()).Where(f => !library.files.ContainsKey(f)).Select(f => Text.Get("Story.unknown_file", f)).FirstOrDefault() ??
                 Messages(e.Value).Select(m => Person(m.person, e.Value.thread) ?? Mentioned(m.text, e.Value.thread)).FirstOrDefault(p => p != null) ??
                 e.Value.steps.Select(s => Person(s.objective?.person, e.Value.thread)).FirstOrDefault(p => p != null) ??
@@ -224,9 +224,13 @@ public sealed class StoryLibrary
         return library;
     }
 
+    /// <summary>Every outcome a step can have: its own, its branches' and its replies' (Framework 0.122.0).</summary>
+    internal static IEnumerable<StoryOutcome?> Outcomes(StoryStep s) => new[] { s.onComplete }
+        .Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete)).Concat((s.choices ?? new List<StoryChoice>()).Select(c => c.onComplete));
     private static IEnumerable<StoryMessage> Messages(StoryArc arc) => arc.steps.SelectMany(s =>
-        new[] { s.delivery?.message, s.onComplete?.message }.Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete?.message))).Where(m => m != null)!;
-    private static IEnumerable<StoryTest> Tests(StoryArc arc) => arc.steps.SelectMany(s => s.tests.Concat((s.branches ?? new List<StoryBranch>()).SelectMany(b => b.tests)));
+        new[] { s.delivery?.message }.Concat(Outcomes(s).Select(o => o?.message))).Where(m => m != null)!;
+    private static IEnumerable<StoryTest> Tests(StoryArc arc) => arc.steps.SelectMany(s => s.tests
+        .Concat((s.branches ?? new List<StoryBranch>()).SelectMany(b => b.tests)).Concat((s.choices ?? new List<StoryChoice>()).SelectMany(c => c.tests)));
 
     /// <summary>Total entries, for status lines.</summary>
     public int Count => broadcasts.Count + adverts.Count + arcs.Count + chatter.Count + tips.Count + sections.Count + articles.Count + files.Count;

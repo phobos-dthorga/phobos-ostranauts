@@ -92,6 +92,11 @@ internal static class StoryNativeChecks
               typeof(DataHandler).GetMethod("AddPNG", new[] { typeof(string), typeof(UnityEngine.Texture2D) }) != null,
             "The game still rolls a face, lets a goal name its portrait and takes a picture into its cache");
         check(DataHandler.dictLoot.ContainsKey("TXTFacePartOrder") && DataHandler.dictLoot.ContainsKey("TXTPortraitType"), "The game's face part order and portrait types are loot tables");
+        // Framework 0.122.0: clicking a story goal opens the Letters window through the goal panel's own focus method.
+        var focus = typeof(Ostranauts.Objectives.ObjectivePanel).GetMethod("FocusObjective", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public, null, new[] { typeof(CondOwner) }, null);
+        check(focus != null && typeof(Ostranauts.Objectives.ObjectivePanel).GetProperty("Objective")?.PropertyType == typeof(Ostranauts.Objectives.Objective) &&
+              typeof(Ostranauts.Objectives.Objective).GetField("strCT")?.FieldType == typeof(string),
+            "A goal panel still focuses its goal through FocusObjective(CondOwner) and names its goal's test");
         string images = Path.Combine(StoryNativeData.Native, "..", "images");
         check(File.Exists(Path.Combine(images, Phobos.Ostranauts.Framework.Social.Portraits.PdaImage + ".png")) && Directory.GetFiles(Path.Combine(images, "portraits"), "*.png").Length > 0,
             "The wrist PDA picture and the portrait parts are where the game loads pictures from");

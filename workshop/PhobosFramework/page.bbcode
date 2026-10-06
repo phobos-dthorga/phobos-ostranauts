@@ -1,8 +1,8 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.121.0
+[b]Version:[/b] 0.122.0
 [b]Publication status:[/b] Not published - development candidate
 
-The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods, and it keeps their controls, crew work and supplies consistent across machines.
+The shared toolbox behind the Phobos mods: it adds no machinery of its own and keeps the content mods' controls, crew work and supplies consistent.
 
 [h2]What it does[/h2]
 [list]
@@ -19,7 +19,7 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [*]Shared merchant stock, kiosk offers, salvage, repair, Restore and dismantling rules.
 [*]Machines give off a quarter of their heat (MachineHeatScale) and hum while they work, as loud as the game's own scrubber; the sounds are WAV files you can swap.
 [*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as read-only copies; your own files in BepInEx/config override them, checked first; recipes conserve mass. Share them as an add-on.
-[*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, goal chains with rewards, small talk, loading tips, encyclopedia articles and data files, tied to stations, threads, named people (goals show their faces), standing and the clock. Removing a story file never breaks a save.
+[*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, goal chains with rewards, small talk, loading tips, encyclopedia articles and data files, tied to stations, threads, named people (goals show their faces), standing and the clock. Click a story goal to read its letters and reply. Removing a story file never breaks a save.
 [/list]
 
 [h2]Getting started[/h2]
@@ -34,7 +34,7 @@ Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/bl
 [list]
 [*]Ostranauts 1.0.1.5.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
-[*]Optional: Valtora's Ship's Water (its tanks join and fill water lines), LOGUSS's Common Sense modules and jossla's Study at Terminals work alongside it.
+[*]Optional: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora's Ship's Water[/url] (its tanks join and fill water lines), [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS's Common Sense modules[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla's Study at Terminals[/url] work alongside it. They remain their authors' work; linking implies no endorsement.
 [/list]
 
 [h2]Installing from the Workshop[/h2]
@@ -47,16 +47,14 @@ Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/bl
 [/list]
 
 [h2]Saves and limits[/h2]
-Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removal is not a clean uninstall. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass; in-game evaluation of recent features is ongoing.
+Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removal is not a clean uninstall. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A data file that breaks a rule is skipped, with the reason in the log. Automated checks pass; in-game evaluation of recent features is ongoing.
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or any research institution cited in the guides. Research informs the design; compact equipment, yields and operating limits remain gameplay choices.
-The optional integrations remain the work of their authors: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora's Ship's Water[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS's Common Sense modules[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla's Study at Terminals[/url]. Linking to them does not imply their endorsement.
 Artwork and machine sounds (ElevenLabs, elevenlabs.io) are AI-assisted; provenance and terms are recorded separately.
 
 [h2]Guides and support[/h2]
 [list]
-[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Control panels[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew orders, study and time-skips[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-item-reference.md]Item reference[/url]
@@ -65,6 +63,6 @@ Artwork and machine sounds (ElevenLabs, elevenlabs.io) are AI-assisted; provenan
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/CHANGELOG.md]Changelog[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
-[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/THIRD-PARTY.md]Framework attribution[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices and attribution[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Artwork provenance[/url]
 [/list]
