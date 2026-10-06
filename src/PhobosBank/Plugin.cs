@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using BepInEx;
 using HarmonyLib;
@@ -15,13 +17,14 @@ namespace PhobosBank;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = BankRules.Owner;
-    public const string Version = "0.1.1";
-    public const string MinimumFrameworkVersion = "0.126.0";
+    public const string Version = "0.2.0";
+    public const string MinimumFrameworkVersion = "0.127.0";
     internal const string ModName = "Phobos Banking";
     internal static Action<string> Log = _ => { };
     /// <summary>Whether the package's data folder is enabled in the game's mod list, checked at each content load.</summary>
     internal static bool Ready { get; private set; }
     private Harmony? harmony;
+    private float nextPoll;
 
     private void Awake()
     {
@@ -29,13 +32,16 @@ public sealed class Plugin : BaseUnityPlugin
         PerformanceMetrics.Initialize();
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
         FrameworkLifecycle.ContentLoading += Load;
+        FrameworkLifecycle.ContentLoaded += Loaded;
         Log(Text.Get("Plugin.loaded", Version));
     }
 
     private static void Load()
     {
         Ready = DataHandler.dictModInfos?.Values.Any(m => m.strName == ModName && !m.GetIsDisabled()) == true;
+        Loans.Reset();
         if (!Ready) { Log(Text.Get("Content.missing_package")); return; }
+        Lenders.Load();
         // The app appears only when the package is enabled, so a disabled mod leaves no icon behind.
         PdaApps.Register(new PdaApp
         {
@@ -47,9 +53,26 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Content.ready"));
     }
 
+    /// <summary>Content loaded and the story library built: lenders naming unknown places or people are left out.</summary>
+    private static void Loaded()
+    {
+        if (!Ready) return;
+        Lenders.Check(Phobos.Ostranauts.Framework.Story.StoryContent.Library);
+        Log(Text.Get("Lenders.ready", Lenders.All.Count));
+    }
+
+    private void Update()
+    {
+        if (!Ready || UnityEngine.Time.unscaledTime < nextPoll) return;
+        nextPoll = UnityEngine.Time.unscaledTime + BankRules.LoanPollSeconds;
+        try { Loans.Poll(); }
+        catch (Exception ex) { Log(Text.Get("Loans.poll_failed", ex.ToString())); }
+    }
+
     private void OnDestroy()
     {
         FrameworkLifecycle.ContentLoading -= Load;
+        FrameworkLifecycle.ContentLoaded -= Loaded;
         harmony?.UnpatchSelf();
     }
 }
@@ -71,10 +94,24 @@ internal static class ConsolePatch
                 string? refusal = Plugin.Ready ? BankPanel.Show() : Text.Get("Content.missing_package");
                 __result = refusal == null; message = refusal ?? Text.Get("Console.opened"); break;
             case "finances": __result = Debts.OpenFinances(out message); break;
+            case "lenders": message = DescribeLenders(); __result = true; break;
+            case "loans": message = Loans.Describe(); __result = true; break;
+            case "borrow":
+                if (parts.Length != 4 || !double.TryParse(parts[3], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double amount))
+                { message = Text.Get("Console.help"); __result = false; break; }
+                __result = Loans.Borrow(parts[2], amount, out message); break;
             default: message = Text.Get("Console.help"); __result = false; break;
         }
         strInput += "\n" + message;
         return false;
+    }
+
+    private static string DescribeLenders()
+    {
+        var views = Loans.Offers();
+        if (views.Count == 0) return Text.Get("Lenders.none");
+        return string.Join("\n", views.Select(v => Text.Get("Console.lender", v.Id, v.Name, v.Home, Loans.Percent(v.Entry.ratePerShift), BankPanel.Money(v.Entry.minPrincipal),
+            BankPanel.Money(v.Headroom), v.Unavailable ?? Text.Get("Lender.open"))));
     }
 
     private static string Describe()
@@ -95,4 +132,12 @@ internal static class ConsolePatch
         }
         return text.ToString();
     }
+}
+
+// A new game or a load reads the player's loan book again.
+[HarmonyPatch]
+internal static class LoanReloadPatch
+{
+    private static IEnumerable<MethodBase> TargetMethods() => typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame) || m.Name == nameof(CrewSim.NewGame));
+    private static void Prefix() => Loans.Reset();
 }

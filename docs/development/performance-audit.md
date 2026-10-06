@@ -1215,6 +1215,15 @@ reaches a Phobos task. In a time-skip, the native-precedence scan reads one more
 per task, and the free check scans the crew member's queue for a direct order instead
 of any action. `Plugin.cs` carries only the version. No capture accompanies this change.
 
+## 7 October: lenders and loans (L92)
+
+L92 — Phobos Banking 0.2.0. A five-second real-time poll (`bank.poll_loans`) returns at
+once when the player has no loans. With loans it reads the game's mortgage list once per
+loan, adds an interest bill only when a shift change has passed, and checks each lender's
+unpaid bills for a late one, a dictionary lookup per lender. The Credit panel's lenders
+page reads the lenders and the player's place when it opens and every two seconds while
+open. Nothing runs per frame or per world tick. No capture accompanies this change.
+
 ## 7 October: story services and the game's day (L91)
 
 L91 — Framework 0.127.0. `StoryLocation`, `StoryGates` and `StoryFlags` build one story

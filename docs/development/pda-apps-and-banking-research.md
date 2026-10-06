@@ -383,15 +383,64 @@ Framework 0.126.0 and Phobos Banking 0.1.0, 6 October 2026, held drafts. Checked
   icons (a white disc with a black glyph, 256 px); the Workshop cover's scene is a
   placeholder from the same script while the mod is held.
 
+## Rounds 2 and 3 as built
+
+Framework 0.127.0 (round 2) and Phobos Banking 0.2.0 (round 3), 7 October 2026, held
+drafts, done while the owner slept (owner instruction: proceed without waiting for
+answers; agent choices labelled). Checked offline and natively; borrowing not yet
+seen in play.
+
+- **Framework story services (0.127.0)** as proposed under
+  [Local lenders](#local-lenders-through-the-story-system): `StoryLocation`, `StoryGates`,
+  public `StorySchema.ValidateRequires` and `StoryLibrary.UnknownReference`,
+  `StoryFlags` and `StoryArcs.TryBegin`; and `GameClock`, with the story day set to the
+  game's 87,658.125-second day. Details in the
+  [story system record](story-system-design.md).
+- **The lenders pack** (owner direction, 7 October 2026: use the data-pack system so
+  players can add lenders). Schema `lenders`, file `mods/PhobosBank/framework/lenders.json`,
+  C# validator `LenderSchema`, Python mirror in `scripts/validate-data-packs.py`, JSON
+  Schema `schemas/lenders.schema.json`, guide section
+  [Adding a lender](../editing-data-files.md#adding-a-lender). Fields: name, pitch,
+  accredited, home (a story place), person, requires (a story block), ratePerShift,
+  minPrincipal, maxPrincipal, maxLoans, offers (cash, ship, home), minDownShare.
+- **Terms copied, not frozen (agent choice).** The research proposed freezing published
+  terms by content hash, as recipes are. Instead each loan copies its rate into the loan
+  book when taken, so the pack stays freely editable and no running loan changes.
+- **A loan** is the game's own `Mortgage` line, payee the lender's name, description
+  `<lender> loan (#n)`: the game raises its instalments on its own schedule (the first
+  as the loan is made, as the broker's do), takes payment and prepay in the Finances
+  window and applies the late fee. The loan number closes with a bracket because the
+  game matches an instalment to its loan by looking for the loan's description inside
+  the instalment's (`Ledger.GetMortgageForPayment`): `(#3)` never matches inside
+  `(#30)`. A native check runs the game's own matcher to prove it.
+- **Interest** is a one-time bill at each shift change, the rate on the balance the
+  mortgage line holds then, counted with `GameClock.ShiftCount` so a time-skip bills
+  every shift it crossed in one line. Its wording never contains the loan's
+  description, so paying it can never pay the loan down (also proved natively). Interest
+  is simple, on the balance only; unpaid interest grows by the game's late fee alone.
+- **The loan book** (`PhobosState.PhobosBank` on the player): `next`, `loan.<n>` as
+  `1|lender|payee|description|principal|rate|opened|billedTo|interestBilled|state|kind|collateral|closed`
+  and `approval` (round 4). Unknown keys and unreadable loans are kept exactly; a record
+  from a newer version stops borrowing and billing until it can be read.
+- **Shipped lenders (agent choices):** Corvane Mutual (OKLG, OKLGCorp at least neutral,
+  0.025% a shift), Halcyon Bond (Mars, Xinhua at least warm, 0.02%), Aerie Savings Union
+  (Venus, anyone, 0.03%). A whole loan paid on time costs 5.4% to 8.1% in interest (the
+  Banking tests print the figures). Branding in the
+  [branding record](equipment-branding.md).
+- **Value:** borrowing creates no value; interest is a cost and no loop earns from it.
+  No price, bill or loot changed, so the economy audit is unaffected.
+- **Flags:** `bank-<lender>-borrowed`, `bank-<lender>-repaid` and `bank-<lender>-late`
+  (set while any of the lender's bills is late), for round 5's stories.
+
 ## Proposed rounds
 
 1. **Framework `PdaApps` and the debts screen** (built; see above). The PDA icon, the panel, and the
    player's existing debts with an "Open Finances" button: proves the hosting in play
    before any lending exists.
-2. **Framework story services and the day length.** `StoryLocation`, `StoryGates`, the
+2. **Framework story services and the day length** (built in Framework 0.127.0). `StoryLocation`, `StoryGates`, the
    public requirement validator, `StoryFlags` and `StoryArcs.Begin`; the story day set to
    the game's day.
-3. **Phobos Banking: lenders and the loan book.** The `lenders` pack (home place,
+3. **Phobos Banking: lenders and the loan book** (built in Banking 0.2.0). The `lenders` pack (home place,
    `requires`, terms), one accredited lender, the per-shift interest line, the app's loan
    screens.
 4. **Financing at the broker.** The lender row, terms on screen, the loan on confirm and

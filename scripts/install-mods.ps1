@@ -428,6 +428,8 @@ foreach ($mod in $Mods) {
         'Bank' {
             # The PDA app's icon and the data folder the game needs in every mod; the panel's text is in the plugin's catalogue.
             'data/conditions/phobos_bank.json'; 'images/phobos/bank/Credit.png'
+            # 0.2.0 adds the lenders pack; the plugin embeds it, the folder copy is the players' reference.
+            if ($version -ge [version]'0.2.0') { 'framework/lenders.json' }
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.

@@ -2900,7 +2900,7 @@
     "Bank.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.1",
+      "value": "0.2.0",
       "description": "PhobosBank (Phobos Banking) published source/package version.",
       "targets": [
         {
@@ -2954,7 +2954,7 @@
     "Bank.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.126.0",
+      "value": "0.127.0",
       "description": "Current Phobos Banking required Framework version, shared with local installer admission.",
       "targets": [
         {

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "schema": "lenders",
+  "notes": "Phobos Banking 0.2.0 lenders (agent choices, 7 October 2026, for the owner to review). Each lends where its home place is, to players who meet its requirements. Repayment follows the game's own mortgage schedule; the lender's interest is billed on the balance at each shift change. Terms are copied into a loan when it is taken, so changing a lender here never changes a loan already running. See docs/bank-player-guide.md and docs/editing-data-files.md.",
+  "lenders": {
+    "corvane-mutual": {
+      "notes": "K-Leg's registered lender. Interest about 6.7% of the amount borrowed over a whole loan paid on time (tests/PhobosBank.Tests prints it).",
+      "name": "Corvane Mutual",
+      "pitch": "Corvane Mutual has kept K-Leg crews flying since the yards first turned a profit. Borrow from five thousand up to a quarter of a million, repay by the shift on the same schedule as any station mortgage, and pay a modest interest on what you still owe, with nothing hidden. Ship financing from 35% down. Stay on good terms with OKLGCorp and our door stays open.",
+      "accredited": true,
+      "home": "oklg",
+      "requires": {
+        "standing": [
+          {
+            "faction": "OKLGCorp",
+            "atLeast": "neutral"
+          }
+        ]
+      },
+      "ratePerShift": 0.00025,
+      "minPrincipal": 5000,
+      "maxPrincipal": 250000,
+      "maxLoans": 2,
+      "offers": [
+        "cash",
+        "ship"
+      ],
+      "minDownShare": 0.35
+    },
+    "halcyon-bond": {
+      "notes": "Mars's registered lender, the cheapest (about 5.4% over a whole loan paid on time), for customers the Xinhua administration already likes.",
+      "name": "Halcyon Bond",
+      "pitch": "Halcyon Bond lends to captains Port Yangshan already trusts. Our rate is the lowest on the ledger, and we finance a ship from 30% down at the Heifei District brokers. Loans from twenty thousand to half a million. We ask one thing first: a warm word from the Xinhua administration.",
+      "accredited": true,
+      "home": "mtrs",
+      "requires": {
+        "standing": [
+          {
+            "faction": "Xinhua",
+            "atLeast": "warm"
+          }
+        ]
+      },
+      "ratePerShift": 0.0002,
+      "minPrincipal": 20000,
+      "maxPrincipal": 500000,
+      "maxLoans": 2,
+      "offers": [
+        "cash",
+        "ship"
+      ],
+      "minDownShare": 0.3
+    },
+    "aerie-savings": {
+      "notes": "Venus's savings union: cash and apartment loans for anyone docked in Venus space (about 8.1% over a whole loan paid on time).",
+      "name": "Aerie Savings Union",
+      "pitch": "Aerie Savings Union is owned by the people who live up here in the clouds. Anyone docked in Venus space may borrow from five thousand to three hundred thousand, and we will finance an apartment at Porto do Encantado from 40% down. One loan at a time, a fair rate on what you owe, and no questions about who you know.",
+      "accredited": true,
+      "home": "vnca",
+      "ratePerShift": 0.0003,
+      "minPrincipal": 5000,
+      "maxPrincipal": 300000,
+      "maxLoans": 1,
+      "offers": [
+        "cash",
+        "home"
+      ],
+      "minDownShare": 0.4
+    }
+  }
+}

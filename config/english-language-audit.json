@@ -86821,14 +86821,14 @@
       "mod": "PhobosBank",
       "key": "Panel.overview",
       "category": "control/name/value",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "decision": "rewrite",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/BankPanel.cs:44"
+        "src/PhobosBank/BankPanel.cs:45"
       ],
       "before": "Overview",
-      "after": "Overview"
+      "after": "Your debts"
     },
     {
       "mod": "PhobosBank",
@@ -87328,14 +87328,15 @@
       "mod": "PhobosBank",
       "key": "Console.help",
       "category": "help/settings",
-      "decision": "add",
-      "reason": "New player text for Phobos Banking 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; the game's own rules (instalments, the 17.5% late fee) stated as the game applies them; placeholders and commands kept.",
+      "decision": "rewrite",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/Plugin.cs:74"
+        "src/PhobosBank/Plugin.cs:101",
+        "src/PhobosBank/Plugin.cs:103"
       ],
       "before": "phobosbank [debts|open|finances]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window.",
-      "after": "phobosbank [debts|open|finances]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window."
+      "after": "phobosbank [debts|open|finances|lenders|loans|borrow <lender> <amount>]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window; lenders lists who lends where; loans lists your loans from Phobos lenders; borrow takes a cash loan where you are."
     },
     {
       "mod": "PhobosBank",
@@ -87713,6 +87714,749 @@
       ],
       "before": "Arc {0} did not start: {1}.",
       "after": "Arc {0} did not start: {1}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.lenders",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:47"
+      ],
+      "before": "Lenders",
+      "after": "Lenders"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.pack_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Lenders.cs:32"
+      ],
+      "before": "Phobos Banking could not read its lenders file, so no lender is offered: {0}",
+      "after": "Phobos Banking could not read its lenders file, so no lender is offered: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Lenders.cs:44"
+      ],
+      "before": "Lender {0} is left out: {1}",
+      "after": "Lender {0} is left out: {1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:61"
+      ],
+      "before": "Phobos Banking: {0} lenders ready.",
+      "after": "Phobos Banking: {0} lenders ready."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:35",
+        "src/PhobosBank/Plugin.cs:112"
+      ],
+      "before": "No lenders are set up.",
+      "after": "No lenders are set up."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.none_detail",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:35"
+      ],
+      "before": "No lender is offering credit in this game. The lenders file in the mod's framework folder lists them; your own files in BepInEx/config/PhobosBank/lenders add more.",
+      "after": "No lender is offering credit in this game. The lenders file in the mod's framework folder lists them; your own files in BepInEx/config/PhobosBank/lenders add more."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.row_here",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:39"
+      ],
+      "before": "{0}\nup to {1}",
+      "after": "{0}\nup to {1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.row_away",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:39"
+      ],
+      "before": "{0}\n{1}",
+      "after": "{0}\n{1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.group_here",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:43"
+      ],
+      "before": "Lending here",
+      "after": "Lending here"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lenders.group_away",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:44"
+      ],
+      "before": "Elsewhere",
+      "after": "Elsewhere"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.away",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:101"
+      ],
+      "before": "Lends only in or around {0}. Dock there to borrow.",
+      "after": "Lends only in or around {0}. Dock there to borrow."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.requires",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:102"
+      ],
+      "before": "Not lending to you yet: {0}.",
+      "after": "Not lending to you yet: {0}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.max_loans",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:103"
+      ],
+      "before": "You already have {0} loans running with them, their limit. Repay one to borrow again.",
+      "after": "You already have {0} loans running with them, their limit. Repay one to borrow again."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.max_loans_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:103"
+      ],
+      "before": "You already have a loan running with them, and they lend one at a time. Repay it to borrow again.",
+      "after": "You already have a loan running with them, and they lend one at a time. Repay it to borrow again."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.limit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:104"
+      ],
+      "before": "You owe them as much as they lend to one customer ({0}). Pay some of it down to borrow again.",
+      "after": "You owe them as much as they lend to one customer ({0}). Pay some of it down to borrow again."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:114"
+      ],
+      "before": "There is no lender called {0}. phobosbank lenders lists them.",
+      "after": "There is no lender called {0}. phobosbank lenders lists them."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.no_cash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:64",
+        "src/PhobosBank/Loans.cs:115"
+      ],
+      "before": "{0} does not lend cash; it finances purchases at a broker.",
+      "after": "{0} does not lend cash; it finances purchases at a broker."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:118"
+      ],
+      "before": "Choose an amount in whole hundreds from {0} to {1}.",
+      "after": "Choose an amount in whole hundreds from {0} to {1}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:114"
+      ],
+      "before": "lending to you now",
+      "after": "lending to you now"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.accredited",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:55"
+      ],
+      "before": "Accredited lender, trading from {0}.",
+      "after": "Accredited lender, trading from {0}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.unaccredited",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:55"
+      ],
+      "before": "Unregistered lender, trading from {0}.",
+      "after": "Unregistered lender, trading from {0}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.pitch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:56"
+      ],
+      "before": "They say: {0}",
+      "after": "They say: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.terms",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:57"
+      ],
+      "before": "Terms",
+      "after": "Terms"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.rate",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:58"
+      ],
+      "before": "Interest: {0}% a shift on what you still owe, billed at each shift change. Paid on time, a whole loan costs about {1}% of the amount borrowed in interest.",
+      "after": "Interest: {0}% a shift on what you still owe, billed at each shift change. Paid on time, a whole loan costs about {1}% of the amount borrowed in interest."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.range",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:59"
+      ],
+      "before": "Loans from {0} up to {1} owed at once. You owe them {2} now.",
+      "after": "Loans from {0} up to {1} owed at once. You owe them {2} now."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.offers",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:60"
+      ],
+      "before": "Lends for: {0}.",
+      "after": "Lends for: {0}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.offer_cash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:60"
+      ],
+      "before": "cash",
+      "after": "cash"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.offer_ship",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:60"
+      ],
+      "before": "ship purchases at a broker",
+      "after": "ship purchases at a broker"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.offer_home",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:60"
+      ],
+      "before": "apartments from a real-estate broker",
+      "after": "apartments from a real-estate broker"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.down",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:61"
+      ],
+      "before": "Purchases from {0}% down.",
+      "after": "Purchases from {0}% down."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.repay",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:62"
+      ],
+      "before": "You repay by the shift on the same schedule as any station mortgage, in the Finances window. Bills left unpaid at a shift change gain the usual {0}% late fee.",
+      "after": "You repay by the shift on the same schedule as any station mortgage, in the Finances window. Bills left unpaid at a shift change gain the usual {0}% late fee."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.borrow_heading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:71"
+      ],
+      "before": "Borrow",
+      "after": "Borrow"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.amount_step",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:72"
+      ],
+      "before": "Amount ({0} a step)",
+      "after": "Amount ({0} a step)"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.quote",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:74"
+      ],
+      "before": "Borrow {0}: the first instalment is about {1} and comes due at once; interest over the whole loan comes to about {2} if every instalment is paid on time.",
+      "after": "Borrow {0}: the first instalment is about {1} and comes due at once; interest over the whole loan comes to about {2} if every instalment is paid on time."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.borrow_button",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:75"
+      ],
+      "before": "Borrow {0} from {1}",
+      "after": "Borrow {0} from {1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.confirm",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:80"
+      ],
+      "before": "Borrow {0} from {1}? The money goes into your account now. You repay it by the shift, with {2}% interest a shift on what you still owe.",
+      "after": "Borrow {0} from {1}? The money goes into your account now. You repay it by the shift, with {2}% interest a shift on what you still owe."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.confirm_yes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:82"
+      ],
+      "before": "Borrow",
+      "after": "Borrow"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Lender.confirm_no",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Lenders.cs:83"
+      ],
+      "before": "Not now",
+      "after": "Not now"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.record_kept",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:54"
+      ],
+      "before": "Phobos Banking left the player's saved loan book untouched ({0}): it was written by a newer version or is damaged. Loans are not billed until it can be read.",
+      "after": "Phobos Banking left the player's saved loan book untouched ({0}): it was written by a newer version or is damaged. Loans are not billed until it can be read."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.record_unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:56"
+      ],
+      "before": "Your loan book was saved by a newer Phobos Banking or is damaged, so nothing can be borrowed until it can be read. Your ledger itself is unaffected.",
+      "after": "Your loan book was saved by a newer Phobos Banking or is damaged, so nothing can be borrowed until it can be read. Your ledger itself is unaffected."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.record_refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:66"
+      ],
+      "before": "Phobos Banking could not save the loan book. Your ledger is unaffected; the log has the details.",
+      "after": "Phobos Banking could not save the loan book. Your ledger is unaffected; the log has the details."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.borrowed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:126"
+      ],
+      "before": "Borrowed {0} from {1}. Repay by the shift in the Finances window; interest is {2}% a shift on what you still owe.",
+      "after": "Borrowed {0} from {1}. Repay by the shift in the Finances window; interest is {2}% a shift on what you still owe."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.repaid",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:160"
+      ],
+      "before": "Loan from {0} repaid in full. No more interest is billed on it.",
+      "after": "Loan from {0} repaid in full. No more interest is billed on it."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.settled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:160"
+      ],
+      "before": "Loan from {0} settled: the ledger no longer holds it (a mortgaged ship's sale repays its lender first). No more interest is billed on it.",
+      "after": "Loan from {0} settled: the ledger no longer holds it (a mortgaged ship's sale repays its lender first). No more interest is billed on it."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.poll_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:69"
+      ],
+      "before": "Phobos Banking could not check loans: {0}",
+      "after": "Phobos Banking could not check loans: {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:199"
+      ],
+      "before": "No loans from Phobos lenders.",
+      "after": "No loans from Phobos lenders."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:204"
+      ],
+      "before": "Loan {0} from {1}, {2}: borrowed {3}, still owed {4}, interest {5}% a shift, interest billed so far {6}.",
+      "after": "Loan {0} from {1}, {2}: borrowed {3}, still owed {4}, interest {5}% a shift, interest billed so far {6}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.state_Open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:204"
+      ],
+      "before": "running",
+      "after": "running"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.state_Repaid",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:204"
+      ],
+      "before": "repaid",
+      "after": "repaid"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loans.state_Settled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:204"
+      ],
+      "before": "settled",
+      "after": "settled"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.loan",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:121"
+      ],
+      "before": "{0} loan",
+      "after": "{0} loan"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.borrowed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:123"
+      ],
+      "before": "Loan from {0}",
+      "after": "Loan from {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.interest",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:170"
+      ],
+      "before": "Interest to {0} for {1} shifts on {2}",
+      "after": "Interest to {0} for {1} shifts on {2}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.interest_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:170"
+      ],
+      "before": "Interest to {0} for a shift on {2}",
+      "after": "Interest to {0} for a shift on {2}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.interest_plain",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Loans.cs:172"
+      ],
+      "before": "Interest to {0}",
+      "after": "Interest to {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Loan.interest",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:115"
+      ],
+      "before": "Interest: {0}% a shift on the balance, billed at each shift change. Billed so far: {1}.",
+      "after": "Interest: {0}% a shift on the balance, billed at each shift change. Billed so far: {1}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.lender",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Banking 0.2.0: lenders and loans. Working-spacer voice in the controls, direct terms (rate, first instalment, whole-loan interest) before a confirmation; every refusal names the one thing in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/Plugin.cs:113"
+      ],
+      "before": "{0}: {1} at {2}, {3}% a shift, from {4}, up to {5} now; {6}",
+      "after": "{0}: {1} at {2}, {3}% a shift, from {4}, up to {5} now; {6}"
     }
   ],
   "documents": [
@@ -87720,8 +88464,9 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "49b63f191db56826374b9d2b802af6001ae7d930c1dbbad5bbed25d43f0ad5c0",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
+      "sha256": "ff4f01b1a0c4856af0dc1857fd1adc7a1c5c644c1e39170eec3fcdf3c3d98b61",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
+      "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "SUPPORT.md",
@@ -88223,8 +88968,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "844b2a88e524a0287f9a91eb58e992ea5f9b367446356438219d50a5ea092d52",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "7f035f0c907b299a0aad8ed2a1d6fb0f4e754af93ecde2f348e78de222d2ddb1",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -88560,8 +89305,9 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "cf90c5a951ac9138b003bd32844f737b3c9c92c1f53769197759fd1b577b06f9",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
+      "sha256": "e79f652fb4a77a04c3740780e02bce8a2ee128e48edc19c2d31c25aad7074fe0",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
+      "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
     },
@@ -88837,8 +89583,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "26d19ca2b28a5bd5fd1572074db6661a7cab781fdcbe79731655959e1d095122",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0)."
+      "sha256": "500649f20509869667f97a4e2594cb99082e8230a3a6ff9c894be2ad5b76017a",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -88921,8 +89667,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2f2002f01166352c139b1a2f0fa321e61926bc756658863c83e2395b66329884",
-      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
+      "sha256": "cbee15cd6e7401845729d6468f6d533e5e36b1be8295895850c9adf49307202d",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "docs/item-references.md",
@@ -89174,8 +89920,8 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "b1c4776fe97f0b3e1a09d6db2666ffa7a2e710534d9b3ef1a31b60d45d09dc5e",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "f451aedd1e8241d25f513f6d78d3c79452c6ac523d33e1b43e0d9a2ee96aa2ac",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "docs/development/panel-override-audit.md",
@@ -89188,22 +89934,22 @@
       "path": "docs/bank-player-guide.md",
       "scope": "current player guide",
       "decision": "New player guide for Phobos Banking 0.1.0.",
-      "sha256": "82d018f1515b0c92ea1bbb12842bebbb866b32ff8adab38772003f4f2bd39b0e",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "0c5fa6df7a13598bd346af4ad2b96693375818ea18d42e3925abcce6062c1023",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "2f6a08bcb404602ed763c9a6bcd0f3b6efa0e59952e3fd699a8c6214681c5f49",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.1.1: counted wording in the overview (one loan, all of them late) and the Back button on narrow screens."
+      "sha256": "34d1fa7b1e30b0938cc92262b81ec37db08ff03cbcfe310614dd7ee2abb354b7",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "docs/bank-item-reference.md",
       "scope": "generated item reference",
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
-      "sha256": "c1e8a22e4475273b043280f4b96d81ad6bf4847814e631750b200984a509e329",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.1.1: counted wording in the overview (one loan, all of them late) and the Back button on narrow screens."
+      "sha256": "17f32388a41e5dc9e534226f05d7240b2a83e467d2dda70a675895315b3ba1de",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "docs/development/health-condition-directions.md",
@@ -89224,8 +89970,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "824d9b897820e17f48e8077b606e0357be6836e8e8ce67dd716c5a4322c28cb0",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "570d8f7196389a0a3241b59e4d31d0dfb9909a42d25c30e50a4a94920649eebc",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",

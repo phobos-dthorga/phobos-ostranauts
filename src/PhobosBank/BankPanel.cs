@@ -14,7 +14,7 @@ namespace PhobosBank;
 /// <summary>The CREDIT app's panel (Phobos Banking 0.1.0): the player's loans, bills and regular charges from the game's
 /// own ledger, an overview of what is owed, and a button into the game's Finances window where bills are paid.
 /// Presentation only: it reads <see cref="Debts"/> and delegates the one action to it.</summary>
-public sealed class BankPanel : GUIData
+public sealed partial class BankPanel : GUIData
 {
     public const string Key = "PhobosBankPanel";
     private const string LoanGroup = "loans", BillGroup = "bills", ChargeGroup = "charges";
@@ -42,7 +42,9 @@ public sealed class BankPanel : GUIData
     private void Build()
     {
         shell = ConsoleShell.Create(transform, Text.Get("Panel.title"), C.Slate);
-        C.Button(shell.Navigation, Text.Get("Panel.overview"), () => { selected = ""; shell.Page(true); Render(); });
+        C.Button(shell.Navigation, Text.Get("Panel.overview"), () => { lenders = false; selected = ""; shell.Page(true); Render(); });
+        // Lenders (Banking 0.2.0): who lends here, on what terms, and borrowing.
+        C.Button(shell.Navigation, Text.Get("Panel.lenders"), () => { lenders = true; lender = ""; shell.Page(false); Render(); });
         // Back only pages from a debt to the list on a narrow screen; on a wide one both show at once.
         back = C.Button(shell.Navigation, C.Text("back"), () => { shell.Page(false); Render(); });
         back.gameObject.SetActive(shell.IsNarrow);
@@ -52,6 +54,7 @@ public sealed class BankPanel : GUIData
 
     private void Render()
     {
+        if (lenders) { RenderLenders(); return; }
         var summary = Debts.Read();
         signature = summary.Signature;
         float listScroll = shell.ListScroll.verticalNormalizedPosition, detailScroll = shell.DetailScroll.verticalNormalizedPosition;
@@ -107,6 +110,9 @@ public sealed class BankPanel : GUIData
                 C.Label(shell.Detail, Text.Get("Loan.balance", Money(debt.Amount)));
                 C.Label(shell.Detail, debt.ShiftsLeft > 0 ? Text.Get(BankRules.CountKey("Loan.instalment", debt.ShiftsLeft), Money(debt.Instalment), debt.ShiftsLeft) : Text.Get("Loan.term_over", Money(debt.Instalment)));
                 C.Label(shell.Detail, Text.Get("Loan.since", since));
+                // A loan from a Phobos lender also carries the lender's interest (Banking 0.2.0).
+                if (Loans.Attach(out _) && Loans.Book.Open.FirstOrDefault(l => l.Payee == debt.Creditor && l.Description == debt.Description) is Loan ours)
+                    C.Label(shell.Detail, Text.Get("Loan.interest", Loans.Percent(ours.RatePerShift), Money(ours.InterestBilled)));
                 C.Label(shell.Detail, Text.Get("Loan.explain", Percent(BankRules.LateFeeShare)));
                 break;
             case DebtKind.Bill:
@@ -147,8 +153,9 @@ public sealed class BankPanel : GUIData
         if (back != null && back.gameObject.activeSelf != shell.IsNarrow) back.gameObject.SetActive(shell.IsNarrow);
         if (Time.unscaledTime < next) return;
         next = Time.unscaledTime + BankRules.PanelRefreshSeconds;
-        // A paid bill, a new instalment or a late fee redraws the panel, keeping its scroll.
-        if (Debts.Read().Signature != signature) Render();
+        // A paid bill, a new instalment or a late fee redraws the panel, keeping its scroll; on the lenders page, a move
+        // into or out of a lender's reach does.
+        if ((lenders ? LendersSignature() : Debts.Read().Signature) != signature) Render();
     }
 }
 

@@ -60,6 +60,16 @@ internal static class Debts
         return DebtSummary.Of(debts);
     }
 
+    /// <summary>The game's running loans (its private mortgage list), or none when it cannot be read.</summary>
+    internal static IEnumerable<LedgerLI> Mortgages() => CanReadLoans && MortgageField!.GetValue(null) is List<LedgerLI> list ? list : Enumerable.Empty<LedgerLI>();
+
+    /// <summary>Whether any unpaid bill to this creditor is late, by the game's own wording.</summary>
+    internal static bool LateTo(string payee, string playerId)
+    {
+        string overdue = DataHandler.GetString("GUI_FINANCE_OVERDUE"), late = DataHandler.GetString("GUI_FINANCE_LATE");
+        return (Ledger.GetUnpaidLIs(payee, playerId, null, false) ?? new List<LedgerLI>()).Any(l => l != null && BankRules.IsLate(l.strDesc, overdue, late));
+    }
+
     /// <summary>Cash the player carries now (the game's money condition).</summary>
     internal static double Cash() => CrewSim.coPlayer?.GetCondAmount(BankRules.Currency) ?? 0;
 

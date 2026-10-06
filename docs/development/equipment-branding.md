@@ -299,3 +299,21 @@ naming; variable crop biomass and wet rejects have no machine model number.
 Agriculture 0.20.0 adds the medium and large reservoir sizes: **Phobos' Verdemorrow
 Groundwork R4 Agricultural Water Reservoir** (4 x 4) and **R5** (5 x 5). The model
 digit is the footprint, as for the R3; the definition IDs extend the R3's own prefix. (Retired in Agriculture 0.31.0; see the top of this record.)
+
+## Lenders (Phobos Banking 0.2.0, 7 October 2026)
+
+Lenders are services, not equipment, so they carry no `Phobos'` prefix or model
+number; they are recorded here so later equipment cannot collide with them. Agent
+choices while the owner was away, for review; collision search over this record found
+none of these words in use.
+
+| Lender | Home | Etymology and voice |
+| --- | --- | --- |
+| Corvane Mutual | OKLG | "Corvane" is invented, after a rook (corvid) and a weather vane: an old yard-town mutual society, steady and plain-spoken |
+| Halcyon Bond | Port Yangshan, Mars | Halcyon days, calm and prosperous; a bond house for established captains, polite and a little exclusive |
+| Aerie Savings Union | Long Beach Terminal, Venus | An aerie is a high nest, for the cloud habitats; a members' savings union, warm and egalitarian |
+
+The research record also proposes **Stillwater Advances** and **the Narrow Ledger** for
+the unregistered lenders of a later round; they are reserved here, not yet used. The
+game's own **Ogiso's Bank** and **Ogiso's Register** stay the game's: we refer to them
+and never speak for them.

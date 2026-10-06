@@ -82,7 +82,7 @@ The rules:
 ## Editor help
 
 The repository ships a JSON Schema for each pack in `schemas/` (`economy`,
-`process-recipes`, `materials`, `vessels`, `equipment`, `crops`, `care`). Point your editor at them and it will
+`process-recipes`, `materials`, `vessels`, `equipment`, `crops`, `care`, `lenders` and the others). Point your editor at them and it will
 complete field names and flag a wrong type or range as you type. In VS Code, add
 to your settings (adjust the path to where you cloned or downloaded the schemas):
 
@@ -148,6 +148,7 @@ as needing attention, until the file is back.
 | Phobos Framework 0.107.0 | `story` | TV news, adverts and story arcs, and how much of the TV they take; since 0.114.0 the places, people and threads content belongs to; since 0.108.0 also small talk, loading tips and encyclopedia articles; since 0.109.0 branches and credits; since 0.110.0 data files and pictures. Agriculture ships Verdemorrow's. See [writing story content](writing-story-content.md) |
 | Phobos Framework 0.111.0 | `upkeep` | Crew upkeep: what a tuning session adds, how long an inspection is good, each machine family's share of the gain |
 | Phobos Framework 0.116.0 | `stores` | Which of the game's containers are not stores: weapons, chargers, filter holders, toilets |
+| Phobos Banking 0.2.0 | `lenders` | Who lends, where, to whom and on what terms: the CREDIT app's lenders. See [Adding a lender](#adding-a-lender) |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -533,3 +534,64 @@ it but leave it bleeding, so the crew would keep pouring.
 The healing is otherwise the game's own Recuperating and cannot be changed here; a
 field such as `heal` is refused. Nothing in this file is saved with your beds, so a change
 applies to every bed from the next game load.
+
+## Adding a lender
+
+Lenders are a data pack (Phobos Banking 0.2.0), so you can add your own or change the
+shipped ones and shape who lends money where in your game. Put a file in
+`BepInEx/config/PhobosBank/lenders/`; the shipped `lenders.json` in the mod's
+`framework` folder is the reference. This file adds a small lender on Ceres for anyone
+the Galilean Confederacy does not dislike:
+
+```json
+{
+  "lenders": {
+    "mojave-credit": {
+      "name": "Mojave Credit Co-op",
+      "pitch": "We lend to miners, haulers and anyone else Port Mojave has room for. Small loans, plain terms, no lectures.",
+      "accredited": true,
+      "home": "bcer",
+      "requires": { "standing": [ { "faction": "GalileanConfederacy", "atLeast": "neutral" } ] },
+      "ratePerShift": 0.0004,
+      "minPrincipal": 2000,
+      "maxPrincipal": 60000,
+      "offers": [ "cash" ]
+    }
+  }
+}
+```
+
+What a lender holds:
+
+- **`name`**: shown in the app and on your ledger as the creditor, 1 to 40 characters,
+  without `| , = # [ ] < >`. **`pitch`**: the lender's own words to a customer, up to
+  400 characters, no placeholders.
+- **`accredited`**: a registered lender (`true`) or a quick-money one (`false`); the app
+  says which.
+- **`home`**: where it trades, a place key from Framework's story places (`oklg`, `mtrs`,
+  `bcer`, `vnca` and the rest; `phobosframework story places` lists them). A regional place
+  lends anywhere in its region; a part of one (`venc`, `mtrs-sub`) only to a player docked
+  there. **`person`** (optional): a story person who speaks for the lender.
+- **`requires`** (optional): who may borrow, the same block story content uses: standing
+  with the game's factions, flags, places, crew and the rest
+  ([writing story content](writing-story-content.md)). The app says which part is not met.
+- **`ratePerShift`**: interest on what you still owe, per shift change, as a share
+  (0.0003 is 0.03%), above 0 and at most 0.01.
+- **`minPrincipal`**, **`maxPrincipal`**: the smallest loan, and the most you may owe this
+  lender at once, 1,000 to 5,000,000 credits.
+- **`maxLoans`** (default 1, up to 5): loans from this lender running at once.
+- **`offers`**: `cash` (paid into your account), `ship` (a ship broker purchase, Phobos
+  Banking 0.3.0) and `home` (an apartment from a real-estate broker, 0.3.0).
+  **`minDownShare`** (default 0.5, from 0.1): for ship and home loans, the least you pay
+  down.
+
+Repayment always follows the game's own mortgage schedule, paid in the Finances window
+with the game's late fee; only the interest is the lender's. A lender's terms are copied
+into each loan when you take it, so changing or removing a lender never changes a loan
+already running. A lender whose `home`, `person` or `requires` names a place, person or
+story entry the game does not have is left out, with the reason in the log and in
+`phobosbank lenders`. Add-ons may add lenders under their own id prefix.
+
+Each lender also leaves story flags a story pack can react to: `bank-<id>-borrowed` once
+you borrow, `bank-<id>-repaid` once a loan from it is repaid, and `bank-<id>-late` while
+any of its bills is late.

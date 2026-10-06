@@ -476,7 +476,29 @@ def upkeep():
                'Crew upkeep: what a tuning session adds, how long an inspection is good, and each machine family\'s share of the gain.')
 
 
-SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores}
+def lenders():
+    lender = obj({
+        'notes': NOTES,
+        'name': string('The name shown in the app and on the ledger (the creditor): 1 to 40 characters, without | , = # [ ] < >.'),
+        'pitch': string("The lender's own words to a customer, in their sales voice; at most 400 characters, no placeholders."),
+        'accredited': {'type': 'boolean', 'description': 'A registered lender (lower rates, asks for standing) or a quick-money one.'},
+        'home': string('The story place the lender trades from (a key of Framework places): a regional place lends in its region, a part of one only to a player docked there.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
+        'person': string('The story person who speaks for the lender; optional.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
+        'requires': {'type': 'object', 'description': 'Who may borrow: a story requires block, checked as story content is (see the story schema).'},
+        'ratePerShift': num(None, 0.01, exclusive_minimum=0, description='Interest per shift on the balance still owed, as a share (0.0003 is 0.03%).'),
+        'minPrincipal': num(1000, 5000000, description='The smallest loan, in credits.'),
+        'maxPrincipal': num(1000, 5000000, description='The most the player may owe this lender at once, in credits; above minPrincipal.'),
+        'maxLoans': num(1, 5, integer=True, description='How many loans from this lender may run at once (default 1).'),
+        'offers': {'type': 'array', 'minItems': 1, 'uniqueItems': True, 'items': string(enum=['cash', 'ship', 'home']),
+                   'description': 'What it lends for: cash, ship (a ship broker purchase) or home (an apartment from a real-estate broker).'},
+        'minDownShare': num(0.1, 1, description='For ship and home loans: the least paid down, as a share of the price (default 0.5).'),
+    }, required=('name', 'pitch', 'home', 'ratePerShift', 'minPrincipal', 'maxPrincipal', 'offers'))
+    return obj({**header('lenders'), 'lenders': named(lender, 'Lenders by id (lowercase words joined by dashes, at most 32 characters).', '^[a-z0-9]+(-[a-z0-9]+)*$')},
+               required=('schemaVersion', 'schema', 'lenders'),
+               description="Phobos Banking lenders pack: who lends where, to whom and on what terms. Terms are copied into a loan when it is taken.")
+
+
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders}
 
 
 def render(name):

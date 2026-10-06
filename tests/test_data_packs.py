@@ -580,5 +580,29 @@ class DataPackTests(unittest.TestCase):
             validate.materials(pack, 'test')
 
 
+    def test_lenders_pack_mirrors_the_game_rules(self):
+        # Phobos Banking 0.2.0: the shipped lenders pass, and the Python mirror and the JSON Schema refuse the same mistakes.
+        path = ROOT / 'mods/PhobosBank/framework/lenders.json'
+        pack = json.loads(path.read_text(encoding='utf-8'))
+        validate.lenders(pack, 'lenders')
+        self.assertEqual(schemas.problems(json.loads(writer.render('lenders')), pack), [])
+        lender = pack['lenders']['corvane-mutual']
+        for field, value in (('ratePerShift', 0), ('ratePerShift', 0.5), ('name', 'Corvane, Mutual'), ('offers', ['gold']),
+                             ('offers', ['cash', 'cash']), ('home', 'OKLG'), ('maxLoans', 9), ('minDownShare', 0.05)):
+            bad = json.loads(json.dumps(pack))
+            bad['lenders']['corvane-mutual'][field] = value
+            with self.subTest(field=field, value=value):
+                with self.assertRaises(validate.Problem):
+                    validate.lenders(bad, 'lenders')
+        swapped = json.loads(json.dumps(pack))
+        swapped['lenders']['corvane-mutual']['minPrincipal'] = lender['maxPrincipal']
+        with self.assertRaises(validate.Problem):
+            validate.lenders(swapped, 'lenders')
+        unknown = json.loads(json.dumps(pack))
+        unknown['lenders']['corvane-mutual']['colour'] = 'blue'
+        with self.assertRaises(validate.Problem):
+            validate.lenders(unknown, 'lenders')
+        self.assertNotEqual(schemas.problems(json.loads(writer.render('lenders')), unknown), [])
+
 if __name__ == '__main__':
     unittest.main()

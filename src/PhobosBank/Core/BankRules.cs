@@ -8,6 +8,8 @@ namespace PhobosBank.Core;
 public static class BankRules
 {
     public const string Owner = "phobosgekko.ostranauts.bank";
+    /// <summary>The mod folder: the package's folder and the player override folder under <c>BepInEx/config</c>.</summary>
+    public const string ModFolder = "PhobosBank";
     /// <summary>The PDA app's saved-free name; the tooltip strings follow from it.</summary>
     public const string AppName = "phobos_bank";
     /// <summary>The icon under the package's <c>images/</c> folder, without <c>.png</c>.</summary>
@@ -27,6 +29,8 @@ public static class BankRules
     public const double PaidOffBelow = 0.005;
     /// <summary>How often an open panel looks again at the ledger, in real seconds.</summary>
     public const float PanelRefreshSeconds = 2;
+    /// <summary>How often loans are looked at for interest due and repayment, in real seconds.</summary>
+    public const float LoanPollSeconds = 5;
 
     /// <summary>Instalments left on a game mortgage, counted as the game counts them: whole days of four shifts, then
     /// whole shifts in what remains. Zero once the term has run.</summary>

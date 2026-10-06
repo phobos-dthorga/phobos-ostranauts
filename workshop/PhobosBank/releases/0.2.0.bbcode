@@ -1,0 +1,34 @@
+[h1]Phobos Banking 0.2.0[/h1]
+[b]Draft - not published | 2026-10-07[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Lenders. A Lenders page in the Credit panel lists who lends where: lenders that will lend to you where you are come first, the rest say the one thing in the way (go to their home, better standing with a faction, a loan already running, or as much owed as they lend).
+[*]Borrowing. Pick a lender and an amount and the money is paid into your account. The loan is a mortgage line in your ledger with the lender as creditor, repaid by the shift on the same schedule as any station mortgage, in the Finances window. The lender's interest is a separate bill at each shift change, its rate on what you still owe; a long time-skip bills every shift it crossed. The panel shows the first instalment and what a whole loan would cost in interest if paid on time, before you confirm.
+[*]Three accredited lenders (agent choices for the owner to review): Corvane Mutual around OKLG, Halcyon Bond around Port Yangshan on Mars for those warm with the Xinhua administration, and Aerie Savings Union around Long Beach Terminal on Venus. A whole loan paid on time costs about 5% to 8% in interest.
+[*]The lenders pack (framework/lenders.json): add your own lenders or change these in BepInEx/config/PhobosBank/lenders, or ship them in an add-on. Each lender has a home place, optional story requirements (standing, flags and the rest), a rate, a range and what it lends for. The editing guide has an example.
+[*]A loan from a Phobos lender shows its rate and the interest billed so far in Your debts. When it is paid off, interest stops and the crew log says so.
+[*]Story flags for story writers: bank-lender-borrowed, bank-lender-repaid and bank-lender-late (with the lender's id), so a story can follow what you did with money.
+[*]F3 console: phobosbank lenders, phobosbank borrow lender amount and phobosbank loans.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The Overview button is now Your debts, beside the new Lenders button.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Loans from Phobos lenders are kept in one small Phobos record on your character (lender, terms, interest billed). The balance itself is the game's own mortgage line. A lender's terms are fixed when you borrow; a later change to the lenders file never changes a running loan. Removing the mod leaves the loans as ordinary mortgages owed to the lender's name, with no more interest billed.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.127.0 for the story services lenders use (where you are, requirements, flags).
+[*]Not paying has only the game's own consequences: late fees and the debt in the Finances window. Lenders do not repossess anything.
+[*]Checked offline and against the game's own ledger code: an interest bill can never pay a loan down, and one loan's instalments can never pay another's. Borrowing has not yet been seen in play.
+[/list]

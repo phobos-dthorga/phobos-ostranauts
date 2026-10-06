@@ -1246,7 +1246,52 @@ def story(pack, where, framework=None):
     return broadcasts
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores}
+# Phobos Banking 0.2.0: who lends, where and on what terms (mirrors PhobosBank.Core.LenderSchema).
+LENDER_LIMITS = {'id': 32, 'name': 40, 'pitch': 400, 'loans': 5, 'rate': 0.01, 'min': 1000, 'max': 5000000, 'down': 0.1}
+LENDER_OFFERS = ('cash', 'ship', 'home')
+LENDER_UNSAFE = set('|,=#[]<>')
+
+
+def lenders(pack, where):
+    """The lenders schema (Phobos Banking 0.2.0). Whether a lender's home, person and requirement entries exist is
+    checked by the game against the built story library."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'lenders'}, where)
+    table = pack.get('lenders')
+    if not isinstance(table, dict):
+        raise Problem(f'{where}/lenders: expected id to lender')
+    for key, l in table.items():
+        w = f'{where}/lenders/{key}'
+        story_id(key, w, LENDER_LIMITS['id'])
+        if not isinstance(l, dict):
+            raise Problem(f'{w}: expected an object')
+        fields(l, {'notes', 'name', 'pitch', 'accredited', 'home', 'person', 'requires', 'ratePerShift', 'minPrincipal', 'maxPrincipal', 'maxLoans', 'offers', 'minDownShare'}, w)
+        if 'notes' in l and (not isinstance(l['notes'], str) or len(l['notes']) > 2000):
+            raise Problem(f'{w}/notes: at most 2000 characters')
+        name = l.get('name')
+        if not isinstance(name, str) or not name.strip() or len(name) > LENDER_LIMITS['name'] or LENDER_UNSAFE & set(name) or any(ord(c) < 32 for c in name):
+            raise Problem(f'{w}/name: 1 to {LENDER_LIMITS["name"]} characters, without | , = # [ ] < > or line breaks')
+        story_words(l.get('pitch'), LENDER_LIMITS['pitch'], f'{w}/pitch')
+        if '[' in l['pitch']:
+            raise Problem(f'{w}/pitch: no placeholders')
+        if 'accredited' in l and not isinstance(l['accredited'], bool):
+            raise Problem(f'{w}/accredited: true or false')
+        story_id(l.get('home'), f'{w}/home')
+        if l.get('person') is not None:
+            story_id(l['person'], f'{w}/person')
+        story_requires(l.get('requires'), f'{w}/requires')
+        number(l.get('ratePerShift'), f'{w}/ratePerShift', 0, LENDER_LIMITS['rate'], exclusive_low=True)
+        number(l.get('minPrincipal'), f'{w}/minPrincipal', LENDER_LIMITS['min'], LENDER_LIMITS['max'])
+        number(l.get('maxPrincipal'), f'{w}/maxPrincipal', LENDER_LIMITS['min'], LENDER_LIMITS['max'])
+        if l['minPrincipal'] >= l['maxPrincipal']:
+            raise Problem(f'{w}: minPrincipal must be below maxPrincipal')
+        number(l.get('maxLoans', 1), f'{w}/maxLoans', 1, LENDER_LIMITS['loans'], integer=True)
+        offers = l.get('offers')
+        if not isinstance(offers, list) or not offers or any(o not in LENDER_OFFERS for o in offers) or len(set(offers)) != len(offers):
+            raise Problem(f'{w}/offers: one or more of {", ".join(LENDER_OFFERS)}, each once')
+        number(l.get('minDownShare', 0.5), f'{w}/minDownShare', LENDER_LIMITS['down'], 1)
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders}
 
 
 # ---- Add-ons (Framework 0.90.0): a mod folder with phobos-addon.json and phobos/<Mod>/<schema>/*.json ----

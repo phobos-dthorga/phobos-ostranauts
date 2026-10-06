@@ -1,8 +1,8 @@
 [h1]Phobos Banking[/h1]
-[b]Version:[/b] 0.1.1
+[b]Version:[/b] 0.2.0
 [b]Publication status:[/b] Not published - held draft, awaiting owner gameplay checks
 
-Debt follows a spacer everywhere. Ogiso's Bank holds the mortgage you started with, the broker holds the one on your ship, and the station office books its fines the same way. Phobos Banking puts all of it on your wrist.
+Debt follows a spacer everywhere. Ogiso's Bank holds the mortgage you started with, the broker holds the one on your ship, and the station office books its fines the same way. Phobos Banking puts all of it on your wrist, and finds you a lender when you need one.
 
 [h2]What it does[/h2]
 [list]
@@ -12,23 +12,30 @@ Debt follows a spacer everywhere. Ogiso's Bank holds the mortgage you started wi
 [*][b]Regular charges[/b], such as crew wages, and how often each falls due.
 [*][b]An overview[/b]: cash on hand, the total left to repay, the next instalments and the bills waiting.
 [*][b]Open Finances[/b] takes you to the game's own Finances window, where bills are paid.
-[*]In the F3 console, phobosbank debts lists the same as text.
+[*][b]Lenders[/b]: who lends where, at what rate, and what they would lend you now, or the one thing in the way.
+[*][b]Borrow[/b] from a lender where you are: the money is paid in, and the loan is a mortgage in your ledger, repaid by the shift. The lender's interest is billed on what you still owe at each shift change. You see the first instalment and the whole loan's interest before you confirm.
+[*]Three accredited lenders: Corvane Mutual at OKLG, Halcyon Bond on Mars for those the Xinhua administration likes, Aerie Savings Union on Venus.
+[*]In the F3 console, phobosbank debts, lenders, borrow and loans.
 [/list]
+
+[h2]Shape the market yourself[/h2]
+Lenders are a data file. Add your own, or change who lends where, to whom and at what rate, in BepInEx/config/PhobosBank/lenders, or ship them in an add-on. A lender can ask for standing with a faction or anything else a story can. Story writers get flags for loans taken, repaid and late.
 
 [h2]How the game's debts work[/h2]
 [list]
 [*]Each shift a loan sends its instalment to your ledger as a bill.
 [*]A bill still unpaid at a shift change gains a late fee of 17.5% of it, and the fee is a bill too.
 [*]Selling a mortgaged ship repays the lender from the sale first.
-[*]The panel reads these from your ledger. It never pays, charges or lends anything.
+[*]A lender's interest is a bill like any other, with the same late fee.
+[*]The debts list reads your ledger; only Borrow adds to it.
 [/list]
 
 [h2]Coming later[/h2]
-This first version shows the debts the game already keeps. Lenders of our own, financing at the ship broker and local lenders with stories of their own are planned for later versions; none of them is in this one.
+Financing at the ship and apartment brokers, unregistered lenders and their stories are planned; none of them is in this version.
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.126.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.127.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [/list]
 
@@ -42,7 +49,8 @@ This first version shows the debts the game already keeps. Lenders of our own, f
 
 [h2]Saves and limits[/h2]
 [list]
-[*]Saves need nothing and nothing is saved. Remove the mod and the app goes; your ledger stays as it was.
+[*]Loans you take are kept in one small record on your character. Remove the mod and the app goes; the loans stay in your ledger as ordinary mortgages, with no more interest.
+[*]Not paying has only the game's own consequences: late fees. Nothing is repossessed.
 [*]The quick bar under the PDA's home screen is your own list in the game's settings; the app is on the home screen.
 [*]Automated checks pass; in-game checks are still pending.
 [/list]

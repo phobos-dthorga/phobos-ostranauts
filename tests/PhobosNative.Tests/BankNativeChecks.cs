@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Pda;
+using Phobos.Ostranauts.Framework.Story;
 using PhobosBank;
 using PhobosBank.Core;
 
@@ -63,12 +65,45 @@ internal static class BankNativeChecks
         check(typeof(GUIPDA).GetField(nameof(GUIPDA.instance))?.IsStatic == true && typeof(GUIPDA).GetProperty(nameof(GUIPDA.State))?.SetMethod?.IsPublic == true, "The PDA can be closed through its public instance and State");
         check(typeof(CrewSim).GetMethod(nameof(CrewSim.ToggleFinances), Type.EmptyTypes) != null, "The game's Finances window still opens through CrewSim.ToggleFinances");
 
+        // ---- Loans (0.2.0) ------------------------------------------------------------------------------
+        // The shipped lenders load through Framework's loader and name only places Framework's story pack knows.
+        var lenderPack = DataPacks.LoadText<LenderPack>(DataPacks.ShippedText(Lenders.Source), "", BankRules.Owner, LenderSchema.Name, LenderSchema.Validate);
+        var storyPack = DataPacks.LoadText<StoryPack>(File.ReadAllText(Path.Combine(repo, "mods", "PhobosFramework", "framework", "story.json")), "", "framework", StorySchema.Name, p => StorySchema.Validate(p, true));
+        var library = StoryLibrary.Build(new[] { ("framework", storyPack) }, null, _ => true, null, null);
+        check(lenderPack.lenders.Count > 0 && lenderPack.lenders.All(l => LenderSchema.Unknown(l.Value, library) == null), "The embedded lenders pack loads and every lender's home is a known place");
+        check(lenderPack.lenders.Values.SelectMany(l => l.requires?.standing ?? new List<StoryStanding>()).All(s => FactionKnown(game, s.faction)), "Every faction a lender asks standing with is one of the game's");
+        // The game pays a loan down when a paid bill's description holds the loan's: an interest bill must never do so.
+        Ledger.Init(Array.Empty<JsonLedgerLI>());
+        var mortgages = (List<LedgerLI>)typeof(Ledger).GetField("aMortgage", BindingFlags.NonPublic | BindingFlags.Static)!.GetValue(null)!;
+        string loanDesc = LoanRules.LoanDescription("Corvane Mutual loan", 3), otherDesc = LoanRules.LoanDescription("Corvane Mutual loan", 30);
+        var loan3 = new LedgerLI("Corvane Mutual", "player", 50000, loanDesc, Ledger.CURRENCY, 1000, LedgerLI.Frequency.Mortgage);
+        var loan30 = new LedgerLI("Corvane Mutual", "player", 80000, otherDesc, Ledger.CURRENCY, 1000, LedgerLI.Frequency.Mortgage);
+        mortgages.Add(loan3); mortgages.Add(loan30);
+        LedgerLI Bill(string desc) => new("Corvane Mutual", "player", 100, desc, Ledger.CURRENCY, 2000, LedgerLI.Frequency.OneTime);
+        string remaining = strings["GUI_FINANCE_MORTGAGE02"];
+        check(Ledger.GetMortgageForPayment(Bill(loanDesc + remaining + "49,000.00")) == loan3 && Ledger.GetMortgageForPayment(Bill(strings["GUI_FINANCE_OVERDUE"] + loanDesc + remaining + "1.00")) == loan3,
+            "The game matches a loan's instalment, overdue or not, to its loan");
+        check(Ledger.GetMortgageForPayment(Bill(otherDesc + remaining + "79,000.00")) == loan30, "Loan 30's instalment pays loan 30, never loan 3");
+        check(Ledger.GetMortgageForPayment(Bill("Interest to Corvane Mutual for 3 shifts on $49,000.00")) == null && Ledger.GetMortgageForPayment(Bill("Interest to Corvane Mutual")) == null,
+            "Paying an interest bill never pays the loan down");
+        check(Ledger.GetMortgageForShip("OKLG-1234") == null, "A cash loan is never taken for a ship's mortgage at a sale");
+        mortgages.Clear();
+        check(typeof(Ledger).GetMethod(nameof(Ledger.RecordTransaction)) != null && typeof(Ledger).GetMethod(nameof(Ledger.AddLI), new[] { typeof(LedgerLI) }) != null,
+            "The ledger calls a loan uses are still there");
+
         // ---- The icon ---------------------------------------------------------------------------------
         string icon = Path.Combine(repo, "mods", "PhobosBank", "images", BankRules.Icon.Replace('/', Path.DirectorySeparatorChar) + ".png");
         check(File.Exists(icon), "The CREDIT icon is in the package where the game looks: images/" + BankRules.Icon + ".png");
         var header = File.ReadAllBytes(icon).Take(26).ToArray();
         int Big(int at) => header[at] << 24 | header[at + 1] << 16 | header[at + 2] << 8 | header[at + 3];
         check(Big(16) == 256 && Big(20) == 256 && header[25] == 6, "The CREDIT icon is a 256-pixel RGBA image like the game's own");
+    }
+
+    private static bool FactionKnown(string game, string faction)
+    {
+        foreach (string file in Directory.GetFiles(Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "star_systems"), "*.json", SearchOption.AllDirectories))
+            if (File.ReadAllText(file).Contains("\"" + faction + "\"")) return true;
+        return false;
     }
 
     private static Dictionary<string, string> GameStrings(string game)
