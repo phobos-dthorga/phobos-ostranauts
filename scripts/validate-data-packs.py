@@ -719,7 +719,8 @@ STORY_GAME_NAME = re.compile(r'^[A-Za-z0-9_]+$')
 STORY_STATION = re.compile(r'^[A-Za-z0-9_|-]+$')
 STORY_PHOBOS_MOD = re.compile(r'^Phobos[A-Za-z]+$')
 STORY_PLUGIN_ID = re.compile(r'^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$')
-STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]', '[place]', '[region]', '[station]', '[body]', '[date]')
+STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]', '[place]', '[region]', '[station]', '[body]', '[date]', '[crew]')
+STORY_TIERS = ('dislikes', 'neutral', 'warm', 'friendly', 'trusted', 'honored')
 STORY_PERSON_TOKEN = re.compile(r'\[person:[a-z0-9]+(-[a-z0-9]+)*\]')
 STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait', 'credits', 'condition')
 STORY_MOMENTS = ('headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk')
@@ -729,7 +730,8 @@ STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 
                 'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720,
                 'line': 200, 'tip': 450, 'label': 40, 'article': 4000, 'branches': 4, 'credit_reward': 50000,
                 'credit_test': 1000000, 'days': 3650, 'file_name': 32, 'file_text': 3000, 'files': 5, 'image': 100,
-                'places': 64, 'people': 64, 'threads': 32, 'cast': 8, 'factions': 8, 'flags': 4, 'name': 40, 'weight_factor': 100, 'mention_days': 365}
+                'places': 64, 'people': 64, 'threads': 32, 'cast': 8, 'factions': 8, 'flags': 4, 'name': 40, 'weight_factor': 100, 'mention_days': 365,
+                'standing_change': 10, 'standing_changes': 2, 'crew': 50, 'speaker_factions': 4}
 STORY_FILE_NAME = re.compile(r'^[A-Za-z0-9_.-]+$')
 STORY_IMAGE = re.compile(r'^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$')
 
@@ -776,7 +778,8 @@ def story_mods_only(r, where):
         return
     story_requires(r, where)
     if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'filesRead',
-                                    'flags', 'notFlags', 'arcsActive', 'arcsAtStep', 'places', 'regions', 'newsSeen')) or 'afterDays' in r or 'beforeDays' in r:
+                                    'flags', 'notFlags', 'arcsActive', 'arcsAtStep', 'places', 'regions', 'newsSeen',
+                                    'standing', 'crewWith', 'running', 'months')) or any(name in r for name in ('afterDays', 'beforeDays', 'crewCount', 'hours')):
         raise Problem(f'{where}: shown with no player at hand, so it may require only mods')
 
 
@@ -793,7 +796,34 @@ def story_requires(r, where):
     if r is None:
         return
     fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'afterDays', 'beforeDays', 'filesRead',
-               'flags', 'notFlags', 'arcsActive', 'arcsAtStep', 'places', 'regions', 'newsSeen'}, where)
+               'flags', 'notFlags', 'arcsActive', 'arcsAtStep', 'places', 'regions', 'newsSeen',
+               'standing', 'crewWith', 'crewCount', 'running', 'months', 'hours'}, where)
+    standing = r.get('standing', [])
+    if not isinstance(standing, list) or len(standing) > STORY_LIMITS['list']:
+        raise Problem(f'{where}/standing: a list of at most {STORY_LIMITS["list"]} factions')
+    for n, s in enumerate(standing):
+        sw = f'{where}/standing/{n}'
+        fields(s, {'faction', 'atLeast', 'atMost'}, sw)
+        if not isinstance(s.get('faction'), str) or not STORY_GAME_NAME.match(s['faction']):
+            raise Problem(f'{sw}/faction: not a valid faction name')
+        low, high = s.get('atLeast'), s.get('atMost')
+        if (low is None and high is None) or (low is not None and low not in STORY_TIERS) or (high is not None and high not in STORY_TIERS) \
+                or (low is not None and high is not None and STORY_TIERS.index(low) > STORY_TIERS.index(high)):
+            raise Problem(f'{sw}: atLeast and/or atMost, each one of {", ".join(STORY_TIERS)}, atLeast not above atMost')
+    count = r.get('crewCount')
+    if count is not None:
+        fields(count, {'atLeast', 'atMost'}, f'{where}/crewCount')
+        low = number(count.get('atLeast', 0), f'{where}/crewCount/atLeast', 0, STORY_LIMITS['crew'], integer=True)
+        if 'atMost' in count:
+            number(count['atMost'], f'{where}/crewCount/atMost', low, STORY_LIMITS['crew'], integer=True)
+    months = r.get('months', [])
+    if not isinstance(months, list) or len(months) > 12 or len(set(months)) != len(months) or any(not isinstance(m, int) or isinstance(m, bool) or not 1 <= m <= 12 for m in months):
+        raise Problem(f'{where}/months: months from 1 to 12, each once')
+    hours = r.get('hours')
+    if hours is not None:
+        fields(hours, {'from', 'to'}, f'{where}/hours')
+        for name in ('from', 'to'):
+            number(hours.get(name, -1), f'{where}/hours/{name}', 0, 23, integer=True)
     for name in ('afterDays', 'beforeDays'):
         if name in r:
             number(r[name], f'{where}/{name}', 0, STORY_LIMITS['days'])
@@ -803,7 +833,8 @@ def story_requires(r, where):
               'forbidConditions': STORY_GAME_NAME.match, 'owns': STORY_GAME_NAME.match, 'dockedAt': story_station,
               'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match, 'filesRead': STORY_ID.match,
               'flags': STORY_ID.match, 'notFlags': STORY_ID.match, 'arcsActive': STORY_ID.match, 'arcsAtStep': story_arc_step,
-              'places': STORY_ID.match, 'regions': STORY_ID.match, 'newsSeen': STORY_ID.match}
+              'places': STORY_ID.match, 'regions': STORY_ID.match, 'newsSeen': STORY_ID.match,
+              'crewWith': STORY_GAME_NAME.match, 'running': STORY_GAME_NAME.match}
     for name, valid in checks.items():
         values = r.get(name, [])
         if not isinstance(values, list) or len(values) > STORY_LIMITS['list']:
@@ -905,7 +936,17 @@ def story_tests(tests, where, placed=False):
 def story_outcome(outcome, where):
     if outcome is None:
         return
-    fields(outcome, {'message', 'items', 'credits', 'files', 'setFlags', 'clearFlags'}, f'{where}/onComplete')
+    fields(outcome, {'message', 'items', 'credits', 'files', 'setFlags', 'clearFlags', 'standing'}, f'{where}/onComplete')
+    standing = outcome.get('standing', [])
+    if not isinstance(standing, list) or len(standing) > STORY_LIMITS['standing_changes'] or len({s.get('faction') for s in standing if isinstance(s, dict)}) != len(standing):
+        raise Problem(f'{where}/onComplete/standing: at most {STORY_LIMITS["standing_changes"]} factions, each once')
+    for n, s in enumerate(standing):
+        fields(s, {'faction', 'change'}, f'{where}/onComplete/standing/{n}')
+        if not isinstance(s.get('faction'), str) or not STORY_GAME_NAME.match(s['faction']):
+            raise Problem(f'{where}/onComplete/standing/{n}/faction: not a valid faction name')
+        change = number(s.get('change', 0), f'{where}/onComplete/standing/{n}/change', -STORY_LIMITS['standing_change'], STORY_LIMITS['standing_change'])
+        if change == 0:
+            raise Problem(f'{where}/onComplete/standing/{n}/change: not 0')
     for name in ('setFlags', 'clearFlags'):
         flags = outcome.get(name, [])
         if (not isinstance(flags, list) or len(flags) > STORY_LIMITS['flags'] or len(set(flags)) != len(flags)
@@ -1089,8 +1130,11 @@ def story(pack, where, framework=None):
     for key, c in pack.get('chatter', {}).items():
         w = f'{where}/chatter/{key}'
         story_id(key, w)
-        fields(c, {'title', 'notes', 'moment', 'line', 'speakers', 'weight', 'requires', 'thread', 'place'}, w)
+        fields(c, {'title', 'notes', 'moment', 'line', 'speakers', 'weight', 'requires', 'thread', 'place', 'speakerFactions'}, w)
         story_author(c, w)
+        speaker_factions = c.get('speakerFactions', [])
+        if not isinstance(speaker_factions, list) or len(speaker_factions) > STORY_LIMITS['speaker_factions'] or any(not isinstance(f, str) or not STORY_GAME_NAME.match(f) for f in speaker_factions):
+            raise Problem(f'{w}/speakerFactions: at most {STORY_LIMITS["speaker_factions"]} faction names')
         story_key(c.get('thread'), f'{w}/thread')
         story_key(c.get('place'), f'{w}/place')
         if c.get('moment') not in STORY_MOMENTS:

@@ -278,7 +278,10 @@ def story():
     game = {'type': 'string', 'pattern': '^[A-Za-z0-9_]+$'}
     station = {'type': 'string', 'pattern': '^(any|[A-Za-z0-9_|-]{1,32})$', 'description': 'A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station.'}
     plain = ('Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], '
-             '[station], [body], [date] and [person:key].')
+             '[station], [body], [date], [crew] and [person:key].')
+    tier = string('One of the game\'s standing tiers.', ['dislikes', 'neutral', 'warm', 'friendly', 'trusted', 'honored'])
+    standing = obj({'faction': {**game, 'description': 'The game\'s faction name, such as OKLGCorp.'}, 'atLeast': tier, 'atMost': tier}, ['faction'],
+                   'How a faction regards the player: at least and/or at most a tier.', extra={'anyOf': [{'required': ['atLeast']}, {'required': ['atMost']}]})
     key = {'type': 'string', 'pattern': story_id, 'maxLength': 48}
     flags = {'type': 'array', 'maxItems': 4, 'uniqueItems': True, 'items': key}
     def text(limit, description):
@@ -302,7 +305,13 @@ def story():
         'arcsAtStep': names({'type': 'string', 'pattern': '^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$'}, 'Arcs under way at a step, as arc.step.'),
         'places': names(key, 'Places the player must be at (any one): docked at it, or anywhere in its region for a regional place.'),
         'regions': names(key, 'Regional places the player must be in the region of (any one).'),
-        'newsSeen': names(key, 'News items that must have been shown on a TV.')},
+        'newsSeen': names(key, 'News items that must have been shown on a TV.'),
+        'standing': {'type': 'array', 'maxItems': 16, 'items': standing, 'description': 'How the game\'s factions must regard the player; each must hold.'},
+        'crewWith': names(game, 'Game conditions (skills among them) that someone aboard other than the player must have.'),
+        'crewCount': obj({'atLeast': num(0, 50, integer=True), 'atMost': num(0, 50, integer=True)}, description='How many crew the player has, the player not counted.'),
+        'running': names(game, 'Phobos machines, by installed definition id, that must be running on one of the player\'s ships.'),
+        'months': {'type': 'array', 'maxItems': 12, 'uniqueItems': True, 'items': num(1, 12, integer=True), 'description': 'Calendar months the entry is for.'},
+        'hours': obj({'from': num(0, 23, integer=True), 'to': num(0, 23, integer=True)}, ['from', 'to'], 'A window of the day in UTC hours; from after to wraps midnight.')},
         description='When the entry may appear. Every part is optional and every part given must hold.')
     thread_ref = {**key, 'description': 'The thread this entry belongs to: it inherits the thread\'s place and requirements.'}
     place_ref = {**key, 'description': 'The place this entry belongs to, by key (phobosframework story places lists them).'}
@@ -324,7 +333,9 @@ def story():
                    'files': {'type': 'array', 'maxItems': 5, 'uniqueItems': True, 'items': {'type': 'string', 'pattern': story_id},
                              'description': 'Story data files given to the player on one data card.'},
                    'setFlags': {**flags, 'description': 'Story flags set on the player\'s record, for other entries\' requirements.'},
-                   'clearFlags': {**flags, 'description': 'Story flags cleared.'}},
+                   'clearFlags': {**flags, 'description': 'Story flags cleared.'},
+                   'standing': {'type': 'array', 'maxItems': 2, 'items': obj({'faction': game, 'change': num(-10, 10, description='Points added to the faction\'s view of the player, not 0; a tier is 25.')}, ['faction', 'change']),
+                                'description': 'Small changes to how factions regard the player, through the game\'s own scores.'}},
                   description='What happens when the step finishes.')
     tests = {'type': 'array', 'items': test, 'minItems': 1, 'maxItems': 4, 'description': 'All must pass for the step to finish.'}
     next_step = {'type': 'string', 'pattern': '^(end|[a-z0-9]+(-[a-z0-9]+)*)$', 'description': 'A step id of the same arc, or end.'}
@@ -363,7 +374,8 @@ def story():
                    'line': text(200, 'What the speaker says, after the moment\'s lead-in.'),
                    'speakers': string('Who may say it: anyone (default), crew (someone aboard one of the player\'s ships), others (anyone else) or locals (others, at the line\'s place).', ['anyone', 'crew', 'others', 'locals']),
                    'weight': weight, 'requires': requires,
-                   'thread': thread_ref, 'place': {**place_ref, 'description': place_ref['description'] + ' Crew say the line while the player is there; others only when they are there.'}}, ['moment', 'line'])
+                   'thread': thread_ref, 'place': {**place_ref, 'description': place_ref['description'] + ' Crew say the line while the player is there; others only when they are there.'},
+                   'speakerFactions': {'type': 'array', 'maxItems': 4, 'items': game, 'description': 'Game faction names the speaker must belong to one of, such as OKLGLEO.'}}, ['moment', 'line'])
     grouping = {**key, 'description': 'The thread this entry belongs to, for authors and the F3 thread report.'}
     tip = obj({**author, 'text': lore(450, 'The lore tip shown while the game loads.'), 'weight': weight, 'requires': mods_only, 'thread': grouping}, ['text'])
     image = {'type': 'string', 'maxLength': 100, 'pattern': '^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$', 'description': "A picture beside the page: a path under a mod's images folder, without .png."}

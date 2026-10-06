@@ -41,6 +41,14 @@ internal static class StoryChecks
         public double Credits { get; set; }
         public string? Region { get; set; }
         public bool Near(string place) => At.Contains(place) || Region == place;
+        public Dictionary<string, double> Standings = new();
+        public HashSet<string> CrewConditions = new(), RunningMachines = new();
+        public int CrewCount { get; set; }
+        public int Month { get; set; } = 1;
+        public int Hour { get; set; }
+        public double? Standing(string faction) => Standings.TryGetValue(faction, out var s) ? s : null;
+        public bool CrewWith(string condition) => CrewConditions.Contains(condition);
+        public int Running(string item) => RunningMachines.Contains(item) ? 1 : 0;
         public bool ModInstalled(string mod) => Mods.Contains(mod);
         public bool PlayerHas(string condition) => Conditions.Contains(condition);
         public int Installed(string item) => Ship.TryGetValue(item, out int n) ? n : 0;
@@ -154,6 +162,71 @@ internal static class StoryChecks
         Round3(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round4(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round5(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
+        Round6(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+    }
+
+    private const string Standing = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""adverts"": { ""ayosec-ad"": { ""text"": ""AyoSec hiring."", ""requires"": { ""standing"": [ { ""faction"": ""OKLGLEO"", ""atLeast"": ""warm"" }, { ""faction"": ""OKLGCrim"", ""atMost"": ""neutral"" } ],
+                     ""crewWith"": [ ""SkillBotany"" ], ""crewCount"": { ""atLeast"": 1, ""atMost"": 3 }, ""running"": [ ""Still"" ], ""months"": [ 12, 1 ], ""hours"": { ""from"": 22, ""to"": 5 } } } },
+      ""chatter"": { ""cop-talk"": { ""moment"": ""complaint"", ""speakers"": ""others"", ""line"": ""Paperwork, [crew]."", ""speakerFactions"": [ ""OKLGLEO"" ] } },
+      ""arcs"": { ""favour"": { ""title"": ""A favour"", ""steps"": [ { ""id"": ""do"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ],
+                   ""onComplete"": { ""standing"": [ { ""faction"": ""OKLGCorp"", ""change"": 5 }, { ""faction"": ""OKLGCrim"", ""change"": -2.5 } ] } } ] } }
+    }";
+
+    /// <summary>Framework 0.115.0: standing, crew and clock gates, speaker factions and standing changes.</summary>
+    private static void Round6(Action<bool, string> check, Action<string, string> refused, Func<string, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Standing.Contains(find), "Fixture has " + find); return Standing.Replace(find, replace); }
+        var pack = load(Standing);
+        var r = pack.adverts["ayosec-ad"].requires!;
+        check(r.standing.Count == 2 && r.crewCount!.atMost == 3 && r.hours!.from == 22 && pack.arcs["favour"].steps[0].onComplete!.standing[1].change == -2.5 && pack.chatter["cop-talk"].speakerFactions.SequenceEqual(new[] { "OKLGLEO" }),
+            "Standing, crew and clock gates load");
+        refused(With("\"atLeast\": \"warm\"", "\"atLeast\": \"liked\""), "A tier is one of the game's");
+        refused(With("{ \"faction\": \"OKLGCrim\", \"atMost\": \"neutral\" }", "{ \"faction\": \"OKLGCrim\" }"), "A standing gate names a tier");
+        refused(With("\"atLeast\": \"warm\"", "\"atLeast\": \"trusted\", \"atMost\": \"warm\""), "atLeast is not above atMost");
+        refused(With("\"atLeast\": 1, \"atMost\": 3", "\"atLeast\": 4, \"atMost\": 3"), "A crew count's atMost is not below atLeast");
+        refused(With("\"months\": [ 12, 1 ]", "\"months\": [ 13 ]"), "Months are 1 to 12");
+        refused(With("\"from\": 22", "\"from\": 24"), "Hours are 0 to 23");
+        refused(With("\"change\": 5", "\"change\": 11"), "A standing change is at most 10");
+        refused(With("\"change\": 5", "\"change\": 0"), "A standing change is not 0");
+        refused(With("\"faction\": \"OKLGCrim\", \"change\": -2.5", "\"faction\": \"OKLGCorp\", \"change\": -2.5"), "Each faction is changed once");
+        refused(Standing.Replace("\"chatter\": {", "\"tips\": { \"t\": { \"text\": \"Lore.\", \"requires\": { \"months\": [ 1 ] } } }, \"chatter\": {"), "Lore cannot take a clock gate");
+
+        check(StoryRules.Tier(100) == "honored" && StoryRules.Tier(99.9) == "trusted" && StoryRules.Tier(75) == "trusted" && StoryRules.Tier(50) == "friendly" && StoryRules.Tier(25) == "warm" &&
+              StoryRules.Tier(0) == "neutral" && StoryRules.Tier(-49.9999) == "neutral" && StoryRules.Tier(-50) == "dislikes" && StoryRules.Tier(double.NaN) == "dislikes",
+            "Tiers follow the game's thresholds: 100, 75, 50, 25, -50");
+        check(StoryRules.HourIn(9, 17, 12) && !StoryRules.HourIn(9, 17, 18) && StoryRules.HourIn(22, 5, 23) && StoryRules.HourIn(22, 5, 2) && !StoryRules.HourIn(22, 5, 12), "An hour window wraps midnight");
+
+        var facts = new Facts { Month = 12, Hour = 23, CrewCount = 2 };
+        var record = new StoryRecord();
+        check(StoryRules.Blocked(r, facts, record) != null, "An unknown faction blocks");
+        facts.Standings["OKLGLEO"] = 30; facts.Standings["OKLGCrim"] = 0;
+        check(StoryRules.Blocked(r, facts, record) != null && StoryRules.Blocked(r, facts, record)!.Contains("SkillBotany"), "Then the crew skill blocks: " + StoryRules.Blocked(r, facts, record));
+        facts.CrewConditions.Add("SkillBotany");
+        check(StoryRules.Blocked(r, facts, record) != null && StoryRules.Blocked(r, facts, record)!.Contains("Still"), "Then the running machine");
+        facts.RunningMachines.Add("Still");
+        check(StoryRules.Blocked(r, facts, record) == null, "With warm AyoSec, neutral criminals, a botanist, a still running, in December at 23:00 the advert shows");
+        facts.Standings["OKLGLEO"] = 24;
+        check(StoryRules.Blocked(r, facts, record) != null, "Standing below the tier blocks");
+        facts.Standings["OKLGLEO"] = 30; facts.Standings["OKLGCrim"] = 25;
+        check(StoryRules.Blocked(r, facts, record) != null, "Standing above atMost blocks");
+        facts.Standings["OKLGCrim"] = -60; facts.CrewCount = 4;
+        check(StoryRules.Blocked(r, facts, record) != null, "Too many crew blocks");
+        facts.CrewCount = 0;
+        check(StoryRules.Blocked(r, facts, record) != null, "Too few crew blocks");
+        facts.CrewCount = 1; facts.Month = 6;
+        check(StoryRules.Blocked(r, facts, record) != null, "The wrong month blocks");
+        facts.Month = 1; facts.Hour = 12;
+        check(StoryRules.Blocked(r, facts, record) != null, "An hour outside the window blocks");
+        facts.Hour = 3;
+        check(StoryRules.Blocked(r, facts, record) == null, "January at 03:00, inside a window over midnight, passes");
+
+        var library = StoryLibrary.Build(new[] { ("x", pack) }, null, _ => true, null, null);
+        var line = library.Lines.Single(l => l.Id == "cop-talk");
+        check(StoryRules.Voices(line, false, false, false, new[] { "OKLGLEO", "OKLGCorp" }) && !StoryRules.Voices(line, false, false, false, new[] { "OKLGCiv" }) && !StoryRules.Voices(line, false, false, false, Array.Empty<string>()),
+            "A line with speaker factions is said only by a member of one");
+        check(StorySchema.Plain("Ask [crew].") == null, "[crew] is a placeholder");
     }
 
     private const string Grounded = @"{

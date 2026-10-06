@@ -273,9 +273,33 @@ fixed. The plan and its findings are summarised here; the player guide's section
 | Far news | A trickle: local news four times as likely as far; a thread is never invisible |
 
 Round 5 delivers places, people, threads, flags, arc-progress gates, placed news and
-talk, and the arrival check. Standing, crew and clock gates (`standing`, `crewWith`,
-`crewCount`, `running`, `months`, `hours`, `[crew]`) and standing changes are the next
-release.
+talk, and the arrival check (Framework 0.114.0). Round 6 (Framework 0.115.0) adds the
+standing, crew and clock gates (`standing`, `crewWith`, `crewCount`, `running`,
+`months`, `hours`), `speakerFactions` on small talk, `[crew]`, and standing changes
+in outcomes.
+
+### Round 6: standing, crew and clock (Framework 0.115.0)
+
+- **Standing** is read exactly as the game's FACTIONS app reads it: for a faction F,
+  the sum over `player.GetAllFactions()` of `F.GetFactionScore(playerFaction)`,
+  tiered by the thresholds of `JsonFaction.GetReputation` (a native check holds the
+  two in agreement at every boundary). Every character has a personal faction named
+  by their id (`PersonSpec` creates it and the player's is restored on load), so a
+  change goes through `F.ApplyFactionRep(player.strID, change)`, the call the game's
+  own debug command makes, with `bPrimary` false so no reciprocal ripple. The
+  crew log says who thinks better or worse of you and the tier now.
+- **Owner's in-play check before content uses standing changes:** `phobosframework
+  story standing OKLGCorp 5`, then open the FACTIONS app; its figure for the
+  Ayotimiwa Ship Breaking Co. should have risen by 5. If it did not, the player
+  faction name differs from the id and the call must change; gates are unaffected.
+- **Crew** facts come from `CrewRoster.Members()` without the player: `crewWith`
+  tests a condition on anyone aboard, `crewCount` counts them, `[crew]` names one at
+  random. **Running** counts Phobos machines whose Start stands
+  (`ResumeAfterLoad.Marked`) in the same sweep as `owns`. **Months** and **hours**
+  read `MathUtils.GetMonthFromS` and `StarSystem.nUTCHour`.
+- `speakerFactions` on a small-talk line is matched against the speaker's
+  `GetAllFactions()` at speech time, so AyoSec lines come from AyoSec people.
+- `story where` lists the standing with every faction a loaded place or person names.
 
 ### What was found before designing (verified in the game's code, research kept in `.local`)
 

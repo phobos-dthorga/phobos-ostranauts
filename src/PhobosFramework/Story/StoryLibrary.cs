@@ -30,9 +30,11 @@ public sealed class StoryLine
     public string? Thread { get; }
     /// <summary>For a mention: the broadcast it quotes, which must have been shown recently.</summary>
     public string? Broadcast { get; }
+    /// <summary>Game factions the speaker must belong to one of (Framework 0.115.0); empty for anyone.</summary>
+    public IReadOnlyList<string> SpeakerFactions { get; }
     public StoryLine(string id, string owner, string moment, string text, string key, string speakers, int weight, StoryRequires? requires,
-        string? place = null, string? thread = null, string? broadcast = null)
-    { Id = id; Owner = owner; Moment = moment; Text = text; Key = key; Speakers = speakers; Weight = weight; Requires = requires; Place = place; Thread = thread; Broadcast = broadcast; }
+        string? place = null, string? thread = null, string? broadcast = null, IReadOnlyList<string>? speakerFactions = null)
+    { Id = id; Owner = owner; Moment = moment; Text = text; Key = key; Speakers = speakers; Weight = weight; Requires = requires; Place = place; Thread = thread; Broadcast = broadcast; SpeakerFactions = speakerFactions ?? Array.Empty<string>(); }
 }
 
 /// <summary>Every loaded story pack merged into one library, with no game types. Ids are shared by every table across
@@ -213,7 +215,7 @@ public sealed class StoryLibrary
         }
         Refuse(library.articles, e => library.sections.ContainsKey(e.Value.section) ? null : Text.Get("Story.unknown_section", e.Value.section));
         library.Lines = library.chatter.Values.Select(c => new StoryLine(c.Id, c.Owner, c.Value.moment, c.Value.line, c.Id + ".line", c.Value.speakers, c.Value.weight, c.Value.requires,
-                library.PlaceOf(c.Value.thread, c.Value.place), c.Value.thread))
+                library.PlaceOf(c.Value.thread, c.Value.place), c.Value.thread, null, c.Value.speakerFactions))
             .Concat(library.broadcasts.Values.Where(b => b.Value.mention != null)
                 .Select(b => new StoryLine(b.Id, b.Owner, StoryMoments.Headline, b.Value.mention!, b.Id + ".mention", StorySchema.Anyone, b.Value.weight, b.Value.requires,
                     library.PlaceOf(b.Value.thread, b.Value.place), b.Value.thread, b.Id)))

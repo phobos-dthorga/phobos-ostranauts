@@ -81376,13 +81376,13 @@
       "key": "Story.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Story"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people. None is needed: story content loads and runs by itself; these are for authors testing it."
+      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change>. None is needed: story content loads and runs by itself; these are for authors testing it."
     },
     {
       "mod": "PhobosFramework",
@@ -83840,6 +83840,344 @@
       ],
       "before": "{0}: up to {1} different flag ids, none both set and cleared.",
       "after": "{0}: up to {1} different flag ids, none both set and cleared."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_faction",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the game has no faction named {0}",
+      "after": "the game has no faction named {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_standing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs {0} at least {1} with you (now {2})",
+      "after": "needs {0} at least {1} with you (now {2})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.standing_too_high",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "only while {0} is at most {1} with you (now {2})",
+      "after": "only while {0} is at most {1} with you (now {2})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_crew_with",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs someone aboard with {0}",
+      "after": "needs someone aboard with {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_crew_count",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs {0} to {1} crew (now {2})",
+      "after": "needs {0} to {1} crew (now {2})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_running",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs a {0} running",
+      "after": "needs a {0} running"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_month",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "only in month {0} (now {1})",
+      "after": "only in month {0} (now {1})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_hour",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "only between {0}:00 and {1}:00 UTC (now {2}:00)",
+      "after": "only between {0}:00 and {1}:00 UTC (now {2}:00)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.standing_up",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} think a little better of you (+{1}). Standing: {2}.",
+      "after": "{0} think a little better of you (+{1}). Standing: {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.standing_down",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} think a little less of you (-{1}). Standing: {2}.",
+      "after": "{0} think a little less of you (-{1}). Standing: {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.standing_command",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Applied. {0} now scores you {1}. Check the FACTIONS app on your PDA: if its figure did not move, tell the mod author.",
+      "after": "Applied. {0} now scores you {1}. Check the FACTIONS app on your PDA: if its figure did not move, tell the mod author."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.standing_amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "A change is a number from -{0} to {0}, not 0.",
+      "after": "A change is a number from -{0} to {0}, not 0."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_crew",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew aboard besides you: {0}. Month {1}, hour {2}.",
+      "after": "Crew aboard besides you: {0}. Month {1}, hour {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_standing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Standing with {0}: {1} ({2}).",
+      "after": "Standing with {0}: {1} ({2})."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.one_of_crew",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "one of your crew",
+      "after": "one of your crew"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.tier_dislikes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "disliked",
+      "after": "disliked"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.tier_neutral",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "neutral",
+      "after": "neutral"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.tier_warm",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "warm",
+      "after": "warm"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.tier_friendly",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "friendly",
+      "after": "friendly"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.tier_trusted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "trusted",
+      "after": "trusted"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.tier_honored",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "honored",
+      "after": "honored"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.standing",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: a faction with atLeast and/or atMost, each one of {1}, atLeast not above atMost.",
+      "after": "{0}: a faction with atLeast and/or atMost, each one of {1}, atLeast not above atMost."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.standing_change",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: at most {1} factions, each once, each changed by a number from -{2} to {2}, not 0.",
+      "after": "{0}: at most {1} factions, each once, each changed by a number from -{2} to {2}, not 0."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.count",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: atLeast from 0 to {1}, atMost from atLeast to {1}.",
+      "after": "{0}: atLeast from 0 to {1}, atMost from atLeast to {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.months",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: months from 1 to 12, each once.",
+      "after": "{0}: months from 1 to 12, each once."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.hours",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story standing, crew and clock gates (Framework 0.115.0): block reasons, standing lines and F3 reports in the working-spacer voice; each says what holds the entry back or what changed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: from and to are hours from 0 to 23.",
+      "after": "{0}: from and to are hours from 0 to 23."
     }
   ],
   "documents": [
@@ -83847,8 +84185,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0119e72f3fa1bca1a64bc0c4d72d83888c5eae7209e89b606a6d6f0f91a35d63",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "486eb4c48d62d8ac2be112d758dbd3a952e910712d84281c9d4f4abdf226db9e",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -84008,8 +84346,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f2ff594e2ad1289d6401df32862e4036428b6f89431193a85530441dcb01fe7b",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "c4020beafe2d7f1df899db1e079e4b0543918a45e37a924b5afbd1fe4999b319",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "docs/crew-automation.md",
@@ -84637,8 +84975,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "729861d8fca4ff29d78984003a11adc87674effdec6ced2d9321b22b669f367f",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "2c2af5a738fc8284f9e8147b1ec8cf138782257f77a5a24abc83d7259e554909",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -84898,8 +85236,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "809410c3782eee05e4c5372d0b1ef220cf575636c011e6fc4fa45b21b0a8a2c6",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "e212d129a2f5ed343c41cbb940bcc5039d3abcef42ab825d826d419cab0fc6c6",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -85024,8 +85362,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9984d435017b8590517fa05ab8a97a69a687e675e397358eeb798c9db6b613f9",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "a7fc93016e200e7511dd00e8fa46697dda0194d710ecd177e83c527e3dba858d",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -85150,8 +85488,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f124d3cc33b96b46d7034ec4d059443f183c18a4927c6921af02248694350104",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "e9b2b85f7b1dad95f288bb96df4093f49fa989604d9d25c0e4f69188fb68d7b5",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -85192,15 +85530,15 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "df4644385f0d32aa213c48efa5c96cda9a882bd9fc6c28841dad07581f5b5500",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "aa6f27e1e242ead29a845e70eefd1e706d98ace6630f19f151a6baf42b250931",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "7aa4897982f2824a5d49ea71231450334a777f199fc251cc33dad7c35b4860df",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "3ab084ce73c40a63d6b27ad214e47074d477f751236978dbbd33021483e54eff",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "docs/development/spacer-stories-authoring.md",
@@ -85287,8 +85625,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5ee00aeeae48f578a0d5a02bb5512d1198b3d15bda07a8939de0337901563b9d",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "a3677f286e1459327059e3c9cbdec741703319cee079d7f89b6d4e0eb87ae8ec",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

@@ -47,7 +47,8 @@ internal static class StoryChatter
             if (!StoryArcs.ChatterPools.TryGetValue(moment, out var pool) || !(StoryArcs.Roll() < library.Settings.chatterShare)) return null;
             // A placed line (Framework 0.114.0) is said where it belongs: by crew while the player is there, by others there.
             bool crew = StoryArcs.Crew(us);
-            line = StoryRules.PickLine(pool, l => StoryRules.Voices(l, crew, l.Place != null && StoryArcs.SpeakerAt(us, l.Place), l.Place != null && StoryArcs.NearPlace(l.Place)), StoryArcs.Roll());
+            var factions = us?.GetAllFactions() ?? new System.Collections.Generic.List<string>();
+            line = StoryRules.PickLine(pool, l => StoryRules.Voices(l, crew, l.Place != null && StoryArcs.SpeakerAt(us, l.Place), l.Place != null && StoryArcs.NearPlace(l.Place), factions), StoryArcs.Roll());
             if (line == null) return null;
         }
         string said = StoryArcs.Fill(StoryContent.Words(line.Owner, line.Key, line.Text), line.Place);

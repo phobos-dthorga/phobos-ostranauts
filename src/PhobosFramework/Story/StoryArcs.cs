@@ -212,10 +212,35 @@ public static class StoryArcs
         if (result != null && result.files.Count > 0) GiveFiles(result.files);
         // Story flags (Framework 0.114.0): what other entries may now require.
         if (result != null) { foreach (var flag in result.setFlags) record.SetFlag(flag, facts.Epoch); foreach (var flag in result.clearFlags) record.ClearFlag(flag); }
+        // Standing (Framework 0.115.0; owner choice: small changes): through the game's own faction scores.
+        if (result != null) foreach (var change in result.standing) Stand(change.faction, change.change);
         int next = StoryRules.NextStep(arc.Value, index, branch?.next ?? step.next);
         if (next >= 0) Enter(arc, progress, next, facts);
         else { progress.State = ArcState.Done; progress.Completions++; }
         return true;
+    }
+
+    /// <summary>Changes a faction's view of the player by the game's own reputation call, the one its debug command
+    /// makes, and says so in the crew log. A faction the game does not have is logged and skipped.</summary>
+    private static void Stand(string faction, double change)
+    {
+        if (player == null || change == 0) return;
+        var f = CrewSim.system?.GetFaction(faction);
+        if (f == null) { FrameworkLifecycle.Log(Text.Get("Story.unknown_faction", faction)); return; }
+        f.ApplyFactionRep(player.strID, (float)change);
+        Log(null, Text.Get(change > 0 ? "Story.standing_up" : "Story.standing_down", f.strNameFriendly ?? faction, Math.Abs(change).ToString("0.#", System.Globalization.CultureInfo.InvariantCulture),
+            Text.Get("Story.tier_" + StoryRules.Tier(new GameFacts(player).Standing(faction) ?? 0))));
+    }
+    /// <summary>F3 <c>story standing &lt;faction&gt; &lt;change&gt;</c>: the owner's in-play check that a change shows in the game's FACTIONS app.</summary>
+    internal static string StandingCommand(string faction, string amount)
+    {
+        if (!Ready) return Text.Get("Story.not_in_game");
+        if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
+        if (!double.TryParse(amount, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double change) || change == 0 || Math.Abs(change) > StorySchema.MaxStandingChange)
+            return Text.Get("Story.standing_amount", StorySchema.MaxStandingChange);
+        if (CrewSim.system?.GetFaction(faction) == null) return Text.Get("Story.unknown_faction", faction);
+        Stand(faction, change);
+        return Text.Get("Story.standing_command", faction, new GameFacts(player!).Standing(faction)?.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) ?? "?");
     }
 
     /// <summary>Pays the player (a positive amount) or takes from them, with a line in the game's ledger, as the
@@ -290,8 +315,16 @@ public static class StoryArcs
             "station" => StationName() ?? library.Places.Name(Here()) ?? Text.Get("Story.the_station"),
             "body" => library.Places.Body(place ?? Here()) ?? Text.Get("Story.the_rock"),
             "date" => Text.Get("Story.date", MathUtils.GetYearFromS(StarSystem.fEpoch), MathUtils.GetMonthFromS(StarSystem.fEpoch).ToString("00"), MathUtils.GetDayOfMonthFromS(StarSystem.fEpoch).ToString("00")),
+            "crew" => CrewName() ?? Text.Get("Story.one_of_crew"),
             _ => token.StartsWith("person:", StringComparison.Ordinal) ? library.PersonName(token.Substring(7), StoryContent.Words)?.Split(',')[0] : null
         });
+    }
+    /// <summary>One of the player's crew other than the player, picked at random for [crew] (Framework 0.115.0).</summary>
+    private static string? CrewName()
+    {
+        var others = Phobos.Ostranauts.Framework.Crew.CrewRoster.Members().Where(c => c != player).ToArray();
+        if (others.Length == 0) return null;
+        return others[Math.Min(others.Length - 1, (int)(Roll() * others.Length))].FriendlyName;
     }
     /// <summary>The public name of the station the player is docked at or aboard, or null.</summary>
     private static string? StationName()
@@ -493,6 +526,11 @@ public static class StoryArcs
         var lines = new List<string> { Where(facts), Text.Get("Story.docked_report", facts.DockedIds()) };
         lines.Add(Text.Get("Story.where_date", Fill("[date]"), StarSystem.nUTCHour));
         lines.Add(record.Flags.Count == 0 ? Text.Get("Story.where_no_flags") : Text.Get("Story.where_flags", string.Join(", ", record.Flags.Keys.OrderBy(f => f, StringComparer.Ordinal))));
+        lines.Add(Text.Get("Story.where_crew", facts.CrewCount, facts.Month, facts.Hour));
+        // Standing with every faction a loaded place or person names (Framework 0.115.0).
+        var named = library.PlaceEntries.Values.SelectMany(p => p.Value.factions).Concat(library.People.Values.Select(p => p.Value.faction).OfType<string>()).Distinct().OrderBy(f => f, StringComparer.Ordinal);
+        foreach (string faction in named)
+            if (facts.Standing(faction) is double score) lines.Add(Text.Get("Story.where_standing", faction, score.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture), Text.Get("Story.tier_" + StoryRules.Tier(score))));
         var gates = new Gates(facts);
         foreach (var thread in library.Threads.Values.OrderBy(t => t.Id, StringComparer.Ordinal))
             lines.Add(Text.Get("Story.where_thread", thread.Id, thread.Value.title, gates.Blocked(null, thread.Id) ?? Text.Get("Story.open")));
@@ -564,6 +602,23 @@ public static class StoryArcs
         private Dictionary<string, int>? installed, carried;
         private HashSet<string>? dockedPlaces;
         private string? region, dockedPlace; private bool placed;
+        private Dictionary<string, int>? running;
+        private CondOwner[]? crew;
+        private CondOwner[] Crew() => crew ??= Phobos.Ostranauts.Framework.Crew.CrewRoster.Members().Where(c => c != player).ToArray();
+        /// <summary>As the game's FACTIONS app sums it: the faction's score for each of the player's own factions.</summary>
+        public double? Standing(string faction)
+        {
+            var f = CrewSim.system?.GetFaction(faction);
+            if (f == null) return null;
+            double score = 0;
+            foreach (var mine in player.GetAllFactions()) score += f.GetFactionScore(mine);
+            return score;
+        }
+        public bool CrewWith(string condition) => Crew().Any(c => c.HasCond(condition));
+        public int CrewCount => Crew().Length;
+        public int Running(string item) { Installed(item); return running!.TryGetValue(item, out int n) ? n : 0; }
+        public int Month => MathUtils.GetMonthFromS(StarSystem.fEpoch);
+        public int Hour => StarSystem.nUTCHour;
         public GameFacts(CondOwner player) { this.player = player; }
         public double Epoch => StarSystem.fEpoch;
         public double Credits => player.GetCondAmount("StatUSD");
@@ -590,12 +645,17 @@ public static class StoryArcs
         {
             if (installed == null)
             {
-                installed = new Dictionary<string, int>(StringComparer.Ordinal);
+                installed = new Dictionary<string, int>(StringComparer.Ordinal); running = new Dictionary<string, int>(StringComparer.Ordinal);
                 foreach (var ship in CrewSim.system.dictShips.Values.ToArray())
                 {
                     if (ship == null || ship.bDestroyed || (int)ship.LoadState < 2 || CrewSim.system.GetShipOwner(ship.strRegID) != player.strID) continue;
                     foreach (var co in ship.GetCOs(null, false, false, true))
-                        if (co != null && !co.bDestroyed && co.ship == ship) installed[co.strCODef] = installed.TryGetValue(co.strCODef, out int n) ? n + 1 : 1;
+                    {
+                        if (co == null || co.bDestroyed || co.ship != ship) continue;
+                        installed[co.strCODef] = installed.TryGetValue(co.strCODef, out int n) ? n + 1 : 1;
+                        // A Phobos machine whose Start stands is running (Framework 0.115.0).
+                        if (ResumeAfterLoad.Marked(co)) running[co.strCODef] = running.TryGetValue(co.strCODef, out int r) ? r + 1 : 1;
+                    }
                 }
             }
             return installed.TryGetValue(item, out int count) ? count : 0;

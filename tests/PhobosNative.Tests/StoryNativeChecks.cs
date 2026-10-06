@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Ostranauts.Trading;
@@ -137,6 +138,14 @@ internal static class StoryNativeChecks
         check(typeof(CollisionManager).GetField("strATCClosest") != null && typeof(AIShipManager).GetField("strATCLast") != null, "The game's current-region fields exist");
         check(typeof(MathUtils).GetMethod("GetYearFromS") != null && typeof(MathUtils).GetMethod("GetMonthFromS") != null && typeof(MathUtils).GetMethod("GetDayOfMonthFromS") != null,
             "The game's calendar helpers exist");
+        // Framework 0.115.0: the standing members and tiers the gates read, over the game's own factions.
+        check(typeof(JsonFaction).GetMethod("GetFactionScore", new[] { typeof(string) }) != null && typeof(JsonFaction).GetMethod("ApplyFactionRep") != null &&
+              typeof(JsonFaction).GetMethod("GetReputation") != null && typeof(CondOwner).GetMethod("GetAllFactions") != null, "The game's faction score, apply and tier members exist");
+        foreach (var (score, tier) in new[] { (100f, "Honored"), (99.9f, "Trusted"), (75f, "Trusted"), (50f, "Friendly"), (25f, "Warm"), (0f, "Neutral"), (-49.9999f, "Neutral"), (-50f, "Dislikes") })
+            check(JsonFaction.GetReputation(score).ToString() == tier && string.Equals(StoryRules.Tier(score), tier, StringComparison.OrdinalIgnoreCase), "The tier thresholds agree with the game's at " + score + ": " + JsonFaction.GetReputation(score));
+        var factions = Newtonsoft.Json.Linq.JArray.Parse(File.ReadAllText(file)).First(s => (string?)s["strName"] == "NewGame")["aFactions"];
+        var names = new HashSet<string>(factions!.Select(f => (string)f["strName"]!), StringComparer.Ordinal);
+        foreach (var pair in frameworkPack.places) foreach (var faction in pair.Value.factions) check(names.Contains(faction), "A place's faction is one of the game's: " + faction);
         check(MathUtils.GetYearFromS(system.dfEpoch) >= 2070 && MathUtils.GetMonthFromS(system.dfEpoch) is >= 1 and <= 12 && MathUtils.GetDayOfMonthFromS(system.dfEpoch) is >= 1 and <= 31,
             "The game's start date reads as a calendar date: " + MathUtils.GetYearFromS(system.dfEpoch));
     }

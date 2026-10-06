@@ -132,6 +132,18 @@ public interface IStoryFacts
     /// <summary>Whether the player is at a place: docked at or aboard it (or a part of it), or, for a regional place,
     /// anywhere in its region.</summary>
     bool Near(string place);
+    /// <summary>A faction's score for the player as the game's FACTIONS app sums it (Framework 0.115.0), or null for a
+    /// faction the game does not have.</summary>
+    double? Standing(string faction);
+    /// <summary>Whether someone aboard other than the player has the condition.</summary>
+    bool CrewWith(string condition);
+    /// <summary>How many crew the player has, the player not counted.</summary>
+    int CrewCount { get; }
+    /// <summary>Phobos machines of this definition running on the player's loaded ships.</summary>
+    int Running(string item);
+    /// <summary>The calendar month (1 to 12) and the UTC hour (0 to 23).</summary>
+    int Month { get; }
+    int Hour { get; }
 }
 
 /// <summary>The story rules with no game types: eligibility, goal tests and weighted picks.</summary>
@@ -161,11 +173,32 @@ public static class StoryRules
         if (r.places.Count > 0 && !r.places.Any(facts.Near)) return Text.Get("Story.needs_place", string.Join(", ", r.places));
         if (r.regions.Count > 0 && !r.regions.Contains(facts.Region ?? "")) return Text.Get("Story.needs_region", string.Join(", ", r.regions));
         foreach (var news in r.newsSeen) if (!record.Seen.Contains(news)) return Text.Get("Story.needs_news", news);
+        foreach (var s in r.standing)
+        {
+            double? score = facts.Standing(s.faction);
+            if (score == null) return Text.Get("Story.unknown_faction", s.faction);
+            string tier = Tier(score.Value);
+            if (s.atLeast != null && TierRank(tier) < TierRank(s.atLeast)) return Text.Get("Story.needs_standing", s.faction, s.atLeast, tier);
+            if (s.atMost != null && TierRank(tier) > TierRank(s.atMost)) return Text.Get("Story.standing_too_high", s.faction, s.atMost, tier);
+        }
+        foreach (var c in r.crewWith) if (!facts.CrewWith(c)) return Text.Get("Story.needs_crew_with", c);
+        if (r.crewCount is StoryCount count && (facts.CrewCount < count.atLeast || count.atMost is int most && facts.CrewCount > most)) return Text.Get("Story.needs_crew_count", count.atLeast, count.atMost?.ToString(CultureInfo.InvariantCulture) ?? "", facts.CrewCount);
+        foreach (var item in r.running) if (facts.Running(item) < 1) return Text.Get("Story.needs_running", item);
+        if (r.months.Count > 0 && !r.months.Contains(facts.Month)) return Text.Get("Story.needs_month", string.Join(", ", r.months), facts.Month);
+        if (r.hours is StoryHours hours && !HourIn(hours.from, hours.to, facts.Hour)) return Text.Get("Story.needs_hour", hours.from, hours.to, facts.Hour);
         double days = Days(record, facts);
         if (r.afterDays is double after && days < after) return Text.Get("Story.needs_after_days", after.ToString("0.#", CultureInfo.InvariantCulture), days.ToString("0.#", CultureInfo.InvariantCulture));
         if (r.beforeDays is double before && days >= before) return Text.Get("Story.needs_before_days", before.ToString("0.#", CultureInfo.InvariantCulture));
         return null;
     }
+
+    /// <summary>The game's standing tier for a score (Framework 0.115.0), as JsonFaction.GetReputation maps it:
+    /// Honored from 100, Trusted from 75, Friendly from 50, Warm from 25, Neutral from -50, else Dislikes.</summary>
+    public static string Tier(double score) =>
+        double.IsNaN(score) ? "dislikes" : score >= 100 ? "honored" : score >= 75 ? "trusted" : score >= 50 ? "friendly" : score >= 25 ? "warm" : score >= -49.9999f ? "neutral" : "dislikes";
+    public static int TierRank(string tier) => Math.Max(0, Array.IndexOf(StorySchema.Tiers, tier));
+    /// <summary>Whether an hour lies in a window of the day; a window whose start is after its end wraps midnight.</summary>
+    public static bool HourIn(int from, int to, int hour) => from <= to ? hour >= from && hour <= to : hour >= from || hour <= to;
 
     /// <summary>Game days since the player's story record began; 0 before it has.</summary>
     public static double Days(StoryRecord record, IStoryFacts facts) => record.Began is double began ? Math.Max(0, (facts.Epoch - began) / 86400) : 0;
@@ -240,6 +273,9 @@ public static class StoryRules
     /// place, by others only when they are there themselves. <c>locals</c> on an unplaced line means others.</summary>
     public static bool Voices(StoryLine line, bool speakerIsCrew, bool speakerAtPlace, bool playerNearPlace) =>
         Voices(line.Speakers, speakerIsCrew) && (line.Place == null || (speakerIsCrew ? playerNearPlace : speakerAtPlace));
+    /// <summary>With the speaker's factions too (Framework 0.115.0): a line with <c>speakerFactions</c> needs one of them.</summary>
+    public static bool Voices(StoryLine line, bool speakerIsCrew, bool speakerAtPlace, bool playerNearPlace, IEnumerable<string> speakerFactions) =>
+        Voices(line, speakerIsCrew, speakerAtPlace, playerNearPlace) && (line.SpeakerFactions.Count == 0 || speakerFactions.Any(line.SpeakerFactions.Contains));
 
     /// <summary>How much a news item or advert weighs in the TV pool (Framework 0.114.0): more at its place, a little
     /// anywhere when it has none, and far from its place as little as the settings say. 0 leaves it out.</summary>

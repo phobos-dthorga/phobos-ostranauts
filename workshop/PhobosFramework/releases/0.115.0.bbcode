@@ -1,0 +1,22 @@
+[h1]Phobos Framework 0.115.0[/h1]
+[b]Draft - not published | 2026-10-06[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Story content can now read how the game's factions regard you, who is aboard and what time it is. New requirements: standing (a faction at least or at most a tier: disliked, neutral, warm, friendly, trusted, honored, read exactly as the FACTIONS app shows it), crewWith (someone aboard other than you has a skill or condition), crewCount, running (a Phobos machine is running on your ship), months and hours (a window of the day in UTC, wrapping midnight). Small talk can name speakerFactions, so AyoSec lines come from AyoSec people. The new placeholder for a crew member's name picks one of your crew at random.
+[*]An arc step can change how a faction regards you, by up to 10 points either way and at most two factions a step (owner choice: small changes), through the game's own faction scores, with a line in the crew log saying who thinks better or worse of you and your standing now.
+[*]F3: phobosframework story standing followed by a faction and a change, for testing; story where now lists crew aboard, the month and hour, and your standing with every faction a loaded place or person names.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Standing changes are the game's own faction scores, as a crime or a bounty changes them; nothing new is saved by Framework.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Before a story pack relies on standing changes, run the F3 command once and confirm the FACTIONS app figure moved; the code uses the call the game's own debug command makes, but this has not been seen in play. The encyclopedia still cannot be unlocked by a flag. Checked offline (rule, native and data-pack checks).
+[/list]

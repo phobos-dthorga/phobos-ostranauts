@@ -249,7 +249,8 @@ says your line instead, after a short lead-in:
 | --- | --- | --- |
 | `moment` | yes | One of the moments above. |
 | `line` | yes | What the speaker says, up to 200 characters. Write it as speech. |
-| `speakers` | no | `anyone` (default); `crew`, only someone aboard one of the player's ships (the player too); or `others`, only someone who is not, such as station folk. |
+| `speakers` | no | `anyone` (default); `crew`, only someone aboard one of the player's ships (the player too); `others`, only someone who is not, such as station folk; or `locals`, others at the line's place (Framework 0.114.0). |
+| `speakerFactions` | no | Up to four of the game's faction names; only a speaker who belongs to one says the line (Framework 0.115.0). `OKLGLEO` is AyoSec, `OKLGCorp` the Ayotimiwa Ship Breaking Co., `OKLGCiv` OKLG's civilians; a place's `factions` list the rest. |
 | `weight` | no | 1 to 100 (default 1): how often it is picked against other lines for the same moment. |
 | `requires` | no | When it may be said; checked against the player, as for news. |
 | `title`, `notes` | no | For you. |
@@ -385,8 +386,19 @@ take only `mods`.
 | `places` | The player is at any one of these places: docked at it, or anywhere in its region for a regional place. |
 | `regions` | The player is in the region of any one of these regional places. |
 | `newsSeen` | Each news item listed has been shown on a TV. |
+| `standing` | How the game's factions regard the player (Framework 0.115.0): a list of `{ "faction": "OKLGCorp", "atLeast": "warm" }` and/or `"atMost"`, by the game's own tiers `dislikes`, `neutral`, `warm`, `friendly`, `trusted`, `honored`. Faction names are the game's (the FACTIONS app on the PDA shows them; `phobosframework story where` shows your standing with each faction a loaded place or person names). |
+| `crewWith` | Someone aboard other than the player has each game condition listed (a skill such as `SkillBotany`). |
+| `crewCount` | `{ "atLeast": 1, "atMost": 4 }`: how many crew the player has, the player not counted. |
+| `running` | Each Phobos machine listed (its installed definition id, such as `PhobosVerdemorrowFirstlight4Installed`) is running on one of the player's ships. |
+| `months` | The calendar month is one of those listed (1 to 12). |
+| `hours` | `{ "from": 22, "to": 5 }`: the UTC hour is in the window; `from` after `to` wraps midnight. |
 
 Since Framework 0.114.0 a thread's `requires` also apply to every entry in it.
+
+An arc's `onComplete` may also change standing (Framework 0.115.0): `"standing":
+[ { "faction": "OKLGCorp", "change": 5 } ]`, up to two factions and up to 10 points
+either way (a tier is 25 points), through the game's own faction scores, with a line
+in the crew log. The owner's choice is small changes only.
 
 ### Text
 
@@ -395,7 +407,8 @@ Since Framework 0.114.0 a thread's `requires` also apply to every entry in it.
   `[ship]` (the ship the player is aboard), and since Framework 0.114.0 `[place]` (the
   entry's place, else where the player is), `[region]` (its region label), `[station]`
   (the station the player is docked at), `[body]` (the place's body), `[date]` (the
-  game's date, year-month-day) and `[person:key]` (a person's name). Any other
+  game's date, year-month-day), `[person:key]` (a person's name) and `[crew]` (the
+  name of one of the player's crew, chosen at random; Framework 0.115.0). Any other
   bracketed word is refused. Tips and encyclopedia text cannot use them.
 - Text is English in the file. A translation can replace it by the key
   `Story.<id>.<field>` in the owning mod's translation file: for news `text`, `region`
@@ -448,6 +461,8 @@ override them in `BepInEx/config/PhobosFramework/story/`:
   - `phobosframework story thread <id>` lists a thread's members and what blocks each.
   - `phobosframework story flag <id>` sets a story flag; add `clear` to clear it.
   - `phobosframework story places` and `story people` list what the loaded packs know.
+  - `phobosframework story standing <faction> <change>` changes a faction's view of you
+    by up to 10 points, for testing content; check the FACTIONS app afterwards.
 
 ## What stays in a save
 
@@ -581,12 +596,24 @@ Rules:
   tests pass decides when the step's own tests do not.
 - Requirements (all optional): mods, playerConditions, forbidConditions, owns,
   dockedAt, arcsDone, arcsNotStarted, arcsActive, arcsAtStep, filesRead, flags,
-  notFlags, places, regions, newsSeen, afterDays, beforeDays (game days of story time).
-  A thread's requires apply to all its members.
+  notFlags, places, regions, newsSeen, standing (a list of {"faction": "...",
+  "atLeast": "warm"} with tiers dislikes, neutral, warm, friendly, trusted, honored),
+  crewWith (skills someone aboard has), crewCount ({"atLeast": 1, "atMost": 4}),
+  running (installed machine ids that must be running), months (1 to 12), hours
+  ({"from": 22, "to": 5}, UTC), afterDays, beforeDays (game days of story time).
+  A thread's requires apply to all its members. Small talk may name speakerFactions.
+- An arc outcome may change standing: "standing": [{"faction": "OKLGCorp",
+  "change": 5}], at most two factions, at most 10 points either way. Use it rarely.
+- Faction names you may use: OKLGCorp (Ayotimiwa Ship Breaking Co.), OKLGLEO (AyoSec),
+  OKLGCiv, OKLGFlotilla, OKLGProspector, GalileanConfederacy (GalCon Peacekeepers),
+  GalileanConfederacyCiv, CCRE (CCRE Enforcers), CCRECiv, Titan (Titan Navy), TitanCiv,
+  Atlantis, AtlantisCiv, Xinhua, XinhuaCiv, VNCALEO (Newcal PD), VNCACiv, VENCLEO,
+  VENCCiv, VCBRLEO, VCBRCiv, EJDR, EJDRCiv, HQCH, HQCHCiv, MHNG, MHNGCiv, MSUZ,
+  MSUZCiv, VenusCrim, BeltPirates, OKLGCrim.
 - Use only item ids I list below. Rewards: at most five kinds of item, at most 20 of
   each, and at most 50000 credits, modest in value.
-- Nothing else is available: no reputation rewards, no menus of choices, no new kinds
-  of conversation, no new items or places.
+- Nothing else is available: no menus of choices, no new kinds of conversation, no
+  new items or places.
 - Setting: Ostranauts, the Solar System of the near future; blue-collar spacers living
   by salvage, hauling and odd jobs. Practical, worn-in voice with occasional dry
   humour. No real people, companies or politics; do not copy the game's text; never

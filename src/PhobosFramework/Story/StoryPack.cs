@@ -142,6 +142,48 @@ public sealed class StoryRequires
     public List<string> regions = new();
     /// <summary>News items that must have been shown on a TV.</summary>
     public List<string> newsSeen = new();
+    /// <summary>How the game's factions regard the player (Framework 0.115.0): each must hold.</summary>
+    public List<StoryStanding> standing = new();
+    /// <summary>Game conditions (skills among them) that someone aboard other than the player must have, one person per condition.</summary>
+    public List<string> crewWith = new();
+    /// <summary>How many crew the player has, the player not counted.</summary>
+    public StoryCount? crewCount;
+    /// <summary>Phobos machines, by installed definition id, that must be running on one of the player's ships.</summary>
+    public List<string> running = new();
+    /// <summary>Calendar months (1 to 12) the entry is for.</summary>
+    public List<int> months = new();
+    /// <summary>A window of the day in UTC hours (0 to 23); <c>from</c> after <c>to</c> wraps midnight.</summary>
+    public StoryHours? hours;
+}
+
+/// <summary>A faction's standing with the player (Framework 0.115.0), by the game's own tiers.</summary>
+public sealed class StoryStanding
+{
+    /// <summary>The game's faction name, such as OKLGCorp.</summary>
+    public string faction = "";
+    /// <summary>The lowest tier that holds (<c>dislikes</c>, <c>neutral</c>, <c>warm</c>, <c>friendly</c>, <c>trusted</c>, <c>honored</c>).</summary>
+    public string? atLeast;
+    /// <summary>The highest tier that holds.</summary>
+    public string? atMost;
+}
+
+public sealed class StoryCount
+{
+    public int atLeast;
+    public int? atMost;
+}
+
+public sealed class StoryHours
+{
+    public int from, to;
+}
+
+/// <summary>A change to a faction's standing with the player (Framework 0.115.0), through the game's own scores.</summary>
+public sealed class StoryStandingChange
+{
+    public string faction = "";
+    /// <summary>Points added to the faction's view of the player, up to 10 either way; a tier is 25.</summary>
+    public double change;
 }
 
 public sealed class StoryBroadcast
@@ -190,6 +232,8 @@ public sealed class StoryChatterLine
     /// <summary>The thread it belongs to, and the place it is said at: crew say it while the player is there, others
     /// only when they are there themselves (Framework 0.114.0).</summary>
     public string? thread, place;
+    /// <summary>Game faction names the speaker must belong to one of (Framework 0.115.0), such as OKLGLEO for AyoSec.</summary>
+    public List<string> speakerFactions = new();
 }
 
 /// <summary>A lore tip shown while the game loads. No player exists then, so only mods may be required.</summary>
@@ -353,6 +397,8 @@ public sealed class StoryOutcome
     public List<string> files = new();
     /// <summary>Story flags set and cleared on the player's record (Framework 0.114.0), for other entries' requirements.</summary>
     public List<string> setFlags = new(), clearFlags = new();
+    /// <summary>Changes to factions' standing with the player (Framework 0.115.0; owner choice: small), at most two.</summary>
+    public List<StoryStandingChange> standing = new();
 }
 
 /// <summary>A data file (Framework 0.110.0), carried on a data card and read on a computer or PDA like the game's own.</summary>
@@ -391,8 +437,12 @@ public static class StorySchema
     private static readonly Regex ImagePath = new("^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$", RegexOptions.CultureInvariant);
     public const double MaxCreditTest = 1000000, MaxDays = 3650, MaxWeightFactor = 100, MaxMentionDays = 365;
     /// <summary>The bracketed tokens player text may hold. <c>[person:key]</c> names a person (Framework 0.114.0).</summary>
-    public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]", "[place]", "[region]", "[station]", "[body]", "[date]" };
+    public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]", "[place]", "[region]", "[station]", "[body]", "[date]", "[crew]" };
     public const int MaxPlaces = 64, MaxPeople = 64, MaxThreads = 32, MaxCast = 8, MaxFactions = 8, MaxFlags = 4, MaxName = 40;
+    /// <summary>The game's standing tiers, lowest first (Framework 0.115.0).</summary>
+    public static readonly string[] Tiers = { "dislikes", "neutral", "warm", "friendly", "trusted", "honored" };
+    public const double MaxStandingChange = 10;
+    public const int MaxStandingChanges = 2, MaxCrewCount = 50, MaxSpeakerFactions = 4;
     private static readonly Regex PersonToken = new("\\[person:[a-z0-9]+(-[a-z0-9]+)*\\]", RegexOptions.CultureInvariant);
     private static readonly Regex Token = new("\\[([a-z-]+(?::[a-z0-9-]+)?)\\]", RegexOptions.CultureInvariant);
     public const int MaxIdLength = 48, MaxStepIdLength = 32, MaxRegion = 40, MaxBroadcast = 700, MaxAdvert = 400,
@@ -483,6 +533,8 @@ public static class StorySchema
             Words(c.line, MaxLine, where + ".line");
             if (!Speakers.Contains(c.speakers ?? "")) throw new ArgumentException(Text.Get("StorySchema.speakers", where, string.Join(", ", Speakers)));
             Weight(c.weight, where); Requires(c.requires, where); Key(c.thread, where + ".thread"); Key(c.place, where + ".place");
+            if (c.speakerFactions == null || c.speakerFactions.Count > MaxSpeakerFactions) throw new ArgumentException(Text.Get("StorySchema.list_long", where + ".speakerFactions", MaxSpeakerFactions));
+            foreach (var f in c.speakerFactions) if (f == null || !GameName.IsMatch(f)) throw new ArgumentException(Text.Get("StorySchema.game_name", where + ".speakerFactions", f ?? ""));
         }
         foreach (var pair in pack.tips)
         {
@@ -549,8 +601,9 @@ public static class StorySchema
         if (r == null) return;
         Requires(r, where);
         if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count + r.filesRead.Count +
-            r.flags.Count + r.notFlags.Count + r.arcsActive.Count + r.arcsAtStep.Count + r.places.Count + r.regions.Count + r.newsSeen.Count > 0 ||
-            r.afterDays != null || r.beforeDays != null)
+            r.flags.Count + r.notFlags.Count + r.arcsActive.Count + r.arcsAtStep.Count + r.places.Count + r.regions.Count + r.newsSeen.Count +
+            r.standing.Count + r.crewWith.Count + r.running.Count + r.months.Count > 0 ||
+            r.afterDays != null || r.beforeDays != null || r.crewCount != null || r.hours != null)
             throw new ArgumentException(Text.Get("StorySchema.mods_only", where));
     }
 
@@ -632,6 +685,11 @@ public static class StorySchema
             if (flags == null || flags.Count > MaxFlags || flags.Any(f => !IsId(f)) || flags.Distinct().Count() != flags.Count)
                 throw new ArgumentException(Text.Get("StorySchema.flags", at + ".onComplete." + name, MaxFlags));
         if (outcome.setFlags.Intersect(outcome.clearFlags).Any()) throw new ArgumentException(Text.Get("StorySchema.flags", at + ".onComplete.clearFlags", MaxFlags));
+        if (outcome.standing == null || outcome.standing.Count > MaxStandingChanges || outcome.standing.Select(s => s?.faction).Distinct().Count() != outcome.standing.Count)
+            throw new ArgumentException(Text.Get("StorySchema.standing_change", at + ".onComplete.standing", MaxStandingChanges, MaxStandingChange));
+        foreach (var s in outcome.standing)
+            if (s == null || !GameName.IsMatch(s.faction ?? "") || double.IsNaN(s.change) || s.change == 0 || Math.Abs(s.change) > MaxStandingChange)
+                throw new ArgumentException(Text.Get("StorySchema.standing_change", at + ".onComplete.standing", MaxStandingChanges, MaxStandingChange));
     }
 
     private static void Test(StoryTest? test, string where, bool placed = false)
@@ -691,6 +749,19 @@ public static class StorySchema
         List(r.arcsAtStep, where + ".arcsAtStep", IsArcStep);
         List(r.places, where + ".places", s => IsId(s)); List(r.regions, where + ".regions", s => IsId(s));
         List(r.newsSeen, where + ".newsSeen", s => IsId(s));
+        List(r.crewWith, where + ".crewWith", GameName.IsMatch); List(r.running, where + ".running", GameName.IsMatch);
+        if (r.standing == null || r.standing.Count > MaxListEntries) throw new ArgumentException(Text.Get("StorySchema.list_long", where + ".standing", MaxListEntries));
+        foreach (var s in r.standing)
+        {
+            if (s == null || !GameName.IsMatch(s.faction ?? "")) throw new ArgumentException(Text.Get("StorySchema.game_name", where + ".standing", s?.faction ?? ""));
+            if (s.atLeast == null && s.atMost == null || s.atLeast != null && !Tiers.Contains(s.atLeast) || s.atMost != null && !Tiers.Contains(s.atMost) ||
+                s.atLeast != null && s.atMost != null && Array.IndexOf(Tiers, s.atLeast) > Array.IndexOf(Tiers, s.atMost))
+                throw new ArgumentException(Text.Get("StorySchema.standing", where + ".standing." + s.faction, string.Join(", ", Tiers)));
+        }
+        if (r.crewCount != null && (r.crewCount.atLeast < 0 || r.crewCount.atLeast > MaxCrewCount || r.crewCount.atMost is int most && (most < r.crewCount.atLeast || most > MaxCrewCount)))
+            throw new ArgumentException(Text.Get("StorySchema.count", where + ".crewCount", MaxCrewCount));
+        if (r.months == null || r.months.Count > 12 || r.months.Any(m => m < 1 || m > 12) || r.months.Distinct().Count() != r.months.Count) throw new ArgumentException(Text.Get("StorySchema.months", where + ".months"));
+        if (r.hours != null && (r.hours.from < 0 || r.hours.from > 23 || r.hours.to < 0 || r.hours.to > 23)) throw new ArgumentException(Text.Get("StorySchema.hours", where + ".hours"));
         if (r.afterDays is double after) Range(after, 0, MaxDays, where + ".afterDays");
         if (r.beforeDays is double before) Range(before, 0, MaxDays, where + ".beforeDays");
         if (r.afterDays is double a && r.beforeDays is double b && !(a < b)) throw new ArgumentException(Text.Get("StorySchema.days", where));

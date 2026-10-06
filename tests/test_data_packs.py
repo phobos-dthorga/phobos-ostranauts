@@ -280,6 +280,29 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.story({**good, 'settings': {'localWeight': 101}}, 'test', framework=True)
         self.assertTrue(validate.story_arc_step('misfiled-can.letter') and not validate.story_arc_step('a.b.c') and not validate.story_arc_step('nodot'))
+
+        # Framework 0.115.0: standing, crew and clock gates; standing changes.
+        gated = broken(lambda p: p['adverts']['ad']['requires'].update(
+            standing=[{'faction': 'OKLGCorp', 'atLeast': 'warm'}, {'faction': 'OKLGLEO', 'atMost': 'friendly'}], crewWith=['SkillBotany'],
+            crewCount={'atLeast': 1, 'atMost': 4}, running=['PhobosVerdemorrowFirstlight4Installed'], months=[1, 12], hours={'from': 22, 'to': 5}))
+        gated['chatter']['dock-talk']['speakerFactions'] = ['OKLGLEO']
+        gated['arcs']['misfiled-can']['steps'][1]['onComplete']['standing'] = [{'faction': 'OKLGCorp', 'change': 5}]
+        validate.story(gated, 'test', framework=False)
+        for bad in (broken(lambda p: p['adverts']['ad']['requires'].update(standing=[{'faction': 'OKLGCorp'}])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(standing=[{'faction': 'OKLGCorp', 'atLeast': 'liked'}])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(standing=[{'faction': 'OKLGCorp', 'atLeast': 'trusted', 'atMost': 'warm'}])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(crewCount={'atLeast': 3, 'atMost': 2})),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(months=[0])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(months=[3, 3])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(hours={'from': 24, 'to': 3})),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(running=['not a machine'])),
+                    broken(lambda p: p['chatter']['dock-talk'].update(speakerFactions=['a', 'b', 'c', 'd', 'e'])),
+                    broken(lambda p: p['arcs']['misfiled-can']['steps'][1]['onComplete'].update(standing=[{'faction': 'OKLGCorp', 'change': 11}])),
+                    broken(lambda p: p['arcs']['misfiled-can']['steps'][1]['onComplete'].update(standing=[{'faction': 'OKLGCorp', 'change': 0}])),
+                    broken(lambda p: p['arcs']['misfiled-can']['steps'][1]['onComplete'].update(standing=[{'faction': 'OKLGCorp', 'change': 1}, {'faction': 'OKLGCorp', 'change': 2}])),
+                    broken(lambda p: p['tips']['t'].update(requires={'hours': {'from': 1, 'to': 2}}))):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
         self.assertIsNone(validate.story_plain('See [person:neri] at [place] on [date]'))
         self.assertEqual(validate.story_plain('[person:]'), '[person:]')
 

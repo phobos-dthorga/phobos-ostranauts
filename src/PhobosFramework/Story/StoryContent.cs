@@ -119,6 +119,7 @@ public static class StoryContent
             case "flag" when id != null && (words.Length == 4 || words.Length == 5 && words[4] == "clear"): return StoryArcs.FlagCommand(id, words.Length == 5);
             case "places" when words.Length == 3: return StoryArcs.PlacesCommand();
             case "people" when words.Length == 3: return StoryArcs.PeopleCommand();
+            case "standing" when words.Length == 5: return StoryArcs.StandingCommand(words[3], words[4]);
             default: return Text.Get("Story.help");
         }
     }
