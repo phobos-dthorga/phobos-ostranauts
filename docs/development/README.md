@@ -28,7 +28,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Phobos Agriculture: crop expansion phases and sources](agriculture-crop-expansion.md)
 - [Agriculture maintenance and treatment economics — 0.7.0](agriculture-treatment-economy.md)
 - [Future animation and restrained sound cues](animation-and-sound-direction.md)
-- [Occasional machine work sounds: original audio candidates and Claude wiring handoff](machine-work-sounds-handoff.md)
+- [Machine work sounds: selected washer/pump audio and Claude wiring handoff](machine-work-sounds-handoff.md)
 - [Dedicated item and equipment artwork](artwork-completion.md)
 - [Artwork resolution policy](artwork-resolution-policy.md)
 - [Asset generation: layered ChatGPT bases and PixelLab sprites](asset-generation-policy.md)

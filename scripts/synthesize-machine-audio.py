@@ -234,7 +234,10 @@ def build():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Regenerate in memory and compare every export without writing")
+    parser.add_argument("--restore-retired", action="store_true", help="Explicitly restore the owner-discarded session pack")
     args = parser.parse_args()
+    if not args.restore_retired:
+        parser.error("This chat's Python audio pack was retired by the owner on 6 October 2026. Use scripts/export-audio-candidates.py for the selected ElevenLabs sounds. Restoration needs a new owner request and --restore-retired.")
     exports, manifest = build()
     for name, data in exports.items():
         path = PACK / name

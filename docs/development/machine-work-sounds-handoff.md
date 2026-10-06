@@ -1,224 +1,199 @@
-# Occasional machine work sounds: audio and Claude handoff
+# Machine work sounds: selected washer/pump audio and Claude handoff
 
-Prepared **6 October 2026** for phobosgekko. **Audio candidates only:** nothing
-has been wired into a mod, installed, published or tested in Ostranauts.
+Updated **6 October 2026** for phobosgekko. The owner selected the sound palette
+after auditioning the ElevenLabs previews. **Audio files and handoff only:**
+no runtime wiring, installation or Ostranauts mix test has been performed.
 
-## Owner direction and delivered files
+## Owner selection and saved files
 
-The owner asked Codex to explore where sound would improve the mods, create the
-sound files, and prepare a handoff for **Claude to do the wiring**. The owner's
-selected direction is **occasional mechanical sounds while equipment works**.
-This extends the earlier brief-cue policy to occasional local machinery sounds;
-it does not select operating loops, general ambience, an alarm suite or routine
-button sounds. Older exclusions in the [25 September direction](animation-and-sound-direction.md)
-and [completion guide](../shared-completion-cues.md) retain their historical scope.
+The owner asked Codex to create sound files and Claude to do any wiring. The
+first direction was occasional mechanical sounds while equipment works. After
+ratchet and pink-noise/bubbling auditions, the owner requested a **washing machine
+in good working order, mixing an electric motor with a liquid pump**, approved
+the generation spend, then accepted this direction and asked to save all four.
 
-Delivered: **18 original one-shot sounds in nine families**, each with variations
-A and B, plus a comparison reel and a sparse workshop sketch. Individual sounds
-last **0.9 to 1.6 seconds**. These durations, textures, family assignments and
-suggested spacing are **agent proposals**, open to the owner's listening judgment.
-They represent fictional machinery; they are not scientific acoustic models or
-recordings of real equipment.
+Saved in [washer-motor-pump-v1](../../assets/phobos-audio/washer-motor-pump-v1/README.md):
 
-- [Listen page](../../assets/phobos-audio/work-sounds-v1/listen.html): individual
-  samples, two variations per family, and both review tracks. Open in a browser.
-- [Comparison reel](../../assets/phobos-audio/work-sounds-v1/review-reel.wav):
-  44.5 seconds, families in the table below, A then B, with silence between clips.
-- [Sparse workshop sketch](../../assets/phobos-audio/work-sounds-v1/sparse-workshop.wav):
-  60 seconds with six separated sounds; an authored timing illustration without
-  the game's background audio, not an in-game recording or mix test.
-- [PCM16 candidates](../../assets/phobos-audio/work-sounds-v1/wav): potential
-  runtime files, 44,100 Hz, mono, signed PCM16 little-endian RIFF WAV.
-- [PCM24 masters](../../assets/phobos-audio/work-sounds-v1/masters): retain these
-  lossless exports with the [recipes](../../assets/phobos-audio/work-sounds-v1/recipes.json)
-  and [manifest](../../assets/phobos-audio/work-sounds-v1/manifest.json).
+- [Listen page](../../assets/phobos-audio/washer-motor-pump-v1/listen.html):
+  four prepared WAVs, with links to the untouched MP3 downloads.
+- [Originals](../../assets/phobos-audio/washer-motor-pump-v1/originals): provider
+  MP3s, preserved byte-for-byte. These are not lossless source masters.
+- [WAVs](../../assets/phobos-audio/washer-motor-pump-v1/wav): six seconds each,
+  mono, 44,100 Hz, signed PCM16 little-endian RIFF.
+- [Manifest](../../assets/phobos-audio/washer-motor-pump-v1/manifest.json):
+  exact prompt/settings, provider IDs, hashes, export recipe, measured properties
+  and costs. Variation letters follow the order of the four auditioned previews.
 
-The listen page starts playback at 35%; the WAV files retain their authored
-amplitude. This browser setting is a review convenience, not a proposed game
-setting. None of the files loops. The existing watched completion tone is retained.
+| Variation | Prepared file | Peak dBFS | RMS dBFS |
+| --- | --- | --- | --- |
+| A | [washer-motor-pump-a.wav](../../assets/phobos-audio/washer-motor-pump-v1/wav/washer-motor-pump-a.wav) | -17.183 | -26.847 |
+| B | [washer-motor-pump-b.wav](../../assets/phobos-audio/washer-motor-pump-v1/wav/washer-motor-pump-b.wav) | -12.563 | -22.368 |
+| C | [washer-motor-pump-c.wav](../../assets/phobos-audio/washer-motor-pump-v1/wav/washer-motor-pump-c.wav) | -19.933 | -25.776 |
+| D | [washer-motor-pump-d.wav](../../assets/phobos-audio/washer-motor-pump-v1/wav/washer-motor-pump-d.wav) | -18.957 | -25.815 |
 
-## Where sound helps most
+Export adds a **25 ms fade-in and 80 ms fade-out**, with no loudness normalisation,
+pitch change or synthesis. The WAVs have zero first/last samples and no clipped
+samples. B's measured RMS is higher, so do not assume one gain setting makes all
+four equally loud. These measurements are not a game mix or perceived-volume test.
 
-The owner reports that many machines are quiet relative to the rest of the game.
-The source inspection below identifies work boundaries where a sound can describe
-real progress. **This was not an in-game listening audit** and does not establish
-that a given native operation is silent.
+**The owner retained all four; no single variant has been selected.** The owner
+auditioned the provider previews; the prepared WAVs differ only by mono decoding
+and edge fades. Their exact playback level and consumer assignments still need
+owner listening after Claude's implementation.
 
-Start with **D4 and R4**: their different textures could let the player recognize
-which salvage stage is working without opening a panel. Then consider the W2 and
-wet processors, where a short pump stroke can make the ship's support equipment
-feel active. Furnace, bottler and hull-mounted machinery can follow if their
-samples fit the game's mix. Do not add every candidate merely because it exists.
+The six-second source captures are short review textures, generated with looping
+disabled and faded for one-shot use. They are **not seamless loops**. Accepting a
+background texture does not by itself change the earlier occasional-playback
+direction. Continuous operating playback needs an explicit later owner direction.
 
-Filenames below have `-a.wav` and `-b.wav` variants in `wav/`.
+## Session-only removal and provenance
 
-| File stem | Sound proposal and intended use | Source boundary to inspect before wiring |
+The owner explicitly requested deletion of **only the Python audio samples made
+earlier in this chat**. Removed: 18 candidate WAVs, 18 PCM24 masters and two review
+tracks, **38 files total**, under assets/phobos-audio/work-sounds-v1.
+
+Each removed path was introduced by this chat's commit **b8331d5e** and matched
+the original manifest hash before deletion. The
+[removal record](../../assets/phobos-audio/washer-motor-pump-v1/retired-session-audio.json)
+retains those paths/hashes. The older Shipbreaker completion cue was left intact
+and its hash checked. The old pack's text records remain labelled historical;
+its generator now requires an explicit restoration flag, so routine invocation
+cannot recreate the owner-discarded samples. No ratchet or pink-noise provider
+files were downloaded or deleted from ElevenLabs.
+
+ElevenLabs' [sound-effects documentation](https://elevenlabs.io/docs/overview/capabilities/sound-effects)
+describes effects generated from text prompts. These are model-generated,
+fictional machine textures, not real washing-machine recordings or a scientific
+model of our equipment. Prompt:
+
+> A well-maintained washing machine running smoothly, steady low electric motor
+> hum blended with a soft liquid circulation pump and muted water flow, smooth,
+> even and subdued.
+
+Provider: ElevenLabs Sound Effects v2, model eleven_text_to_sound_v2.
+Parameters: duration_seconds = 6, prompt_influence = 0.75, loop = false.
+The selected round cost **240 credits**; preceding ratchet and pink-noise rounds
+cost 80 and 120 respectively, **440 total**. Saving/exporting caused no new
+generation or additional credits.
+
+Attribution: **ElevenLabs — elevenlabs.io**. Preserve the pack's
+[licensing record](../../assets/phobos-audio/washer-motor-pump-v1/LICENSING.md).
+ElevenLabs' [publication guidance](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform)
+distinguishes free and paid generation-time plans. The owner reported a
+subscription, but the plugin exposes no account-plan or agreement evidence.
+Do not give these files the procedural pack's MIT claim or infer commercial
+rights from the credit balance. The audio directory is explicitly excluded
+from the repository's general MIT grant.
+
+## Proposed first consumers
+
+**Agent proposal:** start with wet processing or a powered pump whose operation
+fits the selected motor-and-liquid texture. This replaces the initial proposal
+to start with a D4/R4 ratchet/grinder palette. The owner has chosen a sound
+direction, not approved every equipment assignment.
+
+| Possible consumer | Source boundary for Claude to inspect | Qualification |
 | --- | --- | --- |
-| dismantler-work | D4: short loaded motor and rounded ratchet contacts. | [Shipbreaker ProcessingService.AfterPower](../../src/PhobosShipbreaker/ProcessingService.cs): compare actual job progress before/after its powered advance. |
-| reclaimer-work | R4: lower loaded drive and granular grinding pass. | Same ProcessingService; select by its existing machine family. Not a new recipe or job clock. |
-| furnace-work | F6: subdued electrical load and cushioned contactor. A possible later V4 heating reuse. No flame roar or safe-to-open cue. | [FurnaceService.FinishPower](../../src/PhobosShipbreaker/FurnaceService.cs): distinguish received heating energy from instrument/cooling draw. [Manufacturing ChargeMachine.FinishPower](../../src/PhobosManufacturing/ChargeMachine.cs) for V4; verify its actual recipe and heating context. |
-| coolant-pump-work | Powered cooling: enclosed pump stroke. **Passive radiators stay silent.** | FurnaceService's measured motor energy and routed coolant handling. Recheck exact transfer/heat result; positive instrument draw or a warm sink alone does not qualify. |
-| wet-processor-work | X2 and LC-3: small recirculation pass. A machine texture, not the sound of a chemical reaction. | [ProcessorService.FinishPower](../../src/PhobosManufacturing/ProcessorService.cs) for X2; ChargeMachine.FinishPower for LC-3. Check positive credited work and the current consumer family. |
-| crop-pump-work | Groundwork W2: light pump stroke and valve seat. Emit at the supply, not every connected rack. Firstlight misting is a separate later possibility. | [Agriculture Service.Pump](../../src/PhobosAgriculture/IrrigationService.cs): positive actual movement/dosing, not the demanded budget alone. [MistStep](../../src/PhobosAgriculture/MistingService.cs): positive water consumption, not a growing crop alone. |
-| bottler-work | Alembrine Corker-2: compact drive and damped press contact. No pop for each bottle. | [BottlerService.FinishPower](../../src/PhobosManufacturing/BottlerService.cs): positive received energy credited to a working batch. Completion/delivery remains its separate settlement. |
-| grabber-work | G4: geared movement heard from an interior service position. No space collision or capture-success signal. | [IntakeService](../../src/PhobosShipbreaker/IntakeService.cs) and [CaptureService](../../src/PhobosShipbreaker/CaptureService.cs): choose the actual powered movement/cutting phase. **Hold if an interior audible position cannot be verified.** |
-| laser-cabinet-work | Ablatine ML-2: interior electrical cabinet pulse. No beam zap or weapon shot. | [LaserService.FinishPower](../../src/PhobosShipbreaker/LaserPower.cs): positive credited energy in the working phase. **Hold if an interior audible position cannot be verified.** |
+| Manufacturing X2 wet processing | [ProcessorService.FinishPower](../../src/PhobosManufacturing/ProcessorService.cs) | Positive received energy credited to an actual working batch. Check the current service and recipe; the sound does not invent a chemical reaction or new hardware. |
+| Manufacturing LC-3 | [ChargeMachine.FinishPower](../../src/PhobosManufacturing/ChargeMachine.cs) | Confirm the current machine family and positive credited wet-process work. |
+| Agriculture Groundwork W2 | [Service.Pump](../../src/PhobosAgriculture/IrrigationService.cs) | Positive actual solution movement/dosing. Emit at the supply, not every rack. |
+| Powered cooling | [FurnaceService.FinishPower](../../src/PhobosShipbreaker/FurnaceService.cs) | Positive measured motor energy and actual coolant handling. Passive radiators and instrument-only draw stay quiet. |
 
-The pump, actuator, contactor and cabinet textures are proposed sound design, not
-claims that the game models those components individually. Do not invent a work
-phase, transfer, fan, valve or consumption just to justify a sample.
+This table is source-oriented handoff advice, **not an in-game listening audit**.
+Do not attach the liquid texture to a dry dismantler, furnace heating, tank,
+pipe segment or hull-mounted machine merely because a candidate exists.
+The earlier broader survey is retained in
+[the original handoff at b8331d5e](https://github.com/phobos-dthorga/phobos-ostranauts/blob/b8331d5e/docs/development/machine-work-sounds-handoff.md),
+as history; its procedural file links and nine-family delivery are superseded.
 
-## Other worthwhile possibilities
-
-- **A watched job unexpectedly stops:** a separate soft needs-attention cue could
-  reduce missed blockages. Keep the exact reason in text, exclude deliberate Stop
-  and ordinary waits, and group simultaneous events. This is a later proposal;
-  no new attention or alarm sample is delivered here.
-- **Hearth cooker:** first try the existing watched completion cue. A quiet
-  heater-load texture might fit later, but the furnace sample must not suggest
-  that a meal has finished or that a hot appliance is safe to handle.
-- **Crew upkeep:** one occasional tool adjustment during real work may add life,
-  provided the native action has no suitable sound. Avoid a sound for every skill
-  tick, haul or item moved. No upkeep sample or native coverage audit is delivered.
-- **Medical and Auto Nav:** leave the current information and game feedback to
-  carry these initially. A heartbeat requires a real, supported timing source;
-  treatment and arrival sounds require genuine completed results. Do not imply
-  healing, docking or clinical measurements with decorative beeps.
-- **Storage, pipes and idle machinery:** silence is useful here. Do not attach
-  sounds to passive tanks, line segments, each transfer unit or every crop stage.
-
-These are agent judgments about potential gameplay value, not measured usability
-results or directions attributed to the owner.
-
-## Production route and provenance
-
-**Selected route: original procedural synthesis authored with Codex/ChatGPT.**
-The [generator](../../scripts/synthesize-machine-audio.py) combines filtered noise,
-short motor loads and damped inharmonic contacts. It uses Python's standard
-library only, specified xorshift32 seeds and explicit recipes. No samples,
-recordings, voices, game assets, external API calls or paid generation were used.
-The project [MIT licence](../../LICENSE) covers this original source and audio;
-keep the copyright notice with redistribution. The manifest retains source,
-recipe, master and export hashes and the measured audio properties.
-
-**PixelLab:** its [official MCP documentation](https://api.pixellab.ai/mcp/docs#create_vocal_animation),
-checked 6 October 2026, describes mouth-position images, talking GIFs and sprite
-frame plans. Those vocal tools do not create audio. Its
-[documented API workflows](https://www.pixellab.ai/docs/ways-to-use-pixellab)
-are image and animation workflows; no sound-generation tool was found in the
-installed PixelLab tool inventory. This is a documented-capability check, not a
-claim about every private or future PixelLab feature.
-
-**OpenAI speech:** OpenAI's [text-to-speech documentation](https://developers.openai.com/api/docs/guides/text-to-speech)
-describes converting text into spoken audio. It is a different route from this
-nonverbal effects pack. No speech API or audio model was used here.
-
-**If the owner wants a more recorded-machine texture:** ElevenLabs documents a
-[dedicated sound-effects generator](https://elevenlabs.io/docs/overview/capabilities/sound-effects)
-that creates effects from text descriptions. It is a possible later production
-route, not a selected service, evaluated quality claim or purchase. Check account
-access, allowance, cost and the actual output's distribution terms before using
-it; its outputs must have separate provenance and must not inherit this pack's
-MIT statement automatically. Self-recorded mechanical sounds are another option
-if the owner supplies original recordings and permission. Neither is needed to
-review this first pack.
+Later possibilities remain proposals: a separate soft cue for an unexpectedly
+stopped watched job, an occasional upkeep tool adjustment if native feedback is
+missing, or the existing watched completion cue for the Hearth cooker.
+No new warning/medical/navigation cue is approved or delivered by this pack.
 
 ## Claude integration brief
 
 Read [AGENTS.md](../../AGENTS.md), this document, the current source, and the
-[existing completion guide](../shared-completion-cues.md). The owner assigned
-implementation to Claude; **Codex's delivery stops at sound files and handoff**.
-The pack is ready for audition, not evidence the owner selected every sample.
-Preserve rejected/unselected candidates and their records rather than deleting
-or silently replacing them. Keep the selected master's hash in the implementation
-record when a sample is accepted.
+[shared completion-cue guide](../shared-completion-cues.md). Codex creates the
+audio and handoff; **Claude implements the game wiring**.
 
-1. Start with the D4/R4 working slice and whichever variations the owner retains.
-   Register reusable loading, gain, distance and spacing behaviour in Framework;
-   content services identify real work. UI/panel refresh must never trigger audio
-   or mutate job state. Keep the implementation proportional to these consumers.
-2. Observe **actual positive work after received electricity was accounted for**.
-   A Running flag, an installed machine, a power request or a panel saying Working
-   is insufficient. Stop, no supply, missing feed, blocked output, faults and waits
-   remain quiet. Audio failures must not change progress, inventory or saves.
-3. Use sparse real-time spacing, not simulation ticks. Each family's suggested
-   interval range is in recipes/manifest; these are starting values for listening,
-   not a promised engine rate. Vary spacing and alternate A/B to avoid a metronome.
-   Give a newly eligible machine a silent initial delay, stagger machines, allow
-   at most one machinery snippet suite-wide, and start with at least six real
-   seconds between snippets. Drop competing or overdue sounds; never queue them.
-4. Recheck eligibility when a sound would play. Maintain timing state only for
-   loaded relevant machines, clear it on unload/stop/dispose, and reset after
-   pause, focus loss or reload. Fast-forward/time-skip never schedules accumulated
-   events or raises pitch. Loading and reopening a panel are silent. Any random
-   audio variation must be isolated from gameplay RNG and has no saved authority.
-5. Keep sound local to the selected crew's ship and nearby air-filled machinery.
-   Respect pause, focus and loaded gameplay context. Prefer the game's established
-   positional emitter behaviour after inspecting it; do not assume camera/listener
-   coordinates equal crew position. G4/ML-2 files refer to interior machinery;
-   they are not permission to transmit external sounds through vacuum. Hold those
-   consumers until their audible service position is established.
-6. Keep separate machinery volume/mute and the existing watched completion level.
-   Route through the native effects mixer, so native effects mute still works.
-   No unrouted fallback. Retain all visible status/reasons. No sounds for button
-   clicks, per-item transfers or native docking, and no new warning suite. Give
-   game alerts and completion notifications priority; if suppression would require
-   guessing an unavailable native alarm API, reduce/omit machine playback instead.
-7. Reuse the **format knowledge**, not the current completion reader unchanged:
-   [CompletionCuePcm.Read](../../src/PhobosFramework/Audio/CompletionCuePcm.cs)
-   rejects payloads longer than **0.5 seconds**. These candidates are longer.
-   Add a separately bounded reader or shared explicit length limit with tests;
-   preserve completion's existing bounds. Use the PCM16 candidates, not PCM24
-   masters or review reels. Load/cache once, not on each work step; dispose clips
-   and sources on shutdown. Never play the review tracks at runtime.
-8. [Unity's AudioSource documentation](https://docs.unity3d.com/2019.4/Documentation/Manual/class-AudioSource.html)
-   documents looping, mixer output, priority and distance controls. These are
-   Unity capabilities, not proof of Ostranauts integration. In particular,
-   Max Distance does not guarantee silence outside that distance for every
-   rolloff mode: use verified native attenuation or explicit audibility checks.
-   Author one-shots with loop disabled and no automatic play-on-awake.
-9. Audio presentation needs **no new saved structures or migration**. Reuse the
-   current job records read-only; do not write audio timing or variants to saves.
-   If implementation changes this, document it and add old-record fixtures.
-   Record real loaded/active audio costs and memory under the performance rules.
-10. When runtime integration adds player-facing functionality, classify it as a
-    middle-number feature bump, claim any shared version with other sessions,
-    and use the maintained-constants tool. Update the owning changelogs, Workshop
-    drafts, generated notes, guides, localisation and language ledger then. This
-    unintegrated pack does not change any mod version or release claim. Follow the
-    normal build/install boundaries; the owner performs in-game listening tests.
+1. Use the prepared PCM16 WAVs. Preserve the originals, IDs, hashes and licence
+   record. Record the adopted variant(s) and gain in the implementation record.
+   Do not package the removed procedural samples, provider MP3s, or listen pages
+   as runtime audio. No new sound generation is required for this first slice.
+2. Reuse or add concrete shared audio loading/mixing/spacing in Framework when
+   the first content consumer needs it. Content services identify real work.
+   Panels and UI refresh must not trigger sound or mutate job state.
+3. Observe actual positive work **after received electricity is accounted for**,
+   or a measured pump transfer. A Running flag, installed machine, requested
+   power or panel text is insufficient. Idle, Stop, faults, starvation and
+   blocked output stay quiet. An audio failure never changes work or inventory.
+4. Use sparse real-time scheduling. **Agent starting proposal:** 18–45 seconds
+   between eligible snippets per machine, staggered; one machinery snippet
+   suite-wide at a time, with at least six seconds of quiet after its end.
+   Drop competing/overdue events; never queue them. The owner may revise this
+   after listening. Six-second files do not justify uninterrupted playback.
+5. Recheck work eligibility when playback starts and stop/fade the source if
+   the machine stops, loses power/air or unloads. No apparent continued work.
+   Reset scheduling after pause, focus loss and load; fast-forward/time-skip
+   must not produce a backlog or change pitch. Panel opening and save load
+   stay silent. Audio variation has no gameplay RNG or saved authority.
+6. Keep it local to nearby machinery on the selected crew's ship and inside
+   an air-filled room. Verify the native emitter/listener behaviour; do not
+   assume camera coordinates equal crew position. Keep unrelated ships and
+   external vacuum machinery silent. These files approve no acoustic routing
+   for the G4 or ML-2.
+7. Keep separate machinery volume/mute and the existing watched completion
+   level. Route through the native effects mixer; respect its mute. **Agent
+   starting proposal:** 0.1 linear clip gain (about -20 dB) before positional
+   attenuation, then owner mix review. B may need extra attenuation. This is
+   a conservative trial value, not a measured match to Ostranauts volume.
+   Preserve text/status reasons, and give native alerts/completion priority.
+8. [CompletionCuePcm.Read](../../src/PhobosFramework/Audio/CompletionCuePcm.cs)
+   currently rejects audio longer than **0.5 seconds**. Do not pass these
+   six-second WAVs through it unchanged. Add a separately bounded reader or
+   a shared explicit limit with meaningful format/length tests; retain the
+   completion cue's existing bounds. Cache once and dispose clips/sources on
+   shutdown. Decoder success is not proof the game can play the sound.
+9. [Unity's AudioSource documentation](https://docs.unity3d.com/2019.4/Documentation/Manual/class-AudioSource.html)
+   supports mixer routing, priority and distance controls. These are engine
+   capabilities, not verified Ostranauts integration. Max Distance is not a
+   universal hard silence boundary for every rolloff mode; use verified native
+   attenuation or an explicit audibility check. Set loop and play-on-awake false.
+   Measure actual loaded/active memory and CPU cost under the repository rules.
+10. This presentation needs **no new saved structures or migrations**. Read
+    existing work records; keep timing/variants transient. If implementation
+    changes that, document it and use old-record fixtures. A runtime feature
+    takes the middle-number bump, with the maintained-constants tool and owning
+    changelog, Workshop draft, localisation, guides and audit updates. This
+    assets-only selection changes no mod version or release readiness.
 
-## Offline verification and owner listening checks
+## Verification and owner checks
 
-Rebuild with `python scripts/synthesize-machine-audio.py`. Verify every generated
-file without writing with `python scripts/synthesize-machine-audio.py --check`.
-The generator reports obsolete WAVs without deleting them. Keep candidates under
-their current names while reviewing; retain the old master if a new revision is
-authored. The manifest is generated; edit recipes/source, not its measured fields.
+Export the saved originals with
+`python scripts/export-audio-candidates.py --write --ffmpeg <executable>`.
+Check the retained MP3 hashes, WAV format/properties/hashes and exporter hash
+with `python scripts/export-audio-candidates.py --check`.
+This is decoding and edge preparation, not Python sound synthesis.
 
-Checked offline: both WAV encodings reopen at the intended rate/channel/length;
-all 18 work exports have silent first/last samples, no clipped samples, small DC
-offset, documented peaks/RMS and reproducible bytes. Raw work-sample peaks range
-from approximately **-25.5 to -20 dBFS** and RMS from **-37 to -32.2 dBFS**. These
-are authoring measurements, not perceived volume, hearing-safety guarantees or
-proof that native alerts remain audible. **No perceptual listening or Unity
-playback test was performed by Codex.** The owner should select, reject or request
-revision after audition, then listen in the game's mix following Claude's wiring.
+Checked offline: all originals decode; all four WAVs have 264,600 mono PCM16
+samples at 44,100 Hz (six seconds), zero endpoint samples, no clipped samples,
+documented peaks/RMS and recorded hashes. Original MP3 bytes are unchanged.
+The current export reruns reproducibly with the recorded FFmpeg build.
+**No Unity playback or in-game mix test was performed by Codex.**
 
-For that first runtime slice, the owner checks:
+The owner should check the first wired consumer:
 
-- Hear occasional D4/R4 work sounds at ordinary speed; distinguish them without
-  repeated panel checking. Try speakers and headphones at normal game volume.
-- Confirm stopped, idle, starved and blocked machines stay quiet. If a step is
-  very short, skipping its sound is preferable to replaying it afterwards.
-- Check a room full of machines: no chorus, no regular ticking and enough quiet.
-  Leave the room/ship and confirm the intended falloff or silence.
-- Test machinery mute, completion mute and native effects mute independently.
-  Native warnings and watched completion should remain understandable.
-- Pause, change focus, fast-forward, time-skip, reload and reopen panels; there
-  must be no backlog or apparent work from a stopped machine.
-- Test loss of room air and any approved hull-mounted placement; unsupported
-  acoustic routing stays unwired. Confirm native sounds are not doubled.
+- The texture feels like working equipment at ordinary speed and normal volume.
+  Compare A–D on speakers/headphones; choose variants and gain in the game mix.
+- Idle, stopped, starved and blocked machines are quiet. Playback ends when real
+  work ends. A short operation can skip its sound rather than replay it later.
+- A room full of machines has quiet gaps, no chorus and no steady metronome.
+  Leaving the room/ship gives the intended attenuation or silence.
+- Machinery mute, completion mute and native effects mute behave separately;
+  native alerts and watched completion remain clear.
+- Pause, focus changes, fast-forward, time-skip, reload and panel reopening
+  produce no backlog. Loss of room air stops the machine sound.
 
-Keep a sound only if it gives the ship useful life without becoming an annoyance.
-The owner can revise the sound palette independently of recipes or game state.
+Keep the palette useful and quiet. The sound can be revised without changing
+recipes, work progress or saved records.

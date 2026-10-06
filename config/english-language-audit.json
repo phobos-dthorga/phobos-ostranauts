@@ -85250,8 +85250,9 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "134d91c99d222934261cedb95844f3d4bd054c2679532af7050697cd4c604a16",
-      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
+      "sha256": "dafdc4c30dccf5580c63b0424981ce509f05f8ed50c34e99949bbbe59d02947d",
+      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -85361,8 +85362,9 @@
       "path": "docs/development/animation-and-sound-direction.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ef0da70f6ca6a53661ba6cd221d0a4604b61f02f33f151a6360e4f495123bd4d",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser. Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
+      "sha256": "fd7f21c6059035151b40f94fd8ce084dcaf87283baae8e8ec337f6a26a698988",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser. Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
     },
     {
       "path": "docs/development/artwork-completion.md",
@@ -86483,8 +86485,9 @@
       "path": "docs/development/machine-work-sounds-handoff.md",
       "scope": "developer audio production, source observations, implementation handoff and owner listening checks",
       "decision": "review audience separation and evidence limits",
-      "sha256": "9c5d5cfda398939ba80e0aaa99795d98928185c737955740afbb4d717c0bb86f",
-      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
+      "sha256": "df84161eb63de44948f3012ce8609803c1e46db043bb7858ff9b909e862d00e3",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
     }
   ],
   "surfaces": [
@@ -86707,15 +86710,38 @@
       "path": "assets/phobos-audio/work-sounds-v1/README.md",
       "scope": "audio candidate review instructions and sound-family descriptions; no installed controls",
       "decision": "review plain wording, provenance and listening limitations",
-      "sha256": "a677e3cf7fc55e195ecc7f074a030d0e634324d570b04f852ab85c79eb245cdf",
-      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
+      "sha256": "4bd29c47794f5ea7d7779ba1a3c3831b39f3250c64656f0f7b0c676847402fb2",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
     },
     {
       "path": "assets/phobos-audio/work-sounds-v1/listen.html",
       "scope": "audio candidate review instructions and sound-family descriptions; no installed controls",
       "decision": "review plain wording, provenance and listening limitations",
-      "sha256": "e741d62e41a80b8de37e9ee565b0ea8b2f835c6b00473ee23085b121814473c5",
-      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
+      "sha256": "cdf9a977508cda8c7a30dfa2ab78d9c8bd51ee2926ddad66e639c66eea966d15",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+    },
+    {
+      "path": "assets/phobos-audio/washer-motor-pump-v1/README.md",
+      "scope": "selected audio asset review/provenance/terms; no installed controls",
+      "decision": "retain clear wording and distinguish listening approval from game integration",
+      "sha256": "6416becc8e9786c23a8b0d24877ba6b352e5fa97767712c8790452ee862725a4",
+      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+    },
+    {
+      "path": "assets/phobos-audio/washer-motor-pump-v1/LICENSING.md",
+      "scope": "selected audio asset review/provenance/terms; no installed controls",
+      "decision": "retain clear wording and distinguish listening approval from game integration",
+      "sha256": "670eb745a235d70066c71d3a764253b4219a3c107851144ee29591cb6a476212",
+      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+    },
+    {
+      "path": "assets/phobos-audio/washer-motor-pump-v1/listen.html",
+      "scope": "selected audio asset review/provenance/terms; no installed controls",
+      "decision": "retain clear wording and distinguish listening approval from game integration",
+      "sha256": "10c27684fc4c9160234c4dd8c90270284702bd92d4d6d3a3f1bcbb5493f0b198",
+      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
     }
   ],
   "hardcodedReview": {

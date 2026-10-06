@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-06",
+  "reason": "Owner explicitly requested deletion of Python-generated samples from this chat only after selecting the ElevenLabs washer/pump sounds",
+  "created_by_commit": "b8331d5e",
+  "files": [
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/dismantler-work-a.wav",
+      "sha256": "49ad9c77321f7b9b3f93d188ab5db5a135009821c48bf7f6ce3af3f40a455ec9"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/dismantler-work-a.wav",
+      "sha256": "59bfb128a13660e58bfdb4fbff926956c321642dd0bfcd54c88803673b1771f9"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/dismantler-work-b.wav",
+      "sha256": "c15f505b7d9f8574213cf9127f8d7783020c7af67f12f0e1194146e55169345c"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/dismantler-work-b.wav",
+      "sha256": "ba4fe9f974fd3bf05570738b1c3d954b845d333ba9317fdcc6c181bf470df02d"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/reclaimer-work-a.wav",
+      "sha256": "2560fa5e73e3d515752aea6938abd484fd7d1daf5cecf2e6238d65a14fd0e979"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/reclaimer-work-a.wav",
+      "sha256": "56911f7b9a8cfd6fccda2c0fa076eef805ea60374042b710b699f9ca6e8de2e6"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/reclaimer-work-b.wav",
+      "sha256": "1ac187329c7aca547099355247858764917f78220ec162492c68a23747e5cf5a"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/reclaimer-work-b.wav",
+      "sha256": "21323dbf4beaded8f2aaf56622f548d13885419d7405e2a818df6593d2de43cb"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/furnace-work-a.wav",
+      "sha256": "c7e6ea2a873018cec0ff2100fa96d5cc8c2ff6b5a2850c379a6f048bc6dbfc5e"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/furnace-work-a.wav",
+      "sha256": "ada9de005306ceda0653344fbcc58d420c81cf7d10ef62a734bf700207987e03"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/furnace-work-b.wav",
+      "sha256": "7e26bdd3935fd3dc58e3da7b0adc3f7ffa628e16ee1fd7f97bb68563edebe8e0"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/furnace-work-b.wav",
+      "sha256": "9f9e104a6cecbacd23a3a230decf2a26af01ebfc418fe14b99b05a8e61dfa593"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/coolant-pump-work-a.wav",
+      "sha256": "ac5670b4ded5bc8ea6e62f0075e7d3429f0dc1ea4007a742f1a9613436efcf46"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/coolant-pump-work-a.wav",
+      "sha256": "a92d509b5a3e92e2e68e7f565523b267710802758358819eedce7ebd219f452b"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/coolant-pump-work-b.wav",
+      "sha256": "95ef79d798e770382472ec873d820d63cb284093fd0e2707effc02ba186ee71a"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/coolant-pump-work-b.wav",
+      "sha256": "ebfc1d84fe9318bf6cf095772c4f63ebd603fa53cd81ad3c5101ea181440650e"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/wet-processor-work-a.wav",
+      "sha256": "1fd9f4e1d732059066aca1d89636056ce03e22f1db654e3e4125db3210772865"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/wet-processor-work-a.wav",
+      "sha256": "b1d64ccdb87ae46ccb91d8d6b3c5f0467bb40eb12b0e9ad26344c9848314b49e"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/wet-processor-work-b.wav",
+      "sha256": "249b1c7763310ccc000a462b6c025d21621e17e06c012f620cad449c7baf8119"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/wet-processor-work-b.wav",
+      "sha256": "08ad0275eba1df07ed9a8a7d818af4dabd4a123b89298e266730cbf5f8489165"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/crop-pump-work-a.wav",
+      "sha256": "7cb09c6eca1f1061f97bd3bc2f5f2a5fe30c2c11a5b761ed08dde71bf55b2986"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/crop-pump-work-a.wav",
+      "sha256": "61c7621d1ecf9d541fe1bd3f42155d53784b9eca7c13dde7353103380300369e"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/crop-pump-work-b.wav",
+      "sha256": "dcda48462e52d3042a1fbc358a286722e0b82a634b0d4d2e53a7e36c35be6d5b"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/crop-pump-work-b.wav",
+      "sha256": "b2f2fcd0e23bcc5b6857369688e9b391b997f39e668e8c301b2f18ffae37c93c"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/bottler-work-a.wav",
+      "sha256": "79042bb278bf1f320481cccfba5ff21a23a67650acf7eda143d6a634ec118b4d"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/bottler-work-a.wav",
+      "sha256": "1331271eabeda3eee8d73da1e4692f88e92d7b4c0e87b83d3b45c99eb453175c"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/bottler-work-b.wav",
+      "sha256": "c76078d89bc33819a263b139a005118e0b047977b01c43b122fad9ea17be3015"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/bottler-work-b.wav",
+      "sha256": "ece722caea05c8c2243255a6cb1a3e61221302057871e97183e7d3f6da160eca"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/grabber-work-a.wav",
+      "sha256": "5fd4bc00e2b44a490d9892e87fa17c6f0dac518a800deab0192ce355e88940bc"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/grabber-work-a.wav",
+      "sha256": "7fc1ff5e1bbcd01a2fa4b6249bf05d14adc0fa7eb9a4a77638f3d47a2ca5a442"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/grabber-work-b.wav",
+      "sha256": "3265c8b26391f94f024a4fe2a0bade2d2076d7dba6de917ca8d370da292f4a6e"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/grabber-work-b.wav",
+      "sha256": "5844de945a1087ac81d2f17039e76fc19591b7bc08281a7fadb8636add8054ae"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/laser-cabinet-work-a.wav",
+      "sha256": "fe4a927c174cb22eb70f6b07952d232117d36ca10a62c48d216288ef637a285a"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/laser-cabinet-work-a.wav",
+      "sha256": "8d2e9687c9cc5586750f63dc72636a51d7f93162b48871d2ba5539540560e3b7"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/wav/laser-cabinet-work-b.wav",
+      "sha256": "4e84ee4d223f59357582e437818ef9eed969b7318e2b34284e7fdb8b69434933"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/masters/laser-cabinet-work-b.wav",
+      "sha256": "fdd2441d73b1663a95666af42eaaa383c8f4206cd17a27d459b35e79de6b1c87"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/review-reel.wav",
+      "sha256": "2ede640a1a15e8847bd0ab346913a7a8f74a4618f830c0eb3c43fb5065480771"
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/sparse-workshop.wav",
+      "sha256": "73e613f575c26b54b000e6cfc4e6cd594b01eb2f148b9bf98d00c8af23cdba3c"
+    }
+  ],
+  "preserved_existing_completion_sha256": "a2f806cb7af8188a1dcdfd0a32592f9d9ebcc66c57e45527b0800ccc07620080"
+}

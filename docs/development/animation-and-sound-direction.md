@@ -2,7 +2,9 @@
 
 **Later owner direction, 6 October 2026:** explore and create occasional
 mechanical sounds while equipment works, with Codex responsible for audio and
-Claude responsible for wiring. The [new candidate pack and handoff](machine-work-sounds-handoff.md)
+Claude responsible for wiring. The owner subsequently selected the ElevenLabs
+washer motor and liquid-pump texture and requested removal of this chat's Python
+samples. The [selected files and handoff](machine-work-sounds-handoff.md)
 extend this dated direction to short, local work snippets. Operating loops and
 alarm suites remain excluded. The historical recommendations below are retained;
 their blanket pump/machinery exclusions do not prohibit the new candidates.

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phobos washer motor and pump sounds — elevenlabs.io</title>
+<style>body{font:17px system-ui,sans-serif;background:#161b20;color:#edf1ef;max-width:780px;margin:40px auto;padding:0 24px}h1{font-size:27px}h2{font-size:20px}section{padding:18px;margin:18px 0;background:#222a30;border-radius:10px}audio{width:100%}a{color:#9fd5c6}p{line-height:1.55}button{font:inherit;padding:8px 12px}</style>
+<h1>Washer motor and liquid pump</h1>
+<p>Four six-second variations selected for the sound palette. Generated with ElevenLabs — elevenlabs.io. Playback starts at 35% volume; use each player's controls to adjust it.</p>
+<p>These WAV copies use mono decoding and short edge fades. Originals are preserved. No sound is wired into the game yet.</p>
+<button id="stop" type="button">Stop all</button>
+<section><h2>Variation A</h2><audio controls preload="none" src="wav/washer-motor-pump-a.wav"></audio><p><a href="originals/washer-motor-pump-a.mp3">Untouched original MP3</a> · <a href="wav/washer-motor-pump-a.wav">Prepared WAV</a></p></section>
+<section><h2>Variation B</h2><audio controls preload="none" src="wav/washer-motor-pump-b.wav"></audio><p><a href="originals/washer-motor-pump-b.mp3">Untouched original MP3</a> · <a href="wav/washer-motor-pump-b.wav">Prepared WAV</a></p></section>
+<section><h2>Variation C</h2><audio controls preload="none" src="wav/washer-motor-pump-c.wav"></audio><p><a href="originals/washer-motor-pump-c.mp3">Untouched original MP3</a> · <a href="wav/washer-motor-pump-c.wav">Prepared WAV</a></p></section>
+<section><h2>Variation D</h2><audio controls preload="none" src="wav/washer-motor-pump-d.wav"></audio><p><a href="originals/washer-motor-pump-d.mp3">Untouched original MP3</a> · <a href="wav/washer-motor-pump-d.wav">Prepared WAV</a></p></section>
+<p><a href="README.md">Files and provenance</a> · <a href="LICENSING.md">Audio terms</a> · <a href="../../../docs/development/machine-work-sounds-handoff.md">Claude handoff</a></p>
+<script>
+const players=[...document.querySelectorAll('audio')];
+players.forEach(p=>{p.volume=.35;p.addEventListener('play',()=>players.filter(q=>q!==p).forEach(q=>{q.pause();q.currentTime=0;}));});
+document.getElementById('stop').addEventListener('click',()=>players.forEach(p=>{p.pause();p.currentTime=0;}));
+</script></html>
