@@ -1199,3 +1199,7 @@ L78 — Framework 0.118.0. While the Crew panel is open, once a real second: the
 ## 6 October: X2, K2 and AX-2 Uninstall (L79)
 
 L79 — Manufacturing 0.56.1. The offer-time removal check reads the same session and record it always did; it only answers differently. The new mode-switch postfix runs once per uninstall or reinstall of an X2, K2 or AX-2: one record read and one mass write. The destroy hook for a loose reactor or cracker now returns at once. No per-frame or world-tick work was added. No capture accompanies this change.
+
+## 6 October: Uninstall always offered (L80)
+
+L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.

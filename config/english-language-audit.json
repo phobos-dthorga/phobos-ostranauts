@@ -47815,13 +47815,13 @@
       "key": "Maintenance.charge",
       "category": "status/warning",
       "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachineSpec.cs:80"
       ],
       "before": "A charge is bound in the refinery. Cancel or finish it first.",
-      "after": "The refinery has an unfinished batch. Finish or Cancel it first.",
+      "after": "The refinery has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -58944,13 +58944,13 @@
       "key": "Maintenance.leach_charge",
       "category": "status/warning",
       "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:78"
       ],
       "before": "A charge is bound in the leach unit. Cancel or finish it first.",
-      "after": "The leach unit has an unfinished batch. Finish or Cancel it first.",
+      "after": "The leach unit has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -61413,13 +61413,13 @@
       "key": "Maintenance.acid_plant_charge",
       "category": "status/warning",
       "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:115"
       ],
       "before": "A charge is bound in the acid plant. Cancel or finish it first.",
-      "after": "The acid plant has an unfinished batch. Finish or Cancel it first.",
+      "after": "The acid plant has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -71657,14 +71657,14 @@
       "key": "Maintenance.fermenter_charge",
       "category": "status/warning",
       "decision": "add",
-      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "composed key",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
         "src/PhobosManufacturing/ChargeMachine.cs"
       ],
       "before": "The fermenter-still has an unfinished batch. Finish or Cancel it first.",
-      "after": "The fermenter-still has an unfinished batch. Finish or Cancel it first."
+      "after": "The fermenter-still has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first."
     },
     {
       "mod": "PhobosManufacturing",
@@ -75096,13 +75096,13 @@
       "key": "Maintenance.cell_charge",
       "category": "status/warning",
       "decision": "add",
-      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "literal reference",
       "references": [
         "src/PhobosManufacturing"
       ],
       "before": "The electrolysis cell has an unfinished batch. Finish or Cancel it first.",
-      "after": "The electrolysis cell has an unfinished batch. Finish or Cancel it first."
+      "after": "The electrolysis cell has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first."
     },
     {
       "mod": "PhobosManufacturing",
@@ -76370,13 +76370,13 @@
       "key": "Maintenance.carbothermal_charge",
       "category": "status/warning",
       "decision": "add",
-      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "literal reference",
       "references": [
         "src/PhobosManufacturing"
       ],
       "before": "The carbothermal reactor has an unfinished batch. Finish or Cancel it first.",
-      "after": "The carbothermal reactor has an unfinished batch. Finish or Cancel it first."
+      "after": "The carbothermal reactor has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first."
     },
     {
       "mod": "PhobosManufacturing",
@@ -85045,29 +85045,16 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Maintenance.running",
-      "category": "refusal",
-      "decision": "add",
-      "reason": "Removal refusals (Manufacturing 0.56.1): each names the one thing to do, pause or empty, and says that Uninstall carries a hold.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "It is working. Pause it on its Control Panel first.",
-      "after": "It is working. Pause it on its Control Panel first."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Maintenance.bottler_batch",
       "category": "refusal",
       "decision": "add",
-      "reason": "Removal refusals (Manufacturing 0.56.1): each names the one thing to do, pause or empty, and says that Uninstall carries a hold.",
+      "reason": "Removal refusals (Manufacturing 0.56.1): each names the one thing to do, pause or empty, and says that Uninstall carries a hold. 6 October 2026: reworded for Manufacturing 0.56.2; Uninstall is always offered and carries the work, only Dismantle waits.",
       "trace": "literal reference",
       "references": [
         "src/PhobosManufacturing"
       ],
       "before": "The bottling unit has an unfinished batch. Finish or Cancel it first.",
-      "after": "The bottling unit has an unfinished batch. Finish or Cancel it first."
+      "after": "The bottling unit has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first."
     }
   ],
   "documents": [
@@ -85075,7 +85062,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "39b8423bc8b3d779f745e556c51eefd00d57e256c46851384c479fccfed78034",
+      "sha256": "865fa96c89c5c78bfd692bd268dc09429f72e0a4aa9729999642131a8fe950fa",
       "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
@@ -85250,9 +85237,10 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "dafdc4c30dccf5580c63b0424981ce509f05f8ed50c34e99949bbbe59d02947d",
+      "sha256": "f70a1f7a93ce5f126c5e7348f4dbd729475cc4c75ccad5c03b5bc0c2626c64cb",
       "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
-      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -85362,9 +85350,10 @@
       "path": "docs/development/animation-and-sound-direction.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "fd7f21c6059035151b40f94fd8ce084dcaf87283baae8e8ec337f6a26a698988",
+      "sha256": "fa2b3d6015c92be67653d71d911873b2c4af3cf1c0ba79495292912eba7e72af",
       "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser. Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
-      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     },
     {
       "path": "docs/development/artwork-completion.md",
@@ -86212,14 +86201,14 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "b71d5f1a27656c4dd0aced31f14337be2e88c88a2e4c247a6a6518ba5c7302b3",
+      "sha256": "4302882a2a0f4e46eb803dfb440acae8a7e2ba23a5ef2b2acec8167422dcdc7f",
       "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "6a50567f0ae64f7d696cbcc6886e8fce014d00795c1ac7f030ffa67167683433",
+      "sha256": "6f7c9ca0d73e076dee53a53e192513e15b76dc9437a66a3d4b84246a0d16bb7c",
       "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
@@ -86387,7 +86376,7 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "77f353b7d249e5814019d4df21fd2170a10674fd535d038543cd95cda957bf88",
+      "sha256": "1fc2585eeb0335734dadbd6eb8b9f335547c90d5e902739205c46009c7727011",
       "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
@@ -86485,9 +86474,10 @@
       "path": "docs/development/machine-work-sounds-handoff.md",
       "scope": "developer audio production, source observations, implementation handoff and owner listening checks",
       "decision": "review audience separation and evidence limits",
-      "sha256": "df84161eb63de44948f3012ce8609803c1e46db043bb7858ff9b909e862d00e3",
+      "sha256": "c673eff3e928ab42ba832369d1ea915fe74657e1f3849078d78eab0d021e3f68",
       "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed.",
-      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+      "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     }
   ],
   "surfaces": [
@@ -86552,7 +86542,7 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9250d68a250943bc6572dd84cb9bd8f916627c93dfda84b05a9efdd0b81dd9f5",
+      "sha256": "d8bc58eeb367f89317430c461d1cdf28aa4becc4649ded5e516ea3b5aba510cb",
       "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
@@ -86726,8 +86716,9 @@
       "path": "assets/phobos-audio/washer-motor-pump-v1/README.md",
       "scope": "selected audio asset review/provenance/terms; no installed controls",
       "decision": "retain clear wording and distinguish listening approval from game integration",
-      "sha256": "6416becc8e9786c23a8b0d24877ba6b352e5fa97767712c8790452ee862725a4",
-      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+      "sha256": "f6300a771c599226b8c1eb5c90417121bba0b29185cc67bce73285f772c0ca28",
+      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     },
     {
       "path": "assets/phobos-audio/washer-motor-pump-v1/LICENSING.md",
@@ -86740,8 +86731,9 @@
       "path": "assets/phobos-audio/washer-motor-pump-v1/listen.html",
       "scope": "selected audio asset review/provenance/terms; no installed controls",
       "decision": "retain clear wording and distinguish listening approval from game integration",
-      "sha256": "10c27684fc4c9160234c4dd8c90270284702bd92d4d6d3a3f1bcbb5493f0b198",
-      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness."
+      "sha256": "14847d3f0c28121a73b8983e675fbfc9c10328f816a383935e681b57d447db61",
+      "review": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
+      "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     }
   ],
   "hardcodedReview": {

@@ -460,7 +460,7 @@ internal static class SabatierService
     {
         if (!SabatierRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        string? key = RemovalRules.Reason(s.Protected, s.Running, s.State.HeldKg, dismantle, "Maintenance.reactor");
+        string? key = RemovalRules.Reason(s.Protected, s.State.HeldKg, dismantle, "Maintenance.reactor");
         return key == null ? null : Text.Get(key);
     }
     /// <summary>After the game copies this machine's record onto a new form (uninstall to loose, or install from the

@@ -733,11 +733,13 @@ internal sealed class ChargeMachine
         s.Status = reason = T("selected", Text.Get("Recipe." + recipe.Id));
         return true;
     }
-    internal string? MaintenanceReason(CondOwner co)
+    /// <summary>A bound charge travels with an uninstalled machine (its units sit in the feed bin, which every form
+    /// carries) and resumes when it is installed again; only Dismantle waits for it (Manufacturing 0.56.2).</summary>
+    internal string? MaintenanceReason(CondOwner co, bool dismantle)
     {
         var s = Get(co);
-        if (s.Protected) return Text.Get("Maintenance.protected");
-        return s.State.Bound ? Text.Get(Spec.MaintenanceChargeKey) : null;
+        string? key = RemovalRules.Reason(s.Protected, s.State.Bound ? 1 : 0, dismantle, Spec.MaintenanceChargeKey);
+        return key == null ? null : Text.Get(key);
     }
     /// <summary>Whether any of this machine's commodity links points at the vessel.</summary>
     internal bool LinksTo(CondOwner co, string vesselId) => Links.Any(l => Peer(co, l) == vesselId);

@@ -1,19 +1,20 @@
 namespace PhobosManufacturing.Core;
 
-/// <summary>When removal work on a gas or liquid machine (X2, K2, AX-2) is refused at offer time (Manufacturing
-/// 0.56.1; owner report, 6 October 2026: Uninstall had vanished from the X2 and K2). These machines refill their hold
-/// as soon as it runs low, so "wait until it is empty" never came. Now: a machine whose record cannot be read is left
-/// alone; a working machine is paused first; Uninstall is allowed while it merely holds water or gas, and the loose
-/// machine carries that mass along (as the water silos do); only Dismantle, which would delete the mass, waits for an
-/// empty hold. No game types, so the offline checks run it.</summary>
+/// <summary>When removal work on a Manufacturing machine is refused at offer time. Manufacturing 0.56.1 (owner report,
+/// 6 October 2026: Uninstall had vanished from the X2 and K2) let a machine that holds water or gas be uninstalled
+/// whole. Manufacturing 0.56.2 (owner rule, same day): choosing Uninstall accepts what stopping mid-reaction brings, so
+/// a working machine, or one with a batch under way, is never made to wait either. Its saved work, its hold and any
+/// bound charge travel with the loose machine and wait for it to be installed again. Only a record that cannot be read
+/// refuses both; Dismantle, which would delete what is inside, still waits for an empty machine. No game types, so the
+/// offline checks run it.</summary>
 public static class RemovalRules
 {
-    public const string Protected = "Maintenance.protected", Running = "Maintenance.running";
-    /// <summary>The text key of the refusal, or null when the work may be offered.</summary>
-    public static string? Reason(bool recordProtected, bool running, double heldKg, bool dismantle, string holdKey)
+    public const string Protected = "Maintenance.protected";
+    /// <summary>The text key of the refusal, or null when the work may be offered. <paramref name="inside"/> is what
+    /// dismantling would destroy: kilograms held, or 1 for a batch under way.</summary>
+    public static string? Reason(bool recordProtected, double inside, bool dismantle, string insideKey)
     {
         if (recordProtected) return Protected;
-        if (running) return Running;
-        return dismantle && heldKg > 1e-8 ? holdKey : null;
+        return dismantle && inside > 1e-8 ? insideKey : null;
     }
 }

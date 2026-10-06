@@ -381,7 +381,7 @@ internal static class ProcessorService
     {
         if (!ProcessorRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        string? key = RemovalRules.Reason(s.Protected, s.Running, s.State.HoldKg, dismantle, "Maintenance.cycle");
+        string? key = RemovalRules.Reason(s.Protected, s.State.HoldKg, dismantle, "Maintenance.cycle");
         return key == null ? null : Text.Get(key);
     }
     /// <summary>After the game copies this machine's record onto a new form (uninstall to loose, or install from the

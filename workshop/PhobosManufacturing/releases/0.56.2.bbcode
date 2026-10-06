@@ -1,0 +1,21 @@
+[h1]Phobos Manufacturing 0.56.2[/h1]
+[b]Draft - not published | 2026-10-06[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Uninstall was still missing from a working X2, K2 or AX-2, which asked to be paused first (owner report, 6 October 2026). Choosing Uninstall now accepts what stopping mid-reaction brings: it is always offered, and the work stops where it is. The loose machine carries what it holds and its cycle's progress, and carries on once reinstalled and started.
+[*]The same rule for every machine with batches: the V4, LC-3, SA-3, Copperhead-3, EC-4, CR-4 and Corker-2 can be uninstalled mid-batch. The bound charge stays in the machine's feed and resumes when it is reinstalled and started. Only Dismantle still waits for the batch to finish or be cancelled, and the refusal says so.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. A machine uninstalled while working comes back paused; Start carries on.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]A record that cannot be read still blocks removal until accepted on the Control Panel. Acid and ethanol tanks still ask to be poured out before moving. Checked offline; not yet seen in the game.
+[/list]

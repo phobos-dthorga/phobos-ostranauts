@@ -358,7 +358,7 @@ internal static class CrackerService
     {
         if (!CrackerRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        string? key = RemovalRules.Reason(s.Protected, s.Running, s.State.HeldKg, dismantle, "Maintenance.cracker");
+        string? key = RemovalRules.Reason(s.Protected, s.State.HeldKg, dismantle, "Maintenance.cracker");
         return key == null ? null : Text.Get(key);
     }
     /// <summary>After the game copies this machine's record onto a new form (uninstall to loose, or install from the

@@ -19,6 +19,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.56.2] - 2026-10-06 - Draft
+
+### Fixed
+
+- Uninstall was still missing from a working X2, K2 or AX-2, which asked to be paused first (owner report, 6 October 2026). Choosing Uninstall now accepts what stopping mid-reaction brings: it is always offered, and the work stops where it is. The loose machine carries what it holds and its cycle's progress, and carries on once reinstalled and started.
+- The same rule for every machine with batches: the V4, LC-3, SA-3, Copperhead-3, EC-4, CR-4 and Corker-2 can be uninstalled mid-batch. The bound charge stays in the machine's feed and resumes when it is reinstalled and started. Only Dismantle still waits for the batch to finish or be cancelled, and the refusal says so.
+
+### Save compatibility
+
+- Automatic. A machine uninstalled while working comes back paused; Start carries on.
+
+### Compatibility and limits
+
+- A record that cannot be read still blocks removal until accepted on the Control Panel. Acid and ethanol tanks still ask to be poured out before moving. Checked offline; not yet seen in the game.
+
 ## [0.56.1] - 2026-10-06 - Draft
 
 ### Fixed

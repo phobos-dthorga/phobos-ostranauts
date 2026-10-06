@@ -304,12 +304,12 @@ internal static class BottlerService
         if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
         reason = Text.Get("Bottler.linked"); return true;
     }
-    internal static string? MaintenanceReason(CondOwner co)
+    internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {
         if (!BottlerRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        if (s.Protected) return Text.Get("Maintenance.protected");
-        return s.State.BatchKWh > 1e-8 ? Text.Get("Maintenance.bottler_batch") : null;
+        string? key = RemovalRules.Reason(s.Protected, s.State.BatchKWh, dismantle, "Maintenance.bottler_batch");
+        return key == null ? null : Text.Get(key);
     }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {

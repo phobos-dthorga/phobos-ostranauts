@@ -78,7 +78,7 @@ internal static class Content
     internal static string? MaintenanceReason(CondOwner? co, bool dismantle)
     {
         if (co == null) return null;
-        if (ChargeMachines.For(co.strCODef) is ChargeMachine charge) return charge.MaintenanceReason(co);
+        if (ChargeMachines.For(co.strCODef) is ChargeMachine charge) return charge.MaintenanceReason(co, dismantle);
         if (ProcessorRules.IsFamily(co.strCODef)) return ProcessorService.MaintenanceReason(co, dismantle);
         if (SabatierRules.IsFamily(co.strCODef)) return SabatierService.MaintenanceReason(co, dismantle);
         if (CrackerRules.IsFamily(co.strCODef)) return CrackerService.MaintenanceReason(co, dismantle);
@@ -87,7 +87,7 @@ internal static class Content
         if (ManifoldRules.IsFamily(co.strCODef)) return ManifoldService.MaintenanceReason(co);
         if (FillerRules.IsFamily(co.strCODef)) return FillerService.MaintenanceReason(co);
         if (RegulatorRules.IsFamily(co.strCODef)) return RegulatorService.MaintenanceReason(co);
-        if (BottlerRules.IsFamily(co.strCODef)) return BottlerService.MaintenanceReason(co);
+        if (BottlerRules.IsFamily(co.strCODef)) return BottlerService.MaintenanceReason(co, dismantle);
         if (FeederRules.IsFamily(co.strCODef)) return FeederService.MaintenanceReason(co, dismantle);
         return null;
     }
