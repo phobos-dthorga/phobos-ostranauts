@@ -41,7 +41,8 @@ public static class StoryContent
                 var pack = DataPacks.Load<StoryPack>(source, p => StorySchema.Validate(p, framework));
                 if (framework) settings = pack.settings;
                 packs.Add((source.Owner, pack));
-                packLines.Add(Text.Get("Story.pack_line", source.ModFolder, pack.broadcasts.Count, pack.adverts.Count, pack.arcs.Count));
+                packLines.Add(Text.Get("Story.pack_line", source.ModFolder, pack.broadcasts.Count, pack.adverts.Count, pack.arcs.Count) +
+                    (pack.threads.Count + pack.places.Count + pack.people.Count > 0 ? " " + Text.Get("Story.pack_world", pack.threads.Count, pack.places.Count, pack.people.Count) : ""));
             }
             catch (Exception ex)
             {
@@ -112,6 +113,12 @@ public static class StoryContent
             case "chatter" when words.Length == 3: return StoryChatter.Describe();
             case "file" when id != null && words.Length == 4: return StoryArcs.FileCommand(id);
             case "chatter" when id != null && words.Length == 4: return StoryChatter.Force(id);
+            // Grounding (Framework 0.114.0): where the player is, a thread's members, flags, and the places and people known.
+            case "where" when words.Length == 3: return StoryArcs.WhereCommand();
+            case "thread" when id != null && words.Length == 4: return StoryArcs.ThreadCommand(id);
+            case "flag" when id != null && (words.Length == 4 || words.Length == 5 && words[4] == "clear"): return StoryArcs.FlagCommand(id, words.Length == 5);
+            case "places" when words.Length == 3: return StoryArcs.PlacesCommand();
+            case "people" when words.Length == 3: return StoryArcs.PeopleCommand();
             default: return Text.Get("Story.help");
         }
     }

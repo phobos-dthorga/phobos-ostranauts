@@ -254,6 +254,110 @@ loose cargo, and the card is the game's own item. The guide describes it.
   sprites, which the encyclopedia shows at their own small size. Suitable pictures
   need new art, so a PixelLab or Imagegen cost check comes first.
 
+## Round 5: places, people, threads and flags (Framework 0.114.0)
+
+Owner, 6 October 2026: the system worked but was bare-bones; missions, goals and
+conversation came "out of nowhere with absolutely no relation to anything or anywhere",
+and the threads were not connected. Phobos Spacer Stories was disabled until this was
+fixed. The plan and its findings are summarised here; the player guide's section is
+[Where things happen](../writing-story-content.md#where-things-happen-places-people-and-threads).
+
+### Owner decisions
+
+| Question | Decision |
+| --- | --- |
+| What grounds stories | All four offered: places (stations and regions), people (named contacts with a home), the player's ship and crew, faction standing and time |
+| How threads connect | Both: flags and arc progress as gates, and threads as first-class entries |
+| Spacer Stories | ChatGPT rewrites it from the updated guide; old packs load unchanged |
+| Faction standing | Read and change, small: gates first, changes of up to 10 points a step in a later release after an in-play check |
+| Far news | A trickle: local news four times as likely as far; a thread is never invisible |
+
+Round 5 delivers places, people, threads, flags, arc-progress gates, placed news and
+talk, and the arrival check. Standing, crew and clock gates (`standing`, `crewWith`,
+`crewCount`, `running`, `months`, `hours`, `[crew]`) and standing changes are the next
+release.
+
+### What was found before designing (verified in the game's code, research kept in `.local`)
+
+- The only place gate was `dockedAt` by station id, and every shipped entry said
+  `any`; a broadcast's `region` was a label. Content could test an arc done or never
+  started, not under way; outcomes set no state; bulletins bypassed gates and
+  mentions quoted news never shown.
+- **Region.** The game keeps `CollisionManager.strATCClosest`, the registration id of
+  the nearest station marked `bIsRegion` (its traffic control), and
+  `AIShipManager.strATCLast`, the last such region entered, saved with the game.
+  Twelve stations are regional; parts carry the id with a suffix. The vanilla news
+  regions are Tharsis, Shipping & Inner System and Outer System.
+- **Standing.** The game's FACTIONS app computes a faction's view of the player as the
+  sum over the player's own factions of `JsonFaction.GetFactionScore(playerFaction)`,
+  tiered by `JsonFaction.GetReputation` (Honored 100, Trusted 75, Friendly 50, Warm 25,
+  Neutral above -50, else Dislikes). `CondOwner.GetFactionScore` is the reverse
+  direction. Changes go through `ApplyFactionRep` with the player's faction name; the
+  debug command uses the player's id, which the owner's in-play check will confirm
+  before standing changes ship.
+- **Calendar.** `MathUtils.GetYearFromS`, `GetMonthFromS`, `GetDayOfMonthFromS` of
+  `StarSystem.fEpoch`; `StarSystem.nUTCHour` for the hour.
+
+### How it works
+
+- **Places** are a Framework data table (`places` in `mods/PhobosFramework/framework/story.json`):
+  the twelve regional stations and the parts and neighbours within them, with the
+  game's ids, public names, bodies, factions and news regions. `StoryPlaces` turns any
+  registration id into a place by the longest station prefix and climbs `within` to
+  the region. Add-ons may add places.
+- **Facts.** `GameFacts` gains `Region` (the place of `strATCClosest`, else
+  `strATCLast`), the docked places, and `Near(place)`: docked at it or, for a
+  regional place, in its region.
+- **Threads** are entries; members declare `thread` and inherit its place and
+  requirements. Thread requirements are evaluated once per check (`Gates`).
+- **Selection.** News and advert weights are multiplied by `localWeight` (4) at the
+  place, `UnplacedFactor` (2) for unplaced entries and `farWeight` (1) elsewhere.
+  Placed small talk is voiced by crew while the player is near and by others only
+  when they stand there (`StoryRules.Voices(line, …)`). A placed arc self-starts
+  only while the player is near, and local arcs are tried first. Mentions are said for
+  `mentionDays` after their news was first shown; a once-only bulletin already shown
+  is skipped.
+- **Flags** are `flag.<id>` keys on the player's record with the time set;
+  `seen.<id>` now holds the time shown (an old `1` still reads as seen). Gates:
+  `flags`, `notFlags`, `arcsActive`, `arcsAtStep`, `places`, `regions`, `newsSeen`.
+- **Arrival check.** `StoryArcs.Poll` compares the region id each frame (a string
+  compare) and runs the check at once when it changes.
+- **Placeholders** `[place]`, `[region]`, `[station]`, `[body]`, `[date]` and
+  `[person:key]` fill from the entry's place, else the player's whereabouts.
+- **F3** `story where`, `story thread`, `story flag`, `story places`, `story people`.
+
+### Save footprint
+
+| Structure | Change | Migration |
+| --- | --- | --- |
+| `PhobosStory` on the player | `flag.<id>` = time set; `seen.<id>` = time shown | None: unknown keys were always kept; `1` still decodes |
+| Story packs | New optional tables and fields | None; an older Framework refuses a newer pack whole (its serializer rejects unknown members), which the add-on's Framework minimum states |
+
+### Deviations from the plan
+
+- Requirement fields are `places` and `regions` (lists), not `place` and `region`,
+  to match the other list gates.
+- A broadcast must have a region, a place or a thread at file level; a thread with no
+  place and no region is refused when the packs merge.
+
+### Checks
+
+`StoryChecks.Round5` (places lookup, thread inheritance, cast refusals, flags and
+step gates, weights, voices, the mention window, record round trip with old `seen`
+values), `StoryNativeChecks.Places` (every shipped place is a game station with the
+game's regional flag, body, public name and factions; every regional station has a
+place; the region fields and calendar helpers exist), `test_data_packs.test_story_grounding`
+(the Python mirror and the shipped places). Not covered: the arrival check, placed
+small talk with live speakers and the TV weighting in play.
+
+### For the owner to try
+
+1. Dock at OKLG and run `phobosframework story where`: region and place should read
+   `oklg`. Fly towards Venus and the region should change to `vnca`.
+2. Set a flag with `story flag test-x`, then `story where` lists it.
+3. With Spacer Stories rewritten: local news on arrival, a stranger saying a `locals`
+   line on the station and not aboard, a letter from a named person.
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another
@@ -275,8 +379,8 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | **A Framework talk opener** | Topics as their own kind of conversation | Phase 2 borrows the game's own small talk. A new opener only if that proves too limited. The crew pick openers by learned weights (`ai_training`), so a new opener may rarely fire. | One Framework-owned name in conversation history (acceptable, like Framework items) |
 | **Characters approaching the player** | A contact walks up and hands over a goal | The game does this with pledges, saved by name on characters. A Framework version needs its own approach behaviour. | Pledges refused; a Framework version needs its own design |
 | **Data files as world loot** | Story files found in the world | Round 4 delivers files as arc rewards on the game's own data cards. Loot placement and odds are held for the owner. | None beyond round 4 |
-| **Reputation rewards** | Changing faction standing | Credits were delivered in round 3. Faction standing is the game's own saved state and gates the faction kiosks; held for the owner's decision on which factions and how much. | The game's own faction scores |
-| **More tests** | Goals beyond the six kinds | Credits and conditions (including skills) were added in round 3. Candidates: visit a kind of ship, own a machine family, talk to a kind of person. Each is code in the fixed vocabulary, added as content needs it. | None (code only) |
+| **Reputation rewards** | Changing faction standing | Owner decision (6 October 2026): read and change, small. Gates and changes of up to 10 points a step come in the release after 0.114.0, after an in-play check of the player's faction name. | The game's own faction scores |
+| **More tests and gates** | Goals and gates beyond the present kinds | Round 5 added place, region, flag, arc-progress and news gates. Next: `standing`, `crewWith`, `crewCount`, `running`, `months`, `hours` and `[crew]`. Candidates after that: visit a kind of ship, talk to a kind of person. | None (code only) |
 | **Choices from a menu** | The player picks the next step from offered options | Round 3 branches are decided by tests. A menu needs a choice screen. | None beyond our record |
 | **Encounter scenes** | Full-screen story scenes with pictures and choices | The game's encounters are interactions saved in history; ours would need Framework-owned ones and original art. | Names in history; needs design |
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |

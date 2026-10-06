@@ -81376,13 +81376,13 @@
       "key": "Story.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Story"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words>. None is needed: story content loads and appears by itself. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; chatter lists the small-talk lines that can be said now, or makes the next matching small talk say the line named; file gives you a data card with that story file; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards."
+      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people. None is needed: story content loads and runs by itself; these are for authors testing it."
     },
     {
       "mod": "PhobosFramework",
@@ -83320,6 +83320,526 @@
       ],
       "before": "Practice at machines: {0}. Housekeeping: {1}.",
       "after": "Practice at machines: {0}. Housekeeping: {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_flag",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs the story flag {0}",
+      "after": "needs the story flag {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.forbids_flag",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "only while the story flag {0} is not set",
+      "after": "only while the story flag {0} is not set"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_arc_active",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs the arc {0} under way",
+      "after": "needs the arc {0} under way"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_arc_step",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs the arc at step {0}",
+      "after": "needs the arc at step {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_place",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs the player at {0}",
+      "after": "needs the player at {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_region",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs the player in the region of {0}",
+      "after": "needs the player in the region of {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_news",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "needs the news item {0} shown first",
+      "after": "needs the news item {0} shown first"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_place",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "no loaded pack has the place {0}",
+      "after": "no loaded pack has the place {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_thread",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "no loaded pack has the thread {0}",
+      "after": "no loaded pack has the thread {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_person",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "no loaded pack has the person {0}",
+      "after": "no loaded pack has the person {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.not_in_cast",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the person {0} is not in the cast of the thread {1}",
+      "after": "the person {0} is not in the cast of the thread {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_step",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "no loaded arc has the step {0}",
+      "after": "no loaded arc has the step {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.not_regional",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the place {0} lies within another, so it is not a region",
+      "after": "the place {0} lies within another, so it is not a region"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.no_region",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the news item {0} has no region and no place that gives it one",
+      "after": "the news item {0} has no region and no place that gives it one"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.no_place",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the arc {0} has a dock-at test with no station and no place of its own",
+      "after": "the arc {0} has a dock-at test with no station and no place of its own"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.the_station",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the station",
+      "after": "the station"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.these_parts",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "these parts",
+      "after": "these parts"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.the_rock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "the local rock",
+      "after": "the local rock"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.date",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}-{1}-{2}",
+      "after": "{0}-{1}-{2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_report",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Region: {0}, place {1}. Docked at: {2}.",
+      "after": "Region: {0}, place {1}. Docked at: {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.no_place_known",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "no place known here",
+      "after": "no place known here"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_date",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Date {0}, hour {1}.",
+      "after": "Date {0}, hour {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_no_flags",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Story flags: none set.",
+      "after": "Story flags: none set."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_flags",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Story flags: {0}.",
+      "after": "Story flags: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.where_thread",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Thread {0} ({1}): {2}",
+      "after": "Thread {0} ({1}): {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "open",
+      "after": "open"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.thread_report",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Thread {0}: {1}. Place: {2}. Cast: {3}. Now: {4}.",
+      "after": "Thread {0}: {1}. Place: {2}. Cast: {3}. Now: {4}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.arc_active_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "under way at {0}",
+      "after": "under way at {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.shown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "shown",
+      "after": "shown"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.member_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "  {0} {1} {2}: {3}",
+      "after": "  {0} {1} {2}: {3}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.bad_flag",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} is not a flag id: lower-case letters and digits joined by hyphens.",
+      "after": "{0} is not a flag id: lower-case letters and digits joined by hyphens."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.flag_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Story flag {0} set. The next check will see it.",
+      "after": "Story flag {0} set. The next check will see it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.flag_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Story flag {0} cleared.",
+      "after": "Story flag {0} cleared."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.places_title",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Places known to the loaded packs: {0}.",
+      "after": "Places known to the loaded packs: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.place_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: {1} ({2}); region {3} {4}",
+      "after": "{0}: {1} ({2}); region {3} {4}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.people_title",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "People known to the loaded packs: {0}.",
+      "after": "People known to the loaded packs: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.person_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: {1}; home {2} {3}",
+      "after": "{0}: {1}; home {2} {3}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.pack_world",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "({0} threads, {1} places, {2} people)",
+      "after": "({0} threads, {1} places, {2} people)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.table_long",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: at most {1} entries in one file.",
+      "after": "{0}: at most {1} entries in one file."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.flags",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story grounding (Framework 0.114.0): block reasons, F3 reports and placeholder fallbacks in the working-spacer voice; each says what holds the entry back or what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: up to {1} different flag ids, none both set and cleared.",
+      "after": "{0}: up to {1} different flag ids, none both set and cleared."
     }
   ],
   "documents": [
@@ -83327,8 +83847,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e90a095cc0ef19d2369d4f38892cb5881a6fbccba90f4ca233636e3c5470ab21",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "0119e72f3fa1bca1a64bc0c4d72d83888c5eae7209e89b606a6d6f0f91a35d63",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "SUPPORT.md",
@@ -83488,8 +84008,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8fe8a44077a5185b835ab1335214c731884c7a647972f1a79f24cd31927a9672",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "f2ff594e2ad1289d6401df32862e4036428b6f89431193a85530441dcb01fe7b",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/crew-automation.md",
@@ -84117,8 +84637,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "385c1c2574ca3e27d71409c101d14b4585129cef8dff58424c3ad555bfbbd1f5",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "729861d8fca4ff29d78984003a11adc87674effdec6ced2d9321b22b669f367f",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -84357,8 +84877,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "916b83270cc2453b04536e5e5cebebc2f2827b57dbe4b40e7fbff4ae0dbc8213",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "94f99be13465123ff3cefc9389c7b2123e44f799c0d0058994b353e510adc085",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -84378,8 +84898,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7d1263fd0c452c6f337c3b27c66d6a8b15358ec917187610d0634e12d5e4d295",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "809410c3782eee05e4c5372d0b1ef220cf575636c011e6fc4fa45b21b0a8a2c6",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -84504,8 +85024,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dffa215b1d171f10cc3c7952508ee4e5b42a140d012edde454f1c6c411c8ff91",
-      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
+      "sha256": "9984d435017b8590517fa05ab8a97a69a687e675e397358eeb798c9db6b613f9",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -84630,8 +85150,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3957a06422044e4796c214b928ef06180ee180882906595e2599e308cd6a7764",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "f124d3cc33b96b46d7034ec4d059443f183c18a4927c6921af02248694350104",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -84672,15 +85192,15 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "b105839a4d3d122c5c589f5b14bfc3616ec2694b2ed7a1e276e0c079671236bc",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "df4644385f0d32aa213c48efa5c96cda9a882bd9fc6c28841dad07581f5b5500",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "47e4c62c2db064a4b28b843bec1a4df6f1b5fc18201e9c4dc2e7e6f74efff059",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "7aa4897982f2824a5d49ea71231450334a777f199fc251cc33dad7c35b4860df",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "docs/development/spacer-stories-authoring.md",
@@ -84767,8 +85287,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c3eaffb7f68b17889efd93aa12c21332959f38b8e18bee26d8aee41113b0d1ce",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "5ee00aeeae48f578a0d5a02bb5512d1198b3d15bda07a8939de0337901563b9d",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -84846,8 +85366,8 @@
     {
       "path": "mods/PhobosFramework/framework/story.json",
       "scope": "shipped story settings; no player text beyond its notes",
-      "sha256": "fc52a44631b34b206fc5bff3856b9916f83ef19a8719dbcc95793407034cae7d",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "40a4fb09b56574e75b4dda90afe0483533437ae03df830fe2f7ffa9f49aca4ff",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
     },
     {
       "path": "mods/PhobosSpacerStories/mod_info.json",

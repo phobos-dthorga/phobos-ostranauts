@@ -277,7 +277,10 @@ def story():
     story_id = '^[a-z0-9]+(-[a-z0-9]+)*$'
     game = {'type': 'string', 'pattern': '^[A-Za-z0-9_]+$'}
     station = {'type': 'string', 'pattern': '^(any|[A-Za-z0-9_|-]{1,32})$', 'description': 'A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station.'}
-    plain = 'Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship].'
+    plain = ('Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], '
+             '[station], [body], [date] and [person:key].')
+    key = {'type': 'string', 'pattern': story_id, 'maxLength': 48}
+    flags = {'type': 'array', 'maxItems': 4, 'uniqueItems': True, 'items': key}
     def text(limit, description):
         return {'type': 'string', 'minLength': 1, 'maxLength': limit, 'description': description + ' ' + plain}
     def names(item, description):
@@ -292,12 +295,22 @@ def story():
         'arcsNotStarted': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must never have started.'),
         'afterDays': num(0, 3650, description="Only once this many game days have passed since the player's story record began."),
         'beforeDays': num(0, 3650, description="Only until this many game days have passed since the player's story record began."),
-        'filesRead': names({'type': 'string', 'pattern': story_id}, 'Story data files the player must have opened.')},
+        'filesRead': names({'type': 'string', 'pattern': story_id}, 'Story data files the player must have opened.'),
+        'flags': names(key, 'Story flags that must all be set (an arc outcome sets them).'),
+        'notFlags': names(key, 'Story flags none of which may be set.'),
+        'arcsActive': names(key, 'Arcs that must be under way.'),
+        'arcsAtStep': names({'type': 'string', 'pattern': '^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$'}, 'Arcs under way at a step, as arc.step.'),
+        'places': names(key, 'Places the player must be at (any one): docked at it, or anywhere in its region for a regional place.'),
+        'regions': names(key, 'Regional places the player must be in the region of (any one).'),
+        'newsSeen': names(key, 'News items that must have been shown on a TV.')},
         description='When the entry may appear. Every part is optional and every part given must hold.')
-    message = obj({'from': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Who it is from, shown before the text in the crew log.'},
-                   'text': text(400, 'The message, shown in the crew log.')}, ['from', 'text'])
+    thread_ref = {**key, 'description': 'The thread this entry belongs to: it inherits the thread\'s place and requirements.'}
+    place_ref = {**key, 'description': 'The place this entry belongs to, by key (phobosframework story places lists them).'}
+    message = obj({'from': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Who it is from, shown before the text in the crew log; leave out when person names them.'},
+                   'person': {**key, 'description': 'The person it is from, shown as Name, role.'},
+                   'text': text(400, 'The message, shown in the crew log.')}, ['text'], extra={'anyOf': [{'required': ['from']}, {'required': ['person']}]})
     test = obj({'kind': string('What the step waits for.', ['dock-at', 'have-item', 'install', 'wait', 'credits', 'condition']),
-                'station': {**station, 'description': 'dock-at only. ' + station['description']},
+                'station': {**station, 'description': 'dock-at only. ' + station['description'] + ' Left out, the arc\'s own place.'},
                 'item': {**game, 'description': 'have-item and install only: an item definition id.'},
                 'count': num(1, 100, integer=True, description='have-item and install only: how many (default 1).'),
                 'consume': {'type': 'boolean', 'description': 'have-item only: the items are taken from the player when the step finishes.'},
@@ -309,7 +322,9 @@ def story():
                              'description': 'Items given to the player, or put at their feet when they cannot carry them.'},
                    'credits': num(0, 50000, integer=True, description="Credits paid to the player, entered in the game's ledger."),
                    'files': {'type': 'array', 'maxItems': 5, 'uniqueItems': True, 'items': {'type': 'string', 'pattern': story_id},
-                             'description': 'Story data files given to the player on one data card.'}},
+                             'description': 'Story data files given to the player on one data card.'},
+                   'setFlags': {**flags, 'description': 'Story flags set on the player\'s record, for other entries\' requirements.'},
+                   'clearFlags': {**flags, 'description': 'Story flags cleared.'}},
                   description='What happens when the step finishes.')
     tests = {'type': 'array', 'items': test, 'minItems': 1, 'maxItems': 4, 'description': 'All must pass for the step to finish.'}
     next_step = {'type': 'string', 'pattern': '^(end|[a-z0-9]+(-[a-z0-9]+)*)$', 'description': 'A step id of the same arc, or end.'}
@@ -328,13 +343,17 @@ def story():
     weight = num(1, 100, integer=True, description='How often it is picked against other story entries (default 1).')
     once = {'type': 'boolean', 'description': 'Shown once in a save, then never again.'}
     author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}
-    broadcast = obj({**author, 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System.'},
+    broadcast = obj({**author, 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System; left out, the place\'s own.'},
                      'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'requires': requires,
-                     'mention': text(200, 'What people say when they bring this news up in small talk, while it is eligible.')}, ['region', 'text'])
-    advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'requires': requires}, ['text'])
+                     'mention': text(200, 'What people say when they bring this news up in small talk, for a while after it was shown.'),
+                     'thread': thread_ref, 'place': place_ref}, ['text'],
+                    extra={'anyOf': [{'required': ['region']}, {'required': ['place']}, {'required': ['thread']}]})
+    advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'requires': requires,
+                  'thread': thread_ref, 'place': place_ref}, ['text'])
     arc = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80, 'description': 'For authors and the F3 list.'}, 'notes': NOTES, 'requires': requires,
-               'chance': num(0, 1, description='Chance per story check (every 30 s) that the eligible arc starts by itself; 0 starts it only from F3.'),
+               'chance': num(0, 1, description='Chance per story check (every 30 s) that the eligible arc starts by itself, while the player is at its place if it has one; 0 starts it only from F3.'),
                'repeatable': {'type': 'boolean', 'description': 'May start again after it is finished.'},
+               'thread': thread_ref, 'place': {**place_ref, 'description': place_ref['description'] + ' A dock-at test without a station means this place.'},
                'steps': {'type': 'array', 'items': step, 'minItems': 1, 'maxItems': 12}}, ['title', 'steps'])
     lore_note = ' Shown with no player at hand: plain text without placeholders.'
     lore = lambda limit, description: {'type': 'string', 'minLength': 1, 'maxLength': limit, 'description': description + lore_note}
@@ -342,25 +361,47 @@ def story():
     chatter = obj({**author,
                    'moment': string('Which kind of the game\'s own small talk carries the line.', ['headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk']),
                    'line': text(200, 'What the speaker says, after the moment\'s lead-in.'),
-                   'speakers': string('Who may say it: anyone (default), crew (someone aboard one of the player\'s ships) or others (anyone else).', ['anyone', 'crew', 'others']),
-                   'weight': weight, 'requires': requires}, ['moment', 'line'])
-    tip = obj({**author, 'text': lore(450, 'The lore tip shown while the game loads.'), 'weight': weight, 'requires': mods_only}, ['text'])
+                   'speakers': string('Who may say it: anyone (default), crew (someone aboard one of the player\'s ships), others (anyone else) or locals (others, at the line\'s place).', ['anyone', 'crew', 'others', 'locals']),
+                   'weight': weight, 'requires': requires,
+                   'thread': thread_ref, 'place': {**place_ref, 'description': place_ref['description'] + ' Crew say the line while the player is there; others only when they are there.'}}, ['moment', 'line'])
+    grouping = {**key, 'description': 'The thread this entry belongs to, for authors and the F3 thread report.'}
+    tip = obj({**author, 'text': lore(450, 'The lore tip shown while the game loads.'), 'weight': weight, 'requires': mods_only, 'thread': grouping}, ['text'])
     image = {'type': 'string', 'maxLength': 100, 'pattern': '^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$', 'description': "A picture beside the page: a path under a mod's images folder, without .png."}
     section = obj({'notes': NOTES, 'label': lore(40, 'The name in the encyclopedia\'s list.'), 'title': lore(60, 'The heading of its page.'),
-                   'body': {**lore(4000, 'Its page text.'), 'minLength': 0}, 'image': image, 'requires': mods_only}, ['label', 'title'])
+                   'body': {**lore(4000, 'Its page text.'), 'minLength': 0}, 'image': image, 'requires': mods_only, 'thread': grouping}, ['label', 'title'])
     article = obj({'notes': NOTES, 'section': {'type': 'string', 'pattern': story_id, 'description': 'A section id from any loaded pack, such as phobos-makers.'},
                    'label': lore(40, 'The name in the encyclopedia\'s list.'), 'title': lore(60, 'The heading of its page.'),
-                   'body': lore(4000, 'The article; line breaks separate paragraphs.'), 'image': image, 'requires': mods_only}, ['section', 'label', 'title', 'body'])
+                   'body': lore(4000, 'The article; line breaks separate paragraphs.'), 'image': image, 'requires': mods_only, 'thread': grouping}, ['section', 'label', 'title', 'body'])
     data_file = obj({'notes': NOTES, 'name': {'type': 'string', 'maxLength': 32, 'pattern': '^[A-Za-z0-9_.-]+$', 'description': 'The file name a computer lists, such as TRIAL_NOTES.TXT.'},
                      'text': text(3000, 'What the file says when opened on a computer or PDA.'),
-                     'startsArc': {'type': 'string', 'pattern': story_id, 'description': 'An arc that starts when the file is first opened, if it has not started and its requirements hold.'}},
+                     'startsArc': {'type': 'string', 'pattern': story_id, 'description': 'An arc that starts when the file is first opened, if it has not started and its requirements hold.'},
+                     'thread': thread_ref, 'place': place_ref, 'person': {**key, 'description': 'The person who wrote it.'}},
                     ['name', 'text'])
+    place = obj({'notes': NOTES,
+                 'station': {'type': 'string', 'pattern': '^[A-Za-z0-9_|-]{1,32}$', 'description': 'The station registration id or prefix (OKLG, VORB_HAB); its parts count as it does.'},
+                 'within': {**key, 'description': 'The regional place this one lies within, one level; a place without one is a region of its own.'},
+                 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'The Region News label for news from here; required on a regional place, inherited by its parts.'},
+                 'body': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'The body it orbits or stands on, for the [body] placeholder.'},
+                 'factions': {'type': 'array', 'maxItems': 8, 'items': game, 'description': 'The game\'s faction names at home here, for authors.'},
+                 'name': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'What people call it: the [place] placeholder.'}},
+                ['station', 'name'], 'A station, or a part of one, that content can belong to. Framework ships the game\'s regional stations.')
+    person = obj({'notes': NOTES, 'name': {'type': 'string', 'minLength': 1, 'maxLength': 40}, 'role': {'type': 'string', 'minLength': 1, 'maxLength': 40},
+                  'home': {**key, 'description': 'The place they belong to.'}, 'faction': {**game, 'description': 'The game\'s faction name they belong to, for authors.'}},
+                 ['name', 'home'], 'A named recurring person, shown as Name, role where a letter names its sender.')
+    thread = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80}, 'notes': NOTES,
+                  'place': {**key, 'description': 'The place its members belong to unless they name their own.'},
+                  'people': {'type': 'array', 'maxItems': 8, 'uniqueItems': True, 'items': key, 'description': 'Its cast: the people its letters may come from. Empty leaves the cast open.'},
+                  'requires': {**requires, 'description': 'Requirements every member must also meet.'}},
+                 ['title'], 'A story thread: its members declare it and share its place, cast and requirements.')
     settings = obj({'broadcastShare': num(0, 1, description='Share of TV news picks given to story broadcasts.'),
                     'advertShare': num(0, 1, description='Share of TV advert picks given to story adverts.'),
                     'checkSeconds': num(5, 600, description='Real seconds between story checks.'),
                     'maxActiveArcs': num(0, 10, integer=True, description='How many arcs may start by themselves at once.'),
                     'chatterShare': num(0, 1, description='Share of matching small talk that uses a story line when one fits.'),
-                    'tipShare': num(0, 1, description='Share of loading-screen tips taken from story tips.')},
+                    'tipShare': num(0, 1, description='Share of loading-screen tips taken from story tips.'),
+                    'localWeight': num(0, 100, description='How much more often news and adverts of the place the player is at are picked (default 4; unplaced entries count 2).'),
+                    'farWeight': num(0, 100, description='How much news and adverts of other places weigh (default 1; 0 hides them).'),
+                    'mentionDays': num(0, 365, description='Game days after a news item was shown during which people still mention it (default 10).')},
                    description="Framework's own story pack only.")
     return obj({**header('story'), 'settings': settings,
                 'broadcasts': named(broadcast, 'TV news items by id.', story_id), 'adverts': named(advert, 'TV adverts by id.', story_id),
@@ -369,9 +410,12 @@ def story():
                 'tips': named(tip, 'Lore tips for loading screens, by id.', story_id),
                 'sections': named(section, 'Top-level encyclopedia entries, by id; shown while one of their articles is.', story_id),
                 'articles': named(article, 'Encyclopedia articles, by id.', story_id),
-                'files': named(data_file, 'Data files, by id: given on a data card and read on any computer or PDA.', story_id)},
+                'files': named(data_file, 'Data files, by id: given on a data card and read on any computer or PDA.', story_id),
+                'places': named(place, 'Places content belongs to, by key.', story_id),
+                'people': named(person, 'Named recurring people, by key.', story_id),
+                'threads': named(thread, 'Story threads, by key.', story_id)},
                ['schemaVersion', 'schema'],
-               'Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips and encyclopedia articles. See docs/writing-story-content.md.')
+               'Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips, encyclopedia articles and data files, grounded in places, people and threads. See docs/writing-story-content.md.')
 
 
 def addon():

@@ -31,6 +31,57 @@ public sealed class StoryPack : DataPack
     public Dictionary<string, StoryArticle> articles = new(StringComparer.Ordinal);
     /// <summary>Data files, by id (Framework 0.110.0): read on any computer or PDA from the data card that carries them.</summary>
     public Dictionary<string, StoryFile> files = new(StringComparer.Ordinal);
+    /// <summary>Places content is grounded in (Framework 0.114.0): stations by registration id. Framework ships the
+    /// game's regional stations; add-ons add their own.</summary>
+    public Dictionary<string, StoryPlace> places = new(StringComparer.Ordinal);
+    /// <summary>Named recurring people with a home place (Framework 0.114.0): the senders of letters and the cast of threads.</summary>
+    public Dictionary<string, StoryPerson> people = new(StringComparer.Ordinal);
+    /// <summary>Threads (Framework 0.114.0): a story's home place, cast and shared requirements, which every entry
+    /// declaring <c>thread</c> inherits.</summary>
+    public Dictionary<string, StoryThread> threads = new(StringComparer.Ordinal);
+}
+
+/// <summary>A place (Framework 0.114.0): a station, or a part of one, that content can belong to.</summary>
+public sealed class StoryPlace
+{
+    public string? notes;
+    /// <summary>The station's registration id or prefix (OKLG, VORB_HAB); its parts count as it does.</summary>
+    public string station = "";
+    /// <summary>The regional place this one lies within (one level); a place without one is a region of its own.</summary>
+    public string? within;
+    /// <summary>The "Region News:" label for news from here; required on a regional place, inherited by its parts.</summary>
+    public string? region;
+    /// <summary>The body it orbits or stands on, for authors and the [body] placeholder.</summary>
+    public string? body;
+    /// <summary>The game's faction names at home here, for authors.</summary>
+    public List<string> factions = new();
+    /// <summary>What people call it: the [place] placeholder.</summary>
+    public string name = "";
+}
+
+/// <summary>A named recurring person (Framework 0.114.0), shown as "Name, role" where a letter names its sender.</summary>
+public sealed class StoryPerson
+{
+    public string? notes;
+    public string name = "";
+    public string? role;
+    /// <summary>The place they belong to.</summary>
+    public string home = "";
+    /// <summary>The game's faction name they belong to, for authors.</summary>
+    public string? faction;
+}
+
+/// <summary>A thread (Framework 0.114.0): the entries that declare it share its place, cast and requirements.</summary>
+public sealed class StoryThread
+{
+    public string title = "";
+    public string? notes;
+    /// <summary>The place its members belong to unless they name their own.</summary>
+    public string? place;
+    /// <summary>Its cast: the people its letters may come from. Empty leaves the cast open.</summary>
+    public List<string> people = new();
+    /// <summary>Requirements every member must also meet.</summary>
+    public StoryRequires? requires;
 }
 
 public sealed class StorySettings
@@ -47,6 +98,11 @@ public sealed class StorySettings
     public double chatterShare = 0.4;
     /// <summary>Share of loading-screen tips taken from story tips (0 to 1).</summary>
     public double tipShare = 0.3;
+    /// <summary>How much more often news and adverts of the place the player is at are picked (Framework 0.114.0); an
+    /// unplaced entry counts 2, and one placed elsewhere counts <see cref="farWeight"/>. 0 hides far news.</summary>
+    public double localWeight = 4, farWeight = 1;
+    /// <summary>Game days after a news item was shown during which people still mention it (Framework 0.114.0).</summary>
+    public double mentionDays = 10;
 }
 
 /// <summary>When an entry may appear. Every part is optional and every part given must hold.</summary>
@@ -72,6 +128,20 @@ public sealed class StoryRequires
     public double? afterDays;
     /// <summary>Only until this many game days have passed since the player's story record began.</summary>
     public double? beforeDays;
+    /// <summary>Story flags set by an arc outcome (Framework 0.114.0): all must be set.</summary>
+    public List<string> flags = new();
+    /// <summary>Story flags none of which may be set.</summary>
+    public List<string> notFlags = new();
+    /// <summary>Arcs that must be under way.</summary>
+    public List<string> arcsActive = new();
+    /// <summary>Arcs at a given step, as <c>arc.step</c>: each must be under way at that step.</summary>
+    public List<string> arcsAtStep = new();
+    /// <summary>Places the player must be at (any one): docked at it, or in its region when it is a regional place.</summary>
+    public List<string> places = new();
+    /// <summary>Regional places the player must be in the region of (any one).</summary>
+    public List<string> regions = new();
+    /// <summary>News items that must have been shown on a TV.</summary>
+    public List<string> newsSeen = new();
 }
 
 public sealed class StoryBroadcast
@@ -79,16 +149,18 @@ public sealed class StoryBroadcast
     /// <summary>For authors; the game never shows a headline's title.</summary>
     public string? title;
     public string? notes;
-    /// <summary>Shown above the item as "Region News:".</summary>
-    public string region = "";
+    /// <summary>Shown above the item as "Region News:"; taken from the place when left out (Framework 0.114.0).</summary>
+    public string? region;
     public string text = "";
     /// <summary>How often it is picked against other story broadcasts (1 to 100).</summary>
     public int weight = 1;
     /// <summary>Shown once in a save, then never again.</summary>
     public bool once;
     public StoryRequires? requires;
-    /// <summary>What people say when they bring the news up in small talk (the headline moment), while it is eligible.</summary>
+    /// <summary>What people say when they bring the news up in small talk (the headline moment), for a while after it was shown.</summary>
     public string? mention;
+    /// <summary>The thread it belongs to and the place it is news of (Framework 0.114.0).</summary>
+    public string? thread, place;
 }
 
 public sealed class StoryAdvert
@@ -99,6 +171,7 @@ public sealed class StoryAdvert
     public int weight = 1;
     public bool once;
     public StoryRequires? requires;
+    public string? thread, place;
 }
 
 /// <summary>A line someone says in one of the game's own small-talk moments.</summary>
@@ -109,10 +182,14 @@ public sealed class StoryChatterLine
     /// <summary>One of <see cref="StoryMoments"/>: which kind of small talk carries the line.</summary>
     public string moment = "";
     public string line = "";
-    /// <summary><c>anyone</c>, <c>crew</c> (the speaker is aboard one of the player's ships) or <c>others</c>.</summary>
+    /// <summary><c>anyone</c>, <c>crew</c> (the speaker is aboard one of the player's ships), <c>others</c>, or
+    /// <c>locals</c> (others, at the line's place; Framework 0.114.0).</summary>
     public string speakers = StorySchema.Anyone;
     public int weight = 1;
     public StoryRequires? requires;
+    /// <summary>The thread it belongs to, and the place it is said at: crew say it while the player is there, others
+    /// only when they are there themselves (Framework 0.114.0).</summary>
+    public string? thread, place;
 }
 
 /// <summary>A lore tip shown while the game loads. No player exists then, so only mods may be required.</summary>
@@ -123,6 +200,8 @@ public sealed class StoryTip
     public string text = "";
     public int weight = 1;
     public StoryRequires? requires;
+    /// <summary>The thread it belongs to, for authors and the F3 thread report; a tip inherits only the thread's mods.</summary>
+    public string? thread;
 }
 
 /// <summary>A top-level entry in the game's encyclopedia.</summary>
@@ -136,6 +215,7 @@ public sealed class StorySection
     /// <summary>A picture beside the page (Framework 0.110.0): a path under a mod's images folder, without .png.</summary>
     public string? image;
     public StoryRequires? requires;
+    public string? thread;
 }
 
 /// <summary>An encyclopedia article under a section.</summary>
@@ -150,6 +230,7 @@ public sealed class StoryArticle
     /// <summary>A picture beside the page (Framework 0.110.0): a path under a mod's images folder, without .png.</summary>
     public string? image;
     public StoryRequires? requires;
+    public string? thread;
 }
 
 /// <summary>The small-talk moments story lines may use (Framework 0.108.0): each is a set of the game's own social
@@ -187,6 +268,9 @@ public sealed class StoryArc
     /// <summary>May start again after it is finished.</summary>
     public bool repeatable;
     public List<StoryStep> steps = new();
+    /// <summary>The thread it belongs to, and its place (Framework 0.114.0): it starts by itself only while the player
+    /// is there, and a dock-at test without a station means this place.</summary>
+    public string? thread, place;
 }
 
 public sealed class StoryStep
@@ -224,9 +308,11 @@ public sealed class StoryDelivery
 
 public sealed class StoryMessage
 {
-    /// <summary>Who it is from, shown before the text in the crew log.</summary>
-    public string from = "";
+    /// <summary>Who it is from, shown before the text in the crew log; left out when <see cref="person"/> names them.</summary>
+    public string? from;
     public string text = "";
+    /// <summary>The person it is from (Framework 0.114.0), shown as "Name, role".</summary>
+    public string? person;
 }
 
 public sealed class StoryObjective
@@ -240,7 +326,7 @@ public sealed class StoryTest
 {
     /// <summary><c>dock-at</c>, <c>have-item</c>, <c>install</c> or <c>wait</c>.</summary>
     public string kind = "";
-    /// <summary>dock-at: a station registration id, or <c>any</c>.</summary>
+    /// <summary>dock-at: a station registration id, or <c>any</c>; left out, the arc's own place (Framework 0.114.0).</summary>
     public string? station;
     /// <summary>have-item and install: an item definition id.</summary>
     public string? item;
@@ -265,6 +351,8 @@ public sealed class StoryOutcome
     public int credits;
     /// <summary>Story data files given on one data card (Framework 0.110.0).</summary>
     public List<string> files = new();
+    /// <summary>Story flags set and cleared on the player's record (Framework 0.114.0), for other entries' requirements.</summary>
+    public List<string> setFlags = new(), clearFlags = new();
 }
 
 /// <summary>A data file (Framework 0.110.0), carried on a data card and read on a computer or PDA like the game's own.</summary>
@@ -276,6 +364,9 @@ public sealed class StoryFile
     public string text = "";
     /// <summary>An arc that starts when the file is first opened, if it has not started yet.</summary>
     public string? startsArc;
+    /// <summary>The thread it belongs to, the place it is about and the person who wrote it (Framework 0.114.0), for
+    /// the placeholders and the F3 thread report.</summary>
+    public string? thread, place, person;
 }
 
 public sealed class StoryReward
@@ -290,16 +381,20 @@ public static class StorySchema
 {
     public const string Name = "story";
     public const string DockedAnywhere = "any";
-    public const string Anyone = "anyone", Crew = "crew", Others = "others";
-    public static readonly IReadOnlyList<string> Speakers = new[] { Anyone, Crew, Others };
+    public const string Anyone = "anyone", Crew = "crew", Others = "others", Locals = "locals";
+    public static readonly IReadOnlyList<string> Speakers = new[] { Anyone, Crew, Others, Locals };
     public const string DockAt = "dock-at", HaveItem = "have-item", Install = "install", Wait = "wait", Credits = "credits", Condition = "condition";
     public static readonly IReadOnlyList<string> TestKinds = new[] { DockAt, HaveItem, Install, Wait, Credits, Condition };
     public const string End = "end";
     public const int MaxBranches = 4, MaxCreditReward = 50000, MaxFileName = 32, MaxFileText = 3000, MaxFiles = 5, MaxImage = 100;
     private static readonly Regex FileName = new("^[A-Za-z0-9_.-]+$", RegexOptions.CultureInvariant);
     private static readonly Regex ImagePath = new("^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$", RegexOptions.CultureInvariant);
-    public const double MaxCreditTest = 1000000, MaxDays = 3650;
-    public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]" };
+    public const double MaxCreditTest = 1000000, MaxDays = 3650, MaxWeightFactor = 100, MaxMentionDays = 365;
+    /// <summary>The bracketed tokens player text may hold. <c>[person:key]</c> names a person (Framework 0.114.0).</summary>
+    public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]", "[place]", "[region]", "[station]", "[body]", "[date]" };
+    public const int MaxPlaces = 64, MaxPeople = 64, MaxThreads = 32, MaxCast = 8, MaxFactions = 8, MaxFlags = 4, MaxName = 40;
+    private static readonly Regex PersonToken = new("\\[person:[a-z0-9]+(-[a-z0-9]+)*\\]", RegexOptions.CultureInvariant);
+    private static readonly Regex Token = new("\\[([a-z-]+(?::[a-z0-9-]+)?)\\]", RegexOptions.CultureInvariant);
     public const int MaxIdLength = 48, MaxStepIdLength = 32, MaxRegion = 40, MaxBroadcast = 700, MaxAdvert = 400,
         MaxMessage = 400, MaxFrom = 40, MaxObjectiveTitle = 60, MaxObjectiveDescription = 300, MaxTitle = 80,
         MaxSteps = 12, MaxTests = 4, MaxRewards = 5, MaxRewardCount = 20, MaxItemCount = 100, MaxWeight = 100,
@@ -325,22 +420,59 @@ public static class StorySchema
             Range(s.checkSeconds, MinCheckSeconds, MaxCheckSeconds, "settings.checkSeconds");
             Range(s.chatterShare, 0, 1, "settings.chatterShare"); Range(s.tipShare, 0, 1, "settings.tipShare");
             if (s.maxActiveArcs < 0 || s.maxActiveArcs > MaxActiveArcs) throw new ArgumentException(Text.Get("StorySchema.range", "settings.maxActiveArcs", 0, MaxActiveArcs));
+            Range(s.localWeight, 0, MaxWeightFactor, "settings.localWeight"); Range(s.farWeight, 0, MaxWeightFactor, "settings.farWeight");
+            Range(s.mentionDays, 0, MaxMentionDays, "settings.mentionDays");
+        }
+        if (pack.places.Count > MaxPlaces) throw new ArgumentException(Text.Get("StorySchema.table_long", "places", MaxPlaces));
+        foreach (var pair in pack.places)
+        {
+            string where = "places." + pair.Key; var p = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(null, p.notes, where);
+            if (string.IsNullOrEmpty(p.station) || p.station == DockedAnywhere || !StationId(p.station)) throw new ArgumentException(Text.Get("StorySchema.station", where + ".station", p.station ?? ""));
+            Key(p.within, where + ".within");
+            if (p.region != null && (string.IsNullOrWhiteSpace(p.region) || p.region.Length > MaxRegion || Plain(p.region) != null)) throw new ArgumentException(Text.Get("StorySchema.region", where, MaxRegion));
+            if (p.within == null && p.region == null) throw new ArgumentException(Text.Get("StorySchema.region", where, MaxRegion));
+            Short(p.body, MaxName, where + ".body", false);
+            Short(p.name, MaxName, where + ".name", true);
+            if (p.factions == null || p.factions.Count > MaxFactions) throw new ArgumentException(Text.Get("StorySchema.list_long", where + ".factions", MaxFactions));
+            foreach (var f in p.factions) if (f == null || !GameName.IsMatch(f)) throw new ArgumentException(Text.Get("StorySchema.game_name", where + ".factions", f ?? ""));
+        }
+        if (pack.people.Count > MaxPeople) throw new ArgumentException(Text.Get("StorySchema.table_long", "people", MaxPeople));
+        foreach (var pair in pack.people)
+        {
+            string where = "people." + pair.Key; var p = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(null, p.notes, where);
+            Short(p.name, MaxName, where + ".name", true); Short(p.role, MaxName, where + ".role", false);
+            if (!IsId(p.home)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".home", MaxIdLength));
+            if (p.faction != null && !GameName.IsMatch(p.faction)) throw new ArgumentException(Text.Get("StorySchema.game_name", where + ".faction", p.faction));
+        }
+        if (pack.threads.Count > MaxThreads) throw new ArgumentException(Text.Get("StorySchema.table_long", "threads", MaxThreads));
+        foreach (var pair in pack.threads)
+        {
+            string where = "threads." + pair.Key; var t = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(null, t.notes, where);
+            if (string.IsNullOrWhiteSpace(t.title) || t.title.Length > MaxTitle || Plain(t.title) != null) throw new ArgumentException(Text.Get("StorySchema.title", where, MaxTitle));
+            Key(t.place, where + ".place");
+            if (t.people == null || t.people.Count > MaxCast || t.people.Any(p => !IsId(p)) || t.people.Distinct().Count() != t.people.Count) throw new ArgumentException(Text.Get("StorySchema.list_long", where + ".people", MaxCast));
+            Requires(t.requires, where);
         }
         foreach (var pair in pack.broadcasts)
         {
             string where = "broadcasts." + pair.Key; var b = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
             EntryId(pair.Key, where); Author(b.title, b.notes, where);
-            if (string.IsNullOrWhiteSpace(b.region) || b.region.Length > MaxRegion || Plain(b.region) != null) throw new ArgumentException(Text.Get("StorySchema.region", where, MaxRegion));
+            if (b.region != null && (string.IsNullOrWhiteSpace(b.region) || b.region.Length > MaxRegion || Plain(b.region) != null)) throw new ArgumentException(Text.Get("StorySchema.region", where, MaxRegion));
+            // A broadcast is news of somewhere: its own region label, or a place (checked when the packs merge).
+            if (b.region == null && b.place == null && b.thread == null) throw new ArgumentException(Text.Get("StorySchema.region", where, MaxRegion));
             Words(b.text, MaxBroadcast, where + ".text");
             if (b.mention != null) Words(b.mention, MaxLine, where + ".mention");
-            Weight(b.weight, where); Requires(b.requires, where);
+            Weight(b.weight, where); Requires(b.requires, where); Key(b.thread, where + ".thread"); Key(b.place, where + ".place");
         }
         foreach (var pair in pack.adverts)
         {
             string where = "adverts." + pair.Key; var a = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
             EntryId(pair.Key, where); Author(a.title, a.notes, where);
             Words(a.text, MaxAdvert, where + ".text");
-            Weight(a.weight, where); Requires(a.requires, where);
+            Weight(a.weight, where); Requires(a.requires, where); Key(a.thread, where + ".thread"); Key(a.place, where + ".place");
         }
         foreach (var pair in pack.arcs) Arc(pair.Key, pair.Value);
         foreach (var pair in pack.chatter)
@@ -350,14 +482,14 @@ public static class StorySchema
             if (!StoryMoments.Interactions.ContainsKey(c.moment ?? "")) throw new ArgumentException(Text.Get("StorySchema.moment", where, string.Join(", ", StoryMoments.Interactions.Keys)));
             Words(c.line, MaxLine, where + ".line");
             if (!Speakers.Contains(c.speakers ?? "")) throw new ArgumentException(Text.Get("StorySchema.speakers", where, string.Join(", ", Speakers)));
-            Weight(c.weight, where); Requires(c.requires, where);
+            Weight(c.weight, where); Requires(c.requires, where); Key(c.thread, where + ".thread"); Key(c.place, where + ".place");
         }
         foreach (var pair in pack.tips)
         {
             string where = "tips." + pair.Key; var t = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
             EntryId(pair.Key, where); Author(t.title, t.notes, where);
             Lore(t.text, MaxTip, where + ".text");
-            Weight(t.weight, where); ModsOnly(t.requires, where);
+            Weight(t.weight, where); ModsOnly(t.requires, where); Key(t.thread, where + ".thread");
         }
         foreach (var pair in pack.sections)
         {
@@ -366,7 +498,7 @@ public static class StorySchema
             Lore(s.label, MaxLabel, where + ".label"); Lore(s.title, MaxObjectiveTitle, where + ".title");
             if (s.body != null) Lore(s.body, MaxArticle, where + ".body");
             Image(s.image, where);
-            ModsOnly(s.requires, where);
+            ModsOnly(s.requires, where); Key(s.thread, where + ".thread");
         }
         foreach (var pair in pack.articles)
         {
@@ -375,7 +507,7 @@ public static class StorySchema
             if (!IsId(a.section)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".section", MaxIdLength));
             Lore(a.label, MaxLabel, where + ".label"); Lore(a.title, MaxObjectiveTitle, where + ".title"); Lore(a.body, MaxArticle, where + ".body");
             Image(a.image, where);
-            ModsOnly(a.requires, where);
+            ModsOnly(a.requires, where); Key(a.thread, where + ".thread");
         }
         foreach (var pair in pack.files)
         {
@@ -383,8 +515,20 @@ public static class StorySchema
             EntryId(pair.Key, where); Author(null, f.notes, where);
             if (string.IsNullOrEmpty(f.name) || f.name.Length > MaxFileName || !FileName.IsMatch(f.name)) throw new ArgumentException(Text.Get("StorySchema.file_name", where, MaxFileName));
             Words(f.text, MaxFileText, where + ".text");
-            if (f.startsArc != null && !IsId(f.startsArc)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".startsArc", MaxIdLength));
+            Key(f.startsArc, where + ".startsArc"); Key(f.thread, where + ".thread"); Key(f.place, where + ".place"); Key(f.person, where + ".person");
         }
+    }
+
+    /// <summary>An optional reference to another entry, by id.</summary>
+    private static void Key(string? id, string where)
+    {
+        if (id != null && !IsId(id)) throw new ArgumentException(Text.Get("StorySchema.id", where, MaxIdLength));
+    }
+    /// <summary>A short plain label, such as a name or a role.</summary>
+    private static void Short(string? text, int max, string where, bool required)
+    {
+        if (text == null) { if (required) throw new ArgumentException(Text.Get("StorySchema.text_blank", where)); return; }
+        if (string.IsNullOrWhiteSpace(text) || text.Length > max || Plain(text) != null) throw new ArgumentException(Text.Get("StorySchema.text_long", where, max, text.Length));
     }
 
     private static void Image(string? image, string where)
@@ -396,7 +540,7 @@ public static class StorySchema
     private static void Lore(string? text, int max, string where)
     {
         Words(text, max, where);
-        if (Placeholders.Any(p => text!.Contains(p))) throw new ArgumentException(Text.Get("StorySchema.no_placeholders", where));
+        if (text!.IndexOf('[') >= 0) throw new ArgumentException(Text.Get("StorySchema.no_placeholders", where));
     }
 
     /// <summary>Tips and the encyclopedia exist before any player does, so only installed mods can be required.</summary>
@@ -404,7 +548,8 @@ public static class StorySchema
     {
         if (r == null) return;
         Requires(r, where);
-        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count + r.filesRead.Count > 0 ||
+        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count + r.filesRead.Count +
+            r.flags.Count + r.notFlags.Count + r.arcsActive.Count + r.arcsAtStep.Count + r.places.Count + r.regions.Count + r.newsSeen.Count > 0 ||
             r.afterDays != null || r.beforeDays != null)
             throw new ArgumentException(Text.Get("StorySchema.mods_only", where));
     }
@@ -417,7 +562,9 @@ public static class StorySchema
         if (string.IsNullOrWhiteSpace(arc.title) || arc.title.Length > MaxTitle) throw new ArgumentException(Text.Get("StorySchema.title", where, MaxTitle));
         Author(null, arc.notes, where);
         Range(arc.chance, 0, 1, where + ".chance");
-        Requires(arc.requires, where);
+        Requires(arc.requires, where); Key(arc.thread, where + ".thread"); Key(arc.place, where + ".place");
+        // A dock-at test may leave its station out only when the arc has a place of its own (or a thread that may give one).
+        bool placed = arc.place != null || arc.thread != null;
         if (arc.steps == null || arc.steps.Count == 0 || arc.steps.Count > MaxSteps) throw new ArgumentException(Text.Get("StorySchema.steps", where, MaxSteps));
         var ids = new HashSet<string>(StringComparer.Ordinal);
         for (int i = 0; i < arc.steps.Count; i++)
@@ -437,7 +584,7 @@ public static class StorySchema
                 Words(step.objective.title, MaxObjectiveTitle, at + ".objective.title");
                 if (step.objective.description.Length > 0) Words(step.objective.description, MaxObjectiveDescription, at + ".objective.description");
             }
-            Tests(step.tests, at);
+            Tests(step.tests, at, placed);
             Outcome(step.onComplete, at);
             if (step.branches != null)
             {
@@ -446,7 +593,7 @@ public static class StorySchema
                 {
                     var branch = step.branches[b] ?? throw new ArgumentException(Text.Get("StorySchema.empty", at + ".branches." + b));
                     string bat = at + ".branches." + b;
-                    Tests(branch.tests, bat);
+                    Tests(branch.tests, bat, placed);
                     Outcome(branch.onComplete, bat);
                     if (branch.notes != null && branch.notes.Length > 2000) throw new ArgumentException(Text.Get("StorySchema.notes", bat));
                 }
@@ -462,10 +609,10 @@ public static class StorySchema
         }
     }
 
-    private static void Tests(List<StoryTest>? tests, string at)
+    private static void Tests(List<StoryTest>? tests, string at, bool placed)
     {
         if (tests == null || tests.Count == 0 || tests.Count > MaxTests) throw new ArgumentException(Text.Get("StorySchema.tests", at, MaxTests));
-        foreach (var test in tests) Test(test, at + ".tests");
+        foreach (var test in tests) Test(test, at + ".tests", placed);
     }
 
     private static void Outcome(StoryOutcome? outcome, string at)
@@ -481,9 +628,13 @@ public static class StorySchema
         if (outcome.credits < 0 || outcome.credits > MaxCreditReward) throw new ArgumentException(Text.Get("StorySchema.range", at + ".onComplete.credits", 0, MaxCreditReward));
         if (outcome.files == null || outcome.files.Count > MaxFiles || outcome.files.Any(f => !IsId(f)) || outcome.files.Distinct().Count() != outcome.files.Count)
             throw new ArgumentException(Text.Get("StorySchema.files", at + ".onComplete.files", MaxFiles));
+        foreach (var (flags, name) in new[] { (outcome.setFlags, "setFlags"), (outcome.clearFlags, "clearFlags") })
+            if (flags == null || flags.Count > MaxFlags || flags.Any(f => !IsId(f)) || flags.Distinct().Count() != flags.Count)
+                throw new ArgumentException(Text.Get("StorySchema.flags", at + ".onComplete." + name, MaxFlags));
+        if (outcome.setFlags.Intersect(outcome.clearFlags).Any()) throw new ArgumentException(Text.Get("StorySchema.flags", at + ".onComplete.clearFlags", MaxFlags));
     }
 
-    private static void Test(StoryTest? test, string where)
+    private static void Test(StoryTest? test, string where, bool placed = false)
     {
         if (test == null) throw new ArgumentException(Text.Get("StorySchema.empty", where));
         where += "." + test.kind;
@@ -501,8 +652,8 @@ public static class StorySchema
                 if (!GameName.IsMatch(test.condition!)) throw new ArgumentException(Text.Get("StorySchema.game_name", where, test.condition!));
                 break;
             case DockAt:
-                if (!station || item || hours || test.consume || test.count != 1) throw new ArgumentException(Text.Get("StorySchema.test_fields", where, "station"));
-                if (!StationId(test.station!)) throw new ArgumentException(Text.Get("StorySchema.station", where, test.station!));
+                if (!(station || placed) || item || hours || test.consume || test.count != 1) throw new ArgumentException(Text.Get("StorySchema.test_fields", where, "station"));
+                if (station && !StationId(test.station!)) throw new ArgumentException(Text.Get("StorySchema.station", where, test.station!));
                 break;
             case HaveItem: case Install:
                 if (!item || station || hours || test.consume && test.kind == Install) throw new ArgumentException(Text.Get("StorySchema.test_fields", where, test.kind == Install ? "item, count" : "item, count, consume"));
@@ -535,6 +686,11 @@ public static class StorySchema
         List(r.arcsDone, where + ".arcsDone", s => IsId(s));
         List(r.arcsNotStarted, where + ".arcsNotStarted", s => IsId(s));
         List(r.filesRead, where + ".filesRead", s => IsId(s));
+        List(r.flags, where + ".flags", s => IsId(s)); List(r.notFlags, where + ".notFlags", s => IsId(s));
+        List(r.arcsActive, where + ".arcsActive", s => IsId(s));
+        List(r.arcsAtStep, where + ".arcsAtStep", IsArcStep);
+        List(r.places, where + ".places", s => IsId(s)); List(r.regions, where + ".regions", s => IsId(s));
+        List(r.newsSeen, where + ".newsSeen", s => IsId(s));
         if (r.afterDays is double after) Range(after, 0, MaxDays, where + ".afterDays");
         if (r.beforeDays is double before) Range(before, 0, MaxDays, where + ".beforeDays");
         if (r.afterDays is double a && r.beforeDays is double b && !(a < b)) throw new ArgumentException(Text.Get("StorySchema.days", where));
@@ -548,6 +704,17 @@ public static class StorySchema
     }
 
     public static bool StationId(string value) => value == DockedAnywhere || value.Length <= 32 && Station.IsMatch(value);
+    /// <summary><c>arc.step</c>, as a goal test names them.</summary>
+    public static bool IsArcStep(string? value) => TryArcStep(value, out _, out _);
+    public static bool TryArcStep(string? value, out string arc, out string step)
+    {
+        arc = step = "";
+        if (value == null) return false;
+        int dot = value.IndexOf('.');
+        if (dot <= 0 || dot == value.Length - 1 || value.IndexOf('.', dot + 1) >= 0) return false;
+        arc = value.Substring(0, dot); step = value.Substring(dot + 1);
+        return IsId(arc) && IsId(step, MaxStepIdLength);
+    }
 
     private static void EntryId(string id, string where)
     {
@@ -569,7 +736,10 @@ public static class StorySchema
     private static void Message(StoryMessage? message, string where)
     {
         if (message == null) return;
-        if (string.IsNullOrWhiteSpace(message.from) || message.from.Length > MaxFrom || Plain(message.from) != null) throw new ArgumentException(Text.Get("StorySchema.from", where, MaxFrom));
+        // A sender: free text, or a person from the people table (Framework 0.114.0), or both (the text is shown).
+        if (message.from != null && (string.IsNullOrWhiteSpace(message.from) || message.from.Length > MaxFrom || Plain(message.from) != null)) throw new ArgumentException(Text.Get("StorySchema.from", where, MaxFrom));
+        Key(message.person, where + ".person");
+        if (message.from == null && message.person == null) throw new ArgumentException(Text.Get("StorySchema.from", where, MaxFrom));
         Words(message.text, MaxMessage, where + ".text");
     }
 
@@ -587,7 +757,7 @@ public static class StorySchema
     public static string? Plain(string text)
     {
         foreach (char c in text) if (c == '<' || c == '>' || char.IsControl(c) && c != '\n') return c == '\n' ? "\\n" : c.ToString();
-        string rest = text;
+        string rest = PersonToken.Replace(text, "");
         foreach (var token in Placeholders) rest = rest.Replace(token, "");
         int open = rest.IndexOf('['), close = rest.IndexOf(']');
         if (open < 0 && close < 0) return null;
@@ -597,5 +767,19 @@ public static class StorySchema
 
     /// <summary>Fills the placeholders. Missing values read as a plain description, never as the token.</summary>
     public static string Fill(string text, string player, string firstName, string ship) =>
-        text.Replace("[player-first]", firstName).Replace("[player]", player).Replace("[ship]", ship);
+        Fill(text, name => name switch { "player" => player, "player-first" => firstName, "ship" => ship, _ => null });
+
+    /// <summary>Fills every placeholder from <paramref name="value"/>, by the token's name (<c>player</c>, <c>place</c>,
+    /// <c>person:key</c> and so on); a token with no value is left as it is.</summary>
+    public static string Fill(string text, Func<string, string?> value)
+    {
+        if (text.IndexOf('[') < 0) return text;
+        return Token.Replace(text, m => value(m.Groups[1].Value) ?? m.Value);
+    }
+    /// <summary>The person keys a text names through <c>[person:key]</c>.</summary>
+    public static IEnumerable<string> People(string? text)
+    {
+        if (text == null || text.IndexOf("[person:", StringComparison.Ordinal) < 0) yield break;
+        foreach (Match m in PersonToken.Matches(text)) yield return m.Value.Substring(8, m.Value.Length - 9);
+    }
 }

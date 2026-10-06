@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.113.0
+[b]Version:[/b] 0.114.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods, and it keeps their controls, crew work and supplies consistent across machines.
@@ -12,7 +12,7 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [*]Upkeep for long hauls, off until chosen: idle crew tune machines (up to 10% faster, for more power), inspect them, put deck clutter away and practise skills.
 [*]Onboard work carries on through time-skip (TimeSkip StepSeconds sets its pace). Exterior work and flight wait for Resume.
 [*]Construction, transfers and purchases check materials, space and power. A full destination keeps cargo where it was.
-[*]Shared gas and process-water lines (INSTALL, HVAC) and a conveyor belt (MISC). A line joins each machine or store it runs under or beside; touching equipment chains like pipe; nothing links over open floor. Lines hold what flows through them: drain one into a D20 canister (vent a gas line) before taking it up, and haul the canister to a tank to pour it in.
+[*]Shared gas and process-water lines (INSTALL, HVAC) and a conveyor belt (MISC). A line joins each machine or store it runs under or beside; touching equipment chains like pipe; nothing links over open floor. Lines hold what flows through them: drain one into a D20 canister (vent a gas line) before taking it up, then pour the canister into a tank.
 [*]Rivetline S2 to S5 process water silos for every mod, shared bulk storage in three sizes that shows its contents on right-click, canisters and suit bottles filled to 99%, honest mass, and station sales and 45% buy-back under the refuelling kiosk's Bulk supplies.
 [*]RCS thrusters push by each gas's real cold-gas worth: nitrogen flies as before, oxygen and CO2 give slightly less per kilogram, and readings count in nitrogen-equivalent kilograms. Content mods can add propellant feeds.
 [*]When a Phobos autopilot switches ship sensors on, it remembers what it switched and turns off only those. Your own switch always wins, and the crew log tells you every time.
@@ -20,14 +20,14 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [*]Shared merchant stock, kiosk offers, salvage finds, repair, Restore and dismantling rules.
 [*]Machines give off a quarter of their heat (MachineHeatScale under Heat).
 [*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as readable files you can override in BepInEx/config, checked before use; recipes must conserve mass. Publish your files as an add-on for others: see the editing and add-on guides.
-[*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, branching goal chains with item or credit rewards, crew small talk, loading tips, encyclopedia articles and data files. Removing a story file never breaks a save.
+[*]Story content from data files anyone can write (the guide has a ChatGPT prompt): TV news and adverts, goal chains with rewards, small talk, loading tips, encyclopedia articles and data files, tied to stations, threads and named people, so local news greets you on arrival. Removing a story file never breaks a save.
 [/list]
 
 [h2]Getting started[/h2]
 [list]
 [*]Install Framework together with Phobos Shipbreaker, Auto Nav, Agriculture, Manufacturing or War Has Been Declared. Each names the Framework version it needs.
 [*]Right-click Phobos equipment and choose Control Panel for its settings and crew orders.
-[*]In the F3 console, phobosframework status reports what loaded; phobosframework crew shows who is studying or could take each order step, and why; phobosframework loot shows a mining table as the game rolls it now.
+[*]In the F3 console, phobosframework status reports what loaded, phobosframework crew who could take each order step and why, phobosframework loot a mining table as the game rolls it.
 [/list]
 Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-author-guide.md]Framework author guide[/url].
 
@@ -42,7 +42,7 @@ Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/bl
 [list]
 [*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
 [*]Subscribe to Phobos Framework and the Phobos content mods you want.
-[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it so they load; repeat after each update.
 [*]Check that the mods are enabled in the MODS screen.
 [*]Used the repository's local installer before? Remove those local copies first so only one copy loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
 [/list]

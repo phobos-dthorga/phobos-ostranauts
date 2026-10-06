@@ -136,6 +136,76 @@ that say who wrote them.
 
 Keep `schemaVersion` and `schema` as shown. Any table may be left out.
 
+### Where things happen: places, people and threads
+
+Since Framework 0.114.0 content can belong somewhere and to someone, so news comes
+from where you are, strangers talk about their own station, and letters arrive from
+people with a home. Three tables carry this; every field is optional on older files,
+which load as before.
+
+**Places** (`places`) are stations by the game's registration id. Framework ships
+the game's twelve regional stations and the parts and neighbours that lie within
+them; `phobosframework story places` lists them with their keys (`oklg`, `vnca`,
+`bcer`, `oklg-flot`, `vorb` and so on). Add your own only for a station Framework
+does not name:
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `station` | yes | The registration id or prefix (`OKLG`, `VORB_HAB`); its parts (`OKLG_RES`, `VORB\|Aux`) count as it does. |
+| `name` | yes | What people call it: the `[place]` placeholder (up to 40 characters). |
+| `within` | no | The regional place it lies within, by key. A place without one is a region of its own and needs a `region`. |
+| `region` | sometimes | The "Region News:" label for news from here: `Shipping & Inner System`, `Tharsis` or `Outer System` as the game uses them. A part inherits its region's. |
+| `body` | no | The body it orbits or stands on, for `[body]`. |
+| `factions` | no | The game's faction names at home there, for your reference. |
+
+**People** (`people`) are named recurring characters. A letter from a person shows
+as "Name, role" and the person can be named in text with `[person:key]`:
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `name` | yes | Up to 40 characters. |
+| `role` | no | Up to 40 characters, shown after the name. |
+| `home` | yes | A place key. Everyone lives somewhere. |
+| `faction` | no | The game's faction name they belong to, for your reference. |
+
+**Threads** (`threads`) tie a story together. An entry that names a `thread` inherits
+the thread's `place` unless it names its own, and must meet the thread's `requires` as
+well as its own. A thread with a cast (`people`) keeps its letters in the family: a
+member's `person` must be in the cast.
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `title` | yes | For you and the F3 thread report. |
+| `place` | no | Where the thread lives: the default place of its members. |
+| `people` | no | Its cast, up to eight person keys. Leave it out to allow anyone. |
+| `requires` | no | Requirements every member must also meet. |
+
+News items, adverts, small talk, arcs and data files take `thread` and `place`; tips,
+sections and articles take `thread` for grouping only (they have no player to check).
+What a place does for each kind:
+
+- **News and adverts** of the place you are at or in are picked about four times as
+  often as news of elsewhere; news with no place counts twice. A news item takes its
+  "Region News:" label from its place when it has no `region` of its own.
+- **Small talk** with a place is said there: by your crew while you are at it, by
+  others only when they are there themselves. `speakers: locals` means others, at
+  the line's place.
+- **An arc** with a place starts by itself only while you are at it, and a `dock-at`
+  test may leave out its `station` to mean that place.
+- **A regional place** (one with no `within`) counts as "at" from anywhere in its
+  region, which is the game's own idea of where you are: the nearest regional station.
+
+```mermaid
+flowchart LR
+    Thread["Thread: place, cast, requires"] --> News["News and adverts: local ones weigh more"]
+    Thread --> Talk["Small talk: said at the place"]
+    Thread --> Arc["Arc: starts there; letters from the cast"]
+    Arc -->|setFlags| Flags["Story flags on the player"]
+    Flags -->|requires.flags| News
+    Flags -->|requires.flags| Talk
+    Arc -->|"requires.arcsAtStep"| Talk
+```
+
 ### News items (`broadcasts`)
 
 | Field | Needed | What it does |
@@ -308,13 +378,25 @@ take only `mods`.
 | `arcsNotStarted` | No arc listed has ever been started. |
 | `filesRead` | Each story data file listed has been opened. |
 | `afterDays`, `beforeDays` | Story time is at least `afterDays`, and less than `beforeDays`, game days. Story time starts when the player's story record begins: at the start of a new game, or for a game started before Framework 0.109.0 the first time it is loaded with it. |
+| `flags` | Every story flag listed is set. An arc's `onComplete` sets and clears flags with `setFlags` and `clearFlags` (up to four each). Flag ids are yours to choose; give them your prefix. |
+| `notFlags` | None of the flags listed is set. |
+| `arcsActive` | Each arc listed is under way. |
+| `arcsAtStep` | Each `arc.step` listed is under way at that step, so news and talk can follow a story as it happens. |
+| `places` | The player is at any one of these places: docked at it, or anywhere in its region for a regional place. |
+| `regions` | The player is in the region of any one of these regional places. |
+| `newsSeen` | Each news item listed has been shown on a TV. |
+
+Since Framework 0.114.0 a thread's `requires` also apply to every entry in it.
 
 ### Text
 
 - Plain text only. A line break (`\n` in JSON) is fine; angle brackets are not.
-- Square brackets are kept for placeholders: `[player]` (full name), `[player-first]`
-  and `[ship]` (the ship the player is aboard). Any other bracketed word is refused.
-  Tips and encyclopedia text cannot use them.
+- Square brackets are kept for placeholders: `[player]` (full name), `[player-first]`,
+  `[ship]` (the ship the player is aboard), and since Framework 0.114.0 `[place]` (the
+  entry's place, else where the player is), `[region]` (its region label), `[station]`
+  (the station the player is docked at), `[body]` (the place's body), `[date]` (the
+  game's date, year-month-day) and `[person:key]` (a person's name). Any other
+  bracketed word is refused. Tips and encyclopedia text cannot use them.
 - Text is English in the file. A translation can replace it by the key
   `Story.<id>.<field>` in the owning mod's translation file: for news `text`, `region`
   and `mention`; for small talk `line`; for tips `text`; for sections and articles
@@ -333,8 +415,11 @@ override them in `BepInEx/config/PhobosFramework/story/`:
 | `advertShare` | 0.3 | Share of advert picks given to story adverts. |
 | `chatterShare` | 0.4 | Share of matching small talk that uses a story line when one fits. |
 | `tipShare` | 0.3 | Share of loading-screen tips taken from story tips. |
-| `checkSeconds` | 30 | Real seconds between story checks. |
+| `checkSeconds` | 30 | Real seconds between story checks. Arriving in a new region runs a check at once. |
 | `maxActiveArcs` | 2 | How many arcs may start by themselves at once. |
+| `localWeight` | 4 | How much more often news and adverts of the place you are at are picked. News with no place counts 2. |
+| `farWeight` | 1 | How much news and adverts of other places weigh. 0 hides them until you visit. |
+| `mentionDays` | 10 | Game days after a news item was shown during which people still mention it. |
 
 ## Checking and testing
 
@@ -358,11 +443,16 @@ override them in `BepInEx/config/PhobosFramework/story/`:
   - `phobosframework story reset <arc>` forgets an arc in this game so it can start again.
   - `phobosframework story items <words>` lists the item ids whose names contain the words.
   - `phobosframework story file <id>` gives you a data card with that story file.
+  - `phobosframework story where` says which region and place you are in, where you
+    are docked, the date, the flags set and whether each thread is open.
+  - `phobosframework story thread <id>` lists a thread's members and what blocks each.
+  - `phobosframework story flag <id>` sets a story flag; add `clear` to clear it.
+  - `phobosframework story places` and `story people` list what the loaded packs know.
 
 ## What stays in a save
 
-- The player carries one Phobos record: where each arc is, which once-only news has
-  been shown, news waiting for a TV, and when story time began.
+- The player carries one Phobos record: where each arc is, which news has been shown
+  and when, news waiting for a TV, the story flags set, and when story time began.
 - Credits paid or taken by an arc are ordinary credits, with a line in the game's ledger.
 - A data file is a Framework data object on an ordinary data card; it keeps its file
   name and the id of its story file, and the record remembers which files were opened.
@@ -427,33 +517,47 @@ file only, no commentary, following these rules exactly.
 
 Format:
 { "schemaVersion": 1, "schema": "story",
-  "broadcasts": { "<id>": { "region": "...", "text": "...", "weight": 1, "once": false, "mention": "..." } },
-  "adverts":    { "<id>": { "text": "..." } },
-  "chatter":    { "<id>": { "moment": "...", "line": "...", "speakers": "anyone" } },
+  "people":     { "<id>": { "name": "...", "role": "...", "home": "<place key>" } },
+  "threads":    { "<id>": { "title": "...", "place": "<place key>", "people": [ "<person id>" ], "requires": { ... } } },
+  "broadcasts": { "<id>": { "thread": "<thread id>", "text": "...", "weight": 1, "once": false, "mention": "...", "requires": { ... } } },
+  "adverts":    { "<id>": { "thread": "<thread id>", "text": "..." } },
+  "chatter":    { "<id>": { "thread": "<thread id>", "moment": "...", "line": "...", "speakers": "locals" } },
   "tips":       { "<id>": { "text": "..." } },
   "articles":   { "<id>": { "section": "phobos-makers", "label": "...", "title": "...", "body": "..." } },
-  "files":      { "<id>": { "name": "FILE_NAME.TXT", "text": "...", "startsArc": "<arc id, optional>" } },
-  "arcs":       { "<id>": { "title": "...", "chance": 0.05, "requires": { ... },
+  "files":      { "<id>": { "name": "FILE_NAME.TXT", "text": "...", "thread": "<thread id>", "person": "<person id>", "startsArc": "<arc id, optional>" } },
+  "arcs":       { "<id>": { "title": "...", "thread": "<thread id>", "chance": 0.05, "requires": { ... },
                   "steps": [ { "id": "...",
-                    "delivery": { "message": { "from": "...", "text": "..." }, "bulletin": "<broadcast id>" },
+                    "delivery": { "message": { "person": "<person id>", "text": "..." }, "bulletin": "<broadcast id>" },
                     "objective": { "title": "...", "description": "..." },
                     "tests": [ { "kind": "...", ... } ],
-                    "onComplete": { "message": { "from": "...", "text": "..." },
-                                    "items": [ { "item": "...", "count": 1 } ], "credits": 0, "files": [ "<file id>" ] },
+                    "onComplete": { "message": { "person": "<person id>", "text": "..." },
+                                    "items": [ { "item": "...", "count": 1 } ], "credits": 0, "files": [ "<file id>" ],
+                                    "setFlags": [ "MYPREFIX-<flag>" ], "clearFlags": [ ] },
                     "next": "<step id or end>",
                     "branches": [ { "tests": [ ... ], "next": "<step id or end>", "onComplete": { ... } } ] } ] } } }
 
 Rules:
 - Ids: lower-case letters and digits joined by single hyphens, starting with MYPREFIX-.
-  Step ids likewise, unique within their arc.
-- Broadcast region: one of Shipping & Inner System, Tharsis, Outer System (or a short
-  topic such as Economics). Broadcast text at most 700 characters; mention at most
-  200; advert text at most 400; message text at most 400 and "from" at most 40; goal
-  title at most 60 and description at most 300.
+  Step ids likewise, unique within their arc. Flag ids likewise.
+- Everything belongs somewhere. Every arc, news item, advert, small-talk line and data
+  file names a thread, and every thread names a place from the list I give you below
+  (a station key such as oklg, bcer, vnca, vorb). Every letter names a person from
+  the thread's cast, and every person has a home place. Do not invent places; write
+  "[place]" in text where the place's name belongs, "[region]" for its region and
+  "[person:<id>]" for a person's name.
+- Connect the threads: news that follows an arc uses "requires": {"arcsAtStep": ["<arc>.<step>"]}
+  or {"flags": [...]} set by an earlier step's "setFlags"; talk about something that
+  happened uses "newsSeen" or "arcsDone". Nothing should refer to events the player
+  has not seen. Give each thread one news item with no requirements, as a rumour.
+- Broadcast text at most 700 characters; mention at most 200; advert text at most 400;
+  message text at most 400; goal title at most 60 and description at most 300. A news
+  item in a thread needs no region (its place gives one); one without a thread needs
+  "region": Shipping & Inner System, Tharsis or Outer System.
 - Small talk: moment is one of headline, joke, complaint, story, jargon, superstition,
   worry, question, small-talk. The line is what the speaker says, at most 200
-  characters, written as speech. speakers is anyone, crew (aboard the player's ships)
-  or others (anyone else).
+  characters, written as speech. speakers is anyone, crew (aboard the player's ships),
+  others (anyone else) or locals (others, at the line's place). A line in a thread
+  is said only at the thread's place.
 - Tips: at most 450 characters of lore. Articles: section phobos-makers (companies)
   or phobos-spacer-life (how crews live), label at most 40, title at most 60, body at
   most 4000 with paragraphs separated by \n\n. Tips and articles may require only mods
@@ -462,9 +566,11 @@ Rules:
   such as LOG_0412.TXT) and text of at most 3000 characters, written as the document
   itself (a log, a memo, a letter). An arc outcome gives them with "files".
 - Plain text only: no angle brackets, no square brackets except [player],
-  [player-first] and [ship]. Use \n for a line break.
+  [player-first], [ship], [place], [region], [station], [body], [date] and
+  [person:<id>]. Use \n for a line break.
 - Tests, all of which must pass to finish a step:
-  {"kind":"dock-at","station":"any"} (or a station id I give you);
+  {"kind":"dock-at"} (the arc's own place), {"kind":"dock-at","station":"any"} or a
+  station id I give you;
   {"kind":"have-item","item":"<item id>","count":N,"consume":true or false};
   {"kind":"install","item":"<item id>","count":N};
   {"kind":"wait","hours":H};
@@ -474,8 +580,9 @@ Rules:
   branches, each with its own tests, onComplete and next; the first branch whose
   tests pass decides when the step's own tests do not.
 - Requirements (all optional): mods, playerConditions, forbidConditions, owns,
-  dockedAt, arcsDone, arcsNotStarted, filesRead, afterDays, beforeDays (game days of
-  story time).
+  dockedAt, arcsDone, arcsNotStarted, arcsActive, arcsAtStep, filesRead, flags,
+  notFlags, places, regions, newsSeen, afterDays, beforeDays (game days of story time).
+  A thread's requires apply to all its members.
 - Use only item ids I list below. Rewards: at most five kinds of item, at most 20 of
   each, and at most 50000 credits, modest in value.
 - Nothing else is available: no reputation rewards, no menus of choices, no new kinds
@@ -490,11 +597,14 @@ Rules:
   (medical equipment). Full equipment names start with Phobos', for example
   Phobos' Verdemorrow Firstlight-4 Cultivation Rack.
 
+Place keys you may use: <paste from phobosframework story places, with their names and bodies>
 Item ids you may use: <paste ids from the item reference>
-What I want: <describe the news, small talk, tips, articles or arc>
+What I want: <describe the threads: where each lives, who is in it, and what happens>
 ```
 
 Replace `MYPREFIX` with your add-on's prefix (or a word of your own for a personal
-file), and paste the item ids you want used, found with `phobosframework story items`
-in the F3 console. The [item references](item-references.md) say where each item is
-bought or found.
+file), paste the place keys from `phobosframework story places` (or Framework's
+`story.json`), and paste the item ids you want used, found with
+`phobosframework story items` in the F3 console. The [item references](item-references.md)
+say where each item is bought or found. Check the result with
+`phobosframework story thread <id>` in play: it lists each member and what blocks it.

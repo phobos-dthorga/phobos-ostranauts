@@ -29,6 +29,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.114.0] - 2026-10-06 - Draft
+
+### Added
+
+- Story content now belongs somewhere (owner request: stories came out of nowhere, unrelated to anything or anywhere). Story files gain three tables: places (stations by the game's registration id), people (named recurring characters with a home and a role) and threads (a story's place, cast and shared requirements, which every entry declaring the thread inherits). Framework ships the game's twelve regional stations and the parts and neighbours within them as places, with the game's names, bodies, factions and news regions.
+- News and adverts of the place you are at or in are picked about four times as often as news of elsewhere (settings localWeight and farWeight); a news item takes its Region News label from its place. Small talk with a place is said there: by your crew while you are at it, by others only when they are there themselves (new speakers value locals). An arc with a place starts by itself only while you are there, local arcs are tried first, and a dock-at test may leave out its station to mean the arc's place. Letters can come from a named person, shown as Name, role.
+- Threads connect: an arc outcome can set and clear story flags (setFlags, clearFlags), and every kind of content can require flags, notFlags, arcsActive, arcsAtStep (an arc under way at a step), places, regions and newsSeen. People stop mentioning a news item mentionDays after it was shown (10 by default), and never mention one that was not shown. A once-only bulletin already shown is not shown again.
+- Arriving in a new region runs the story check at once, so local news and arcs appear on arrival.
+- New placeholders in story text for the place, its region, the docked station, the place's body, the date and a named person.
+- F3: phobosframework story where (region, place, docked station, date, flags and open threads), story thread followed by an id (its members and what blocks each), story flag followed by an id and optionally clear, story places and story people. All optional, for authors.
+- The writing guide has a new section, the requirements table and a rewritten ChatGPT prompt that makes every entry belong to a thread and a place and every letter to a person.
+
+### Save compatibility
+
+- Automatic. The player's story record gains flag entries and keeps the time each news item was shown; a record from an earlier version reads as before. Older story files load unchanged; a newer file needs Framework 0.114.0.
+
+### Compatibility and limits
+
+- Faction standing gates and rewards, crew and clock gates follow in the next release. The encyclopedia stays as it was: it cannot yet be unlocked by a flag. Checked offline (rule, native and data-pack checks); the arrival check, placed small talk and TV weighting have not been seen in the game.
+
 ## [0.113.0] - 2026-10-06 - Draft
 
 ### Added

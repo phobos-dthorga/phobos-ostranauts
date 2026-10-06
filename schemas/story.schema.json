@@ -62,6 +62,24 @@
           "minimum": 0,
           "maximum": 1,
           "description": "Share of loading-screen tips taken from story tips."
+        },
+        "localWeight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "How much more often news and adverts of the place the player is at are picked (default 4; unplaced entries count 2)."
+        },
+        "farWeight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "How much news and adverts of other places weigh (default 1; 0 hides them)."
+        },
+        "mentionDays": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 365,
+          "description": "Game days after a news item was shown during which people still mention it (default 10)."
         }
       },
       "description": "Framework's own story pack only."
@@ -87,13 +105,13 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 40,
-              "description": "Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System."
+              "description": "Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System; left out, the place's own."
             },
             "text": {
               "type": "string",
               "minLength": 1,
               "maxLength": 700,
-              "description": "The news item. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+              "description": "The news item. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
             },
             "weight": {
               "type": "integer",
@@ -193,6 +211,75 @@
                   },
                   "maxItems": 16,
                   "description": "Story data files the player must have opened."
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags that must all be set (an arc outcome sets them)."
+                },
+                "notFlags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags none of which may be set."
+                },
+                "arcsActive": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs that must be under way."
+                },
+                "arcsAtStep": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs under way at a step, as arc.step."
+                },
+                "places": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Places the player must be at (any one): docked at it, or anywhere in its region for a regional place."
+                },
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Regional places the player must be in the region of (any one)."
+                },
+                "newsSeen": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "News items that must have been shown on a TV."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -201,12 +288,40 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 200,
-              "description": "What people say when they bring this news up in small talk, while it is eligible. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+              "description": "What people say when they bring this news up in small talk, for a while after it was shown. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to: it inherits the thread's place and requirements."
+            },
+            "place": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place this entry belongs to, by key (phobosframework story places lists them)."
             }
           },
           "required": [
-            "region",
             "text"
+          ],
+          "anyOf": [
+            {
+              "required": [
+                "region"
+              ]
+            },
+            {
+              "required": [
+                "place"
+              ]
+            },
+            {
+              "required": [
+                "thread"
+              ]
+            }
           ]
         }
       },
@@ -233,7 +348,7 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 400,
-              "description": "The advert; a line break may separate a heading. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+              "description": "The advert; a line break may separate a heading. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
             },
             "weight": {
               "type": "integer",
@@ -333,9 +448,90 @@
                   },
                   "maxItems": 16,
                   "description": "Story data files the player must have opened."
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags that must all be set (an arc outcome sets them)."
+                },
+                "notFlags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags none of which may be set."
+                },
+                "arcsActive": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs that must be under way."
+                },
+                "arcsAtStep": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs under way at a step, as arc.step."
+                },
+                "places": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Places the player must be at (any one): docked at it, or anywhere in its region for a regional place."
+                },
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Regional places the player must be in the region of (any one)."
+                },
+                "newsSeen": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "News items that must have been shown on a TV."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to: it inherits the thread's place and requirements."
+            },
+            "place": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place this entry belongs to, by key (phobosframework story places lists them)."
             }
           },
           "required": [
@@ -451,6 +647,75 @@
                   },
                   "maxItems": 16,
                   "description": "Story data files the player must have opened."
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags that must all be set (an arc outcome sets them)."
+                },
+                "notFlags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags none of which may be set."
+                },
+                "arcsActive": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs that must be under way."
+                },
+                "arcsAtStep": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs under way at a step, as arc.step."
+                },
+                "places": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Places the player must be at (any one): docked at it, or anywhere in its region for a regional place."
+                },
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Regional places the player must be in the region of (any one)."
+                },
+                "newsSeen": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "News items that must have been shown on a TV."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -459,11 +724,23 @@
               "type": "number",
               "minimum": 0,
               "maximum": 1,
-              "description": "Chance per story check (every 30 s) that the eligible arc starts by itself; 0 starts it only from F3."
+              "description": "Chance per story check (every 30 s) that the eligible arc starts by itself, while the player is at its place if it has one; 0 starts it only from F3."
             },
             "repeatable": {
               "type": "boolean",
               "description": "May start again after it is finished."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to: it inherits the thread's place and requirements."
+            },
+            "place": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place this entry belongs to, by key (phobosframework story places lists them). A dock-at test without a station means this place."
             },
             "steps": {
               "type": "array",
@@ -489,18 +766,35 @@
                             "type": "string",
                             "minLength": 1,
                             "maxLength": 40,
-                            "description": "Who it is from, shown before the text in the crew log."
+                            "description": "Who it is from, shown before the text in the crew log; leave out when person names them."
+                          },
+                          "person": {
+                            "type": "string",
+                            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                            "maxLength": 48,
+                            "description": "The person it is from, shown as Name, role."
                           },
                           "text": {
                             "type": "string",
                             "minLength": 1,
                             "maxLength": 400,
-                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
                           }
                         },
                         "required": [
-                          "from",
                           "text"
+                        ],
+                        "anyOf": [
+                          {
+                            "required": [
+                              "from"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "person"
+                            ]
+                          }
                         ]
                       },
                       "bulletin": {
@@ -519,13 +813,13 @@
                         "type": "string",
                         "minLength": 1,
                         "maxLength": 60,
-                        "description": "The goal title in the GOALS list. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                        "description": "The goal title in the GOALS list. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
                       },
                       "description": {
                         "type": "string",
                         "minLength": 0,
                         "maxLength": 300,
-                        "description": "The goal description. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                        "description": "The goal description. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
                       }
                     },
                     "required": [
@@ -554,7 +848,7 @@
                         "station": {
                           "type": "string",
                           "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
-                          "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                          "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station. Left out, the arc's own place."
                         },
                         "item": {
                           "type": "string",
@@ -609,18 +903,35 @@
                             "type": "string",
                             "minLength": 1,
                             "maxLength": 40,
-                            "description": "Who it is from, shown before the text in the crew log."
+                            "description": "Who it is from, shown before the text in the crew log; leave out when person names them."
+                          },
+                          "person": {
+                            "type": "string",
+                            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                            "maxLength": 48,
+                            "description": "The person it is from, shown as Name, role."
                           },
                           "text": {
                             "type": "string",
                             "minLength": 1,
                             "maxLength": 400,
-                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
                           }
                         },
                         "required": [
-                          "from",
                           "text"
+                        ],
+                        "anyOf": [
+                          {
+                            "required": [
+                              "from"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "person"
+                            ]
+                          }
                         ]
                       },
                       "items": {
@@ -661,6 +972,28 @@
                           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
                         },
                         "description": "Story data files given to the player on one data card."
+                      },
+                      "setFlags": {
+                        "type": "array",
+                        "maxItems": 4,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                          "maxLength": 48
+                        },
+                        "description": "Story flags set on the player's record, for other entries' requirements."
+                      },
+                      "clearFlags": {
+                        "type": "array",
+                        "maxItems": 4,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                          "maxLength": 48
+                        },
+                        "description": "Story flags cleared."
                       }
                     },
                     "description": "What happens when the step finishes."
@@ -701,7 +1034,7 @@
                               "station": {
                                 "type": "string",
                                 "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
-                                "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                                "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station. Left out, the arc's own place."
                               },
                               "item": {
                                 "type": "string",
@@ -756,18 +1089,35 @@
                                   "type": "string",
                                   "minLength": 1,
                                   "maxLength": 40,
-                                  "description": "Who it is from, shown before the text in the crew log."
+                                  "description": "Who it is from, shown before the text in the crew log; leave out when person names them."
+                                },
+                                "person": {
+                                  "type": "string",
+                                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                                  "maxLength": 48,
+                                  "description": "The person it is from, shown as Name, role."
                                 },
                                 "text": {
                                   "type": "string",
                                   "minLength": 1,
                                   "maxLength": 400,
-                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
                                 }
                               },
                               "required": [
-                                "from",
                                 "text"
+                              ],
+                              "anyOf": [
+                                {
+                                  "required": [
+                                    "from"
+                                  ]
+                                },
+                                {
+                                  "required": [
+                                    "person"
+                                  ]
+                                }
                               ]
                             },
                             "items": {
@@ -808,6 +1158,28 @@
                                 "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
                               },
                               "description": "Story data files given to the player on one data card."
+                            },
+                            "setFlags": {
+                              "type": "array",
+                              "maxItems": 4,
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                                "maxLength": 48
+                              },
+                              "description": "Story flags set on the player's record, for other entries' requirements."
+                            },
+                            "clearFlags": {
+                              "type": "array",
+                              "maxItems": 4,
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                                "maxLength": 48
+                              },
+                              "description": "Story flags cleared."
                             }
                           },
                           "description": "What happens when the step finishes."
@@ -881,15 +1253,16 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 200,
-              "description": "What the speaker says, after the moment's lead-in. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+              "description": "What the speaker says, after the moment's lead-in. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
             },
             "speakers": {
               "type": "string",
-              "description": "Who may say it: anyone (default), crew (someone aboard one of the player's ships) or others (anyone else).",
+              "description": "Who may say it: anyone (default), crew (someone aboard one of the player's ships), others (anyone else) or locals (others, at the line's place).",
               "enum": [
                 "anyone",
                 "crew",
-                "others"
+                "others",
+                "locals"
               ]
             },
             "weight": {
@@ -986,9 +1359,90 @@
                   },
                   "maxItems": 16,
                   "description": "Story data files the player must have opened."
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags that must all be set (an arc outcome sets them)."
+                },
+                "notFlags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags none of which may be set."
+                },
+                "arcsActive": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs that must be under way."
+                },
+                "arcsAtStep": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs under way at a step, as arc.step."
+                },
+                "places": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Places the player must be at (any one): docked at it, or anywhere in its region for a regional place."
+                },
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Regional places the player must be in the region of (any one)."
+                },
+                "newsSeen": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "News items that must have been shown on a TV."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to: it inherits the thread's place and requirements."
+            },
+            "place": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place this entry belongs to, by key (phobosframework story places lists them). Crew say the line while the player is there; others only when they are there."
             }
           },
           "required": [
@@ -1043,6 +1497,12 @@
                 }
               },
               "description": "Only installed mods can be required: no player exists when this is shown."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to, for authors and the F3 thread report."
             }
           },
           "required": [
@@ -1103,6 +1563,12 @@
                 }
               },
               "description": "Only installed mods can be required: no player exists when this is shown."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to, for authors and the F3 thread report."
             }
           },
           "required": [
@@ -1169,6 +1635,12 @@
                 }
               },
               "description": "Only installed mods can be required: no player exists when this is shown."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to, for authors and the F3 thread report."
             }
           },
           "required": [
@@ -1203,12 +1675,30 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 3000,
-              "description": "What the file says when opened on a computer or PDA. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+              "description": "What the file says when opened on a computer or PDA. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date] and [person:key]."
             },
             "startsArc": {
               "type": "string",
               "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
               "description": "An arc that starts when the file is first opened, if it has not started and its requirements hold."
+            },
+            "thread": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The thread this entry belongs to: it inherits the thread's place and requirements."
+            },
+            "place": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place this entry belongs to, by key (phobosframework story places lists them)."
+            },
+            "person": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The person who wrote it."
             }
           },
           "required": [
@@ -1218,11 +1708,318 @@
         }
       },
       "description": "Data files, by id: given on a data card and read on any computer or PDA."
+    },
+    "places": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "station": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_|-]{1,32}$",
+              "description": "The station registration id or prefix (OKLG, VORB_HAB); its parts count as it does."
+            },
+            "within": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The regional place this one lies within, one level; a place without one is a region of its own."
+            },
+            "region": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40,
+              "description": "The Region News label for news from here; required on a regional place, inherited by its parts."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40,
+              "description": "The body it orbits or stands on, for the [body] placeholder."
+            },
+            "factions": {
+              "type": "array",
+              "maxItems": 8,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_]+$"
+              },
+              "description": "The game's faction names at home here, for authors."
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40,
+              "description": "What people call it: the [place] placeholder."
+            }
+          },
+          "required": [
+            "station",
+            "name"
+          ],
+          "description": "A station, or a part of one, that content can belong to. Framework ships the game's regional stations."
+        }
+      },
+      "description": "Places content belongs to, by key."
+    },
+    "people": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "role": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "home": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place they belong to."
+            },
+            "faction": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]+$",
+              "description": "The game's faction name they belong to, for authors."
+            }
+          },
+          "required": [
+            "name",
+            "home"
+          ],
+          "description": "A named recurring person, shown as Name, role where a letter names its sender."
+        }
+      },
+      "description": "Named recurring people, by key."
+    },
+    "threads": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "place": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "maxLength": 48,
+              "description": "The place its members belong to unless they name their own."
+            },
+            "people": {
+              "type": "array",
+              "maxItems": 8,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                "maxLength": 48
+              },
+              "description": "Its cast: the people its letters may come from. Empty leaves the cast open."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                },
+                "playerConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must have."
+                },
+                "forbidConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must not have."
+                },
+                "owns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."
+                },
+                "dockedAt": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                    "description": "A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                  },
+                  "maxItems": 16,
+                  "description": "Docked at or aboard any one of these stations."
+                },
+                "arcsDone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must have finished."
+                },
+                "arcsNotStarted": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must never have started."
+                },
+                "afterDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only once this many game days have passed since the player's story record began."
+                },
+                "beforeDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only until this many game days have passed since the player's story record began."
+                },
+                "filesRead": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Story data files the player must have opened."
+                },
+                "flags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags that must all be set (an arc outcome sets them)."
+                },
+                "notFlags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Story flags none of which may be set."
+                },
+                "arcsActive": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs that must be under way."
+                },
+                "arcsAtStep": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs under way at a step, as arc.step."
+                },
+                "places": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Places the player must be at (any one): docked at it, or anywhere in its region for a regional place."
+                },
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "Regional places the player must be in the region of (any one)."
+                },
+                "newsSeen": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 48
+                  },
+                  "maxItems": 16,
+                  "description": "News items that must have been shown on a TV."
+                }
+              },
+              "description": "Requirements every member must also meet."
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "description": "A story thread: its members declare it and share its place, cast and requirements."
+        }
+      },
+      "description": "Story threads, by key."
     }
   },
   "required": [
     "schemaVersion",
     "schema"
   ],
-  "description": "Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips and encyclopedia articles. See docs/writing-story-content.md."
+  "description": "Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips, encyclopedia articles and data files, grounded in places, people and threads. See docs/writing-story-content.md."
 }

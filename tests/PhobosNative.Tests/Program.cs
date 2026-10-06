@@ -146,6 +146,7 @@ medical.Publish();
 MedicalNativeChecks.Run(medical, Check);
 RemainderNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, manufacturing, Check);
 AddOnNativeChecks.Run(repo, Check);
+StoryNativeData.Native = native;
 StoryNativeChecks.Run(repo, Check);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);

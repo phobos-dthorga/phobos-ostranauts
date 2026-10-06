@@ -1,18 +1,423 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Framework's story pack (Framework 0.107.0): the settings for story content from every mod, and, since 0.108.0, two shared encyclopedia sections that mods put their articles under. A section shows only while one of its articles does. Each mod ships its own story pack in its framework folder. Your own news, adverts, arcs, small talk, tips and articles go in BepInEx/config/PhobosFramework/story/*.json, or in an add-on under phobos/PhobosFramework/story. See docs/writing-story-content.md.",
+  "notes": "Framework's story pack (Framework 0.107.0): the settings for story content from every mod, two shared encyclopedia sections that mods put their articles under (0.108.0), and, since 0.114.0, the places story content is grounded in: the game's twelve regional stations and the parts and neighbours that lie within them, by registration id, with the Region News label and the factions at home there. A section shows only while one of its articles does. Each mod ships its own story pack in its framework folder. Your own news, adverts, arcs, small talk, tips, articles, places, people and threads go in BepInEx/config/PhobosFramework/story/*.json, or in an add-on under phobos/PhobosFramework/story. See docs/writing-story-content.md. Station ids, names, bodies and factions are the game's own (Ostranauts 1.0.1.5 star_system.json); the region labels follow the game's own news regions.",
   "settings": {
     "broadcastShare": 0.3,
     "advertShare": 0.3,
     "checkSeconds": 30,
     "maxActiveArcs": 2,
     "chatterShare": 0.4,
-    "tipShare": 0.3
+    "tipShare": 0.3,
+    "localWeight": 4,
+    "farWeight": 1,
+    "mentionDays": 10
   },
   "broadcasts": {},
   "adverts": {},
   "arcs": {},
+  "places": {
+    "hqch": {
+      "station": "HQCH",
+      "name": "Qincheng Station",
+      "body": "Mercury",
+      "region": "Shipping & Inner System",
+      "factions": [
+        "HQCH",
+        "HQCHCiv"
+      ]
+    },
+    "vnca": {
+      "station": "VNCA",
+      "name": "Long Beach Terminal",
+      "body": "Venus",
+      "region": "Shipping & Inner System",
+      "factions": [
+        "VNCALEO",
+        "VNCACiv",
+        "VenusCrim"
+      ]
+    },
+    "ejdr": {
+      "station": "EJDR",
+      "name": "Port Shajiang",
+      "body": "Luna",
+      "region": "Shipping & Inner System",
+      "factions": [
+        "EJDR",
+        "EJDRCiv"
+      ]
+    },
+    "mtrs": {
+      "station": "MTRS",
+      "name": "Port Yangshan",
+      "body": "Mars",
+      "region": "Tharsis",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "mhng": {
+      "station": "MHNG",
+      "name": "Qiantangmen",
+      "body": "Sol",
+      "region": "Shipping & Inner System",
+      "factions": [
+        "MHNG",
+        "MHNGCiv"
+      ]
+    },
+    "msuz": {
+      "station": "MSUZ",
+      "name": "Panmen",
+      "body": "Sol",
+      "region": "Shipping & Inner System",
+      "factions": [
+        "MSUZ",
+        "MSUZCiv"
+      ]
+    },
+    "mvol": {
+      "station": "MVOL",
+      "name": "Upsilon Docking",
+      "body": "Deimos",
+      "region": "Tharsis",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "bcer": {
+      "station": "BCER",
+      "name": "Port Mojave",
+      "body": "Ceres",
+      "region": "Outer System",
+      "factions": [
+        "GalileanConfederacy",
+        "GalileanConfederacyCiv"
+      ]
+    },
+    "oklg": {
+      "station": "OKLG",
+      "name": "OKLG",
+      "body": "1036 Ganymed",
+      "region": "Outer System",
+      "factions": [
+        "OKLGLEO",
+        "OKLGCorp",
+        "OKLGCiv"
+      ]
+    },
+    "jfts": {
+      "station": "JFTS",
+      "name": "Port Independence",
+      "body": "Ganymede",
+      "region": "Outer System",
+      "factions": [
+        "GalileanConfederacy",
+        "GalileanConfederacyCiv"
+      ]
+    },
+    "jptn": {
+      "station": "JPTN",
+      "name": "Porto Nuevo",
+      "body": "Europa",
+      "region": "Outer System",
+      "factions": [
+        "Atlantis",
+        "AtlantisCiv"
+      ]
+    },
+    "svir": {
+      "station": "SVIR",
+      "name": "Cassini Spaceport",
+      "body": "Titan",
+      "region": "Outer System",
+      "factions": [
+        "Titan",
+        "TitanCiv"
+      ]
+    },
+    "hqch-det": {
+      "station": "HQCH_DET",
+      "name": "Temporary Detention Level",
+      "within": "hqch",
+      "body": "Mercury",
+      "factions": [
+        "HQCH",
+        "HQCHCiv"
+      ]
+    },
+    "vnca-sd": {
+      "station": "VNCA_SD",
+      "name": "San Diego Mall",
+      "within": "vnca",
+      "body": "Venus",
+      "factions": [
+        "VNCALEO",
+        "VNCACiv",
+        "VenusCrim"
+      ]
+    },
+    "vcbr": {
+      "station": "VCBR",
+      "name": "Cloudbreak",
+      "within": "vnca",
+      "body": "Venus",
+      "factions": [
+        "VCBRLEO",
+        "VCBRCiv"
+      ]
+    },
+    "vcbr-sci": {
+      "station": "VCBR_SCI",
+      "name": "Cloudbreak Habitation Level",
+      "within": "vnca",
+      "body": "Venus",
+      "factions": [
+        "VCBRLEO",
+        "VCBRCiv"
+      ]
+    },
+    "venc": {
+      "station": "VENC",
+      "name": "Porto do Encantado",
+      "within": "vnca",
+      "body": "Venus",
+      "factions": [
+        "VENCLEO",
+        "VENCCiv",
+        "VenusCrim"
+      ]
+    },
+    "vorb": {
+      "station": "VORB",
+      "name": "Venus Orbital",
+      "within": "vnca",
+      "body": "Venus",
+      "factions": [
+        "VENCLEO",
+        "VENCCiv",
+        "VenusCrim"
+      ]
+    },
+    "vorb-hab": {
+      "station": "VORB_HAB",
+      "name": "Venus Orbital: Habitation",
+      "within": "vnca",
+      "body": "Venus",
+      "factions": [
+        "VENCLEO",
+        "VENCCiv",
+        "VenusCrim"
+      ]
+    },
+    "ejdr-geo": {
+      "station": "EJDR_GEO",
+      "name": "Mare Imbrium Space Elevator",
+      "within": "ejdr",
+      "body": "Luna",
+      "factions": [
+        "EJDR",
+        "EJDRCiv"
+      ]
+    },
+    "mtrs-sub": {
+      "station": "MTRS_SUB",
+      "name": "Heifei District",
+      "within": "mtrs",
+      "body": "Mars",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "mlab": {
+      "station": "MLAB",
+      "name": "Royal Carriers Launch Facility",
+      "within": "mtrs",
+      "body": "Mars",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "mtam": {
+      "station": "MTAM",
+      "name": "Arsia Mons Space Elevator",
+      "within": "mtrs",
+      "body": "Mars",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "mhng-bbl": {
+      "station": "MHNG_BBL",
+      "name": "Duanqiao Lounge",
+      "within": "mhng",
+      "body": "Sol",
+      "factions": [
+        "MHNG",
+        "MHNGCiv"
+      ]
+    },
+    "msuz-rb": {
+      "station": "MSUZ_RB",
+      "name": "Renbao Pavilion Seven",
+      "within": "msuz",
+      "body": "Sol",
+      "factions": [
+        "MSUZ",
+        "MSUZCiv"
+      ]
+    },
+    "mvol-med": {
+      "station": "MVOL_Med",
+      "name": "Central Medical Facility",
+      "within": "mvol",
+      "body": "Deimos",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "mvol-lab": {
+      "station": "MVOL_Lab",
+      "name": "Research & Development",
+      "within": "mvol",
+      "body": "Deimos",
+      "factions": [
+        "Xinhua",
+        "XinhuaCiv"
+      ]
+    },
+    "coho": {
+      "station": "COHO",
+      "name": "Corsair's Hollow",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": [
+        "BeltPirates"
+      ]
+    },
+    "bcer-roof": {
+      "station": "BCER_ROOF",
+      "name": "The Mouth",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": [
+        "GalileanConfederacy",
+        "GalileanConfederacyCiv"
+      ]
+    },
+    "bcer-sarc": {
+      "station": "BCER_SARC",
+      "name": "The Sarcophagus",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": []
+    },
+    "bcrs": {
+      "station": "BCRS",
+      "name": "Zhonghuamen Terminal",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": [
+        "CCRE",
+        "CCRECiv"
+      ]
+    },
+    "bcrs-off": {
+      "station": "BCRS_OFF",
+      "name": "CCRE Government Offices",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": [
+        "CCRE",
+        "CCRECiv"
+      ]
+    },
+    "bcrs-res": {
+      "station": "BCRS_RES",
+      "name": "Residential Block 01",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": [
+        "CCRE",
+        "CCRECiv"
+      ]
+    },
+    "bcrs-old": {
+      "station": "BCRS_OLD",
+      "name": "Old Ring: HAB 01",
+      "within": "bcer",
+      "body": "Ceres",
+      "factions": [
+        "CCRE",
+        "CCRECiv"
+      ]
+    },
+    "oklg-flot": {
+      "station": "OKLG_FLOT",
+      "name": "the Flotilla",
+      "within": "oklg",
+      "body": "1036 Ganymed",
+      "factions": [
+        "OKLGFlotilla"
+      ]
+    },
+    "bwvn": {
+      "station": "BWVN",
+      "name": "Weaver's Needle",
+      "within": "oklg",
+      "body": "1036 Ganymed",
+      "factions": [
+        "OKLGProspector"
+      ]
+    },
+    "jfts-ctr": {
+      "station": "JFTS_CTR",
+      "name": "Capitol District",
+      "within": "jfts",
+      "body": "Ganymede",
+      "factions": [
+        "GalileanConfederacy",
+        "GalileanConfederacyCiv"
+      ]
+    },
+    "jatl": {
+      "station": "JATL",
+      "name": "Atlantis Landing Zone",
+      "within": "jptn",
+      "body": "Europa",
+      "factions": [
+        "Atlantis",
+        "AtlantisCiv"
+      ]
+    },
+    "jatl-sub": {
+      "station": "JATL_SUB",
+      "name": "Lemuria Terminal",
+      "within": "jptn",
+      "body": "Europa",
+      "factions": [
+        "Atlantis",
+        "AtlantisCiv"
+      ]
+    },
+    "svir-shipyard": {
+      "station": "SVIR_Shipyard",
+      "name": "Titan Shipyards",
+      "within": "svir",
+      "body": "Titan",
+      "factions": [
+        "Titan",
+        "TitanCiv"
+      ]
+    }
+  },
   "sections": {
     "phobos-makers": {
       "notes": "Shared section for the companies behind Phobos equipment.",

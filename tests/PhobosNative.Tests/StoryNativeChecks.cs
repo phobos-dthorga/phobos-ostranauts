@@ -97,5 +97,53 @@ internal static class StoryNativeChecks
             "Its nine chains and nine files load, and every article sits in a known section");
         check(stories.SelectMany(s => s.Pack.broadcasts.Keys.Concat(s.Pack.adverts.Keys).Concat(s.Pack.chatter.Keys).Concat(s.Pack.tips.Keys).Concat(s.Pack.articles.Keys)
             .Concat(s.Pack.arcs.Keys).Concat(s.Pack.files.Keys)).All(id => id.StartsWith("spacertales-", StringComparison.Ordinal)), "Every id carries the add-on's own prefix");
+
+        Places(check, frameworkPack, library);
     }
+
+    /// <summary>Framework 0.114.0: the shipped places are the game's own stations. Read from the game's star system
+    /// file, as DataHandler loads it: every place's station exists, a regional place is one the game marks regional,
+    /// a part lies within the region the game's nearest regional station would give it, and the factions match.</summary>
+    private static void Places(Action<bool, string> check, StoryPack frameworkPack, StoryLibrary library)
+    {
+        string file = Path.Combine(StoryNativeData.Native, "star_systems", "star_system.json");
+        var systems = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonStarSystemSave[]>(File.ReadAllText(file))!;
+        var system = systems.First(s => s.strName == "NewGame");
+        var stations = system.aSpawnStations.ToDictionary(s => s.strName, StringComparer.Ordinal);
+        var places = library.Places;
+        check(frameworkPack.places.Count >= 12 && places.Count == frameworkPack.places.Count, "Framework ships its places and all of them merged");
+        int regional = 0;
+        foreach (var pair in frameworkPack.places)
+        {
+            var place = pair.Value;
+            check(stations.TryGetValue(place.station, out var station), "A shipped place is a station in the game's star system: " + pair.Key + " = " + place.station);
+            if (station == null) continue;
+            if (place.within == null)
+            {
+                regional++;
+                check(station.bIsRegion, "A regional place is a station the game marks as a region: " + pair.Key);
+                check(place.body == station.strNameParent, "A regional place names the game's body: " + pair.Key);
+            }
+            else
+            {
+                check(!station.bIsRegion && places.IsRegional(place.within), "A part lies within a regional place and is not itself regional: " + pair.Key);
+                check(station.strPublicName == null || place.name == station.strPublicName, "A part keeps the game's public name: " + pair.Key + " = " + station.strPublicName);
+            }
+            check(place.factions.SequenceEqual(station.aFactions ?? Array.Empty<string>()), "A place lists the game's factions at home there: " + pair.Key);
+            check(places.Find(place.station) == pair.Key && places.Find(place.station + "_X") == pair.Key, "A station id and its parts find their place: " + pair.Key);
+        }
+        check(regional == system.aSpawnStations.Count(s => s.bIsRegion), "Every regional station of the game has a place: " + regional);
+        // The game members the grounding code reads exist where it expects them.
+        check(typeof(CollisionManager).GetField("strATCClosest") != null && typeof(AIShipManager).GetField("strATCLast") != null, "The game's current-region fields exist");
+        check(typeof(MathUtils).GetMethod("GetYearFromS") != null && typeof(MathUtils).GetMethod("GetMonthFromS") != null && typeof(MathUtils).GetMethod("GetDayOfMonthFromS") != null,
+            "The game's calendar helpers exist");
+        check(MathUtils.GetYearFromS(system.dfEpoch) >= 2070 && MathUtils.GetMonthFromS(system.dfEpoch) is >= 1 and <= 12 && MathUtils.GetDayOfMonthFromS(system.dfEpoch) is >= 1 and <= 31,
+            "The game's start date reads as a calendar date: " + MathUtils.GetYearFromS(system.dfEpoch));
+    }
+}
+
+/// <summary>Where the game's data folder is, for story checks that read it directly.</summary>
+internal static class StoryNativeData
+{
+    internal static string Native = "";
 }

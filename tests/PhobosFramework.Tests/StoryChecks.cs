@@ -35,10 +35,12 @@ internal static class StoryChecks
 
     private sealed class Facts : IStoryFacts
     {
-        public HashSet<string> Mods = new(), Conditions = new(), Docked = new();
+        public HashSet<string> Mods = new(), Conditions = new(), Docked = new(), At = new();
         public Dictionary<string, int> Ship = new(), Hands = new();
         public double Epoch { get; set; }
         public double Credits { get; set; }
+        public string? Region { get; set; }
+        public bool Near(string place) => At.Contains(place) || Region == place;
         public bool ModInstalled(string mod) => Mods.Contains(mod);
         public bool PlayerHas(string condition) => Conditions.Contains(condition);
         public int Installed(string item) => Ship.TryGetValue(item, out int n) ? n : 0;
@@ -65,7 +67,7 @@ internal static class StoryChecks
         // The schema refuses what the game could not show or the runner could not check.
         Refused(With(@"""weight"": 2", @"""weight"": 2, ""colour"": ""red"""), "An unknown field is refused");
         Refused(With("greens-report", "Greens_Report"), "Ids are lower-case and hyphenated");
-        Refused(With("[ship]", "[captain]"), "Only the three placeholders may be bracketed");
+        Refused(With("[ship]", "[captain]"), "Only the placeholders may be bracketed");
         Refused(With("Hello [player].", "Hello <b>[player]</b>."), "Markup is refused");
         Refused(With(@"""region"": ""Outer System"", ", ""), "A broadcast needs a region");
         Refused(With(@"""station"": ""any""", @"""station"": ""any"", ""item"": ""Seed"""), "A dock-at test takes only a station");
@@ -151,6 +153,154 @@ internal static class StoryChecks
         Phase2(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
         Round3(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round4(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+        Round5(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
+    }
+
+    private const string Grounded = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""places"": {
+        ""oklg"": { ""station"": ""OKLG"", ""name"": ""OKLG"", ""body"": ""1036 Ganymed"", ""region"": ""Outer System"", ""factions"": [ ""OKLGCorp"" ] },
+        ""oklg-res"": { ""station"": ""OKLG_RES"", ""name"": ""the residential level"", ""within"": ""oklg"" },
+        ""vnca"": { ""station"": ""VNCA"", ""name"": ""Long Beach Terminal"", ""region"": ""Shipping & Inner System"" },
+        ""vorb"": { ""station"": ""VORB"", ""name"": ""Venus Orbital"", ""within"": ""vnca"" }
+      },
+      ""people"": {
+        ""neri"": { ""name"": ""Neri Vale"", ""role"": ""receiving clerk"", ""home"": ""oklg-res"", ""faction"": ""OKLGCorp"" },
+        ""orra"": { ""name"": ""Orra Pell"", ""home"": ""vorb"" },
+        ""lost"": { ""name"": ""Nobody"", ""home"": ""no-such-place"" }
+      },
+      ""threads"": {
+        ""ledger"": { ""title"": ""The second-shift ledger"", ""place"": ""oklg"", ""people"": [ ""neri"" ], ""requires"": { ""mods"": [ ""PhobosShipbreaker"" ] } },
+        ""venus"": { ""title"": ""Venus"", ""place"": ""vorb"" },
+        ""loose"": { ""title"": ""No place"" }
+      },
+      ""broadcasts"": {
+        ""ledger-news"": { ""thread"": ""ledger"", ""text"": ""A clerk at [place] on [body] wants the ledger checked, [person:neri] says."", ""weight"": 2, ""mention"": ""That ledger business at [place]."" },
+        ""venus-news"": { ""thread"": ""venus"", ""region"": ""Venus"", ""text"": ""Rain again."", ""requires"": { ""flags"": [ ""ledger-closed"" ] } },
+        ""anywhere-news"": { ""region"": ""Outer System"", ""text"": ""Prices up."" },
+        ""step-news"": { ""region"": ""Outer System"", ""text"": ""Someone is asking about a can."", ""requires"": { ""arcsAtStep"": [ ""misfiled-can.letter"" ] } },
+        ""nowhere-news"": { ""thread"": ""loose"", ""text"": ""No region, and a thread with no place."" },
+        ""stranger-news"": { ""thread"": ""ledger"", ""text"": ""[person:orra] is not in this cast."" }
+      },
+      ""chatter"": {
+        ""dock-talk"": { ""thread"": ""ledger"", ""moment"": ""complaint"", ""speakers"": ""locals"", ""line"": ""Paperwork at [place] again."" },
+        ""crew-talk"": { ""place"": ""oklg"", ""moment"": ""small-talk"", ""speakers"": ""crew"", ""line"": ""Glad to be back at [station]."" },
+        ""free-talk"": { ""moment"": ""joke"", ""line"": ""Anywhere, anyone."" }
+      },
+      ""arcs"": {
+        ""misfiled-can"": { ""title"": ""The misfiled can"", ""thread"": ""ledger"", ""chance"": 0.5,
+          ""steps"": [
+            { ""id"": ""letter"", ""delivery"": { ""message"": { ""person"": ""neri"", ""text"": ""Come by, [player-first]."" } }, ""tests"": [ { ""kind"": ""dock-at"" } ],
+              ""onComplete"": { ""setFlags"": [ ""ledger-open"" ] } },
+            { ""id"": ""close"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ], ""onComplete"": { ""setFlags"": [ ""ledger-closed"" ], ""clearFlags"": [ ""ledger-open"" ] } }
+          ] },
+        ""far-arc"": { ""title"": ""Far"", ""place"": ""vorb"", ""chance"": 1, ""steps"": [ { ""id"": ""go"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ] } ] },
+        ""no-home"": { ""title"": ""No home"", ""thread"": ""loose"", ""steps"": [ { ""id"": ""dock"", ""tests"": [ { ""kind"": ""dock-at"" } ] } ] }
+      },
+      ""files"": { ""note"": { ""name"": ""NOTE.TXT"", ""text"": ""Written at [place]."", ""thread"": ""ledger"", ""person"": ""neri"" } }
+    }";
+
+    /// <summary>Framework 0.114.0: places, people, threads, flags, arc progress gates, placed news and small talk.</summary>
+    private static void Round5(Action<bool, string> check, Action<string, string, bool> refused, Func<string, bool, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Grounded.Contains(find), "Fixture has " + find); return Grounded.Replace(find, replace); }
+        var pack = load(Grounded, false);
+        check(pack.places.Count == 4 && pack.people.Count == 3 && pack.threads.Count == 3 && pack.arcs["misfiled-can"].steps[0].onComplete!.setFlags.SequenceEqual(new[] { "ledger-open" }),
+            "Places, people, threads and flags load");
+        refused(With("\"station\": \"OKLG\"", "\"station\": \"any\""), "A place is a station, not any", false);
+        refused(With("\"region\": \"Outer System\", \"factions\"", "\"factions\""), "A regional place needs a region label", false);
+        refused(With("\"home\": \"vorb\"", "\"home\": \"Venus Orbital\""), "A home is a place key", false);
+        refused(With("\"people\": [ \"neri\" ]", "\"people\": [ \"neri\", \"neri\" ]"), "A cast names each person once", false);
+        refused(With("\"message\": { \"person\": \"neri\", ", "\"message\": { "), "A message names a sender or a person", false);
+        refused(With("\"setFlags\": [ \"ledger-closed\" ], \"clearFlags\": [ \"ledger-open\" ]", "\"setFlags\": [ \"ledger-open\" ], \"clearFlags\": [ \"ledger-open\" ]"), "A flag is not both set and cleared", false);
+        refused(With("\"arcsAtStep\": [ \"misfiled-can.letter\" ]", "\"arcsAtStep\": [ \"misfiled-can\" ]"), "arcsAtStep names arc.step", false);
+        refused(With("\"speakers\": \"locals\"", "\"speakers\": \"neighbours\""), "Speakers may be locals, not anything else new", false);
+        refused(With("[person:neri]", "[person:Neri Vale]"), "A person token holds a key", false);
+        refused(Grounded.Replace("\"schema\": \"story\",", "\"schema\": \"story\", \"settings\": { \"localWeight\": 101 },"), "The local weight has a ceiling", true);
+        var tips = load(Grounded.Replace("\"files\": {", "\"tips\": { \"t\": { \"text\": \"Plain lore.\", \"thread\": \"ledger\" } }, \"files\": {"), false);
+        check(tips.tips["t"].thread == "ledger", "A tip may name a thread for grouping");
+        refused(Grounded.Replace("\"files\": {", "\"tips\": { \"t\": { \"text\": \"Lore at [place].\" } }, \"files\": {"), "Lore still takes no placeholder, the new ones included", false);
+        check(StorySchema.Plain("See [person:neri] at [place] on [date]") == null && StorySchema.Plain("[person:]") == "[person:]", "Plain text allows person tokens with a key");
+        check(StorySchema.People("[person:neri] and [person:orra]").SequenceEqual(new[] { "neri", "orra" }), "The people a text names are read back");
+        check(StorySchema.Fill("[player] at [place], [person:neri], [nothing]", t => t == "player" ? "Ada" : t == "place" ? "OKLG" : t == "person:neri" ? "Neri" : null) == "Ada at OKLG, Neri, [nothing]",
+            "Fill answers each token by name and leaves an unknown one");
+
+        // The merged library: references between the new tables, and what they refuse.
+        var library = StoryLibrary.Build(new[] { ("x", pack) }, null, _ => true, null, null);
+        string problems = string.Join("; ", library.Problems);
+        check(!library.People.ContainsKey("lost"), "A person with no home place is left out: " + problems);
+        check(!library.Broadcasts.ContainsKey("nowhere-news"), "A news item with no region, in a thread with no place, is left out");
+        refused(With("\"region\": \"Outer System\", \"text\": \"Prices up.\"", "\"text\": \"Prices up.\""), "A news item with neither region, place nor thread is refused by the file check", false);
+        check(!library.Broadcasts.ContainsKey("stranger-news") && library.Broadcasts.ContainsKey("ledger-news"), "A thread with a cast refuses a person outside it, and keeps one inside");
+        check(!library.Arcs.ContainsKey("no-home") && library.Arcs.ContainsKey("misfiled-can"), "A dock-at test with no station needs the arc's place, which a thread without one does not give");
+        refused(With("\"thread\": \"loose\", \"steps\": [ { \"id\": \"dock\"", "\"steps\": [ { \"id\": \"dock\""), "A dock-at test with no station in an arc with no place or thread is refused by the file check", false);
+        check(library.PlaceOf("ledger", null) == "oklg" && library.PlaceOf("ledger", "vorb") == "vorb" && library.PlaceOf(null, null) == null, "An entry's place is its own, else its thread's");
+        check(library.ThreadRequires("ledger")!.mods.SequenceEqual(new[] { "PhobosShipbreaker" }) && library.ThreadRequires("venus") == null, "A thread's requirements are read by key");
+        check(library.PersonName("neri", (o, k, inline) => inline) == "Neri Vale, receiving clerk" && library.PersonName("orra", (o, k, inline) => inline) == "Orra Pell", "People show as name and role");
+        check(library.Members("ledger").Select(m => m.Id).OrderBy(i => i, StringComparer.Ordinal).SequenceEqual(new[] { "dock-talk", "ledger-news", "misfiled-can", "note" }), "A thread knows its members");
+        var lines = library.Lines.ToDictionary(l => l.Id);
+        check(lines["dock-talk"].Place == "oklg" && lines["crew-talk"].Place == "oklg" && lines["free-talk"].Place == null && lines["ledger-news"].Broadcast == "ledger-news" && lines["ledger-news"].Place == "oklg",
+            "Lines carry their place, from the thread or their own, and a mention its broadcast");
+
+        // Places: ids map to places by the longest station prefix; sub-places roll up to their region.
+        var places = library.Places;
+        check(places.Find("OKLG_RES") == "oklg-res" && places.Find("OKLG") == "oklg" && places.Find("OKLG_BIZ") == "oklg" && places.Find("VORB|Aux") == "vorb" && places.Find("ZZZZ") == null && places.Find(null) == null,
+            "Station ids find their place, parts included");
+        check(places.Root("oklg-res") == "oklg" && places.Root("oklg") == "oklg" && places.IsRegional("vnca") && !places.IsRegional("vorb") && places.Covers("oklg", "OKLG_RES") && !places.Covers("oklg-res", "OKLG"),
+            "A sub-place lies within its region; a region covers its parts");
+        check(places.Region("oklg-res") == "Outer System" && places.Body("vorb") == null && places.Name("oklg") == "OKLG", "Labels come from the place or its region");
+
+        // Gates: flags, arcs under way, places and regions.
+        var facts = new Facts { Epoch = 1000 };
+        var record = new StoryRecord { Began = 0 };
+        check(StoryRules.Blocked(pack.broadcasts["venus-news"].requires, facts, record) != null, "A flag not yet set blocks");
+        record.SetFlag("ledger-closed", 500);
+        check(StoryRules.Blocked(pack.broadcasts["venus-news"].requires, facts, record) == null, "and holds once set");
+        check(StoryRules.Blocked(new StoryRequires { notFlags = new() { "ledger-closed" } }, facts, record) != null, "notFlags blocks while the flag is set");
+        check(StoryRules.Blocked(pack.broadcasts["step-news"].requires, facts, record) != null, "arcsAtStep waits for the arc");
+        record.Arcs["misfiled-can"] = new ArcProgress { State = ArcState.Active, StepId = "letter" };
+        check(StoryRules.Blocked(pack.broadcasts["step-news"].requires, facts, record) == null && StoryRules.Blocked(new StoryRequires { arcsActive = new() { "misfiled-can" } }, facts, record) == null, "and holds at that step, as does arcsActive");
+        record.Arcs["misfiled-can"].StepId = "close";
+        check(StoryRules.Blocked(pack.broadcasts["step-news"].requires, facts, record) != null, "A later step no longer counts as the earlier one");
+        check(StoryRules.Blocked(new StoryRequires { places = new() { "oklg" } }, facts, record) != null, "A place gate needs the player there");
+        facts.At.Add("oklg");
+        check(StoryRules.Blocked(new StoryRequires { places = new() { "oklg" } }, facts, record) == null, "and holds when docked at it");
+        facts.At.Clear(); facts.Region = "oklg";
+        check(StoryRules.Blocked(new StoryRequires { places = new() { "oklg" } }, facts, record) == null && StoryRules.Blocked(new StoryRequires { regions = new() { "oklg" } }, facts, record) == null &&
+              StoryRules.Blocked(new StoryRequires { regions = new() { "vnca" } }, facts, record) != null, "A regional place is near from anywhere in its region");
+        check(StoryRules.Blocked(new StoryRequires { newsSeen = new() { "ledger-news" } }, facts, record) != null, "newsSeen waits for the broadcast");
+        record.MarkSeen("ledger-news", 900);
+        check(StoryRules.Blocked(new StoryRequires { newsSeen = new() { "ledger-news" } }, facts, record) == null, "and holds once shown");
+        check(StoryRules.Blocked(null, pack.threads["ledger"].requires, facts, record) != null && StoryRules.Blocked(null, pack.threads["ledger"].requires, new Facts { Mods = { "PhobosShipbreaker" } }, record) == null,
+            "A thread's requirements gate its members");
+
+        // Weights, voices and the mention window.
+        var settings = new StorySettings();
+        check(StoryRules.PlaceWeight(2, "oklg", true, settings) == 8 && StoryRules.PlaceWeight(2, "oklg", false, settings) == 2 && StoryRules.PlaceWeight(2, null, false, settings) == 4,
+            "Local news weighs four times, unplaced twice, far once");
+        check(StoryRules.PlaceWeight(2, "oklg", false, new StorySettings { farWeight = 0 }) == 0, "A far weight of 0 hides far news");
+        check(StoryRules.Voices(lines["dock-talk"], false, true, false) && !StoryRules.Voices(lines["dock-talk"], false, false, true) && !StoryRules.Voices(lines["dock-talk"], true, true, true),
+            "A locals line is said by others at the place only");
+        check(StoryRules.Voices(lines["crew-talk"], true, false, true) && !StoryRules.Voices(lines["crew-talk"], true, true, false) && !StoryRules.Voices(lines["crew-talk"], false, true, true),
+            "A placed crew line is said by crew while the player is there");
+        check(StoryRules.Voices(lines["free-talk"], true, false, false) && StoryRules.Voices(lines["free-talk"], false, false, false), "An unplaced line is said anywhere");
+        check(StoryRules.Voices(StorySchema.Locals, false) && !StoryRules.Voices(StorySchema.Locals, true), "locals on an unplaced line means others");
+        check(StoryRules.MentionFresh(900, 1000, 10) && !StoryRules.MentionFresh(null, 1000, 10) && !StoryRules.MentionFresh(0, 11 * 86400, 10) && StoryRules.MentionFresh(0, 9 * 86400, 10),
+            "A mention is fresh for the mention days after its news was shown");
+        check(record.SeenEpoch("ledger-news") == 900 && record.SeenEpoch("never") == null, "When news was shown is remembered");
+        var old = StoryRecord.Decode(new Dictionary<string, string> { ["seen.old-news"] = "1", ["began"] = "250" });
+        check(old.Seen.Contains("old-news") && old.SeenEpoch("old-news") == 250, "News seen before times were kept reads as seen when the record began");
+
+        // The record: flags and seen times round-trip; an older record is unchanged.
+        record.SetFlag("ledger-open", 700); record.SetFlag("ledger-open", 800);
+        var fields = record.Encode();
+        check(fields["flag.ledger-open"] == "700" && fields["flag.ledger-closed"] == "500" && fields["seen.ledger-news"] == "900", "Flags keep their first time; seen news keeps its time");
+        check(fields.All(f => Phobos.Ostranauts.Framework.Persistence.ObjectStateStore.SafeValue(f.Value)), "The new fields fit a Phobos record");
+        var back = StoryRecord.Decode(fields);
+        check(back.Flags["ledger-open"] == 700 && back.SeenAt["ledger-news"] == 900 && back.Seen.Contains("ledger-news"), "Flags and seen times round-trip");
+        back.ClearFlag("ledger-open");
+        check(!back.Encode().ContainsKey("flag.ledger-open") && back.Encode().ContainsKey("flag.ledger-closed"), "A cleared flag leaves the record");
+        check(StorySchema.TryArcStep("misfiled-can.letter", out var a, out var st) && a == "misfiled-can" && st == "letter" && !StorySchema.IsArcStep("a.b.c") && !StorySchema.IsArcStep("nodot"), "arc.step reads back");
     }
 
     private const string Files = @"{

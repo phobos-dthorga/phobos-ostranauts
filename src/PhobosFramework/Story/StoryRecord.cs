@@ -27,9 +27,14 @@ public sealed class StoryRecord
 {
     public const string Name = "PhobosStory";
     public const int Version = 1, MaxQueue = 8;
-    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began", ReadPrefix = "read.";
+    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began", ReadPrefix = "read.", FlagPrefix = "flag.";
     /// <summary>Story data files the player has opened (Framework 0.110.0).</summary>
     public HashSet<string> Read { get; } = new(StringComparer.Ordinal);
+    /// <summary>Story flags set by arc outcomes (Framework 0.114.0), with the game time each was set.</summary>
+    public Dictionary<string, double> Flags { get; } = new(StringComparer.Ordinal);
+    /// <summary>When each once-shown or ever-shown news item was first shown (Framework 0.114.0); an item seen before
+    /// this version is in <see cref="Seen"/> with no time here.</summary>
+    public Dictionary<string, double> SeenAt { get; } = new(StringComparer.Ordinal);
     /// <summary>Game time (the game's epoch, in seconds) when this record began (Framework 0.109.0): the start of the
     /// player's story time for <c>afterDays</c> and <c>beforeDays</c>. A record from an earlier version gains it when the
     /// game is next loaded.</summary>
@@ -46,6 +51,9 @@ public sealed class StoryRecord
         {
             if (pair.Key.StartsWith(ArcPrefix, StringComparison.Ordinal) && TryArc(pair.Value, out var arc)) record.Arcs[pair.Key.Substring(ArcPrefix.Length)] = arc;
             else if (pair.Key.StartsWith(SeenPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Seen.Add(pair.Key.Substring(SeenPrefix.Length));
+            else if (pair.Key.StartsWith(SeenPrefix, StringComparison.Ordinal) && Epoch(pair.Value) is double seenAt)
+            { string id = pair.Key.Substring(SeenPrefix.Length); record.Seen.Add(id); record.SeenAt[id] = seenAt; }
+            else if (pair.Key.StartsWith(FlagPrefix, StringComparison.Ordinal) && Epoch(pair.Value) is double setAt) record.Flags[pair.Key.Substring(FlagPrefix.Length)] = setAt;
             else if (pair.Key.StartsWith(ReadPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Read.Add(pair.Key.Substring(ReadPrefix.Length));
             else if (pair.Key == QueueKey) record.Queue.AddRange(pair.Value.Split('|').Where(id => id.Length > 0).Take(MaxQueue));
             else if (pair.Key == BeganKey && double.TryParse(pair.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double began) && !double.IsNaN(began) && !double.IsInfinity(began)) record.Began = began;
@@ -60,8 +68,9 @@ public sealed class StoryRecord
         foreach (var pair in Arcs)
             fields[ArcPrefix + pair.Key] = string.Join("|", State(pair.Value.State), pair.Value.Step.ToString(CultureInfo.InvariantCulture), pair.Value.StepId,
                 pair.Value.StepStart.ToString("R", CultureInfo.InvariantCulture), pair.Value.Completions.ToString(CultureInfo.InvariantCulture));
-        foreach (var id in Seen) fields[SeenPrefix + id] = "1";
+        foreach (var id in Seen) fields[SeenPrefix + id] = SeenAt.TryGetValue(id, out var at) ? at.ToString("R", CultureInfo.InvariantCulture) : "1";
         foreach (var id in Read) fields[ReadPrefix + id] = "1";
+        foreach (var pair in Flags) fields[FlagPrefix + pair.Key] = pair.Value.ToString("R", CultureInfo.InvariantCulture);
         if (Queue.Count > 0) fields[QueueKey] = string.Join("|", Queue.Take(MaxQueue));
         if (Began is double b) fields[BeganKey] = b.ToString("R", CultureInfo.InvariantCulture);
         return fields;
@@ -75,6 +84,16 @@ public sealed class StoryRecord
     }
     public bool Started(string arc) => Arcs.ContainsKey(arc);
     public bool Finished(string arc) => Arcs.TryGetValue(arc, out var p) && (p.State == ArcState.Done || p.Completions > 0);
+    public bool Active(string arc) => Arcs.TryGetValue(arc, out var p) && p.State == ArcState.Active;
+    public bool AtStep(string arc, string step) => Arcs.TryGetValue(arc, out var p) && p.State == ArcState.Active && p.StepId == step;
+    /// <summary>A news item was shown: remembered with the time, the first time.</summary>
+    public void MarkSeen(string id, double epoch) { if (Seen.Add(id) || !SeenAt.ContainsKey(id)) SeenAt[id] = epoch; }
+    /// <summary>When a news item was first shown: its time, or the record's start for one seen before times were kept, or null.</summary>
+    public double? SeenEpoch(string id) => SeenAt.TryGetValue(id, out var at) ? at : Seen.Contains(id) ? Began : null;
+    public void SetFlag(string flag, double epoch) { if (!Flags.ContainsKey(flag)) Flags[flag] = epoch; }
+    public void ClearFlag(string flag) => Flags.Remove(flag);
+    private static double? Epoch(string value) =>
+        double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double epoch) && !double.IsNaN(epoch) && !double.IsInfinity(epoch) ? epoch : null;
     public int ActiveCount(Func<string, bool> known) => Arcs.Count(a => a.Value.State == ArcState.Active && known(a.Key));
 
     private static string State(ArcState state) => state switch { ArcState.Active => "active", ArcState.Done => "done", _ => "abandoned" };
@@ -107,6 +126,12 @@ public interface IStoryFacts
     double Epoch { get; }
     /// <summary>The credits the player holds (Framework 0.109.0).</summary>
     double Credits { get; }
+    /// <summary>The regional place the player is in (Framework 0.114.0): the nearest regional station, as the game's own
+    /// traffic control sees it; null where no place is known.</summary>
+    string? Region { get; }
+    /// <summary>Whether the player is at a place: docked at or aboard it (or a part of it), or, for a regional place,
+    /// anywhere in its region.</summary>
+    bool Near(string place);
 }
 
 /// <summary>The story rules with no game types: eligibility, goal tests and weighted picks.</summary>
@@ -114,6 +139,9 @@ public static class StoryRules
 {
     /// <summary>Every story goal test name starts with this; the game resolves an unknown one to its always-true Blank.</summary>
     public const string TestPrefix = "PhobosStory.";
+    /// <summary>An entry's own requirements and its thread's (Framework 0.114.0): the first that does not hold, or null.</summary>
+    public static string? Blocked(StoryRequires? own, StoryRequires? thread, IStoryFacts facts, StoryRecord record) =>
+        Blocked(own, facts, record) ?? Blocked(thread, facts, record);
     /// <summary>Null when every requirement holds; otherwise the first that does not, for the F3 report.</summary>
     public static string? Blocked(StoryRequires? r, IStoryFacts facts, StoryRecord record)
     {
@@ -126,6 +154,13 @@ public static class StoryRules
         foreach (var arc in r.arcsDone) if (!record.Finished(arc)) return Text.Get("Story.needs_arc_done", arc);
         foreach (var arc in r.arcsNotStarted) if (record.Started(arc)) return Text.Get("Story.needs_arc_unstarted", arc);
         foreach (var file in r.filesRead) if (!record.Read.Contains(file)) return Text.Get("Story.needs_file_read", file);
+        foreach (var flag in r.flags) if (!record.Flags.ContainsKey(flag)) return Text.Get("Story.needs_flag", flag);
+        foreach (var flag in r.notFlags) if (record.Flags.ContainsKey(flag)) return Text.Get("Story.forbids_flag", flag);
+        foreach (var arc in r.arcsActive) if (!record.Active(arc)) return Text.Get("Story.needs_arc_active", arc);
+        foreach (var at in r.arcsAtStep) if (!StorySchema.TryArcStep(at, out var arc, out var step) || !record.AtStep(arc, step)) return Text.Get("Story.needs_arc_step", at);
+        if (r.places.Count > 0 && !r.places.Any(facts.Near)) return Text.Get("Story.needs_place", string.Join(", ", r.places));
+        if (r.regions.Count > 0 && !r.regions.Contains(facts.Region ?? "")) return Text.Get("Story.needs_region", string.Join(", ", r.regions));
+        foreach (var news in r.newsSeen) if (!record.Seen.Contains(news)) return Text.Get("Story.needs_news", news);
         double days = Days(record, facts);
         if (r.afterDays is double after && days < after) return Text.Get("Story.needs_after_days", after.ToString("0.#", CultureInfo.InvariantCulture), days.ToString("0.#", CultureInfo.InvariantCulture));
         if (r.beforeDays is double before && days >= before) return Text.Get("Story.needs_before_days", before.ToString("0.#", CultureInfo.InvariantCulture));
@@ -198,9 +233,27 @@ public static class StoryRules
     }
 
     /// <summary>Whether a line may be voiced by this speaker (Framework 0.108.0): <c>crew</c> lines only by someone aboard
-    /// one of the player's ships, <c>others</c> lines only by someone who is not.</summary>
+    /// one of the player's ships, <c>others</c> and <c>locals</c> lines only by someone who is not.</summary>
     public static bool Voices(string speakers, bool speakerIsCrew) =>
-        speakers == StorySchema.Anyone || speakers == StorySchema.Crew && speakerIsCrew || speakers == StorySchema.Others && !speakerIsCrew;
+        speakers == StorySchema.Anyone || speakers == StorySchema.Crew && speakerIsCrew || (speakers == StorySchema.Others || speakers == StorySchema.Locals) && !speakerIsCrew;
+    /// <summary>A placed line (Framework 0.114.0) is said only where it belongs: by crew while the player is at the
+    /// place, by others only when they are there themselves. <c>locals</c> on an unplaced line means others.</summary>
+    public static bool Voices(StoryLine line, bool speakerIsCrew, bool speakerAtPlace, bool playerNearPlace) =>
+        Voices(line.Speakers, speakerIsCrew) && (line.Place == null || (speakerIsCrew ? playerNearPlace : speakerAtPlace));
+
+    /// <summary>How much a news item or advert weighs in the TV pool (Framework 0.114.0): more at its place, a little
+    /// anywhere when it has none, and far from its place as little as the settings say. 0 leaves it out.</summary>
+    public static int PlaceWeight(int weight, string? place, bool near, StorySettings settings)
+    {
+        double factor = place == null ? UnplacedFactor : near ? settings.localWeight : settings.farWeight;
+        if (double.IsNaN(factor) || factor <= 0) return 0;
+        return (int)Math.Max(0, Math.Min(int.MaxValue / 2, Math.Round(weight * factor)));
+    }
+    public const double UnplacedFactor = 2;
+
+    /// <summary>Whether people still mention a news item: within the mention days of when it was first shown.</summary>
+    public static bool MentionFresh(double? seenEpoch, double epoch, double mentionDays) =>
+        seenEpoch is double seen && epoch - seen >= 0 && epoch - seen <= mentionDays * 86400;
 
     /// <summary>The eligible small-talk lines, by moment.</summary>
     public static Dictionary<string, List<StoryLine>> ChatterPools(IEnumerable<StoryLine> lines, Func<StoryRequires?, bool> eligible)
@@ -216,10 +269,12 @@ public static class StoryRules
     }
 
     /// <summary>A weighted pick among the lines this speaker may voice, or null when there are none.</summary>
-    public static StoryLine? PickLine(IReadOnlyList<StoryLine>? pool, bool speakerIsCrew, double roll)
+    public static StoryLine? PickLine(IReadOnlyList<StoryLine>? pool, bool speakerIsCrew, double roll) =>
+        PickLine(pool, l => Voices(l.Speakers, speakerIsCrew), roll);
+    public static StoryLine? PickLine(IReadOnlyList<StoryLine>? pool, Func<StoryLine, bool> voices, double roll)
     {
         if (pool == null) return null;
-        var voiced = pool.Where(l => Voices(l.Speakers, speakerIsCrew)).ToList();
+        var voiced = pool.Where(voices).ToList();
         string? id = Pick(voiced.Select(l => (l.Id, l.Weight)).ToList(), roll);
         return id == null ? null : voiced.First(l => l.Id == id);
     }

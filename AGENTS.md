@@ -207,6 +207,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   its pack is gone; small talk changes only the text of the game's own social lines, through
   lead-ins that use the game's own grammar tokens. New test kinds, moments and channels are code
   in the fixed vocabulary; the later work list is in `docs/development/story-system-design.md`.
+  Content belongs somewhere (Framework 0.114.0): shipped arcs, news, adverts, small talk and
+  files declare a `thread` or a `place` (the game's stations, `places` in Framework's pack) and
+  letters name a `person`; threads connect through `setFlags`, `arcsAtStep` and `newsSeen`,
+  never through text that assumes the player saw something. Standing changes stay small and
+  go through the game's own faction scores.
 - **Links.** Every machine-to-store or machine-to-machine link runs through touching equipment
   (within one tile) or a pipe or conveyor-belt network, never open floor; the refuelling kiosk is
   the only exception. Any pipe or belt on or beside equipment joins it; joins chain across the

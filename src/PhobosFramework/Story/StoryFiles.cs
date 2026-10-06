@@ -65,7 +65,7 @@ internal static class StoryFiles
             return;
         }
         file.strNameFriendly = StoryContent.Words(entry.Owner, storyId + ".name", entry.Value.name);
-        file.strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, storyId + ".text", entry.Value.text));
+        file.strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, storyId + ".text", entry.Value.text), StoryContent.Library.PlaceOf(entry.Value.thread, entry.Value.place));
         StoryArcs.FileOpened(storyId, entry.Value.startsArc);
     }
 }

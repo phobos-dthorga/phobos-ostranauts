@@ -154,7 +154,7 @@ class DataPackTests(unittest.TestCase):
         framework = json.loads((ROOT / 'mods/PhobosFramework/framework/story.json').read_text(encoding='utf-8'))
         validate.story(framework, 'test', framework=True)
         self.assertEqual(framework['settings'], {'broadcastShare': 0.3, 'advertShare': 0.3, 'checkSeconds': 30, 'maxActiveArcs': 2,
-                                                 'chatterShare': 0.4, 'tipShare': 0.3})
+                                                 'chatterShare': 0.4, 'tipShare': 0.3, 'localWeight': 4, 'farWeight': 1, 'mentionDays': 10})
         self.assertEqual(sorted(framework['sections']), ['phobos-makers', 'phobos-spacer-life'])
         with self.assertRaises(validate.Problem):
             validate.story(broken(lambda p: p.update(settings={'broadcastShare': 0.3})), 'test', framework=False)
@@ -222,6 +222,66 @@ class DataPackTests(unittest.TestCase):
                     broken(lambda p: p['tips']['first-lettuce'].update(requires={'filesRead': ['trial-notes']}))):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.story(bad, 'test', framework=False)
+
+    def test_story_grounding(self):
+        # Framework 0.114.0: places, people, threads, flags and the gates on them. Framework's shipped places are valid.
+        framework = json.loads((ROOT / 'mods/PhobosFramework/framework/story.json').read_text(encoding='utf-8'))
+        validate.story(framework, 'test', framework=True)
+        places = framework['places']
+        regional = {k for k, p in places.items() if 'within' not in p}
+        self.assertEqual(len(regional), 12)
+        self.assertTrue(all(places[p]['within'] in regional for p in places if 'within' in places[p]))
+        self.assertEqual({places[p]['region'] for p in regional}, {'Shipping & Inner System', 'Tharsis', 'Outer System'})
+        self.assertEqual((framework['settings']['localWeight'], framework['settings']['farWeight'], framework['settings']['mentionDays']), (4, 1, 10))
+        good = {
+            'schemaVersion': 1, 'schema': 'story',
+            'places': {'oklg': {'station': 'OKLG', 'name': 'OKLG', 'region': 'Outer System'}, 'oklg-res': {'station': 'OKLG_RES', 'name': 'the residential level', 'within': 'oklg'}},
+            'people': {'neri': {'name': 'Neri Vale', 'role': 'receiving clerk', 'home': 'oklg-res'}},
+            'threads': {'ledger': {'title': 'The ledger', 'place': 'oklg', 'people': ['neri'], 'requires': {'mods': ['PhobosShipbreaker']}}},
+            'broadcasts': {'ledger-news': {'thread': 'ledger', 'text': 'News at [place], says [person:neri].', 'mention': 'That ledger.'}},
+            'chatter': {'dock-talk': {'thread': 'ledger', 'moment': 'complaint', 'speakers': 'locals', 'line': 'Paperwork again.'}},
+            'arcs': {'misfiled-can': {'title': 'The misfiled can', 'thread': 'ledger', 'chance': 0.1,
+                     'steps': [{'id': 'letter', 'delivery': {'message': {'person': 'neri', 'text': 'Come by.'}}, 'tests': [{'kind': 'dock-at'}],
+                                'onComplete': {'setFlags': ['ledger-open']}},
+                               {'id': 'close', 'tests': [{'kind': 'wait', 'hours': 1}], 'onComplete': {'setFlags': ['ledger-closed'], 'clearFlags': ['ledger-open']}}]}},
+            'adverts': {'ad': {'text': 'Buy.', 'requires': {'flags': ['ledger-closed'], 'arcsAtStep': ['misfiled-can.close'], 'regions': ['oklg'], 'newsSeen': ['ledger-news']}}},
+            'tips': {'t': {'text': 'Lore.', 'thread': 'ledger'}},
+            'files': {'note': {'name': 'NOTE.TXT', 'text': 'Written at [place] on [date].', 'thread': 'ledger', 'person': 'neri'}},
+        }
+        validate.story(good, 'test', framework=False)
+
+        def broken(change):
+            copy = json.loads(json.dumps(good))
+            change(copy)
+            return copy
+        for bad in (broken(lambda p: p['places']['oklg'].update(station='any')),
+                    broken(lambda p: p['places']['oklg'].pop('region')),
+                    broken(lambda p: p['places']['oklg'].update(name='')),
+                    broken(lambda p: p['places']['oklg'].update(factions=['Not a faction'])),
+                    broken(lambda p: p['people']['neri'].update(home='Venus Orbital')),
+                    broken(lambda p: p['people']['neri'].pop('name')),
+                    broken(lambda p: p['threads']['ledger'].update(people=['neri', 'neri'])),
+                    broken(lambda p: p['threads']['ledger'].pop('title')),
+                    broken(lambda p: p['broadcasts']['ledger-news'].pop('thread')),
+                    broken(lambda p: p['broadcasts']['ledger-news'].update(text='[person:Neri Vale]')),
+                    broken(lambda p: p['chatter']['dock-talk'].update(speakers='neighbours')),
+                    broken(lambda p: p['arcs']['misfiled-can']['steps'][0]['delivery']['message'].pop('person')),
+                    broken(lambda p: p['arcs']['misfiled-can'].pop('thread')),
+                    broken(lambda p: p['arcs']['misfiled-can']['steps'][1]['onComplete'].update(setFlags=['ledger-open'])),
+                    broken(lambda p: p['arcs']['misfiled-can']['steps'][1]['onComplete'].update(setFlags=['a', 'b', 'c', 'd', 'e'])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(arcsAtStep=['misfiled-can'])),
+                    broken(lambda p: p['adverts']['ad']['requires'].update(places=['Not A Key'])),
+                    broken(lambda p: p['tips']['t'].update(text='Lore at [place].')),
+                    broken(lambda p: p['tips']['t'].update(requires={'flags': ['x']})),
+                    broken(lambda p: p['files']['note'].update(person='Neri Vale')),
+                    broken(lambda p: p.update(places={f'p{i}': {'station': f'S{i}', 'name': 'x', 'region': 'r'} for i in range(65)}))):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+        with self.assertRaises(validate.Problem):
+            validate.story({**good, 'settings': {'localWeight': 101}}, 'test', framework=True)
+        self.assertTrue(validate.story_arc_step('misfiled-can.letter') and not validate.story_arc_step('a.b.c') and not validate.story_arc_step('nodot'))
+        self.assertIsNone(validate.story_plain('See [person:neri] at [place] on [date]'))
+        self.assertEqual(validate.story_plain('[person:]'), '[person:]')
 
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.

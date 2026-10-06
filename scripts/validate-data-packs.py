@@ -719,15 +719,17 @@ STORY_GAME_NAME = re.compile(r'^[A-Za-z0-9_]+$')
 STORY_STATION = re.compile(r'^[A-Za-z0-9_|-]+$')
 STORY_PHOBOS_MOD = re.compile(r'^Phobos[A-Za-z]+$')
 STORY_PLUGIN_ID = re.compile(r'^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$')
-STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]')
+STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]', '[place]', '[region]', '[station]', '[body]', '[date]')
+STORY_PERSON_TOKEN = re.compile(r'\[person:[a-z0-9]+(-[a-z0-9]+)*\]')
 STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait', 'credits', 'condition')
 STORY_MOMENTS = ('headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk')
-STORY_SPEAKERS = ('anyone', 'crew', 'others')
+STORY_SPEAKERS = ('anyone', 'crew', 'others', 'locals')
 STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 400, 'message': 400, 'from': 40,
                 'objective': 60, 'description': 300, 'title': 80, 'steps': 12, 'tests': 4, 'rewards': 5,
                 'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720,
                 'line': 200, 'tip': 450, 'label': 40, 'article': 4000, 'branches': 4, 'credit_reward': 50000,
-                'credit_test': 1000000, 'days': 3650, 'file_name': 32, 'file_text': 3000, 'files': 5, 'image': 100}
+                'credit_test': 1000000, 'days': 3650, 'file_name': 32, 'file_text': 3000, 'files': 5, 'image': 100,
+                'places': 64, 'people': 64, 'threads': 32, 'cast': 8, 'factions': 8, 'flags': 4, 'name': 40, 'weight_factor': 100, 'mention_days': 365}
 STORY_FILE_NAME = re.compile(r'^[A-Za-z0-9_.-]+$')
 STORY_IMAGE = re.compile(r'^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$')
 
@@ -742,7 +744,7 @@ def story_plain(text):
     for c in text:
         if c in '<>' or (ord(c) < 32 and c != '\n') or ord(c) == 127:
             return c
-    rest = text
+    rest = STORY_PERSON_TOKEN.sub('', text)
     for token in STORY_PLACEHOLDERS:
         rest = rest.replace(token, '')
     if '[' in rest:
@@ -765,7 +767,7 @@ def story_words(text, limit, where):
 def story_lore(text, limit, where):
     """Text shown with no player at hand (tips, the encyclopedia): plain, and no placeholders."""
     story_words(text, limit, where)
-    if any(p in text for p in STORY_PLACEHOLDERS):
+    if '[' in text:
         raise Problem(f'{where}: shown with no player at hand, so it cannot use placeholders')
 
 
@@ -773,7 +775,8 @@ def story_mods_only(r, where):
     if r is None:
         return
     story_requires(r, where)
-    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'filesRead')) or 'afterDays' in r or 'beforeDays' in r:
+    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'filesRead',
+                                    'flags', 'notFlags', 'arcsActive', 'arcsAtStep', 'places', 'regions', 'newsSeen')) or 'afterDays' in r or 'beforeDays' in r:
         raise Problem(f'{where}: shown with no player at hand, so it may require only mods')
 
 
@@ -789,7 +792,8 @@ def story_station(value):
 def story_requires(r, where):
     if r is None:
         return
-    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'afterDays', 'beforeDays', 'filesRead'}, where)
+    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'afterDays', 'beforeDays', 'filesRead',
+               'flags', 'notFlags', 'arcsActive', 'arcsAtStep', 'places', 'regions', 'newsSeen'}, where)
     for name in ('afterDays', 'beforeDays'):
         if name in r:
             number(r[name], f'{where}/{name}', 0, STORY_LIMITS['days'])
@@ -797,7 +801,9 @@ def story_requires(r, where):
         raise Problem(f'{where}: afterDays must be less than beforeDays')
     checks = {'mods': lambda m: STORY_PHOBOS_MOD.match(m) or STORY_PLUGIN_ID.match(m), 'playerConditions': STORY_GAME_NAME.match,
               'forbidConditions': STORY_GAME_NAME.match, 'owns': STORY_GAME_NAME.match, 'dockedAt': story_station,
-              'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match, 'filesRead': STORY_ID.match}
+              'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match, 'filesRead': STORY_ID.match,
+              'flags': STORY_ID.match, 'notFlags': STORY_ID.match, 'arcsActive': STORY_ID.match, 'arcsAtStep': story_arc_step,
+              'places': STORY_ID.match, 'regions': STORY_ID.match, 'newsSeen': STORY_ID.match}
     for name, valid in checks.items():
         values = r.get(name, [])
         if not isinstance(values, list) or len(values) > STORY_LIMITS['list']:
@@ -807,13 +813,40 @@ def story_requires(r, where):
                 raise Problem(f'{where}/{name}: {value!r} is not a valid name')
 
 
+def story_arc_step(value):
+    """arc.step, as a goal test names them (mirrors StorySchema.IsArcStep)."""
+    if not isinstance(value, str) or value.count('.') != 1:
+        return False
+    arc, step = value.split('.')
+    return bool(STORY_ID.match(arc)) and len(arc) <= STORY_LIMITS['id'] and bool(STORY_ID.match(step)) and len(step) <= STORY_LIMITS['step']
+
+
+def story_key(value, where):
+    """An optional reference to another entry, by id."""
+    if value is not None:
+        story_id(value, where)
+
+
+def story_short(text, where, required):
+    """A short plain label, such as a name or a role."""
+    if text is None:
+        if required:
+            raise Problem(f'{where}: blank')
+        return
+    if not isinstance(text, str) or not text.strip() or len(text) > STORY_LIMITS['name'] or story_plain(text) is not None:
+        raise Problem(f'{where}: plain text of at most {STORY_LIMITS["name"]} characters')
+
+
 def story_message(m, where):
     if m is None:
         return
-    fields(m, {'from', 'text'}, where)
+    fields(m, {'from', 'text', 'person'}, where)
     sender = m.get('from')
-    if not isinstance(sender, str) or not sender.strip() or len(sender) > STORY_LIMITS['from'] or story_plain(sender) is not None:
+    if sender is not None and (not isinstance(sender, str) or not sender.strip() or len(sender) > STORY_LIMITS['from'] or story_plain(sender) is not None):
         raise Problem(f'{where}/from: a sender of at most {STORY_LIMITS["from"]} characters')
+    story_key(m.get('person'), f'{where}/person')
+    if sender is None and m.get('person') is None:
+        raise Problem(f'{where}: a message names its sender (from) or a person')
     story_words(m.get('text'), STORY_LIMITS['message'], f'{where}/text')
 
 
@@ -826,7 +859,7 @@ def story_author(entry, where):
         raise Problem(f'{where}/notes: at most 2000 characters')
 
 
-def story_test(test, where):
+def story_test(test, where, placed=False):
     fields(test, {'kind', 'station', 'item', 'count', 'consume', 'hours', 'amount', 'condition'}, where)
     kind = test.get('kind')
     w = f'{where}/{kind}'
@@ -844,9 +877,9 @@ def story_test(test, where):
         if not isinstance(test['condition'], str) or not STORY_GAME_NAME.match(test['condition']):
             raise Problem(f'{w}/condition: not a valid condition name')
     elif kind == 'dock-at':
-        if present != {'station'} or consume or count != 1:
-            raise Problem(f'{w}: this test takes only station')
-        if not story_station(test['station']):
+        if present - {'station'} or (not placed and 'station' not in present) or consume or count != 1:
+            raise Problem(f'{w}: this test takes only station' + ('' if placed else ', which an arc without a place must give'))
+        if 'station' in present and not story_station(test['station']):
             raise Problem(f'{w}: {test["station"]!r} is not a station id (letters, digits, _ and |, or any)')
     elif kind in ('have-item', 'install'):
         if present != {'item'} or (consume and kind == 'install'):
@@ -862,17 +895,24 @@ def story_test(test, where):
         raise Problem(f'{where}: the test kind must be one of {", ".join(STORY_TESTS)}')
 
 
-def story_tests(tests, where):
+def story_tests(tests, where, placed=False):
     if not isinstance(tests, list) or not 1 <= len(tests) <= STORY_LIMITS['tests']:
         raise Problem(f'{where}/tests: from 1 to {STORY_LIMITS["tests"]} tests')
     for t, test in enumerate(tests):
-        story_test(test, f'{where}/tests/{t}')
+        story_test(test, f'{where}/tests/{t}', placed)
 
 
 def story_outcome(outcome, where):
     if outcome is None:
         return
-    fields(outcome, {'message', 'items', 'credits', 'files'}, f'{where}/onComplete')
+    fields(outcome, {'message', 'items', 'credits', 'files', 'setFlags', 'clearFlags'}, f'{where}/onComplete')
+    for name in ('setFlags', 'clearFlags'):
+        flags = outcome.get(name, [])
+        if (not isinstance(flags, list) or len(flags) > STORY_LIMITS['flags'] or len(set(flags)) != len(flags)
+                or any(not isinstance(f, str) or not STORY_ID.match(f) for f in flags)):
+            raise Problem(f'{where}/onComplete/{name}: at most {STORY_LIMITS["flags"]} different flag ids')
+    if set(outcome.get('setFlags', [])) & set(outcome.get('clearFlags', [])):
+        raise Problem(f'{where}/onComplete/clearFlags: a flag is not both set and cleared')
     files = outcome.get('files', [])
     if (not isinstance(files, list) or len(files) > STORY_LIMITS['files'] or len(set(files)) != len(files)
             or any(not isinstance(f, str) or not STORY_ID.match(f) for f in files)):
@@ -891,31 +931,85 @@ def story_outcome(outcome, where):
 
 def story(pack, where, framework=None):
     """The story schema (Framework 0.107.0). Only Framework's own pack may hold settings (framework=None skips that check)."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files',
+                  'places', 'people', 'threads'}, where)
     settings = pack.get('settings')
     if settings is not None:
         if framework is False:
             raise Problem(f'{where}/settings: only Framework\'s own story pack may hold settings')
-        fields(settings, {'broadcastShare', 'advertShare', 'checkSeconds', 'maxActiveArcs', 'chatterShare', 'tipShare'}, f'{where}/settings')
+        fields(settings, {'broadcastShare', 'advertShare', 'checkSeconds', 'maxActiveArcs', 'chatterShare', 'tipShare', 'localWeight', 'farWeight', 'mentionDays'}, f'{where}/settings')
+        number(settings.get('localWeight', 4), f'{where}/settings/localWeight', 0, STORY_LIMITS['weight_factor'])
+        number(settings.get('farWeight', 1), f'{where}/settings/farWeight', 0, STORY_LIMITS['weight_factor'])
+        number(settings.get('mentionDays', 10), f'{where}/settings/mentionDays', 0, STORY_LIMITS['mention_days'])
         number(settings.get('chatterShare', 0.4), f'{where}/settings/chatterShare', 0, 1)
         number(settings.get('tipShare', 0.3), f'{where}/settings/tipShare', 0, 1)
         number(settings.get('broadcastShare', 0.3), f'{where}/settings/broadcastShare', 0, 1)
         number(settings.get('advertShare', 0.3), f'{where}/settings/advertShare', 0, 1)
         number(settings.get('checkSeconds', 30), f'{where}/settings/checkSeconds', 5, 600)
         number(settings.get('maxActiveArcs', 2), f'{where}/settings/maxActiveArcs', 0, STORY_LIMITS['arcs'], integer=True)
-    for table in ('broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files'):
+    for table in ('broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files', 'places', 'people', 'threads'):
         if not isinstance(pack.get(table, {}), dict):
             raise Problem(f'{where}/{table}: expected entries by id')
+    for table, limit in (('places', 'places'), ('people', 'people'), ('threads', 'threads')):
+        if len(pack.get(table, {})) > STORY_LIMITS[limit]:
+            raise Problem(f'{where}/{table}: at most {STORY_LIMITS[limit]} entries in one file')
+    for key, p in pack.get('places', {}).items():
+        w = f'{where}/places/{key}'
+        story_id(key, w)
+        fields(p, {'notes', 'station', 'within', 'region', 'body', 'factions', 'name'}, w)
+        story_author({'notes': p.get('notes')}, w)
+        station = p.get('station')
+        if station == 'any' or not story_station(station):
+            raise Problem(f'{w}/station: a station registration id or prefix such as OKLG or VORB_HAB')
+        story_key(p.get('within'), f'{w}/within')
+        region = p.get('region')
+        if region is not None and (not isinstance(region, str) or not region.strip() or len(region) > STORY_LIMITS['region'] or story_plain(region) is not None):
+            raise Problem(f'{w}/region: a region of at most {STORY_LIMITS["region"]} characters')
+        if p.get('within') is None and region is None:
+            raise Problem(f'{w}: a regional place (one with no within) needs a region label')
+        story_short(p.get('body'), f'{w}/body', False)
+        story_short(p.get('name'), f'{w}/name', True)
+        factions = p.get('factions', [])
+        if not isinstance(factions, list) or len(factions) > STORY_LIMITS['factions'] or any(not isinstance(f, str) or not STORY_GAME_NAME.match(f) for f in factions):
+            raise Problem(f'{w}/factions: at most {STORY_LIMITS["factions"]} faction names')
+    for key, p in pack.get('people', {}).items():
+        w = f'{where}/people/{key}'
+        story_id(key, w)
+        fields(p, {'notes', 'name', 'role', 'home', 'faction'}, w)
+        story_author({'notes': p.get('notes')}, w)
+        story_short(p.get('name'), f'{w}/name', True)
+        story_short(p.get('role'), f'{w}/role', False)
+        story_id(p.get('home'), f'{w}/home')
+        faction = p.get('faction')
+        if faction is not None and (not isinstance(faction, str) or not STORY_GAME_NAME.match(faction)):
+            raise Problem(f'{w}/faction: not a valid faction name')
+    for key, t in pack.get('threads', {}).items():
+        w = f'{where}/threads/{key}'
+        story_id(key, w)
+        fields(t, {'title', 'notes', 'place', 'people', 'requires'}, w)
+        title = t.get('title')
+        if not isinstance(title, str) or not title.strip() or len(title) > STORY_LIMITS['title'] or story_plain(title) is not None:
+            raise Problem(f'{w}/title: needs a title of at most {STORY_LIMITS["title"]} characters')
+        story_author({'notes': t.get('notes')}, w)
+        story_key(t.get('place'), f'{w}/place')
+        cast = t.get('people', [])
+        if not isinstance(cast, list) or len(cast) > STORY_LIMITS['cast'] or len(set(cast)) != len(cast) or any(not isinstance(c, str) or not STORY_ID.match(c) for c in cast):
+            raise Problem(f'{w}/people: at most {STORY_LIMITS["cast"]} different person ids')
+        story_requires(t.get('requires'), f'{w}/requires')
     for key, b in pack.get('broadcasts', {}).items():
         w = f'{where}/broadcasts/{key}'
         story_id(key, w)
-        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'requires', 'mention'}, w)
+        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'requires', 'mention', 'thread', 'place'}, w)
         if b.get('mention') is not None:
             story_words(b['mention'], STORY_LIMITS['line'], f'{w}/mention')
         story_author(b, w)
+        story_key(b.get('thread'), f'{w}/thread')
+        story_key(b.get('place'), f'{w}/place')
         region = b.get('region')
-        if not isinstance(region, str) or not region.strip() or len(region) > STORY_LIMITS['region'] or story_plain(region) is not None:
+        if region is not None and (not isinstance(region, str) or not region.strip() or len(region) > STORY_LIMITS['region'] or story_plain(region) is not None):
             raise Problem(f'{w}/region: a region of at most {STORY_LIMITS["region"]} characters')
+        if region is None and b.get('place') is None and b.get('thread') is None:
+            raise Problem(f'{w}: a news item is news of somewhere: give a region, a place or a thread')
         story_words(b.get('text'), STORY_LIMITS['broadcast'], f'{w}/text')
         number(b.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
         if not isinstance(b.get('once', False), bool):
@@ -924,8 +1018,10 @@ def story(pack, where, framework=None):
     for key, a in pack.get('adverts', {}).items():
         w = f'{where}/adverts/{key}'
         story_id(key, w)
-        fields(a, {'title', 'notes', 'text', 'weight', 'once', 'requires'}, w)
+        fields(a, {'title', 'notes', 'text', 'weight', 'once', 'requires', 'thread', 'place'}, w)
         story_author(a, w)
+        story_key(a.get('thread'), f'{w}/thread')
+        story_key(a.get('place'), f'{w}/place')
         story_words(a.get('text'), STORY_LIMITS['advert'], f'{w}/text')
         number(a.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
         if not isinstance(a.get('once', False), bool):
@@ -935,7 +1031,10 @@ def story(pack, where, framework=None):
     for key, arc in pack.get('arcs', {}).items():
         w = f'{where}/arcs/{key}'
         story_id(key, w)
-        fields(arc, {'title', 'notes', 'requires', 'chance', 'repeatable', 'steps'}, w)
+        fields(arc, {'title', 'notes', 'requires', 'chance', 'repeatable', 'steps', 'thread', 'place'}, w)
+        story_key(arc.get('thread'), f'{w}/thread')
+        story_key(arc.get('place'), f'{w}/place')
+        placed = arc.get('place') is not None or arc.get('thread') is not None
         title = arc.get('title')
         if not isinstance(title, str) or not title.strip() or len(title) > STORY_LIMITS['title']:
             raise Problem(f'{w}/title: needs a title of at most {STORY_LIMITS["title"]} characters')
@@ -969,7 +1068,7 @@ def story(pack, where, framework=None):
                 story_words(objective.get('title'), STORY_LIMITS['objective'], f'{sw}/objective/title')
                 if objective.get('description', ''):
                     story_words(objective['description'], STORY_LIMITS['description'], f'{sw}/objective/description')
-            story_tests(step.get('tests'), sw)
+            story_tests(step.get('tests'), sw, placed)
             story_outcome(step.get('onComplete'), sw)
             branches = step.get('branches')
             if branches is not None:
@@ -978,7 +1077,7 @@ def story(pack, where, framework=None):
                 for n_b, branch in enumerate(branches):
                     bw = f'{sw}/branches/{n_b}'
                     fields(branch, {'notes', 'tests', 'onComplete', 'next'}, bw)
-                    story_tests(branch.get('tests'), bw)
+                    story_tests(branch.get('tests'), bw, placed)
                     story_outcome(branch.get('onComplete'), bw)
                     if 'next' not in branch:
                         raise Problem(f'{bw}/next: a branch names the step it leads to, or end')
@@ -990,8 +1089,10 @@ def story(pack, where, framework=None):
     for key, c in pack.get('chatter', {}).items():
         w = f'{where}/chatter/{key}'
         story_id(key, w)
-        fields(c, {'title', 'notes', 'moment', 'line', 'speakers', 'weight', 'requires'}, w)
+        fields(c, {'title', 'notes', 'moment', 'line', 'speakers', 'weight', 'requires', 'thread', 'place'}, w)
         story_author(c, w)
+        story_key(c.get('thread'), f'{w}/thread')
+        story_key(c.get('place'), f'{w}/place')
         if c.get('moment') not in STORY_MOMENTS:
             raise Problem(f'{w}/moment: one of {", ".join(STORY_MOMENTS)}')
         story_words(c.get('line'), STORY_LIMITS['line'], f'{w}/line')
@@ -1002,15 +1103,17 @@ def story(pack, where, framework=None):
     for key, t in pack.get('tips', {}).items():
         w = f'{where}/tips/{key}'
         story_id(key, w)
-        fields(t, {'title', 'notes', 'text', 'weight', 'requires'}, w)
+        fields(t, {'title', 'notes', 'text', 'weight', 'requires', 'thread'}, w)
         story_author(t, w)
+        story_key(t.get('thread'), f'{w}/thread')
         story_lore(t.get('text'), STORY_LIMITS['tip'], f'{w}/text')
         number(t.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
         story_mods_only(t.get('requires'), f'{w}/requires')
     for key, s in pack.get('sections', {}).items():
         w = f'{where}/sections/{key}'
         story_id(key, w)
-        fields(s, {'notes', 'label', 'title', 'body', 'requires', 'image'}, w)
+        fields(s, {'notes', 'label', 'title', 'body', 'requires', 'image', 'thread'}, w)
+        story_key(s.get('thread'), f'{w}/thread')
         story_image(s.get('image'), w)
         story_author({'notes': s.get('notes')}, w)
         story_lore(s.get('label'), STORY_LIMITS['label'], f'{w}/label')
@@ -1021,7 +1124,8 @@ def story(pack, where, framework=None):
     for key, a in pack.get('articles', {}).items():
         w = f'{where}/articles/{key}'
         story_id(key, w)
-        fields(a, {'notes', 'section', 'label', 'title', 'body', 'requires', 'image'}, w)
+        fields(a, {'notes', 'section', 'label', 'title', 'body', 'requires', 'image', 'thread'}, w)
+        story_key(a.get('thread'), f'{w}/thread')
         story_image(a.get('image'), w)
         story_author({'notes': a.get('notes')}, w)
         story_id(a.get('section'), f'{w}/section')
@@ -1032,8 +1136,10 @@ def story(pack, where, framework=None):
     for key, f in pack.get('files', {}).items():
         w = f'{where}/files/{key}'
         story_id(key, w)
-        fields(f, {'notes', 'name', 'text', 'startsArc'}, w)
+        fields(f, {'notes', 'name', 'text', 'startsArc', 'thread', 'place', 'person'}, w)
         story_author({'notes': f.get('notes')}, w)
+        for name in ('thread', 'place', 'person'):
+            story_key(f.get(name), f'{w}/{name}')
         name = f.get('name')
         if not isinstance(name, str) or not name or len(name) > STORY_LIMITS['file_name'] or not STORY_FILE_NAME.match(name):
             raise Problem(f'{w}/name: letters, digits, dots, hyphens and underscores, at most {STORY_LIMITS["file_name"]} characters')

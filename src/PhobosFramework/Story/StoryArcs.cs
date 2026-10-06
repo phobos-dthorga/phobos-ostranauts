@@ -25,6 +25,9 @@ public static class StoryArcs
     private static bool removing;
     private static readonly List<(string Id, int Weight)> broadcastPool = new(), advertPool = new();
     private static Dictionary<string, List<StoryLine>> chatterPools = new(StringComparer.Ordinal);
+    // The places the player was at or in at the last check (Framework 0.114.0), for placed small talk said by crew.
+    private static HashSet<string> nearPlaces = new(StringComparer.Ordinal);
+    private static string? lastRegionId;
     internal static Func<double> Roll = () => UnityEngine.Random.value;
 
     internal static StoryRecord Record => record;
@@ -47,7 +50,7 @@ public static class StoryArcs
     internal static void LibraryChanged()
     {
         cadence = new Cadence(StoryContent.Library.Settings.checkSeconds);
-        player = null; broadcastPool.Clear(); advertPool.Clear(); chatterPools = new(StringComparer.Ordinal);
+        player = null; broadcastPool.Clear(); advertPool.Clear(); chatterPools = new(StringComparer.Ordinal); nearPlaces = new(StringComparer.Ordinal); lastRegionId = null;
         StoryChatter.Reset();
     }
 
@@ -56,10 +59,18 @@ public static class StoryArcs
 
     public static void Poll()
     {
-        if (StoryContent.Library.Count == 0 || !cadence.Due()) return;
+        if (StoryContent.Library.Count == 0) return;
+        // Arriving in a new region (Framework 0.114.0): local news and arcs are offered at once, not up to a check later.
+        string? regionId = RegionId;
+        bool arrived = !string.Equals(regionId, lastRegionId, StringComparison.Ordinal);
+        if (arrived) lastRegionId = regionId;
+        if (!cadence.Due() && !(arrived && regionId != null)) return;
         try { Check(); }
         catch (Exception ex) { FrameworkLifecycle.Log(Text.Get("Story.check_failed", ex.Message)); }
     }
+    /// <summary>The game's own notion of where the player is: the nearest regional station's id, as its traffic control
+    /// keeps it; the last region entered when none is current.</summary>
+    internal static string? RegionId => CollisionManager.strATCClosest ?? AIShipManager.strATCLast;
 
     /// <summary>One story check; F3 <c>story check</c> runs it at once.</summary>
     internal static void Check()
@@ -69,6 +80,7 @@ public static class StoryArcs
         var library = StoryContent.Library;
         if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
         var facts = new GameFacts(player!);
+        var gates = new Gates(facts);
         bool changed = false;
         foreach (var pair in record.Arcs.Where(a => a.Value.State == ArcState.Active).ToArray())
         {
@@ -80,15 +92,34 @@ public static class StoryArcs
             // A goal the game did not take (it refuses one titled like a goal shown in the last ten seconds) is offered again.
             else if (pair.Value.State == ArcState.Active && step.objective != null && Open(StoryRules.GoalTest(arc.Id, step.id)).Count == 0) Show(arc, step);
         }
+        // Local arcs first (Framework 0.114.0): an arc with a place starts by itself only while the player is there.
         if (record.ActiveCount(library.Arcs.ContainsKey) < library.Settings.maxActiveArcs)
-            foreach (var arc in library.Arcs.Values.Where(a => a.Value.chance > 0 && Available(a, facts)).OrderBy(_ => Roll()).ToArray())
+            foreach (var arc in library.Arcs.Values.Where(a => a.Value.chance > 0 && Available(a, facts, gates)).OrderBy(a => PlaceOf(a.Value.thread, a.Value.place) == null ? 1 : 0).ThenBy(_ => Roll()).ToArray())
                 if (Roll() < arc.Value.chance) { Begin(arc, facts); changed = true; break; }
-        Pools(facts);
+        Pools(facts, gates);
         if (changed) Save();
     }
 
-    private static bool Available(StoryEntry<StoryArc> arc, IStoryFacts facts) =>
-        (!record.Arcs.TryGetValue(arc.Id, out var p) || arc.Value.repeatable && p.State == ArcState.Done) && StoryRules.Blocked(arc.Value.requires, facts, record) == null;
+    private static bool Available(StoryEntry<StoryArc> arc, IStoryFacts facts, Gates gates) =>
+        (!record.Arcs.TryGetValue(arc.Id, out var p) || arc.Value.repeatable && p.State == ArcState.Done) && gates.Blocked(arc.Value.requires, arc.Value.thread) == null &&
+        (PlaceOf(arc.Value.thread, arc.Value.place) is not string place || facts.Near(place));
+
+    private static string? PlaceOf(string? thread, string? place) => StoryContent.Library.PlaceOf(thread, place);
+
+    /// <summary>An entry's own requirements and its thread's, the thread's checked once per check.</summary>
+    private sealed class Gates
+    {
+        private readonly IStoryFacts facts;
+        private readonly Dictionary<string, string?> threads = new(StringComparer.Ordinal);
+        public Gates(IStoryFacts facts) { this.facts = facts; }
+        public string? Blocked(StoryRequires? own, string? thread)
+        {
+            string? problem = StoryRules.Blocked(own, facts, record);
+            if (problem != null || thread == null) return problem;
+            if (!threads.TryGetValue(thread, out var cached)) threads[thread] = cached = StoryRules.Blocked(StoryContent.Library.ThreadRequires(thread), facts, record);
+            return cached;
+        }
+    }
 
     /// <summary>Reads the player's record and puts the goals of active arcs back where a save lost them.</summary>
     private static void Attach(CondOwner co)
@@ -147,7 +178,7 @@ public static class StoryArcs
         var step = arc.Value.steps[index];
         progress.Step = index; progress.StepId = step.id; progress.StepStart = facts.Epoch;
         if (step.delivery?.message is StoryMessage message)
-            Log(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".from", message.from), StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".message", message.text));
+            Log(Sender(arc.Owner, arc.Id + "." + step.id + ".from", message), StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".message", message.text), PlaceOf(arc.Value.thread, arc.Value.place));
         if (step.delivery?.bulletin is string bulletin) record.Enqueue(bulletin);
         if (step.objective != null) Show(arc, step);
     }
@@ -167,17 +198,20 @@ public static class StoryArcs
         foreach (var test in tests.Where(t => t.kind == StorySchema.HaveItem && t.consume))
             if (!Take(test.item!, test.count)) return false;
         // Who pays or is paid: the sender of this outcome's message, else of the arc's first message, else a contact.
-        string from = Fill(result?.message is StoryMessage said ? StoryContent.Words(arc.Owner, key + ".doneFrom", said.from)
+        string? place = PlaceOf(arc.Value.thread, arc.Value.place);
+        string from = Fill(result?.message is StoryMessage said ? Sender(arc.Owner, key + ".doneFrom", said)
             : arc.Value.steps.Select(s => s.delivery?.message).FirstOrDefault(m => m != null) is StoryMessage first
-                ? StoryContent.Words(arc.Owner, arc.Id + "." + arc.Value.steps.First(s => s.delivery?.message == first).id + ".from", first.from)
-                : Text.Get("Story.ledger_contact"));
+                ? Sender(arc.Owner, arc.Id + "." + arc.Value.steps.First(s => s.delivery?.message == first).id + ".from", first)
+                : Text.Get("Story.ledger_contact"), place);
         if (pay > 0) Pay(-pay, from, arc.Id);
         foreach (var objective in Open(StoryRules.GoalTest(arc.Id, step.id))) Remove(objective, completed: true);
         if (result?.message is StoryMessage message)
-            Log(StoryContent.Words(arc.Owner, key + ".doneFrom", message.from), StoryContent.Words(arc.Owner, key + ".done", message.text));
+            Log(Sender(arc.Owner, key + ".doneFrom", message), StoryContent.Words(arc.Owner, key + ".done", message.text), place);
         foreach (var reward in result?.items ?? new List<StoryReward>()) Give(reward.item, reward.count);
         if (result != null && result.credits > 0) Pay(result.credits, from, arc.Id);
         if (result != null && result.files.Count > 0) GiveFiles(result.files);
+        // Story flags (Framework 0.114.0): what other entries may now require.
+        if (result != null) { foreach (var flag in result.setFlags) record.SetFlag(flag, facts.Epoch); foreach (var flag in result.clearFlags) record.ClearFlag(flag); }
         int next = StoryRules.NextStep(arc.Value, index, branch?.next ?? step.next);
         if (next >= 0) Enter(arc, progress, next, facts);
         else { progress.State = ArcState.Done; progress.Completions++; }
@@ -203,8 +237,9 @@ public static class StoryArcs
         // The game keeps finished goals in its list and refuses a goal equal to one there, so a repeated arc's old
         // finished goal is taken out first.
         Tracker.AllObjectives.RemoveAll(o => o.Finished && o.strCT == test);
-        var objective = new Objective(player, Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".title", step.objective!.title)), test)
-        { strDisplayDesc = Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".description", step.objective.description)) };
+        string? place = PlaceOf(arc.Value.thread, arc.Value.place);
+        var objective = new Objective(player, Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".title", step.objective!.title), place), test)
+        { strDisplayDesc = Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".description", step.objective.description), place) };
         Tracker.AddObjective(objective);
     }
 
@@ -226,19 +261,45 @@ public static class StoryArcs
         Log(null, Text.Get("Story.dismissed", objective.strDisplayName));
     }
 
-    private static void Log(string? from, string text)
+    private static void Log(string? from, string text, string? place = null)
     {
         if (player == null) return;
-        player.LogMessage(Fill(from == null ? text : Text.Get("Story.message", from, text)), "Neutral", "Game");
+        player.LogMessage(Fill(from == null ? text : Text.Get("Story.message", from, text), place), "Neutral", "Game");
     }
 
-    internal static string Fill(string text)
+    /// <summary>Who a message is from: the person named (Framework 0.114.0), else the free text.</summary>
+    private static string Sender(string owner, string key, StoryMessage message) =>
+        message.from != null ? StoryContent.Words(owner, key, message.from) : StoryContent.Library.PersonName(message.person, StoryContent.Words) ?? Text.Get("Story.ledger_contact");
+
+    /// <summary>Fills the placeholders for the player as they are now; <paramref name="place"/> is the entry's own
+    /// place, which [place], [region] and [body] name before the player's whereabouts (Framework 0.114.0).</summary>
+    internal static string Fill(string text, string? place = null)
     {
-        if (player == null) return text;
+        if (player == null || text.IndexOf('[') < 0) return text;
+        var library = StoryContent.Library;
         string name = player.FriendlyName ?? player.strName ?? Text.Get("Story.someone");
-        string first = player.FirstName ?? name;
-        string ship = player.ship?.publicName ?? Text.Get("Story.your_ship");
-        return StorySchema.Fill(text, name, first, ship);
+        string? here = null; bool looked = false; var who = player;
+        string? Here() { if (!looked) { looked = true; var facts = new GameFacts(who); here = facts.DockedPlace ?? facts.Region; } return here; }
+        return StorySchema.Fill(text, token => token switch
+        {
+            "player" => name,
+            "player-first" => player.FirstName ?? name,
+            "ship" => player.ship?.publicName ?? Text.Get("Story.your_ship"),
+            "place" => library.Places.Name(place ?? Here()) ?? StationName() ?? Text.Get("Story.the_station"),
+            "region" => library.Places.Region(place ?? Here()) ?? Text.Get("Story.these_parts"),
+            "station" => StationName() ?? library.Places.Name(Here()) ?? Text.Get("Story.the_station"),
+            "body" => library.Places.Body(place ?? Here()) ?? Text.Get("Story.the_rock"),
+            "date" => Text.Get("Story.date", MathUtils.GetYearFromS(StarSystem.fEpoch), MathUtils.GetMonthFromS(StarSystem.fEpoch).ToString("00"), MathUtils.GetDayOfMonthFromS(StarSystem.fEpoch).ToString("00")),
+            _ => token.StartsWith("person:", StringComparison.Ordinal) ? library.PersonName(token.Substring(7), StoryContent.Words)?.Split(',')[0] : null
+        });
+    }
+    /// <summary>The public name of the station the player is docked at or aboard, or null.</summary>
+    private static string? StationName()
+    {
+        var ship = player?.ship;
+        if (ship == null) return null;
+        if (ship.IsStation(true)) return ship.publicName;
+        return ship.GetAllDockedShips(null)?.FirstOrDefault(s => s != null && s.IsStation(true))?.publicName;
     }
 
     private static bool Take(string item, int count)
@@ -295,30 +356,50 @@ public static class StoryArcs
         return Text.Get("Story.file_command", id);
     }
 
-    /// <summary>The news and adverts the TVs may pick from until the next check.</summary>
-    private static void Pools(IStoryFacts facts)
+    /// <summary>The news and adverts the TVs may pick from until the next check, weighted towards the player's place
+    /// (Framework 0.114.0), and the small talk that may be said.</summary>
+    private static void Pools(IStoryFacts facts, Gates gates)
     {
         var library = StoryContent.Library;
         broadcastPool.Clear(); advertPool.Clear();
+        nearPlaces = new HashSet<string>(library.Places.Keys.Where(facts.Near), StringComparer.Ordinal);
         foreach (var b in library.Broadcasts.Values)
-            if (!(b.Value.once && record.Seen.Contains(b.Id)) && StoryRules.Blocked(b.Value.requires, facts, record) == null) broadcastPool.Add((b.Id, b.Value.weight));
+        {
+            if (b.Value.once && record.Seen.Contains(b.Id) || gates.Blocked(b.Value.requires, b.Value.thread) != null) continue;
+            string? place = library.PlaceOf(b.Value.thread, b.Value.place);
+            int weight = StoryRules.PlaceWeight(b.Value.weight, place, place != null && nearPlaces.Contains(place), library.Settings);
+            if (weight > 0) broadcastPool.Add((b.Id, weight));
+        }
         foreach (var a in library.Adverts.Values)
-            if (!(a.Value.once && record.Seen.Contains(a.Id)) && StoryRules.Blocked(a.Value.requires, facts, record) == null) advertPool.Add((a.Id, a.Value.weight));
-        chatterPools = StoryRules.ChatterPools(library.Lines, r => StoryRules.Blocked(r, facts, record) == null);
+        {
+            if (a.Value.once && record.Seen.Contains(a.Id) || gates.Blocked(a.Value.requires, a.Value.thread) != null) continue;
+            string? place = library.PlaceOf(a.Value.thread, a.Value.place);
+            int weight = StoryRules.PlaceWeight(a.Value.weight, place, place != null && nearPlaces.Contains(place), library.Settings);
+            if (weight > 0) advertPool.Add((a.Id, weight));
+        }
+        // A mention is said only for a while after its news was shown; a stale one is not.
+        chatterPools = StoryRules.ChatterPools(library.Lines.Where(l => l.Broadcast == null || StoryRules.MentionFresh(record.SeenEpoch(l.Broadcast), facts.Epoch, library.Settings.mentionDays)),
+            r => StoryRules.Blocked(r, facts, record) == null);
+        foreach (var pool in chatterPools.Values) pool.RemoveAll(l => gates.Blocked(null, l.Thread) != null);
     }
 
     /// <summary>The small-talk lines eligible at the last check, by moment (Framework 0.108.0).</summary>
     internal static IReadOnlyDictionary<string, List<StoryLine>> ChatterPools => chatterPools;
+    /// <summary>Whether the player was at or in this place at the last check (Framework 0.114.0).</summary>
+    internal static bool NearPlace(string place) => nearPlaces.Contains(place);
+    /// <summary>Whether someone stands at this place now: the place of their ship or station.</summary>
+    internal static bool SpeakerAt(CondOwner? speaker, string place) => speaker?.ship != null && StoryContent.Library.Places.Covers(place, speaker.ship.strRegID);
     /// <summary>Whether someone is aboard one of the player's ships (the player counts).</summary>
     internal static bool Crew(CondOwner? speaker) =>
         speaker != null && CrewSim.coPlayer != null && speaker.ship != null && CrewSim.system?.GetShipOwner(speaker.ship.strRegID) == CrewSim.coPlayer.strID;
 
-    /// <summary>A pick from a pool was shown: a once-only entry leaves the pool and is remembered.</summary>
+    /// <summary>A pick from a pool was shown: remembered with the time (Framework 0.114.0), and a once-only entry
+    /// leaves the pool.</summary>
     internal static void Shown(string id, bool once, List<(string Id, int Weight)>? pool)
     {
-        if (!once || player == null || !ReferenceEquals(player, CrewSim.coPlayer)) return;
-        record.Seen.Add(id);
-        pool?.RemoveAll(e => e.Id == id);
+        if (player == null || !ReferenceEquals(player, CrewSim.coPlayer)) return;
+        record.MarkSeen(id, StarSystem.fEpoch);
+        if (once) pool?.RemoveAll(e => e.Id == id);
         Save();
     }
     internal static List<(string Id, int Weight)> BroadcastPool => broadcastPool;
@@ -332,7 +413,8 @@ public static class StoryArcs
         while (record.Queue.Count > 0 && id == null)
         {
             string next = record.Queue[0]; record.Queue.RemoveAt(0);
-            if (StoryContent.Library.Broadcasts.ContainsKey(next)) id = next;
+            // A once-only bulletin already shown is not shown again (Framework 0.114.0).
+            if (StoryContent.Library.Broadcasts.TryGetValue(next, out var b) && !(b.Value.once && record.Seen.Contains(next))) id = next;
         }
         Save();
         return id;
@@ -373,7 +455,7 @@ public static class StoryArcs
         if (!Ready) return Text.Get("Story.not_in_game");
         if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
         var facts = new GameFacts(player!);
-        var lines = new List<string> { Text.Get("Story.docked_report", facts.DockedIds()) };
+        var lines = new List<string> { Text.Get("Story.docked_report", facts.DockedIds()), Where(facts) };
         foreach (var arc in StoryContent.Library.Arcs.Values.OrderBy(a => a.Id, StringComparer.Ordinal))
         {
             if (record.Arcs.TryGetValue(arc.Id, out var p) && p.State == ArcState.Active)
@@ -390,7 +472,9 @@ public static class StoryArcs
                 continue;
             }
             string state = p == null ? Text.Get("Story.state_new") : p.State == ArcState.Done ? Text.Get("Story.state_done", p.Completions) : Text.Get("Story.state_abandoned");
-            string? blocked = p != null && !(arc.Value.repeatable && p.State == ArcState.Done) ? Text.Get("Story.not_again") : StoryRules.Blocked(arc.Value.requires, facts, record);
+            string? blocked = p != null && !(arc.Value.repeatable && p.State == ArcState.Done) ? Text.Get("Story.not_again") :
+                StoryRules.Blocked(arc.Value.requires, StoryContent.Library.ThreadRequires(arc.Value.thread), facts, record) ??
+                (PlaceOf(arc.Value.thread, arc.Value.place) is string place && !facts.Near(place) ? Text.Get("Story.needs_place", place) : null);
             lines.Add(Text.Get("Story.arc_line", arc.Id, arc.Value.title, state, blocked ?? (arc.Value.chance > 0 ? Text.Get("Story.may_start", arc.Value.chance) : Text.Get("Story.f3_only"))));
         }
         lines.Add(Text.Get("Story.pools", broadcastPool.Count, StoryContent.Library.Broadcasts.Count, advertPool.Count, StoryContent.Library.Adverts.Count, record.Queue.Count));
@@ -399,14 +483,107 @@ public static class StoryArcs
         return string.Join("\n", lines);
     }
 
+    /// <summary>F3 <c>story where</c> (Framework 0.114.0): the facts the place and thread gates read now.</summary>
+    internal static string WhereCommand()
+    {
+        if (!Ready) return Text.Get("Story.not_in_game");
+        if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
+        var facts = new GameFacts(player!);
+        var library = StoryContent.Library;
+        var lines = new List<string> { Where(facts), Text.Get("Story.docked_report", facts.DockedIds()) };
+        lines.Add(Text.Get("Story.where_date", Fill("[date]"), StarSystem.nUTCHour));
+        lines.Add(record.Flags.Count == 0 ? Text.Get("Story.where_no_flags") : Text.Get("Story.where_flags", string.Join(", ", record.Flags.Keys.OrderBy(f => f, StringComparer.Ordinal))));
+        var gates = new Gates(facts);
+        foreach (var thread in library.Threads.Values.OrderBy(t => t.Id, StringComparer.Ordinal))
+            lines.Add(Text.Get("Story.where_thread", thread.Id, thread.Value.title, gates.Blocked(null, thread.Id) ?? Text.Get("Story.open")));
+        return string.Join("\n", lines);
+    }
+    private static string Where(GameFacts facts)
+    {
+        var places = StoryContent.Library.Places;
+        string? region = facts.Region;
+        return Text.Get("Story.where_report", RegionId ?? Text.Get("Story.nowhere"), region == null ? Text.Get("Story.no_place_known") : region + " (" + (places.Name(region) ?? region) + ")",
+            facts.DockedPlace == null ? Text.Get("Story.nowhere") : facts.DockedPlace + " (" + (places.Name(facts.DockedPlace) ?? facts.DockedPlace) + ")");
+    }
+    /// <summary>F3 <c>story thread &lt;id&gt;</c>: the thread's members and what blocks each now.</summary>
+    internal static string ThreadCommand(string id)
+    {
+        if (!Ready) return Text.Get("Story.not_in_game");
+        if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
+        var library = StoryContent.Library;
+        if (!library.Threads.TryGetValue(id, out var thread)) return Text.Get("Story.unknown_thread", id);
+        var facts = new GameFacts(player!);
+        var gates = new Gates(facts);
+        var lines = new List<string> { Text.Get("Story.thread_report", id, thread.Value.title, thread.Value.place ?? Text.Get("Story.nowhere"),
+            thread.Value.people.Count == 0 ? Text.Get("Story.none") : string.Join(", ", thread.Value.people), gates.Blocked(null, id) ?? Text.Get("Story.open")) };
+        foreach (var (table, member) in library.Members(id))
+        {
+            StoryRequires? own = table switch
+            {
+                "broadcasts" => library.Broadcasts[member].Value.requires, "adverts" => library.Adverts[member].Value.requires, "arcs" => library.Arcs[member].Value.requires,
+                "chatter" => library.Chatter[member].Value.requires, _ => null
+            };
+            string state = table == "arcs" && record.Arcs.TryGetValue(member, out var p) ? (p.State == ArcState.Active ? Text.Get("Story.arc_active_short", p.StepId) : p.State == ArcState.Done ? Text.Get("Story.state_done", p.Completions) : Text.Get("Story.state_abandoned"))
+                : table == "broadcasts" && record.Seen.Contains(member) ? Text.Get("Story.shown") : "";
+            lines.Add(Text.Get("Story.member_line", table, member, state, StoryRules.Blocked(own, facts, record) ?? Text.Get("Story.open")));
+        }
+        return string.Join("\n", lines);
+    }
+    /// <summary>F3 <c>story flag &lt;id&gt; [clear]</c>: sets or clears a story flag, for testing content.</summary>
+    internal static string FlagCommand(string id, bool clear)
+    {
+        if (!Ready) return Text.Get("Story.not_in_game");
+        if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
+        if (!StorySchema.IsId(id)) return Text.Get("Story.bad_flag", id);
+        if (clear) record.ClearFlag(id); else record.SetFlag(id, StarSystem.fEpoch);
+        Save(); cadence.Invalidate();
+        return Text.Get(clear ? "Story.flag_cleared" : "Story.flag_set", id);
+    }
+    /// <summary>F3 <c>story places</c> and <c>story people</c>: what the loaded packs know.</summary>
+    internal static string PlacesCommand()
+    {
+        var library = StoryContent.Library;
+        var lines = new List<string> { Text.Get("Story.places_title", library.PlaceEntries.Count) };
+        foreach (var p in library.PlaceEntries.Values.OrderBy(p => library.Places.Root(p.Id), StringComparer.Ordinal).ThenBy(p => p.Id, StringComparer.Ordinal))
+            lines.Add("  " + Text.Get("Story.place_line", p.Id, p.Value.station, p.Value.name, library.Places.Region(p.Id) ?? "", p.Value.within ?? ""));
+        return string.Join("\n", lines);
+    }
+    internal static string PeopleCommand()
+    {
+        var library = StoryContent.Library;
+        var lines = new List<string> { Text.Get("Story.people_title", library.People.Count) };
+        foreach (var p in library.People.Values.OrderBy(p => p.Id, StringComparer.Ordinal))
+            lines.Add("  " + Text.Get("Story.person_line", p.Id, library.PersonName(p.Id, StoryContent.Words) ?? p.Value.name, p.Value.home, p.Value.faction ?? ""));
+        return string.Join("\n", lines);
+    }
+
     /// <summary>The game, as the story rules see it. Lookups over a ship are made once per check, on first use.</summary>
     private sealed class GameFacts : IStoryFacts
     {
         private readonly CondOwner player;
         private Dictionary<string, int>? installed, carried;
+        private HashSet<string>? dockedPlaces;
+        private string? region, dockedPlace; private bool placed;
         public GameFacts(CondOwner player) { this.player = player; }
         public double Epoch => StarSystem.fEpoch;
         public double Credits => player.GetCondAmount("StatUSD");
+        /// <summary>The regional place the player is in (Framework 0.114.0), from the game's nearest regional station.</summary>
+        public string? Region { get { Locate(); return region; } }
+        /// <summary>The place the player is docked at or aboard, or null.</summary>
+        public string? DockedPlace { get { Locate(); return dockedPlace; } }
+        public bool Near(string place) { Locate(); return dockedPlaces!.Contains(place) || region == place; }
+        private void Locate()
+        {
+            if (placed) return;
+            placed = true;
+            var places = StoryContent.Library.Places;
+            dockedPlaces = new HashSet<string>(StringComparer.Ordinal);
+            var ship = player.ship;
+            if (ship != null)
+                foreach (var id in new[] { ship.strRegID }.Concat(ship.GetAllDockedShips(null)?.Where(s => s != null).Select(s => s.strRegID) ?? Enumerable.Empty<string>()))
+                    if (places.Find(id) is string found) { dockedPlace ??= found; dockedPlaces.Add(found); dockedPlaces.Add(places.Root(found)); }
+            if (places.Find(RegionId) is string current) region = places.Root(current);
+        }
         public bool ModInstalled(string mod) => StoryContent.ModInstalled(mod);
         public bool PlayerHas(string condition) => player.HasCond(condition);
         public int Installed(string item)
@@ -436,9 +613,7 @@ public static class StoryArcs
             if (Part(ship.strRegID, station)) return true;
             return ship.GetAllDockedShips(null)?.Any(s => s != null && Part(s.strRegID, station)) == true;
         }
-        /// <summary>A station's parts carry its id with a suffix (VORB_HAB, VORB|Aux).</summary>
-        private static bool Part(string? regId, string station) => regId != null &&
-            (regId == station || regId.StartsWith(station + "_", StringComparison.Ordinal) || regId.StartsWith(station + "|", StringComparison.Ordinal));
+        private static bool Part(string? regId, string station) => StoryPlaces.Part(regId, station);
         public string DockedIds()
         {
             var ship = player.ship;
