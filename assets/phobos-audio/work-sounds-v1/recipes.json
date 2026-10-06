@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "layer_format": "[type, start_seconds, duration_seconds, gain, frequency_hz, decay_seconds] for tap; [type, start, duration, gain, base_hz] for motor; [type, start, duration, gain, low_hz, high_hz] for noise",
+  "authoring_note": "Original fictional equipment sound design, not recordings or validated acoustic models. Frequency, gain and spacing are agent proposals. Two exported variations per family. All sounds are one-shots.",
+  "families": [
+    {
+      "id": "dismantler-work",
+      "title": "D4 dismantler: ratchet and short motor pull",
+      "description": "A compact motor load, three rounded ratchet contacts and a small casing settle. Work in progress, without a crash or completion ping.",
+      "suggested_consumers": ["PhobosShipbreaker D4 Dismantling Fixture"],
+      "eligibility": "A powered dismantling step makes positive progress on retained feed.",
+      "spacing_seconds": [22, 42],
+      "seconds": 1.35, "seed": 2026100601, "target_rms_dbfs": -32, "peak_ceiling_dbfs": -20,
+      "layers": [["motor", 0.08, 1.05, 0.6, 92], ["noise", 0.12, 0.9, 0.24, 180, 2000], ["tap", 0.24, 0.22, 0.6, 185, 0.048], ["tap", 0.53, 0.2, 0.47, 212, 0.041], ["tap", 0.82, 0.22, 0.54, 173, 0.046]]
+    },
+    {
+      "id": "reclaimer-work",
+      "title": "R4 reclaimer: restrained grinding pass",
+      "description": "A lower, rougher loaded drive with a brief granular scrape. Distinct from the dismantler, without suggesting a failure.",
+      "suggested_consumers": ["PhobosShipbreaker R4 Scrap Reclaimer"],
+      "eligibility": "A powered reclaiming step makes positive progress; not an idle or blocked queue.",
+      "spacing_seconds": [26, 48],
+      "seconds": 1.6, "seed": 2026100621, "target_rms_dbfs": -33, "peak_ceiling_dbfs": -21,
+      "layers": [["motor", 0.06, 1.36, 0.55, 71], ["noise", 0.18, 1.15, 0.52, 250, 2200], ["tap", 0.3, 0.26, 0.17, 138, 0.062], ["tap", 1.05, 0.24, 0.13, 157, 0.05]]
+    },
+    {
+      "id": "furnace-work",
+      "title": "F6 furnace: electrical load and soft contactor",
+      "description": "A rounded electrical load pulse with two cushioned contacts. No flame roar, boiling metal, pressure vent or safe-to-open signal.",
+      "suggested_consumers": ["PhobosShipbreaker F6 Electric Furnace", "PhobosManufacturing V4 Volatiles Refinery, only for powered heating"],
+      "eligibility": "Heating has actually received electricity and advanced; retained heat alone is insufficient.",
+      "spacing_seconds": [35, 60],
+      "seconds": 1.2, "seed": 2026100641, "target_rms_dbfs": -35, "peak_ceiling_dbfs": -23,
+      "layers": [["motor", 0.07, 0.99, 0.63, 119], ["noise", 0.1, 0.82, 0.09, 140, 900], ["tap", 0.09, 0.18, 0.23, 176, 0.04], ["tap", 0.87, 0.18, 0.12, 153, 0.034]]
+    },
+    {
+      "id": "coolant-pump-work",
+      "title": "Powered cooling: short enclosed pump stroke",
+      "description": "A low pump load and rounded internal fluid movement. For an active powered coolant transfer, not a passive radiator.",
+      "suggested_consumers": ["PhobosShipbreaker F6 powered cooling motor; eligibility must be verified"],
+      "eligibility": "The cooling motor received electricity and transferred heat this step. Passive radiation stays silent.",
+      "spacing_seconds": [30, 55],
+      "seconds": 1.25, "seed": 2026100661, "target_rms_dbfs": -35, "peak_ceiling_dbfs": -23,
+      "layers": [["motor", 0.09, 0.96, 0.5, 83], ["noise", 0.17, 0.77, 0.48, 110, 950], ["tap", 0.19, 0.25, 0.13, 121, 0.061]]
+    },
+    {
+      "id": "wet-processor-work",
+      "title": "Wet processing: recirculation pass",
+      "description": "A small process pump with a hollow, filtered fluid texture. The sound describes the equipment's work, not the chemistry itself.",
+      "suggested_consumers": ["PhobosManufacturing X2 Chemical Processor", "PhobosManufacturing Lixivar LC-3 Leach and Crystallise Unit"],
+      "eligibility": "A powered processing step actually advanced the wet recipe; validate the consumer's current service.",
+      "spacing_seconds": [28, 52],
+      "seconds": 1.4, "seed": 2026100681, "target_rms_dbfs": -35, "peak_ceiling_dbfs": -23,
+      "layers": [["motor", 0.1, 1.07, 0.36, 143], ["noise", 0.16, 1.08, 0.52, 300, 1400], ["tap", 0.36, 0.31, 0.12, 206, 0.075], ["tap", 0.9, 0.22, 0.08, 174, 0.051]]
+    },
+    {
+      "id": "crop-pump-work",
+      "title": "W2 water supply: small pump and valve",
+      "description": "A light drive stroke and soft valve seat. One source for the working water supply, rather than separate noises from every connected rack.",
+      "suggested_consumers": ["PhobosAgriculture Groundwork W2 Water Supply Unit", "PhobosAgriculture Firstlight-4 active misting as a separate later candidate"],
+      "eligibility": "An actual powered water transfer succeeded, or actual misting consumed water. Merely growing a crop is insufficient.",
+      "spacing_seconds": [38, 65],
+      "seconds": 0.9, "seed": 2026100701, "target_rms_dbfs": -36, "peak_ceiling_dbfs": -24,
+      "layers": [["motor", 0.08, 0.63, 0.45, 166], ["noise", 0.14, 0.58, 0.29, 220, 1250], ["tap", 0.48, 0.2, 0.19, 237, 0.043]]
+    },
+    {
+      "id": "bottler-work",
+      "title": "Corker-2 bottler: small drive and cushioned press",
+      "description": "A compact mechanical stroke with a soft press contact. No glass shatter, celebratory cork pop or per-bottle reward noise.",
+      "suggested_consumers": ["PhobosManufacturing Alembrine Corker-2 Bottling Unit"],
+      "eligibility": "The bottling step received electricity and credited positive batch energy; before, not instead of, its actual settlement.",
+      "spacing_seconds": [25, 45],
+      "seconds": 1.0, "seed": 2026100721, "target_rms_dbfs": -34, "peak_ceiling_dbfs": -22,
+      "layers": [["motor", 0.07, 0.68, 0.42, 127], ["noise", 0.14, 0.44, 0.12, 300, 1200], ["tap", 0.38, 0.22, 0.46, 264, 0.039], ["tap", 0.68, 0.19, 0.17, 188, 0.046]]
+    },
+    {
+      "id": "grabber-work",
+      "title": "G4 grabber: enclosed actuator movement",
+      "description": "A geared movement and damped seating contact heard from the interior machinery. No external collision or capture-success sound.",
+      "suggested_consumers": ["PhobosShipbreaker G4 Exterior Grabber interior service position"],
+      "eligibility": "A powered movement/cutting/intake step actually advanced. Emit only from a verified interior service location with air; otherwise leave unwired.",
+      "spacing_seconds": [28, 50],
+      "seconds": 1.45, "seed": 2026100741, "target_rms_dbfs": -34, "peak_ceiling_dbfs": -22,
+      "layers": [["motor", 0.08, 1.12, 0.52, 106], ["noise", 0.15, 0.85, 0.16, 200, 1300], ["tap", 0.77, 0.3, 0.28, 144, 0.07], ["tap", 1.1, 0.2, 0.17, 198, 0.04]]
+    },
+    {
+      "id": "laser-cabinet-work",
+      "title": "ML-2 laser: interior power cabinet pulse",
+      "description": "A subdued electrical drive with a soft relay seat. An interior machinery interpretation, without a space-beam sound or weapon-like zap.",
+      "suggested_consumers": ["PhobosShipbreaker Ablatine ML-2 Mining Laser interior service position"],
+      "eligibility": "LaserService.FinishPower credited positive energy while working. Confirm interior acoustic placement; otherwise leave unwired.",
+      "spacing_seconds": [30, 55],
+      "seconds": 1.05, "seed": 2026100761, "target_rms_dbfs": -35, "peak_ceiling_dbfs": -23,
+      "layers": [["motor", 0.09, 0.8, 0.53, 188], ["noise", 0.11, 0.77, 0.17, 350, 1500], ["tap", 0.12, 0.2, 0.2, 226, 0.041], ["tap", 0.72, 0.18, 0.11, 176, 0.035]]
+    }
+  ]
+}

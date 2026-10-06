@@ -1,5 +1,12 @@
 # Future animation and restrained sound cues
 
+**Later owner direction, 6 October 2026:** explore and create occasional
+mechanical sounds while equipment works, with Codex responsible for audio and
+Claude responsible for wiring. The [new candidate pack and handoff](machine-work-sounds-handoff.md)
+extend this dated direction to short, local work snippets. Operating loops and
+alarm suites remain excluded. The historical recommendations below are retained;
+their blanket pump/machinery exclusions do not prohibit the new candidates.
+
 Owner direction, **25 September 2026**, across Phobos Ostranauts mods.
 The subsequent authorized [suite-wide implementation](../shared-completion-cues.md)
 adds watched meals, crop readiness and approach/rendezvous arrival with one

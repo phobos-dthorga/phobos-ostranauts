@@ -1,0 +1,861 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "status": "unintegrated audio candidates",
+  "owner_direction": "Occasional mechanical sounds while equipment works; Codex creates audio and Claude handoff only",
+  "provenance": "Codex/ChatGPT-assisted procedural synthesis; no audio model, recordings, native samples or third-party sample assets",
+  "copyright": "2026 Phobos A. D'thorga",
+  "license": "MIT; repository LICENSE",
+  "provider": "local Python standard library",
+  "provider_job_id": null,
+  "generation_cost": "No paid generation or API calls",
+  "sample_rate": 44100,
+  "channels": 1,
+  "runtime_encoding": "PCM16 little-endian RIFF WAV",
+  "master_encoding": "PCM24 little-endian RIFF WAV",
+  "audio_model": null,
+  "source": "scripts/synthesize-machine-audio.py",
+  "source_sha256": "b8713d4930d224d1c2842baf6da3659316fb18129519c14eca648a355ef2d4be",
+  "recipes_sha256": "31f536a005aa2da73708143aab5bb2d048d26aa404e3ffc85da4ba9a78511562",
+  "clip_count": 18,
+  "families": [
+    {
+      "id": "dismantler-work",
+      "title": "D4 dismantler: ratchet and short motor pull",
+      "description": "A compact motor load, three rounded ratchet contacts and a small casing settle. Work in progress, without a crash or completion ping.",
+      "suggested_consumers": [
+        "PhobosShipbreaker D4 Dismantling Fixture"
+      ],
+      "eligibility": "A powered dismantling step makes positive progress on retained feed.",
+      "spacing_seconds": [
+        22,
+        42
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "dismantler-work-a.wav",
+          "frames": 59535,
+          "duration_seconds": 1.35,
+          "peak_dbfs": -19.999,
+          "rms_dbfs": -33.141,
+          "dc_mean": -3.57e-07,
+          "maximum_sample_step_dbfs": -38.6,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100601,
+          "applied_gain": 0.106671805,
+          "wav_sha256": "49ad9c77321f7b9b3f93d188ab5db5a135009821c48bf7f6ce3af3f40a455ec9",
+          "master_sha256": "59bfb128a13660e58bfdb4fbff926956c321642dd0bfcd54c88803673b1771f9",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "dismantler-work-b.wav",
+          "frames": 59535,
+          "duration_seconds": 1.35,
+          "peak_dbfs": -19.999,
+          "rms_dbfs": -32.183,
+          "dc_mean": -6.88e-07,
+          "maximum_sample_step_dbfs": -37.66,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100602,
+          "applied_gain": 0.122146752,
+          "wav_sha256": "c15f505b7d9f8574213cf9127f8d7783020c7af67f12f0e1194146e55169345c",
+          "master_sha256": "ba4fe9f974fd3bf05570738b1c3d954b845d333ba9317fdcc6c181bf470df02d",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "reclaimer-work",
+      "title": "R4 reclaimer: restrained grinding pass",
+      "description": "A lower, rougher loaded drive with a brief granular scrape. Distinct from the dismantler, without suggesting a failure.",
+      "suggested_consumers": [
+        "PhobosShipbreaker R4 Scrap Reclaimer"
+      ],
+      "eligibility": "A powered reclaiming step makes positive progress; not an idle or blocked queue.",
+      "spacing_seconds": [
+        26,
+        48
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "reclaimer-work-a.wav",
+          "frames": 70560,
+          "duration_seconds": 1.6,
+          "peak_dbfs": -21.001,
+          "rms_dbfs": -34.036,
+          "dc_mean": 6e-09,
+          "maximum_sample_step_dbfs": -33.066,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100621,
+          "applied_gain": 0.078865851,
+          "wav_sha256": "2560fa5e73e3d515752aea6938abd484fd7d1daf5cecf2e6238d65a14fd0e979",
+          "master_sha256": "56911f7b9a8cfd6fccda2c0fa076eef805ea60374042b710b699f9ca6e8de2e6",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "reclaimer-work-b.wav",
+          "frames": 70560,
+          "duration_seconds": 1.6,
+          "peak_dbfs": -21.001,
+          "rms_dbfs": -35.674,
+          "dc_mean": -7.6e-08,
+          "maximum_sample_step_dbfs": -35.693,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100622,
+          "applied_gain": 0.066027768,
+          "wav_sha256": "1ac187329c7aca547099355247858764917f78220ec162492c68a23747e5cf5a",
+          "master_sha256": "21323dbf4beaded8f2aaf56622f548d13885419d7405e2a818df6593d2de43cb",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "furnace-work",
+      "title": "F6 furnace: electrical load and soft contactor",
+      "description": "A rounded electrical load pulse with two cushioned contacts. No flame roar, boiling metal, pressure vent or safe-to-open signal.",
+      "suggested_consumers": [
+        "PhobosShipbreaker F6 Electric Furnace",
+        "PhobosManufacturing V4 Volatiles Refinery, only for powered heating"
+      ],
+      "eligibility": "Heating has actually received electricity and advanced; retained heat alone is insufficient.",
+      "spacing_seconds": [
+        35,
+        60
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "furnace-work-a.wav",
+          "frames": 52920,
+          "duration_seconds": 1.2,
+          "peak_dbfs": -25.523,
+          "rms_dbfs": -35.0,
+          "dc_mean": 3.7e-08,
+          "maximum_sample_step_dbfs": -52.808,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100641,
+          "applied_gain": 0.08804647,
+          "wav_sha256": "c7e6ea2a873018cec0ff2100fa96d5cc8c2ff6b5a2850c379a6f048bc6dbfc5e",
+          "master_sha256": "ada9de005306ceda0653344fbcc58d420c81cf7d10ef62a734bf700207987e03",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "furnace-work-b.wav",
+          "frames": 52920,
+          "duration_seconds": 1.2,
+          "peak_dbfs": -25.204,
+          "rms_dbfs": -35.0,
+          "dc_mean": -8.8e-08,
+          "maximum_sample_step_dbfs": -52.924,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100642,
+          "applied_gain": 0.087985138,
+          "wav_sha256": "7e26bdd3935fd3dc58e3da7b0adc3f7ffa628e16ee1fd7f97bb68563edebe8e0",
+          "master_sha256": "9f9e104a6cecbacd23a3a230decf2a26af01ebfc418fe14b99b05a8e61dfa593",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "coolant-pump-work",
+      "title": "Powered cooling: short enclosed pump stroke",
+      "description": "A low pump load and rounded internal fluid movement. For an active powered coolant transfer, not a passive radiator.",
+      "suggested_consumers": [
+        "PhobosShipbreaker F6 powered cooling motor; eligibility must be verified"
+      ],
+      "eligibility": "The cooling motor received electricity and transferred heat this step. Passive radiation stays silent.",
+      "spacing_seconds": [
+        30,
+        55
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "coolant-pump-work-a.wav",
+          "frames": 55125,
+          "duration_seconds": 1.25,
+          "peak_dbfs": -22.999,
+          "rms_dbfs": -35.988,
+          "dc_mean": -4.32e-07,
+          "maximum_sample_step_dbfs": -42.741,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100661,
+          "applied_gain": 0.089591047,
+          "wav_sha256": "ac5670b4ded5bc8ea6e62f0075e7d3429f0dc1ea4007a742f1a9613436efcf46",
+          "master_sha256": "a92d509b5a3e92e2e68e7f565523b267710802758358819eedce7ebd219f452b",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "coolant-pump-work-b.wav",
+          "frames": 55125,
+          "duration_seconds": 1.25,
+          "peak_dbfs": -22.999,
+          "rms_dbfs": -35.128,
+          "dc_mean": -1.57e-06,
+          "maximum_sample_step_dbfs": -42.526,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100662,
+          "applied_gain": 0.097351811,
+          "wav_sha256": "95ef79d798e770382472ec873d820d63cb284093fd0e2707effc02ba186ee71a",
+          "master_sha256": "ebfc1d84fe9318bf6cf095772c4f63ebd603fa53cd81ad3c5101ea181440650e",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "wet-processor-work",
+      "title": "Wet processing: recirculation pass",
+      "description": "A small process pump with a hollow, filtered fluid texture. The sound describes the equipment's work, not the chemistry itself.",
+      "suggested_consumers": [
+        "PhobosManufacturing X2 Chemical Processor",
+        "PhobosManufacturing Lixivar LC-3 Leach and Crystallise Unit"
+      ],
+      "eligibility": "A powered processing step actually advanced the wet recipe; validate the consumer's current service.",
+      "spacing_seconds": [
+        28,
+        52
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "wet-processor-work-a.wav",
+          "frames": 61740,
+          "duration_seconds": 1.4,
+          "peak_dbfs": -22.999,
+          "rms_dbfs": -36.976,
+          "dc_mean": -1.35e-07,
+          "maximum_sample_step_dbfs": -38.421,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100681,
+          "applied_gain": 0.083615451,
+          "wav_sha256": "1fd9f4e1d732059066aca1d89636056ce03e22f1db654e3e4125db3210772865",
+          "master_sha256": "b1d64ccdb87ae46ccb91d8d6b3c5f0467bb40eb12b0e9ad26344c9848314b49e",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "wet-processor-work-b.wav",
+          "frames": 61740,
+          "duration_seconds": 1.4,
+          "peak_dbfs": -22.999,
+          "rms_dbfs": -36.013,
+          "dc_mean": -2.48e-07,
+          "maximum_sample_step_dbfs": -38.138,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100682,
+          "applied_gain": 0.092980264,
+          "wav_sha256": "249b1c7763310ccc000a462b6c025d21621e17e06c012f620cad449c7baf8119",
+          "master_sha256": "08ad0275eba1df07ed9a8a7d818af4dabd4a123b89298e266730cbf5f8489165",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "crop-pump-work",
+      "title": "W2 water supply: small pump and valve",
+      "description": "A light drive stroke and soft valve seat. One source for the working water supply, rather than separate noises from every connected rack.",
+      "suggested_consumers": [
+        "PhobosAgriculture Groundwork W2 Water Supply Unit",
+        "PhobosAgriculture Firstlight-4 active misting as a separate later candidate"
+      ],
+      "eligibility": "An actual powered water transfer succeeded, or actual misting consumed water. Merely growing a crop is insufficient.",
+      "spacing_seconds": [
+        38,
+        65
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "crop-pump-work-a.wav",
+          "frames": 39690,
+          "duration_seconds": 0.9,
+          "peak_dbfs": -24.112,
+          "rms_dbfs": -36.0,
+          "dc_mean": 3.85e-07,
+          "maximum_sample_step_dbfs": -42.561,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100701,
+          "applied_gain": 0.114236607,
+          "wav_sha256": "7cb09c6eca1f1061f97bd3bc2f5f2a5fe30c2c11a5b761ed08dde71bf55b2986",
+          "master_sha256": "61c7621d1ecf9d541fe1bd3f42155d53784b9eca7c13dde7353103380300369e",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "crop-pump-work-b.wav",
+          "frames": 39690,
+          "duration_seconds": 0.9,
+          "peak_dbfs": -24.499,
+          "rms_dbfs": -36.0,
+          "dc_mean": -3.04e-07,
+          "maximum_sample_step_dbfs": -42.11,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100702,
+          "applied_gain": 0.113005213,
+          "wav_sha256": "dcda48462e52d3042a1fbc358a286722e0b82a634b0d4d2e53a7e36c35be6d5b",
+          "master_sha256": "b2f2fcd0e23bcc5b6857369688e9b391b997f39e668e8c301b2f18ffae37c93c",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "bottler-work",
+      "title": "Corker-2 bottler: small drive and cushioned press",
+      "description": "A compact mechanical stroke with a soft press contact. No glass shatter, celebratory cork pop or per-bottle reward noise.",
+      "suggested_consumers": [
+        "PhobosManufacturing Alembrine Corker-2 Bottling Unit"
+      ],
+      "eligibility": "The bottling step received electricity and credited positive batch energy; before, not instead of, its actual settlement.",
+      "spacing_seconds": [
+        25,
+        45
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "bottler-work-a.wav",
+          "frames": 44100,
+          "duration_seconds": 1.0,
+          "peak_dbfs": -22.003,
+          "rms_dbfs": -34.0,
+          "dc_mean": -1.79e-07,
+          "maximum_sample_step_dbfs": -43.823,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100721,
+          "applied_gain": 0.16541094,
+          "wav_sha256": "79042bb278bf1f320481cccfba5ff21a23a67650acf7eda143d6a634ec118b4d",
+          "master_sha256": "1331271eabeda3eee8d73da1e4692f88e92d7b4c0e87b83d3b45c99eb453175c",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "bottler-work-b.wav",
+          "frames": 44100,
+          "duration_seconds": 1.0,
+          "peak_dbfs": -22.899,
+          "rms_dbfs": -34.0,
+          "dc_mean": -4.6e-08,
+          "maximum_sample_step_dbfs": -45.598,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100722,
+          "applied_gain": 0.167361928,
+          "wav_sha256": "c76078d89bc33819a263b139a005118e0b047977b01c43b122fad9ea17be3015",
+          "master_sha256": "ece722caea05c8c2243255a6cb1a3e61221302057871e97183e7d3f6da160eca",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "grabber-work",
+      "title": "G4 grabber: enclosed actuator movement",
+      "description": "A geared movement and damped seating contact heard from the interior machinery. No external collision or capture-success sound.",
+      "suggested_consumers": [
+        "PhobosShipbreaker G4 Exterior Grabber interior service position"
+      ],
+      "eligibility": "A powered movement/cutting/intake step actually advanced. Emit only from a verified interior service location with air; otherwise leave unwired.",
+      "spacing_seconds": [
+        28,
+        50
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "grabber-work-a.wav",
+          "frames": 63945,
+          "duration_seconds": 1.45,
+          "peak_dbfs": -23.235,
+          "rms_dbfs": -34.0,
+          "dc_mean": -2.2e-07,
+          "maximum_sample_step_dbfs": -45.399,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100741,
+          "applied_gain": 0.118744868,
+          "wav_sha256": "5fd4bc00e2b44a490d9892e87fa17c6f0dac518a800deab0192ce355e88940bc",
+          "master_sha256": "7fc1ff5e1bbcd01a2fa4b6249bf05d14adc0fa7eb9a4a77638f3d47a2ca5a442",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "grabber-work-b.wav",
+          "frames": 63945,
+          "duration_seconds": 1.45,
+          "peak_dbfs": -22.701,
+          "rms_dbfs": -34.0,
+          "dc_mean": -4.06e-07,
+          "maximum_sample_step_dbfs": -44.826,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100742,
+          "applied_gain": 0.119485498,
+          "wav_sha256": "3265c8b26391f94f024a4fe2a0bade2d2076d7dba6de917ca8d370da292f4a6e",
+          "master_sha256": "5844de945a1087ac81d2f17039e76fc19591b7bc08281a7fadb8636add8054ae",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    },
+    {
+      "id": "laser-cabinet-work",
+      "title": "ML-2 laser: interior power cabinet pulse",
+      "description": "A subdued electrical drive with a soft relay seat. An interior machinery interpretation, without a space-beam sound or weapon-like zap.",
+      "suggested_consumers": [
+        "PhobosShipbreaker Ablatine ML-2 Mining Laser interior service position"
+      ],
+      "eligibility": "LaserService.FinishPower credited positive energy while working. Confirm interior acoustic placement; otherwise leave unwired.",
+      "spacing_seconds": [
+        30,
+        55
+      ],
+      "clips": [
+        {
+          "variant": "A",
+          "file": "laser-cabinet-work-a.wav",
+          "frames": 46305,
+          "duration_seconds": 1.05,
+          "peak_dbfs": -24.354,
+          "rms_dbfs": -35.0,
+          "dc_mean": -5.9e-08,
+          "maximum_sample_step_dbfs": -43.823,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100761,
+          "applied_gain": 0.107767213,
+          "wav_sha256": "fe4a927c174cb22eb70f6b07952d232117d36ca10a62c48d216288ef637a285a",
+          "master_sha256": "8d2e9687c9cc5586750f63dc72636a51d7f93162b48871d2ba5539540560e3b7",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        },
+        {
+          "variant": "B",
+          "file": "laser-cabinet-work-b.wav",
+          "frames": 46305,
+          "duration_seconds": 1.05,
+          "peak_dbfs": -23.729,
+          "rms_dbfs": -35.0,
+          "dc_mean": -1.81e-07,
+          "maximum_sample_step_dbfs": -43.421,
+          "first_last_pcm16": [
+            0,
+            0
+          ],
+          "clipped_samples": 0,
+          "seed": 2026100762,
+          "applied_gain": 0.107740806,
+          "wav_sha256": "4e84ee4d223f59357582e437818ef9eed969b7318e2b34284e7fdb8b69434933",
+          "master_sha256": "fdd2441d73b1663a95666af42eaaa383c8f4206cd17a27d459b35e79de6b1c87",
+          "loop": false,
+          "status": "candidate; owner listening and game mix unverified"
+        }
+      ]
+    }
+  ],
+  "review_reel": {
+    "duration_seconds": 44.5,
+    "chapters": [
+      {
+        "file": "dismantler-work-a.wav",
+        "start_seconds": 0.5,
+        "duration_seconds": 1.35
+      },
+      {
+        "file": "dismantler-work-b.wav",
+        "start_seconds": 3.05,
+        "duration_seconds": 1.35
+      },
+      {
+        "file": "reclaimer-work-a.wav",
+        "start_seconds": 5.6,
+        "duration_seconds": 1.6
+      },
+      {
+        "file": "reclaimer-work-b.wav",
+        "start_seconds": 8.4,
+        "duration_seconds": 1.6
+      },
+      {
+        "file": "furnace-work-a.wav",
+        "start_seconds": 11.2,
+        "duration_seconds": 1.2
+      },
+      {
+        "file": "furnace-work-b.wav",
+        "start_seconds": 13.6,
+        "duration_seconds": 1.2
+      },
+      {
+        "file": "coolant-pump-work-a.wav",
+        "start_seconds": 16.0,
+        "duration_seconds": 1.25
+      },
+      {
+        "file": "coolant-pump-work-b.wav",
+        "start_seconds": 18.45,
+        "duration_seconds": 1.25
+      },
+      {
+        "file": "wet-processor-work-a.wav",
+        "start_seconds": 20.9,
+        "duration_seconds": 1.4
+      },
+      {
+        "file": "wet-processor-work-b.wav",
+        "start_seconds": 23.5,
+        "duration_seconds": 1.4
+      },
+      {
+        "file": "crop-pump-work-a.wav",
+        "start_seconds": 26.1,
+        "duration_seconds": 0.9
+      },
+      {
+        "file": "crop-pump-work-b.wav",
+        "start_seconds": 28.2,
+        "duration_seconds": 0.9
+      },
+      {
+        "file": "bottler-work-a.wav",
+        "start_seconds": 30.3,
+        "duration_seconds": 1.0
+      },
+      {
+        "file": "bottler-work-b.wav",
+        "start_seconds": 32.5,
+        "duration_seconds": 1.0
+      },
+      {
+        "file": "grabber-work-a.wav",
+        "start_seconds": 34.7,
+        "duration_seconds": 1.45
+      },
+      {
+        "file": "grabber-work-b.wav",
+        "start_seconds": 37.35,
+        "duration_seconds": 1.45
+      },
+      {
+        "file": "laser-cabinet-work-a.wav",
+        "start_seconds": 40.0,
+        "duration_seconds": 1.05
+      },
+      {
+        "file": "laser-cabinet-work-b.wav",
+        "start_seconds": 42.25,
+        "duration_seconds": 1.05
+      }
+    ]
+  },
+  "sparse_workshop": {
+    "duration_seconds": 60,
+    "events": [
+      {
+        "start_seconds": 3,
+        "file": "dismantler-work-a.wav"
+      },
+      {
+        "start_seconds": 11,
+        "file": "crop-pump-work-a.wav"
+      },
+      {
+        "start_seconds": 21,
+        "file": "reclaimer-work-b.wav"
+      },
+      {
+        "start_seconds": 33,
+        "file": "wet-processor-work-a.wav"
+      },
+      {
+        "start_seconds": 44,
+        "file": "furnace-work-a.wav"
+      },
+      {
+        "start_seconds": 55,
+        "file": "bottler-work-b.wav"
+      }
+    ]
+  },
+  "exports": [
+    {
+      "path": "wav/dismantler-work-a.wav",
+      "bytes": 119114,
+      "sha256": "49ad9c77321f7b9b3f93d188ab5db5a135009821c48bf7f6ce3af3f40a455ec9"
+    },
+    {
+      "path": "masters/dismantler-work-a.wav",
+      "bytes": 178649,
+      "sha256": "59bfb128a13660e58bfdb4fbff926956c321642dd0bfcd54c88803673b1771f9"
+    },
+    {
+      "path": "wav/dismantler-work-b.wav",
+      "bytes": 119114,
+      "sha256": "c15f505b7d9f8574213cf9127f8d7783020c7af67f12f0e1194146e55169345c"
+    },
+    {
+      "path": "masters/dismantler-work-b.wav",
+      "bytes": 178649,
+      "sha256": "ba4fe9f974fd3bf05570738b1c3d954b845d333ba9317fdcc6c181bf470df02d"
+    },
+    {
+      "path": "wav/reclaimer-work-a.wav",
+      "bytes": 141164,
+      "sha256": "2560fa5e73e3d515752aea6938abd484fd7d1daf5cecf2e6238d65a14fd0e979"
+    },
+    {
+      "path": "masters/reclaimer-work-a.wav",
+      "bytes": 211724,
+      "sha256": "56911f7b9a8cfd6fccda2c0fa076eef805ea60374042b710b699f9ca6e8de2e6"
+    },
+    {
+      "path": "wav/reclaimer-work-b.wav",
+      "bytes": 141164,
+      "sha256": "1ac187329c7aca547099355247858764917f78220ec162492c68a23747e5cf5a"
+    },
+    {
+      "path": "masters/reclaimer-work-b.wav",
+      "bytes": 211724,
+      "sha256": "21323dbf4beaded8f2aaf56622f548d13885419d7405e2a818df6593d2de43cb"
+    },
+    {
+      "path": "wav/furnace-work-a.wav",
+      "bytes": 105884,
+      "sha256": "c7e6ea2a873018cec0ff2100fa96d5cc8c2ff6b5a2850c379a6f048bc6dbfc5e"
+    },
+    {
+      "path": "masters/furnace-work-a.wav",
+      "bytes": 158804,
+      "sha256": "ada9de005306ceda0653344fbcc58d420c81cf7d10ef62a734bf700207987e03"
+    },
+    {
+      "path": "wav/furnace-work-b.wav",
+      "bytes": 105884,
+      "sha256": "7e26bdd3935fd3dc58e3da7b0adc3f7ffa628e16ee1fd7f97bb68563edebe8e0"
+    },
+    {
+      "path": "masters/furnace-work-b.wav",
+      "bytes": 158804,
+      "sha256": "9f9e104a6cecbacd23a3a230decf2a26af01ebfc418fe14b99b05a8e61dfa593"
+    },
+    {
+      "path": "wav/coolant-pump-work-a.wav",
+      "bytes": 110294,
+      "sha256": "ac5670b4ded5bc8ea6e62f0075e7d3429f0dc1ea4007a742f1a9613436efcf46"
+    },
+    {
+      "path": "masters/coolant-pump-work-a.wav",
+      "bytes": 165419,
+      "sha256": "a92d509b5a3e92e2e68e7f565523b267710802758358819eedce7ebd219f452b"
+    },
+    {
+      "path": "wav/coolant-pump-work-b.wav",
+      "bytes": 110294,
+      "sha256": "95ef79d798e770382472ec873d820d63cb284093fd0e2707effc02ba186ee71a"
+    },
+    {
+      "path": "masters/coolant-pump-work-b.wav",
+      "bytes": 165419,
+      "sha256": "ebfc1d84fe9318bf6cf095772c4f63ebd603fa53cd81ad3c5101ea181440650e"
+    },
+    {
+      "path": "wav/wet-processor-work-a.wav",
+      "bytes": 123524,
+      "sha256": "1fd9f4e1d732059066aca1d89636056ce03e22f1db654e3e4125db3210772865"
+    },
+    {
+      "path": "masters/wet-processor-work-a.wav",
+      "bytes": 185264,
+      "sha256": "b1d64ccdb87ae46ccb91d8d6b3c5f0467bb40eb12b0e9ad26344c9848314b49e"
+    },
+    {
+      "path": "wav/wet-processor-work-b.wav",
+      "bytes": 123524,
+      "sha256": "249b1c7763310ccc000a462b6c025d21621e17e06c012f620cad449c7baf8119"
+    },
+    {
+      "path": "masters/wet-processor-work-b.wav",
+      "bytes": 185264,
+      "sha256": "08ad0275eba1df07ed9a8a7d818af4dabd4a123b89298e266730cbf5f8489165"
+    },
+    {
+      "path": "wav/crop-pump-work-a.wav",
+      "bytes": 79424,
+      "sha256": "7cb09c6eca1f1061f97bd3bc2f5f2a5fe30c2c11a5b761ed08dde71bf55b2986"
+    },
+    {
+      "path": "masters/crop-pump-work-a.wav",
+      "bytes": 119114,
+      "sha256": "61c7621d1ecf9d541fe1bd3f42155d53784b9eca7c13dde7353103380300369e"
+    },
+    {
+      "path": "wav/crop-pump-work-b.wav",
+      "bytes": 79424,
+      "sha256": "dcda48462e52d3042a1fbc358a286722e0b82a634b0d4d2e53a7e36c35be6d5b"
+    },
+    {
+      "path": "masters/crop-pump-work-b.wav",
+      "bytes": 119114,
+      "sha256": "b2f2fcd0e23bcc5b6857369688e9b391b997f39e668e8c301b2f18ffae37c93c"
+    },
+    {
+      "path": "wav/bottler-work-a.wav",
+      "bytes": 88244,
+      "sha256": "79042bb278bf1f320481cccfba5ff21a23a67650acf7eda143d6a634ec118b4d"
+    },
+    {
+      "path": "masters/bottler-work-a.wav",
+      "bytes": 132344,
+      "sha256": "1331271eabeda3eee8d73da1e4692f88e92d7b4c0e87b83d3b45c99eb453175c"
+    },
+    {
+      "path": "wav/bottler-work-b.wav",
+      "bytes": 88244,
+      "sha256": "c76078d89bc33819a263b139a005118e0b047977b01c43b122fad9ea17be3015"
+    },
+    {
+      "path": "masters/bottler-work-b.wav",
+      "bytes": 132344,
+      "sha256": "ece722caea05c8c2243255a6cb1a3e61221302057871e97183e7d3f6da160eca"
+    },
+    {
+      "path": "wav/grabber-work-a.wav",
+      "bytes": 127934,
+      "sha256": "5fd4bc00e2b44a490d9892e87fa17c6f0dac518a800deab0192ce355e88940bc"
+    },
+    {
+      "path": "masters/grabber-work-a.wav",
+      "bytes": 191879,
+      "sha256": "7fc1ff5e1bbcd01a2fa4b6249bf05d14adc0fa7eb9a4a77638f3d47a2ca5a442"
+    },
+    {
+      "path": "wav/grabber-work-b.wav",
+      "bytes": 127934,
+      "sha256": "3265c8b26391f94f024a4fe2a0bade2d2076d7dba6de917ca8d370da292f4a6e"
+    },
+    {
+      "path": "masters/grabber-work-b.wav",
+      "bytes": 191879,
+      "sha256": "5844de945a1087ac81d2f17039e76fc19591b7bc08281a7fadb8636add8054ae"
+    },
+    {
+      "path": "wav/laser-cabinet-work-a.wav",
+      "bytes": 92654,
+      "sha256": "fe4a927c174cb22eb70f6b07952d232117d36ca10a62c48d216288ef637a285a"
+    },
+    {
+      "path": "masters/laser-cabinet-work-a.wav",
+      "bytes": 138959,
+      "sha256": "8d2e9687c9cc5586750f63dc72636a51d7f93162b48871d2ba5539540560e3b7"
+    },
+    {
+      "path": "wav/laser-cabinet-work-b.wav",
+      "bytes": 92654,
+      "sha256": "4e84ee4d223f59357582e437818ef9eed969b7318e2b34284e7fdb8b69434933"
+    },
+    {
+      "path": "masters/laser-cabinet-work-b.wav",
+      "bytes": 138959,
+      "sha256": "fdd2441d73b1663a95666af42eaaa383c8f4206cd17a27d459b35e79de6b1c87"
+    },
+    {
+      "path": "review-reel.wav",
+      "bytes": 3924944,
+      "sha256": "2ede640a1a15e8847bd0ab346913a7a8f74a4618f830c0eb3c43fb5065480771"
+    },
+    {
+      "path": "sparse-workshop.wav",
+      "bytes": 5292044,
+      "sha256": "73e613f575c26b54b000e6cfc4e6cd594b01eb2f148b9bf98d00c8af23cdba3c"
+    },
+    {
+      "path": "listen.html",
+      "bytes": 5410,
+      "sha256": "e741d62e41a80b8de37e9ee565b0ea8b2f835c6b00473ee23085b121814473c5"
+    }
+  ],
+  "verification_limits": "Format, peaks, DC, silent edges, hashes and regeneration checked offline. No perceptual listening or Unity/Ostranauts playback test."
+}

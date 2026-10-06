@@ -85224,8 +85224,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "3cc26e92bf5d228b7c595bef2cefdc8a1699e5c5bf11df2b032a7adc5d6b68cd",
-      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0)."
+      "sha256": "134d91c99d222934261cedb95844f3d4bd054c2679532af7050697cd4c604a16",
+      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -85335,8 +85335,8 @@
       "path": "docs/development/animation-and-sound-direction.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "373c31e9e762adc8a873374688afe7e642c884a61f1a489220c11e097bd256ef",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "ef0da70f6ca6a53661ba6cd221d0a4604b61f02f33f151a6360e4f495123bd4d",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser. Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
     },
     {
       "path": "docs/development/artwork-completion.md",
@@ -86452,6 +86452,13 @@
       "decision": "new",
       "sha256": "fd9a1ef268380a4dbad3073b41db392f241b063d462a90b60a11d778a57688c7",
       "review": "New design record, 6 October 2026."
+    },
+    {
+      "path": "docs/development/machine-work-sounds-handoff.md",
+      "scope": "developer audio production, source observations, implementation handoff and owner listening checks",
+      "decision": "review audience separation and evidence limits",
+      "sha256": "9c5d5cfda398939ba80e0aaa99795d98928185c737955740afbb4d717c0bb86f",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
     }
   ],
   "surfaces": [
@@ -86669,6 +86676,20 @@
       "scope": "story add-on source overview and review limits",
       "sha256": "cd6cd2445ca345637f7db57a3122098a6be1cc4cc6878fa21a2ee9559204b878",
       "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/README.md",
+      "scope": "audio candidate review instructions and sound-family descriptions; no installed controls",
+      "decision": "review plain wording, provenance and listening limitations",
+      "sha256": "a677e3cf7fc55e195ecc7f074a030d0e634324d570b04f852ab85c79eb245cdf",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
+    },
+    {
+      "path": "assets/phobos-audio/work-sounds-v1/listen.html",
+      "scope": "audio candidate review instructions and sound-family descriptions; no installed controls",
+      "decision": "review plain wording, provenance and listening limitations",
+      "sha256": "e741d62e41a80b8de37e9ee565b0ea8b2f835c6b00473ee23085b121814473c5",
+      "review": "Reviewed 6 October 2026: occasional machine-work audio candidates. Owner-selected sparse mechanical sounds; distinguish original procedural assets, agent proposals, source inspection and unverified in-game listening. No runtime/player text changed."
     }
   ],
   "hardcodedReview": {

@@ -397,7 +397,10 @@ delivery in the changelog and design record, and add or amend only the rule here
   live localized text; avoid art reruns or refactors for hypothetical future changes (the owner
   watches ChatGPT costs). Approved selections stay unless the owner reopens them.
 - Sounds only where usefulness is high: brief, quiet, never alarming, with volume and mute
-  (`docs/shared-completion-cues.md`); no alarm suites, ambient loops or per-action sounds.
+  (`docs/shared-completion-cues.md`). Occasional local mechanical sounds while equipment
+  actually works are welcome (owner, 2026-10-06); Codex creates the audio and handoff, Claude
+  does the wiring (`docs/development/machine-work-sounds-handoff.md`). No alarm suites,
+  ambient/operating loops or routine per-action sounds.
 
 ## Builds, installation and verification
 
