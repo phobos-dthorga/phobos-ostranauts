@@ -87699,7 +87699,7 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "f47510183db1ca42773c1a9f1e1b06ec34bead470518633930d4a29d628fb5de",
+      "sha256": "d73f68b76cd0801b7144c892ced11fbd6a7564ff96e39c560f1bb535d65926ea",
       "review": "New research record, 6 October 2026: PDA apps and a banking mod; observed game behaviour and proposals are labelled."
     }
   ],

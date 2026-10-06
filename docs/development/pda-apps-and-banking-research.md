@@ -14,6 +14,14 @@ as such; owner choices carry the date.
   Roster and Duties apps leave the PDA.
 - Loans are the game's own ledger lines plus our own loan book.
 - Our lenders are our own, beside the game's Ogiso's institutions.
+- Default has only the consequences the game already has, for now. Repossession may be
+  explored later, when more resources are available.
+- Loans may help fund ship purchases at the broker, integrated neatly with its own window
+  (see [Financing at the broker](#financing-at-the-broker)).
+- The app also shows the debts the game already tracks, which fits the setting (see
+  [Existing debts in the app](#existing-debts-in-the-app)).
+- Lenders may be local to stations and regions, building on the story system's places,
+  people and threads (see [Local lenders](#local-lenders-through-the-story-system)).
 
 ## How the PDA works (observed)
 
@@ -95,6 +103,13 @@ PdaApps.Register(new PdaApp {
   least 50% down (191332). Character creation can start the player with a mortgage to
   "Ogiso's Bank" (99796; eight life events, from 97,395 to 910,636). Fines for public
   disorder are issued as 15,000-credit mortgage debts (`data/ledgerdefs`).
+- **A native mortgage charges no interest overall.** Each shift's instalment is sized by
+  the 0.21% annuity formula over the shifts left of a fixed 15,552,000-second term
+  (`MortgagePaymentPerShift(LedgerLI)`, 139280), but paying it takes the whole instalment
+  off the balance (`Ledger.PayLI`, 73546). The balance therefore falls faster than an
+  interest-bearing loan's, and the total repaid equals the amount borrowed; only late
+  fees add to it. The rate and term are the same for every mortgage line and cannot be set
+  per line, so any lender's own interest has to be charged by us.
 - **Paying and not paying.** The Finances window (`GUIFinance`, 130613, opened from the
   money button) lists and pays bills; a prepay window lowers a mortgage's principal. At
   each shift end every unpaid player line gains a **17.5% late fee** (`Ledger.Skip`,
@@ -106,14 +121,18 @@ PdaApps.Register(new PdaApp {
 
 ## Loan design for Phobos Banking (proposed)
 
-- **A loan is a native ledger line** (owner choice): `Frequency.Mortgage` for amortised
-  loans, or `Shiftly` for fixed instalments. Payee is the lender's name; `strObjId` is
-  `PhobosBank.<loan id>`, unique, because the game's duplicate check (`LedgerLI.Same`)
-  treats a missing id as matching anything. The Finances window shows it, the late fee
-  applies, Common Sense Finances can pay it, and a mortgaged ship's sale repays it. When a
-  ship is collateral the description holds its registration; the game finds a ship's
-  mortgage by substring (`GetMortgageForShip`), so a registration that begins another is a
-  trap to test for.
+- **A loan is native ledger lines** (owner choice). The balance is a `Frequency.Mortgage`
+  line whose payee is the lender's name: the game then bills its instalments each shift,
+  shows them in the Finances window with the prepay window, applies the late fee, lets
+  Common Sense Finances pay them, and repays it from a mortgaged ship's sale. Because the
+  native mortgage carries no interest (above), the lender's interest is a second, one-time
+  line our loan service adds at each shift boundary: the lender's rate times the balance
+  the mortgage line holds then, with `strObjId = PhobosBank.<loan id>`. That id must be
+  unique, because the game's duplicate check (`LedgerLI.Same`) treats a missing id as
+  matching anything. A `Shiftly` line cannot carry interest either: its amount is fixed
+  when it is created. When a ship is collateral the mortgage's description holds its
+  registration; the game finds a ship's mortgage by substring (`GetMortgageForShip`), so a
+  registration that begins another is a trap to test for.
 - **Our loan book** on the player, `PhobosState.PhobosBank` through `ObjectStateStore`:
   one key per loan holding lender, principal, rate, term, opening time, collateral and
   status, joined with `|`. Values hold no `,` or `=` and stay within 512 characters
@@ -124,11 +143,12 @@ PdaApps.Register(new PdaApp {
 - **Accredited lenders** charge less, need a standing tier with a game faction (read
   through Framework's `GameFacts.Standing`), take collateral, lend for longer, and use the
   game's own late fee only.
-- **Non-accredited lenders** charge more, ask no standing, lend for shorter terms and
-  carry consequences we author inside the game's own machinery: standing changes through
-  the game's faction scores with criminal factions such as `OKLGCrim` and `VenusCrim`,
-  news through a `story` pack, and a wanted state only where a vanilla crime trigger
-  already fits. Never a new player condition, plot or pledge
+- **Non-accredited lenders** charge more, ask no standing and lend for shorter terms.
+  For now (owner choice) default carries only what the game already does: the late fee,
+  growing each shift, and the debt standing in the Finances window. Story reactions
+  (letters, news, small talk) through flags, and small standing changes through the
+  game's own faction scores, stay within that rule. Repossession, collectors or a wanted
+  state are later work. Never a new player condition, plot or pledge
   ([story rules](story-system-design.md)).
 - **Value rules.** Borrowing creates no value: interest is a cost to the player, and no
   loop may earn from it. `scripts/audit-economy.py` is rerun if any price or bill changes.
@@ -137,6 +157,134 @@ PdaApps.Register(new PdaApp {
   requirement, collateral rule and home station. It needs a C# validator, the Python
   mirror, a JSON Schema and a row in the editing guide. Once a loan can be saved against
   a lender's terms, those terms are frozen by content hash, as recipes are.
+
+## Financing at the broker
+
+Owner question (6 October 2026): how could a loan help fund a ship purchase, neatly, in
+the game's own broker window?
+
+**How the broker sells (observed).**
+
+- Ship brokers are the `ItmKioskOKLGShipBroker01` kiosk, placed at OKLG (the Bureaus) and
+  at Mars (Heifei District). The same window (`GUIShipBroker`, 191931) also serves the
+  real-estate kiosk at Venus (Porto do Encantado), which sells apartments on the same
+  terms. The ship broker kiosk also carries Ogiso's ship-rating panel.
+- Buying opens `ConfirmBuyShipPopup` (191281). For a used ship or apartment
+  (`TransactionTypes.Mortgage`) it shows a mortgage area: a slider for the share paid now
+  (at least 50%, or 0% for a special offer, 191332), the percentage, the price paid now and
+  the payment per shift from the vanilla formula (191348). A derelict is cash only.
+- Confirming calls `GUIShipBroker.UpdateCash` (192470): the player pays the share now to
+  the kiosk, and the rest becomes a `Mortgage` ledger line with the **kiosk's own name as
+  payee** and "Mortgage on <registration>" as its description (192493).
+- Selling (`ConfirmSellShipPopup`, 191368) shows the existing mortgage and repays it from
+  the sale (`Ledger.AddDownPayment`).
+
+**Proposed integration (agent design).** Four small, separate pieces, each falling back
+to the game's own behaviour:
+
+1. **A lender choice in the mortgage area.** A postfix on
+   `ConfirmBuyShipPopup.ShowPanel` adds one row, built by cloning the popup's own text and
+   button so it matches the window: "Lender: <name>". Tapping it cycles through the
+   broker itself and the Phobos lenders available here to this player (see
+   [Local lenders](#local-lenders-through-the-story-system)). Choosing the broker leaves
+   every vanilla figure untouched.
+2. **The lender's terms on screen.** With a Phobos lender chosen, the slider's lowest share
+   follows that lender (for example 30% for an accredited lender with good standing), and
+   the payment line reads honestly: the base instalment plus that lender's interest per
+   shift. This is a postfix on `OnMortgageSliderchanged` and on `ShowPanel` setting the
+   slider's minimum.
+3. **The loan on confirm.** A postfix on `GUIShipBroker.UpdateCash` finds the mortgage
+   line it has just added (by the registration) and, for a Phobos lender, changes its
+   payee to the lender and records the loan in our loan book. Prepay, sale escrow and late
+   fees keep working because the line is still the game's own mortgage.
+4. **Pre-approval in the app.** The bank app can ask a lender for a ship or home loan up to
+   a limit, valid for a while; the broker's popup then opens with that lender chosen. This
+   keeps the decision in the bank app, and the broker window only shows its result.
+
+**Not chosen:** a cash advance taken in the app and spent at the broker as a cash
+purchase. It needs no broker changes, but the loan would not be tied to the ship, so the
+game's sale escrow would not repay it.
+
+**Unknowns to test in play.** The popup is a Unity prefab we cannot read offline: the row's
+place and size need a hierarchy dump at runtime, and other mods touching the broker are
+possible. The apartment and the ship share one code path, which the owner should check
+both ways.
+
+## Existing debts in the app
+
+Owner choice (6 October 2026): the app shows the debts the game already tracks.
+
+- **Unpaid bills:** `Ledger.GetUnpaidLIs(null, <player id>, null, false)` (73664, public)
+  returns the player's unpaid one-time lines, including mortgage instalments, fines and
+  docking fees.
+- **Mortgage balances:** the game keeps them in a private list; the public save snapshot
+  `Ledger.GetJSONSave()` (73870) holds them as lines with the mortgage frequency, read-only.
+  It is built on demand, which is fine for a window the player opens.
+- **Paying:** the app does not pay bills itself; an "Open Finances" button calls the game's
+  own `CrewSim.objInstance.ToggleFinances()` (40537), so payment, prepay and the late-fee
+  rules stay the game's.
+- Ogiso's Bank (the starting mortgage), the broker kiosks and fines appear under their own
+  names; our lenders' loans appear beside them with their terms from our loan book.
+
+## Local lenders through the story system
+
+Owner question (6 October 2026): if lenders are local to stations or regions, can they
+build on the story code and schema made today? **Yes, for most of it.** What follows is
+observed in our code, with the Framework additions the bank mod would need.
+
+**What can be reused as it is.**
+
+- **Places.** Framework's story pack ships a `places` table of the game's stations: twelve
+  regional places (OKLG, Port Mojave on Ceres, Port Independence on Ganymede, Porto Nuevo on
+  Europa, Cassini Spaceport on Titan, Port Yangshan on Mars, Upsilon Docking on Deimos, Long
+  Beach Terminal on Venus, Port Shajiang on Luna, Qincheng Station on Mercury, Qiantangmen
+  and Panmen) and 29 parts within them (the Titan Shipyards, the Flotilla, the CCRE offices,
+  Corsair's Hollow and others), each with its station id, body, region label and factions
+  (`mods/PhobosFramework/framework/story.json`). `StoryPlaces` (public) turns a station id
+  into a place and knows which region contains it. A lender's `home` would be one of these
+  keys.
+- **Where the player is.** The story runner already finds the place the player is docked
+  at and the region around them (`GameFacts.Locate`, `StoryArcs.cs`), the same rule that
+  starts local arcs and weights local news. A lender is offered while the player is at its
+  home place or, for a regional lender, anywhere in that region.
+- **Requirements.** The story `requires` block (`StoryRequires`) already reads standing
+  with the game's factions by tier, flags, finished arcs, places, regions, crew skills,
+  months and more, and `StoryRules.Blocked` (public) says why one is not met. A lender's
+  `requires` can be that same block, with the same validator and the same wording, so an
+  accredited lender may ask "Warm with the Galilean Confederacy" in exactly the story
+  form.
+- **People.** A lender's officer can be a story `person` with a home and a `face` (Framework
+  0.121.0), so letters from the bank show the officer's face and From line in the GOALS
+  list and the Letters window.
+- **Threads, news and adverts.** A lender can be a story `thread` whose place and
+  requirements its news, adverts, small talk and letters inherit. Its adverts play on local
+  TVs; news can follow what the player did (`requires.flags`).
+- **Letters and replies.** Loan letters (an offer, a reminder, a final notice) can be story
+  arcs with replies (Framework 0.122.0), for example "Pay now" and "Ask for time".
+
+**What the bank mod's own code must do.** Interest, ledger lines, the loan book, the broker
+integration and the app; story packs cannot create ledger lines or compute interest, and a
+story reward is capped at 50,000 credits.
+
+**Framework additions this needs** (proposed; each small, public and documented, so any
+mod can use them):
+
+- `StoryLocation`: where the player is now (the docked place, the region, whether they are
+  near a place), opened up from the story runner's private `GameFacts`.
+- `StoryGates.Blocked(requires)`: a `requires` block checked against the live game and the
+  player's story record, with the reason.
+- `StorySchema.ValidateRequires`: the requirement validator made public, so another pack
+  (the lenders pack) can carry a `requires` block checked the same way.
+- `StoryFlags.Set` / `Clear` / `Has`: so the bank can mark what happened ("late with
+  Corvane Mutual") for any story pack to react to.
+- `StoryArcs.Begin(arcId)`: start an arc from code, still honouring its requirements, so a
+  late payment can open a letter.
+- Load order: the lenders pack checks its places and people after the story library is
+  built (`FrameworkLifecycle.ContentLoaded`), as story packs check items today.
+
+**Related fix.** The story system counts a day as 86,400 seconds; the game's day is
+87,658.125 (`MathUtils`). Loan terms would use the game's day, and the story rules should
+be corrected in the same round.
 
 ## What a new content mod needs (from Medical and War Has Been Declared)
 
@@ -176,7 +324,10 @@ cannot collide.
 ## Lore anchors for ChatGPT
 
 - **Ogiso's Register** records ship ownership and gives ships an OSR safety rating; its
-  kiosks nag unregistered captains. **Ogiso's Bank** holds starting ship mortgages.
+  kiosks nag unregistered captains, and its rating panel sits on the ship broker kiosk.
+  **Ogiso's Bank** holds starting ship mortgages.
+- Ship brokers trade at OKLG's Bureaus and in Mars's Heifei District; Venus's Porto do
+  Encantado has a real-estate broker selling apartments on mortgage.
 - Fines become debts paid by the shift; mortgages run 720 shifts; a late shift costs
   17.5%.
 - Station owners and their law: OKLG (Ayotimiwa Ship Breaking Co., AyoSec), CCRE,
@@ -186,17 +337,23 @@ cannot collide.
   a credit balance, set flags and change standing a little. It cannot require a balance as
   a gate, schedule payments or run interest; those need the mod's code.
 
-## Open questions for the owner
+## Answered questions
 
-1. What happens when a borrower defaults, beyond the game's late fee?
-2. May a loan fund a ship purchase at the broker, alongside its own mortgage?
-3. Should the app also show the player's existing native mortgages and debts?
-4. Are lenders local to regions and stations, or everywhere?
+The first round's four questions were answered by the owner on 6 October 2026; the
+answers are under the owner choices at the top.
 
 ## Proposed rounds
 
-1. Framework `PdaApps`, and a first app screen that lists the player's native debts:
-   proves the hosting in play before any lending exists.
-2. The `lenders` pack and the loan book, with one accredited lender.
-3. Non-accredited lenders and their consequences.
-4. A story pack with ChatGPT's lore.
+1. **Framework `PdaApps` and the debts screen.** The PDA icon, the panel, and the
+   player's existing debts with an "Open Finances" button: proves the hosting in play
+   before any lending exists.
+2. **Framework story services and the day length.** `StoryLocation`, `StoryGates`, the
+   public requirement validator, `StoryFlags` and `StoryArcs.Begin`; the story day set to
+   the game's day.
+3. **Phobos Banking: lenders and the loan book.** The `lenders` pack (home place,
+   `requires`, terms), one accredited lender, the per-shift interest line, the app's loan
+   screens.
+4. **Financing at the broker.** The lender row, terms on screen, the loan on confirm and
+   pre-approval; owner tests at OKLG, Mars and Venus.
+5. **Non-accredited lenders and stories.** Higher-cost lenders, flags for what happened,
+   and a story pack with ChatGPT's lore (officers as people, adverts, letters).
