@@ -331,11 +331,11 @@
       },
       "scene": {
         "path": "assets/workshop/sources/PhobosBank-scene.png",
-        "sha256": "37BD3ED4AF284CE1B08A7369EB3154E5282FADA9BDB8026986336186488059AF",
+        "sha256": "6D404975A685912A8888185E8FC7EBA8C63B56B699B6FF3E942A89D204650B01",
         "crop": [
+          30,
           0,
-          0,
-          244,
+          274,
           170
         ],
         "scale": 2,
@@ -344,7 +344,22 @@
           141,
           498,
           480
-        ]
+        ],
+        "master": {
+          "branch": "codex/workshop-art-masters",
+          "commit": "0eb04af487bd13ddcfb200a2c80ed19f5fd644ad",
+          "path": "assets/workshop/masters/PhobosBank-scene.png",
+          "sha256": "BDF26BE9984045299C751777812BA546AFE6CE1528C2E301EBD8085CA1650EF9",
+          "size": [
+            1536,
+            1072
+          ],
+          "sceneSize": [
+            304,
+            170
+          ],
+          "resampling": "complete canvas reduced with nearest-neighbour; centred cover crop is recorded separately"
+        }
       },
       "header": {
         "background": [
@@ -395,10 +410,42 @@
         }
       },
       "generation": {
-        "provider": "none",
-        "operation": "scripts/export-bank-art.py",
-        "date": "2026-10-06",
-        "note": "Placeholder scene drawn from fixed shapes by the script (agent choice while the mod is a held draft); replace it with a generated scene before publication if the owner wants one."
+        "provider": "OpenAI",
+        "operation": "Image API edit via bundled scripts/image_gen.py fallback CLI",
+        "model": "gpt-image-2",
+        "date": "2026-10-07",
+        "requestedGenerations": 1,
+        "generationsReturned": 1,
+        "returnedSize": [
+          1536,
+          1072
+        ],
+        "masterSha256": "BDF26BE9984045299C751777812BA546AFE6CE1528C2E301EBD8085CA1650EF9",
+        "inputProvenance": "CLI edit call with the two existing Phobos cover scenes below as style references only; no game-derived art or screenshots were supplied.",
+        "references": [
+          {
+            "path": "assets/workshop/sources/PhobosManufacturing-scene.png",
+            "sha256": "2ADD9D7CBDB05107F51B5C28890D4221619C376012DE566DDA8A658FEAF9E8A2",
+            "role": "Pixel-art scale, room layout and muted shipboard style reference; scene content not reused."
+          },
+          {
+            "path": "assets/workshop/sources/PhobosMedical-scene.png",
+            "sha256": "5849225F9AB2BCC69547F930C9047FB843C31403119791B11E0026D352F844CA",
+            "role": "Sprite scale, cabin detail and subdued color reference; scene content not reused."
+          }
+        ],
+        "prompt": "Use case: stylized-concept\nAsset type: original scene layer for the Phobos Banking Steam Workshop cover; landscape, approximately 244:170 composition. The repository will add the established Phobos cover frame, title, subtitle and footer afterward.\nPrimary request: create a new Ostranauts-style shipboard scene that reads as a working spacer checking a small debt-and-credit overview on a personal PDA. It is promotional illustration only and must not imply that Phobos Banking changes the game's own payment window or erases debt.\nInput images: Image 1 is a style reference from the Phobos Manufacturing Workshop scene: use only its coarse pixel clusters, hard outlines, top-down room layout and muted shipboard materials; do not reproduce its refinery, processor, tanks or exact room. Image 2 is a style reference from the Phobos Medical Workshop scene: use only its sprite scale, ship cabin detail and subdued color treatment; do not reproduce its bed, patient, cabinets or medical equipment. Both images are references for this new independent scene, not edit targets.\nScene/backdrop: a compact, lived-in cabin work nook aboard a practical spacecraft. Strict elevated top-down orthographic game view, with visible deck layout and broad equipment tops, in the visual language of Ostranauts' compact overhead room art. Grey scuffed steel deck plates, a narrow plain worktable, one cream-painted locker and dark bulkhead strips at the edges; sparse and functional.\nSubject: one modestly sized spacer in worn rust-orange work clothes, leaning over the table and holding an open matte-black handheld PDA in both hands. From above, the PDA is clearly visible and central to the scene. Its screen has three or four thick, distinct pale-blue and cream ledger rows with a single muted green and one amber status mark, all abstract shapes with no lettering. Add one plain mug. Keep open floor around the person and table.\nStyle/medium: coarse 2D pixel-art illustration in the restrained visual language of Ostranauts' vanilla art: compact sprite-like forms, crisp dark outlines, limited muted colors, stepped pixel clusters, worn utilitarian surfaces, no smooth gradients. Match the chunky readable scale and subdued shipboard palette of the existing Phobos Ostranauts Workshop scenes. Keep details bold enough to survive reduction to a small Steam Workshop thumbnail. Original art, not a screenshot or a recreation of specific game artwork.\nComposition/framing: full scene in a wide rectangle, no decorative border. Keep the spacer, PDA and tabletop together near the center with a clean silhouette. No eye-level view, cinematic angle, three-quarter render or isometric perspective.\nLighting/mood: dim neutral ship lighting with a small warm utility-lamp pool; tired, practical and quietly focused.\nColor palette: charcoal, dark slate, steel grey, warm cream enamel, muted blue, sparse pale green and amber, subdued rust orange. Keep color accents restrained.\nMaterials/textures: broad paint scuffs, simple deck seams, matte PDA casing, a high-contrast screen with chunky horizontal marks.\nText (verbatim): none.\nConstraints: generate a complete new scene only. No title, letters, numbers, captions, logos, watermark, border or footer. No cash machine, money, banknotes, coins, card reader, holograms, neon, glossy bank interior, extra people, recognizable copyrighted characters, game screenshot or false interface text. Do not depict debt as erased or property being repossessed.",
+        "licensingReview": {
+          "source": "OpenAI Services Agreement",
+          "url": "https://openai.com/policies/services-agreement/",
+          "reviewed": "2026-10-07",
+          "sections": [
+            "4.1",
+            "4.4"
+          ],
+          "summary": "For API customers, section 4.1 states the customer owns Output and OpenAI assigns its right, title and interest, if any, subject to applicable law. Section 4.4 notes that output may not be unique. This records the provider terms and does not establish exclusivity."
+        },
+        "review": "Full-size artwork and composed Workshop preview inspected. The spacer, handheld ledger screen and overhead cabin remain clear after the cover crop; accepted as the agent-selected scene for owner review. Promotional illustration only, not a gameplay screenshot."
       }
     }
   ],
@@ -424,6 +471,45 @@
         "sha256": "fcf3978af0c8e31ef2c1beb911ea40272e5571ebc9162ba025705a1fbb2a9e57"
       },
       "reason": "Not selected: the third panel drew the build sites as a cracked-glass overlay plus one dark tile, and the hole in the second panel did not correspond to the wall in the first. It would misrepresent the game's half-strength build sites. Not retried: the cover scene already shows them correctly."
+    },
+    {
+      "id": "PhobosBank-ElevenLabs-scene",
+      "provider": "ElevenLabs Creative Studio",
+      "operation": "creative_generate_image",
+      "model": "flux-2-pro",
+      "date": "2026-10-07",
+      "flowId": "HojtL0yMaxFYEuEAR3Hs",
+      "sessionId": "hRTBvYJF6Bm9fgu0qpEb",
+      "generationId": "dw1x8gQe6ynXn2EpZOaY",
+      "requestedGenerations": 4,
+      "generationsReturned": 1,
+      "returnedSize": [
+        1920,
+        1072
+      ],
+      "masterSha256": "295EE41C9A4828B0F17E61190E521A4C4246F6429CBD51643CCA6CD12B2D3C4C",
+      "actualCost": {
+        "credits": 272.7,
+        "reportedPriceCentsUSD": 2.727
+      },
+      "estimateOnlyQuote": {
+        "generations": 4,
+        "credits": 1090.8,
+        "reportedPriceCentsUSD": 10.908,
+        "note": "The estimate was for four outputs; the generation run returned one output and reported 272.7 credits."
+      },
+      "inputProvenance": "Text prompt only. No game textures, screenshots, third-party mod sprites or official logos were supplied. Other Phobos cover art was referenced only in the written style description.",
+      "references": [],
+      "prompt": "Use case: stylized-concept\nAsset type: pixel-art scene layer for the Phobos Banking Steam Workshop cover; landscape composition, approximately 244:170 aspect ratio. Generate the scene only. The existing Phobos Workshop frame, BANKING title, subtitle and footer are composed afterward.\nPrimary request: an original Ostranauts-inspired spacecraft finance scene that makes Phobos Banking readable at thumbnail size: a working spacer checking their debts and bills on a personal handheld PDA.\nScene/backdrop: a cramped, lived-in spacecraft cabin office with scuffed grey steel deck plates, dark slate bulkhead panels, a small service counter, a few cream-painted storage cabinets, and a muted amber work lamp. Keep it practical and worn-in, like a working ship interior in a grounded space-survival game.\nSubject: one modestly sized spacer in plain rust-orange work clothes, seated at the small counter and looking down at an open PDA held in both hands. The PDA is the focal detail: its dark screen shows several distinct short ledger rows and small pale-blue, cream, muted green, and one amber status bar, all purely abstract interface marks. It should read as a financial overview, not a cash machine. Add only a couple of restrained personal-work details such as a mug and a closed locker; keep a clear walking space.\nStyle/medium: coarse, chunky pixel-art illustration with stepped pixel clusters, crisp dark outlines, restrained local shading and limited colors; similar broad pixel-art language, overhead spacecraft setting, material palette and worn game-cover finish as the other Phobos Ostranauts Workshop covers, with the simple readable forms and muted texture of Ostranauts' own vanilla art. Original illustration, not a screenshot and not a recreation of any existing game artwork.\nComposition/framing: elevated near-overhead view into the small room, slight oblique angle like an isometric room illustration; subject and PDA centered within the scene; clear silhouette and enough open floor and furniture to read at small size. Frame the full room crop as a wide rectangle; no decorative border since the Phobos cover frame is added later.\nLighting/mood: modest warm pool from the work lamp against cool neutral ship lighting; tired, practical, quietly focused rather than glossy or dramatic.\nColor palette: charcoal, dark slate, steel grey, warm cream enamel, muted blue-teal, pale mint, amber, and the spacer's subdued rust-orange suit. Keep accent colors sparse.\nMaterials/textures: worn painted metal, scuffed deck tiles, matte plastic PDA casing, dim glass with chunky pixel-shaped rows.\nConstraints: no text, letters, numbers, logos, watermark, title, border, footer, cash machine, paper bills, banknotes, coins, credit card reader, futuristic holograms, neon, dramatic glowing screens, lavish bank interior, extra people, real game screenshots, recognizable copyrighted characters, or game UI claims. Do not depict repossession or imply that debts are erased.",
+      "archived": {
+        "branch": "codex/rejected-artwork",
+        "commit": "0def38b006d203ee7c733c7f65e444ce1628cb7b",
+        "path": "assets/workshop/sources/PhobosBank-elevenlabs-rejected.png",
+        "sha256": "295EE41C9A4828B0F17E61190E521A4C4246F6429CBD51643CCA6CD12B2D3C4C",
+        "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0def38b006d203ee7c733c7f65e444ce1628cb7b/assets/workshop/sources/PhobosBank-elevenlabs-rejected.png"
+      },
+      "reason": "Superseded by the owner's requested OpenAI cover in the vanilla-style overhead treatment; the ElevenLabs scene is unselected and its paid-plan commercial license was owner-confirmed.",
+      "licensingReview": "Owner confirmed the generating ElevenLabs account had a commercial license on 2026-10-07; this candidate was superseded at the owner's request, not for licensing."
     }
   ]
 }

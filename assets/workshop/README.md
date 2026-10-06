@@ -1,14 +1,15 @@
 # Workshop preview artwork
 
-Eight coordinated cover illustrations for Phobos Framework, Auto Nav,
-Shipbreaker, Agriculture, Manufacturing, War Has Been Declared, Medical and Spacer Stories. These are promotional illustrations,
+Nine coordinated cover illustrations for Phobos Framework, Auto Nav,
+Shipbreaker, Agriculture, Manufacturing, War Has Been Declared, Medical,
+Spacer Stories and Banking. These are promotional illustrations,
 not gameplay screenshots or a claim of release readiness. Approach Assist and Phobos Scope
 are deliberately outside this set, as selected by the owner on 25 September 2026.
 The owner approved the original four-cover set and requested native-menu integration on the same day.
 
-The design connects each mod to the project's ambition of longer habitation in
-hostile space: shared dependable systems, careful navigation, material recovery
-and cultivation. It does not promise unlimited resources or perfect recycling.
+The designs connect different parts of life aboard: dependable systems, careful
+navigation, material recovery, cultivation, medical care, personal finances and
+crew stories. They do not promise unlimited resources or perfect recycling.
 
 ![The original four Phobos Workshop covers](previews/collection.png)
 
@@ -22,6 +23,7 @@ and cultivation. It does not promise unlimited resources or perfect recycling.
 | Phobos' War Has Been Declared | [512px](previews/PhobosWarDeclared-512.png) | [256px](previews/PhobosWarDeclared-256.png) | A torn hull with pale-blue build sites laid where parts were lost and two crew carrying a panel; composed cover (see below). An illustration of the idea, not a screenshot. |
 | Phobos Medical | [512px](previews/PhobosMedical-512.png) | [256px](previews/PhobosMedical-256.png) | A spacer resting in the Halewright Ward-3; REST / RECOVER / RETURN. Original promotional art, with no additional treatment claim. |
 | Phobos Spacer Stories | [512px](previews/PhobosSpacerStories-512.png) | [256px](previews/PhobosSpacerStories-256.png) | Two spacers sharing a story at a mess table, with correspondence, a terminal and a data card; READ / REMEMBER / RETELL. |
+| Phobos Banking | [512px](previews/PhobosBank-512.png) | [256px](previews/PhobosBank-256.png) | A working spacer checks the debt overview on their PDA; CREDIT / DEBT / REPAY. Original promotional art, not a gameplay screenshot. |
 
 ## Files and branches
 
@@ -65,15 +67,23 @@ its artwork; no affiliation or endorsement is implied. No extracted game texture
 game screenshot, third-party mod sprite or official logo was supplied to the
 generator or included in these covers.
 
-These complex cover compositions use ChatGPT's built-in image generation under
-the [asset policy's complex-art provision](../../docs/development/asset-generation-policy.md).
-PixelLab remains preferred for simple pixel assets. Its allowance was checked,
-but no PixelLab generation or credit purchase was made for this set. The built-in
-tool does not disclose a model revision, seed or per-image price; none is invented.
-Exact prompts, result identifiers and hashes are retained with this asset family.
-Generated imagery is original commissioned project artwork, subject to applicable
-[OpenAI terms](https://openai.com/policies/terms-of-use/); that provenance is not
-an independent guarantee of exclusive rights. No new licence is assigned here.
+The covers have mixed generated-art provenance. OpenAI's built-in image generation
+was used for the original covers, Medical and Spacer Stories; PixelLab produced the
+Manufacturing and War Has Been Declared scene layers. The Banking scene was generated
+with OpenAI's gpt-image-2 Image API through the bundled fallback CLI. Its exact
+prompt, input reference roles, model, source hashes and image-use record are in the
+[composition manifest](composed.json). The two style references were existing
+Phobos cover scenes; no game-derived artwork, screenshots, third-party mod sprites
+or official logos were supplied.
+
+OpenAI's [Services Agreement, sections 4.1 and 4.4](https://openai.com/policies/services-agreement/)
+states that API customers own Output, with OpenAI assigning any rights it has,
+subject to applicable law, and that Output may not be unique. This records the
+provider terms; it does not promise exclusivity. The CLI did not expose a request
+ID, seed or billed amount, so none is invented. The prior ElevenLabs Banking scene
+was commercially licensed per owner confirmation, but superseded at the owner's
+request and preserved with its original prompt and hash in the
+[rejected-artwork archive](../rejected-artwork-archive.md).
 
 Only mechanical nearest-neighbour resizing is applied to the masters. Typography
 is baked into this English-language promotional artwork, separate from the live
@@ -183,6 +193,34 @@ scene and thumbnail were visually checked; the 512px export is **553,381 bytes**
 The original four-cover exports and review sheet are unchanged. Ordinary builds
 include the committed preview and packaged provenance without needing the master
 branch. Creating this artwork does not install or publish the mod.
+
+## Banking: a composed cover
+
+On **7 October 2026**, OpenAI's gpt-image-2 Image API, through the bundled
+fallback CLI, generated one **1536 x 1072** cabin scene. The spacer checks a
+handheld debt ledger in the restrained overhead pixel-art treatment used by the
+vanilla game and the other Phobos covers. Existing Manufacturing and Medical
+scene layers were style references only; no game artwork or screenshots were
+provided. The unchanged master is on codex/workshop-art-masters, commit
+0eb04af487bd13ddcfb200a2c80ed19f5fd644ad, at
+assets/workshop/masters/PhobosBank-scene.png. The exact prompt, reference roles,
+master hash and OpenAI terms review are in [the composition manifest](composed.json).
+
+The composer reduces the full master to **304 x 170** with nearest-neighbour
+sampling, then takes a centred **244 x 170** crop for the cover scene. It reuses
+the existing Phobos frame, title and CREDIT / DEBT / REPAY subtitle, and writes
+both preview sizes plus mods/PhobosBank/preview.png. The 512px cover and 256px
+thumbnail were visually checked, including the PDA and title at small size. The
+scene illustrates a spacer reading their own debts; it is not a gameplay screenshot
+or evidence of in-game readiness. The cover and mod remain held for owner gameplay
+checks; creating the artwork does not publish the mod.
+
+The superseded **1920 x 1072** ElevenLabs scene is preserved on
+codex/rejected-artwork, with its request, archive reason and SHA-256 recorded in
+[the rejected-artwork archive](../rejected-artwork-archive.md) and
+[the composition manifest](composed.json). The owner confirmed a commercial
+license for that earlier generation; it was replaced solely because the owner
+asked for this OpenAI-generated, vanilla-style scene.
 
 ## Native-menu integration
 

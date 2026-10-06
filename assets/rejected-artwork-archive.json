@@ -1003,6 +1003,14 @@
       "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
       "archiveStatus": "Pushed 5 October 2026",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/cask3-ethanol-tank.png"
+    },
+    {
+      "path": "assets/workshop/sources/PhobosBank-elevenlabs-rejected.png",
+      "sha256": "295ee41c9a4828b0f17e61190e521a4c4246f6429cbd51643cca6cd12b2d3c4c",
+      "reason": "Superseded by the owner's requested OpenAI cover in the vanilla-style overhead treatment; the ElevenLabs scene is unselected and its paid-plan commercial license was owner-confirmed.",
+      "archiveCommit": "0def38b006d203ee7c733c7f65e444ce1628cb7b",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 7 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0def38b006d203ee7c733c7f65e444ce1628cb7b/assets/workshop/sources/PhobosBank-elevenlabs-rejected.png"
     }
   ],
   "additions": [
@@ -1077,6 +1085,11 @@
       "commit": "5ab8f35e868398ca877118932833004f7fd85e9f",
       "date": "2026-10-05",
       "note": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input."
+    },
+    {
+      "commit": "0def38b006d203ee7c733c7f65e444ce1628cb7b",
+      "date": "2026-10-07",
+      "note": "Superseded by the owner's requested OpenAI cover in the vanilla-style overhead treatment; the ElevenLabs scene is unselected and its paid-plan commercial license was owner-confirmed."
     }
   ]
 }

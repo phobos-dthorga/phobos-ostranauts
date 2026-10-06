@@ -5,6 +5,10 @@ not Steam publication.
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced the placeholder Workshop cover scene with an original overhead pixel-art illustration of a spacer checking a debt overview on their PDA. The cover does not change gameplay.
+
 ## [0.3.0] - 2026-10-07 - Draft
 
 ### Added

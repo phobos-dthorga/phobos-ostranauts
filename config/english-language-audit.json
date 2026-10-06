@@ -90269,8 +90269,8 @@
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "961714d72ebbc8599b6169a0fdfd73b270f90c9205200d694993022e094df4af",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service."
+      "sha256": "6b9508f0bdf709cd5e87be6ea13d269e7e12ad0e6ea7c68f9ef942459581ecba",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: identifies the generated cover as promotional art, not a gameplay screenshot, and says publication awaits owner gameplay checks."
     },
     {
       "path": "docs/bank-item-reference.md",
