@@ -86423,8 +86423,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "3de8279081e7136a20cdfba55c3bfd5840c99668059da24448d5b07a67ac100e",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation.",
+      "sha256": "f0318af9d2247566e6353f2ebc45721d31b7ef9e2eeeef29263ef45ddbe1b7dc",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the PDA apps and banking research record.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     },
@@ -86798,8 +86798,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a51ab657ce08624be47ae456c5aecec406baaebacddf56f74b7e0976b0854002",
-      "review": "Framework 0.107.0 story content review, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "ac482f66a0569d9a35d4ce244719a62a407b64ca06e8b54b7c98aaa0b979cb3e",
+      "review": "Framework 0.107.0 story content review, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the PDA apps and banking research record."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -87694,6 +87694,13 @@
       "decision": "new",
       "sha256": "9e6b06b5834a1b10dc1a50fc0d2512d4f54b98fc57ee2acadd3f809bba4d15ca",
       "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
+    },
+    {
+      "path": "docs/development/pda-apps-and-banking-research.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "f47510183db1ca42773c1a9f1e1b06ec34bead470518633930d4a29d628fb5de",
+      "review": "New research record, 6 October 2026: PDA apps and a banking mod; observed game behaviour and proposals are labelled."
     }
   ],
   "surfaces": [

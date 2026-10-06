@@ -1371,6 +1371,10 @@ piped, and joins chain across the ship.
   and never as Equipment, by each family's own machine condition; the game's conduit
   trigger itself is never changed (it also drives the power conduit's jobs).
   Lane art: `scripts/export-line-art.py` and `assets/line-art/README.md`.
+- **PDA apps (design only, not built).** A mod's own app on the wrist PDA needs a
+  `pda_apps` data entry, two tooltip strings, an icon and a narrow hook on
+  `GUIPDA.OpenApp`; the proposed shared `PdaApps` service and its limits are in the
+  [PDA apps and banking research](pda-apps-and-banking-research.md).
 - **`Controls.ProviderPanel`.** The shared equipment Control Panel (Operation,
   Connections, Details) over any `IEquipmentProvider` with `IEquipmentPanelFields`:
   register a `ProviderPanelSpec` (native GUI key, provider, access, resolution, the
