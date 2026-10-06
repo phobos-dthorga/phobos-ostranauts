@@ -103,9 +103,11 @@ place of the cabin: an F6-R exterior radiator or an F6-P thermal exhaust port.
    An F6-R goes outside on the hull beside the head. An F6-P goes on sealed deck
    just inside the wall behind it. Each has its own mounting rules; see the
    [furnace guide](furnace-player-guide.md).
-2. **Pause the laser**, open its Control Panel, then **Settings**, and choose **Cooling**. Pick the
+2. Open the laser's Control Panel, then **Settings**, and choose **Cooling**. Pick the
    assembly. It must be at 50 C or below, undamaged, properly mounted and not
-   paired with a furnace or another laser.
+   paired with a furnace or another laser. A cutting laser pauses for the change
+   on the second Apply and carries on (Shipbreaker 0.85.0); the same goes for
+   changing what it cuts.
 3. If you want it, choose **Power**: **High, 48 kW**. It needs the linked
    assembly to be ready, and it applies from the next cut.
 
@@ -126,8 +128,8 @@ sooner. An assembly's limit is 250 C.
 - If the assembly is damaged, moved away, uninstalled or at its limit, the heat
   goes to the room behind the mount instead, under the room rule above. A cut
   that started at 48 kW keeps that draw, so expect it to wait on the room.
-- To unpair, pause the laser, let the assembly cool to 50 C or below and choose
-  **Cooling: Room behind the mount**.
+- To unpair, let the assembly cool to 50 C or below and choose **Cooling: Room
+  behind the mount**; a cutting laser pauses for it and carries on.
 - The link is by touching only. The laser cannot be cooled through F6-C conduit
   in this version.
 

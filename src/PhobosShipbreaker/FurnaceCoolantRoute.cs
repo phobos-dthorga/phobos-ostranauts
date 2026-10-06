@@ -116,10 +116,12 @@ internal static partial class FurnaceService
     }
     private static bool SetCoolingMode(CondOwner furnace, string mode, out string message)
     {
-        message = Text.Get("Furnace.hot_maintenance");
-        if (!FurnaceRules.Machine(furnace.strCODef) || UnsafeMaintenance(furnace)) return false;
+        message = Text.Get("Industry.unsupported_action");
+        if (!FurnaceRules.Machine(furnace.strCODef)) return false;
+        // The one condition that blocks, by name (Shipbreaker 0.85.0).
+        if (ChangeReason(furnace) is string blocked) { message = blocked; return false; }
         var s = Get(furnace);
-        if(s.Coolant.Enabled && mode=="direct") {message=Text.Get("Furnace.charge_service");return false;}
+        if(s.Coolant.Enabled && mode=="direct") {message=Text.Get("Furnace.coolant_drain_first");return false;}
         if (!CoolingMode(furnace).TryWrite(new Dictionary<string, string> { ["mode"] = mode }))
         { s.Protected = true; message = Text.Get("Furnace.protected"); return false; }
         s.CoolingMode = mode; s.State.Batch.Armed = false; circuits.Invalidate(); routes.Invalidate();

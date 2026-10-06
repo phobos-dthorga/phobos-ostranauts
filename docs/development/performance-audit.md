@@ -1204,6 +1204,14 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: press twice in Manufacturing and Shipbreaker (L87)
+
+L87 — Manufacturing 0.58.0 and Shipbreaker 0.85.0, owner rule. Only command and panel
+paths changed: a press builds at most a short list of steps and pauses one machine. The
+furnace's resume check now returns the first failing condition instead of a single
+yes or no. It runs the same checks, the cheap phase checks first, so the repeat
+run's per-step cost does not grow. No capture accompanies this change.
+
 ## 6 October: PDA apps and the Credit panel (L86)
 
 L86 — Framework 0.126.0 and Phobos Banking 0.1.0. `PdaApps` adds one dictionary lookup to

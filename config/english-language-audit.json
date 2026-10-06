@@ -20889,24 +20889,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "CollectorPanel.one_sender_per_receiver_unlink_before_changing",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "catalogue compatibility fallback; no direct lexical caller found",
-      "references": [
-        "src/PhobosShipbreaker/Text.cs",
-        "translations/PhobosShipbreaker/en.json#CollectorPanel.one_sender_per_receiver_unlink_before_changing"
-      ],
-      "before": "One pair per port. Input and output are separate. Unlink before changing a partner. Changing filters pauses transfers.",
-      "after": "One pair per port. Input and output are separate. Unlink before changing a partner. Changing filters pauses transfers.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "CollectorPanel.pause",
       "category": "control/name/value",
       "decision": "retain",
@@ -31839,28 +31821,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Furnace.hot_maintenance",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/FurnaceCoolantRoute.cs:55",
-        "src/PhobosShipbreaker/FurnaceOperations.cs:42",
-        "src/PhobosShipbreaker/FurnaceOperations.cs:47",
-        "src/PhobosShipbreaker/FurnaceOperations.cs:49",
-        "src/PhobosShipbreaker/FurnaceOperations.cs:318"
-      ],
-      "before": "Changing or removing a cooling connection requires both endpoints at or below 50 C, an idle empty furnace and unprotected saved state. Empty captive feed and product inventories first.",
-      "after": "Cool both units to 50 C or below before changing cooling equipment. Stop the furnace, empty its feed and product trays, and resolve any saved-contents fault first.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
-        "before": "Before changing cooling equipment, cool both units to 50 C or below, stop and empty the furnace, and resolve any saved-state fault. Empty its feed and product inventories first."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Furnace.sealed",
       "category": "status/warning",
       "decision": "retain",
@@ -31895,24 +31855,6 @@
         "decision": "rewrite",
         "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
         "before": "Enter a finite value from {0} to {1}, using a decimal point."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Furnace.resume_block",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/FurnaceOperations.cs:78"
-      ],
-      "before": "Resume requires the exact captive charge, working probes, installed equipment and a paired cooling assembly. Stop flight demand first; cold/equalized batches require their next local operation.",
-      "after": "Before resuming, return this batch's supplies, check the probes and link working, installed cooling equipment. Finish ship manoeuvres first. A cold batch with its gas returned needs the next operation done beside the furnace.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
-        "before": "Resume requires the exact captive charge, working probes, installed equipment and a paired cooling assembly. Stop flight demand first; cold/equalized batches require their next local operation."
       }
     },
     {
@@ -37225,24 +37167,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Furnace.charge_service",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/CoolantService.cs:43",
-        "src/PhobosShipbreaker/FurnaceCoolantRoute.cs:58"
-      ],
-      "before": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. Drain into retained waste before disabling service or removing equipment.",
-      "after": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. The pump sends anything above 5 kg into the conduit until it is full, about 0.33 kg a tile, so keep loading charges until the circuit reads full. Drain into retained waste before disabling service or removing equipment; drain the conduit itself with a drain canister.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Furnace.coolant_managed",
       "category": "status/warning",
       "decision": "retain",
@@ -38303,24 +38227,6 @@
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Capture.stop_rebind",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/CaptureService.cs:107"
-      ],
-      "before": "Stop the approach and release the recorded attachment before rebinding.",
-      "after": "Stop the approach and release this mooring before selecting another target.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
-        "before": "Stop the approach and release the recorded attachment before rebinding."
       }
     },
     {
@@ -45732,23 +45638,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Thaw.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ThawService.cs:320"
-      ],
-      "before": "Pause the thaw unit before changing where it delivers.",
-      "after": "Pause the thaw unit before changing where it delivers.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Thaw.install_first",
       "category": "status/warning",
       "decision": "add",
@@ -46103,23 +45992,6 @@
       ],
       "before": "Next charge: {0}. The chamber now takes {1}.",
       "after": "Next charge: {0}. The chamber now takes {1}.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Furnace.recipe_block",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/FurnaceOperations.cs:106"
-      ],
-      "before": "Choose the recipe while the furnace is idle and cool, with an empty charge chamber and no repeat run.",
-      "after": "Choose the recipe while the furnace is idle and cool, with an empty charge chamber and no repeat run.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -47469,23 +47341,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Refinery.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:552"
-      ],
-      "before": "Stop the refinery before changing its water vessel.",
-      "after": "Stop the refinery before changing its water vessel.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Refinery.unlinked",
       "category": "status/warning",
       "decision": "add",
@@ -48551,24 +48406,6 @@
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Processor.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ProcessorService.cs:313"
-      ],
-      "before": "Stop the cell before changing its connections.",
-      "after": "Stop the processor before changing its connections.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
-        "before": "Stop the cell before changing its connections."
       }
     },
     {
@@ -50174,23 +50011,6 @@
       ],
       "before": "Draws {0:F1} kW working; with the reaction's own heat, {1:F1} kW goes into the room.",
       "after": "Draws {0:F1} kW working; with the reaction's own heat, {1:F1} kW goes into the room.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Sabatier.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/SabatierService.cs:367"
-      ],
-      "before": "Stop the reactor before changing its connections.",
-      "after": "Stop the reactor before changing its connections.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -54034,23 +53854,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Filler.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/FillerService.cs:323"
-      ],
-      "before": "Pause the station before changing its mode.",
-      "after": "Pause the station before changing its mode.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Filler.full",
       "category": "status/warning",
       "decision": "add",
@@ -57191,23 +56994,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Cracker.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/CrackerService.cs:333"
-      ],
-      "before": "Stop the cracker before changing its connections.",
-      "after": "Stop the cracker before changing its connections.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Cracker.link_missing",
       "category": "status/warning",
       "decision": "rewrite",
@@ -59465,24 +59251,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Leach.select_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:572"
-      ],
-      "before": "Finish or cancel the bound charge before choosing another recipe.",
-      "after": "Finish or Cancel this batch before choosing another recipe.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
-        "before": "Finish or cancel the bound charge before choosing another recipe."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Leach.select_missing",
       "category": "status/warning",
       "decision": "add",
@@ -59740,23 +59508,6 @@
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
         "before": "Phobos Agriculture is not loaded: no makeup or crop nutrient formulation. The salts keep as stock."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Leach.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:552"
-      ],
-      "before": "Stop the leach unit before changing its links.",
-      "after": "Stop the leach unit before changing its links.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
       }
     },
     {
@@ -61322,23 +61073,6 @@
       ],
       "before": "The feed holds no sulfide nodule.",
       "after": "No sulfide nodule inside.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "AcidPlant.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:552"
-      ],
-      "before": "Stop the acid plant before changing its links.",
-      "after": "Stop the acid plant before changing its links.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -69371,23 +69105,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Laser.filter_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosShipbreaker/LaserService.cs:48"
-      ],
-      "before": "Pause the laser before changing what it cuts.",
-      "after": "Pause the laser before changing what it cuts.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Laser.action_start",
       "category": "control",
       "decision": "add",
@@ -69758,23 +69475,6 @@
       ],
       "before": "Link cleared. The laser's heat goes to the room behind the mount.",
       "after": "Link cleared. The laser's heat goes to the room behind the mount.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Laser.cooling_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosShipbreaker/LaserCooling.cs:74"
-      ],
-      "before": "Pause the laser before changing its cooling.",
-      "after": "Pause the laser before changing its cooling.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -70579,6 +70279,448 @@
       ],
       "before": "it does not touch the laser. Set it against the laser or one tile from it.",
       "after": "it does not touch the laser. Set it against the laser or one tile from it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Overrides.hold",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} will pause for the change and carry on afterwards.",
+      "after": "{0} will pause for the change and carry on afterwards."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Overrides.unlink",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} will be unlinked from {1} first.",
+      "after": "{0} will be unlinked from {1} first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Overrides.clear_link",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The unreadable old link on {0} will be cleared first.",
+      "after": "The unreadable old link on {0} will be cleared first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Overrides.clear_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The unreadable saved product store on {0} will be cleared first.",
+      "after": "The unreadable saved product store on {0} will be cleared first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Overrides.stop_furnace",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0}'s heating permission will be withdrawn first. The furnace keeps its heat; start it again when ready.",
+      "after": "{0}'s heating permission will be withdrawn first. The furnace keeps its heat; start it again when ready."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.change_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} has an unfinished or unreadable saved operation. Inspect its panel and the log; its cooling cannot change until then.",
+      "after": "{0} has an unfinished or unreadable saved operation. Inspect its panel and the log; its cooling cannot change until then."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.change_coolant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} still holds coolant. Drain it from the furnace panel before changing its cooling.",
+      "after": "{0} still holds coolant. Drain it from the furnace panel before changing its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.change_batch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} has a batch in progress. Finish or release the batch before changing its cooling.",
+      "after": "{0} has a batch in progress. Finish or release the batch before changing its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.change_hot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} is above 50 C, or its temperature cannot be read. Its cooling can change once it reads 50 C or less.",
+      "after": "{0} is above 50 C, or its temperature cannot be read. Its cooling can change once it reads 50 C or less."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.change_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0}'s feed still holds items. Take them out before changing its cooling.",
+      "after": "{0}'s feed still holds items. Take them out before changing its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.change_products",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} still holds products or cargo. Take them out before changing its cooling.",
+      "after": "{0} still holds products or cargo. Take them out before changing its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_idle",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "There is no batch to continue. Load the chamber and seal a charge to begin one.",
+      "after": "There is no batch to continue. Load the chamber and seal a charge to begin one."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_finished",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "This batch has finished heating. Return its gas to the room, then release it.",
+      "after": "This batch has finished heating. Return its gas to the room, then release it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_ship",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "This batch was sealed on another ship and cannot continue here.",
+      "after": "This batch was sealed on another ship and cannot continue here."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_supplies",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "This batch's supplies are not all in the chamber. Return the same supplies before continuing.",
+      "after": "This batch's supplies are not all in the chamber. Return the same supplies before continuing."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_probes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The furnace's temperature probes are not reading. The batch continues once they work.",
+      "after": "The furnace's temperature probes are not reading. The batch continues once they work."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_cooling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "No working cooling assembly is linked. Link an installed, undamaged one to continue.",
+      "after": "No working cooling assembly is linked. Link an installed, undamaged one to continue."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_flight",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The ship is under flight control. The batch continues once the ship has finished manoeuvring.",
+      "after": "The ship is under flight control. The batch continues once the ship has finished manoeuvring."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_batch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "A batch is in the furnace. Release it before choosing another recipe.",
+      "after": "A batch is in the furnace. Release it before choosing another recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_hot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The furnace is above 50 C. It can take another recipe once it has cooled.",
+      "after": "The furnace is above 50 C. It can take another recipe once it has cooled."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The charge chamber holds items. Take them out before choosing another recipe.",
+      "after": "The charge chamber holds items. Take them out before choosing another recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_repeat",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "A repeat run holds the recipe. End the repeat run to choose another.",
+      "after": "A repeat run holds the recipe. End the repeat run to choose another."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_install",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Install and repair the furnace, then service its coolant here.",
+      "after": "Install and repair the furnace, then service its coolant here."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_route",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Coolant service needs piped cooling with a working coolant route to a paired assembly.",
+      "after": "Coolant service needs piped cooling with a working coolant route to a paired assembly."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_hot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Let the furnace and its cooling assembly cool to 50 C to service the coolant.",
+      "after": "Let the furnace and its cooling assembly cool to 50 C to service the coolant."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_batch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Finish or release the batch before servicing coolant.",
+      "after": "Finish or release the batch before servicing coolant."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_enable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Choose refillable coolant to fill or drain it here.",
+      "after": "Choose refillable coolant to fill or drain it here."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_fill",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Put a 1 kg coolant charge in the Products tray, with room left in the reservoir.",
+      "after": "Put a 1 kg coolant charge in the Products tray, with room left in the reservoir."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_drain_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "There is no coolant to drain.",
+      "after": "There is no coolant to drain."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_drain_space",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The Products tray has no room for the drained coolant. Make space and drain again.",
+      "after": "The Products tray has no room for the drained coolant. Make space and drain again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.coolant_drain_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Drain the coolant before changing the coolant type or switching to direct cooling.",
+      "after": "Drain the coolant before changing the coolant type or switching to direct cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Capture.override_stop",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The approach under way will be stopped first.",
+      "after": "The approach under way will be stopped first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Capture.override_release",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The ship moored for capture will be released first. Release does not brake: both ships keep drifting as they are.",
+      "after": "The ship moored for capture will be released first. Release does not brake: both ships keep drifting as they are."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Capture.settling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "The capture is still being made or released. Wait for it to settle, then choose the target again.",
+      "after": "The capture is still being made or released. Wait for it to settle, then choose the target again."
     },
     {
       "mod": "PhobosFramework",
@@ -72466,20 +72608,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Fermenter.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
-        "src/PhobosManufacturing/ChargeMachine.cs"
-      ],
-      "before": "Stop the fermenter-still before changing its links.",
-      "after": "Stop the fermenter-still before changing its links."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Fermenter.no_vessel",
       "category": "status/warning",
       "decision": "add",
@@ -73668,19 +73796,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Bottler.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosManufacturing/BottlerService.cs"
-      ],
-      "before": "Stop the bottling unit before changing its links.",
-      "after": "Stop the bottling unit before changing its links."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Bottler.linked",
       "category": "status/warning",
       "decision": "add",
@@ -73852,14 +73967,14 @@
       "mod": "PhobosManufacturing",
       "key": "Content.feed_blocked",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Says plainly what went wrong and what to press.",
+      "decision": "rewrite",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
       "trace": "literal reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs"
       ],
       "before": "The machine could not take its charge in: its inner feed is full of something else. Cancel to get that back, then Start again.",
-      "after": "The machine could not take its charge in: its inner feed is full of something else. Cancel to get that back, then Start again."
+      "after": "The machine could not take its charge in: its inner feed holds other things. Press Start: it offers to put them back in its inventory and try again."
     },
     {
       "mod": "PhobosManufacturing",
@@ -74651,19 +74766,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Refinery.prefer_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Finish or Cancel this batch before changing what the refinery does with regolith.",
-      "after": "Finish or Cancel this batch before changing what the refinery does with regolith."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Refinery.prefer_missing",
       "category": "status/warning",
       "decision": "add",
@@ -74726,19 +74828,6 @@
       ],
       "before": "No optional charge.",
       "after": "No optional charge."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Leach.prefer_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Finish or Cancel this batch before changing the optional charge.",
-      "after": "Finish or Cancel this batch before changing the optional charge."
     },
     {
       "mod": "PhobosManufacturing",
@@ -74911,19 +75000,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "AcidPlant.prefer_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Finish or Cancel this batch before changing the optional charge.",
-      "after": "Finish or Cancel this batch before changing the optional charge."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "AcidPlant.prefer_missing",
       "category": "status/warning",
       "decision": "add",
@@ -74986,19 +75062,6 @@
       ],
       "before": "No optional charge.",
       "after": "No optional charge."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Fermenter.prefer_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Finish or Cancel this batch before changing the optional charge.",
-      "after": "Finish or Cancel this batch before changing the optional charge."
     },
     {
       "mod": "PhobosManufacturing",
@@ -75097,19 +75160,6 @@
       ],
       "before": "The cell runs at a white heat and sheds what the rock does not take up.",
       "after": "The cell runs at a white heat and sheds what the rock does not take up."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Cell.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Stop the electrolysis cell before changing its links.",
-      "after": "Stop the electrolysis cell before changing its links."
     },
     {
       "mod": "PhobosManufacturing",
@@ -75292,19 +75342,6 @@
       ],
       "before": "No optional charge.",
       "after": "No optional charge."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Cell.prefer_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Finish or Cancel this batch before changing the optional charge.",
-      "after": "Finish or Cancel this batch before changing the optional charge."
     },
     {
       "mod": "PhobosManufacturing",
@@ -76147,19 +76184,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Carbothermal.link_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Stop the carbothermal reactor before changing its links.",
-      "after": "Stop the carbothermal reactor before changing its links."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Carbothermal.paused",
       "category": "status/warning",
       "decision": "add",
@@ -76222,19 +76246,6 @@
       ],
       "before": "No optional charge.",
       "after": "No optional charge."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Carbothermal.prefer_busy",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing"
-      ],
-      "before": "Finish or Cancel this batch before changing the optional charge.",
-      "after": "Finish or Cancel this batch before changing the optional charge."
     },
     {
       "mod": "PhobosManufacturing",
@@ -85820,6 +85831,45 @@
       "after": "The bottling unit has an unfinished batch. Uninstall it whole and the batch goes with it; to dismantle it, finish or Cancel the batch first."
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Content.hold_for_change",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} will pause for the change and carry on afterwards.",
+      "after": "{0} will pause for the change and carry on afterwards."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.cancel_for_change",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}'s batch will be cancelled first, losing {1:0}% of its work; its supplies go back to its inventory. To keep the batch, let it finish first.",
+      "after": "{0}'s batch will be cancelled first, losing {1:0}% of its work; its supplies go back to its inventory. To keep the batch, let it finish first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.clear_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.58.0 and Shipbreaker 0.85.0: press-twice warnings and the specific furnace, capture and coolant refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}'s inner feed holds other things. They will go back to its inventory first, then the charge goes in.",
+      "after": "{0}'s inner feed holds other things. They will go back to its inventory first, then the charge goes in."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "Audio.machine_volume_help",
       "category": "help",
@@ -87414,8 +87464,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c359371d1da4c8422f7411ab445ba834c0fac20dc4cc698ea1e96b2564df6660",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "f9d865905ce31857b8553faa941a5bc50b103f52ef1f252d780d00561122e212",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "SUPPORT.md",
@@ -87435,8 +87485,8 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6b55d1d657b212ae537d671fe48ee7a2ac342a4a279097204b56d62f1c765484",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "cce872ddc5f87e6d5a04ef9eca253a35a67ea4ba824d35cb870c8ff356c6c49a",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/agriculture-item-reference.md",
@@ -87575,8 +87625,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "33b2d9ced66eb74aaee6e8096f1222cf7ac61711b7d9e5a9258be405180c514d",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "32ffc7f210ad4cd901c17c4940df38362176bfaaa4d3a0eb751a8e3777f1cdfa",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/crew-automation.md",
@@ -88571,8 +88621,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3d0947e2b043de066b5cbda8cea0fa875c95830452dfb8c038739a80b96ad605",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "4fa2815fad49c04914607c15eb96de473f83e2cd8bf19fc669f88e2f0c6fecf6",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/getting-started.md",
@@ -88606,15 +88656,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "161bc24c9ffa2d8c6b90c717a8cdc151e66a799345c04d6c2474dace668d4dff",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "232bd4d650d804b4c04e7d7babd194c4f3b86b536d2e84251840c120128486ef",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1fbb8206661db2c7d44493efab6ffd8c4114af2b362c360a4a957ef163b83bdd",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "2f2002f01166352c139b1a2f0fa321e61926bc756658863c83e2395b66329884",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/item-references.md",
@@ -88641,15 +88691,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "e252070cb49e346bbd631207e820941dee5ec1529516a0c5c50c6026743f64fb",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "68ba966fa52e7ebc65a806a3358efc2232c0b8aa46423390c3a535918334ab77",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "6f7c9ca0d73e076dee53a53e192513e15b76dc9437a66a3d4b84246a0d16bb7c",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
+      "sha256": "694550f055ebdd9fcb9d002bdf5bc3d487419a6027c6983e9620db908e83c452",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -88683,8 +88733,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2898647a7b8d451b97b8307cf6febaf3e060021bda44b97dc45d0774821015fc",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "ba428ea5543afefec8a8eccab04fe898ea9d0d924d00f2089da632ff1378b6d6",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -88697,8 +88747,8 @@
       "path": "docs/residue-collector.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5ca8b9c7d787f8830fbecc137a8cf31332f8aeb39cbd484d8e75b3f197d2951b",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "9e53363e361cf14aefe564c78865bbeecb9cc6766d5cb8f74316c3fbc6d711b8",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/scrap-reclaimer.md",
@@ -88725,8 +88775,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "f55e0b5a5730707875cfe35287c36bd6a9565e7b8c7b40a1c96f449055674107",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "106e74365f243cdaa77d0bf0e5fded9c8aec893822bbc4353dcdc2832816e187",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -88739,8 +88789,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1d7a267c38596b782e3eff25e8fddd0f2c610c339ed8722a8bed0de326d17f63",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "25b973c0c80fb2daf19d104919162bb61df0faaad5b7238c21893c6472b67365",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -88760,8 +88810,8 @@
       "path": "docs/shipbreaker-mining-laser.md",
       "scope": "current player operating guide",
       "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
-      "sha256": "a5efbfc9d22c04f2438037b0fae68354764bd92669ab03ef55b95102a6e300fa",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "535829be7abc649b1204c261713de8fc1275b86887b14779134852880dc1cf34",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/shipbreaker-reclamation.md",
@@ -88830,8 +88880,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5f60b581bebbcec35fc7d2da76249e70e37de396e6bd9daaf1402503ef698511",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "15382a0a8bc381824af61fb79c71cbced0c080ee66175b38bfbfeb28f8a3f948",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -88844,8 +88894,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b94bf302d3c0538d5419edbaabc2f237cb377ab78f594d46c5f907e65d3412e4",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "5a616d0e933ca6505649ee9000a13f944e8ab022cd03008c93fdb7499ba0aa54",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "workshop/PhobosSpacerStories/page.bbcode",
@@ -88872,8 +88922,8 @@
       "path": "docs/development/panel-override-audit.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "88e02025b5222ca2d427d7dc0a0b36c523e7461253e0cb1b1217ea4e7f0120ec",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "989f696c567380cb62b57fb54ef8c135e92bc0fe7b470b7d0ca56a5f7ecd3a22",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "docs/bank-player-guide.md",
@@ -88959,8 +89009,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c40992ed0b6361b0bcb9458716fe909b6208c06b256730ade773f2b21c6e9390",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "e3f8b1c0f025cf4c5c64c5df508183b25a3bc39cc453f16cf653ef224de0610f",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -88977,8 +89027,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "04eb3ecc15b6db0cb70c15fbd698c297c4d0aad91d3a41de19838b9e6c0244cd",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "2b980854a876ceeabe659760e8e9a0e63259e1d606291998329d69f271cc7053",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

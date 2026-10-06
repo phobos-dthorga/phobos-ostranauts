@@ -27,6 +27,8 @@ internal sealed class ChargeMachine
     {
         internal ChargeState State = null!;
         internal bool Protected, AwaitingFeed, HeatWait, VesselWait, NeedsAttention;
+        /// <summary>The last Start could not take its charge in: the inner feed held other things (0.58.0).</summary>
+        internal bool FeedBlocked;
         // True only while Start itself binds: the one time a charge may be made of things this machine makes.
         internal bool ByStart;
         internal double Last, NextVesselCheck, WaitSince;
@@ -293,7 +295,7 @@ internal sealed class ChargeMachine
         if (s.Protected) { s.Status = T("protected"); return false; }
         try
         {
-            s.LastStop = null; s.NeedsAttention = false; s.AwaitingFeed = true;
+            s.LastStop = null; s.NeedsAttention = false; s.AwaitingFeed = true; s.FeedBlocked = false;
             if (s.State.Running) return true;
             bool started;
             s.ByStart = ownProducts;
@@ -342,7 +344,7 @@ internal sealed class ChargeMachine
         foreach (var input in recipe.ItemInputs) units.AddRange(valid.Where(c => c.strCODef == input.Id).OrderBy(c => c.objCOParent == feed ? 0 : 1).ThenBy(c => c.strID, StringComparer.Ordinal).Take(input.Count));
         if (units.Any(u => !ChargeState.SafeId(u.strID))) { s.Status = T("invalid_feed"); return false; }
         foreach (var unit in units)
-            if (unit.objCOParent != feed && !OwnInventoryFeed.Take(unit, feed)) { s.Status = Text.Get("Content.feed_blocked"); return false; }
+            if (unit.objCOParent != feed && !OwnInventoryFeed.Take(unit, feed)) { s.Status = Text.Get("Content.feed_blocked"); s.FeedBlocked = true; return false; }
         // A charge with an outcome table (Manufacturing 0.44.0) turns out to be one of its outcomes, decided by the
         // bound units themselves: the same units always give the same result, so nothing can reroll it.
         recipe = ChargeOutcomes.Resolve(recipe, units.Select(u => u.strID));
@@ -366,6 +368,25 @@ internal sealed class ChargeMachine
         if (s.State.ProgressSeconds >= recipe.Seconds) return Finish(co, s);
         SetWorking(co, true);
         return true;
+    }
+    /// <summary>The pause a change holds the machine in (0.58.0): its batch kept, standing crew orders left on.</summary>
+    private void Hold(CondOwner co) => Stop(co, Get(co), T("paused_retained"), needsAttention: false);
+    /// <summary>Lets a held machine carry on through its own Start; the reason when it cannot.</summary>
+    private string? CarryOn(CondOwner co, ConsoleBinding? binding) => Start(co, binding) ? null : Get(co).Status;
+    private bool Working(CondOwner co, Session s) => s.State.Running || co.HasCond(Spec.WorkingCondition);
+    /// <summary>Cancels the bound batch for a change: its work is lost, its units go back to the inventory.</summary>
+    private string? CancelBatch(CondOwner co, Session s)
+    {
+        Stop(co, s, T("cancelled"), needsAttention: false); s.State.Clear(); Save(co, s);
+        if (s.Protected) return T("protected");
+        OwnInventoryFeed.Return(Feed(co), co); return null;
+    }
+    /// <summary>The warning for a change that must cancel the bound batch, with the share of its work that is lost.</summary>
+    private string BatchLoss(CondOwner co, Session s)
+    {
+        var recipe = Recipe(s);
+        double done = recipe == null || recipe.Seconds <= 0 ? 0 : Math.Min(100, s.State.ProgressSeconds / recipe.Seconds * 100);
+        return Text.Get("Content.cancel_for_change", ObjectPresentation.Name(co), done);
     }
     internal bool Pause(CondOwner co, bool cancel, ConsoleBinding? binding = null)
     {
@@ -697,24 +718,32 @@ internal sealed class ChargeMachine
         if (reason.Length > 0) return false;
         var s = Get(co);
         if (s.Protected) { reason = T("protected"); return false; }
-        if (s.State.Running || s.State.Bound || co.HasCond(Spec.WorkingCondition)) { reason = T("prefer_busy"); return false; }
         string id = value == "none" ? "" : value;
         if (id.Length > 0 && !Optional().Any(r => r.Id == id)) { reason = T("prefer_missing", value); return false; }
-        s.State.Prefer = id; Save(co, s);
-        if (s.Protected) { reason = T("protected"); return false; }
-        s.Status = reason = id.Length == 0 ? T("prefer_cleared") : T("prefer_set", Text.Get("Recipe." + id));
-        return true;
+        // A bound batch is cancelled for the change on the second press, its loss named (0.58.0); until then it refused.
+        bool bound = s.State.Bound;
+        return Overrides.HoldAround(co, Working(co, s), () => Hold(co), () => CarryOn(co, binding), () =>
+        {
+            if (bound && CancelBatch(co, s) is string fault) return fault;
+            s.State.Prefer = id; Save(co, s);
+            if (s.Protected) return T("protected");
+            s.Status = id.Length == 0 ? T("prefer_cleared") : T("prefer_set", Text.Get("Recipe." + id));
+            return null;
+        }, () => s.Status, out reason, bound ? BatchLoss(co, s) : null);
     }
     internal bool Link(CondOwner co, ChargeLinkSpec link, string id, ConsoleBinding? binding, out string reason)
     {
         reason = Content.Access(co, binding) ?? "";
         if (reason.Length > 0) return false;
-        if (co.HasCond(Spec.WorkingCondition) || sessions.TryGetValue(co, out var s) && s.State.Running) { reason = T("link_busy"); return false; }
-        if (id == "none") { link.Vessel.Unlink(co, CrewWork.Resolve); reason = link.Unlinked(); return true; }
-        var vessel = Candidates(co, link).FirstOrDefault(v => v.strID == id);
-        if (vessel == null) { reason = link.Missing(); return false; }
-        if (!link.Vessel.Link(co, vessel, CrewWork.Resolve, out reason)) return false;
-        reason = link.Linked(); return true;
+        CondOwner? vessel = null;
+        if (id != "none") { vessel = Candidates(co, link).FirstOrDefault(v => v.strID == id); if (vessel == null) { reason = link.Missing(); return false; } }
+        // A working machine pauses for the change and carries on (0.58.0); until then it had to be stopped first.
+        var s = Get(co);
+        return Overrides.HoldAround(co, Working(co, s), () => Hold(co), () => CarryOn(co, binding), () =>
+        {
+            if (vessel == null) { link.Vessel.Unlink(co, CrewWork.Resolve); return null; }
+            return link.Vessel.Link(co, vessel, CrewWork.Resolve, out var problem) ? null : problem;
+        }, () => vessel == null ? link.Unlinked() : link.Linked(), out reason);
     }
     /// <summary>Chooses the recipe the next charge binds (explicit machines only): idle and unbound, so a bound or
     /// running charge keeps its recipe; units of another recipe stay in the feed until removed.</summary>
@@ -725,13 +754,18 @@ internal sealed class ChargeMachine
         if (Spec.Selection != RecipeSelection.Explicit) { reason = Text.Get("Content.unsupported_action"); return false; }
         var s = Get(co);
         if (s.Protected) { reason = T("protected"); return false; }
-        if (s.State.Running || s.State.Bound || co.HasCond(Spec.WorkingCondition)) { reason = T("select_busy"); return false; }
         var recipe = Catalog.ById(value) ?? (int.TryParse(value, out int revision) ? Catalog.ByRevision(revision) : null);
         if (recipe == null || !Available(recipe, co)) { reason = T("select_missing", value); return false; }
-        s.State.Selected = recipe.Revision; Save(co, s);
-        if (s.Protected) { reason = T("protected"); return false; }
-        s.Status = reason = T("selected", Text.Get("Recipe." + recipe.Id));
-        return true;
+        // A bound batch is cancelled for the change on the second press, its loss named (0.58.0); until then it refused.
+        bool bound = s.State.Bound;
+        return Overrides.HoldAround(co, Working(co, s), () => Hold(co), () => CarryOn(co, binding), () =>
+        {
+            if (bound && CancelBatch(co, s) is string fault) return fault;
+            s.State.Selected = recipe.Revision; Save(co, s);
+            if (s.Protected) return T("protected");
+            s.Status = T("selected", Text.Get("Recipe." + recipe.Id));
+            return null;
+        }, () => s.Status, out reason, bound ? BatchLoss(co, s) : null);
     }
     /// <summary>A bound charge travels with an uninstalled machine (its units sit in the feed bin, which every form
     /// carries) and resumes when it is installed again; only Dismantle waits for it (Manufacturing 0.56.2).</summary>
@@ -760,7 +794,16 @@ internal sealed class ChargeMachine
         bool result;
         switch (action)
         {
-            case "start": result = Start(co, binding); break;
+            case "start":
+                result = Start(co, binding);
+                // The inner feed held other things (0.58.0): the second press puts them back in the inventory and starts.
+                if (!result && Get(co).FeedBlocked)
+                {
+                    var s = Get(co);
+                    return Overrides.HoldAround(co, false, () => { }, () => null, () => { OwnInventoryFeed.Return(Feed(co), co); return Start(co, binding) ? null : s.Status; },
+                        () => Describe(co), out message, Text.Get("Content.clear_feed", ObjectPresentation.Name(co)));
+                }
+                break;
             case "pause": result = Pause(co, false, binding); break;
             case "cancel": result = Pause(co, true, binding); break;
             case "status": result = true; break;

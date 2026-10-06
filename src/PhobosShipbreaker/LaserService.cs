@@ -51,10 +51,11 @@ internal static partial class LaserService
         message = ProcessingService.AccessProblem(co, binding) ?? "";
         if (message.Length != 0) return false;
         if (!LaserRules.ParseFilter(id, out var filter)) { message = Text.Get("Industry.unsupported_action"); return false; }
-        if (sessions.TryGetValue(co.strID, out var s) && s.Authorized && s.Record.HasJob) { message = Text.Get("Laser.filter_busy"); return false; }
-        if (!WriteChoice(co, "filter", LaserRules.FilterId(filter))) { message = Text.Get("Laser.save"); return false; }
-        message = Text.Get("Laser.filter_set", Text.Get("Laser.filter_" + LaserRules.FilterId(filter)));
-        return true;
+        // Cutting pauses for the change and carries on (Shipbreaker 0.85.0); until then it had to be paused first.
+        bool cutting = sessions.TryGetValue(co.strID, out var s) && s.Authorized && s.Record.HasJob;
+        return Overrides.HoldAround(co, cutting, () => Pause(co, false), () => Start(co, out var why) ? null : why,
+            () => WriteChoice(co, "filter", LaserRules.FilterId(filter)) ? null : Text.Get("Laser.save"),
+            () => Text.Get("Laser.filter_set", Text.Get("Laser.filter_" + LaserRules.FilterId(filter))), out message);
     }
 
     internal static string? MachineProblem(CondOwner co)

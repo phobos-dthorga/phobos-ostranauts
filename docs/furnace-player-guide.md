@@ -122,6 +122,14 @@ Fill, drain and coolant-mode changes require local access. C1 cannot perform
 those physical service steps. Drain retained fluid before unpairing, changing
 cooling mode or removing equipment; leave room in Products for the waste.
 
+When something blocks a cooling, recipe, coolant or continue command, the panel
+names the one thing in the way (Shipbreaker 0.85.0): the unit that is above 50 C,
+the batch still in progress, coolant still held, items in the feed, missing
+supplies, the probes, the cooling link or ship manoeuvres. If heating permission is
+the only thing in the way of a recipe or coolant service, the first press says so
+and the second withdraws it. The furnace keeps its heat, and you start it again
+yourself.
+
 ### Power and heat
 
 Connect the F6's two front power points to ordinary ship electrical supply.

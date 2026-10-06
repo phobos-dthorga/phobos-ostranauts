@@ -359,9 +359,13 @@ internal static class FillerService
         switch (verb)
         {
             case "mode":
-                if (s.Running) { message = Text.Get("Filler.link_busy"); return false; }
-                s.State.Mode = arg == "decant" ? FillerMode.Decant : FillerMode.Fill; changed = true;
-                message = Text.Get(s.State.Mode == FillerMode.Decant ? "Filler.mode_decant" : "Filler.mode_fill"); break;
+            {
+                // A running station pauses for the change and carries on (0.58.0); until then it had to be paused first.
+                var mode = arg == "decant" ? FillerMode.Decant : FillerMode.Fill;
+                return Overrides.HoldAround(co, s.Running, () => Stop(co, s, Text.Get("Filler.paused"), false), () => Start(co, binding) ? null : s.Status,
+                    () => { s.State.Mode = mode; return Save(co, s) ? null : Text.Get("Filler.protected"); },
+                    () => Text.Get(mode == FillerMode.Decant ? "Filler.mode_decant" : "Filler.mode_fill"), out message);
+            }
             case "link":
             {
                 bool store = StoreCandidates(co).Any(c => c.strID == arg), canister = !store && CanisterCandidates(co).Any(c => c.strID == arg);

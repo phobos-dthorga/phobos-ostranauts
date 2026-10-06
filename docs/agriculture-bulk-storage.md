@@ -57,8 +57,9 @@ aggregate formulation and value per kilogram as the other selected charges.
 
 The linked silo replaces the optional Ship's Water *inlet* only. If the silo is
 empty, blocked, damaged, missing or down to its reserve, the W2 waits; it never
-falls back to drinking water on its own. Disconnect the silo while paused to
-restore the previous intake option, including its crew-water reserve.
+falls back to drinking water on its own. Disconnect the silo to restore the
+previous intake option, including its crew-water reserve; a working W2 pauses for
+the change and carries on (Agriculture 0.66.0).
 
 The silo is storage, not a second pump: intake shares the W2's received
 electricity and throughput budget with output and blending. A 120 kg intake uses

@@ -48,15 +48,14 @@ internal static partial class FurnaceService
                 if (!FurnaceRules.Machine(co.strCODef) || peer == null || !FurnaceRules.Cooling(peer.strCODef) || !Geometry(co, peer) || Get(peer).Protected)
                 { message = peer != null && FurnaceRules.Cooling(peer.strCODef) ? ConnectionProblem(co, peer) ?? Text.Get("Furnace.protected") : Text.Get("Furnace.geometry"); return false; }
                 if (PortPairing.Matches(Port(co), Port(peer))) return true;
-                if (UnsafeMaintenance(co) || UnsafeMaintenance(peer))
-                { message = Text.Get("Furnace.hot_maintenance"); return false; }
+                // The one condition that blocks, by name (0.85.0); until then one text listed them all and said "Stop".
+                if ((ChangeReason(co) ?? ChangeReason(peer)) is string blocked) { message = blocked; return false; }
                 return PortPairing.TryLink(Port(co), Port(peer), out message);
             }
             if (action == "unpair")
             {
-                if (UnsafeMaintenance(co)) { message = Text.Get("Furnace.hot_maintenance"); return false; }
                 var link = PortPairing.Read(Port(co)); var peer = CollectorService.Resolve(link.PeerObjectId);
-                if (peer != null && UnsafeMaintenance(peer)) { message = Text.Get("Furnace.hot_maintenance"); return false; }
+                if ((ChangeReason(co) ?? (peer != null ? ChangeReason(peer) : null)) is string blocked) { message = blocked; return false; }
                 PortPairing.Unlink(Port(co), peer == null ? null : Port(peer)); return true;
             }
             if (!FurnaceRules.Machine(co.strCODef)) { message = Text.Get("Industry.unsupported_action"); return false; }
@@ -84,9 +83,7 @@ internal static partial class FurnaceService
             if (action == "release") return Release(s, out message);
             if (action == "resume" || action == "start" || action == "next" || action == "auto-run" || action == "step-run")
             {
-                if (!ChargeReady(s) || !ProbeValid(co) || !ChargePresent(s) || CoolingEndpoint(co) == null || CoolingEndpoint(co)!.HasCond("IsDamaged") || Flight(co.ship) || s.State.ShipId != co.ship.strRegID ||
-                    b.Phase == FurnacePhase.Idle || b.Phase >= FurnacePhase.Equalize)
-                { message = Text.Get("Furnace.resume_block"); return false; }
+                if (ResumeReason(s) is string blocked) { message = blocked; return false; }
                 b.PumpSeconds = 0;
                 if (action == "auto-run" || action == "step-run") b.StepMode = action == "step-run";
                 if (action == "next" && b.Armed) b.AdvanceStep(); else b.Resume();
@@ -103,8 +100,18 @@ internal static partial class FurnaceService
         var co = s.Object; var b = s.State.Batch;
         var recipe = FurnaceRecipes.ById(value) ?? (int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out int revision) ? FurnaceRecipes.ByRevision(revision) : null);
         if (recipe == null) { message = Text.Get("Furnace.recipe_unknown"); return false; }
-        if (b.Phase != FurnacePhase.Idle || !b.SafeOpen || b.Armed || s.State.NativeMutation || s.RepeatAuthorized || (Feed(co)?.objContainer?.ContainedCOs.Count ?? 1) != 0)
-        { message = Text.Get("Furnace.recipe_block"); return false; }
+        // The one condition that blocks, by name (0.85.0). Heating permission alone is withdrawn on the second press; the
+        // furnace's own resume stays explicit.
+        if (s.State.NativeMutation) { message = Text.Get("Furnace.protected"); return false; }
+        if (b.Phase != FurnacePhase.Idle) { message = Text.Get("Furnace.recipe_batch"); return false; }
+        if (!b.SafeOpen) { message = Text.Get("Furnace.recipe_hot"); return false; }
+        if ((Feed(co)?.objContainer?.ContainedCOs.Count ?? 1) != 0) { message = Text.Get("Furnace.recipe_feed"); return false; }
+        if (s.RepeatAuthorized) { message = Text.Get("Furnace.recipe_repeat"); return false; }
+        if (b.Armed)
+        {
+            if (!Confirmations.Ask(Text.Get("Overrides.stop_furnace", ObjectPresentation.Name(co)), Overrides.Confirmed, out message)) return false;
+            b.Armed = false; b.Hold = 0; Save(s);
+        }
         if (s.State.Recipe != recipe.Revision)
         {
             s.State.Recipe = recipe.Revision; b.Profile = recipe.Profile; Save(s);
@@ -225,6 +232,31 @@ internal static partial class FurnaceService
         co.ZeroCondAmount("IsLocked");
         Feed(co)!.ZeroCondAmount("IsLocked"); Feed(co)!.objContainer.Redraw(); co.objContainer.Redraw();
         s.Notice = Text.Get("Furnace.released"); Save(sink); Save(s); message = s.Notice; return true;
+    }
+    /// <summary>Why a furnace or cooling assembly's cooling cannot change now, naming it (Shipbreaker 0.85.0); the same
+    /// conditions as removal, worded for the change. Null when nothing blocks.</summary>
+    private static string? ChangeReason(CondOwner co)
+    {
+        var s = Get(co); string name = ObjectPresentation.Name(co);
+        if (s.Protected || s.State.NativeMutation) return Text.Get("Furnace.change_protected", name);
+        if (s.Coolant.TotalKg > 1e-9) return Text.Get("Furnace.change_coolant", name);
+        if (!FurnaceRules.Cooling(co.strCODef) && s.State.Batch.Phase != FurnacePhase.Idle) return Text.Get("Furnace.change_batch", name);
+        double temperature = FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity : s.State.Batch.TemperatureK;
+        if (!ThermalMath.Finite(temperature) || temperature > FurnaceRules.ReleaseK) return Text.Get("Furnace.change_hot", name);
+        if ((Feed(co)?.objContainer?.ContainedCOs.Count ?? 0) != 0) return Text.Get("Furnace.change_feed", name);
+        if ((co.objContainer?.ContainedCOs.Count ?? 0) != 0) return Text.Get("Furnace.change_products", name);
+        var peer = SelectedCooling(co);
+        return peer != null && peer != co && IsEquipment(peer) ? ChangeReasonOwn(peer) : null;
+    }
+    private static string? ChangeReasonOwn(CondOwner co)
+    {
+        var s = Get(co); string name = ObjectPresentation.Name(co);
+        if (s.Protected || s.State.NativeMutation) return Text.Get("Furnace.change_protected", name);
+        if (s.Coolant.TotalKg > 1e-9) return Text.Get("Furnace.change_coolant", name);
+        double temperature = FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity : s.State.Batch.TemperatureK;
+        if (!ThermalMath.Finite(temperature) || temperature > FurnaceRules.ReleaseK) return Text.Get("Furnace.change_hot", name);
+        if ((co.objContainer?.ContainedCOs.Count ?? 0) != 0) return Text.Get("Furnace.change_products", name);
+        return null;
     }
     private static string? OwnMaintenanceReason(CondOwner co)
     {

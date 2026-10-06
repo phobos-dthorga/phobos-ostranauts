@@ -80,6 +80,14 @@ internal static class IndustryService
     internal static string StateName(EquipmentState state) => Text.Get("Industry.state_" + state);
     internal static bool Run(ConsoleBinding? binding, string targetId, string action, string? value, out string message)
     {
+        // A confirmed action carries the prefix (Shipbreaker 0.85.0); the services read it through Overrides.Confirmed.
+        bool confirmed = Confirmations.Split(ref action) || Overrides.Confirmed;
+        string result = "";
+        bool done = Overrides.With(confirmed, () => RunChecked(binding, targetId, action, value, confirmed, out result));
+        message = result; return done;
+    }
+    private static bool RunChecked(ConsoleBinding? binding, string targetId, string action, string? value, bool confirmed, out string message)
+    {
         var target = CollectorService.Resolve(targetId);
         message = Text.Get("Industry.missing");
         if (target == null || (!IndustrialRules.Equipment(target.strCODef) && EquipmentProviders.For(target.strCODef) == null)) return false;
@@ -94,7 +102,7 @@ internal static class IndustryService
             return CaptureService.Command(binding, target, action, value, out message);
         if (FurnaceService.IsEquipment(target) && !new[] { "receive", "pause-receive", "filter", "unlink-input", "unlink-output", "link-input", "link-output", "inventory" }.Contains(action)) return FurnaceService.Command(binding, target, action, value, out message);
         var provider = EquipmentProviders.For(target.strCODef);
-        if (provider != null) return provider.Command(target, binding, action, out message);
+        if (provider != null) return provider.Command(target, binding, confirmed ? Confirmations.Confirmed(action) : action, out message);
         if (StorageService.Supported(target))
             switch (action)
             {

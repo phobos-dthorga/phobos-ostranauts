@@ -47,8 +47,8 @@ it as fuel. A full silo weighs what it holds: the ship's mass readouts include i
    **Deliver water to** and pick the silo. The list says how each is reached and
    marks a full one; under it, **Aboard, but not offered** names any silo left
    out and what to fix (loose, damaged, locked, no working line touching it).
-   Apply. The C1 console offers the same choice. Pause the T2 before changing
-   the link.
+   Apply. The C1 console offers the same choice. A working T2 pauses for the
+   change on the second Apply and carries on (Shipbreaker 0.85.0).
 4. Right-click the T2 and choose **Inventory**, and put water ice in. The unit
    has the one inventory, which the ice shares with the gangue; it takes one
    block at a time from there, a stack included. Methane ice is accepted too; see

@@ -332,6 +332,10 @@ exception is the station refuelling kiosk's Bulk supplies view.
      waits and says why.
    - Changing a recipe, preference or link on the Control Panel pauses the
      order until you choose Resume in the Crew panel.
+   - A link, mode, recipe or preference can be changed while the machine works
+     (Manufacturing 0.58.0). The first Apply says the machine will pause for it,
+     and what a bound charge would lose; Apply again does it, and the machine
+     carries on. In F3, end the command with confirm.
    - Right-click **Maintenance** shows the order, who is on it and the machine's
      tune and inspection, with buttons into the Crew panel. See
      [crew automation](crew-automation.md#supported-equipment).
@@ -542,8 +546,10 @@ flowchart LR
 3. Right-click the LC-3 and choose **Inventory**, and put the chosen recipe's
    charge in. Charges and products share the one inventory.
 4. Choose **Start**. It takes the charge, works it, puts the products back in the
-   inventory, then takes the next charge of the same recipe if one is there. Change the
-   recipe only while no charge is bound; **Cancel** releases a bound charge.
+   inventory, then takes the next charge of the same recipe if one is there.
+   Choosing another recipe while a charge is bound asks first: press Apply again to
+   cancel that charge, which loses its work and puts its supplies back in the
+   inventory, and switch (Manufacturing 0.58.0). **Cancel** releases a bound charge.
 
 A leach waits until the linked vessel holds 20 kg of water; struvite waits until
 the vessel and the ammonia store hold what it takes; the acid recipes wait for

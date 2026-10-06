@@ -99,8 +99,13 @@ internal sealed class StorageService
         if (!Eligible(machine, store)) { message = Text.Get("Storage.ineligible"); return false; }
         if (CollectorRoute.Find(store!, machine) == null) { message = Text.Get("Storage.no_route"); return false; }
         var status = Read(machine, out _);
-        // An unreadable or foreign record is explicitly cleared with Unlink storage, never overwritten.
-        if (status != SavedStateStatus.Missing && status != SavedStateStatus.Ready) { message = Text.Get("Storage.protected"); return false; }
+        // An unreadable or foreign record is never overwritten silently: since Shipbreaker 0.85.0 the second press clears it
+        // with Unlink storage, after a warning that says so.
+        if (status != SavedStateStatus.Missing && status != SavedStateStatus.Ready)
+        {
+            if (!Confirmations.Ask(Text.Get("Overrides.clear_store", ObjectPresentation.Name(machine)), Overrides.Confirmed, out message)) return false;
+            if (!Unlink(machine, console, out message)) return false;
+        }
         var selection = new StorageSelection { Port = StorageRules.Port(machine.strCODef)!, StoreId = store!.strID, ShipId = machine.ship.strRegID };
         if (!Saved(machine).TryWrite(selection.Save())) { message = Text.Get("Storage.protected"); return false; }
         Clear(machine, s, Text.Get("Storage.linked", CollectorService.Label(store)));

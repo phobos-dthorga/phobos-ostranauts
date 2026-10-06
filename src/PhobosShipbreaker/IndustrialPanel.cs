@@ -278,9 +278,12 @@ public sealed class IndustrialPanel : GUIData
         if (Central) W.Label(details, Text.Get("Industry.local_only"));
         if (tab == "routing") ShowRouting(target); else Layout();
     }
+    /// <summary>Press twice to go ahead (Shipbreaker 0.85.0): the button whose second press is awaited.</summary>
+    private readonly PressGuard guard = new();
+    private static string PressKey(string targetId, string action, string? value) => targetId + "|" + action + "|" + value;
     private void RunInstrument(string targetId, string action, string? value)
     {
-        bool success = IndustryService.Run(binding, targetId, action, value, out result);
+        bool success = guard.Press(PressKey(targetId, action, value), () => IndustryService.Run(binding, targetId, action, value, out result));
         // Refresh first: old cards can otherwise echo a success response or leave
         // stale notices below the live readout when the machine changes later.
         Refresh();
@@ -300,14 +303,17 @@ public sealed class IndustrialPanel : GUIData
         string targetId = selected;
         var last=parent.childCount>0?parent.GetChild(parent.childCount-1):null;
         var row=last!=null&&last.name=="Command row"&&last.childCount<2?last:C.Row(parent,48);row.name="Command row";
-        PolarisWidgets.Button(row, label ?? Text.Get("Industry.action_" + action), () =>
+        string key = PressKey(targetId, action, value);
+        PolarisWidgets.Button(row, guard.Label(key, label ?? Text.Get("Industry.action_" + action)), () =>
         {
             bool inventory=!Central&&(action=="feed"||action=="products"||action=="inventory");
             void Execute()
             {
                 if(inventory)CrewSim.LowerUI();
-                bool success = IndustryService.Run(binding, targetId, action, value, out string message);
-                result = success ? Text.Get("Industry.success", label ?? Text.Get("Industry.action_" + action)) : Text.Get("Industry.rejected", message);
+                string message = "";
+                bool success = guard.Press(key, () => IndustryService.Run(binding, targetId, action, value, out message));
+                // An offer is a warning to read, not a rejection (0.85.0).
+                result = success ? Text.Get("Industry.success", label ?? Text.Get("Industry.action_" + action)) : guard.Armed(key) ? message : Text.Get("Industry.rejected", message);
                 if(!inventory){ShowDetail();shell.Notice.text=result;}
             }
             if(inventory)shell.Navigate(Execute);else Execute();

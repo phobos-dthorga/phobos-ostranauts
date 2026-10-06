@@ -7,7 +7,21 @@ namespace PhobosShipbreaker;
 [HarmonyPatch(typeof(ConsoleResolver), nameof(ConsoleResolver.ResolveString))]
 internal static class ConsoleCommands
 {
+    /// <summary>A trailing confirm word goes ahead with the steps a refusal offered (Shipbreaker 0.85.0). It is stripped
+    /// only for Shipbreaker's own commands; a foreign command passes through exactly as typed.</summary>
     private static bool Prefix(ref string strInput, ref bool __result)
+    {
+        var words = strInput.Trim().Split(new[] { ' ', '\t' }, System.StringSplitOptions.RemoveEmptyEntries);
+        bool confirmed = words.Length > 1 && words[words.Length - 1].Equals(Phobos.Ostranauts.Framework.Controls.Confirmations.Word, System.StringComparison.OrdinalIgnoreCase);
+        if (!confirmed) return Dispatch(ref strInput, ref __result);
+        string trimmed = string.Join(" ", words, 0, words.Length - 1);
+        using (Overrides.Scope(true))
+        {
+            if (Dispatch(ref trimmed, ref __result)) return true;
+            strInput = trimmed; return false;
+        }
+    }
+    private static bool Dispatch(ref string strInput, ref bool __result)
     {
         if (FurnaceService.F3(strInput, out bool furnaceResult, out string furnaceResponse))
         { __result = furnaceResult; strInput += "\n" + furnaceResponse; return false; }

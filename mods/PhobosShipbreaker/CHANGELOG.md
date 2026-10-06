@@ -32,6 +32,27 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.85.0] - 2026-10-06 - Draft
+
+### Changed
+
+- No more pausing or unlinking first (Framework 0.125.0, owner rule). Linking a collector or processor that is already paired elsewhere, changing where a working T2 delivers, and changing what a cutting ML-2 cuts or how it is cooled no longer refuse. The first press says what will happen: which old pair is unlinked, which machine pauses. The second press does it, and the machine or collection that was working carries on.
+- G4 capture: choosing a new target while an approach is under way stops that approach on the second press. While a ship is moored for capture, the second press releases it; the warning says release does not brake and both ships keep drifting. This is an agent choice, following the owner's preference for warnings over refusals.
+- An unreadable saved product store on a D4 or R4 is cleared on the second press when you choose a new store; the warning says so.
+- F6 furnace: refusals now name the one thing in the way instead of listing every condition. That is the unit above 50 C, the batch in progress, coolant still held, items in the feed, missing supplies, the probes, the cooling link or ship manoeuvres. When heating permission is all that blocks a recipe or coolant service, the second press withdraws it. The furnace keeps its heat and its resume stays yours.
+- F3: end a command with confirm to go ahead when it offers to pause, unlink, stop or release first.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Requires Framework 0.125.0.
+- Still refused, with the reason: anything hot, coolant or items still inside, a cooling assembly paired with other equipment, a capture still being made or released, and a collector record that needs a new partner.
+- As with any applied setting, an enabled crew order on the machine waits for Resume in the Crew panel.
+- Checked offline; not yet tested in play.
+
 ## [0.84.1] - 2026-10-06 - Draft
 
 ### Changed

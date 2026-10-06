@@ -66,7 +66,8 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
-        if (co.bDestroyed || expected != ConfigurationStamp(co) || !IsConfiguration(action)) return false;
+        string plain = action; Phobos.Ostranauts.Framework.Controls.Confirmations.Split(ref plain);
+        if (co.bDestroyed || expected != ConfigurationStamp(co) || !IsConfiguration(plain)) return false;
         bool saved = Command(co, binding, action, out reason);
         if (saved) Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);
         return saved;
@@ -76,6 +77,12 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             new[] { new EquipmentAction("start", Text.Get("Laser.action_start")), new EquipmentAction("pause", Text.Get("Laser.action_pause")), new EquipmentAction("stop", Text.Get("Laser.action_stop")) })
         : new(co.strID, co.strNameFriendly, "thaw", new EquipmentActivity(ThawService.State(co), ThawService.Describe(co)),
             new[] { new EquipmentAction("start", Text.Get("Thaw.action_start")), new EquipmentAction("pause", Text.Get("Thaw.action_pause")), new EquipmentAction("cancel", Text.Get("Thaw.action_cancel")) });
-    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) => LaserRules.IsFamily(co.strCODef)
-        ? LaserService.Command(co, binding, action, out message) : ThawService.Command(co, binding, action, out message);
+    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
+    {
+        bool confirmed = Phobos.Ostranauts.Framework.Controls.Confirmations.Split(ref action) || Overrides.Confirmed;
+        string result = "";
+        bool done = Overrides.With(confirmed, () => LaserRules.IsFamily(co.strCODef)
+            ? LaserService.Command(co, binding, action, out result) : ThawService.Command(co, binding, action, out result));
+        message = result; return done;
+    }
 }

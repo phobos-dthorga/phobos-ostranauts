@@ -80,29 +80,36 @@ internal static partial class LaserService
     {
         message = ProcessingService.AccessProblem(co, binding) ?? "";
         if (message.Length != 0) return false;
-        if (sessions.TryGetValue(co.strID, out var s) && s.Authorized) { message = Text.Get("Laser.cooling_busy"); return false; }
         if (co.ship == null || CrewSim.coPlayer == null || CrewSim.system?.GetShipOwner(co.ship.strRegID) != CrewSim.coPlayer.strID)
         { message = Text.Get("Furnace.owned_ship"); return false; }
         var port = CoolingPort(co); var link = PortPairing.Read(port);
         if (link.State == PortLinkState.Linked && link.PeerObjectId == id && Radiator(co, out _) != null)
         { message = Text.Get("Laser.cooling_linked", ObjectPresentation.Name(id)); return true; }
-        if (link.State != PortLinkState.Unlinked)
+        // Everything a press cannot fix is checked before anything changes (Shipbreaker 0.85.0): a hot assembly, old or new.
+        var current = link.State == PortLinkState.Linked ? CollectorService.Resolve(link.PeerObjectId) : null;
+        bool ours = current != null && FurnaceService.IsSink(current) && PortPairing.Matches(port, FurnaceService.SinkPort(current));
+        if (link.State != PortLinkState.Unlinked && ours && !FurnaceService.SinkCool(current!)) { message = Text.Get("Laser.radiator_hot"); return false; }
+        CondOwner? assembly = null;
+        if (id != "none")
         {
-            var current = link.State == PortLinkState.Linked ? CollectorService.Resolve(link.PeerObjectId) : null;
-            bool ours = current != null && FurnaceService.IsSink(current) && PortPairing.Matches(port, FurnaceService.SinkPort(current));
-            if (ours && !FurnaceService.SinkCool(current!)) { message = Text.Get("Laser.radiator_hot"); return false; }
-            PortPairing.Unlink(port, ours ? FurnaceService.SinkPort(current!) : null);
-            if (sessions.TryGetValue(co.strID, out var held)) held.Radiator = null;
+            assembly = RadiatorCandidates(co).FirstOrDefault(c => c.strID == id);
+            if (assembly == null) { message = Text.Get("Laser.radiator_choose"); return false; }
+            string? fault = FurnaceService.SinkProblem(assembly);
+            if (fault != null) { message = fault; return false; }
+            if (!FurnaceService.SinkCool(assembly)) { message = Text.Get("Laser.radiator_hot"); return false; }
         }
-        if (id == "none") { message = Text.Get("Laser.cooling_unlinked"); return true; }
-        var assembly = RadiatorCandidates(co).FirstOrDefault(c => c.strID == id);
-        if (assembly == null) { message = Text.Get("Laser.radiator_choose"); return false; }
-        string? fault = FurnaceService.SinkProblem(assembly);
-        if (fault != null) { message = fault; return false; }
-        if (!FurnaceService.SinkCool(assembly)) { message = Text.Get("Laser.radiator_hot"); return false; }
-        if (!PortPairing.TryLink(port, FurnaceService.SinkPort(assembly), out message)) return false;
-        message = Text.Get("Laser.cooling_linked", assembly.strNameFriendly);
-        return true;
+        // Cutting pauses for the change and carries on (0.85.0); until then it had to be paused first.
+        bool cutting = sessions.TryGetValue(co.strID, out var s) && s.Authorized;
+        return Overrides.HoldAround(co, cutting, () => Pause(co, false), () => Start(co, out var why) ? null : why, () =>
+        {
+            if (link.State != PortLinkState.Unlinked)
+            {
+                PortPairing.Unlink(port, ours ? FurnaceService.SinkPort(current!) : null);
+                if (sessions.TryGetValue(co.strID, out var held)) held.Radiator = null;
+            }
+            if (assembly == null) return null;
+            return PortPairing.TryLink(port, FurnaceService.SinkPort(assembly), out var problem) ? null : problem;
+        }, () => assembly == null ? Text.Get("Laser.cooling_unlinked") : Text.Get("Laser.cooling_linked", assembly.strNameFriendly), out message);
     }
 
     /// <summary>The power setting for the jobs the head starts from now on. High needs a ready assembly.</summary>

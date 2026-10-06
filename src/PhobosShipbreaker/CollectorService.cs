@@ -90,11 +90,32 @@ internal sealed partial class CollectorService
         if (route == null) { s.Status = Text.Get("Routing.no_belt"); return false; }
         if (PortPairing.Matches(SourcePort(source, port), Receiver(port)))
         { s.Status = Text.Get("CollectorService.these_endpoints_are_already_paired_collection_settings"); return true; }
+        // An endpoint linked elsewhere is unlinked from its old partner on the second press (0.85.0); until then the
+        // shared pairing refused. Collection that was on carries on with the new pair.
+        bool wasArmed = s.Armed;
+        var sent = PortPairing.Read(SourcePort(source, port)); var taken = PortPairing.Read(Receiver(port));
+        var steps = new System.Collections.Generic.List<string>();
+        if (sent.State != PortLinkState.Unlinked) steps.Add(OldLinkStep(source, sent));
+        if (taken.State != PortLinkState.Unlinked) steps.Add(OldLinkStep(port, taken));
+        if (steps.Count > 0)
+        {
+            if (!Confirmations.Ask(string.Join(" ", steps), Overrides.Confirmed, out string warning)) { s.Status = warning; return false; }
+            bool metals = RoutingRules.SourcePort(source.strCODef, port.strCODef) == RoutingRules.OutputPort(source.strCODef, true);
+            if (sent.State != PortLinkState.Unlinked && !Unlink(source, out string why, true, console, metals)) { s.Status = why; return false; }
+            if (taken.State != PortLinkState.Unlinked && !Unlink(port, out string why2, false, console)) { s.Status = why2; return false; }
+        }
         if (!PortPairing.TryLink(SourcePort(source, port), Receiver(port), out string linkProblem)) { s.Status = linkProblem; return false; }
         Disarm(port, s); s.Source = source; s.PairId = PortPairing.Read(Receiver(port)).PairId;
         s.Route = route; s.Item = null; s.Clock = null;
         s.Status = Text.Get("Routing.linked");
+        if (wasArmed && !Arm(port, s)) s.Status = Text.Get("Routing.linked") + " " + s.Status;
         return true;
+    }
+    /// <summary>The step that frees an endpoint for a new pair: unlinking its partner, or clearing an unreadable record.</summary>
+    private static string OldLinkStep(CondOwner endpoint, PortLink link)
+    {
+        var peer = link.State == PortLinkState.Linked ? Resolve(link.PeerObjectId) : null;
+        return peer != null ? Text.Get("Overrides.unlink", Label(endpoint), Label(peer)) : Text.Get("Overrides.clear_link", Label(endpoint));
     }
     internal bool Start(CondOwner port, ConsoleBinding? console = null)
     {

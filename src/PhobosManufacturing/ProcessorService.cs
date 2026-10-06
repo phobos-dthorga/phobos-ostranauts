@@ -361,19 +361,24 @@ internal static class ProcessorService
         reason = Content.Access(co, binding) ?? "";
         if (reason.Length > 0) return false;
         var s = Get(co);
-        if (co.HasCond(ManufacturingRules.Electrolysing) || s.Running) { reason = Text.Get("Processor.link_busy"); return false; }
+        // A working processor pauses for the change and carries on (0.58.0); until then it had to be stopped first.
+        bool working = co.HasCond(ManufacturingRules.Electrolysing) || s.Running;
+        void Hold() => Stop(co, s, Text.Get("Processor.paused_retained"), needsAttention: false);
+        string? CarryOn() => Start(co, binding) ? null : s.Status;
         if (kind == "canister")
         {
             if (id != "none" && (!CanisterCandidates(co).Any(c => c.strID == id) || !ProcessorState.SafeId(id))) { reason = Text.Get("Processor.link_missing"); return false; }
-            s.State.Canister = id == "none" ? "" : id; Save(co, s);
-            reason = Text.Get(id == "none" ? "Processor.cabin_selected" : "Processor.linked"); return !s.Protected;
+            return Overrides.HoldAround(co, working, Hold, CarryOn, () => { s.State.Canister = id == "none" ? "" : id; Save(co, s); return s.Protected ? Text.Get("Processor.protected") : null; },
+                () => Text.Get(id == "none" ? "Processor.cabin_selected" : "Processor.linked"), out reason);
         }
         var link = kind == "water" ? WaterLink : HydrogenLink;
-        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Processor.unlinked"); return true; }
-        var target = link.Candidates(co).FirstOrDefault(v => v.strID == id);
-        if (target == null) { reason = Text.Get("Processor.link_missing"); return false; }
-        if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
-        reason = Text.Get("Processor.linked"); return true;
+        CondOwner? target = null;
+        if (id != "none") { target = link.Candidates(co).FirstOrDefault(v => v.strID == id); if (target == null) { reason = Text.Get("Processor.link_missing"); return false; } }
+        return Overrides.HoldAround(co, working, Hold, CarryOn, () =>
+        {
+            if (target == null) { link.Unlink(co, CrewWork.Resolve); return null; }
+            return link.Link(co, target, CrewWork.Resolve, out var problem) ? null : problem;
+        }, () => Text.Get(target == null ? "Processor.unlinked" : "Processor.linked"), out reason);
     }
     internal static string CanisterId(CondOwner co) => Get(co).State.Canister;
     internal static string CanisterName(CondOwner co) { var s = Get(co); return s.State.Canister.Length == 0 ? Text.Get("Processor.cabin") : ObjectPresentation.Name(s.State.Canister); }

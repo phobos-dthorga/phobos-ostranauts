@@ -77,9 +77,11 @@ cannot enter. Existing residue remains unclassified; see the
    collector waits without deleting input. Its full buffer does not discard the
    processor's remaining residue; ordinary processor output-space limits still apply.
 
-Use **Unlink** at either endpoint before changing its partner. This pauses that
-route and discards only its short transfer timer, retaining every item. If one
-endpoint is gone, unlink the surviving endpoint. An orphan cannot automatically
+To change a partner, link the new one. Since Shipbreaker 0.85.0 an endpoint already
+paired elsewhere is unlinked from its old partner on the second press, after the
+first says so; collection that was on carries on with the new pair. **Unlink** still
+works on its own: it pauses that route and discards only its short transfer timer,
+retaining every item. If one endpoint is gone, unlink the surviving endpoint. An orphan cannot automatically
 claim a new machine or sever a newer pair. Linking from the processor does not
 start the remote collector; press Collect at the receiver when ready.
 

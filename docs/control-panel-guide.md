@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.126.0, Agriculture 0.66.0, Shipbreaker 0.84.1 and Auto Nav 0.34.2
+Framework 0.126.0, Agriculture 0.66.0, Shipbreaker 0.85.0 and Auto Nav 0.34.2
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished
@@ -74,7 +74,9 @@ steps for you** (Framework 0.125.0). The first press of **Apply**, or of the
 button, says in the notice what will be done, and the button reads *Apply again*
 or *Start again*. Press it again to go ahead. Machines paused for the change carry
 on afterwards; one that cannot, because it is damaged for example, stays paused
-and the notice says why. Standing crew orders stay on.
+and the notice says why. The pause does not end standing crew orders, though
+applying a setting still makes an enabled order on that machine wait for Resume,
+as described above.
 
 ```mermaid
 flowchart TD

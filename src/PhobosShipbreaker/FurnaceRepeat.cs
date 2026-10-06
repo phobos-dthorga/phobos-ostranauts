@@ -42,7 +42,7 @@ internal static partial class FurnaceService
         { message = Text.Get("Furnace.repeat_block"); return false; }
         // A deliberate Repeat is also the explicit resume of an interrupted batch.
         bool resume = FurnaceCycle.Repeat(b.Phase, b.Armed, b.Qualified, b.SafeOpen, ChargeFull(s)) == FurnaceRepeatAction.Suspend;
-        if (resume && !ResumeReady(s)) { message = Text.Get("Furnace.resume_block"); return false; }
+        if (resume && ResumeReason(s) is string blocked) { message = blocked; return false; }
         var record = s.Repeat ?? new FurnaceRepeatRecord();
         record.ShipId = co.ship.strRegID; record.RoomId = room.strID; record.CoolingId = cooling.strID; record.Revision = s.State.Recipe;
         s.Repeat = record;
@@ -74,11 +74,20 @@ internal static partial class FurnaceService
         s.RepeatNotice = Text.Get("Furnace.repeat_paused", reason);
         IndustryObservations.RecordStop(s.Object, s.RepeatNotice);
     }
-    private static bool ResumeReady(Session s)
+    private static bool ResumeReady(Session s) => ResumeReason(s) == null;
+    /// <summary>The one thing that keeps a batch from continuing, by name (Shipbreaker 0.85.0), or null when it can.
+    /// Until then one text listed every condition.</summary>
+    private static string? ResumeReason(Session s)
     {
         var co = s.Object; var b = s.State.Batch; var cooling = CoolingEndpoint(co);
-        return ChargeReady(s) && ProbeValid(co) && ChargePresent(s) && cooling != null && !cooling.HasCond("IsDamaged") && !Flight(co.ship) &&
-            s.State.ShipId == co.ship.strRegID && b.Phase != FurnacePhase.Idle && b.Phase < FurnacePhase.Equalize;
+        if (b.Phase == FurnacePhase.Idle) return Text.Get("Furnace.resume_idle");
+        if (b.Phase >= FurnacePhase.Equalize) return Text.Get("Furnace.resume_finished");
+        if (s.State.ShipId != co.ship.strRegID) return Text.Get("Furnace.resume_ship");
+        if (!ChargePresent(s) || !ChargeReady(s)) return Text.Get("Furnace.resume_supplies");
+        if (!ProbeValid(co)) return Text.Get("Furnace.resume_probes");
+        if (cooling == null || cooling.HasCond("IsDamaged")) return Text.Get("Furnace.resume_cooling");
+        if (Flight(co.ship)) return Text.Get("Furnace.resume_flight");
+        return null;
     }
     private static string? RepeatProblem(Session s)
     {
@@ -110,7 +119,7 @@ internal static partial class FurnaceService
                 if (!Seal(s, out message)) { Retry(s, message); return; }
                 goto case FurnaceRepeatAction.Start;
             case FurnaceRepeatAction.Start:
-                if (!ResumeReady(s)) { Retry(s, Text.Get("Furnace.resume_block")); return; }
+                if (ResumeReason(s) is string blocked) { Retry(s, blocked); return; }
                 b.PumpSeconds = 0; b.StepMode = false; b.Resume(); Save(s);
                 s.RepeatNotice = Text.Get("Furnace.repeat_heating"); return;
             case FurnaceRepeatAction.Equalize:

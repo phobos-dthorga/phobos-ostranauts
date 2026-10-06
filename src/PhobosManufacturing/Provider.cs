@@ -168,7 +168,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
-        if (co.bDestroyed || expected != ConfigurationStamp(co) || !IsConfiguration(action)) return false;
+        string plain = action; Confirmations.Split(ref plain);
+        if (co.bDestroyed || expected != ConfigurationStamp(co) || !IsConfiguration(plain)) return false;
         bool saved = Command(co, binding, action, out reason);
         if (saved) Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);
         return saved;
@@ -215,7 +216,16 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         return new EquipmentSnapshot(co.strID, co.strNameFriendly, "store", new EquipmentActivity(StoreService.State(co), StoreService.Describe(co)), actions);
     }
     private static EquipmentAction[] Actions(params string[] ids) => ids.Select(a => new EquipmentAction(a, Text.Get("Provider.action_" + a))).ToArray();
-    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) =>
+    /// <summary>A text command confirmed with its trailing word arrives with the confirm prefix (0.58.0); the services
+    /// read it through <see cref="Overrides.Confirmed"/>.</summary>
+    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
+    {
+        bool confirmed = Confirmations.Split(ref action);
+        string result = "";
+        bool done = Overrides.With(confirmed, () => Dispatch(co, binding, action, out result));
+        message = result; return done;
+    }
+    private static bool Dispatch(CondOwner co, ConsoleBinding? binding, string action, out string message) =>
         // The optional product store (0.49.0) is the same choice on every machine that offers it.
         action.StartsWith(Phobos.Ostranauts.Framework.Inventory.StoreDelivery.ActionPrefix, StringComparison.Ordinal) ? ProductStore(co, binding, action, out message) :
         ChargeMachines.For(co.strCODef) is ChargeMachine charge ? charge.Command(co, binding, action, out message) :

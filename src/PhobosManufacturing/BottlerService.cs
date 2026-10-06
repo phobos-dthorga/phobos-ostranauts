@@ -296,13 +296,16 @@ internal static class BottlerService
         reason = Content.Access(co, binding) ?? "";
         if (reason.Length > 0) return false;
         var s = Get(co);
-        if (co.HasCond(ManufacturingRules.Bottling) || s.Running) { reason = Text.Get("Bottler.link_busy"); return false; }
         var link = kind == "ethanol" ? EthanolLink : WaterLink;
-        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Bottler.unlinked"); return true; }
-        var target = link.Candidates(co).FirstOrDefault(v => v.strID == id);
-        if (target == null) { reason = Text.Get("Bottler.link_missing"); return false; }
-        if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
-        reason = Text.Get("Bottler.linked"); return true;
+        CondOwner? target = null;
+        if (id != "none") { target = link.Candidates(co).FirstOrDefault(v => v.strID == id); if (target == null) { reason = Text.Get("Bottler.link_missing"); return false; } }
+        // A working bottler pauses for the change and carries on (0.58.0); until then it had to be stopped first.
+        return Overrides.HoldAround(co, co.HasCond(ManufacturingRules.Bottling) || s.Running,
+            () => Stop(co, s, Text.Get("Bottler.paused_retained"), needsAttention: false), () => Start(co, binding) ? null : s.Status, () =>
+        {
+            if (target == null) { link.Unlink(co, CrewWork.Resolve); return null; }
+            return link.Link(co, target, CrewWork.Resolve, out var problem) ? null : problem;
+        }, () => Text.Get(target == null ? "Bottler.unlinked" : "Bottler.linked"), out reason);
     }
     internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {

@@ -105,15 +105,31 @@ internal static class CaptureService
     }
     private static bool Bind(CondOwner g, string? navId, out string message)
     {
-        message = Text.Get("Capture.stop_rebind");
         var saved = Store(g).Read(out _);
         if (saved != SavedStateStatus.Missing && (saved != SavedStateStatus.Ready || !Read(g, out _)))
         { message = Text.Get("Capture.save"); return false; }
-        if (Read(g, out var old) && old.Phase != CapturePhase.Bound && old.Phase != CapturePhase.Released && old.Phase != CapturePhase.Suspended) return false;
-        if (g.ship.IsDocked() || g.ship.IsMoored()) return false;
+        // Shipbreaker 0.85.0: an approach under way is stopped, and a ship moored for capture released, on the second
+        // press (agent choice, owner rule; the release warning says it does not brake). Until then both refused.
+        bool hasOld = Read(g, out var old);
+        bool stop = hasOld && old.Phase == CapturePhase.Approaching, release = hasOld && old.Phase == CapturePhase.Captured;
+        if (hasOld && !stop && !release && old.Phase != CapturePhase.Bound && old.Phase != CapturePhase.Released && old.Phase != CapturePhase.Suspended)
+        { message = Text.Get("Capture.settling"); return false; }
+        if (!release && (g.ship.IsDocked() || g.ship.IsMoored())) { message = Text.Get("Capture.attached"); return false; }
         var nav = navId == null ? null : CollectorService.Resolve(navId);
         var target = GUIOrbitDraw.CrossHairTarget?.Ship;
         if (nav == null || !Consoles(g.ship).Contains(nav) || target == null) { message = Text.Get("Capture.select"); return false; }
+        if (stop || release)
+        {
+            if (!Confirmations.Ask(Text.Get(stop ? "Capture.override_stop" : "Capture.override_release"), Overrides.Confirmed, out message)) return false;
+            var current = sessions.TryGetValue(g.strID, out var previous) ? previous : new Session { Grabber = g, Record = old };
+            if (stop)
+            {
+                IndustrialNavigation.Release(old["permission"]);
+                old.Phase = CapturePhase.Suspended; current.Record = old; sessions[g.strID] = current;
+                if (!Save(current)) { message = Text.Get("Capture.save"); return false; }
+            }
+            else if (!Release(current, out message)) return false;
+        }
         string? problem = CaptureGeometry.TargetProblem(g.ship, target);
         if (problem != null) { message = problem; return false; }
         if (!ProcessingService.CaptureIntake(g, out var chute, out var processor, out message)) return false;

@@ -345,14 +345,17 @@ internal static class CrackerService
         reason = Content.Access(co, binding) ?? "";
         if (reason.Length > 0) return false;
         var s = Get(co);
-        if (co.HasCond(ManufacturingRules.Reacting) || s.Running) { reason = Text.Get("Cracker.link_busy"); return false; }
         if (!Links.Any(l => Kind(l) == kind)) { reason = Text.Get("Content.unsupported_action"); return false; }
         var link = Links.First(l => Kind(l) == kind);
-        if (id == "none") { LinkOf(link).Unlink(co, CrewWork.Resolve); reason = Text.Get("Cracker.unlinked"); return true; }
-        var target = Candidates(co, link).FirstOrDefault(v => v.strID == id);
-        if (target == null) { reason = Text.Get("Cracker.link_missing"); return false; }
-        if (!LinkOf(link).Link(co, target, CrewWork.Resolve, out reason)) return false;
-        reason = Text.Get("Cracker.linked"); return true;
+        CondOwner? target = null;
+        if (id != "none") { target = Candidates(co, link).FirstOrDefault(v => v.strID == id); if (target == null) { reason = Text.Get("Cracker.link_missing"); return false; } }
+        // A working cracker pauses for the change and carries on (0.58.0); until then it had to be stopped first.
+        return Overrides.HoldAround(co, co.HasCond(ManufacturingRules.Reacting) || s.Running,
+            () => Stop(co, s, Text.Get("Cracker.paused_retained"), needsAttention: false), () => Start(co, binding) ? null : s.Status, () =>
+        {
+            if (target == null) { LinkOf(link).Unlink(co, CrewWork.Resolve); return null; }
+            return LinkOf(link).Link(co, target, CrewWork.Resolve, out var problem) ? null : problem;
+        }, () => Text.Get(target == null ? "Cracker.unlinked" : "Cracker.linked"), out reason);
     }
     internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {

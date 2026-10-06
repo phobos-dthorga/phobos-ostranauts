@@ -435,12 +435,15 @@ internal static class SabatierService
         reason = Content.Access(co, binding) ?? "";
         if (reason.Length > 0) return false;
         var s = Get(co);
-        if (co.HasCond(ManufacturingRules.Reacting) || s.Running) { reason = Text.Get("Sabatier.link_busy"); return false; }
+        // A working reactor pauses for the change and carries on (0.58.0); until then it had to be stopped first.
+        bool working = co.HasCond(ManufacturingRules.Reacting) || s.Running;
+        void Hold() => Stop(co, s, Text.Get("Sabatier.paused_retained"), needsAttention: false);
+        string? CarryOn() => Start(co, binding) ? null : s.Status;
         if (kind == "canister")
         {
             if (id != "none" && (!CanisterCandidates(co).Any(c => c.strID == id) || !ProcessorState.SafeId(id))) { reason = Text.Get("Sabatier.link_missing"); return false; }
-            s.State.Canister = id == "none" ? "" : id; Save(co, s);
-            reason = Text.Get(id == "none" ? "Sabatier.unlinked" : "Sabatier.linked"); return !s.Protected;
+            return Overrides.HoldAround(co, working, Hold, CarryOn, () => { s.State.Canister = id == "none" ? "" : id; Save(co, s); return s.Protected ? Text.Get("Sabatier.protected") : null; },
+                () => Text.Get(id == "none" ? "Sabatier.unlinked" : "Sabatier.linked"), out reason);
         }
         VesselLink link;
         switch (kind)
@@ -450,11 +453,13 @@ internal static class SabatierService
             case "methane": link = MethaneLink; break;
             default: reason = Text.Get("Content.unsupported_action"); return false;
         }
-        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Sabatier.unlinked"); return true; }
-        var target = link.Candidates(co).FirstOrDefault(v => v.strID == id);
-        if (target == null) { reason = Text.Get("Sabatier.link_missing"); return false; }
-        if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
-        reason = Text.Get("Sabatier.linked"); return true;
+        CondOwner? target = null;
+        if (id != "none") { target = link.Candidates(co).FirstOrDefault(v => v.strID == id); if (target == null) { reason = Text.Get("Sabatier.link_missing"); return false; } }
+        return Overrides.HoldAround(co, working, Hold, CarryOn, () =>
+        {
+            if (target == null) { link.Unlink(co, CrewWork.Resolve); return null; }
+            return link.Link(co, target, CrewWork.Resolve, out var problem) ? null : problem;
+        }, () => Text.Get(target == null ? "Sabatier.unlinked" : "Sabatier.linked"), out reason);
     }
     internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {

@@ -15,7 +15,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Changed
 
-- No more pausing first (owner report, 6 October 2026, and Framework 0.125.0). Linking a rack to a W2, even one already linked to another W2, unlinking, and choosing pipe-fed or manual water no longer refuse with One of these machines is already linked or Pause both machines first. The first Apply says what will happen: the old link removed and which machines pause; Apply again does it. The rack keeps growing, its crew order stays on, and the old W2 carries on feeding its other racks.
+- No more pausing first (owner report, 6 October 2026, and Framework 0.125.0). Linking a rack to a W2, even one already linked to another W2, unlinking, and choosing pipe-fed or manual water no longer refuse with One of these machines is already linked or Pause both machines first. The first Apply says what will happen: the old link removed and which machines pause; Apply again does it. The rack keeps growing and the old W2 carries on feeding its other racks. Correction, same day: as with any applied setting, an enabled crew order on the machine you changed still waits for Resume in the Crew panel; only pausing for the change leaves orders alone.
 - The same second press now covers the W2's nutrient source, water target and silo link, the Recycler's capture link, cancelling drainage recovery, and cancelling a workup or emptying the straw press on a working B2. Cancelling a workup used to answer with the F3 help text.
 - A Hearth-2 whose batch lost its portion now offers, on a second Start, to cancel that batch and start a new one; the warning says how much cooking is lost, and putting the portion back keeps the batch.
 - Setting a silo reserve names the W2s it pauses.

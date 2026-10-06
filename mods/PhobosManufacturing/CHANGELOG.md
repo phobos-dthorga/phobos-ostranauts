@@ -20,6 +20,26 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.58.0] - 2026-10-06 - Draft
+
+### Changed
+
+- No more stopping first (Framework 0.125.0, owner rule). Changing a link, a filling station's mode, a recipe or an optional charge on a working machine no longer refuses with Stop the machine before changing it. The first Apply says the machine will pause for the change; Apply again does it, and the machine carries on through its own start checks. A bound charge is kept for link changes.
+- Choosing another recipe or optional charge while a charge is bound now offers to cancel that charge on the second press. The warning says how much of its work is lost, and its supplies go back to the inventory; letting it finish keeps it.
+- Start no longer stops at a feed full of other things: it offers to put them back in the inventory, then takes the charge in.
+- F3: end a command with confirm to go ahead when it offers to pause or cancel first.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Requires Framework 0.125.0.
+- Still refused, with the reason: missing supplies for a bound charge (put them back, or cancel), a full manifold or station, and damaged, locked or faulted stores.
+- As with any applied setting, an enabled crew order on the machine waits for Resume in the Crew panel.
+- Checked offline; not yet tested in play.
+
 ## [0.57.2] - 2026-10-06 - Draft
 
 ### Changed

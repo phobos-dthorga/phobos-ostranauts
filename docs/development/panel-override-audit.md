@@ -65,6 +65,9 @@ sequenceDiagram
 - **Pausing for a change.** `PausedChange` holds only machines that were working. Its
   pause never ends a standing crew order. It resumes them last first, through each
   machine's own checks, and returns the reason for any that could not carry on.
+  Applying a setting from a panel still makes an enabled order on that machine wait
+  for Resume (`ConfigurationStamp.SuspendChangedOrder`, from the 27 September panel
+  redesign); that rule is unchanged and is an open question for the owner.
 - **Knobs and guarded switches.** These cannot take a second press, so they confirm
   through a `ChoiceCard` (`Confirmations.PressWithCard`) with the same warning.
 - **Nothing is saved.** An offer lapses when another press, a changed selection,
@@ -134,27 +137,64 @@ entry whose key no longer exists fails the check.
   stays refused from Agriculture's recycler, naming what holds it. Agriculture does
   not manage Shipbreaker's pairs.
 
-## Rounds still to come
+## Delivered in Manufacturing 0.58.0
 
-`python scripts/audit-panel-overrides.py --pending` lists them. At Agriculture 0.66.0:
+- **Links and modes on a working machine.** Changing a link on any of the six charge
+  machines, the X2 processor, the K2 Sabatier reactor, the AX-2 cracker or the
+  bottler, or the L2 station's mode, pauses the machine on the second press. The
+  bound batch is kept, and the machine carries on through its own Start.
+- **Recipes and optional charges with a batch bound.** The second press cancels the
+  batch. The warning gives the share of its work lost; its supplies go back to the
+  inventory.
+- **Start with a cluttered feed.** Start offers to put the inner feed's other items
+  back in the inventory, then takes the charge in.
+- **F3.** A trailing `confirm` reaches every machine through the provider (the
+  Manufacturing-local `Overrides.Confirmed`).
+- **Removed:** 18 refusal keys (`*.link_busy`, `*.prefer_busy`, `Leach.select_busy`).
+  `Content.feed_blocked` stays as the status of an automatic repeat.
 
-- **Manufacturing:**
-  - every `*.link_busy` (A: pause with the batch kept, change, resume);
-  - `prefer_busy` and `select_busy` (L: cancel the batch, which returns its supplies);
-  - `Content.feed_blocked` (L).
-- **Shipbreaker:**
-  - thaw, laser filter and laser cooling (A);
-  - collector, furnace and laser pairs (the shared pairing refusal);
-  - splitting the furnace's mixed refusals and `Capture.stop_rebind`;
-  - the IndustrialPanel and furnace view hosts;
-  - removing an unused key.
-- **Auto Nav:**
-  - docking, departure and return-fire (A);
-  - unsaved-draft gating: its buttons are disabled today rather than refused;
-  - the active-flight choice above;
-  - splitting `Industrial.busy`, `Departure.hardware`, `Combat.unavailable` and
-    `Preferences.captured`;
-  - removing two unused keys and three uncalled methods.
+## Delivered in Shipbreaker 0.85.0
+
+- **Collector and processor pairs.** An endpoint paired elsewhere is unlinked from its
+  old partner on the second press, and collection that was on carries on.
+- **T2 and ML-2.** A working T2 pauses for a link change. A cutting ML-2 pauses for a
+  filter or cooling change and carries on. The laser now checks a hot assembly, old
+  or new, before changing anything.
+- **G4 capture.** An approach under way is stopped, or a ship moored for capture
+  released, on the second press. Captures still settling are refused with their own
+  text.
+- **D4 and R4 product store.** An unreadable saved store choice is cleared on the
+  second press, after a warning.
+- **F6 furnace.**
+  - Cooling, recipe, coolant-service and continue refusals name the one blocking
+    condition instead of a list.
+  - Heating permission alone is withdrawn on a second press for a recipe or coolant
+    service. The furnace keeps its heat, and its resume stays explicit (AGENTS
+    Shipbreaker rule).
+  - No furnace knob or guarded switch offers a second press today, so none needed a
+    card.
+- **Hosts.** The IndustrialPanel's buttons (local and C1) use a `PressGuard`; an offer
+  shows as a warning, not "rejected".
+- **F3.** Shipbreaker's single F3 entry strips a trailing `confirm` for its own
+  commands only. `IndustryService.Run` strips the prefix and passes it on to the
+  providers it reaches.
+- **Removed:** nine keys (`Furnace.hot_maintenance`, `Furnace.resume_block`,
+  `Furnace.recipe_block`, `Furnace.charge_service`, `Capture.stop_rebind`,
+  `Thaw.link_busy`, `Laser.filter_busy`, `Laser.cooling_busy` and the unused
+  `CollectorPanel.one_sender_per_receiver_unlink_before_changing`).
+- **Still refused:** the shared pairing refusal for furnace and laser cooling, where
+  the other end serves other equipment and unpairing it is limited by temperature.
+
+## Round still to come
+
+`python scripts/audit-panel-overrides.py --pending` lists it. Auto Nav needs:
+
+- docking, departure and return-fire (A);
+- unsaved-draft gating, since its buttons are disabled today rather than refused;
+- the active-flight agent choice above;
+- splitting `Industrial.busy`, `Departure.hardware`, `Combat.unavailable` and
+  `Preferences.captured`;
+- removing two unused keys and three uncalled methods.
 
 ## Verification and limits
 
@@ -165,7 +205,8 @@ entry whose key no longer exists fails the check.
 - **Not unit-tested.** Agriculture's override paths act on game objects, so offline
   tests cannot construct them. They compile and are not otherwise exercised.
 - **Owner checks in play:**
-  - relink a rack to another W2: the rack keeps growing, its order stays on, and the
-    old W2 keeps feeding its other racks;
+  - relink a rack to another W2: the rack keeps growing and the old W2 keeps feeding
+    its other racks (an enabled crew order on the rack waits for Resume, as with any
+    applied setting);
   - change a W2's nutrient source while it pumps;
   - press Resume on the Crew panel with unsaved changes.

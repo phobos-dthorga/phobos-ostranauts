@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.57.2";
-    public const string MinimumFrameworkVersion = "0.119.0";
+    public const string Version = "0.58.0";
+    public const string MinimumFrameworkVersion = "0.125.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -357,7 +357,8 @@ internal static class ConsolePatch
 {
     private static bool Prefix(ref string strInput, ref bool __result)
     {
-        var parts = strInput.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        // A trailing confirm word goes ahead with the steps a refusal offered (0.58.0).
+        var parts = Phobos.Ostranauts.Framework.Controls.Confirmations.TakeWord(strInput.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), out bool confirmed);
         if (parts.Length == 0 || !parts[0].Equals("phobosmanufacturing", StringComparison.OrdinalIgnoreCase)) return true;
         if (parts.Length == 1 || parts[1] == "list")
         { strInput += "\n" + string.Join("\n", CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, false, false, true).Where(Content.Machine).Select(c => c.strNameFriendly + " " + c.strID) ?? Array.Empty<string>()); __result = true; return false; }
@@ -367,6 +368,7 @@ internal static class ConsolePatch
         if (parts[1] == "crew-load") { __result = FeedCrewProvider.Toggle(co!, out message); strInput += "\n" + message; return false; }
         string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
             "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link", "acid", "pour", "nutrients" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+        if (confirmed) action = Phobos.Ostranauts.Framework.Controls.Confirmations.Confirmed(action);
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

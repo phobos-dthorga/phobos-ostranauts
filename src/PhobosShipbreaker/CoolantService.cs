@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Controls;
 using Phobos.Ostranauts.Framework.Persistence;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
@@ -46,6 +47,21 @@ internal static partial class FurnaceService
     }
     /// <summary>The service guards every coolant action shares, and a canister pour too: mounted, unlocked, intact (drain
     /// excepted), piped, idle, open, unarmed, with a container, and no unsafe repair on the furnace or its assembly.</summary>
+    /// <summary>Why the coolant cannot be serviced now, by name (Shipbreaker 0.85.0), or null. Armed heating is not a
+    /// reason: the second press withdraws it.</summary>
+    private static string? ChargeReason(Session s,bool drain)
+    {
+        var co=s.Object;var b=s.State.Batch;
+        if(!FurnaceRules.Machine(co.strCODef))return Text.Get("Industry.unsupported_action");
+        if(s.State.NativeMutation)return Text.Get("Furnace.protected");
+        if(co.HasCond("IsLocked"))return Text.Get("Furnace.locked");
+        if(!Mounted(co)||!drain&&!Intact(co)||co.objContainer==null)return Text.Get("Furnace.charge_install");
+        if(!Routed(co))return Text.Get("Furnace.charge_route");
+        if(b.Phase!=FurnacePhase.Idle)return Text.Get("Furnace.charge_batch");
+        if(!b.SafeOpen||UnsafeRepair(co))return Text.Get("Furnace.charge_hot");
+        var peer=SelectedCooling(co);
+        return peer!=null&&UnsafeRepair(peer)?Text.Get("Furnace.charge_hot"):null;
+    }
     private static bool ChargeServiceable(Session s,bool drain)
     {
         var co=s.Object;
@@ -66,16 +82,25 @@ internal static partial class FurnaceService
     }
     private static bool ChargeCommand(Session s,string action,bool local,out string message)
     {
-        message=Text.Get("Furnace.charge_service");var co=s.Object;
-        if(!local||!ChargeServiceable(s,action=="coolant-drain"))return false;
+        var co=s.Object;
+        if(!local){message=Text.Get("Industry.local_only");return false;}
+        // The one condition that blocks, by name (Shipbreaker 0.85.0); heating permission alone is withdrawn on the second
+        // press, and the furnace's own resume stays explicit.
+        if(ChargeReason(s,action=="coolant-drain") is string blocked){message=blocked;return false;}
+        if(s.State.Batch.Armed)
+        {
+            if(!Confirmations.Ask(Text.Get("Overrides.stop_furnace",ObjectPresentation.Name(co)),Overrides.Confirmed,out message))return false;
+            s.State.Batch.Armed=false;s.State.Batch.Hold=0;Save(s);
+        }
+        message=Text.Get("Furnace.protected");
         if(action=="coolant-managed"||action=="coolant-sealed")
-        {if(s.Coolant.TotalKg>1e-9)return false;s.Coolant.Enabled=action=="coolant-managed";s.Coolant.PrimeSeconds=0;Save(s);return true;}
-        if(!s.Coolant.Enabled)return false;
+        {if(s.Coolant.TotalKg>1e-9){message=Text.Get("Furnace.coolant_drain_first");return false;}s.Coolant.Enabled=action=="coolant-managed";s.Coolant.PrimeSeconds=0;Save(s);message=ChargeStatus(s);return true;}
+        if(!s.Coolant.Enabled){message=Text.Get("Furnace.charge_enable");return false;}
         if(action=="coolant-fill")
         {
             // The game stacks matching coolant dropped into the bin; a stack member is one charge like any other.
             var item=Phobos.Ostranauts.Framework.Inventory.StackUnits.All(co).FirstOrDefault(c=>c.strCODef==CoolantStock&&!c.bDestroyed&&Phobos.Ostranauts.Framework.Inventory.StackUnits.Empty(c)&&Math.Abs(Phobos.Ostranauts.Framework.Inventory.StackUnits.UnitMass(c)-1)<1e-7);
-            if(item==null||s.Coolant.TotalKg+1>CoolantCharge.CapacityKg+1e-9)return false;
+            if(item==null||s.Coolant.TotalKg+1>CoolantCharge.CapacityKg+1e-9){message=Text.Get("Furnace.charge_fill");return false;}
             if(!ChargeJournal(co).TryWrite(new Dictionary<string,string>{["state"]="pending",["input"]=item.strID}))return false;
             s.State.NativeMutation=true;
             item.RemoveFromCurrentHome(true);if(item.objCOParent!=null||item.ship!=null)throw new InvalidOperationException("Coolant charge did not detach.");
@@ -83,14 +108,14 @@ internal static partial class FurnaceService
         }
         else if(action=="coolant-drain")
         {
-            if(s.Coolant.TotalKg<=0)return false;
+            if(s.Coolant.TotalKg<=0){message=Text.Get("Furnace.charge_drain_empty");return false;}
             var product=DataHandler.GetCondOwner(CoolantWaste);bool pending=false;
             try {
                 product.SetCondAmount("StatMass",s.Coolant.TotalKg);
                 var grid=co.objContainer.gridLayout;var occupied=new bool[grid.gridMaxX,grid.gridMaxY];
                 for(int x=0;x<grid.gridMaxX;x++)for(int y=0;y<grid.gridMaxY;y++)occupied[x,y]=grid.gridID[x,y]!=null||grid.gridInventoryItem[x,y]!=null;
                 var size=GUIInventoryItem.GetWidthHeightForCO(product);var plan=BatchPlacement.Plan(occupied,new[]{new ItemSize(size.x,size.y)});
-                if(plan==null||!co.objContainer.AllowedCO(product))return false;
+                if(plan==null||!co.objContainer.AllowedCO(product)){message=Text.Get("Furnace.charge_drain_space");return false;}
                 if(!ChargeJournal(co).TryWrite(new Dictionary<string,string>{["state"]="pending",["output"]=product.strID}))return false;
                 s.State.NativeMutation=true;
                 pending=true;co.objContainer.AddCOSimple(product,new PairXY(plan[0].X,plan[0].Y));
@@ -98,7 +123,7 @@ internal static partial class FurnaceService
                 s.Coolant.CleanKg=s.Coolant.CapturedKg=s.Coolant.PrimeSeconds=0;Save(s);
             }finally{if(!pending&&!product.bDestroyed)product.Destroy();}
         }
-        else return false;
+        else{message=Text.Get("Industry.unsupported_action");return false;}
         s.State.NativeMutation=false;Save(s);
         if(!ChargeJournal(co).TryWrite(new Dictionary<string,string>{["state"]="clear"}))throw new InvalidOperationException("Coolant service completion failed.");
         co.objContainer.Redraw();message=ChargeStatus(s);return true;

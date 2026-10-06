@@ -404,13 +404,17 @@ internal static class ThawService
     {
         reason = ProcessingService.AccessProblem(co, binding) ?? "";
         if (reason.Length > 0) return false;
-        if (co.HasCond(ProcessRules.Working) || sessions.TryGetValue(co, out var s) && s.Job?.Running == true) { reason = Text.Get("Thaw.link_busy"); return false; }
         var link = methane ? MethaneLink : WaterLink;
-        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Thaw.unlinked"); return true; }
-        var vessel = link.Candidates(co).FirstOrDefault(v => v.strID == id);
-        if (vessel == null) { reason = Text.Get(methane ? "Thaw.methane_link_missing" : "Thaw.link_missing"); return false; }
-        if (!link.Link(co, vessel, CrewWork.Resolve, out reason)) return false;
-        reason = Text.Get(methane ? "Thaw.methane_linked" : "Thaw.linked"); return true;
+        CondOwner? vessel = null;
+        if (id != "none") { vessel = link.Candidates(co).FirstOrDefault(v => v.strID == id); if (vessel == null) { reason = Text.Get(methane ? "Thaw.methane_link_missing" : "Thaw.link_missing"); return false; } }
+        // A working thaw unit pauses for the change and carries on (Shipbreaker 0.85.0); until then it had to be paused first.
+        bool working = co.HasCond(ProcessRules.Working) || sessions.TryGetValue(co, out var held) && held.Job?.Running == true;
+        var s = sessions.GetValue(co, _ => new Session());
+        return Overrides.HoldAround(co, working, () => Stop(co, s, Text.Get("Thaw.paused_retained"), needsAttention: false), () => Start(co, binding) ? null : s.Status, () =>
+        {
+            if (vessel == null) { link.Unlink(co, CrewWork.Resolve); return null; }
+            return link.Link(co, vessel, CrewWork.Resolve, out var problem) ? null : problem;
+        }, () => vessel == null ? Text.Get("Thaw.unlinked") : Text.Get(methane ? "Thaw.methane_linked" : "Thaw.linked"), out reason);
     }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
