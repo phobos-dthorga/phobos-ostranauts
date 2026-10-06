@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/stores.schema.json",
+  "title": "Phobos stores data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "priority": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it."
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "stores"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "requireInteraction": {
+      "type": "string",
+      "pattern": "^([A-Za-z][A-Za-z0-9]{0,63})?$",
+      "description": "The interaction a container must offer to count as a store, such as the game's Inventory; empty for any."
+    },
+    "excludeConditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9]{0,63}$"
+      },
+      "maxItems": 48,
+      "uniqueItems": true,
+      "description": "Conditions that mark an object as not a store, such as IsShipWeapon or IsToilet01."
+    },
+    "excludeContainers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9]{0,63}$|^[A-Za-z][A-Za-z0-9]{2,63}[*]$"
+      },
+      "maxItems": 48,
+      "uniqueItems": true,
+      "description": "Container rules that hold only one kind of thing, such as TIsFitAmmo20mm; a name ending in * covers every rule that starts with the rest."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema"
+  ],
+  "description": "Which of the game's containers are not stores: weapons, chargers, filter holders and toilets are left out of store pickers, crew orders and housekeeping, and crew never take from them."
+}

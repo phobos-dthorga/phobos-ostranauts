@@ -12,7 +12,7 @@ namespace PhobosManufacturing;
 /// as the game's own Reload job searches; never from someone's hands or suit, a locked container or another L2's rack)
 /// into the rack, and press Start when a bottle there needs filling. Charged bottles go to the order's destination
 /// store when one is chosen, otherwise they wait in the rack. Framework's crew logistics does the hauling.</summary>
-internal sealed class FillerCrewProvider : ICrewWorkProvider, ICrewOrderPresentation
+internal sealed class FillerCrewProvider : ICrewWorkProvider, ICrewOrderPresentation, ICrewSkipProvider
 {
     public string Id => Plugin.Id;
     public bool Supports(CondOwner equipment) => equipment != null && equipment.strCODef == FillerRules.Installed;
@@ -68,20 +68,12 @@ internal sealed class FillerCrewProvider : ICrewWorkProvider, ICrewOrderPresenta
 
     /// <summary>The right-click toggle, like the game's own Toggle Power: on enables the order with the ship-wide
     /// source (a store already chosen in the Crew panel is kept); off is a manual stop.</summary>
-    internal static bool Toggle(CondOwner co, out string message)
-    {
-        if (!co.HasCond("IsInstalled") || co.bDestroyed || co.strCODef != FillerRules.Installed) { message = Text.Get("Filler.crew_blocked"); return false; }
-        if (!CrewWork.CanManage(co)) { message = Text.Get("Filler.crew_not_owned"); return false; }
-        var order = CrewWork.Order(co);
-        if (order.Protected) { message = CrewWork.Message("protected"); return false; }
-        if (order.Permission == WorkPermission.Enabled && order.Recipe == FillerRules.BottleRecipe)
-        {
-            CrewWork.SetPermission(co, WorkPermission.Stopped);
-            message = Text.Get("Filler.crew_off", co.strNameFriendly); return true;
-        }
-        bool configured = CrewWork.Configure(co, o => { o.Recipe = FillerRules.BottleRecipe; if (o.Source == "none") o.Source = StandingOrder.ShipWide; o.ResumeRoutine = true; });
-        if (configured) CrewWork.SetPermission(co, WorkPermission.Enabled);
-        if (!configured || CrewWork.Order(co).Permission != WorkPermission.Enabled) { message = CrewWork.Message("protected"); return false; }
-        message = Text.Get("Filler.crew_on", co.strNameFriendly) + "\n" + CrewWork.Status(co); return true;
-    }
+    internal static bool Toggle(CondOwner co, out string message) =>
+        CrewOrderToggle.Toggle(co, co?.strCODef == FillerRules.Installed, FillerRules.BottleRecipe,
+            "Filler.crew_on", "Filler.crew_off", "Filler.crew_not_owned", "Filler.crew_blocked", out message);
+
+    // --- Time-skips (0.56.0): an armed station is stepped through a skip, as it was before it took orders ----------
+    public bool CanAdvance(CondOwner equipment, out string reason) { reason = Content.Status; return Content.Ready; }
+    public void BeforeSkip() { }
+    public void AfterSkip() { }
 }

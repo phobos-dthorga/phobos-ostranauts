@@ -21,6 +21,8 @@ public static class FrameworkItems
         Liquids.LinePlacement.Load();
         // Crew upkeep figures (Framework 0.111.0), reread with the other packs.
         Crew.Upkeep.Load();
+        // Which containers are not stores (Framework 0.116.0): weapons, chargers, filter holders, toilets.
+        Inventory.StoreRules.Load();
         ItemEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         // Lines hold their contents (Framework 0.63.0): the crew actions, the drain canister and the two pipes' hold-ups.
         SharedLines.DeclareHoldUps();

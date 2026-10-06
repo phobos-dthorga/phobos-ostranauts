@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.115.0, Agriculture 0.63.0, Shipbreaker 0.83.0 and Auto Nav 0.34.0
+Framework 0.116.0, Agriculture 0.63.0, Shipbreaker 0.83.0 and Auto Nav 0.34.0
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished
@@ -12,6 +12,13 @@ Open a machine's Control Panel to work beside it, or use C1 for equipment on
 your ship. **Operation** holds Start/Pause and the current job. **Supplies &
 connections** holds stores, links and materials. **Details & diagnostics** shows
 technical information when you need to investigate a fault.
+
+Right-click a machine and choose **Maintenance** (Framework 0.116.0; called
+Maintenance information before) for its upkeep at a glance: its standing order
+and who is on it, its tune and last inspection, and what stops it being
+uninstalled or dismantled. **Open standing orders** and **Open upkeep
+switches** take you to the Crew panel on that machine's order or on the Upkeep
+tab. Pipes, belts and stores show only the removal notes.
 
 Crew operations has **Orders**, **Crew & Training** and **Time-skip** pages. The
 crew roster shortcut is **Orders & training**. Long lists scroll; on narrower
@@ -39,7 +46,11 @@ harvest a crop, drain supplies, undock or fire weapons.
 **Change** opens a searchable list. Approved stores with relevant
 contents sort first; Show empty / unsuitable stores makes the other eligible stores
 visible. For an input store, **Use anything aboard** chooses the whole ship
-instead of one store: the deck, unlocked stores and other machines' product trays. Missing saved selections are retained and labelled unavailable. Connection
+instead of one store: the deck, unlocked stores and other machines' product trays. Missing saved selections are retained and labelled unavailable.
+Things with a container that are not stores are never offered and not listed as
+out of reach: ship weapons, battery chargers, scrubbers, nav consoles, sinks,
+toilets and anything without an Inventory entry on its right-click menu
+(Framework 0.116.0). Connection
 pickers retain their content mod's candidate rules. Mission targets are limited
 to the already bound mission or saved resumable flight; no new target is acquired.
 

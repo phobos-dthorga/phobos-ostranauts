@@ -27,7 +27,10 @@ protected. No automatic save repair or cargo replacement is performed.
 ## Giving work to the crew
 
 Open **Crew standing orders and training** from the roster, an equipment
-panel, the C1 console or the Auto Nav hub's details page. Orders begin
+panel, the C1 console or the Auto Nav hub's details page. Since Framework
+0.116.0 a machine's right-click **Maintenance** sheet also shows its order and
+its upkeep, with **Open standing orders** and **Open upkeep switches** buttons
+that open this panel on that machine's order or on the Upkeep tab. Orders begin
 disabled. Choose the equipment's crop/process, target stock, source store
 and destination store, then Apply and Enable / Resume. Turn on AutoTask and enable the native
 Operate or Haul duty for the intended worker. Native repair, construction,
@@ -40,7 +43,15 @@ Items lying on the deck are carried like items in a store, in ordinary play
 and during a time-skip. On the Shipbreaker D4, R4 and F6, right-click
 **Load feed by crew (on/off)** switches such an order on (anywhere aboard, no
 practical stock limit) or off without opening the panel; a store already
-chosen in the panel is kept. Shipbreaker 0.35.0.
+chosen in the panel is kept. Shipbreaker 0.35.0. Manufacturing's charge
+machines and the RM-1 feeder have the same switch since Manufacturing 0.56.0.
+
+Crew never take from someone's hands, a locked container, or anything that is
+not really a store: a ship weapon's magazine, a battery charger, a scrubber's
+filter holder, a nav console's module slot, a toilet or another mod's bottle
+pump (Framework 0.116.0). The same rule keeps those out of every store picker.
+It is Framework's `stores` data pack, so equipment from other mods can be added
+([editing data files](editing-data-files.md#what-counts-as-a-store)).
 
 This is how an enabled order finds its supplies and what happens when a step
 fails.
@@ -100,6 +111,8 @@ and full destinations leave the work pending.
 | D4 / R4 | Supply valid loose feed (for the D4: ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), start one checked batch and clear physical products to the approved store; Load feed by crew is the right-click shortcut |
 | C2 collector | Enable its existing configured collection route and clear accepted cargo |
 | Fennmark L2 | Bring loose suit O2 bottles below 90% from the approved store or anywhere aboard into the rack, start it in Fill mode, and take charged bottles to the approved store when one is chosen; Keep suit bottles charged is the right-click shortcut. Never from a suit, hands, a locked container or another L2 (Manufacturing 0.5.0) |
+| V4, LC-3, SA-3, Copperhead-3, EC-4, CR-4 | Bring feed for one charge at a time from the approved store or anywhere aboard into the machine's inventory, start a paused machine when a whole charge is in, and take its products to the approved store when one is chosen; Load feed by crew is the right-click shortcut. Charges made of the machine's own products (V4 steel, pyrolysis, carbon burn) stay yours to start; an LC-3 needs a recipe chosen first; a machine that stopped for a fault is never restarted by crew. Never takes feed another of these machines is waiting on (Manufacturing 0.56.0) |
+| RM-1 feeder | Keep two declared remainders waiting in its inventory, from the approved store or anywhere aboard; it grinds them by itself while it has power. Load feed by crew is the right-click shortcut (Manufacturing 0.56.0) |
 | T2 thaw unit | Supply single blocks of water ice from the approved store or anywhere aboard, start thawing when the linked vessel has room, and clear gangue to the approved store; Load feed by crew is the right-click shortcut |
 | F6 | Supply exact 1 kg pieces of the metal the selected recipe takes, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence. While the furnace's own [repeat run](furnace-player-guide.md#repeat-batches) is on, crew keep supplying and clearing but leave the hot steps to it |
 | G4 | Prepare and launch/resume the existing exact reclamation mission through its recorded capture, equipment and Auto Nav bindings |
@@ -127,8 +140,15 @@ occupancy, sensors, capture and flight-authority checks remain in force. There i
 no automatic target acquisition, purchase, sale, disposal or enlargement of a mission.
 Changing the recorded equipment chain, flight settings or docking ports also
 requires a fresh Enable/Resume; the stored permission cannot authorize a replacement.
-Manufacturing's machines operate, but it registers no crew orders yet: load
-their feeds by hand.
+Manufacturing's charge machines and the RM-1 take loading orders since
+Manufacturing 0.56.0; its other machines (X2, K2, AX-2, Corker-2) take gas or
+liquid from linked stores and need no hauling. Changing a charge machine's
+recipe, preference or links on its Control Panel suspends an enabled order
+until you Resume it, as for every machine, and Pause or Cancel on the panel
+stops the order. An RM-1 order can take remainders another machine could use,
+such as gangue an LC-3 would wash, when they lie loose or sit in an ordinary
+store. What waits in the LC-3's own tray is left alone; to keep the rest, give
+the RM-1 order its own input store in the Crew panel.
 
 ## Learnable specialities
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.115.0</Version>
+    <Version>0.116.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -35,4 +35,5 @@
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/lines.json" LogicalName="PhobosFramework.lines.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/story.json" LogicalName="PhobosFramework.story.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/upkeep.json" LogicalName="PhobosFramework.upkeep.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/stores.json" LogicalName="PhobosFramework.stores.json" /></ItemGroup>
 </Project>

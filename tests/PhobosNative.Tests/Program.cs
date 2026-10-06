@@ -137,6 +137,7 @@ foreach (var equipment in manufacturing.Objects.Values)
 manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
 AcidLineNativeChecks.Run(manufacturing, Check);
+CrewFeedNativeChecks.Run(manufacturing, Check);
 // Phobos Medical (0.1.0) prepares after the industrial mods; it depends on Framework only.
 var medical = PhobosMedical.Content.Prepare();
 foreach (var equipment in medical.Objects.Values)
@@ -152,6 +153,8 @@ LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
 LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 InventoryNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
+StoreNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
+MaintenanceSheetNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 VesselContentsNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, game, Check);
 PowerPointNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 TrayFitNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);

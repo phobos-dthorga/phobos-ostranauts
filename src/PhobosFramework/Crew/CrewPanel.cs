@@ -34,6 +34,25 @@ public sealed class CrewPanel : GUIData
     internal static void ShowPreview(Ship ship,int hours=1)
     {var previous=CrewSim.tplCurrentUI;if(Show(ship.ShipCO)){var panel=CrewSim.goUI.GetComponent<CrewPanel>();panel.returnPanel=previous;panel.previewHours=Math.Max(1,Math.Min(6,hours));panel.view="skip";panel.BuildView();}}
     public static void Button(Transform parent,CondOwner? co=null)=>C.Button(parent,CrewWork.Message("open"),()=>Show(co));
+    public const string OrdersView="orders",UpkeepView="upkeep";
+    /// <summary>Opens on one tab (Framework 0.116.0: the right-click Maintenance sheet's buttons): the orders tab with
+    /// this machine's order, or the upkeep switches. Any other view opens the orders tab.</summary>
+    public static bool Show(CondOwner? co,string view)
+    {
+        if(!Show(co))return false;
+        if(view==UpkeepView){var panel=CrewSim.goUI.GetComponent<CrewPanel>();panel.view=view;panel.BuildView();}
+        return true;
+    }
+    /// <summary>Why <see cref="Show(CondOwner)"/> would refuse for this object now, or null when it would open.</summary>
+    public static string? Unavailable(CondOwner? co)
+    {
+        var actor=CrewSim.GetSelectedCrew();var ship=co?.ship??actor?.ship;
+        if(actor==null)return CrewWork.Message("panel_no_crew");
+        if(ship==null||actor.ship!=ship)return CrewWork.Message("panel_not_aboard",actor.FriendlyName);
+        if(CrewSim.system?.GetShipOwner(ship.strRegID)!=CrewSim.coPlayer?.strID)return CrewWork.Message("panel_not_owned");
+        if(CrewSim.goIntUIPanel==null||CrewSim.bUILock)return CrewWork.Message("panel_blocked");
+        return null;
+    }
     public static bool Show(CondOwner? co=null)
     {
         var actor=CrewSim.GetSelectedCrew();var ship=co?.ship??actor?.ship;

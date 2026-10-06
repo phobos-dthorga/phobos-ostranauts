@@ -19,6 +19,26 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.56.0] - 2026-10-06 - Draft
+
+### Added
+
+- Load feed by crew on the V4, LC-3, SA-3, Copperhead-3, EC-4 and CR-4: a right-click switch, or the Crew panel, sets crew with AutoTask and the Haul duty to bring feed for one charge at a time from anywhere aboard or a chosen store, press Start when a whole charge is in, and carry products to a chosen store. Crew never make a charge of the machine's own products (V4 steel, pyrolysis, carbon burn stay yours to start), never restart a machine that stopped for a fault, and never take feed another of these machines is waiting on.
+- The RM-1 feeder has the same switch: crew keep two declared remainders waiting in it, and it grinds them by itself while it has power.
+- F3: phobosmanufacturing crew-load followed by a machine id switches crew loading on or off, as the right-click does.
+
+### Fixed
+
+- An L2 with its bottle order on is now worked through a time-skip like other machines; before, a skip left it untouched.
+
+### Save compatibility
+
+- Automatic. An order is saved in Framework's crew-order record only once you switch it on. A V4 or RM-1 already chosen as another machine's product or feed store stays usable.
+
+### Compatibility and limits
+
+- Requires Framework 0.116.0. Gases and liquids still come from linked stores; the X2, K2, AX-2 and Corker-2 take no crew orders. An RM-1 order can take loose remainders another machine could use. Checked offline with the builds, rule and native checks; not yet seen in the game.
+
 ## [0.55.0] - 2026-10-06 - Draft
 
 ### Added

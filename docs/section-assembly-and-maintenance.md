@@ -93,7 +93,7 @@ files are never edited.
 
 ## Understand a missing maintenance action
 
-**Maintenance information** on Shipbreaker and Agriculture serviceable items
+**Maintenance** on Shipbreaker and Agriculture serviceable items
 explains the native work types and current blockers. Split a conduit stack
 before dismantling one piece. Empty cargo/feed compartments and resolve work
 lots first. Furnace explanations distinguish coolant, batch state, temperature,
@@ -154,7 +154,7 @@ pathfinding or the owner's save.
   machine. Watch the early and part-built stages while the crew installs it, and
   save/reload partway through.
 - On the affected F6-P, choose Recover stored cargo. Check quantities and stacks,
-  unload everything, and confirm new deposits fail. Reopen Maintenance information
+  unload everything, and confirm new deposits fail. Reopen Maintenance
   to see any remaining coolant, temperature or paired-equipment restriction.
 - Check a conduit stack and an agricultural appliance with contents. Confirm the
   explanation and normal maintenance after safely resolving the blocker.

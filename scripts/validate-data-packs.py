@@ -688,6 +688,32 @@ def lines(pack, where):
             if support['tile'] in forbidden:
                 raise Problem(f'{w}: forbids {support["tile"]} tiles and also names them as a support')
 
+# ---- Store rules (Framework 0.116.0); mirrors PhobosFramework.Data.StoreSchema ----
+STORE_MAX_NAMES = 48
+
+
+def store_container(name):
+    """A container rule name, or a prefix of one ending in * (at least three letters before it)."""
+    if not isinstance(name, str):
+        return False
+    if name.endswith('*'):
+        return len(name) > 3 and bool(CONDITION_NAME.match(name[:-1]))
+    return bool(CONDITION_NAME.match(name))
+
+
+def stores(pack, where):
+    """The stores schema: which of the game's containers are not stores (weapons, chargers, filter holders, toilets)."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'requireInteraction', 'excludeConditions', 'excludeContainers'}, where)
+    interaction = pack.get('requireInteraction', '')
+    if not isinstance(interaction, str) or (interaction and not CONDITION_NAME.match(interaction)):
+        raise Problem(f'{where}/requireInteraction: one of the game\'s interaction names, or empty')
+    for name, valid, what in (('excludeConditions', lambda c: isinstance(c, str) and bool(CONDITION_NAME.match(c)), 'condition names'),
+                              ('excludeContainers', store_container, 'container rule names (a name may end in *)')):
+        names = pack.get(name, [])
+        if not isinstance(names, list) or len(names) > STORE_MAX_NAMES or not all(valid(n) for n in names) or len(set(names)) != len(names):
+            raise Problem(f'{where}/{name}: up to {STORE_MAX_NAMES} {what}, each once')
+
+
 # ---- Crew upkeep (Framework 0.111.0); mirrors PhobosFramework.Crew.UpkeepSchema ----
 UPKEEP_FAMILY_KEY_MAX = 64
 
@@ -1193,7 +1219,7 @@ def story(pack, where, framework=None):
     return broadcasts
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep}
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores}
 
 
 # ---- Add-ons (Framework 0.90.0): a mod folder with phobos-addon.json and phobos/<Mod>/<schema>/*.json ----

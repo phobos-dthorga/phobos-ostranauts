@@ -53,6 +53,15 @@ public interface ICrewBoundProvider
     string CaptureBinding(CondOwner equipment, StandingOrder order);
 }
 
+/// <summary>Optional (Framework 0.116.0): equipment a provider serves that still counts as a store for everyone else.
+/// Equipment with crew orders is normally not a store, so another order cannot haul out of it; a machine whose own tray
+/// is also a place others deliver to or take from (Manufacturing's charge machines, the RM-1 feeder) says so here and
+/// keeps the store standing it had before it took orders.</summary>
+public interface ICrewStoreEquipment
+{
+    bool CountsAsStore(CondOwner equipment);
+}
+
 /// <summary>Only providers with measured power and material/thermal accounting opt into skipped machine ticks.</summary>
 public interface ICrewSkipProvider
 {

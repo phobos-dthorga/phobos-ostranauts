@@ -85,7 +85,7 @@ internal sealed class FeederService : IRcsPropellantFeed
     // Written only when it changes: an idle machine reaches this on every power step.
     private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Grinding) != value) co.SetCondAmount(ManufacturingRules.Grinding, value ? 1 : 0); }
     // The record's own figure: draws not yet settled make it a little high, which only errs toward waiting.
-    private static double HeldKg(CondOwner co) => BulkVessel.Snapshot(co).ServiceKg;
+    internal static double HeldKg(CondOwner co) => BulkVessel.Snapshot(co).ServiceKg;
 
     /// <summary>The unit to grind: the one in hand if it is still inside, else the first remainder in the inventory, else
     /// one fetched from the chosen feed store every couple of real seconds.</summary>

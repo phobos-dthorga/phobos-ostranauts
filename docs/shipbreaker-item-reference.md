@@ -427,7 +427,7 @@ Rejects furnace heat through a finite exterior cooling assembly.
 
 **Placement:** INSTALL → HVAC. Obtain the loose item first; the menu does not manufacture it.
 
-One cooling endpoint per furnace. Direct coupling is passive; a remote piped installation needs powered circulation. A disconnected exposed radiator still rejects heat already in its own store. It is not an unlimited heat sink; do not switch pairs or modes while hot. If older saves left cargo inside, choose Recover stored cargo while beside the unit and move the items out. New deposits are blocked. Maintenance information identifies contents, coolant, heat and paired-equipment restrictions. Actual work lots remain reserved until their native job finishes or is cancelled. It can serve one ML-2 mining laser that touches it in place of a furnace.
+One cooling endpoint per furnace. Direct coupling is passive; a remote piped installation needs powered circulation. A disconnected exposed radiator still rejects heat already in its own store. It is not an unlimited heat sink; do not switch pairs or modes while hot. If older saves left cargo inside, choose Recover stored cargo while beside the unit and move the items out. New deposits are blocked. The right-click Maintenance sheet identifies contents, coolant, heat and paired-equipment restrictions. Actual work lots remain reserved until their native job finishes or is cancelled. It can serve one ML-2 mining laser that touches it in place of a furnace.
 
 Full operating instructions: [F6-R Exterior Radiator guide](furnace-player-guide.md).
 
@@ -486,7 +486,7 @@ A sealed deck fitting representing the alternative underside radiator assembly.
 
 **Placement:** INSTALL → HVAC. Obtain the loose item first; the menu does not manufacture it.
 
-The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck. If older saves left cargo inside, choose Recover stored cargo while beside the unit and move the items out. New deposits are blocked. Maintenance information identifies contents, coolant, heat and paired-equipment restrictions. Actual work lots remain reserved until their native job finishes or is cancelled.
+The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck. If older saves left cargo inside, choose Recover stored cargo while beside the unit and move the items out. New deposits are blocked. The right-click Maintenance sheet identifies contents, coolant, heat and paired-equipment restrictions. Actual work lots remain reserved until their native job finishes or is cancelled.
 
 Full operating instructions: [F6-P Thermal Exhaust Port guide](development/furnace-connections-and-instruments.md).
 

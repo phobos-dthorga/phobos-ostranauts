@@ -273,6 +273,17 @@ def lines():
                'Where a pipe or conduit segment counts as laid: the tiles that carry nothing, and what must stand on a tile for a segment there to join its line.')
 
 
+def stores():
+    name = {'type': 'string', 'pattern': '^[A-Za-z][A-Za-z0-9]{0,63}$'}
+    container = {'type': 'string', 'pattern': '^[A-Za-z][A-Za-z0-9]{0,63}$|^[A-Za-z][A-Za-z0-9]{2,63}[*]$'}
+    return obj({**header('stores'),
+                'requireInteraction': {'type': 'string', 'pattern': '^([A-Za-z][A-Za-z0-9]{0,63})?$', 'description': 'The interaction a container must offer to count as a store, such as the game\'s Inventory; empty for any.'},
+                'excludeConditions': {'type': 'array', 'items': name, 'maxItems': 48, 'uniqueItems': True, 'description': 'Conditions that mark an object as not a store, such as IsShipWeapon or IsToilet01.'},
+                'excludeContainers': {'type': 'array', 'items': container, 'maxItems': 48, 'uniqueItems': True, 'description': 'Container rules that hold only one kind of thing, such as TIsFitAmmo20mm; a name ending in * covers every rule that starts with the rest.'}},
+               ['schemaVersion', 'schema'],
+               'Which of the game\'s containers are not stores: weapons, chargers, filter holders and toilets are left out of store pickers, crew orders and housekeeping, and crew never take from them.')
+
+
 def story():
     story_id = '^[a-z0-9]+(-[a-z0-9]+)*$'
     game = {'type': 'string', 'pattern': '^[A-Za-z0-9_]+$'}
@@ -455,7 +466,7 @@ def upkeep():
                'Crew upkeep: what a tuning session adds, how long an inspection is good, and each machine family\'s share of the gain.')
 
 
-SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep}
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores}
 
 
 def render(name):

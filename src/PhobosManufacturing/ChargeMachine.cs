@@ -163,6 +163,29 @@ internal sealed class ChargeMachine
         !input.HasCond("IsInstalled") && input.GetCOsSafe(true).Count == 0 && input.GetLotCOs(true).Count == 0 && input.coStackHead == null && input.aStack.Count == 0 &&
         FeedKg(input.strCODef, machine) is double kg && ProcessMaterial.MassMatches(input.GetTotalMass(), kg);
     internal bool CrewFeed(CondOwner input, CondOwner? machine) => CrewLogistics.Loose(input) && FeedKg(input.strCODef, machine) is double kg && ProcessMaterial.MassMatches(input.GetCondAmount("StatMass"), kg);
+    // ---- Crew loading (Manufacturing 0.56.0): what the order may bring, take away and count ----
+    /// <summary>Feed crew may bring: what the machine's own intake takes now, never a thing it makes itself.</summary>
+    internal bool Loadable(CondOwner unit, CondOwner machine) => unit != null && CrewFeed(unit, machine) && !OwnProduct(unit.strCODef);
+    /// <summary>What crew take away to the order's destination store: this machine's own solid products.</summary>
+    internal bool CrewProduct(CondOwner unit) => unit != null && OwnProduct(unit.strCODef);
+    /// <summary>An explicit-selection machine (the LC-3) with no recipe chosen: crew cannot know what to bring.</summary>
+    internal bool NeedsSelection(CondOwner co) => Spec.Selection == RecipeSelection.Explicit && SelectedRecipe(co) == null;
+    internal bool Protected(CondOwner co) => Get(co).Protected;
+    internal string Status(CondOwner co) => Get(co).Status;
+    /// <summary>The loading plan for what waits in the machine now: its own inventory, plus the feed compartment while
+    /// no charge is bound there. The charges are those the machine could bind as it stands: the selected recipe, or
+    /// every available recipe whose drawn commodities have a linked store.</summary>
+    internal CrewFeedRules.FeedPlan CrewPlan(CondOwner co)
+    {
+        var s = Get(co);
+        IEnumerable<ChargeRecipe> available = Spec.Selection == RecipeSelection.Explicit
+            ? (SelectedRecipe(co) is ChargeRecipe chosen && Available(chosen, co) ? new[] { chosen } : Array.Empty<ChargeRecipe>())
+            : Catalog.Available(MetFor(co)).Where(r => Drawable(co, r));
+        var waiting = OwnInventoryFeed.Units(co, u => Loadable(u, co)).Select(u => u.strCODef);
+        if (!s.State.Bound && Feed(co)?.objContainer?.ContainedCOs is { } bin) waiting = waiting.Concat(bin.Where(c => ValidFeed(c, co)).Select(c => c.strCODef));
+        var counts = waiting.GroupBy(id => id, StringComparer.Ordinal).ToDictionary(g => g.Key, g => g.Count(), StringComparer.Ordinal);
+        return CrewFeedRules.Plan(CrewFeedRules.Candidates(available, OwnProduct), counts);
+    }
     internal bool CanFeed(CondOwner bin, CondOwner input)
     {
         var machine = MachineOf(bin);
@@ -260,7 +283,9 @@ internal sealed class ChargeMachine
         return items;
     }
 
-    internal bool Start(CondOwner co, ConsoleBinding? binding = null)
+    /// <param name="ownProducts">False when crew press Start under a loading order (Manufacturing 0.56.0): the charge
+    /// is then made of ordinary feed only, never of what this machine made, as when it repeats by itself.</param>
+    internal bool Start(CondOwner co, ConsoleBinding? binding = null, bool ownProducts = true)
     {
         var s = Get(co);
         string? problem = Content.Access(co, binding) ?? MachineProblem(co);
@@ -271,7 +296,7 @@ internal sealed class ChargeMachine
             s.LastStop = null; s.NeedsAttention = false; s.AwaitingFeed = true;
             if (s.State.Running) return true;
             bool started;
-            s.ByStart = true;
+            s.ByStart = ownProducts;
             try { started = Resume(co, s) || Bind(co, s); }
             finally { s.ByStart = false; }
             if (!started && !s.VesselWait) s.AwaitingFeed = false;

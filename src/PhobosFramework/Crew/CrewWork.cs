@@ -142,10 +142,13 @@ public static class CrewWork
     public static IEnumerable<CondOwner> Equipment(Ship ship) => Controls.ShipEquipment.Read(ship,
         c => c.HasCond("IsInstalled") && Provider(c) != null);
     public static IEnumerable<CondOwner> Stores(Ship ship) => Controls.ShipEquipment.Read(ship, IsStore).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
-    /// <summary>A finite, unlocked native container that is not a person or provider-owned equipment.
+    /// <summary>A finite, unlocked native container that is not a person or provider-owned equipment (unless its provider
+    /// says it still counts, <see cref="ICrewStoreEquipment"/>), and that the
+    /// <c>stores</c> pack counts as a store (Framework 0.116.0: never a weapon's magazine, a charger or a toilet).
     /// Shared by crew hauling and machine storage routes; callers still check ship and access.</summary>
     public static bool IsStore(CondOwner? c) => c != null && !c.bDestroyed && c.objCOParent == null &&
-        c.objContainer != null && !c.objContainer.Locked && !c.HasCond("IsInfiniteContainer") && !c.HasCond("IsHuman") && Provider(c) == null;
+        c.objContainer != null && !c.objContainer.Locked && !c.HasCond("IsInfiniteContainer") && !c.HasCond("IsHuman") &&
+        (Provider(c) is not { } provider || provider is ICrewStoreEquipment store && store.CountsAsStore(c)) && !Inventory.StoreRules.NotAStore(c);
     public static bool LocalAccess(CondOwner actor, CondOwner target, double range) => actor != null && target != null && actor.ship == target.ship &&
         (Reach(actor, target) <= range || executing?.Skipping == true && executing.Actor == actor && executing.Equipment == target);
     /// <summary>How far a crew member stands from a machine's use point, tile to tile, exactly as the game measures an

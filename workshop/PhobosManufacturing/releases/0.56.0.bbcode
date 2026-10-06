@@ -1,0 +1,28 @@
+[h1]Phobos Manufacturing 0.56.0[/h1]
+[b]Draft - not published | 2026-10-06[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Load feed by crew on the V4, LC-3, SA-3, Copperhead-3, EC-4 and CR-4: a right-click switch, or the Crew panel, sets crew with AutoTask and the Haul duty to bring feed for one charge at a time from anywhere aboard or a chosen store, press Start when a whole charge is in, and carry products to a chosen store. Crew never make a charge of the machine's own products (V4 steel, pyrolysis, carbon burn stay yours to start), never restart a machine that stopped for a fault, and never take feed another of these machines is waiting on.
+[*]The RM-1 feeder has the same switch: crew keep two declared remainders waiting in it, and it grinds them by itself while it has power.
+[*]F3: phobosmanufacturing crew-load followed by a machine id switches crew loading on or off, as the right-click does.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]An L2 with its bottle order on is now worked through a time-skip like other machines; before, a skip left it untouched.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. An order is saved in Framework's crew-order record only once you switch it on. A V4 or RM-1 already chosen as another machine's product or feed store stays usable.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Framework 0.116.0. Gases and liquids still come from linked stores; the X2, K2, AX-2 and Corker-2 take no crew orders. An RM-1 order can take loose remainders another machine could use. Checked offline with the builds, rule and native checks; not yet seen in the game.
+[/list]

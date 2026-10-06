@@ -1,0 +1,22 @@
+[h1]Phobos Framework 0.116.0[/h1]
+[b]Draft - not published | 2026-10-06[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]The right-click Maintenance information entry is now called Maintenance, and on an installed machine it also shows the machine's standing order (what it is set to, its state and who is on it) and its upkeep (tune, last inspection, the ship-wide switches), with Open standing orders and Open upkeep switches buttons that open the Crew panel on that machine's order or on the Upkeep tab. The removal and repair notes follow as before; pipes, belts and stores show only those. If the Crew panel cannot open, the sheet says why. Every Phobos mod's equipment gets this without an update of its own.
+[*]A new stores data pack says which of the game's containers are not stores. Ship weapons, battery chargers, CO2 scrubbers, nav consoles, sinks, toilets, the Testudo safe pump and anything without an Inventory entry on its right-click menu are no longer offered under Take feed from or Send products to, are left out of the list of stores aboard but not offered, of crew-order stores and of housekeeping, and crew never take anything out of them. Players and add-ons can extend the lists by the game's own condition and container names.
+[*]Content mods can let equipment with crew orders still count as a store for other machines, so a machine's tray can take deliveries after it gains orders.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing new is saved; the maintenance entries keep their ids. A store already chosen that the new rule excludes stays recorded, and the machine's status says it is not a store any more.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Equipment from other mods is covered only where it carries one of the listed game conditions or container rules, or lacks an Inventory entry. Checked offline (rule, native and data-pack checks against the game's own definitions); not yet seen in the game.
+[/list]

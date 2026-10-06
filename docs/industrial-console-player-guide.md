@@ -183,7 +183,7 @@ owner checks; browser previews do not establish Unity interaction approval.
 
 ## Missing maintenance actions
 
-Use the item's **Maintenance information** action for the current removal blocker.
+Use the item's **Maintenance** action for the current removal blocker.
 F6-P/F6-R units with old hidden cargo offer **Recover stored cargo** locally; move
 those items out before removal. This does not enable remote inventory transfers.
 See [section assembly and maintenance](section-assembly-and-maintenance.md).

@@ -31,6 +31,8 @@ LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);
 NetworkChecks.Run(Check);
+StoreRuleChecks.Run(Check);
+MaintenanceSheetChecks.Run(Check);
 GridFitChecks.Run(Check);
 LineContentsChecks.Run(Check);
 WaterTankChecks.Run(Check);

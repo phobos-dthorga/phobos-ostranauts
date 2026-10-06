@@ -332,7 +332,7 @@ is not guaranteed.
 
 ## Missing actions and stopped work
 
-Choose **Maintenance information** on the equipment to see what is blocking
+Choose **Maintenance** on the equipment to see what is blocking
 removal. Check both paired machines: a cool furnace cannot be removed while its
 cooling assembly is still unsafe. Empty Feed and Products, finish or release the
 batch, let both machines cool and drain serviceable coolant as required.

@@ -12,6 +12,7 @@ ElectrolysisChecks.Run(Check);
 CarbothermalChecks.Run(Check, Throws);
 BottlerChecks.Run(Check, Throws);
 FeederChecks.Run(Check, Throws);
+CrewFeedChecks.Run(Check);
 GangueChecks.Run(Check, Throws);
 RegolithLeachChecks.Run(Check);
 ExampleAddOnChecks.Run(Check);

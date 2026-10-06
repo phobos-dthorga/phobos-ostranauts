@@ -129,6 +129,7 @@ as needing attention, until the file is back.
 | Phobos Medical 0.1.0 | `economy` | The Ward-3 bed: price, work, repair bill, salvage, offers, regions, world finds and kiosk tier |
 | Phobos Framework 0.107.0 | `story` | TV news, adverts and story arcs, and how much of the TV they take; since 0.114.0 the places, people and threads content belongs to; since 0.108.0 also small talk, loading tips and encyclopedia articles; since 0.109.0 branches and credits; since 0.110.0 data files and pictures. Agriculture ships Verdemorrow's. See [writing story content](writing-story-content.md) |
 | Phobos Framework 0.111.0 | `upkeep` | Crew upkeep: what a tuning session adds, how long an inspection is good, each machine family's share of the gain |
+| Phobos Framework 0.116.0 | `stores` | Which of the game's containers are not stores: weapons, chargers, filter holders, toilets |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -207,6 +208,56 @@ To change one, put a file in `BepInEx/config/PhobosFramework/upkeep/`:
   changed figures apply at once and nothing needs converting.
 
 All of these are authored balance, not measurements.
+
+## What counts as a store
+
+The `stores` pack (Framework 0.116.0) keeps things that have a container but are
+not stores out of the **Take feed from** and **Send products to** pickers, crew
+order stores and housekeeping, and stops crew taking anything out of them. A
+ship weapon's magazine, a battery charger, a scrubber's filter holder or a
+toilet each has a container, but nobody keeps ore in one. The shipped file:
+
+```json
+{
+  "requireInteraction": "Inventory",
+  "excludeConditions": [ "IsShipWeapon", "IsRechargingContainer", "IsAtmoScrubber", "IsNavStation",
+    "IsToilet01", "IsSink", "IsWaterRecycler", "IsSafePumpTestudo" ],
+  "excludeContainers": [ "TIsFitAmmo*", "TIsFitContainerFilterCO2", "TIsFitContainerWaterFilter",
+    "TIsFitContainerNavMod", "TIsFitContainerLiquid", "TIsFitContainerSafePumpO2Bottle" ]
+}
+```
+
+- **`requireInteraction`:** a store must offer this entry on its right-click
+  menu. The game's `Inventory` is its "open" entry, so a container you cannot
+  open by hand (the toilet, the coffee machine, a cargo lift) is not a store.
+  Leave it empty to drop the rule.
+- **`excludeConditions`:** anything carrying one of these game conditions is not
+  a store. `IsShipWeapon` covers every ship weapon in the game, and other mods'
+  weapons when they use it. A name from a mod you do not have does nothing.
+- **`excludeContainers`:** the game's container rules (`strContainerCT` in its
+  data) that hold one kind of thing only. A name ending in `*` covers every rule
+  that starts with the rest, so `TIsFitAmmo*` covers every magazine.
+
+The game's racks, bins, floor bins, fridge and secret compartment stay stores,
+and so does every installed Phobos container. Since the names are the game's
+own, equipment from another mod can be added by the condition or container rule
+its data gives it. To change the lists, put a file in
+`BepInEx/config/PhobosFramework/stores/`. A list you set replaces the shipped
+list, so write the whole list:
+
+```json
+{ "excludeConditions": [ "IsShipWeapon", "IsRechargingContainer", "IsAtmoScrubber", "IsNavStation",
+    "IsToilet01", "IsSink", "IsWaterRecycler", "IsSafePumpTestudo", "IsSomeModTurret" ] }
+```
+
+- **What is refused:** names with spaces or symbols, a name listed twice, more
+  than 48 names in a list, a `*` anywhere but at the end, a prefix shorter than
+  three letters, and unknown fields. The file is skipped with a message and the
+  shipped rules stand.
+- **Saved games:** nothing is saved. A store you already chose stays recorded,
+  but once a rule excludes it the machine stops using it and its status says the
+  store is "not a store any more"; choose another under Take feed from or Send
+  products to.
 
 ## Where a pipe counts as laid
 

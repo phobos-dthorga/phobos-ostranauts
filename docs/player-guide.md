@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.115.0**, Shipbreaker **0.83.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.116.0**, Shipbreaker **0.83.0**, Auto Nav
 **0.34.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -434,6 +434,8 @@ Agriculture feeds every crop [one nutrient with the water](fluid-network-operati
 ## Crew standing orders
 
 See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
+
+Right-click a machine and choose **Maintenance** to see its standing order, its tune and last inspection, and what blocks its removal, with buttons into the Crew panel (Framework 0.116.0). Manufacturing's charge machines and the RM-1 feeder take **Load feed by crew** like Shipbreaker's machines (Manufacturing 0.56.0). Store pickers no longer offer weapons, chargers, scrubbers or toilets.
 
 ### Coordinated combat flight
 

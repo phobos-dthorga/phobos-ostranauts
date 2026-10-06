@@ -318,6 +318,24 @@ exception is the station refuelling kiosk's Bulk supplies view.
    ingots, or burn its own carbon, press **Start** again: each press takes one
    such charge.
 
+5. Or let the crew do the loading (Manufacturing 0.56.0): right-click the V4
+   and choose **Load feed by crew (on/off)**. Crew with AutoTask and the Haul
+   duty bring ore and other feed for one charge at a time from anywhere aboard,
+   press Start when a whole charge is in, and carry the products to a store if
+   you choose one under **Send products to** in the Crew panel. Choose it again
+   to switch it off. The LC-3, SA-3, Copperhead-3, EC-4 and CR-4 have the same
+   switch; the RM-1 feeder's version keeps two remainders waiting in it.
+   - Crew never make steel, pyrolysis or carbon-burn charges: those are made of
+     the refinery's own products, so they stay yours to start.
+   - An LC-3 needs its recipe chosen on the Control Panel first.
+   - A machine that stopped for a fault is not restarted by crew; the order
+     waits and says why.
+   - Changing a recipe, preference or link on the Control Panel pauses the
+     order until you choose Resume in the Crew panel.
+   - Right-click **Maintenance** shows the order, who is on it and the machine's
+     tune and inspection, with buttons into the Crew panel. See
+     [crew automation](crew-automation.md#supported-equipment).
+
 A water charge waits until the linked vessel can take its whole yield; the
 panel says why (no vessel, full, damaged, held, catch chamber, out of reach)
 and rechecks every few seconds. The salt crust also waits, with the reason,
@@ -1095,8 +1113,8 @@ removed it is kept and reported, never overwritten, and Cancel releases it.
 
 ## Limits
 
-- No crew loading orders for the V4 yet; load its inventory by hand, choose a feed store, or use a crew
-  output store on the tray. The L2 has its bottle order.
+- Crew loading orders bring solid feed only; gases and liquids still come from linked stores. The X2,
+  K2, AX-2 and Corker-2 take no crew orders. Crew loading has not yet been seen in the game.
 - No construction recipes: buy the machines.
 - Stored gases are kilogram records in their stores; a game gas becomes room
   gas only when it leaks, is released or burns.
@@ -1255,6 +1273,20 @@ cycle takes 0.579 kg of it and gives 0.332 kg of methane and 0.372 kg of water;
 switch back to a CO2 canister between cycles and confirm it runs as before.
 Damage a carbon monoxide store in an aired room and confirm the leak notice and
 the room's carbon monoxide rising. Save and reload with each machine working.
+
+Crew loading (0.56.0): put a few hydrate blocks on the deck and a crate beside
+the V4. Right-click the V4, choose **Load feed by crew**, and in the Crew panel
+choose the crate under the destination store. Confirm a crew member brings one
+block, presses Start, and carries the products to the crate; Pause on the panel
+stops the order. Time-skip an hour with the order on and confirm the V4 keeps
+working and an armed L2 keeps filling. Save and reload with the order on and
+confirm it carries on. Put four nickel-iron ingots and a carbon stock in the
+tray and confirm crew do not start a steel charge. On a second V4 confirm crew
+never move ore that is already waiting in the first. Choose a V4 as an LC-3's
+product store and confirm the residue still arrives. Right-click **Maintenance**
+on the V4: confirm the order, tune and removal notes, and that both buttons open
+the Crew panel; on a pipe confirm only the removal notes. Open **Take feed
+from** beside a gun turret, a toilet and a rack: only the rack may be offered.
 
 ## Sources
 

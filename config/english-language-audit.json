@@ -42102,8 +42102,8 @@
       "category": "help/settings",
       "decision": "new",
       "before": "Maintenance information",
-      "after": "Maintenance information",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "after": "Maintenance",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation. 6 October 2026: renamed Maintenance (Framework 0.116.0, owner direction): the sheet now also holds standing orders and upkeep.",
       "trace": "maintained runtime lookup",
       "references": [
         "src/PhobosFramework/Registration/MaintenanceSafety.cs",
@@ -47049,13 +47049,13 @@
       "key": "Console.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained. 6 October 2026: adds crew-load (Manufacturing 0.56.0).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Plugin.cs:232"
       ],
       "before": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|canister <id> <target or none> | vent <id> <kg>",
-      "after": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|hydrogen|methane|canister <id> <target or none> | vent <id> <kg>",
+      "after": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|hydrogen|methane|canister <id> <target or none> | vent <id> <kg> | crew-load <id>",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -84178,6 +84178,539 @@
       ],
       "before": "{0}: from and to are hours from 0 to 23.",
       "after": "{0}: from and to are hours from 0 to 23."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.panel_no_crew",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Crew panel refusals (Framework 0.116.0): every refusal says why and what to do, for the Maintenance sheet buttons.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Select a crew member first.",
+      "after": "Select a crew member first."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.panel_not_aboard",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Crew panel refusals (Framework 0.116.0): every refusal says why and what to do, for the Maintenance sheet buttons.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} must be aboard this ship to give it orders.",
+      "after": "{0} must be aboard this ship to give it orders."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.panel_not_owned",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Crew panel refusals (Framework 0.116.0): every refusal says why and what to do, for the Maintenance sheet buttons.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew orders are given only aboard your own ship.",
+      "after": "Crew orders are given only aboard your own ship."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.panel_blocked",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Crew panel refusals (Framework 0.116.0): every refusal says why and what to do, for the Maintenance sheet buttons.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Another window is in the way. Close it and try again.",
+      "after": "Another window is in the way. Close it and try again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.orders_heading",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Standing orders",
+      "after": "Standing orders"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.orders_status",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: {1} · {2}",
+      "after": "{0}: {1} · {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.orders_open",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Open standing orders",
+      "after": "Open standing orders"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.orders_none",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew take no standing orders for this machine. Load it by hand, or link the stores it takes from on its Control Panel.",
+      "after": "Crew take no standing orders for this machine. Load it by hand, or link the stores it takes from on its Control Panel."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.orders_not_owned",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "This machine takes crew orders, but only aboard your own ship.",
+      "after": "This machine takes crew orders, but only aboard your own ship."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.upkeep_heading",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Upkeep",
+      "after": "Upkeep"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.upkeep_open",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Open upkeep switches",
+      "after": "Open upkeep switches"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.removal_heading",
+      "category": "label/help",
+      "decision": "add",
+      "reason": "Maintenance sheet (Framework 0.116.0, owner direction 6 October 2026): headings, button labels and the order line in plain words; a machine without orders is told how it is loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Removal and repair",
+      "after": "Removal and repair"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreSchema.interaction",
+      "category": "error",
+      "decision": "add",
+      "reason": "Store rules pack (Framework 0.116.0): validator refusals name the field and the limit, so a player file author can fix it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The stores file: requireInteraction must be one of the game's interaction names, or empty.",
+      "after": "The stores file: requireInteraction must be one of the game's interaction names, or empty."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreSchema.conditions",
+      "category": "error",
+      "decision": "add",
+      "reason": "Store rules pack (Framework 0.116.0): validator refusals name the field and the limit, so a player file author can fix it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The stores file: excludeConditions takes up to {0} condition names, each once.",
+      "after": "The stores file: excludeConditions takes up to {0} condition names, each once."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreSchema.containers",
+      "category": "error",
+      "decision": "add",
+      "reason": "Store rules pack (Framework 0.116.0): validator refusals name the field and the limit, so a player file author can fix it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The stores file: excludeContainers takes up to {0} container rule names, each once; a name may end in * to cover every rule that starts with it.",
+      "after": "The stores file: excludeContainers takes up to {0} container rule names, each once; a name may end in * to cover every rule that starts with it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_inspect_only",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Maintenance sheet upkeep lines (Framework 0.116.0): what the tune and inspection are now, in the working-spacer voice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune: none. Crew inspect this machine, but it has no work rate to raise.",
+      "after": "Tune: none. Crew inspect this machine, but it has no work rate to raise."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_inspected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Maintenance sheet upkeep lines (Framework 0.116.0): what the tune and inspection are now, in the working-spacer voice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Last inspected {0} h ago.",
+      "after": "Last inspected {0} h ago."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_not_inspected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Maintenance sheet upkeep lines (Framework 0.116.0): what the tune and inspection are now, in the working-spacer voice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Not inspected yet.",
+      "after": "Not inspected yet."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.order_title",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Load feed by crew (on/off)",
+      "after": "Load feed by crew (on/off)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.order_action",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "[us] [switches] crew loading of [them] on or off.",
+      "after": "[us] [switches] crew loading of [them] on or off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.order_tooltip",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew keep this machine loaded from around the ship, one charge at a time, and start it when a whole charge is in, until you switch it off. Carries on through time-skips and reloads. They never take from anyone's hands, a locked container, or feed another machine is waiting on.",
+      "after": "Crew keep this machine loaded from around the ship, one charge at a time, and start it when a whole charge is in, until you switch it off. Carries on through time-skips and reloads. They never take from anyone's hands, a locked container, or feed another machine is waiting on."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.recipe",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Keep it loaded with feed",
+      "after": "Keep it loaded with feed"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.recipe_remainders",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Keep it fed with remainders",
+      "after": "Keep it fed with remainders"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew loading on for {0}. Crew with AutoTask and the Haul duty bring feed from anywhere aboard until you switch it off.",
+      "after": "Crew loading on for {0}. Crew with AutoTask and the Haul duty bring feed from anywhere aboard until you switch it off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew loading off for {0}. What is already inside stays there.",
+      "after": "Crew loading off for {0}. What is already inside stays there."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.not_owned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew loading needs a machine on your own ship.",
+      "after": "Crew loading needs a machine on your own ship."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.unsupported",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew loading needs this machine installed and undamaged.",
+      "after": "Crew loading needs this machine installed and undamaged."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.blocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} needs attention first. Check installation, damage, locks and saved contents on its Control Panel.",
+      "after": "{0} needs attention first. Check installation, damage, locks and saved contents on its Control Panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.select_recipe",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Choose Keep it loaded with feed in the Crew panel.",
+      "after": "Choose Keep it loaded with feed in the Crew panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.select_remainders",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Choose Keep it fed with remainders in the Crew panel.",
+      "after": "Choose Keep it fed with remainders in the Crew panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.no_selection",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No recipe chosen on {0}. Pick one on its Control Panel and crew will bring what it takes.",
+      "after": "No recipe chosen on {0}. Pick one on its Control Panel and crew will bring what it takes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.no_recipe",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} has no charge crew can load as it stands. Link the stores its charges draw from on its Control Panel; charges made from its own products stay yours to start.",
+      "after": "{0} has no charge crew can load as it stands. Link the stores its charges draw from on its Control Panel; charges made from its own products stay yours to start."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.start",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Start {0}",
+      "after": "Start {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.charge_waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A whole charge is waiting in {0}. It goes in when the machine is ready for it.",
+      "after": "A whole charge is waiting in {0}. It goes in when the machine is ready for it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.stopped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} stopped: {1} Crew do not restart a machine that stopped for a fault. Start it on its Control Panel once it is sorted.",
+      "after": "{0} stopped: {1} Crew do not restart a machine that stopped for a fault. Start it on its Control Panel once it is sorted."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.no_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} has no room for more feed. Empty its tray, or choose a destination store in the Crew panel for its products.",
+      "after": "{0} has no room for more feed. Empty its tray, or choose a destination store in the Crew panel for its products."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.none_aboard",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew found no feed for {0} lying loose aboard. Closest charge: {1}.",
+      "after": "Crew found no feed for {0} lying loose aboard. Closest charge: {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.none_in_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} holds no feed for this order. Closest charge: {1}.",
+      "after": "{0} holds no feed for this order. Closest charge: {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.feeder_stocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} has remainders waiting. Crew bring more as it grinds them.",
+      "after": "{0} has remainders waiting. Crew bring more as it grinds them."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.feeder_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Crew found no loose remainders aboard for {0}.",
+      "after": "Crew found no loose remainders aboard for {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CrewFeed.feeder_none_in_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Load feed by crew (Manufacturing 0.56.0): switch titles, order states and waits; each wait names the one thing the order waits for and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} holds no remainders for this order.",
+      "after": "{0} holds no remainders for this order."
     }
   ],
   "documents": [
@@ -84185,8 +84718,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "486eb4c48d62d8ac2be112d758dbd3a952e910712d84281c9d4f4abdf226db9e",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "e304e0c9c6866282ad0244487ac14cdd3773f7a3ebc54255f6bd1f53cc16defb",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -84234,8 +84767,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "080e2b4a1278972bb7701eb1e77d71be7607738d81d0c4ef5dd6883bc9cdd664",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "4f40e93ea78d438a2ce51eba0d0a4b968ee1060a4956b422c899e68635f17935",
+      "review": "Agriculture 0.59.0: crop misting 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -84346,22 +84879,22 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c4020beafe2d7f1df899db1e079e4b0543918a45e37a924b5afbd1fe4999b319",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "033f0a0dfd0f956c544bb20796a79e09a46574ac36bb5d34d93768b52d278bb8",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "f0fcc8975f3538dac7e0873a0bca71d0621a582abe58bd8149f82a14266b9a6b",
-      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips."
+      "sha256": "4ce4f7c41f223c8cedb46038826612d3dc84d974b82d5da90403891ade4ec245",
+      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "f0f6011c98f70474dbf2855bd6350e65d761c96e80201cfe65672a2cfdc0454f",
-      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff."
+      "sha256": "f5803aa5f575d233ab64a8bd3dd626aac3964e0a97f7120dc4a5259acc95c70b",
+      "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -84703,8 +85236,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cb3c6f47cd462e1d6a5f9c1e6dcaec2e264ff91d141f5b23c032c86684bc65b6",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "a51ab657ce08624be47ae456c5aecec406baaebacddf56f74b7e0976b0854002",
+      "review": "Framework 0.107.0 story content review, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -84794,8 +85327,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "61d8f0415228efd16e59e39b899c81c62f8a763bf0bc4424face87da587a5a90",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "166607a9d7f01509bf8827728b6121179e37b052b669aebd9087f68d06ff1656",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -84975,8 +85508,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2c2af5a738fc8284f9e8147b1ec8cf138782257f77a5a24abc83d7259e554909",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "24bd696b82535713af3e8917742bf27e9652b40acd487f90f3cfb3223611333d",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -85215,8 +85748,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "94f99be13465123ff3cefc9389c7b2123e44f799c0d0058994b353e510adc085",
-      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags."
+      "sha256": "84c5da0c1e577e30d63023686b4558d5b662bb9de4bd7e39864afbafdae32449",
+      "review": "Reviewed 6 October 2026 for story grounding (Framework 0.114.0): places, people, threads, flags. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -85236,8 +85769,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e212d129a2f5ed343c41cbb940bcc5039d3abcef42ab825d826d419cab0fc6c6",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "5dc5481a20cfeeddfd6a1abacf9f483d992f8b6f7109593f7094939af3736e6d",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -85257,8 +85790,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "7f94c14bb26fc1053d9509aaa23e827a4803d4c9897312dcdfe61e6f31e6fbb0",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "3d0947e2b043de066b5cbda8cea0fa875c95830452dfb8c038739a80b96ad605",
+      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/getting-started.md",
@@ -85292,15 +85825,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1ead733ca841c14a084194c834c2c8f235a870c48072837554fb9c585a3473f2",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "b3531e52ceb3ad944785bb9aba9852ab0c266b2b8d7224249f69fe5730cf473e",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b1a92d4f44910ea4e7215cff1ccc558ec44b4e321d98fdaf908f7564866b9e32",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "35a6c462a1cb77f666abfbe65ba3561239cd10a25c51d1fd3686504ad936a6f4",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/item-references.md",
@@ -85320,15 +85853,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "863d93ea72a4533759aaac378f34eb86bc4cfe4a11852bf8ab3189829c9aba78",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "0e78618d8ef58d66e8cf93cc8f36e054b688222408fc850ff41b8c8f6e20cfb0",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "a57c5462f219311c094393e05ac2d82598932309f2dc22976b40f161754ab849",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "b61f85df2272f0d3bba0ea5e7b31cab42c58169bae258127629445f37db7d63a",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -85362,8 +85895,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a7fc93016e200e7511dd00e8fa46697dda0194d710ecd177e83c527e3dba858d",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "5a2c18146824e0b3dac81669aa13aaa26ddc94d10a6ba56de061e951b419f5ba",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -85390,8 +85923,8 @@
       "path": "docs/section-assembly-and-maintenance.md",
       "scope": "current player guide and native implementation evidence",
       "decision": "new reviewed assembly/recovery guide",
-      "sha256": "47e51b25c6b760718d27d5cc56c5043351bb1d5a03b9a3e2c47179c5d26ed580",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "36225daaa743ade57033335ac21231912b0e79748c9794d26f521295a6444fc3",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/shared-completion-cues.md",
@@ -85418,8 +85951,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "2809699f99f522e804b2525a8064d725ed1dcb88439edd7fe0606e949654fc14",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "6c81d54e8bdad8cdd3f85d58e327ea353ba3a844d1eeb28a7c2a852997dcd9a5",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -85488,15 +86021,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e9b2b85f7b1dad95f288bb96df4093f49fa989604d9d25c0e4f69188fb68d7b5",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "5f819995a65ad969e8b5e5f7f01c31132e846b5b6fc5feca118b0bd2db2700db",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "207997ae0178ef4062babe7239fbf5e1fa29f6f3c44961a6ee8d358fef36d195",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "30b09e071deb554fde07cd7567467629523ff987fb473007a86df049d311d3d7",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -85574,14 +86107,21 @@
       "decision": "new",
       "sha256": "f3252b35b0a1df06df24031f601aabdefa0a0cc9505886e11a3583bfc6510dc9",
       "review": "Reviewed 6 October 2026: Spacer Stories rewrite handoff."
+    },
+    {
+      "path": "docs/development/crew-loading-and-maintenance-sheet.md",
+      "scope": "development",
+      "decision": "new",
+      "sha256": "07f677fa6b081c1c4da54fe6caeb88c329c46d3bccc09522238f9b726bba0c5d",
+      "review": "New design record, 6 October 2026."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8a28a75c9750f1bf01f0535820901b9df49170d6d2995b72eb48c7acf7baf94e",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "1e42cc8da31addf5352f0530d63a728c7d70409fa253e0857904687dc004ddcb",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -85632,14 +86172,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a3677f286e1459327059e3c9cbdec741703319cee079d7f89b6d4e0eb87ae8ec",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0)."
+      "sha256": "c95f02791d23ca77bf67644ff36e0dc456bf845654e31b73dd2f28f020222bf6",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4533ab0fad210a2a98f1f049718eb76a709107f0bff3e078a6feec3a1ea4c558",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "08ed3fc01acc9628b52dba312588e825aa91c52a5a47e23465b06a49a136ff79",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

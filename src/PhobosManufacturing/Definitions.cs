@@ -59,6 +59,7 @@ internal static class Definitions
         // Owner rule (4 October 2026): every terminal remainder is declared, so the feeder is its consumer.
         Remainders.Declare(Materials.All.Where(m => m.Terminal).Select(m => m.Id));
         AddFiller(d);
+        AddFeedOrder(d);
         AddRegulator(d);
         AddLinePorts(d);
         // The Lixivar acid line (Manufacturing 0.24.0) and the Alembrine ethanol line (0.38.0), with their ports.
@@ -272,6 +273,19 @@ internal static class Definitions
             co.strPortraitImg = item.strImg;
         }
     }
+    /// <summary>"Load feed by crew" (0.56.0): a toggle like the game's own Toggle Power, on the intact installed charge
+    /// machines and the RM-1 feeder, as on Shipbreaker's D4, R4 and F6.</summary>
+    private static void AddFeedOrder(NativeDefinitions d)
+    {
+        var order = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
+        order.strName = CrewFeedRules.FeedOrder; order.strTitle = Text.Get("CrewFeed.order_title");
+        order.strDesc = Text.Get("CrewFeed.order_action"); order.strTooltip = Text.Get("CrewFeed.order_tooltip");
+        order.strRaiseUI = null; order.fTargetPointRange = 2;
+        d.Interactions[order.strName] = order;
+        foreach (string installed in ChargeMachines.All.Select(m => m.Spec.Installed).Concat(new[] { FeederRules.Installed }))
+            d.Objects[installed].aInteractions = d.Objects[installed].aInteractions.Concat(new[] { CrewFeedRules.FeedOrder }).Distinct().ToArray();
+    }
+
     /// <summary>The Slingwright RM-1 reaction mass feeder (Manufacturing 0.43.0): a powered 1 x 1 machine for a regulator's
     /// gas-input tile, like the P1. Its four-cell inventory admits declared remainders only (the admission hook); the
     /// ground mass is a bulk-vessel record shown on the right-click card. Not airtight and not a gas container, so the

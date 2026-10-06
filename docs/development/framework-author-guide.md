@@ -1132,6 +1132,27 @@ adds shared cargo/lot/stack guidance and an optional content-owned blocker reade
 Neither authorizes work. Content services retain current-state validation. See
 [section assembly and maintenance](../section-assembly-and-maintenance.md).
 
+Framework 0.116.0 makes that entry the right-click **Maintenance** sheet. The
+interaction ids and the `Register(definitions, action, extra)` signature are
+unchanged, so content mods need no code. An installed machine's sheet adds its
+standing order (`CrewWork.ReadStatus`) and upkeep (`Upkeep.MachineReport`) with
+buttons into the Crew panel; `MaintenanceSheet.Sections` builds the sections
+from plain facts for offline checks. `ItemInformation.Register` and `Show` also
+take `InformationSection` lists with `InformationLink` buttons; a link's `Open`
+only delegates and returns null or the reason it could not open, which the
+sheet shows. The sheet rereads its sections once a second. `CrewPanel.Show(co,
+view)` opens on `CrewPanel.OrdersView` or `UpkeepView`, and
+`CrewPanel.Unavailable(co)` says why it would refuse.
+
+Framework 0.116.0 also adds `ICrewStoreEquipment`: equipment with a crew-work
+provider is not a store unless the provider implements it and
+`CountsAsStore` answers true, so a machine whose tray others deliver to keeps
+that standing when it gains orders (Manufacturing's charge machines and RM-1).
+`CrewWork.IsStore` and crew hauling also apply the `stores` data pack
+(`Inventory.StoreRules`): `NotAStore` (excluded conditions, single-purpose
+container rules, no `Inventory` interaction) for store lists, `SealedContainer`
+for what crew never take from. Both are judged once per definition id.
+
 ### Framework 0.32.0: opt-in construction appearance
 
 After `SectionAssembly.Add`, call `SectionAssembly.SetAppearance(jobId,

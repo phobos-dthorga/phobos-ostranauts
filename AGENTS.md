@@ -217,7 +217,9 @@ delivery in the changelog and design record, and add or amend only the rule here
   the only exception. Any pipe or belt on or beside equipment joins it; joins chain across the
   ship. New links use `VesselLink`, new ports `LinePorts`/`LineDefinitions.AddPort`. Every link
   picker offers only what is in reach and says why anything aboard is not offered
-  (`LinkChoices.Note`, `LinkNotes`). A line segment counts wherever the game lets it be laid
+  (`LinkChoices.Note`, `LinkNotes`). A store is a container the player can open: weapons,
+  chargers, filter holders, toilets and other single-purpose sockets are never stores and
+  crew never take from them (Framework `stores` pack, `CrewWork.IsStore`). A line segment counts wherever the game lets it be laid
   (Framework `lines` pack); never add a placement rule stricter than the item's own sockets.
 - **Lines hold their contents** (`docs/development/line-contents-design.md`): every pipe holds
   what it carries until drained into a drain canister; declare new holding lines through
@@ -246,7 +248,8 @@ delivery in the changelog and design record, and add or amend only the rule here
 - **Time and steps.** A time-skip steps running machines (`CrewSkip.Advance`), never hands them
   hours at once; machines keep the resume mark while running so they are stepped. Use
   `Cadence.RealTime` (counts skipped seconds) for real-time rechecks. Never relax the heat
-  check to accept long steps.
+  check to accept long steps. A crew-work provider without `ICrewSkipProvider` leaves its
+  machines unstepped in a skip: implement it whenever a machine gains orders.
 - **Engine traps.** A Harmony postfix sees by-value arguments as the method left them: capture
   in a prefix. Guard every `CondOwner.Destroy` hook that releases or announces contents with
   `FrameworkLifecycle.Unloading(co)` (a ship unload is not a loss). Measure crew reach tile to
@@ -259,7 +262,8 @@ delivery in the changelog and design record, and add or amend only the rule here
   until cancelled, use our hauling with the ship-wide source, never take from hidden bins,
   locked containers, the equipment itself or anyone's hands, and need AutoTask and the Haul
   duty. Phobos crew orders stay same-ship; work on another ship goes through the game's own jobs
-  (`Crew.NativeJobs`).
+  (`Crew.NativeJobs`). A machine's right-click Maintenance sheet shows its order and upkeep
+  with buttons into the Crew panel; the panel's own Standing orders button stays.
 - **Crew upkeep** (`docs/development/crew-upkeep-design.md`): idle crew tune, inspect, tidy and
   practise through Framework `Upkeep`, switched ship-wide and always after standing orders.
   Housekeeping moves only loose deck supplies, into stores already holding their kind or stores

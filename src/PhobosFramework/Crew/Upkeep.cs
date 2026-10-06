@@ -172,6 +172,23 @@ public static class Upkeep
         return Text.Get(inspected ? "Upkeep.status_tuned_inspected" : "Upkeep.status_tuned", percent.ToString("0.#", CultureInfo.InvariantCulture));
     }
 
+    /// <summary>A machine's upkeep for its right-click Maintenance sheet (Framework 0.116.0): its tune, when crew last
+    /// inspected it, and the ship-wide switches. Empty for a machine no family covers.</summary>
+    public static string MachineReport(CondOwner? co)
+    {
+        if (co == null || FamilyOf(co.strCODef) == null) return "";
+        var state = State(co);
+        string tune = StatusLine(co);
+        if (tune.Length == 0) tune = Text.Get("Upkeep.status_inspect_only");
+        var lines = new List<string> { tune };
+        if (!state.Protected)
+            lines.Add(state.Inspected <= 0 ? Text.Get("Upkeep.status_not_inspected") :
+                Text.Get("Upkeep.status_inspected", Math.Max(0, (StarSystem.fEpoch - state.Inspected) / 3600).ToString("0.#", CultureInfo.InvariantCulture)));
+        string Shown(UpkeepKind kind) => Text.Get(Enabled(kind) ? "Upkeep.on" : "Upkeep.off");
+        lines.Add(Text.Get("Upkeep.report_switches", Shown(UpkeepKind.Tune), Shown(UpkeepKind.Inspect)));
+        return string.Join("\n", lines);
+    }
+
     // ---- The ship-wide switches, kept on the player ----
 
     /// <summary>The word for a kind in text keys and F3: tune, inspect, practice or tidy.</summary>

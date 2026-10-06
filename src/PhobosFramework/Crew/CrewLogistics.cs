@@ -22,7 +22,8 @@ public static class CrewLogistics
     /// <summary>Stack heads anywhere aboard the equipment's ship that an order with the ship-wide source
     /// may take, nearest to the equipment first: on the deck, in unlocked containers and in other
     /// machines' trays, the way the game's own Reload job searches (same ship, nothing locked). Never
-    /// from inside the equipment itself, a hidden system bin or someone's hands.</summary>
+    /// from inside the equipment itself, a hidden system bin, someone's hands, or anything the <c>stores</c>
+    /// pack seals (a weapon's magazine, a charger, a filter holder).</summary>
     public static IEnumerable<CondOwner> Aboard(CondOwner equipment, CondOwner destination)
     {
         var ship = equipment.ship;
@@ -43,6 +44,8 @@ public static class CrewLogistics
         if (parent == null) return unit.slotNow == null; // lying on the deck
         if (parent.HasCond("IsHuman") || parent.HasCond("IsSystem") || parent.HasCond("IsLocked") || parent.objContainer == null || parent.objContainer.Locked) return false;
         var root = unit.RootParent();
+        // Never out of a weapon's magazine, a charger, a filter holder or a pump's bottle slot (Framework 0.116.0).
+        if (Inventory.StoreRules.SealedContainer(parent) || Inventory.StoreRules.SealedContainer(root)) return false;
         return parent != equipment && parent != destination && root != equipment && root != destination && !root.HasCond("IsHuman");
     }
     public static CrewWorkOffer? Supply(CondOwner equipment, StandingOrder order, CondOwner destination,

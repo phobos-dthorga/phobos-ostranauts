@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "schema": "stores",
+  "notes": "Which of the game's containers are not stores (Framework 0.116.0). A weapon's magazine, a charger's battery slot, a scrubber's filter holder or a toilet has a container, but nobody keeps feed in it: the Take feed from and Send products to pickers, crew-order stores and housekeeping leave them out, and crew never take from them. Names are the game's own condition, container-rule and interaction names. Player files in BepInEx/config/PhobosFramework/stores override these lists; a list you set replaces the shipped list, so write the whole list.",
+  "requireInteraction": "Inventory",
+  "excludeConditions": [
+    "IsShipWeapon",
+    "IsRechargingContainer",
+    "IsAtmoScrubber",
+    "IsNavStation",
+    "IsToilet01",
+    "IsSink",
+    "IsWaterRecycler",
+    "IsSafePumpTestudo"
+  ],
+  "excludeContainers": [
+    "TIsFitAmmo*",
+    "TIsFitContainerFilterCO2",
+    "TIsFitContainerWaterFilter",
+    "TIsFitContainerNavMod",
+    "TIsFitContainerLiquid",
+    "TIsFitContainerSafePumpO2Bottle"
+  ]
+}

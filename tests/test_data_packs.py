@@ -120,6 +120,22 @@ class DataPackTests(unittest.TestCase):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.upkeep(bad, 'test')
 
+    def test_store_rules(self):
+        # Framework 0.116.0: which of the game's containers are not stores. The shipped pack leaves out every ship
+        # weapon and ammunition rule, and keeps requiring the game's own Inventory entry.
+        shipped = json.loads((ROOT / 'mods/PhobosFramework/framework/stores.json').read_text(encoding='utf-8'))
+        validate.stores(shipped, 'test')
+        self.assertEqual(shipped['requireInteraction'], 'Inventory')
+        self.assertIn('IsShipWeapon', shipped['excludeConditions'])
+        self.assertIn('TIsFitAmmo*', shipped['excludeContainers'])
+        validate.stores({'schemaVersion': 1, 'schema': 'stores', 'requireInteraction': '', 'excludeConditions': []}, 'test')
+        for bad in ({**shipped, 'requireInteraction': 'Open Me'}, {**shipped, 'excludeConditions': ['IsShipWeapon', 'IsShipWeapon']},
+                    {**shipped, 'excludeConditions': ['Is Weapon']}, {**shipped, 'excludeContainers': ['T*']},
+                    {**shipped, 'excludeContainers': ['TIsFit*Ammo']}, {**shipped, 'excludeConditions': [f'IsThing{n}' for n in range(49)]},
+                    {**shipped, 'colour': 1}, {**shipped, 'requireInteraction': None}):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.stores(bad, 'test')
+
     def test_story_packs(self):
         # Framework 0.107.0: story packs. The shipped seed is valid; each broken copy is refused, as the game's loader does.
         import copy

@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.55.0";
-    public const string MinimumFrameworkVersion = "0.111.0";
+    public const string Version = "0.56.0";
+    public const string MinimumFrameworkVersion = "0.116.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -36,6 +36,8 @@ public sealed class Plugin : BaseUnityPlugin
         Panel.Register();
         foreach (string group in Provider.Groups) { string g = group; EquipmentProviders.RegisterGroup(g, () => Text.Get("Group." + g)); }
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
+        // "Load feed by crew" on the charge machines and the RM-1 (0.56.0).
+        Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FeedCrewProvider());
         // Crew upkeep (0.55.0): every working machine can be tuned and inspected; the A2 regulator is inspected only,
         // because it holds a set point and has no work rate to raise. The game's mechanical skill counts as skilled.
         foreach (var kind in new[] { MachineKind.Charge, MachineKind.Processor, MachineKind.Sabatier, MachineKind.Filler, MachineKind.Cracker, MachineKind.Bottler, MachineKind.Feeder })
@@ -89,7 +91,7 @@ public sealed class Plugin : BaseUnityPlugin
     private void OnDestroy()
     {
         FrameworkLifecycle.ContentLoading -= Load;
-        EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Crew.CrewWork.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id);
+        EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Crew.CrewWork.Unregister(Id); Phobos.Ostranauts.Framework.Crew.CrewWork.Unregister(Id + ".feed"); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id);
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Unregister(ManifoldService.Instance.Id);
         ResetServices(); harmony?.UnpatchSelf();
     }
@@ -260,14 +262,17 @@ internal static class ControlsPatch
     }
 }
 
-// "Keep suit bottles charged": a toggle like the game's own Toggle Power, on the intact installed L2.
+// The crew-order switches, like the game's own Toggle Power: "Keep suit bottles charged" on the intact installed L2,
+// and "Load feed by crew" on the charge machines and the RM-1 (0.56.0).
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
-internal static class BottleOrderPatch
+internal static class CrewOrderPatch
 {
     private static void Postfix(Interaction __instance, bool isCancelIa)
     {
-        if (isCancelIa || __instance.strName != FillerRules.BottleOrder || __instance.objThem == null || __instance.objUs != CrewSim.GetSelectedCrew()) return;
-        bool done = FillerCrewProvider.Toggle(__instance.objThem, out string message);
+        if (isCancelIa || __instance.objThem == null || __instance.objUs != CrewSim.GetSelectedCrew()) return;
+        bool bottles = __instance.strName == FillerRules.BottleOrder;
+        if (!bottles && __instance.strName != CrewFeedRules.FeedOrder) return;
+        bool done = bottles ? FillerCrewProvider.Toggle(__instance.objThem, out string message) : FeedCrewProvider.Toggle(__instance.objThem, out message);
         var actor = __instance.objUs;
         if (actor != null && !actor.bDestroyed && actor.HasCond("IsHuman")) actor.LogMessage(message, done ? "Neutral" : "Bad", "Game");
     }
@@ -342,6 +347,8 @@ internal static class ConsolePatch
         { strInput += "\n" + string.Join("\n", CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, false, false, true).Where(Content.Machine).Select(c => c.strNameFriendly + " " + c.strID) ?? Array.Empty<string>()); __result = true; return false; }
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
+        // The right-click "Load feed by crew" switch, through the same service (0.56.0).
+        if (parts[1] == "crew-load") { __result = FeedCrewProvider.Toggle(co!, out message); strInput += "\n" + message; return false; }
         string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
             "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link", "acid", "pour", "nutrients" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();

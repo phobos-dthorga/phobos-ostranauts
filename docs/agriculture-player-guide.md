@@ -274,7 +274,7 @@ conditions stops further stress but does not magically restore lost health.
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
 as recorded non-potable process solution eligible for W2 treatment. Older unrecorded crop residue has no recovery recipe. New recorded residue can
 be processed at [B2](agriculture-nutrient-production.md). Empty the inventory and stored liquids/nutrients before uninstalling/dismantling; cancel cooking
-progress first. Use **Maintenance information** to identify retained contents, active work, protected transfers or a silo link that blocks removal. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
+progress first. Use **Maintenance** to identify retained contents, active work, protected transfers or a silo link that blocks removal. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
 waste; see the condition-specific recovery bills below.
 
 Since 0.17.0 the game leads in four more places. Machines have a real power
