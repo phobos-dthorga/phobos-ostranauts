@@ -4,6 +4,10 @@ Draft dates record preparation, not Workshop publication.
 
 ## [Unreleased]
 
+### Documentation
+
+- Recorded the owner's first live small-talk screenshot and a focused handoff for Claude: the story sentence appears, but Framework's dialogue lead-in prints its speaker, listener and verb tokens literally. No formatting fix or broader gameplay validation is claimed.
+
 ## [0.3.0] - 2026-10-06 - Draft
 
 ### Added
