@@ -1204,6 +1204,15 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: Agriculture time skips and stress causes (L84)
+
+L84 — Agriculture 0.65.0, owner report. Each rack, W2, cooker and bench step reads one
+cached setting and one static flag (`CrewSkip.Active`) to decide whether a time skip uses
+the lenient room rules, and skips two heat deposits when it does. The crop step keeps a few
+more doubles and an enum for the cause of poor conditions; nothing is allocated. The panel's
+stress line reads the cause the step left behind. No capture accompanies this change: the
+added work per step is a handful of comparisons.
+
 ## 6 October: fleet refresh setting (L83)
 
 L83 — Framework 0.124.0, owner request. Fair gig deadlines now read the player's ships at most once a minute of real

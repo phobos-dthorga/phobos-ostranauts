@@ -90,7 +90,10 @@ public sealed class CropState
     /// room too hot for it slows the loss. 1 is the full rate.</param>
     /// <param name="tune">Crew upkeep (Agriculture 0.63.0): how much faster a tuned rack grows per hour. Its lamps drew
     /// that much more power for the step, so the energy and everything else a unit of growth takes are unchanged. 1 is untuned.</param>
-    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null, double outsideDamageScale = 1, double tune = 1)
+    /// <param name="carbonShortfallHarmless">Agriculture 0.65.0, for time skips: a step held back only by the room's
+    /// carbon dioxide grows what that CO2 allows and no more, but does not count as stress. The game pauses breathing
+    /// during a skip, so a crop fed by the crew's breath would otherwise be harmed by every skip. No mass is created.</param>
+    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null, double outsideDamageScale = 1, double tune = 1, bool carbonShortfallHarmless = false)
     {
         if (!Finite(tune) || tune < 1 || tune > MaxTune) throw new ArgumentException("Invalid tune.");
         var rules = stress ?? Growth.Stress;
@@ -101,10 +104,19 @@ public sealed class CropState
         var exchange = new Exchange { RoomHeatKWh = electricKWh };
         if (CropId.Length == 0 || hours == 0) return exchange;
         var c = Crop.Get(CropId);
-        double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours * co2Factor * tune / (c.Hours * Pace), electricKWh * co2Factor / (c.Hours * c.KW))) : 0;
+        double timeCap = hours * co2Factor * tune / (c.Hours * Pace), energyCap = electricKWh * co2Factor / (c.Hours * c.KW);
+        double waterCap = Water / c.Water, nutrientCap = Nutrients / c.Nutrient, carbonCap = co2Kg / (c.Carbon * 44 / 30);
+        double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(timeCap, energyCap)) : 0;
         // One water store and one nutrient store since Agriculture 0.55.0 (the per-crop feed is gone): each crop draws
         // its own amounts of both.
-        grow = Math.Max(0, Math.Min(grow, Math.Min(Math.Min(Water / c.Water, Nutrients / c.Nutrient), co2Kg / (c.Carbon * 44 / 30))));
+        grow = Math.Max(0, Math.Min(grow, Math.Min(Math.Min(waterCap, nutrientCap), carbonCap)));
+        // What held this step below the crop's own rate (Agriculture 0.65.0): the room, a pause, or the scarcest supply.
+        var limit = !habitable ? GrowthLimit.Room : !Running ? GrowthLimit.Paused : GrowthLimit.None;
+        if (limit == GrowthLimit.None && Health > 0 && Progress < 1 && grow < Math.Min(1 - Progress, timeCap) * (1 - 1e-9))
+        {
+            double least = Math.Min(Math.Min(energyCap, waterCap), Math.Min(nutrientCap, carbonCap));
+            limit = least == energyCap ? GrowthLimit.Power : least == waterCap ? GrowthLimit.Water : least == nutrientCap ? GrowthLimit.Nutrients : GrowthLimit.CarbonDioxide;
+        }
         Water = Math.Max(0, Water - grow * c.Water); Nutrients = Math.Max(0, Nutrients - grow * c.Nutrient); Biomass += grow * (c.Final - c.Seed); Carbon += grow * c.Carbon; Progress = Math.Min(1, Progress + grow);
         // Transpired water condenses inside the closed rack and returns to the plain-water reservoir while it
         // has room: the game's atmosphere has no water vapour to receive it, and the latent heat of what
@@ -122,7 +134,9 @@ public sealed class CropState
         exchange.CO2Kg += respired * 44 / 30; exchange.OxygenKg -= respired * 32 / 30;
         exchange.RoomHeatKWh += respired * HeatPerCarbonKWh - (returnedWater - retained) * LatentKWhPerKg;
         // Harvest-ready crops still respire, but ordinary retention does not count as an irrigation failure.
-        bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5) || Water < .01;
+        bool carbonStall = carbonShortfallHarmless && limit == GrowthLimit.CarbonDioxide;
+        bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5 && !carbonStall) || Water < .01;
+        exchange.Limit = stressed && limit == GrowthLimit.None && Water < .01 ? GrowthLimit.Water : limit; exchange.Stressed = stressed;
         double previousStress = DarkHours;
         DarkHours = stressed ? DarkHours + hours : Math.Max(0, DarkHours - hours);
         double damagingHours = Math.Max(0, Math.Max(0, DarkHours - rules.GraceHours) - Math.Max(0, previousStress - rules.GraceHours));
@@ -168,7 +182,25 @@ public sealed class CropState
     public const double LatentKWhPerKg = 2.45 / 3.6;
 }
 
-public sealed class Exchange { public double CO2Kg, OxygenKg, VapourKg, RoomHeatKWh; }
+public sealed class Exchange
+{
+    public double CO2Kg, OxygenKg, VapourKg, RoomHeatKWh;
+    /// <summary>What held the step below the crop's own rate (Agriculture 0.65.0); None when it grew at its full rate.</summary>
+    public GrowthLimit Limit;
+    /// <summary>Whether the step counted as poor growing conditions.</summary>
+    public bool Stressed;
+}
+/// <summary>What held a crop's growth back in a step, in the order the panel names it (Agriculture 0.65.0).</summary>
+public enum GrowthLimit { None, Paused, Power, Water, Nutrients, CarbonDioxide, Room }
+/// <summary>How Agriculture treats a room while a time skip steps its machines (Agriculture 0.65.0; owner decision,
+/// 6 October 2026). The game pauses breathing, scrubbers, coolers and the air through open doors during a skip, so by
+/// default Agriculture machines neither heat their room nor are limited by its temperature then, and a crop short of
+/// carbon dioxide only waits. The player's setting keeps room conditions on in skips despite the risks.</summary>
+public static class SkipRoom
+{
+    /// <summary>Whether the lenient skip rules apply to this step.</summary>
+    public static bool Lenient(bool skipping, bool roomConditionsInSkips) => skipping && !roomConditionsInSkips;
+}
 public readonly struct HarvestBudget
 {
     public readonly double SeedKg, PortionKg, ResidueKg;

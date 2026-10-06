@@ -19,10 +19,12 @@ namespace PhobosAgriculture;
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.64.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.65.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
+    /// <summary>Room conditions during time skips (Agriculture 0.65.0): off by default, see Service.SkipLenient.</summary>
+    internal static ConfigEntry<bool> SkipRoomConditions = null!;
     internal static ConfigEntry<double> LootMultiplier = null!;
     private Harmony? harmony;
     private float nextScan;
@@ -33,6 +35,7 @@ public sealed class Plugin : BaseUnityPlugin
         Pace = Config.Bind("Crops", "GrowthDurationMultiplier", 1d, new ConfigDescription(Text.Get("pace_setting"), new AcceptableValueRange<double>(.5, 2)));
         ReserveLitres = Config.Bind("Irrigation", "CrewReserveLitres", 10d, new ConfigDescription(Text.Get("reserve_setting"), new AcceptableValueRange<double>(0, 100000)));
         LootEnabled = Config.Bind("Loot", "Enabled", true, Text.Get("loot_enabled_setting"));
+        SkipRoomConditions = Config.Bind("TimeSkip", "RoomConditions", false, Text.Get("skip_room_setting"));
         LootMultiplier = Config.Bind("Loot", "ChanceMultiplier", LootContent.DefaultMultiplier, new ConfigDescription(Text.Get("loot_multiplier_setting"), new AcceptableValueRange<double>(0, LootContent.MaximumMultiplier)));
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Register(Id, RecyclerCapture.Cargo);

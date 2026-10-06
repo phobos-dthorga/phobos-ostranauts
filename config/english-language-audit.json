@@ -1714,13 +1714,13 @@
       "key": "carbon_low",
       "category": "control/name/value",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Service.cs:280"
       ],
       "before": "Native cabin CO2 depleted.",
-      "after": "Not enough CO2 in the cabin for the plants.",
+      "after": "Growth held back by too little CO2 in the room.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
@@ -68247,6 +68247,149 @@
       "after": "The misting figures are not valid. Cooling is 0 to 15 C, water above 0 and up to 5 kg an hour per degree, the damage share 0 to 1 and the reserve 0 to 20 kg."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "skip_room_setting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Room conditions during time skips. Off (normal): the game pauses breathing, air scrubbers, coolers and the air through open doors while time skips, so Agriculture machines give off no room heat then, room temperature does not hold them back, and a crop short of CO2 waits without harm. On: rooms count as in play, so a grow room can overheat and crops can stall and lose health in a long skip.",
+      "after": "Room conditions during time skips. Off (normal): the game pauses breathing, air scrubbers, coolers and the air through open doors while time skips, so Agriculture machines give off no room heat then, room temperature does not hold them back, and a crop short of CO2 waits without harm. On: rooms count as in play, so a grow room can overheat and crops can stall and lose health in a long skip."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crop_stress_cause",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Poor growing conditions for {0:0.0} h: {1}. Health starts to fall after {2:0.#} h.",
+      "after": "Poor growing conditions for {0:0.0} h: {1}. Health starts to fall after {2:0.#} h."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crop_recovering",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Recovering from {0:0.0} h of poor growing conditions. Good conditions win it back hour for hour.",
+      "after": "Recovering from {0:0.0} h of poor growing conditions. Good conditions win it back hour for hour."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stress_paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "the rack is paused",
+      "after": "the rack is paused"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stress_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "not enough power for the lamps",
+      "after": "not enough power for the lamps"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stress_water",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "out of growing water",
+      "after": "out of growing water"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stress_nutrients",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "out of nutrients",
+      "after": "out of nutrients"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stress_carbon",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "too little CO2 in the room",
+      "after": "too little CO2 in the room"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stress_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "the room is outside this crop's limits",
+      "after": "the room is outside this crop's limits"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "carbon_skip",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Short of CO2 in the time skip. Nobody breathes while time skips, so the crop waits without harm.",
+      "after": "Short of CO2 in the time skip. Nobody breathes while time skips, so the crop waits without harm."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_co2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.65.0: the time-skip room setting, the named causes of poor growing conditions and the CO2 advice, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The room is short of CO2 for this crop. Keep a door open to rooms the crew breathes in, or feed CO2 from an A2 Cabin Air Regulator and a CO2 store. A V4 Volatiles Refinery burning straw can fill the store (both Phobos Manufacturing).",
+      "after": "The room is short of CO2 for this crop. Keep a door open to rooms the crew breathes in, or feed CO2 from an A2 Cabin Air Regulator and a CO2 store. A V4 Volatiles Refinery burning straw can fill the store (both Phobos Manufacturing)."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -86248,8 +86391,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d0c8093c66b2bb602b9b0c7909072662874ca70ed1664bab2e8645ac5d5a42bd",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: version only, for the CR-4 carbon monoxide link fix (Manufacturing 0.57.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the letters save fix (Framework 0.124.2)."
+      "sha256": "7aa2565c79bdb6e976f103b95e1ff416e154b55013806e23e5bd558146397398",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "SUPPORT.md",
@@ -86276,8 +86419,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "aecdb5c0ddf43bd9f4949ccdd123c54ce6e256f3d71aac400760074531efe6b5",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "086193749cf93cd23a26216f14cb57f649301c0a2b7b0858d804d5eb7f5d484e",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -86297,8 +86440,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4f40e93ea78d438a2ce51eba0d0a4b968ee1060a4956b422c899e68635f17935",
-      "review": "Agriculture 0.59.0: crop misting 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "8d83c7460da7dcaa574ed8ac41fca4218081fad292aedbe9e3c5e878cde4edbe",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -86409,15 +86552,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dfdc0bb6021dfa5ff7f84344e2962fef77bb3af4ba723c943b6fadd8bfca11c5",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the letters save fix (Framework 0.124.2)."
+      "sha256": "dbf84c40c35f4409265e71882eaedd3c4414a4011394ad06625bac135d5e69a2",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "0fd299ac78f4eb289b5a8e4f30fa0d9ca66e800a527a1d38470d411d17e653c7",
-      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "30c776e0a21a7b005f4c805f557e65dd4760ca19f8292483c632b38b4eaa945e",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/development/README.md",
@@ -86439,8 +86582,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "88b1bdcc8fd985317e7fe28909b35332ee9c133e6d90b4522221d1a2310a86f4",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "bdc5c929201942dc84218bec6b49e21cc87e5d7fd79e0e210a6fd8b1ea351d03",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -86488,8 +86631,8 @@
       "path": "docs/development/agriculture-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "2954b17db8643bbd18576bfb4218ea45aac501d98c0054d4b9d8812bb41c8b24",
-      "review": "2026-09-28: recorded later delivery of drainage treatment, lettuce seed cycle and residue nutrient recovery; asteroid feedstocks remain roadmap work."
+      "sha256": "833549be4fadcfa67df6882e1c378a7fa2a488eafbde2edc2f7436bb81153f83",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/development/agriculture-living-visuals.md",
@@ -87384,8 +87527,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e3e37cf5a7dd5dbe111ed39e2e63fff5db97eae1580cce491bb9546471d73092",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "87b4bbf6ab74465aed2ded936f6cc2fe968c9ff2cc49d640e413e3f3b1374028",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -87643,8 +87786,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "735c29ba65e485164edf3d4113de66b0b4c56c22ef7553a66a51408e78bfc70b",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "008dbb2d8db1a0548f468a8d700ebaf17187890a1cdf502f7a5165648fd2474f",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -87724,8 +87867,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "22cc43a1c630fbbdaf9352bf6578c51f953fe75aad990933f0b46b6ffd464300",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "0d2d5ccdee52bf0e700fe954522882168061ac216f18cd44e6d80a296f54b59b",
+      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

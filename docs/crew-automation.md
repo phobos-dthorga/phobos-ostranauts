@@ -411,6 +411,14 @@ The game's own powered fittings (lights, doors, life support) take their power
 every fourth step, from the same supply as the machines; Phobos machines,
 crew-ordered equipment and rooms every step.
 
+**The ship's air is paused in a skip.** The game runs its breathing, air
+scrubbers, coolers, heaters and the air through open doors only between frames,
+and a skip runs inside one frame. A room with Phobos machines therefore only gains
+heat during a skip, and a grow room only loses CO2. Agriculture (0.65.0) gives off
+no room heat in a skip and lets a crop short of CO2 wait unharmed, unless you turn
+on its own setting; see [time skips](agriculture-player-guide.md#time-skips).
+Other mods' machines still heat their rooms.
+
 The native time-skip screen retains its collision warnings, roster display and
 Go control. Its Phobos estimate (Framework 0.117.0) gives each crew member one
 line for the hours ahead and puts the enabled orders in **Will run**, **Waits**

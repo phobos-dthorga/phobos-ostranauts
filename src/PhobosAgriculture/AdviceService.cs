@@ -28,8 +28,11 @@ internal static partial class Service
     {
         var b = s.State;
         return RoomNeed(s, b.CropId) ?? (b.Ready ? OrderNeed(s) ?? Text.Get("advice_harvest") : b.CropId.Length > 0 && b.Health <= 0 ? Text.Get("advice_dead") :
-            SuppliesNeed(s) ?? (b.CropId.Length == 0 ? OrderNeed(s) ?? Text.Get("advice_plant") : b.Running ? null : Text.Get("advice_start")));
+            SuppliesNeed(s) ?? (b.CropId.Length == 0 ? OrderNeed(s) ?? Text.Get("advice_plant") : b.Running ? CarbonNeed(s) : Text.Get("advice_start")));
     }
+    /// <summary>A growing crop held back by its room's carbon dioxide enough to count as poor conditions, or null
+    /// (Agriculture 0.65.0). Not in a lenient time skip, where a CO2 shortfall only makes the crop wait.</summary>
+    private static string? CarbonNeed(Session s) => s.LastLimit == GrowthLimit.CarbonDioxide && s.LastStressed ? Text.Get("advice_co2") : null;
     /// <summary>Where the rack's crew order stands, for the steps the order does itself (planting an empty rack,
     /// harvesting or picking a ripe one), or null when it has no crop order switched on (Agriculture 0.56.0; owner
     /// report, 5 October 2026: a rack with Grow wheat running still said "enable a crew order"). It reads the status the

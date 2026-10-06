@@ -11,6 +11,28 @@ Dates on Draft entries record preparation, not Steam publication.
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.65.0] - 2026-10-06 - Draft
+
+### Fixed
+
+- Crops no longer cook or starve in a time skip. Owner report, 6 October 2026: one 13.7-hour skip left two wheat racks at half health. The game pauses breathing, air scrubbers, coolers and the air through open doors while time skips, but Agriculture machines kept heating their room every step, so the grow room climbed past what misting could cover. Now, while a skip runs, Agriculture machines give off no room heat, room temperature does not hold them back, and a crop short of CO2 waits without harm. Electricity is still used.
+
+### Added
+
+- The TimeSkip RoomConditions setting, off by default. Turn it on to keep room conditions during skips, accepting that a grow room can overheat and crops can stall and lose health.
+- The rack's poor-conditions line names its cause: paused, not enough power, out of water, out of nutrients, too little CO2, or the room outside the crop's limits. Blips under 0.1 h, such as the first moment after planting, are no longer shown, and a crop back in good conditions shows as recovering.
+- A crop held back by CO2 enough to suffer gets advice: keep a door open to rooms the crew breathes in, or feed CO2 from an A2 Cabin Air Regulator and a CO2 store.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Agriculture machines only: other mods' machines still heat their rooms in a skip.
+- In a skip a crop grows only on the CO2 its room holds, so it keeps growing only where a CO2 source runs, such as an A2 regulator with a CO2 store. That is expected but not yet tested in the game.
+- Checked offline; not yet tested in play.
+
 ## [0.64.1] - 2026-10-06 - Draft
 
 ### Changed

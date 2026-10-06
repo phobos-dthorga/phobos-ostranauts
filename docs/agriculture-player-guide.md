@@ -107,8 +107,12 @@ for the limit (see [growing room and stress](editing-data-files.md#growing-room-
 hour and per kWh in a room with more carbon dioxide, up to about 25% faster around
 0.10 to 0.15 kPa. It takes the same water, nutrients and light per kilogram, so the
 cycle is simply shorter. Above that it slows again, back to the ordinary rate by
-0.5 kPa. Below ordinary cabin air nothing changes, but a room with no CO₂ at all still
-stops growth. The rack's panel shows the room's CO₂ and the factor it gives. An
+0.5 kPa. Below 0.04 kPa the factor stays at x1.00, but the crop still builds itself
+from the room's CO₂, and racks can draw a room down faster than it comes back. The
+crew's breath reaches a grow room through open doors: in play-testing, two wheat
+racks in a room open to the rest of the ship grew at about 98% of their rate. A
+sealed grow room runs short, and the panel then says growth is held back by too
+little CO₂. The rack's panel shows the room's CO₂ and the factor it gives. An
 **A2 cabin air regulator** set to **0.10 kPa** (Phobos Manufacturing) holds a grow
 room near the best point.
 
@@ -270,6 +274,30 @@ cooking portion. **Cultivation, cooking and receiving that were running when you
 respire and deteriorate; unloaded ship time is not simulated in this candidate.
 Continuous shortages have a two-hour grace, then progressive stress. Restoring
 conditions stops further stress but does not magically restore lost health.
+The poor-conditions line names what is wrong: the rack paused, not enough power,
+out of water or nutrients, too little CO₂, or the room outside the crop's limits.
+Once conditions are good again it shows the crop recovering, hour for hour.
+
+### Time skips
+
+While time skips, the game pauses the ship's air: nobody breathes, air scrubbers
+and coolers stop, and air no longer moves through open doors. Phobos machines keep
+working through a skip, so before Agriculture 0.65.0 a grow room only gained heat
+and lost CO₂, and a long sleep could cook a crop.
+
+Since 0.65.0, while a skip runs:
+
+- Agriculture machines give off no room heat. Their electricity is still used.
+- Room temperature does not hold the racks back, and misting rests.
+- A crop short of CO₂ waits without harm. It grows only on the CO₂ its room
+  holds, so it keeps growing through a skip only where something feeds the room,
+  such as an A2 Cabin Air Regulator and a CO₂ store (Phobos Manufacturing).
+- Air and pressure still count: a rack in a room without air still stops.
+
+Players who want room conditions to count in skips anyway can turn on the
+**TimeSkip RoomConditions** setting. With it on, a grow room can overheat and crops
+can stall and lose health during a long skip. Other mods' machines still heat
+their rooms in a skip.
 
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
 as recorded non-potable process solution eligible for W2 treatment. Older unrecorded crop residue has no recovery recipe. New recorded residue can
@@ -288,7 +316,8 @@ Transpired water condenses back into the rack's reservoir while it has room, so
 a crop uses that much less water; the game's air has no water vapour to receive it.
 
 Configuration: `GrowthDurationMultiplier` (0.5–2, captured when planting; total
-cycle energy unchanged) and `CrewReserveLitres` (live). No saved identity, footprint
+cycle energy unchanged), `CrewReserveLitres` (live) and `RoomConditions` under
+`TimeSkip` (off by default; see [time skips](#time-skips)). No saved identity, footprint
 or recipe mass changes when these preferences change.
 
 ## Research and next steps

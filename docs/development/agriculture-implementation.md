@@ -78,6 +78,47 @@ nor claims that the provider already accounts liquid weight in `StatMass`.
 Quantity conservation is tested; provider integration and ship flight mass need
 owner verification. Extracted source remains ignored and is not distributed.
 
+## Time skips and the paused ship air (Agriculture 0.65.0)
+
+Owner report, 6 October 2026: crops were "constantly in poor health, even very shortly
+after planting", suspected to be W2s not resuming after a load or skip. Read-only
+copies of the owner's saves showed otherwise. Two wheat racks and four W2s share one
+164-tile engineering room with two loose heat sinks and no cooler; the doors are kept
+open.
+
+| Save | Game hours since previous | Rack progress | Health | Stressed hours | W2 water (kg) |
+| --- | --- | --- | --- | --- | --- |
+| autosave 100 | 1.0 | 0.0072 | 1.00 | 0 | 19.45 |
+| autosave 101 | 0.66 | 0.0149 | 1.00 | 0 | 19.44 |
+| pg18 / autosave 102 | 13.67 (a time skip) | 0.0293 / 0.0344 | 0.4995 | 11.86 / 11.43 | 5.05 |
+| pg17 | 0.11 | 0.0357 | 0.4995 | 11.31 | 10.59 |
+
+- **Observed:** in play the crop grew at about 98% of its rate and stress fell hour for
+  hour. All the damage happened inside one 13.7-hour skip. The W2 resumed and pumped
+  throughout, and both reservoirs stayed full.
+- **Observed:** the W2 lost 14.4 kg in the skip. Only misting spends that much, and two
+  racks misting at their 4 C limit use 1.2 kg an hour. So the room stood above 35 C for
+  most of the skip, where heat damage runs at 0.1 an hour, halved by misting.
+- **Engine (decompiled, kept in ignored `.local/`):** `CrewSkip.TickMachines` runs power
+  and each room's own gas object. The game's coolers and heaters (`Heater`), thermostats
+  (`Sensor`), door and vent exchange (`GasExchange`) and breathing and scrubbers
+  (`GasPump`) run only from the per-frame ticker loop (`CrewSim.UpdateICOs`), and a skip
+  runs inside one frame. Phobos machines kept adding heat every step; nothing removed it,
+  and nothing breathed CO2 back.
+- **Owner decision:** for Agriculture, temperature is not taken into account during time
+  skips, with a setting for players who want it anyway (`TimeSkip/RoomConditions`, off by
+  default).
+- **Agent choice following that decision** (revisable): a CO2 shortfall in a skip slows a
+  crop without counting as stress. No mass is created; the crop grows only on the CO2 its
+  room holds.
+- **Not done:** stepping the game's coolers, thermostats and door exchange in a skip. Its
+  thermostats act through queued interactions that only run between frames, so a
+  faithful version would need much more engine work and per-step cost.
+- **Also delivered:** the poor-conditions line names its cause from the step's limiting
+  factor (`Exchange.Limit`), hides blips under 0.1 h, and shows recovery.
+- **Unverified:** that an A2 regulator keeps a crop growing through a skip. It is a
+  stepped Phobos machine, so this is expected, not observed.
+
 ## Deliberate first-version simplifications
 
 - One native 8 × 8 inventory holds physical inputs and outputs. The proposed

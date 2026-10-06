@@ -43,6 +43,10 @@ internal static partial class Service
         internal bool Misting;
         internal Core.MistPlan MistLast = Core.MistPlan.None;
         internal double MistExcess, MistKgPerHour;
+        /// <summary>What held the crop back in its last step, and whether that step was in a time skip under the lenient
+        /// rules (Agriculture 0.65.0). Not saved: the panel names the cause from the next step after a load.</summary>
+        internal Core.GrowthLimit LastLimit;
+        internal bool LastLenient, LastStressed;
         // Per-session cache for the per-step paths: the water port bank (its ports read the maps live).
         internal Phobos.Ostranauts.Framework.Inventory.PortBank? Bank;
     }
@@ -180,8 +184,15 @@ internal static partial class Service
     {
         var room = Room(co); var gas = room?.GasContainer;
         return gas != null && room!.GetCondAmount("StatGasPressure") >= 20 && Moles(gas, "StatGasMolTotal") > 1 &&
-            room.GetCondAmount("StatGasTemp") + gas.fDGasTemp < 318.15;
+            (SkipLenient || room.GetCondAmount("StatGasTemp") + gas.fDGasTemp < 318.15);
     }
+    /// <summary>Whether a time skip is stepping Agriculture machines under the lenient rules (Agriculture 0.65.0; owner
+    /// decision, 6 October 2026). The game pauses breathing, scrubbers, coolers and the air through open doors in a
+    /// skip, so a grow room only gained heat and lost CO2: one 13.7-hour skip cost the owner's wheat half its health.
+    /// While this holds, Agriculture machines give off no room heat, room temperature limits nothing, and a crop short
+    /// of CO2 only waits. Electricity is still drawn; its heat counts as carried off by the cooling the game does not
+    /// step. The player's TimeSkip/RoomConditions setting turns it off.</summary>
+    internal static bool SkipLenient => SkipRoom.Lenient(Phobos.Ostranauts.Framework.Crew.CrewSkip.Active, Plugin.SkipRoomConditions.Value);
     /// <summary>The flags of the saved resume mark: working (growing, cooking, pumping, bench work) and receiving water.</summary>
     private const int WasRunning = 1, WasReceiving = 2;
     internal static void BeginRun(CondOwner co) { var s = Get(co); s.Received = 0; }
@@ -244,8 +255,10 @@ internal static partial class Service
                 s.State.Running = false; s.Notice = Text.Get("advice_no_air"); Save(s); return;
             }
             // Settle measured electricity even if a later liquid adapter fails.
-            // Machine heat share (Framework 0.94.0): both halves of the room's heat are scaled alike.
-            gas.fDGasTemp += RoomHeat.Machine(received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
+            // Machine heat share (Framework 0.94.0): both halves of the room's heat are scaled alike. In a time skip under
+            // the lenient rules (0.65.0) the room takes no heat from Agriculture machines: see SkipLenient.
+            bool lenient = SkipLenient;
+            if (!lenient) gas.fDGasTemp += RoomHeat.Machine(received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             if (s.State.Receiving && !s.Routed && !WorkupDefinitions.IsBench(co) && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
             {
                 // Only tanks touching the rack or on its water line (Agriculture 0.32.0, the owner's link rule).
@@ -276,9 +289,10 @@ internal static partial class Service
                 double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, pressure = room.GetCondAmount("StatGasPressure");
                 var limits = GrowthRoom.For(s.State.CropId);
                 bool sound = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged");
-                bool pressureSuits = pressure >= limits.MinKPa && pressure <= limits.MaxKPa, tempSuits = temp >= limits.MinK && temp <= limits.MaxK;
+                bool pressureSuits = pressure >= limits.MinKPa && pressure <= limits.MaxKPa, tempSuits = lenient || temp >= limits.MinK && temp <= limits.MaxK;
                 // Agriculture 0.59.0: misting a crop in a room too hot for it, taken from the reservoir before it grows.
-                var mist = MistStep(s, temp - limits.MaxK, elapsed / 3600, received, sound && pressureSuits);
+                // Idle in a lenient time skip, where the room's temperature limits nothing.
+                var mist = MistStep(s, lenient ? 0 : temp - limits.MaxK, elapsed / 3600, received, sound && pressureSuits);
                 bool habitable = sound && pressureSuits && (tempSuits || mist.Covered);
                 double damageScale = sound && pressureSuits && !tempSuits ? mist.DamageScale : 1;
                 // Standby draw is machine heat, not lamp energy. Transpired water stays in the rack: the game's
@@ -286,7 +300,8 @@ internal static partial class Service
                 double standby = Math.Min(received, StandbyKW * elapsed / 3600);
                 // Agriculture 0.43.0: an enriched room grows the crop faster for the same light (Co2Response).
                 double co2Factor = Co2Response.Factor(Co2KPa(room, gas));
-                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor, null, damageScale, s.Tune);
+                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor, null, damageScale, s.Tune, lenient);
+                s.LastLimit = exchange.Limit; s.LastLenient = lenient; s.LastStressed = exchange.Stressed;
                 exchange.RoomHeatKWh += standby;
                 // Misted water evaporates into the room: its air loses the latent heat, and the water goes where
                 // uncondensed transpiration goes, a linked water tank, or is lost (the game's air holds no humidity).
@@ -297,7 +312,7 @@ internal static partial class Service
                 gas.Run();
             }
             // Native gas simulation owns room mixing and later cooling. 20.8 J/mol/K follows native heat accounting.
-            gas.fDGasTemp += RoomHeat.Machine(exchange.RoomHeatKWh - received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
+            if (!lenient) gas.fDGasTemp += RoomHeat.Machine(exchange.RoomHeatKWh - received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             Save(s);
             if (s.MealCommitted || !wasReady && s.State.Ready)
             {
@@ -424,10 +439,12 @@ internal static partial class Service
         {
             var warnings = new List<string>();
             if (b.Health <= 0) warnings.Add(Text.Get("crop_dead"));
-            if (b.DarkHours > 0) warnings.Add(Text.Get("crop_stress", b.DarkHours));
+            if (b.DarkHours >= StressShownHours) warnings.Add(StressLine(s));
             if (b.Water < .25) warnings.Add(Text.Get("water_low"));
             if (b.Nutrients < .001) warnings.Add(Text.Get("nutrient_low"));
-            if (room?.GasContainer != null && Moles(room.GasContainer, "StatGasMolCO2") <= 1e-6) warnings.Add(Text.Get("carbon_low"));
+            bool carbonHeld = s.LastLimit == GrowthLimit.CarbonDioxide;
+            if (carbonHeld && s.LastStressed || room?.GasContainer != null && Moles(room.GasContainer, "StatGasMolCO2") <= 1e-6) warnings.Add(Text.Get("carbon_low"));
+            else if (carbonHeld && s.LastLenient) warnings.Add(Text.Get("carbon_skip"));
             if (b.Running && !b.Ready && StarSystem.fEpoch - s.LastPower <= 5 && s.DeliveredKW < b.DemandKW * .95) warnings.Add(Text.Get("power_low"));
             environment += "\n" + string.Join("\n", warnings);
             var planted = Crop.Get(b.CropId);
@@ -436,6 +453,22 @@ internal static partial class Service
         }
         return Text.Get("status", b.CropId.Length == 0 ? Text.Get("empty") : Crop.Get(b.CropId).Name, b.Progress * 100, b.Health * 100, b.Water, b.Nutrients, b.Biomass,
             Text.Get(b.Running ? "running" : "paused"), Text.Get(b.Receiving ? "receiving" : "manual"), environment, s.Protected || WaterGuard(co).Protected ? Text.Get("protected") : s.Notice) + "\n" + DescribeWaterRoute(s);
+    }
+    /// <summary>Stress shorter than this is a one-step blip (the first step after planting has only standby power) and is
+    /// not shown (Agriculture 0.65.0).</summary>
+    internal const double StressShownHours = .1;
+    /// <summary>The stress line with its cause (Agriculture 0.65.0; owner report, 6 October 2026: crops showed poor
+    /// conditions with nothing saying why). A crop whose last step was good is recovering, hour for hour.</summary>
+    private static string StressLine(Session s)
+    {
+        var b = s.State;
+        if (!s.LastStressed) return Text.Get("crop_recovering", b.DarkHours);
+        string? cause = s.LastLimit switch
+        {
+            GrowthLimit.Paused => "stress_paused", GrowthLimit.Power => "stress_power", GrowthLimit.Water => "stress_water",
+            GrowthLimit.Nutrients => "stress_nutrients", GrowthLimit.CarbonDioxide => "stress_carbon", GrowthLimit.Room => "stress_room", _ => null
+        };
+        return cause == null ? Text.Get("crop_stress", b.DarkHours) : Text.Get("crop_stress_cause", b.DarkHours, Text.Get(cause), Growth.Stress.GraceHours);
     }
     private sealed class Reservoir : ILiquidReservoir
     {

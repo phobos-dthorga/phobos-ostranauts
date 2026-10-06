@@ -257,7 +257,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   hours at once; machines keep the resume mark while running so they are stepped. Use
   `Cadence.RealTime` (counts skipped seconds) for real-time rechecks. Never relax the heat
   check to accept long steps. A crew-work provider without `ICrewSkipProvider` leaves its
-  machines unstepped in a skip: implement it whenever a machine gains orders.
+  machines unstepped in a skip: implement it whenever a machine gains orders. The game pauses
+  breathing, scrubbers, coolers, heaters and air through open doors during a skip, so by
+  default Agriculture machines give off no room heat then, room temperature holds nothing
+  back and a CO2-short crop waits unharmed, unless the player's `TimeSkip/RoomConditions`
+  setting is on (owner, 2026-10-06; Agriculture only, `Service.SkipLenient`).
 - **Engine traps.** A Harmony postfix sees by-value arguments as the method left them: capture
   in a prefix. Guard every `CondOwner.Destroy` hook that releases or announces contents with
   `FrameworkLifecycle.Unloading(co)` (a ship unload is not a loss). Measure crew reach tile to
