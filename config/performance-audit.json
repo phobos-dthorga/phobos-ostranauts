@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-07",
-  "baselineCommit": "da284a8627e64238d6bdbb8f0883ff7c66af8bc8",
+  "baselineCommit": "760ae7371a784f3d935ea2a8f9a3478a3e78d11a",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -3952,10 +3952,10 @@
     },
     {
       "path": "src/PhobosFramework/Crew/CrewSkip.cs",
-      "sha256": "30ece8fb5ba0a4be16eb949d6d837e4bb9f83f59f0104344351e4be5a3f1e100",
+      "sha256": "b520c196567d1b0e68a98f3c8114b46afac4a6ad0f3d478f6f3566afd765327b",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R3",
         "FF0",
@@ -3965,7 +3965,8 @@
         "L62",
         "L71",
         "L72",
-        "L77"
+        "L77",
+        "L94"
       ],
       "indicators": {
         "collection": [
@@ -4005,7 +4006,7 @@
           376
         ]
       },
-      "reviewed": "2026-10-06"
+      "reviewed": "2026-10-07"
     },
     {
       "path": "src/PhobosFramework/Crew/CrewSpecialities.cs",
@@ -4076,7 +4077,7 @@
     },
     {
       "path": "src/PhobosFramework/Crew/CrewWork.cs",
-      "sha256": "5e6c75ecd53a672a3d0e80e202b09c97530c8baf6f94363895b2e12f1009efb9",
+      "sha256": "c31b1720307c05c41edfe5b342a16fb6646c67ca1b096e438add43a3a0d7d9fd",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
@@ -4093,7 +4094,8 @@
         "L73",
         "L76",
         "L89",
-        "L90"
+        "L90",
+        "L94"
       ],
       "indicators": {
         "collection": [
@@ -4102,40 +4104,44 @@
           159,
           255,
           261,
-          279,
-          333,
-          505,
-          512,
-          518,
-          520,
-          525,
-          529
+          287,
+          341,
+          492,
+          493,
+          532,
+          539,
+          545,
+          547,
+          552,
+          556
         ],
         "discovery": [
           90,
-          327
+          335
         ],
         "persistence_or_io": [
           91,
           95,
           107,
           127,
-          335,
-          478,
-          582
+          343,
+          505,
+          609,
+          621
         ],
         "profiling": [
           221,
-          329,
-          550
+          337,
+          577
         ],
         "runtime_hook": [
-          324,
-          543,
-          554,
-          575,
-          586,
-          594
+          332,
+          570,
+          581,
+          601,
+          614,
+          625,
+          633
         ]
       },
       "reviewed": "2026-10-07"
@@ -6715,7 +6721,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "c9f79ce019611a08b9ae0f94613e80dbccd56c11165c4bfbab3d709406598083",
+      "sha256": "132e26cd55b7713258c2322cfabff82dc360ece2b4c53b975fbda91b48506f38",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
@@ -6796,7 +6802,8 @@
         "L86",
         "L89",
         "L90",
-        "L91"
+        "L91",
+        "L94"
       ],
       "indicators": {
         "collection": [

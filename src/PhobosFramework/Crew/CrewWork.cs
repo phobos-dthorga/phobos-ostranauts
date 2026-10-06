@@ -270,9 +270,17 @@ public static class CrewWork
     /// <summary>Nothing live queued; cancelled actions and the game's own Wait/QuickWait idling do not count.</summary>
     internal static bool Idle(CondOwner actor) => actor.aQueue != null && !actor.aQueue.Any(i => i == null || !i.bCancel && i.strName != "QuickWait" && i.strName != "Wait");
     internal static long DutyRank(CondOwner actor,string duty)=>(long)DutyPriority(actor,duty)*JsonCompanyRules.aDutiesNew.Length+Array.IndexOf(JsonCompanyRules.aDutiesNew,duty);
+    /// <summary>A native task this crew member would take before the offer. A task the game has already tried and failed
+    /// (missing parts, no way to it) does not count: the game itself only retries it, and a ship with many such tasks
+    /// kept every Phobos haul waiting in every time-skip (owner report, 7 October 2026; Framework 0.127.1).</summary>
     internal static bool NativeWorkPrecedes(CondOwner actor,CrewWorkOffer offer)=>CrewSim.objInstance.workManager.GetAllTasks().Any(t=>
-        t.strInteraction!=WorkId && (t.bManual || DutyRank(actor,t.strDuty)<DutyRank(actor,offer.Duty)) &&
-        Resolve(t.strTargetCOID)?.ship==actor.ship);
+        t.strInteraction!=WorkId && t.fLastCheck<=0 && t.GetOwnership(actor.strID)!=Task2.Allowed.Forbidden &&
+        (t.bManual || DutyRank(actor,t.strDuty)<DutyRank(actor,offer.Duty)) && Resolve(t.strTargetCOID)?.ship==actor.ship);
+    /// <summary>Whether a crew member is free for Phobos work in a time-skip: nothing you ordered them to do directly is
+    /// queued. The game does not run crew decisions in a skip, so whatever they had chosen for themselves when it began
+    /// (a meal, the TV, a walk) stayed queued and kept them from every Phobos step for the whole skip; the game's own
+    /// skip covers rest and needs through its shift hours (Framework 0.127.1).</summary>
+    internal static bool SkipFree(CondOwner actor) => actor.aQueue != null && !actor.aQueue.Any(i => i != null && !i.bCancel && i.bManual);
     internal static void ManualTakeover(CondOwner actor, Interaction interaction)
     {
         if(!interaction.bManual || interaction.strName==WorkId)return;
@@ -469,6 +477,25 @@ public static class CrewWork
     }
     private static void Tell(CondOwner co, string key, params object[] args) =>
         co.LogMessage(Message(key, args), key == "resume_started" ? "Neutral" : "Bad", co.strName);
+    private static readonly Dictionary<string,double> nextFallback = new(StringComparer.Ordinal);
+    /// <summary>The game's task search found nothing this crew member could take, so the best waiting Phobos step is
+    /// offered to them through the game's own claim (Framework 0.127.1). The search tries at most six tasks a turn and
+    /// keeps retrying ones it cannot do; a ship with many unbuildable construction and repair jobs used them all up every
+    /// turn, so steps further down the duty list (every Manufacturing haul) were never reached (owner report, 7 October
+    /// 2026). Native work still comes first: this runs only when the search came back empty. Standing orders before upkeep,
+    /// then by the crew member's duty priority; at most once per discovery interval each.</summary>
+    internal static Task2? ClaimWaiting(WorkManager manager, CondOwner? co)
+    {
+        if (co == null || CrewSkip.Active || Jobs.Count == 0 || FinalizeTask == null) return null;
+        if (nextFallback.TryGetValue(co.strID, out var next) && StarSystem.fEpoch < next) return null;
+        nextFallback[co.strID] = StarSystem.fEpoch + CrewBalance.DiscoverySeconds;
+        var job = Jobs.Values.Where(j => j.Worker == null && !j.Direct)
+            .OrderBy(j => j.Upkeep != null).ThenBy(j => DutyRank(co, j.Offer.Duty)).ThenBy(j => j.Equipment.strID, StringComparer.Ordinal)
+            .FirstOrDefault(j => Admissible(co, j));
+        var ia = job == null ? null : DataHandler.GetInteraction(WorkId);
+        // The game's own claim, through the claim patches: admission is checked again and a haul's pickup is queued.
+        return ia == null ? null : FinalizeTask.Invoke(manager, new object[] { co, job!.Task, ia, job.Offer.Target }) as Task2;
+    }
     internal static bool Complete(Job j, bool skipping = false, int? workHour = null)
     {
         if (j.Worker == null || !Allowed(j) || !EligibleFor(j, j.Worker, out var reason, workHour)) return false;
@@ -535,7 +562,7 @@ public static class CrewWork
     {
         Jobs.Clear(); Active.Clear(); orders.Clear(); notices.Clear(); Reservations.Clear(); executing = null; nextScan = 0;
         nextFullScan = 0; replaced.Clear();
-        announced.Clear(); failures.Clear(); nextAttempt.Clear(); retryReason.Clear(); worldReady = false; CrewSpecialities.Reset();
+        announced.Clear(); failures.Clear(); nextAttempt.Clear(); retryReason.Clear(); nextFallback.Clear(); worldReady = false; CrewSpecialities.Reset();
         Upkeep.Reset();
     }
 }
@@ -568,6 +595,18 @@ internal static class CrewTaskClaim
         if (j.Direct) return;
         // A refused pickup ends the claim here, so the game never queues the delivery and the crew member stays free.
         if (!CrewWork.QueuePickup(j)) { CrewWork.PickupRefused(j); __result = null; }
+    }
+}
+/// <summary>When the game's task search returns nothing, a waiting Phobos step is offered (Framework 0.127.1).</summary>
+[HarmonyPatch(typeof(WorkManager), nameof(WorkManager.ClaimNextTask))]
+internal static class CrewTaskFallback
+{
+    [HarmonyPriority(Priority.Last)]
+    private static void Postfix(WorkManager __instance, CondOwner co, ref Task2? __result)
+    {
+        if (__result != null || CrewWork.Jobs.Count == 0) return;
+        try { __result = CrewWork.ClaimWaiting(__instance, co); }
+        catch (Exception e) { FrameworkLifecycle.Log(CrewWork.Message("fault", e.Message)); }
     }
 }
 /// <summary>The game's Resume task (Framework 0.126.2): a Phobos step on the target is taken here as a direct order;

@@ -80,6 +80,15 @@ allow eligible crew; Exterior permission starts off. Change permissions per
 person under Crew & Training, then Apply. Turning off AutoTask or a duty cancels that worker's
 generated work without deleting cargo.
 
+Order steps sit in the game's own task list under their duty: Haul for carrying,
+Operate for the rest. Each time a crew member looks for work the game tries only
+a few tasks, top priority first, and keeps retrying jobs it cannot do. A ship
+with many construction or repair jobs that lack parts or cannot be reached used
+to hide every haul behind them. Since Framework 0.127.1, when the game finds
+nothing a crew member can take, the order's waiting step is offered to them
+directly; native work they can actually do still comes first. Cancelling
+construction jobs you cannot supply still helps your crew decide faster.
+
 Crew travel to the equipment and carry supplies one item at a time. To take
 something out of a store they must stand on clear floor right beside its front,
 as the game's own pickup needs; keep that floor and the way to it open, or the
@@ -455,7 +464,11 @@ Ordinary play uses actual walking and carrying.
 The existing native abstract rest/personal-care/context effects, risk/event rolls,
 fuel, payroll and end-of-skip condition handling remain native. A native active
 context from the frozen native preview or an existing direct action reserves that worker instead of allowing
-simultaneous Phobos labour. The game's own repair allowance is kept and scaled
+simultaneous Phobos labour. Crew asleep when the skip begins sleep through it in
+the game's own model, so they do no Phobos work in that skip. What crew had
+chosen for themselves when it began (a meal, the TV) no longer holds them back,
+and native jobs the game has already tried and failed (missing parts, no way
+there) no longer keep Phobos steps waiting (Framework 0.127.1). The game's own repair allowance is kept and scaled
 by the share of on-shift crew time that Phobos jobs left free (Framework
 0.36.0; earlier versions replaced it with a much smaller count). Phobos does
 not simulate additional meals, sleep sessions or

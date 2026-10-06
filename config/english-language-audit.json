@@ -87462,7 +87462,7 @@
       "reason": "New text for Framework 0.126.1: names who could not get to which cargo and the one thing the player can do (clear the floor in front of the store and the way there); the retry line around it gives the wait.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:406"
+        "src/PhobosFramework/Crew/CrewWork.cs:414"
       ],
       "before": "{0} could not get to {1} to pick it up. Keep the floor in front of the store clear and the way there open.",
       "after": "{0} could not get to {1} to pick it up. Keep the floor in front of the store clear and the way there open."
@@ -87475,7 +87475,7 @@
       "reason": "New text for Framework 0.126.1: says who dropped which step and the usual cause (cargo or machine out of reach) without claiming a cause the code cannot know; the retry line around it gives the wait.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:420"
+        "src/PhobosFramework/Crew/CrewWork.cs:428"
       ],
       "before": "{0} dropped this step before finishing it: {1}. Usually the cargo or the machine was out of reach.",
       "after": "{0} dropped this step before finishing it: {1}. Usually the cargo or the machine was out of reach."
@@ -87488,7 +87488,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: says who now takes which order step, so the click is never a silent success.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:456"
+        "src/PhobosFramework/Crew/CrewWork.cs:464"
       ],
       "before": "{0} takes this order step now: {1}.",
       "after": "{0} takes this order step now: {1}."
@@ -87501,7 +87501,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: names who cannot take the step and carries one reason from the keys below; complete sentence with placeholders.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:443"
+        "src/PhobosFramework/Crew/CrewWork.cs:451"
       ],
       "before": "{0} cannot take this order step now: {1}",
       "after": "{0} cannot take this order step now: {1}"
@@ -87527,7 +87527,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: another job holds the machine or its cargo; says so plainly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:449"
+        "src/PhobosFramework/Crew/CrewWork.cs:457"
       ],
       "before": "another crew member already holds this machine or its cargo.",
       "after": "another crew member already holds this machine or its cargo."
@@ -87540,7 +87540,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: the machine is out of reach for that crew member.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:466"
+        "src/PhobosFramework/Crew/CrewWork.cs:474"
       ],
       "before": "they cannot reach the machine.",
       "after": "they cannot reach the machine."
@@ -87553,7 +87553,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: names the cargo and the two causes the check covers (cannot get to it, no room for it).",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:454"
+        "src/PhobosFramework/Crew/CrewWork.cs:462"
       ],
       "before": "they cannot get to {0} to pick it up, or there is no room for it.",
       "after": "they cannot get to {0} to pick it up, or there is no room for it."
@@ -87566,7 +87566,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: names who is already doing the step.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:462"
+        "src/PhobosFramework/Crew/CrewWork.cs:470"
       ],
       "before": "{0} is already on it.",
       "after": "{0} is already on it."
@@ -87579,7 +87579,7 @@
       "reason": "New text for Framework 0.126.2 Resume Task(s) on a Phobos machine: the order stopped between the click and the check.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:463"
+        "src/PhobosFramework/Crew/CrewWork.cs:471"
       ],
       "before": "the order is not running.",
       "after": "the order is not running."
@@ -87720,8 +87720,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "672715592e1403cc171d9b2ca02f0f5beda860e5f20d1829c61b4b160544d23b",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "49b63f191db56826374b9d2b802af6001ae7d930c1dbbad5bbed25d43f0ad5c0",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "SUPPORT.md",
@@ -87881,15 +87881,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1b539d616651443c2cffd74e53b58690cd26d4191d8242023278f51276247387",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "242697d01ac0a2153ac26ca3fb6e5d0f1c02b647994a2be0c41bc22828e898cc",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "faef1136cc2180b9141aa7b32ea992195a724f4181ff733deaf31e8ca11323e2",
-      "review": "Reviewed 2026-10-07 for Framework 0.126.2: added how to send one crew member now with the game's Resume Task(s) (a direct order that fetches cargo first, and the log says why if not); uses the game's own menu label."
+      "sha256": "957adf5b64bb2aef02c02f9d5d040352618c563885ae1336262338bdfda53e6f",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1: explains in player terms why hauls waited behind construction and repair jobs the game cannot do and what the player can still do (cancel unsupplied jobs); the time-skip paragraph says who sleeps through a skip and what no longer holds crew back."
     },
     {
       "path": "docs/development/README.md",
@@ -88560,8 +88560,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2aef9ed3afd099aec1766ef1a72f7f29d1a9b5ff8c26e49f02086b1eca0b25e4",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
+      "sha256": "cf90c5a951ac9138b003bd32844f737b3c9c92c1f53769197759fd1b577b06f9",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
     },
@@ -88858,8 +88858,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "79b15604a84bdc7eb92efb59b494e22a1b77e0674e0060efba3dc90b78bcfc04",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "423e6b89618d32aed6e65509b0b50f3fcb282213652706228d02313a9006ff90",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1: regenerated by the item-reference updater; only the version changed."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -88991,8 +88991,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "659c51d33439d881e99c55a5f21bc4a4455d085a73e2cf5bed3dfc51e6cb4d65",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "243e301b985d1ee40a9262d05d2bb666dc9350027d196d2c5540fa817873dbde",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -89131,8 +89131,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "69d8ee9ca6dec9a67b07c82e57b067a64c66819910bcbd3117e4deb3357f66b0",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "4f1cc748e5fb4885e2bb16ed6c519373a835de6474207821b46ece55690fc878",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -89276,8 +89276,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "54071546da5a1e2bda97f3141bc4c24479ccca2436ed34f4cfbb8d93eb6dbd9f",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "ea618d91eca3b2006bafc58ffe84d5a5c064a135bcd732e727fb023f8d195af0",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

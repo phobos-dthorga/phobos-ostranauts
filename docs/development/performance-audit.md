@@ -1204,6 +1204,17 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: waiting order steps offered when the game finds no task (L94)
+
+L94 — Framework 0.127.1, owner report. A postfix on `WorkManager.ClaimNextTask` returns at
+once when the game found a task or no Phobos job exists. When the search came back empty,
+it runs at most once per crew member every two game seconds (the discovery interval):
+it sorts the waiting jobs and runs the claim's own admission on them in order until one
+passes, so the path checks are the ones the task filter already makes when the game
+reaches a Phobos task. In a time-skip, the native-precedence scan reads one more field
+per task, and the free check scans the crew member's queue for a direct order instead
+of any action. `Plugin.cs` carries only the version. No capture accompanies this change.
+
 ## 7 October: story services and the game's day (L91)
 
 L91 — Framework 0.127.0. `StoryLocation`, `StoryGates` and `StoryFlags` build one story

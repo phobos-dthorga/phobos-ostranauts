@@ -29,6 +29,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.127.1] - 2026-10-07 - Draft
+
+### Fixed
+
+- Standing-order hauls (every Manufacturing loading order, and any order's carrying steps) could wait forever in ordinary play (owner report, 7 October 2026). Each time a crew member looks for work the game tries only six tasks, highest priority first, and keeps retrying jobs it cannot do. A ship with many construction and repair jobs short of parts or out of reach used up those tries every time, so the Haul duty, last in the game's list, was never reached. Agriculture's planting and harvesting steps sit earlier in the list, under Operate, so they still ran. Now, when the game finds nothing a crew member can take, the order's waiting step is offered to them directly, through the same checks as before. Native work they can actually do still comes first.
+- Time-skips did no Phobos work while such jobs waited: a native job ahead of the order in the crew member's duty list held every step back, even one the game had already tried and failed. Failed jobs no longer count, since the game only retries them.
+- In a time-skip, whatever a crew member had chosen for themselves when it began (a meal, the TV, a walk) stayed queued for the whole skip and kept them from every Phobos step. Only an order you gave them directly holds them back now, as the crew guide already said. Crew asleep when the skip begins still sleep through it, as the game's own skip has them.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.127.0] - 2026-10-07 - Draft
 
 ### Added

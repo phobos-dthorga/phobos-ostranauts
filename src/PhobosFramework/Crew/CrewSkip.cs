@@ -234,7 +234,7 @@ public static class CrewSkip
     }
     private static void TryAssign(CondOwner actor,Ship[] ships)
     {
-        if(assignments.ContainsKey(actor.strID) || unavailable.Contains(actor.strID) || !CrewWork.Idle(actor) ||
+        if(assignments.ContainsKey(actor.strID) || unavailable.Contains(actor.strID) || !CrewWork.SkipFree(actor) ||
             nextDecision.TryGetValue(actor.strID,out var next)&&StarSystem.fEpoch<next)return;
         nextDecision[actor.strID]=StarSystem.fEpoch+CrewBalance.DiscoverySeconds;
         // Spare seconds from the step the last job ended in start this one; unused, they lapse.
@@ -254,7 +254,7 @@ public static class CrewSkip
         foreach(var job in offers.OrderBy(j=>CrewWork.DutyRank(actor,j.Offer.Duty)).ThenBy(j=>j.Equipment.strID,StringComparer.Ordinal))
         {
             var offer=job.Offer;
-            if(CrewWork.PreferredAvailable(actor,offer,c=>CrewWork.Idle(c)&&!assignments.ContainsKey(c.strID)&&!unavailable.Contains(c.strID))) continue;
+            if(CrewWork.PreferredAvailable(actor,offer,c=>CrewWork.SkipFree(c)&&!assignments.ContainsKey(c.strID)&&!unavailable.Contains(c.strID))) continue;
             if(!CrewWork.Reservations.Acquire(job.Lease,CrewWork.Keys(job))) continue;
             job.Seconds=CrewBalance.Duration(offer.Seconds,CrewSpecialities.Skilled(actor,offer.Skill));
             // SFF charges handling plus conservative walking time; no carried item is cloned.
