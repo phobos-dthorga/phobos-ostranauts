@@ -70,7 +70,9 @@ public static class WaterTankService
         if (action == "pause") { message = Text.Get("WaterTanks.nothing_to_pause"); return true; }
         if (action == "status") { message = Describe(co); return true; }
         if (BulkVessel.Protected(co)) { message = Text.Get("WaterTanks.protected"); return false; }
-        if (!NativeFluidRoute.EndpointReady(co) || CommodityReservations.Held(co.strID)) { message = Text.Get("WaterTanks.not_ready"); return false; }
+        // Two refusals since Framework 0.125.0, which used to share one message: the silo itself, and a transfer still running.
+        if (!NativeFluidRoute.EndpointReady(co)) { message = Text.Get("WaterTanks.not_ready"); return false; }
+        if (CommodityReservations.Held(co.strID)) { message = Text.Get("WaterTanks.transfer_busy"); return false; }
         try
         {
             var spec = BulkVessel.Spec(co);

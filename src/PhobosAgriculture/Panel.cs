@@ -25,6 +25,8 @@ public sealed class Panel : GUIData
     private ConsoleShell shell = null!;
     private TMP_Text live = null!;
     private readonly PresentationRefresh refresh = new(.5);
+    /// <summary>Press twice to go ahead (0.66.0): the action whose second press is awaited.</summary>
+    private readonly PressGuard guard = new();
     internal static bool Show(CondOwner co)
     {
         bool ours = Definitions.Machine(co) || BulkDefinitions.IsTank(co) || HopperDefinitions.IsHopper(co) || RecyclerCapture.IsRecycler(co);
@@ -143,12 +145,13 @@ public sealed class Panel : GUIData
     }
     private void Setting(CondOwner co,string action)=>ConfigurationSheet.Choices(shell,Text.Action(action),"",PanelConfiguration.Stamp(co),new[]{(action,Text.Action(action))},
         (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason));
-    private void AddButton(Transform parent,CondOwner co,string action,bool setting=false)=>C.Button(parent,Text.Action(action),()=>{if(setting)Setting(co,action);else Execute(co,action);});
+    private void AddButton(Transform parent,CondOwner co,string action,bool setting=false)=>C.Button(parent,setting?Text.Action(action):guard.Label(action,Text.Action(action)),()=>{if(setting)Setting(co,action);else Execute(co,action);});
     private void Execute(CondOwner co, string action)
     {
         bool recycler = RecyclerCapture.IsRecycler(co);
-        bool success = recycler ? RecyclerCapture.Command(co, action, out result) : BulkDefinitions.IsTank(co)?BulkService.Command(co,null,action,out result):
-            HopperDefinitions.IsHopper(co)?HopperService.Command(co,null,action,out result):Service.Command(co, null, action, out result);
+        // A refusal that offers to do the steps first arms this action; pressing it again goes ahead (0.66.0).
+        bool success = guard.Press(action, () => recycler ? RecyclerCapture.Command(co, action, out result) : BulkDefinitions.IsTank(co)?BulkService.Command(co,null,action,out result):
+            HopperDefinitions.IsHopper(co)?HopperService.Command(co,null,action,out result):Service.Command(co, null, action, out result));
         // Services also serve console callers. Their successful status response is
         // already rendered live here; preserve distinct notices (e.g. queued work).
         result = Phobos.Ostranauts.Framework.Controls.PanelFeedback.Additional(success, result,

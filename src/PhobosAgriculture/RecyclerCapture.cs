@@ -87,6 +87,7 @@ internal sealed class RecyclerCapture : IRecyclerRejectSink
     }
     internal static bool Command(CondOwner recycler,string action,out string message)
     {
+        bool confirmed=Phobos.Ostranauts.Framework.Controls.Confirmations.Split(ref action);
         message=Service.Access(recycler)??"";if(message.Length>0)return false;
         if(!Available||!IsRecycler(recycler)){message=Text.Get("capture_unavailable");return false;}
         if(!Clear(recycler)){message=Text.Get("protected");return false;}
@@ -95,8 +96,7 @@ internal sealed class RecyclerCapture : IRecyclerRejectSink
         {
             var chosen=Service.Resolve(action.Substring("capture-link:".Length));
             if(chosen==null||!Candidates(recycler).Contains(chosen)||!Clear(chosen)||Service.Access(chosen)!=null){message=Text.Get("capture_access");return false;}
-            if(!PortPairing.TryLink(Sender(recycler),Receiver(chosen),out message))return false;
-            armed.Remove(recycler.strID);
+            return Relink(recycler,chosen,peer,confirmed,out message);
         }
         else if(action=="capture-start")armed.Add(recycler.strID);
         else if(action=="capture-pause")armed.Remove(recycler.strID);
@@ -107,6 +107,32 @@ internal sealed class RecyclerCapture : IRecyclerRejectSink
         }
         else return false;
         message=Describe(recycler);return true;
+    }
+    /// <summary>Links a Recycler to a collector. Since Agriculture 0.66.0 (Framework 0.125.0, owner rule) an old link on
+    /// either side is removed on the player's second press instead of refusing; capture that was on carries on into the
+    /// new collector. A collector held by another mod's route is still refused, naming what holds it.</summary>
+    private static bool Relink(CondOwner recycler,CondOwner chosen,CondOwner? peer,bool confirmed,out string message)
+    {
+        string Name(CondOwner co)=>Phobos.Ostranauts.Framework.Controls.ObjectPresentation.Name(co);
+        var sender=Sender(recycler);var receiver=Receiver(chosen);
+        var sent=PortPairing.Read(sender);var taken=PortPairing.Read(receiver);
+        if(PortPairing.Matches(sender,receiver)){message=Text.Get("capture_already",Name(recycler),Name(chosen));return true;}
+        var holder=taken.State==PortLinkState.Linked?Service.Resolve(taken.PeerObjectId):null;
+        bool takenElsewhere=taken.State!=PortLinkState.Unlinked&&holder!=recycler;
+        if(takenElsewhere&&holder!=null&&!IsRecycler(holder)){message=Text.Get("capture_held_elsewhere",Name(chosen),Name(holder));return false;}
+        var hold=new Service.Hold();
+        if(sent.State!=PortLinkState.Unlinked)hold.Steps.Add(peer!=null?Text.Get("override_unlink",Name(recycler),Name(peer)):Text.Get("override_clear_link",Name(recycler)));
+        if(takenElsewhere)hold.Steps.Add(holder!=null?Text.Get("override_unlink",Name(chosen),Name(holder)):Text.Get("override_clear_link",Name(chosen)));
+        bool wasArmed=armed.Contains(recycler.strID);
+        return Service.Go(hold,confirmed,()=>
+        {
+            if(sent.State!=PortLinkState.Unlinked)PortPairing.Unlink(sender,peer!=null&&peer.ship==recycler.ship?Receiver(peer):null);
+            if(takenElsewhere)PortPairing.Unlink(receiver,holder!=null?Sender(holder):null);
+            if(holder!=null)armed.Remove(holder.strID);
+            if(!PortPairing.TryLink(sender,receiver,out var problem))return problem;
+            if(!wasArmed)armed.Remove(recycler.strID);
+            return null;
+        },()=>Describe(recycler),out message);
     }
     internal static string Describe(CondOwner recycler)
     {

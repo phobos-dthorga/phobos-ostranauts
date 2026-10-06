@@ -11,6 +11,26 @@ Dates on Draft entries record preparation, not Steam publication.
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.66.0] - 2026-10-06 - Draft
+
+### Changed
+
+- No more pausing first (owner report, 6 October 2026, and Framework 0.125.0). Linking a rack to a W2, even one already linked to another W2, unlinking, and choosing pipe-fed or manual water no longer refuse with One of these machines is already linked or Pause both machines first. The first Apply says what will happen: the old link removed and which machines pause; Apply again does it. The rack keeps growing, its crew order stays on, and the old W2 carries on feeding its other racks.
+- The same second press now covers the W2's nutrient source, water target and silo link, the Recycler's capture link, cancelling drainage recovery, and cancelling a workup or emptying the straw press on a working B2. Cancelling a workup used to answer with the F3 help text.
+- A Hearth-2 whose batch lost its portion now offers, on a second Start, to cancel that batch and start a new one; the warning says how much cooking is lost, and putting the portion back keeps the batch.
+- Setting a silo reserve names the W2s it pauses.
+- F3: end a command with confirm to go ahead when it offers to pause or unlink first.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
+### Compatibility and limits
+
+- Requires Framework 0.125.0.
+- Still refused, with the reason: a W2 already feeding eight racks (which rack goes is your choice), water left in a rack from the old line model, a damaged, locked or faulted machine, and a collector held by a Phobos Shipbreaker route.
+- Checked offline; the relink and the other second presses are not yet tested in play.
+
 ## [0.65.0] - 2026-10-06 - Draft
 
 ### Fixed

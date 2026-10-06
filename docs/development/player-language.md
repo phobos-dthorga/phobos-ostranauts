@@ -35,6 +35,15 @@ full. Clear space and resume” to an explanation of an output transaction. Do n
 invent a retry, repair or recovery option merely to make a message friendlier.
 Avoid forced slang, invented dialect, gratuitous profanity and jokes in faults.
 
+A change that needs other steps first is not refused; its first press warns
+(Framework 0.125.0). Word the warning as what will happen, in the order it happens,
+naming each machine: "The rack will be unlinked from W2 first. The rack and the W2
+will pause for the change and carry on afterwards." Say what is lost, if anything
+("losing its 40% of cooking"), and how to keep it ("put its portion back
+instead"). The shared text adds how to go ahead. Keep "first", "before" and
+"pause" out of refusals unless only the player can do the step; then name the
+machine and the step.
+
 Keep useful words such as pressure, coolant, docking and nutrients. Explain an
 unfamiliar term when it first matters. Put detailed limits, scientific sources
 and simplifications in the relevant help or guide. Preserve numerical operating

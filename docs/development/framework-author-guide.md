@@ -1382,6 +1382,25 @@ piped, and joins chain across the ship.
   sheet applies a change (`ConsoleShell.Changed`, 0.55.0); fields may name their
   current choice (`EquipmentField.Current`). Providers name their console groups with
   `EquipmentProviders.RegisterGroup`.
+- **Press twice to go ahead (0.125.0, owner rule).** A command or configuration that
+  needs other steps first (pausing a machine or its intake, removing an old link,
+  stopping work, cancelling a batch) must not refuse for that reason. In the service,
+  strip a confirmed action with `Confirmations.Split(ref action)`, work out the steps,
+  and call `Confirmations.Ask(warning, confirmed, out message)`: it returns true when
+  the player confirmed, otherwise it records the offer and gives the message to
+  refuse with. Word the warning as what will happen ("The rack will be unlinked from
+  W2 first. The W2 will pause for the change and carry on afterwards."), and name any
+  progress lost. Then pause through `PausedChange.Hold(name, working, pause, resume)`,
+  whose pause must never call `CrewWork.ManualStop`, make the change, and call
+  `Release()`, which resumes through the machine's own checks and returns what could
+  not carry on. `ConfigurationSheet` and `ProviderPanel` already run each press
+  through a `PressGuard`, which arms on the offer and relabels the button "... again";
+  your own panel hosts do the same. A knob or guarded switch uses
+  `Confirmations.PressWithCard`. F3 parsers call `Confirmations.TakeWord(args, out
+  confirmed)` and pass `Confirmations.Confirmed(action)`. A second press whose warning
+  has changed is a new offer, never a blind go-ahead. Classify each do-first refusal
+  in `config/panel-override-audit.json`; `scripts/audit-panel-overrides.py --check`
+  fails on one that is not ([panel override audit](panel-override-audit.md)).
 - **`Persistence.DefinitionMigrations`.** `Register(oldId, newId, recordRenames,
   rewrite)` converts saved objects of a retired definition to their new equivalent
   as the game spawns them (the ship's item list and each object's saved conditions),

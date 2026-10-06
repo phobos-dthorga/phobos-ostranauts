@@ -1,0 +1,709 @@
+{
+  "schemaVersion": 1,
+  "notes": "Press twice to go ahead (Framework 0.125.0; owner rule, 6 October 2026). Every do-first refusal reachable from a control panel or F3 command is classified here; scripts/audit-panel-overrides.py --check enforces it. See docs/development/panel-override-audit.md.",
+  "mods": [
+    "PhobosFramework",
+    "PhobosAgriculture",
+    "PhobosManufacturing",
+    "PhobosShipbreaker",
+    "PhobosAutoNav",
+    "PhobosMedical",
+    "PhobosWarDeclared",
+    "PhobosSpacerStories"
+  ],
+  "rules": [
+    {
+      "keys": "(^|\\.|_)(install|repair)(_\\w+)?_first$",
+      "class": "refused",
+      "note": "Installing or repairing is crew work on the machine itself; a press cannot do it."
+    },
+    {
+      "keys": "_not_ready$",
+      "class": "refused",
+      "note": "Something linked, or the machine itself, is damaged, locked, away from the ship or not installed; only the player can fix that."
+    },
+    {
+      "keys": "_protected$",
+      "class": "refused",
+      "note": "Busy, or holding a saved-contents fault that needs the owner's check. Splitting busy from fault is later work in the owning mod's round."
+    },
+    {
+      "keys": "\\.order_first$",
+      "class": "status",
+      "note": "An order label (what is drawn first), not a refusal."
+    },
+    {
+      "keys": "(\\.engaged|flight_engaged|disengaged_by_pilot|_engaged|engaged_emitting)$",
+      "class": "status",
+      "note": "A report that something started or stopped."
+    },
+    {
+      "keys": "^Crew\\.(\\w+_blocked|busy|diag_blocked)$",
+      "class": "status",
+      "note": "Crew work status, not a panel refusal."
+    },
+    {
+      "keys": "^Upkeep\\.",
+      "class": "status",
+      "note": "Upkeep record notes."
+    },
+    {
+      "keys": "^(ConstructionHooks|MaintenanceSafety|MaintenanceInfo|EquipmentEconomy)\\.",
+      "class": "refused",
+      "note": "Construction and removal checks, made at the game's own offer time; the contents must be moved by the player."
+    }
+  ],
+  "entries": [
+    {
+      "mod": "PhobosAgriculture",
+      "key": "capture_held_elsewhere",
+      "class": "refused",
+      "note": "The collector is held by a Phobos Shipbreaker route, which Agriculture does not manage."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "cue_start_first",
+      "class": "status",
+      "note": "Nothing is cooking or growing to wait for."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_drain",
+      "class": "refused",
+      "note": "Water from the old line model is physically in the rack."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_drain_named",
+      "class": "refused",
+      "note": "Water from the old line model is physically in the rack."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "not_ready",
+      "class": "status",
+      "note": "The crop is not ripe."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "unload_first",
+      "class": "refused",
+      "note": "Native removal check: the contents must be taken out by the player."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_bank_full",
+      "class": "refused",
+      "note": "Which rack a full W2 should drop is the player's choice."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.unavailable",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "Split: another flight system (A) from modules and the pilot (refused)."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Cue.start_first",
+      "class": "status",
+      "note": "Nothing to alert on yet."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.hardware",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "Split: other flight controls (A) from hardware, atmosphere and throttle (refused)."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.resume",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "A: the second press stops the saved departure first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Docking.attached",
+      "class": "refused",
+      "note": "Physically attached; releasing a dock or mooring is the player's call."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Docking.stop_first",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "A: the second press stops the suspended flight and selects Dock."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.busy",
+      "class": "refused",
+      "note": "Another console holds the weapons."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.return_first",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "A: the second press returns the group to ship controls first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Industrial.busy",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "Split: flight or aiming (A, stop it) from a missing module, an unreadable record or a foreign controller (refused)."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Instruments.arrival_locked",
+      "class": "unused",
+      "round": "AutoNav",
+      "note": "No code uses it."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.already_engaged_stop_before_changing_the_flight",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "Agent choice: the second press stops the active flight (the ship coasts with thrust cut) and makes the change."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.disengage_other_flight_automation_first",
+      "class": "refused",
+      "note": "Another mod's flight control holds the ship."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.finish_loading_a_game_first",
+      "class": "refused",
+      "note": "Wait for the game to load."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.stop_approach_assist_s_test_pulse_first",
+      "class": "unused",
+      "round": "AutoNav",
+      "note": "Approach Assist is retired; no code uses it."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.undock_before_engagement",
+      "class": "refused",
+      "note": "Undocking is the game's own action and the player's call."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Preferences.captured",
+      "class": "pending",
+      "round": "AutoNav",
+      "note": "A for a suspended flight (stop forgets it); the active-flight case follows the agent choice above. Split first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Pursuit.follow_first",
+      "class": "status",
+      "note": "Module requirements."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Tow.controls",
+      "class": "refused",
+      "note": "The towed ship's own controls belong to that ship."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Tow.secure",
+      "class": "refused",
+      "note": "Securing the brace or undocking is the player's action."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Tow.single",
+      "class": "refused",
+      "note": "Which connection to release is the player's choice."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.apply_first",
+      "class": "offered",
+      "note": "Crew panel Resume applies the draft on the second press."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.shift_first",
+      "class": "status",
+      "note": "A crew shift label."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.drain_first",
+      "class": "refused",
+      "note": "The line physically holds its contents; draining is crew work."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.drained",
+      "class": "status",
+      "note": "A drain report."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_not_ready",
+      "class": "status",
+      "note": "A picker note naming why something is not offered."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.stop_first",
+      "class": "refused",
+      "note": "Developer capture tool: export needs the recording stopped, and the recorder contract belongs to Phobos Scope."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.world_required",
+      "class": "refused",
+      "note": "Wait for the world to load."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "PortPairing.an_endpoint_already_has_a_saved_link",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "Agriculture water and recycler links replace the old pair on the second press (Agriculture 0.66.0); Shipbreaker collector, furnace and laser pairs next."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedPorts.full",
+      "class": "refused",
+      "note": "Which link to drop is the player's choice."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.not_ready",
+      "class": "refused",
+      "note": "The silo itself is not installed, damaged, locked or away; split from the transfer case in 0.125.0."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.transfer_busy",
+      "class": "refused",
+      "note": "A transfer is still running and ends on its own."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: put the supplies back, or cancel the batch."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch (its supplies returned) and makes the change; the warning says so."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: put the supplies back, or cancel the batch."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch (its supplies returned) and makes the change; the warning says so."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: put the supplies back, or cancel the batch."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch (its supplies returned) and makes the change; the warning says so."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.feed_blocked",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the stuck charge and starts again; the warning names what is returned."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: put the supplies back, or cancel the batch."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch (its supplies returned) and makes the change; the warning says so."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_blocked",
+      "class": "status",
+      "note": "Crew order status."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the station, changes its mode and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: put the supplies back, or cancel the batch."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch (its supplies returned) and makes the change; the warning says so."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.select_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch and selects the recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.full",
+      "class": "refused",
+      "note": "Which store to drop is the player's choice."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.order_first",
+      "class": "status",
+      "note": "A label."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: put the supplies back, or cancel the batch."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "L: the second press cancels the batch (its supplies returned) and makes the change; the warning says so."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.link_busy",
+      "class": "pending",
+      "round": "Manufacturing",
+      "note": "A: the second press pauses the machine (its batch kept), changes the link and resumes."
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Bed.repair_first",
+      "class": "refused",
+      "note": "Repair is crew work."
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Monitor.repair_first",
+      "class": "refused",
+      "note": "Repair is crew work."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Capture.attached",
+      "class": "refused",
+      "note": "Physically moored or docked; release is the player's call."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Capture.released",
+      "class": "status",
+      "note": "A report."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Capture.stop_rebind",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "Split: stopping an approach (A) from releasing a mooring (agent choice: second press with an unmoored warning)."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "CollectorLinks.saved_link_is_invalid_or_from_a",
+      "class": "refused",
+      "note": "Clearing the record alone does not make a working pair; a new partner must be chosen."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "CollectorLinks.sender_no_longer_reciprocates_this_pair_unlink",
+      "class": "refused",
+      "note": "A new partner must be chosen."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "CollectorPanel.one_sender_per_receiver_unlink_before_changing",
+      "class": "unused",
+      "round": "Shipbreaker",
+      "note": "No code uses it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "CollectorService.collector_full_or_blocked_residue_remains_in",
+      "class": "status",
+      "note": "Physical: the collector is full."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "CollectorService.transfer_blocked_residue_retained",
+      "class": "status",
+      "note": "Physical: the residue cannot move."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_changed",
+      "class": "refused",
+      "note": "The player chooses: return the same supplies, or cancel."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.charge_service",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "Split: armed (A, pause) from cool, idle and routed (refused)."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.coolant_managed",
+      "class": "status",
+      "note": "A choice label."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.coolant_sealed",
+      "class": "status",
+      "note": "A choice label."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.equalize_block",
+      "class": "refused",
+      "note": "Physical: temperature and room air."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.hot_maintenance",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "Refused while hot (time passes); split so it names the one condition left instead of the generic text."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.locked",
+      "class": "refused",
+      "note": "Unlocking is the player's action."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_block",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "Split: a repeat run (A, end it) from idle, cool and empty (refused)."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.release_block",
+      "class": "refused",
+      "note": "Physical: the batch must cool and its gas return."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_block",
+      "class": "refused",
+      "note": "Physical: the furnace and its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_interrupted",
+      "class": "status",
+      "note": "A report."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.resume_block",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "Split: ship manoeuvres and probes (refused) from cooling links (A)."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.seal_block",
+      "class": "refused",
+      "note": "Physical: charge, temperature and cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.open_blocked",
+      "class": "refused",
+      "note": "Another window or a carried item is in the way."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "IntakeService.processor_feed_full_or_blocked_panel_remains",
+      "class": "status",
+      "note": "Physical: the feed is full."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "IntakeService.transfer_blocked_panel_retained",
+      "class": "status",
+      "note": "Physical: the panel cannot move."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_busy",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "A: the second press pauses cutting, changes the cooling and resumes."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_busy",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "A: the second press pauses cutting, changes the filter and resumes."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_hot",
+      "class": "refused",
+      "note": "Physical: the radiator must cool."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessingService.detach_the_wall_first",
+      "class": "refused",
+      "note": "Detaching is crew work."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessingService.output_blocked_progress_retained_clear_space_and",
+      "class": "status",
+      "note": "Physical: the tray is full."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessingService.separate_the_wall_stack_first",
+      "class": "refused",
+      "note": "Separating a stack is the player's action."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Reclamation.recapture",
+      "class": "refused",
+      "note": "Needs a different capture."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.furnace_cold",
+      "class": "refused",
+      "note": "Physical: the furnace must cool and open."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.fault",
+      "class": "status",
+      "note": "A fault report."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.link_busy",
+      "class": "pending",
+      "round": "Shipbreaker",
+      "note": "A: the second press pauses the thaw unit, changes the link and resumes it."
+    }
+  ]
+}

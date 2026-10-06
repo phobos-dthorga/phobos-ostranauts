@@ -1163,8 +1163,8 @@
       "mod": "PhobosAgriculture",
       "key": "help",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:56",
@@ -1175,7 +1175,7 @@
         "src/PhobosAgriculture/Service.cs:260"
       ],
       "before": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/cancel-workup <B2 full object ID>",
-      "after": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/scutch-flax/extract-sugar/bale-straw/cancel-workup/empty-press <B2 full object ID>",
+      "after": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/scutch-flax/extract-sugar/bale-straw/cancel-workup/empty-press <B2 full object ID> | end with confirm to go ahead when a command offers to pause or unlink first",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Console help lists the extract-sugar command. Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
@@ -1512,23 +1512,6 @@
       ],
       "before": "Cancel cooking cycle",
       "after": "Cancel cooking cycle",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "cancel_missing",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/Service.cs:250"
-      ],
-      "before": "The bound cooking portion is missing. Return it or cancel this cycle before starting another.",
-      "after": "The potato portion for this batch is missing. Return it or cancel the batch before starting another.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -1981,30 +1964,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "water_pause",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/BulkService.cs:50",
-        "src/PhobosAgriculture/BulkService.cs:79",
-        "src/PhobosAgriculture/IrrigationService.cs:53",
-        "src/PhobosAgriculture/IrrigationService.cs:58",
-        "src/PhobosAgriculture/IrrigationService.cs:68",
-        "src/PhobosAgriculture/IrrigationService.cs:77",
-        "src/PhobosAgriculture/Service.cs:215"
-      ],
-      "before": "Pause operation and receiving at both endpoints first. Use intact, unlocked equipment on the same owned ship; protected endpoints cannot be paired.",
-      "after": "Pause both machines and their water intake first. Both must be working, unlocked and on your ship, with no saved-settings fault.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Pause both machines and their water intake first. Both must be working, unlocked and on your ship, with readable saved settings."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "water_missing",
       "category": "status/warning",
       "decision": "rewrite",
@@ -2015,24 +1974,6 @@
       ],
       "before": "The selected water endpoint is unavailable.",
       "after": "The selected water connection is unavailable.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "water_pair_help",
-      "category": "help/settings",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "catalogue compatibility fallback; no direct lexical caller found",
-      "references": [
-        "src/PhobosAgriculture/Text.cs",
-        "translations/PhobosAgriculture/en.json#water_pair_help"
-      ],
-      "before": "Pair up to eight compatible racks with one W2 while both endpoints are paused. Each rack has one supplier. Receiving permissions stay individual. Unpair at a rack to remove only its link; W2 Unpair removes all its links after lines are drained. One supply per pipe circuit.",
-      "after": "Pause both machines before linking. One W2 can supply eight racks; each rack accepts one supplier. Enable intake separately at each rack. Disconnecting a rack removes its own link; disconnecting W2 removes all its links. Drain pipes first. Use one supply unit per pipe circuit.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -18856,15 +18797,15 @@
       "mod": "PhobosFramework",
       "key": "Console.apply_first",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/AutoNavPanel.cs:282",
         "src/PhobosFramework/Crew/CrewPanel.cs:137"
       ],
       "before": "Apply or discard your draft before resuming.",
-      "after": "Apply or discard your draft before resuming.",
+      "after": "Resume applies your unsaved changes first.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -64631,14 +64572,14 @@
       "mod": "PhobosFramework",
       "key": "WaterTanks.not_ready",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Moved from Shipbreaker Silo.not_ready with the silos (Framework 0.58.0); wording unchanged.",
+      "decision": "rewrite",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Items/WaterTankService.cs:67"
       ],
       "before": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress.",
-      "after": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress.",
+      "after": "The silo must be installed, undamaged, unlocked and on your own ship.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -67002,19 +66943,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "press_pause",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Stop before emptying.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosAgriculture/Service.cs:304"
-      ],
-      "before": "Stop the bench before emptying the straw press.",
-      "after": "Stop the bench before emptying the straw press."
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "press_status_empty",
       "category": "status/warning",
       "decision": "add",
@@ -68388,6 +68316,201 @@
       ],
       "before": "The room is short of CO2 for this crop. Keep a door open to rooms the crew breathes in, or feed CO2 from an A2 Cabin Air Regulator and a CO2 store. A V4 Volatiles Refinery burning straw can fill the store (both Phobos Manufacturing).",
       "after": "The room is short of CO2 for this crop. Keep a door open to rooms the crew breathes in, or feed CO2 from an A2 Cabin Air Regulator and a CO2 store. A V4 Volatiles Refinery burning straw can fill the store (both Phobos Manufacturing)."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} must be installed, undamaged, unlocked and on this ship, with no saved-settings fault, before its water link can change.",
+      "after": "{0} must be installed, undamaged, unlocked and on this ship, with no saved-settings fault, before its water link can change."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_wrong_kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "A W2 links to cultivation racks, and a rack to a W2.",
+      "after": "A W2 links to cultivation racks, and a rack to a W2."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_bank_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} already feeds eight racks. Unlink one of them at that W2 first; which one is up to you.",
+      "after": "{0} already feeds eight racks. Unlink one of them at that W2 first; which one is up to you."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_already_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} is already linked to {1}.",
+      "after": "{0} is already linked to {1}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "override_pause",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} will pause for the change and carry on afterwards.",
+      "after": "{0} will pause for the change and carry on afterwards."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "override_unlink",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} will be unlinked from {1} first.",
+      "after": "{0} will be unlinked from {1} first."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "override_clear_link",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The unreadable old link on {0} will be cleared first.",
+      "after": "The unreadable old link on {0} will be cleared first."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "override_cancel_cooking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "This batch's portion is missing. Pressing again cancels the batch, losing its {0:0}% of cooking, and starts a new one from what is in the cooker. To keep the batch, put its portion back instead.",
+      "after": "This batch's portion is missing. Pressing again cancels the batch, losing its {0:0}% of cooking, and starts a new one from what is in the cooker. To keep the batch, put its portion back instead."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "held_damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "it needs repair first",
+      "after": "it needs repair first"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "held_fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "it has a saved-settings fault",
+      "after": "it has a saved-settings fault"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "list_and",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} and {1}",
+      "after": "{0} and {1}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_drain_named",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} still holds water that was in its pipes before an update. Start its W2 so the water arrives, or drain the rack, before changing this.",
+      "after": "{0} still holds water that was in its pipes before an update. Start its W2 so the water arrives, or drain the rack, before changing this."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "capture_already",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} already sends its rejects to {1}.",
+      "after": "{0} already sends its rejects to {1}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "capture_held_elsewhere",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} already takes residue from {1}, which Phobos Shipbreaker manages. Unlink it at that collector first.",
+      "after": "{0} already takes residue from {1}, which Phobos Shipbreaker manages. Unlink it at that collector first."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "bulk_reserve_paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Reserve set. Paused for the new reserve: {0}. Start them again when ready.",
+      "after": "Reserve set. Paused for the new reserve: {0}. Start them again when ready."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -86384,6 +86507,123 @@
       ],
       "before": "The letters of the correspondence {0} could not be saved and were left out of this save; its progress is saved. Please report this with your Player.log.",
       "after": "The letters of the correspondence {0} could not be saved and were left out of this save; its progress is saved. Please report this with your Player.log."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.transfer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Water is still moving into or out of this silo. Try again when the transfer ends.",
+      "after": "Water is still moving into or out of this silo. Try again when the transfer ends."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.confirm_again",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Press it again to go ahead.",
+      "after": "Press it again to go ahead."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.confirm_word",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Repeat the command with confirm at the end to go ahead.",
+      "after": "Repeat the command with confirm at the end to go ahead."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.press_again",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} again",
+      "after": "{0} again"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.go_ahead",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Go ahead",
+      "after": "Go ahead"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.not_now",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Not now",
+      "after": "Not now"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.not_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Nothing was changed.",
+      "after": "Nothing was changed."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.held_not_resumed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} stayed paused: {1}",
+      "after": "{0} stayed paused: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.resume_fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.125.0 and Agriculture 0.66.0: press-twice warnings, held-machine notes and the split refusals, reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "it could not restart, and the log has the details.",
+      "after": "it could not restart, and the log has the details."
     }
   ],
   "documents": [
@@ -86391,8 +86631,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7aa2565c79bdb6e976f103b95e1ff416e154b55013806e23e5bd558146397398",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "9266aff010b7ae3ab05ada14f77d3d80f4a8ad6394eb630b41396ab6ca8fb3db",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "SUPPORT.md",
@@ -86419,8 +86659,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "086193749cf93cd23a26216f14cb57f649301c0a2b7b0858d804d5eb7f5d484e",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "a8a8a15f66a84dd0670e3522a846ab90f906c3c32b3a720a824fd9d102f1e8f6",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -86433,8 +86673,8 @@
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "dd754d3025dce4a9be23c827489ea91a0bb0a42d8002724555939dee539b0202",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "e0ad7a36c9eb3660de123e7e43a733b0e7716457fbc767115b017731753680e1",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/agriculture-player-guide.md",
@@ -86454,8 +86694,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6740245ed8c9c8405c75cf5ca5ff5eb7a38002847f520bb24e4539b0e8843864",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "5dbb5a67a956131538f285b476172bc6d188f3ce896187c3dbe4ae680dfe0e48",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -86552,8 +86792,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dbf84c40c35f4409265e71882eaedd3c4414a4011394ad06625bac135d5e69a2",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "81cb2d7fff9abb61ec3a19b7d110a814bf4b9fc007630d998f3b102f156522a1",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/crew-automation.md",
@@ -86566,8 +86806,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "f0318af9d2247566e6353f2ebc45721d31b7ef9e2eeeef29263ef45ddbe1b7dc",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the PDA apps and banking research record.",
+      "sha256": "e50be4553254720a710c97908b748c83118c94e91b293f391ef14539829a507c",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed."
     },
@@ -86941,8 +87181,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ac482f66a0569d9a35d4ce244719a62a407b64ca06e8b54b7c98aaa0b979cb3e",
-      "review": "Framework 0.107.0 story content review, 6 October 2026 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the PDA apps and banking research record."
+      "sha256": "00377669fd2b58734f1520074f452c2695ab91b32e200c25734f71c6602da72d",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -87230,8 +87470,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "d3758ea430c5731087b9096ebc34fda6f042988e04d5ab501c967ada8683351f",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0).",
+      "sha256": "4eb52e0efad6c24832cd3b0bdea4710cac5e438670b9732f30d8e046d1ae5505",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata."
     },
     {
@@ -87520,15 +87760,15 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6c5461b4962e53e05a44f8bcb58d165460b81a2611f3e12362c15a0fc331b413",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "04db39adf8be2ccfffcc1e50d51ce9d8d48c33faa0bc7bc1781385b1853dfc6d",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "87b4bbf6ab74465aed2ded936f6cc2fe968c9ff2cc49d640e413e3f3b1374028",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "ecde9e6a31bbccf6a90d44caa28c38eb01f610140eb9cb130303ded710891554",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -87590,8 +87830,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cc51fb0bde90908acc10d34f9071982e5831db3735f72629681caf08cd58d810",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
+      "sha256": "07fc2cf3c9713d3059b7f3233a000df1b2cdfd1ec1b04270fb478f44af4fe7bb",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/item-references.md",
@@ -87632,8 +87872,8 @@
       "path": "docs/material-port-pairing.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "0e9413240f49a527d65b8ed78976cff6d356de032a4ab8c669055b3c739ad468",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "ed13d2e9299c47f15224e6b382b2bc968e332c21b67b3412c8fd0e52cd916a29",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/medical-item-reference.md",
@@ -87660,8 +87900,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "baf11ebe2978d2772d5e8c69d1e1a58433d5d55b7c6ef86c8ce2ca0bdf31a051",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the letters save fix (Framework 0.124.2)."
+      "sha256": "c5544aa639d978b60d8f3e8dfbbec44f454517bd5bec3f5fe52c295ef8bebe5c",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -87786,8 +88026,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "008dbb2d8db1a0548f468a8d700ebaf17187890a1cdf502f7a5165648fd2474f",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "c5206816c5806b125bc4fe3b5f73085982fee12169975a08cae3a6dab801853f",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -87800,8 +88040,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "55edc4618a186f835cc043c1296188bc45286720cca33573bd98c472f5b263b3",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the letters save fix (Framework 0.124.2)."
+      "sha256": "e9ba4b98d53e76acd244e4f5799bb194288e295871eee05053d1e6c1040cf941",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -87844,6 +88084,13 @@
       "decision": "new",
       "sha256": "d73f68b76cd0801b7144c892ced11fbd6a7564ff96e39c560f1bb535d65926ea",
       "review": "New research record, 6 October 2026: PDA apps and a banking mod; observed game behaviour and proposals are labelled."
+    },
+    {
+      "path": "docs/development/panel-override-audit.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "88e02025b5222ca2d427d7dc0a0b36c523e7461253e0cb1b1217ea4e7f0120ec",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     }
   ],
   "surfaces": [
@@ -87867,8 +88114,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0d2d5ccdee52bf0e700fe954522882168061ac216f18cd44e6d80a296f54b59b",
-      "review": "Reviewed 6 October 2026 for Agriculture 0.65.0: time skips no longer heat grow rooms or starve crops; the poor-conditions line names its cause."
+      "sha256": "faa79edcbfa8c84b76069a8fdba28a8d60d8b6bce52c02e450f829adc4a68db4",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -87902,8 +88149,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b09e4bf629912b25c48c7d528b72222c37cbe25711e3a7078e37aff229472695",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for machine work sounds (Framework 0.119.0). 6 October 2026: reviewed for replaceable sounds and read-only data copy notes (Framework 0.120.0). 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for the Letters window and story replies (Framework 0.122.0). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0). 6 October 2026: reviewed for the fleet refresh setting (Framework 0.124.0). 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation. 6 October 2026: reviewed for the letters save fix (Framework 0.124.2)."
+      "sha256": "21781a91f574fdcc78e896bafd815e378134c53dffd37bdcb50ae5b9b017d611",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

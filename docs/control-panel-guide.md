@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.124.2, Agriculture 0.65.0, Shipbreaker 0.84.1 and Auto Nav 0.34.2
+Framework 0.125.0, Agriculture 0.66.0, Shipbreaker 0.84.1 and Auto Nav 0.34.2
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished
@@ -65,6 +65,33 @@ explains why the settings could not be applied.
 reload the form before applying older changes. Changing an enabled standing order
 pauses it; choose Resume when ready. Applying settings alone does not start work,
 harvest a crop, drain supplies, undock or fire weapons.
+
+### Press twice to go ahead
+
+Some changes need other steps first: a machine paused for a moment, an old link
+removed, your unsaved changes applied, a batch cancelled. **The panel does those
+steps for you** (Framework 0.125.0). The first press of **Apply**, or of the
+button, says in the notice what will be done, and the button reads *Apply again*
+or *Start again*. Press it again to go ahead. Machines paused for the change carry
+on afterwards; one that cannot, because it is damaged for example, stays paused
+and the notice says why. Standing crew orders stay on.
+
+```mermaid
+flowchart TD
+    Press["You press Apply or a button"] --> Steps{"Does the change need other steps first?"}
+    Steps -->|no| Done["Done; the notice says what changed"]
+    Steps -->|yes| Warn["The notice says what will be done; the button reads 'again'"]
+    Warn --> Again{"You press it again, with the same choice?"}
+    Again -->|yes| Do["Steps done, the change made, paused machines carry on"]
+    Again -->|"choose something else, Discard or Back"| Off["Nothing changes"]
+```
+
+If anything changed between the two presses, the second press says what it would
+now do instead, and waits for one more press. Things a press cannot fix are still
+refused, with the reason: a hot machine, contents still in a line, damage, a
+saved-contents fault, another ship, or a full link bank where you choose which link
+goes. A change that loses progress, such as cancelling a batch, says so in its
+warning. In F3, end the command with `confirm` to go ahead.
 
 ## Choosing storage, connections and names
 

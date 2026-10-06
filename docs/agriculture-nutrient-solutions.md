@@ -21,7 +21,8 @@ saved identity and artwork are unchanged. The same irrigation conduits connect
 a W2 to its Firstlight-4 racks. W2s that share one pipe must mix the same feed
 (Agriculture 0.53.0; before, one supply unit per connected circuit).
 
-1. Pause operation and receiving at both endpoints; unpair the W2 if necessary.
+1. Unpair the W2 if necessary; the panel pauses both machines for the change and
+   lets them carry on afterwards (Agriculture 0.66.0).
    Drain any previous solution before selecting a different formulation. Drainage
    remains retained Process Solution waste, with no drinking-water or nutrient recovery.
 2. Select **potato nutrient solution**, **lettuce nutrient solution** or

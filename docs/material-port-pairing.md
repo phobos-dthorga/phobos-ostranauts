@@ -36,8 +36,12 @@ not patch signal routing or write into the native `Electrical` property map.
   priorities, fan-in, fan-out or cycle scheduler in this slice.
 - Both endpoints must reciprocate the same addresses, opposite roles and token
   before work is allowed. Matching only a human-entered channel label is insufficient.
-- Linking an occupied endpoint is refused; relinking the same existing pair is
-  idempotent. Unlink clears the peer only if it still reciprocates that exact pair.
+- Linking an occupied endpoint is refused by the pairing service itself; relinking
+  the same existing pair is idempotent. Unlink clears the peer only if it still
+  reciprocates that exact pair. Since Framework 0.125.0 a panel or F3 command that
+  meets an occupied endpoint offers to unlink the old pair first, and does so on
+  the player's second press (Agriculture water and recycler links from Agriculture
+  0.66.0; other families as their mods adopt it).
 - [Storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products)
   (Shipbreaker 0.33.0) are not reciprocal pairs. Each D4/R4 saves one chosen native
   container by full ID on the machine itself, and the passive container records
@@ -45,7 +49,8 @@ not patch signal routing or write into the native `Electrical` property map.
   admits each item. The pair contract above is unchanged.
   This lets the player clear a missing endpoint without breaking another route.
 - Missing, invalid or newer-schema records are retained and block operation until
-  explicitly unlinked. No automatic reassignment, repair or nearest-machine fallback.
+  explicitly unlinked or cleared by a confirmed relink. No silent reassignment,
+  repair or nearest-machine fallback.
 - Native save/reload preserves configuration and cargo, which remains in its
   actual inventory. Shipbreaker resets collection time; a collection that was
   running when saved resumes by itself (0.56.0), and a paused one stays

@@ -46,13 +46,23 @@ public static class ConfigurationSheet
         var footer=ConsoleWidgets.Row(overlay);PanelWidgets.Fill(footer,24,24,24,0);footer.anchorMax=new Vector2(1,0);footer.offsetMax=new Vector2(-24,60);
         var oldDirty=shell.Dirty;var oldApply=shell.Apply;var oldDiscard=shell.Discard;var oldCancel=shell.CancelOverlay;
         string value=current,notice="";bool changed=false;
-        void Refresh(){PanelWidgets.Clear(body);ConsoleWidgets.Heading(body,title);if(notice.Length>0)ConsoleWidgets.Label(body,notice);render(body,()=>value,s=>{value=s;notice=ConsoleWidgets.Text(s=="none"?"cleared_draft":"selection_draft");Refresh();});}
+        // Press twice to go ahead (0.125.0): an Apply that needs other steps first warns, and Apply again does them.
+        var guard=new PressGuard();Button? applyButton=null;
+        void Relabel(){var label=applyButton==null?null:applyButton.GetComponentInChildren<TMPro.TMP_Text>();if(label!=null)label.text=guard.Label(value,ConsoleWidgets.Text("apply"));}
+        void Refresh(){PanelWidgets.Clear(body);ConsoleWidgets.Heading(body,title);if(notice.Length>0)ConsoleWidgets.Label(body,notice);render(body,()=>value,s=>{value=s;guard.Disarm();Relabel();notice=ConsoleWidgets.Text(s=="none"?"cleared_draft":"selection_draft");Refresh();});}
         // Every way out of the sheet ends here; a sheet that applied a change asks the host to redraw its pages, whose
         // field and action buttons were built from the settings before the change.
         void Close(){shell.Dirty=oldDirty;shell.Apply=oldApply;shell.Discard=oldDiscard;shell.CancelOverlay=oldCancel;overlay.gameObject.SetActive(false);UnityEngine.Object.Destroy(overlay.gameObject);if(changed)shell.Changed?.Invoke();}
-        bool Apply(){if(value==current&&value.Length>0)return true;if(value.Length==0){notice=ConsoleWidgets.Text("not_selected");Refresh();return false;}if(!apply(expected,value,out var reason)){notice=reason;Refresh();return false;}current=value;changed=true;shell.Notice.text=AppliedNotice(reason);return true;}
-        shell.Dirty=()=>value!=current;shell.Apply=Apply;shell.Discard=()=>{value=current;Refresh();};shell.CancelOverlay=()=>shell.Navigate(Close);
-        ConsoleWidgets.Button(footer,ConsoleWidgets.Text("apply"),()=>{if(Apply())Close();});
+        bool Apply()
+        {
+            if(value==current&&value.Length>0)return true;
+            if(value.Length==0){notice=ConsoleWidgets.Text("not_selected");Refresh();return false;}
+            string reason="";bool done=guard.Press(value,()=>apply(expected,value,out reason));Relabel();
+            if(!done){notice=reason;Refresh();return false;}
+            current=value;changed=true;shell.Notice.text=AppliedNotice(reason);return true;
+        }
+        shell.Dirty=()=>value!=current;shell.Apply=Apply;shell.Discard=()=>{value=current;guard.Disarm();Relabel();Refresh();};shell.CancelOverlay=()=>shell.Navigate(Close);
+        applyButton=ConsoleWidgets.Button(footer,ConsoleWidgets.Text("apply"),()=>{if(Apply())Close();});
         ConsoleWidgets.Button(footer,ConsoleWidgets.Text("discard"),()=>{value=current;Close();});
         ConsoleWidgets.Button(footer,ConsoleWidgets.Text("back"),()=>shell.Navigate(Close));Refresh();
         if(shell.EmergencyStop!=null)ConsoleWidgets.Button(footer,ConsoleWidgets.Text("stop"),()=>shell.EmergencyStop?.Invoke());

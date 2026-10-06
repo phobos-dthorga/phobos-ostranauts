@@ -50,14 +50,16 @@ internal static class BulkService
         value=19.5;var status=Settings(w2).Read(out var d);if(status==SavedStateStatus.Missing)return true;
         return status==SavedStateStatus.Ready&&d.Count==1&&d.TryGetValue("target",out var raw)&&double.TryParse(raw,NumberStyles.Float,CultureInfo.InvariantCulture,out value)&&!double.IsNaN(value)&&value>=0&&value<=19.5;
     }
-    internal static bool SetTarget(CondOwner w2,ConsoleBinding? binding,string raw,out string reason)
+    internal static bool SetTarget(CondOwner w2,ConsoleBinding? binding,string raw,bool confirmed,out string reason)
     {
         reason=Text.Get("protected");if(!Definitions.Ready)return false;
         reason=Service.Access(w2,binding)??"";if(reason.Length>0)return false;
         if(!TryTarget(w2,out _)){reason=Text.Get("protected");return false;}
-        var s=Service.Get(w2);if(s.Protected||s.State.Running||s.State.Receiving){reason=Text.Get("water_pause");return false;}
-        if(!double.TryParse(raw,NumberStyles.Float,CultureInfo.InvariantCulture,out double target)||double.IsNaN(target)||target<0||target>19.5||!Settings(w2).TryWrite(new Dictionary<string,string>{["target"]=target.ToString("R",CultureInfo.InvariantCulture)})){reason=Text.Get("protected");return false;}
-        reason=Text.Get("done");return true;
+        var s=Service.Get(w2);if(s.Protected){reason=Text.Get("protected");return false;}
+        if(!double.TryParse(raw,NumberStyles.Float,CultureInfo.InvariantCulture,out double target)||double.IsNaN(target)||target<0||target>19.5){reason=Text.Get("protected");return false;}
+        // A working W2 pauses for the change and carries on (0.66.0); until then it had to be paused first.
+        var hold=new Service.Hold();hold.Add(s);
+        return Service.Go(hold,confirmed,()=>Settings(w2).TryWrite(new Dictionary<string,string>{["target"]=target.ToString("R",CultureInfo.InvariantCulture)})?null:Text.Get("protected"),()=>Text.Get("done"),out reason);
     }
     /// <summary>A water vessel reaches a W2 when both are ready on the same ship and they touch (within one tile) or
     /// share a process-water line (Agriculture 0.30.0). The R3's original edge-to-edge placement still qualifies.</summary>
@@ -69,7 +71,7 @@ internal static class BulkService
     internal static string LinkNote(CondOwner co)=>co.ship==null?"":VesselSide(co)
         ?Phobos.Ostranauts.Framework.Controls.LinkChoices.Note(co,LineFamilies.ProcessWater,co.ship.GetCOs(null,false,false,true).Where(c=>c!=co&&c.ship==co.ship&&IrrigationDefinitions.IsSupply(c)),Candidates(co))
         :Phobos.Ostranauts.Framework.Controls.LinkChoices.Note(co,LineFamilies.ProcessWater,BulkVessels.AboardAnyState(co.ship,LineFamilies.Water),Candidates(co));
-    internal static bool Link(CondOwner co,string id,ConsoleBinding? binding,out string reason)
+    internal static bool Link(CondOwner co,string id,ConsoleBinding? binding,bool confirmed,out string reason)
     {
         reason=Text.Get("protected");if(!Definitions.Ready)return false;
         reason=Service.Access(co,binding)??"";if(reason.Length>0)return false;
@@ -79,19 +81,24 @@ internal static class BulkService
         if(id!="none"&&candidates.Length==0){reason=Text.Get("bulk_pair");return false;}
         var pairs=candidates.Select(c=>(Tank:vessel?co:c,W2:vessel?c:co)).ToArray();
         if(pairs.Length==0&&!vessel)pairs=new[]{((CondOwner)null!,co)};
+        var hold=new Service.Hold();
         foreach(var (tank,w2) in pairs)
         {
-            if(w2!=null&&(Service.Get(w2).State.Running||Service.Get(w2).State.Receiving)){reason=Text.Get("water_pause");return false;}
             if((tank!=null&&Protected(tank))||(w2!=null&&Service.Get(w2).Protected)){reason=Text.Get("protected");return false;}
+            // Each W2 pauses for the change and carries on (0.66.0); until then each had to be paused first.
+            if(w2!=null)hold.Add(Service.Get(w2));
         }
-        foreach(var (tank,w2) in pairs)
+        return Service.Go(hold,confirmed,()=>
         {
-            if(id=="none"){if(w2!=null)WaterLink.Unlink(w2,Find);}
-            else if(!WaterLink.Link(w2!,tank!,Find,out reason))return false;
-            if(tank!=null)ConfigurationStamp.SuspendChangedOrder(tank);
-            if(w2!=null)ConfigurationStamp.SuspendChangedOrder(w2);
-        }
-        reason=Text.Get("done");return true;
+            foreach(var (tank,w2) in pairs)
+            {
+                if(id=="none"){if(w2!=null)WaterLink.Unlink(w2,Find);}
+                else if(!WaterLink.Link(w2!,tank!,Find,out var problem))return problem;
+                if(tank!=null)ConfigurationStamp.SuspendChangedOrder(tank);
+                if(w2!=null)ConfigurationStamp.SuspendChangedOrder(w2);
+            }
+            return null;
+        },()=>Text.Get("done"),out reason);
     }
     internal static ILiquidReservoir Endpoint(CondOwner co)=>new BulkVessel.Endpoint(co);
     internal static double Intake(CondOwner w2,ILiquidReservoir destination,double requested,bool commit)
@@ -113,14 +120,21 @@ internal static class BulkService
     {
         reason=Text.Get("protected");if(!Definitions.Ready)return false;
         reason=Service.Access(co,binding)??"";if(reason.Length>0)return false;
-        if(action.StartsWith("bulk-link:",StringComparison.Ordinal))return Link(co,action.Substring(10),binding,out reason);
+        bool confirmed=Confirmations.Split(ref action);
+        if(action.StartsWith("bulk-link:",StringComparison.Ordinal))return Link(co,action.Substring(10),binding,confirmed,out reason);
         if(action=="bulk-accept")return Accept(co,out reason);
         if(action!="pause"&&Protected(co)){reason=Text.Get("protected");return false;}
         try
         {
             if(action=="pause") {foreach(var w2 in Supplies(co)){Service.CrewSuspend(w2);CrewWork.ManualStop(w2);}CrewWork.ManualStop(co);reason=Text.Get("paused");return true;}
             if(action.StartsWith("bulk-reserve:",StringComparison.Ordinal))
-            {var s=Read(co);s.SetReserve(double.Parse(action.Substring(13),CultureInfo.InvariantCulture));Save(co,s);PauseSupply(co);reason=Text.Get("done");return true;}
+            {
+                var s=Read(co);s.SetReserve(double.Parse(action.Substring(13),CultureInfo.InvariantCulture));Save(co,s);
+                // Setting a reserve pauses the W2s this silo feeds, as it always has; since 0.66.0 the message names them.
+                var working=Supplies(co).Where(w2=>Service.Get(w2).State.Running||Service.Get(w2).State.Receiving).Select(ObjectPresentation.Name).ToList();
+                PauseSupply(co);
+                reason=working.Count==0?Text.Get("done"):Text.Get("bulk_reserve_paused",Service.ListText(working));return true;
+            }
             if(BulkDefinitions.Work.Contains(action)&&binding==null)
             {CrewSim.GetSelectedCrew().QueueInteraction(co,DataHandler.GetInteraction(BulkDefinitions.WorkId(action)));reason=Text.Get("queued");return true;}
             reason=Describe(co);return action=="status";

@@ -107,8 +107,10 @@ includes the numerical water plus any physical inventory exactly once.
 Full object IDs and a distinct `PhobosAgriculture.Water` logical port use
 Framework's existing reciprocal one-to-one pairing. Furnace/material port keys
 and saves are unchanged. Separate versioned mode records preserve old racks'
-direct/manual default. Selecting pipe-fed mode is explicit and paused; unpairing
-does **not** silently restore the direct provider bypass. Pumping and receiving
+direct/manual default. Selecting pipe-fed mode is explicit: since Agriculture
+0.66.0 the rack and its W2 pause for the change on the second press and carry on
+after it, instead of having to be paused first. Unpairing does **not** silently
+restore the direct provider bypass. Pumping and receiving
 that were running when you saved carry on after a reload; paused ends stay
 paused. The previous contents and bindings remain.
 
@@ -131,7 +133,11 @@ phobosagriculture start <full supply ID>
 phobosagriculture pause <full supply ID>
 phobosagriculture pause-receive <full rack ID>
 phobosagriculture water-legacy <full rack ID>
+phobosagriculture link-water <full supply ID> <full rack ID> confirm
 ```
+
+A command that offers to pause machines or remove an old link first says so; repeat
+it with `confirm` at the end to go ahead.
 
 Pairing from the local panel remains available without C1. C1 can control existing
 bindings and modes; physical loading stays local. Reads never pump or resume work.

@@ -37,6 +37,9 @@ public sealed class CrewPanel : GUIData
     private TMP_Text? diagnostics;
     // The buttons that light green when they are the next step (Framework 0.118.0).
     private Button? applyButton, resumeButton;
+    /// <summary>Resume with unsaved changes (0.125.0): the first press says the draft is applied first; the second does it.</summary>
+    private readonly PressGuard resumeGuard = new();
+    private const string ResumePress = "resume";
     private bool detailsOpen;
     private float next;
     private int previewHours=1;
@@ -232,9 +235,24 @@ public sealed class CrewPanel : GUIData
         diagnostics=C.Label(shell.Detail,C.Text("technical_identity",co.strCODef,co.strID));diagnostics.gameObject.SetActive(detailsOpen);
         detailButton.onClick.AddListener(()=>{detailsOpen=!detailsOpen;diagnostics.gameObject.SetActive(detailsOpen);detailButton.GetComponentInChildren<TMP_Text>().text=C.Text(detailsOpen?"hide_diagnostics":"diagnostics");});
         applyButton=C.Button(shell.Actions,C.Text("apply"),()=>Apply());C.Button(shell.Actions,C.Text("discard"),Discard);
-        resumeButton=C.Button(shell.Actions,C.Text("resume"),()=>{if(Dirty()){shell.Notice.text=C.Text("apply_first");return;}CrewWork.SetPermission(co,WorkPermission.Enabled);Edit(co);});
+        resumeButton=C.Button(shell.Actions,resumeGuard.Label(ResumePress,C.Text("resume")),()=>Resume(co));
         C.Accent(C.Button(shell.Actions,C.Text("stop"),()=>StopOrder(co)),C.Amber);RefreshActions();
         Canvas.ForceUpdateCanvases();shell.DetailScroll.verticalNormalizedPosition=scroll;
+    }
+    /// <summary>Resume, applying an unsaved draft first on the second press (Framework 0.125.0; until then it refused).</summary>
+    private void Resume(CondOwner co)
+    {
+        resumeGuard.Press(ResumePress,()=>
+        {
+            if(Dirty())
+            {
+                if(!Confirmations.Ask(C.Text("apply_first"),false,out var warning)){shell.Notice.text=warning;return false;}
+                if(!Apply())return false;
+            }
+            CrewWork.SetPermission(co,WorkPermission.Enabled);Edit(co);return true;
+        });
+        var label=resumeButton==null?null:resumeButton.GetComponentInChildren<TMP_Text>();
+        if(label!=null)label.text=resumeGuard.Label(ResumePress,C.Text("resume"));
     }
     private void StopOrder(CondOwner co)
     {CrewWork.SetPermission(co,WorkPermission.Stopped);if(draft?.Dirty!=true)Edit(co);else shell.Notice.text=C.Text("stopped_draft");}

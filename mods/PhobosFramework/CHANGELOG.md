@@ -29,6 +29,27 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.125.0] - 2026-10-06 - Draft
+
+### Added
+
+- Press twice to go ahead (owner rule, 6 October 2026). A change or button that needs other steps first, such as a machine paused for a moment, an old link removed or your unsaved changes applied, is no longer refused for that. The first press says in the notice what will be done, and the button reads Apply again or Start again; pressing it again does it. Machines paused for the change carry on afterwards and keep their standing crew orders; one that cannot, because it is damaged for example, stays paused and the notice says why. If anything changed between the two presses, the second says what it would now do and waits. In F3, end the command with confirm. Settings sheets and the shared Control Panel buttons work this way now; each content mod adopts it for its own machines.
+- For mod authors: the Confirmations, PressGuard and PausedChange services, and a confirmation card for knobs and guarded switches. An audit file and check keep every do-first refusal classified.
+
+### Changed
+
+- Crew panel: Resume with unsaved changes applies them on the second press instead of refusing.
+- Water silos: the refusal that mixed a silo fault with a transfer still running is now two, each saying what it is.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved; a pending second press is forgotten when the panel closes.
+
+### Compatibility and limits
+
+- Things a press cannot fix are still refused, with the reason: a hot machine, contents in a line, damage, a saved-contents fault, another ship or console, or a full link bank where you choose which link goes.
+- Manufacturing, Shipbreaker and Auto Nav adopt it in their next releases. Checked offline; not yet tested in play.
+
 ## [0.124.1] - 2026-10-06 - Draft
 
 ### Changed

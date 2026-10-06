@@ -51,6 +51,8 @@ public sealed class ProviderPanel : GUIData
     private TMP_Text readout = null!, live = null!;
     private ConsoleShell shell = null!;
     private readonly PresentationRefresh refresh = new(.5);
+    /// <summary>Press twice to go ahead (0.125.0): the action whose second press is awaited, and the warning it showed.</summary>
+    private readonly PressGuard guard = new();
     private IEquipmentPanelFields? Fields => spec.Provider as IEquipmentPanelFields;
 
     public static bool Show(string key, CondOwner co)
@@ -128,14 +130,15 @@ public sealed class ProviderPanel : GUIData
         {
             C.Heading(shell.Detail, C.Text("actions"));
             var row = C.Row(shell.Detail);
-            foreach (var action in spec.Provider.Snapshot(co).Actions) { var a = action; C.Button(row, a.Label, () => Execute(co, a.Id)); }
+            foreach (var action in spec.Provider.Snapshot(co).Actions) { var a = action; C.Button(row, guard.Label(a.Id, a.Label), () => Execute(co, a.Id)); }
         }
-        C.Button(shell.Actions, C.Text("stop"), () => Execute(co, spec.StopAction));
+        C.Button(shell.Actions, guard.Label(spec.StopAction, C.Text("stop")), () => Execute(co, spec.StopAction));
         C.Button(shell.Actions, C.Text("details"), () => { tab = "details"; Page(co); }); C.Button(shell.Actions, C.Text("close"), shell.Close); Refresh(co);
     }
     private void Execute(CondOwner co, string action)
     {
-        bool success = spec.Provider.Command(co, null, action, out result);
+        // A refusal that offers to do the steps first arms this action; pressing it again goes ahead (0.125.0).
+        bool success = guard.Press(action, () => spec.Provider.Command(co, null, action, out result));
         result = PanelFeedback.Additional(success, result, spec.Provider.Snapshot(co).Activity.Detail);
         Page(co);
         shell.Notice.text = result;

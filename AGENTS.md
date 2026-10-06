@@ -186,6 +186,16 @@ delivery in the changelog and design record, and add or amend only the rule here
   controls through the same services. Every panel choice is listed by its provider's
   `IsConfiguration`, or Apply refuses it. Provider-driven equipment uses Framework's shared
   `ProviderPanel`; the D4, R4, F6, G4, C2 and cooling assemblies keep the industrial panel.
+- **Press twice to go ahead** (owner, 2026-10-06, every panel screen and F3 command in every
+  mod, retroactively): a change or button that needs other steps first (pausing machines or
+  intakes, removing an old link, applying a draft, stopping work, cancelling a batch) never
+  refuses for that reason. The first press warns what will be done, including progress lost;
+  a second press on the same choice does it through the service and lets paused machines
+  carry on without ending their crew orders (Framework `Confirmations`, `PressGuard`,
+  `PausedChange`). Only what the service cannot clear (heat, contents, faults, damage, another
+  ship or console, a choice only the player makes) refuses, naming the machine and the step.
+  Classify every do-first refusal in `config/panel-override-audit.json` and keep
+  `scripts/audit-panel-overrides.py --check` passing (`docs/development/panel-override-audit.md`).
 - **Native definitions first**, C# where the data system cannot express it. Never republish a
   native definition by name; amend in place (`DefinitionAmendments`, `NativeDefinitions.Amend`).
 - **Vanilla precedence** (`docs/development/vanilla-precedence-audit.md`): the game's own

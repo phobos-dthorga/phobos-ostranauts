@@ -27,6 +27,7 @@ InstrumentNumberChecks.Run(Check);
 PanelPresentationChecks.Run(Check);
 ConsoleDraftChecks.Run(Check);
 PanelFeedbackChecks.Run(Check);
+ConfirmationChecks.Run(Check);
 LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);

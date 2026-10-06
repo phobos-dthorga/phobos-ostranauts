@@ -73,59 +73,109 @@ internal static partial class Service
         return tiles > RouteTileLimit ? null : new Branch(tiles, true);
     }
 
-    private static bool? WaterCommand(Session s, string action, out string message)
+    /// <summary>Water link changes. Since Agriculture 0.66.0 (Framework 0.125.0, owner rule) the machines a change needs
+    /// paused are paused for it and carry on afterwards, and a rack linked to another W2 is unlinked from it, after the
+    /// player's second press; until then each was a refusal. Only what pausing cannot fix is refused.</summary>
+    private static bool? WaterCommand(Session s, string action, bool confirmed, out string message)
     {
         message = "";
         if (!action.StartsWith("link-water:", StringComparison.Ordinal) && action != "unlink-water" && action != "water-routed" && action != "water-legacy") return null;
         var co = s.Object;
-        if (WorkupDefinitions.IsBench(co) || Definitions.IsCooker(co) || !Paused(s) || !NativeFluidRoute.EndpointReady(co)) { message = Text.Get("water_pause"); return false; }
+        if (WorkupDefinitions.IsBench(co) || Definitions.IsCooker(co)) { message = Text.Get("help"); return false; }
+        if (!NativeFluidRoute.EndpointReady(co)) { message = Text.Get("water_not_ready", ObjectPresentation.Name(co)); return false; }
+        var hold = new Hold();
+        string Status() => Describe(co);
         if (action == "water-routed" || action == "water-legacy")
         {
             if (IrrigationDefinitions.IsSupply(co)) { message = Text.Get("help"); return false; }
-            var peer = WaterPeer(co);
-            if (peer != null && Definitions.Machine(peer) && !Paused(Get(peer))) { message = Text.Get("water_pause"); return false; }
             if (!s.Line.Empty) { message = Text.Get("line_drain"); return false; }
-            SetWaterMode(s, action == "water-routed");
-            // Choosing pipe-fed water on a linked rack is asking for that water: intake on, and the W2's pump with it
-            // (0.54.0). Until then the choice switched intake off and said nothing.
-            if (s.Routed && WaterPeer(co) != null) { s.State.Receiving = true; s.Notice = Text.Get(StartPumpFor(co) ? "did_routed_pump" : "did_routed"); }
-            else s.Notice = Text.Get(s.Routed ? "did_routed_unlinked" : "did_legacy");
-            message = Describe(co); return true;
+            var peer = WaterPeer(co);
+            if (peer != null && Definitions.Machine(peer))
+            {
+                if (PeerFault(co, peer) is string fault) { message = fault; return false; }
+                hold.Add(Get(peer));
+            }
+            hold.Add(s, keepIntake: false);
+            return Go(hold, confirmed, () =>
+            {
+                SetWaterMode(s, action == "water-routed");
+                // Choosing pipe-fed water on a linked rack is asking for that water: intake on, and the W2's pump with it
+                // (0.54.0). Until then the choice switched intake off and said nothing.
+                if (s.Routed && WaterPeer(co) != null) { s.State.Receiving = true; s.Notice = Text.Get(StartPumpFor(co) ? "did_routed_pump" : "did_routed"); }
+                else s.Notice = Text.Get(s.Routed ? "did_routed_unlinked" : "did_legacy");
+                return null;
+            }, Status, out message);
         }
         if (action == "unlink-water" && IrrigationDefinitions.IsSupply(co))
         {
-            var peers = WaterBank(co).Ports.Select(p => (Port:p, Link:PortPairing.Read(p))).ToArray();
-            if (peers.Any(x => x.Link.State == PortLinkState.Linked && Resolve(x.Link.PeerObjectId) is CondOwner peer &&
-                (!Definitions.Machine(peer) || peer.ship!=co.ship || !NativeFluidRoute.EndpointReady(peer) || Get(peer).Protected || WaterGuard(peer).Protected || LineGuard(peer).Protected || !Paused(Get(peer)) || !Get(peer).Line.Empty)))
-            { message = Text.Get("water_pause"); return false; }
-            foreach (var x in peers) { var peer=Resolve(x.Link.PeerObjectId); PortPairing.Unlink(x.Port,peer==null?null:WaterPort(peer)); }
-            message=Describe(co); return true;
+            var peers = WaterBank(co).Ports.Select(p => (Port: p, Link: PortPairing.Read(p))).ToArray();
+            hold.Add(s);
+            foreach (var x in peers)
+            {
+                if (x.Link.State != PortLinkState.Linked || Resolve(x.Link.PeerObjectId) is not CondOwner peer) continue;
+                if (PeerFault(co, peer) is string fault) { message = fault; return false; }
+                if (!Get(peer).Line.Empty) { message = Text.Get("line_drain_named", ObjectPresentation.Name(peer)); return false; }
+                hold.Add(Get(peer), keepIntake: false);
+            }
+            return Go(hold, confirmed, () =>
+            {
+                foreach (var x in peers) { var peer = Resolve(x.Link.PeerObjectId); PortPairing.Unlink(x.Port, peer == null ? null : WaterPort(peer)); }
+                s.Notice = Text.Get("did_unlink"); return null;
+            }, Status, out message);
         }
-        if(!s.Line.Empty) { message=Text.Get("line_drain"); return false; }
+        if (!s.Line.Empty) { message = Text.Get("line_drain"); return false; }
         var other = action == "unlink-water" ? WaterPeer(co) : Resolve(action.Substring("link-water:".Length));
-        if (other != null && (!Definitions.Machine(other) || Definitions.IsCooker(other) || co.ship != other.ship ||
-            IrrigationDefinitions.IsSupply(co) == IrrigationDefinitions.IsSupply(other) || !NativeFluidRoute.EndpointReady(other) ||
-            Get(other).Protected || WaterGuard(other).Protected || !Paused(Get(other))))
-        { message = Text.Get("water_pause"); return false; }
+        if (other != null)
+        {
+            if (PeerFault(co, other) is string fault) { message = fault; return false; }
+            if (IrrigationDefinitions.IsSupply(co) == IrrigationDefinitions.IsSupply(other)) { message = Text.Get("water_wrong_kind"); return false; }
+        }
         if (action == "unlink-water")
         {
-            PortPairing.Unlink(WaterPort(co), other == null ? null : WaterBank(other).ForReceiver(WaterPort(co)));
-            // Deliberately retain routed mode; unlink never re-enables a bypass.
-            s.Notice = Text.Get("did_unlink"); message = Describe(co); return true;
+            // From a rack: its one W2. Deliberately retain routed mode; unlink never re-enables a bypass.
+            if (other != null) hold.Add(Get(other));
+            hold.Add(s, keepIntake: false);
+            return Go(hold, confirmed, () =>
+            {
+                PortPairing.Unlink(WaterPort(co), other == null ? null : WaterBank(other).ForReceiver(WaterPort(co)));
+                s.Notice = Text.Get("did_unlink"); return null;
+            }, Status, out message);
         }
         if (other == null) { message = Text.Get("water_missing"); return false; }
         if (!Piped(co, other)) { message = Text.Get("water_no_conduit"); return false; }
         var source = IrrigationDefinitions.IsSupply(co) ? co : other;
         var rack = source == co ? other : co;
         var sourceState = Get(source); var rackState = Get(rack);
-        if (!rackState.Line.Empty) { message=Text.Get("line_drain"); return false; }
-        if (!WaterBank(source).TryLink(WaterPort(rack), out message)) return false;
-        SetWaterMode(rackState, true);
-        // Linking a rack is asking for its water (0.54.0): the rack's intake goes on and the W2's pump starts. Both can
-        // still be switched off at their own panels.
-        rackState.State.Receiving = true; StartPumpFor(rack);
-        rackState.Notice = Text.Get("did_link", ObjectPresentation.Name(source)); sourceState.Notice = Text.Get("did_link_supply", ObjectPresentation.Name(rack));
-        message = Describe(co); return true;
+        if (!rackState.Line.Empty) { message = Text.Get("line_drain_named", ObjectPresentation.Name(rack)); return false; }
+        var bank = WaterBank(source); var rackPort = WaterPort(rack);
+        if (bank.For(rackPort) != null) { message = Text.Get("water_already_linked", ObjectPresentation.Name(rack), ObjectPresentation.Name(source)); return true; }
+        // Which rack a full W2 should drop is the player's choice, so a full W2 still refuses, and before anything changes.
+        if (!bank.Ports.Any(p => PortPairing.Read(p).State == PortLinkState.Unlinked)) { message = Text.Get("water_bank_full", ObjectPresentation.Name(source)); return false; }
+        var old = PortPairing.Read(rackPort);
+        var oldSource = old.State == PortLinkState.Linked ? Resolve(old.PeerObjectId) : null;
+        bool oldMachine = oldSource != null && Definitions.Machine(oldSource) && IrrigationDefinitions.IsSupply(oldSource);
+        if (old.State != PortLinkState.Unlinked)
+        {
+            if (oldMachine)
+            {
+                if (PeerFault(rack, oldSource!) is string fault) { message = fault; return false; }
+                hold.Add(Get(oldSource!));
+                hold.Steps.Add(Text.Get("override_unlink", ObjectPresentation.Name(rack), ObjectPresentation.Name(oldSource!)));
+            }
+            else hold.Steps.Add(Text.Get("override_clear_link", ObjectPresentation.Name(rack)));
+        }
+        hold.Add(rackState, keepIntake: false); hold.Add(sourceState);
+        return Go(hold, confirmed, () =>
+        {
+            if (old.State != PortLinkState.Unlinked) PortPairing.Unlink(rackPort, oldMachine ? WaterBank(oldSource!).ForReceiver(rackPort) : null);
+            if (!bank.TryLink(rackPort, out var problem)) return problem;
+            SetWaterMode(rackState, true);
+            // Linking a rack is asking for its water (0.54.0): the rack's intake goes on and the W2's pump starts. Both can
+            // still be switched off at their own panels.
+            rackState.State.Receiving = true; StartPumpFor(rack);
+            rackState.Notice = Text.Get("did_link", ObjectPresentation.Name(source)); sourceState.Notice = Text.Get("did_link_supply", ObjectPresentation.Name(rack));
+            return null;
+        }, Status, out message);
     }
     private static IEnumerable<Session> Destinations(Session source, bool requireReceiving)
     {

@@ -58,9 +58,16 @@ never join each other: a conduit run from a silo to a W2 does nothing, and the W
 One W2 can explicitly pair with **eight racks** using the existing Pair controls.
 An existing saved pair occupies slot zero unchanged. Each rack still accepts one
 supplier and chooses its own receiving permission.
-At a rack, Unpair removes that rack's link; at the W2 it removes all links after
-the receiving lines are drained and all endpoints are paused. Invalid/future
-port records occupy their slots instead of being silently overwritten.
+At a rack, Unpair removes that rack's link; at the W2 it removes all links once
+the receiving lines are drained. Invalid/future port records occupy their slots
+instead of being silently overwritten.
+
+**No pausing first** (Agriculture 0.66.0). Linking a rack that is already linked to
+another W2, or changing any water link while machines run, no longer refuses. The
+first Apply says what will happen: which machines pause for the change, and which
+old link is removed. Apply again does it, and the paused machines carry on. A
+full W2 (eight racks) still refuses, because which rack it drops is your choice;
+so does water left in a rack from the old line model.
 
 A W2 and a rack join when irrigation pipe runs from under or right beside one to
 under or right beside the other, or when they sit within one tile of each other

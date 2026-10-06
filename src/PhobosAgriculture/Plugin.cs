@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.119.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.125.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.65.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.66.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -117,13 +117,15 @@ internal static class ConsolePatch
 {
     private static bool Prefix(ref string strInput, ref bool __result)
     {
-        var parts = strInput.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        // A trailing confirm word goes ahead with the steps a refusal offered (0.66.0).
+        var parts = Phobos.Ostranauts.Framework.Controls.Confirmations.TakeWord(strInput.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), out bool confirmed);
         if (parts.Length == 0 || !parts[0].Equals("phobosagriculture", StringComparison.OrdinalIgnoreCase)) return true;
         if (parts.Length == 1 || parts[1] == "list")
         { strInput += "\n" + string.Join("\n", CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, false, false, true).Where(Definitions.Machine).Select(c => c.strNameFriendly + " " + c.strID) ?? Array.Empty<string>()); __result = true; return false; }
         var co = parts.Length >= 3 ? Service.Resolve(parts[2]) : null;
         string message = Text.Get("help");
         string action = parts[1] == "link-water" && parts.Length == 4 ? "link-water:" + parts[3] : parts[1];
+        if (confirmed) action = Phobos.Ostranauts.Framework.Controls.Confirmations.Confirmed(action);
         __result = Definitions.Machine(co) && Service.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }
 }

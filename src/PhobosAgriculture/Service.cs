@@ -340,9 +340,11 @@ internal static partial class Service
     }
     private static bool CheckedCommand(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
-        if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-target:",StringComparison.Ordinal))return BulkService.SetTarget(co,binding,action.Substring(12),out message);
+        // A text command confirmed with its trailing word arrives with the confirm prefix (0.66.0).
+        bool confirmed = Confirmations.Split(ref action);
+        if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-target:",StringComparison.Ordinal))return BulkService.SetTarget(co,binding,action.Substring(12),confirmed,out message);
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
-        if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-link:",StringComparison.Ordinal))return BulkService.Link(co,action.Substring(10),binding,out message);
+        if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-link:",StringComparison.Ordinal))return BulkService.Link(co,action.Substring(10),binding,confirmed,out message);
         if (action == "status") { message = Describe(co); return true; }
         if (action == "accept") return Accept(co, out message);
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
@@ -360,18 +362,21 @@ internal static partial class Service
         }
         if (IrrigationDefinitions.IsSupply(co) && (action.StartsWith("dose:",StringComparison.Ordinal) || action == "dose-inventory" || action == "dose-off"))
         {
-            if(!Paused(s)) {message=Text.Get("water_pause");return false;}
             var selected=action=="dose-inventory"?DoseCandidates(s).OrderBy(c=>c.strID,StringComparer.Ordinal).FirstOrDefault():action=="dose-off"?null:DoseCandidates(s).FirstOrDefault(c=>c.strID==action.Substring(5));
             if(selected==null && action!="dose-off"){message=Text.Get("dose_empty");return false;}
-            s.DoseId=selected?.strID??"";Save(s);message=Describe(co);return true;
+            // The W2 pauses for the change and carries on (0.66.0); until then it had to be paused first.
+            var dose=new Hold();dose.Add(s);
+            return Go(dose,confirmed,()=>{s.DoseId=selected?.strID??"";Save(s);return null;},()=>Describe(co),out message);
         }
         if (WorkupDefinitions.IsBench(co))
         {
-            if (action == "cancel-workup" && Paused(s)) { s.Workup = new(); Save(s); message = Describe(co); return true; }
+            // A working bench stops for the change and carries on (0.66.0). Cancelling while it ran used to fall through to
+            // the help text; emptying the press used to refuse.
+            if (action == "cancel-workup") { var bench = new Hold(); bench.Add(s); return Go(bench, confirmed, () => { s.Workup = new(); Save(s); return null; }, () => Describe(co), out message); }
             if (action == "empty-press")
             {
-                if (!Paused(s)) { message = Text.Get("press_pause"); return false; }
-                bool emptied = EmptyPress(s); message = s.Notice; return emptied;
+                var press = new Hold(); press.Add(s);
+                return Go(press, confirmed, () => EmptyPress(s) ? null : s.Notice, () => s.Notice, out message);
             }
             if (WorkupDefinitions.IsWork(action))
             {
@@ -382,8 +387,12 @@ internal static partial class Service
             if (action != "pause" && s.Workup.Mode.Length == 0 && !PressWork(s)) { message = Text.Get(s.Press.Empty ? "workup_input" : "press_short"); return false; }
         }
         else if (WorkupDefinitions.IsWork(action) || action == "cancel-workup" || action == "empty-press") { message = Text.Get("help"); return false; }
-        if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
-        if (WaterCommand(s, action, out message) is bool handled) return handled;
+        if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co))
+        {
+            var recovery=new Hold();recovery.Add(s);
+            return Go(recovery,confirmed,()=>{s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);return null;},()=>Describe(co),out message);
+        }
+        if (WaterCommand(s, action, confirmed, out message) is bool handled) return handled;
         if (Definitions.Work.Contains(action))
         {
             if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain" && action != "recover-solution") { message = Text.Get("local_work"); return false; }
@@ -400,7 +409,19 @@ internal static partial class Service
                     if (raw == null) { message = Text.Get("missing_input"); return false; }
                     s.State.CookerInput = raw.strID;
                 }
-                if (Definitions.IsCooker(co) && CookerInput(s) == null) { message = Text.Get("cancel_missing"); return false; }
+                if (Definitions.IsCooker(co) && CookerInput(s) == null)
+                {
+                    // The batch's portion is gone (0.66.0): the second press cancels the batch, losing its cooking so far,
+                    // and starts a new one from what the cooker holds. Until then this refused (cancel_missing).
+                    var fresh = new Hold(); fresh.Steps.Add(Text.Get("override_cancel_cooking", s.State.CookerProgress / CookerKWh(s) * 100));
+                    return Go(fresh, confirmed, () =>
+                    {
+                        s.Watch.Cancel(); s.State.CookerInput = ""; s.State.CookerProgress = 0;
+                        var raw = Cookable(co);
+                        if (raw == null) { s.State.Running = false; Save(s); return Text.Get("missing_input"); }
+                        s.State.CookerInput = raw.strID; s.State.Running = true; s.Notice = Text.Get("did_start"); Save(s); return null;
+                    }, () => Describe(co), out message);
+                }
                 s.State.Running = true; did = "did_start"; break;
             case "pause": s.Watch.Cancel(); s.State.Running = false; did = "did_pause"; break;
             case "cancel":

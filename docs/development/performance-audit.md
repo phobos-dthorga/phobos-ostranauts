@@ -1204,6 +1204,14 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 6 October: press twice to go ahead (L85)
+
+L85 — Framework 0.125.0 and Agriculture 0.66.0, owner rule. The change is in command
+and panel paths, which run only when the player presses something: a press records
+one string, and a confirmed change builds a short list of the machines it pauses. No
+per-step or per-frame code changed; Agriculture's machine step is untouched by this
+round. No capture accompanies this change.
+
 ## 6 October: Agriculture time skips and stress causes (L84)
 
 L84 — Agriculture 0.65.0, owner report. Each rack, W2, cooker and bench step reads one
