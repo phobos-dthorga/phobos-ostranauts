@@ -56,6 +56,33 @@ fault by hard-coding names in story JSON or deleting the lead-in.
 - Review the conversation and social log, then another moment such as joke or
   complaint. Offline checks do not substitute for this gameplay review.
 
+## Resolution (Framework 0.121.0, Claude, 6 October 2026)
+
+**Cause, observed in the decompiled game code, not yet in play.**
+`GrammarUtils.GetInflectedString` returns its input unchanged unless that exact string is a
+key of `GrammarUtils.inflectedStrings`. The game fills that table once, at load, through
+the private `DataHandler.PrepareInflectedString(object, string)` for every interaction
+and condition description. `StoryChatter.Choose` composed a new string (lead-in plus line)
+that the game had never prepared, so its tokens came back as written.
+
+**Fix.**
+- The new shared `Social.Grammar.Inflect`
+  ([Grammar.cs](../../src/PhobosFramework/Social/Grammar.cs)) prepares the moment's
+  lead-in once through the game's own method, found by name and parameter types, with a
+  placeholder where the line goes.
+- It then inflects the lead-in for the interaction's speakers and only afterwards puts
+  the line in. The table therefore gains nine lead-ins per language, and brackets in a
+  story line are never read as tokens.
+- The memo, the native interaction, its effects and AI history are unchanged.
+  `GenerateDescription` is never re-entered.
+- If the method is missing in a later game version, or a token stays unexpanded, the
+  game's own line is kept and the log says so once.
+
+**Checked offline.** The native suite loads the game's own `tokens/` files, unpacks them
+with the game's `UnpackTokens`, and confirms that every token of all nine lead-ins
+prepares. Full inflection needs live speakers, so the owner reproduction above remains
+the gameplay check.
+
 Use the normal Framework version, changelog, localization, build and installation
 workflow for the eventual fix. The
 [story authoring guide](../writing-story-content.md) documents the moments and

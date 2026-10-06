@@ -27,7 +27,7 @@
           },
           "objective": {
             "title": "Read the freight estimate at [place]",
-            "description": "Allow one hour for a comparison copy, then be docked at this station. No fee, goods or departure are required."
+            "description": "Give the estimators an hour to copy the comparison, then be docked at [place]."
           },
           "tests": [
             {
@@ -56,7 +56,7 @@
           },
           "objective": {
             "title": "Receive the captain's reply",
-            "description": "After three more hours, be docked at [place] to receive the complete comparison. The circle pays 300 credits once. There is no departure deadline."
+            "description": "Three hours later, be docked at [place] for the full comparison. The estimators' circle pays 300 credits once. No departure date is set."
           },
           "tests": [
             {
@@ -109,7 +109,7 @@
           },
           "objective": {
             "title": "Receive the old maintenance label",
-            "description": "Allow one hour for the copied account. It requires no equipment purchase or salvage trip."
+            "description": "Give it an hour for the copied maintenance account to arrive."
           },
           "tests": [
             {
@@ -135,7 +135,7 @@
           },
           "objective": {
             "title": "Compare the battery labels at [place]",
-            "description": "Bring a Bingham-12 EVA battery in your carried inventory while docked here. Any battery of that kind counts; it is kept, and no charge or serial is checked."
+            "description": "Be docked at [place] with a Bingham-12 EVA battery on you (a bag counts). Any battery of that kind will do, and you keep it."
           },
           "tests": [
             {
@@ -166,7 +166,7 @@
           },
           "objective": {
             "title": "Wait for the former maintainer's reply",
-            "description": "Allow two hours for the reply and archive card. No wages, ownership or equipment state changes."
+            "description": "Give the former maintainer two hours to reply. An archive card comes with it."
           },
           "tests": [
             {
@@ -215,7 +215,7 @@
           },
           "objective": {
             "title": "Wait for the neighbours' contact sheet",
-            "description": "Allow one hour for a copy. Nobody gains access to your ship, tenancy or contacts."
+            "description": "Give the neighbours an hour to send a copy of their contact sheet."
           },
           "tests": [
             {
@@ -241,7 +241,7 @@
           },
           "objective": {
             "title": "Receive the revised sheet at [place]",
-            "description": "Allow four more hours, then be docked here. Receive the neighbours' agreement on an archive card. It does not register your own address."
+            "description": "Four hours later, be docked at [place] for the neighbours' agreement on an archive card."
           },
           "tests": [
             {
@@ -293,7 +293,7 @@
           },
           "objective": {
             "title": "Receive the old petition covers",
-            "description": "Allow two hours for the copied covers. This correspondence changes no building or rent."
+            "description": "Give it two hours for the copied petition covers to arrive."
           },
           "tests": [
             {
@@ -319,7 +319,7 @@
           },
           "objective": {
             "title": "Receive the dated comparison at [place]",
-            "description": "Allow six more hours and be docked here. A civil engineering skill can finish the drawing comparison sooner; it performs no repair."
+            "description": "Six hours later, be docked at [place]. If you have civil engineering skill, you finish the comparison sooner."
           },
           "tests": [
             {
@@ -398,7 +398,7 @@
           },
           "objective": {
             "title": "Receive the sender's account",
-            "description": "Allow one hour for the first description. No cargo is supplied or requested."
+            "description": "Give it an hour for the sender's description to arrive."
           },
           "tests": [
             {
@@ -424,7 +424,7 @@
           },
           "objective": {
             "title": "Read the paired accounts at [place]",
-            "description": "After three more hours, be docked here to receive the archive. Neither description changes prices, duties or faction standing."
+            "description": "Three hours later, be docked at [place] for both accounts."
           },
           "tests": [
             {
@@ -476,7 +476,7 @@
           },
           "objective": {
             "title": "Receive the yard launch letter",
-            "description": "Allow one hour for the first copy. This grants no shipyard access or work contract."
+            "description": "Give it an hour for the launch letter to arrive."
           },
           "tests": [
             {
@@ -502,7 +502,7 @@
           },
           "objective": {
             "title": "Receive the family's reply at [place]",
-            "description": "Allow four more hours, then be docked here. The correspondence pays no launch bonus and changes no work roster."
+            "description": "Four hours later, be docked at [place] for the family's reply."
           },
           "tests": [
             {
@@ -554,7 +554,7 @@
           },
           "objective": {
             "title": "Receive the abandoned works list",
-            "description": "Allow two hours for the list. No expedition or entry into an abandoned site is required."
+            "description": "Give it two hours for the contractor's works list to arrive."
           },
           "tests": [
             {
@@ -580,7 +580,7 @@
           },
           "objective": {
             "title": "Read the annotated list at [place]",
-            "description": "After six hours, be docked here. Mechanical engineering can read the notes sooner; neither route inspects or repairs the site."
+            "description": "Six hours later, be docked at [place]. If you have mechanical engineering skill, you read the notes sooner."
           },
           "tests": [
             {
@@ -658,7 +658,7 @@
           },
           "objective": {
             "title": "Receive the worker's visa account",
-            "description": "Allow two hours for the letter. It grants no visa, residency, employment or access."
+            "description": "Give it two hours for the worker's letter about their visa to arrive."
           },
           "tests": [
             {
@@ -684,7 +684,7 @@
           },
           "objective": {
             "title": "Receive the family's answer at [place]",
-            "description": "Allow four more hours and be docked here. This closes the correspondence without paying a debt or changing the worker's terms."
+            "description": "Four hours later, be docked at [place] for the family's answer."
           },
           "tests": [
             {
@@ -736,7 +736,7 @@
           },
           "objective": {
             "title": "Receive the night-shift account",
-            "description": "Allow one hour for a copied account. No laboratory access or research result is provided."
+            "description": "Give it an hour for the copied night-shift account to arrive."
           },
           "tests": [
             {
@@ -762,7 +762,7 @@
           },
           "objective": {
             "title": "Receive the recording notes at [place]",
-            "description": "Allow six hours and be docked here. Electrical engineering can compare the copied notes sooner. No real recording, device or room is inspected."
+            "description": "Six hours later, be docked at [place]. If you have electrical engineering skill, you compare the notes sooner."
           },
           "tests": [
             {
@@ -840,7 +840,7 @@
           },
           "objective": {
             "title": "Receive the delayed shipment account",
-            "description": "Allow two hours for the invoice copies. No search or cargo delivery is required."
+            "description": "Give it two hours for the copied invoices to arrive."
           },
           "tests": [
             {
@@ -866,7 +866,7 @@
           },
           "objective": {
             "title": "Receive the family copy at [place]",
-            "description": "Allow five more hours and be docked here. No recovery, insurance payment or search mission follows."
+            "description": "Five hours later, be docked at [place] for the family's copy."
           },
           "tests": [
             {
@@ -918,7 +918,7 @@
           },
           "objective": {
             "title": "Receive the first family letter",
-            "description": "Allow one hour for the copy. The letter gives no passage or route through the blockade."
+            "description": "Give it an hour for the first family letter to arrive."
           },
           "tests": [
             {
@@ -944,7 +944,7 @@
           },
           "objective": {
             "title": "Receive the paired letters at [place]",
-            "description": "After four hours, be docked here for the archive card. The blockade, cargo permissions and faction standing remain unchanged."
+            "description": "Four hours later, be docked at [place] for both letters on an archive card."
           },
           "tests": [
             {
@@ -996,7 +996,7 @@
           },
           "objective": {
             "title": "Receive the dockside book",
-            "description": "Allow one hour for the payer's account. No debt, payment or collection is attached to your character."
+            "description": "Give it an hour for the payer's account to arrive."
           },
           "tests": [
             {
@@ -1022,7 +1022,7 @@
           },
           "objective": {
             "title": "Receive the compared books at [place]",
-            "description": "After four hours, be docked here. The parties settle their own account; your money and faction standing are unchanged."
+            "description": "Four hours later, be docked at [place] for the compared books."
           },
           "tests": [
             {
@@ -1080,7 +1080,7 @@
           },
           "objective": {
             "title": "Receive the unhurried family letter",
-            "description": "Allow one hour for the copy. The next goal is a journey to Titan's shipyards with no deadline. Dismiss this chain if that journey is not for you."
+            "description": "Give it an hour for the copy to arrive. The next goal is a trip to Titan's shipyards whenever it suits you; dismiss this goal if that trip is not for you."
           },
           "tests": [
             {
@@ -1112,7 +1112,7 @@
           },
           "objective": {
             "title": "Visit the shipyards on Titan when convenient",
-            "description": "Dock at the Titan shipyard station when your own route takes you there. No arrival deadline, return trip or carried card is required. Receipt pays 600 credits once."
+            "description": "Dock at the Titan shipyard station whenever your own route takes you there. There is no deadline. The receipt pays 600 credits once."
           },
           "tests": [
             {
@@ -1138,7 +1138,7 @@
           },
           "objective": {
             "title": "Receive the family answer",
-            "description": "Allow one hour, then be docked at the Titan shipyard station for the reply and 600-credit receipt. There is no requirement to go back."
+            "description": "An hour later, be docked at the Titan shipyard station for the reply and the 600-credit receipt."
           },
           "tests": [
             {

@@ -167,6 +167,14 @@ as "Name, role" and the person can be named in text with `[person:key]`:
 | `role` | no | Up to 40 characters, shown after the name. |
 | `home` | yes | A place key. Everyone lives somewhere. |
 | `faction` | no | The game's faction name they belong to, for your reference. |
+| `face` | no | The look of the face the game makes for them (Framework 0.121.0): `masculine`, `feminine` or `any` (the default). |
+
+A goal from a person shows their face in the GOALS list. The face is built from the
+game's own portrait parts, rolled once the first time it is needed and kept in the
+player's save, so a correspondent looks the same for that whole game. A goal from no one
+in particular shows the game's wrist PDA picture. A goal also ends with a line naming who
+it is from, such as "From Orra Pell, equipment broker (Port Mojave).", so you need not say so in its
+description.
 
 **Threads** (`threads`) tie a story together. An entry that names a `thread` inherits
 the thread's `place` unless it names its own, and must meet the thread's `requires` as
@@ -323,7 +331,12 @@ Each step:
 | --- | --- | --- |
 | `id` | yes | Lower case and hyphens, unique in the arc. It is saved with the player's goal, so do not rename it after people play it. |
 | `delivery` | no | What the player is told as the step begins: a `message` (`from` and `text`, shown in the crew log) and/or a `bulletin`, the id of a news item the next TV news shows. |
-| `objective` | no | A goal in the GOALS list: `title` (up to 60 characters) and `description` (up to 300). A step without one waits unseen. |
+| `objective` | no | A goal in the GOALS list: `title` (up to 60 characters), `description` (up to 300) and, since Framework 0.121.0, `person`: whose face it shows and who it is from. Left out, that is the sender of the step's letter, else the last sender before it in the arc. A step without an objective waits unseen. |
+
+Write a goal as the player's next move and what it is for, in the story's own terms:
+"Give the broker two hours to write back", "Be at [place] with one bottle of Alembrine
+Spirit on you (a bag counts). You keep it." Say what a player could wrongly fear, such as
+losing an item or a deadline, but do not list everything the goal does not do.
 | `tests` | yes | 1 to 4 tests; all must pass to finish the step. |
 | `onComplete` | no | A `message`; `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them; `credits` (up to 50,000) paid to the player with a line in the game's ledger; and `files` (up to five data file ids) on one data card. |
 | `next` | no | The step that follows: another step's `id`, or `end`. By default the next step in order, or the end after the last. |
@@ -539,7 +552,7 @@ file only, no commentary, following these rules exactly.
 
 Format:
 { "schemaVersion": 1, "schema": "story",
-  "people":     { "<id>": { "name": "...", "role": "...", "home": "<place key>" } },
+  "people":     { "<id>": { "name": "...", "role": "...", "home": "<place key>", "face": "masculine, feminine or any" } },
   "threads":    { "<id>": { "title": "...", "place": "<place key>", "people": [ "<person id>" ], "requires": { ... } } },
   "broadcasts": { "<id>": { "thread": "<thread id>", "text": "...", "weight": 1, "once": false, "mention": "...", "requires": { ... } } },
   "adverts":    { "<id>": { "thread": "<thread id>", "text": "..." } },
@@ -575,6 +588,10 @@ Rules:
   message text at most 400; goal title at most 60 and description at most 300. A news
   item in a thread needs no region (its place gives one); one without a thread needs
   "region": Shipping & Inner System, Tharsis or Outer System.
+- Goals: write the title and description as the player's next move and its purpose
+  in the story ("Give the broker two hours to write back"). The game adds who the goal
+  is from and shows their face. Mention only what a player could wrongly fear (losing
+  an item, a deadline); never list what the goal does not do, check or change.
 - Small talk: moment is one of headline, joke, complaint, story, jargon, superstition,
   worry, question, small-talk. The line is what the speaker says, at most 200
   characters, written as speech. speakers is anyone, crew (aboard the player's ships),

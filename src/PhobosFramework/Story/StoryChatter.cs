@@ -52,7 +52,9 @@ internal static class StoryChatter
             if (line == null) return null;
         }
         string said = StoryArcs.Fill(StoryContent.Words(line.Owner, line.Key, line.Text), line.Place);
-        return GrammarUtils.GetInflectedString(Text.Get("Story.moment." + moment, said), interaction);
+        // The lead-in goes through the game's own grammar for these speakers (Framework 0.121.0 fix: a composed string
+        // the game never registered came back as "[us] [asks] [them]"); null keeps the game's own line.
+        return Social.Grammar.Inflect(Text.Get("Story.moment." + moment, Social.Grammar.Slot), interaction, said);
     }
 
     /// <summary>F3: the next use of this line's moment says it, whatever the share, speakers and requirements.</summary>

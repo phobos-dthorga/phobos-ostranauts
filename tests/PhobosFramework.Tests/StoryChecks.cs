@@ -163,6 +163,55 @@ internal static class StoryChecks
         Round4(check, (json, message) => Refused(json, message, false), json => Load(json, false));
         Round5(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
         Round6(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+        Round7(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+    }
+
+    private const string Faces = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""people"": { ""orra-pell"": { ""name"": ""Orra Pell"", ""role"": ""broker"", ""home"": ""oklg"", ""face"": ""feminine"" }, ""kes-arven"": { ""name"": ""Kes Arven"", ""home"": ""oklg"" } },
+      ""arcs"": { ""leaflets"": { ""title"": ""Leaflets"", ""steps"": [
+        { ""id"": ""list"", ""delivery"": { ""message"": { ""person"": ""orra-pell"", ""text"": ""Four leaflets."" } }, ""objective"": { ""title"": ""Wait for the list"" }, ""tests"": [ { ""kind"": ""wait"", ""hours"": 2 } ],
+          ""onComplete"": { ""message"": { ""person"": ""kes-arven"", ""text"": ""Found it."" } } },
+        { ""id"": ""quiet"", ""objective"": { ""title"": ""Wait again"" }, ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ] },
+        { ""id"": ""named"", ""objective"": { ""title"": ""Answer Orra"", ""person"": ""orra-pell"" }, ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ] },
+        { ""id"": ""free"", ""delivery"": { ""message"": { ""from"": ""The desk"", ""text"": ""Noted."" } }, ""objective"": { ""title"": ""Note it"" }, ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ] } ] },
+        ""alone"": { ""title"": ""Alone"", ""steps"": [ { ""id"": ""only"", ""objective"": { ""title"": ""Wait"" }, ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ] } ] } }
+    }";
+
+    /// <summary>Framework 0.121.0: who a goal is from (its face and From line) and the faces kept in the record.</summary>
+    private static void Round7(Action<bool, string> check, Action<string, string> refused, Func<string, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Faces.Contains(find), "Fixture has " + find); return Faces.Replace(find, replace); }
+        var pack = load(Faces);
+        var arc = pack.arcs["leaflets"];
+        check(pack.people["orra-pell"].face == "feminine" && pack.people["kes-arven"].face == null && arc.steps[2].objective!.person == "orra-pell", "A face look and a goal's person load");
+        refused(With("\"face\": \"feminine\"", "\"face\": \"female\""), "A face look is masculine, feminine or any");
+        refused(With("\"person\": \"orra-pell\" }, \"tests\"", "\"person\": \"Orra Pell\" }, \"tests\""), "A goal's person is a person id");
+
+        check(StoryRules.GoalSender(arc, 0).Person == "orra-pell", "A goal is from the sender of its step's letter");
+        check(StoryRules.GoalSender(arc, 1).Person == "kes-arven", "A goal with no letter is from the last sender before it, a completion's letter first");
+        check(StoryRules.GoalSender(arc, 2).Person == "orra-pell", "A goal's own person comes first");
+        var free = StoryRules.GoalSender(arc, 3);
+        check(free.Person == null && free.From?.from == "The desk", "A sender given as free text comes back as text");
+        check(StoryRules.GoalSender(pack.arcs["alone"], 0) == (null, null) && StoryRules.GoalSender(arc, 9) == (null, null), "A goal with no sender is from no one in particular");
+
+        var looks = Phobos.Ostranauts.Framework.Social.PortraitRules.Looks;
+        check(looks.SequenceEqual(new[] { "any", "masculine", "feminine" }) && Phobos.Ostranauts.Framework.Social.PortraitRules.Flags("masculine") == (true, false) &&
+              Phobos.Ostranauts.Framework.Social.PortraitRules.Flags("feminine") == (false, true) && Phobos.Ostranauts.Framework.Social.PortraitRules.Flags(null) == (true, true),
+            "A look picks the game's male, female or nonbinary face pool");
+        string a = Phobos.Ostranauts.Framework.Social.PortraitRules.ImageName("pbaseA|pbaseB"), b = Phobos.Ostranauts.Framework.Social.PortraitRules.ImageName("pbaseA|pbaseC");
+        check(a == Phobos.Ostranauts.Framework.Social.PortraitRules.ImageName("pbaseA|pbaseB") && a != b && a.StartsWith("PhobosFace") && a.IndexOf('.') < 0 && a.IndexOf('/') < 0,
+            "A face's picture name is stable for its parts and has no path or extension");
+        check(!Phobos.Ostranauts.Framework.Social.PortraitRules.ValidParts(new[] { "../x" }) && !Phobos.Ostranauts.Framework.Social.PortraitRules.ValidParts(Array.Empty<string>()) &&
+              Phobos.Ostranauts.Framework.Social.PortraitRules.ValidParts(new[] { "pbaseHairA01", "pbaseFaceB02" }), "Saved face parts are plain portrait names");
+
+        var record = new StoryRecord();
+        record.Faces["orra-pell"] = new[] { "pbaseHairA01", "pbaseFaceB02" };
+        var fields = record.Encode();
+        fields["face.bad"] = "../../evil|x";
+        var back = StoryRecord.Decode(fields);
+        check(back.Faces["orra-pell"].SequenceEqual(new[] { "pbaseHairA01", "pbaseFaceB02" }), "A correspondent's face survives a save");
+        check(!back.Faces.ContainsKey("bad") && back.Encode()["face.bad"] == "../../evil|x", "A face entry that is not plain parts is kept as written, never used");
     }
 
     private const string Standing = @"{

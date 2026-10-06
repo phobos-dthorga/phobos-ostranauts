@@ -27,7 +27,10 @@ public sealed class StoryRecord
 {
     public const string Name = "PhobosStory";
     public const int Version = 1, MaxQueue = 8;
-    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began", ReadPrefix = "read.", FlagPrefix = "flag.";
+    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began", ReadPrefix = "read.", FlagPrefix = "flag.", FacePrefix = "face.";
+    /// <summary>The game face parts each correspondent was given (Framework 0.121.0), rolled once by the game's own face
+    /// roll and kept, so a person looks the same for the whole save. The game's roll cannot be repeated from a seed.</summary>
+    public Dictionary<string, string[]> Faces { get; } = new(StringComparer.Ordinal);
     /// <summary>Story data files the player has opened (Framework 0.110.0).</summary>
     public HashSet<string> Read { get; } = new(StringComparer.Ordinal);
     /// <summary>Story flags set by arc outcomes (Framework 0.114.0), with the game time each was set.</summary>
@@ -55,6 +58,7 @@ public sealed class StoryRecord
             { string id = pair.Key.Substring(SeenPrefix.Length); record.Seen.Add(id); record.SeenAt[id] = seenAt; }
             else if (pair.Key.StartsWith(FlagPrefix, StringComparison.Ordinal) && Epoch(pair.Value) is double setAt) record.Flags[pair.Key.Substring(FlagPrefix.Length)] = setAt;
             else if (pair.Key.StartsWith(ReadPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Read.Add(pair.Key.Substring(ReadPrefix.Length));
+            else if (pair.Key.StartsWith(FacePrefix, StringComparison.Ordinal) && Social.PortraitRules.ValidParts(pair.Value.Split('|'))) record.Faces[pair.Key.Substring(FacePrefix.Length)] = pair.Value.Split('|');
             else if (pair.Key == QueueKey) record.Queue.AddRange(pair.Value.Split('|').Where(id => id.Length > 0).Take(MaxQueue));
             else if (pair.Key == BeganKey && double.TryParse(pair.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double began) && !double.IsNaN(began) && !double.IsInfinity(began)) record.Began = began;
             else record.kept[pair.Key] = pair.Value;
@@ -71,6 +75,7 @@ public sealed class StoryRecord
         foreach (var id in Seen) fields[SeenPrefix + id] = SeenAt.TryGetValue(id, out var at) ? at.ToString("R", CultureInfo.InvariantCulture) : "1";
         foreach (var id in Read) fields[ReadPrefix + id] = "1";
         foreach (var pair in Flags) fields[FlagPrefix + pair.Key] = pair.Value.ToString("R", CultureInfo.InvariantCulture);
+        foreach (var pair in Faces) fields[FacePrefix + pair.Key] = string.Join("|", pair.Value);
         if (Queue.Count > 0) fields[QueueKey] = string.Join("|", Queue.Take(MaxQueue));
         if (Began is double b) fields[BeganKey] = b.ToString("R", CultureInfo.InvariantCulture);
         return fields;
@@ -232,6 +237,21 @@ public static class StoryRules
         if (next == StorySchema.End) return -1;
         if (next != null) return arc.steps.FindIndex(s => s.id == next);
         return index + 1 < arc.steps.Count ? index + 1 : -1;
+    }
+
+    /// <summary>Who a step's goal is from (Framework 0.121.0): the goal's own person, else the sender of the step's
+    /// letter, else the last sender before it in the arc (a completion's letter after its step's opening letter). A
+    /// sender given only as free text comes back as <c>From</c>; neither, and the goal is from no one in particular.</summary>
+    public static (string? Person, StoryMessage? From) GoalSender(StoryArc arc, int index)
+    {
+        if (index < 0 || index >= arc.steps.Count) return (null, null);
+        var step = arc.steps[index];
+        if (step.objective?.person != null) return (step.objective.person, null);
+        if (step.delivery?.message is StoryMessage own) return (own.person, own.person == null ? own : null);
+        for (int i = index - 1; i >= 0; i--)
+            foreach (var message in new[] { arc.steps[i].onComplete?.message, arc.steps[i].delivery?.message })
+                if (message != null) return (message.person, message.person == null ? message : null);
+        return (null, null);
     }
 
     public static bool Passed(StoryStep step, IStoryFacts facts, double stepStart) => step.tests.All(t => Passed(t, facts, stepStart));

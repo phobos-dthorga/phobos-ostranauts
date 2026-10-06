@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.120.0";
+    public const string Version = "0.121.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -71,6 +71,9 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Audio.SoundFiles.ShippedDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(typeof(FrameworkPlugin).Assembly.Location) ?? "", Audio.SoundFiles.Folder);
         Audio.SoundFiles.OverrideDirectory = System.IO.Path.Combine(Paths.ConfigPath, "PhobosFramework", Audio.SoundFiles.Folder);
         Audio.SoundFiles.Log = message => Logger.LogInfo(message);
+        // Game-made faces (0.121.0) and the social text helper report a fault once, in the log.
+        Social.Portraits.Log = message => Logger.LogWarning(message);
+        Social.Grammar.Log = message => Logger.LogWarning(message);
         try { System.IO.Directory.CreateDirectory(Audio.SoundFiles.OverrideDirectory); }
         catch (Exception ex) when (ex is System.IO.IOException || ex is UnauthorizedAccessException) { Logger.LogWarning("Cannot create the sound replacement folder " + Audio.SoundFiles.OverrideDirectory + ": " + ex.Message); }
         try { Audio.CompletionCues.Player = new Audio.CompletionAudio(gameObject, Config, message => Logger.LogWarning(message)); }

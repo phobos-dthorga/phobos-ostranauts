@@ -150,6 +150,15 @@ public static class StoryArcs
         {
             if (!StoryRules.TryGoal(objective.strCT, out var arcId, out var stepId) || !library.Arcs.TryGetValue(arcId, out var arc)) continue;
             if (!record.Arcs.TryGetValue(arcId, out var p) || p.State != ArcState.Active || p.StepId != stepId) Remove(objective, completed: false);
+            // A goal kept by the save has lost its portrait (the game does not save it).
+            else
+            {
+                int index = arc.Value.steps.FindIndex(s => s.id == stepId);
+                if (string.IsNullOrEmpty(objective.strPortraitOverride)) Portrait(objective, arc, index);
+                // A goal shown before Framework 0.121.0 gains its From line once.
+                if (FromLine(arc, index) is string from && (objective.strDisplayDesc ?? "").IndexOf(from, StringComparison.Ordinal) < 0)
+                    objective.strDisplayDesc = string.IsNullOrEmpty(objective.strDisplayDesc) ? from : objective.strDisplayDesc + "\n" + from;
+            }
         }
         if (changed) Save();
     }
@@ -263,9 +272,48 @@ public static class StoryArcs
         // finished goal is taken out first.
         Tracker.AllObjectives.RemoveAll(o => o.Finished && o.strCT == test);
         string? place = PlaceOf(arc.Value.thread, arc.Value.place);
-        var objective = new Objective(player, Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".title", step.objective!.title), place), test)
-        { strDisplayDesc = Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".description", step.objective.description), place) };
+        string description = Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".description", step.objective!.description), place);
+        // Who it is from (Framework 0.121.0): the goal says so under its description, so the player knows where it came from.
+        string? from = FromLine(arc, arc.Value.steps.IndexOf(step));
+        if (from != null) description = description.Length == 0 ? from : description + "\n" + from;
+        var objective = new Objective(player, Fill(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".title", step.objective.title), place), test)
+        { strDisplayDesc = description };
+        Portrait(objective, arc, arc.Value.steps.IndexOf(step));
         Tracker.AddObjective(objective);
+    }
+
+    /// <summary>"From Name, role (home)." for a goal, or null when it is from no one in particular.</summary>
+    private static string? FromLine(StoryEntry<StoryArc> arc, int index)
+    {
+        var (person, free) = StoryRules.GoalSender(arc.Value, index);
+        var library = StoryContent.Library;
+        if (person != null && library.PersonName(person, StoryContent.Words) is string name)
+            return library.People.TryGetValue(person, out var p) && library.Places.Name(p.Value.home) is string home
+                ? Text.Get("Story.objective_from_place", name, home) : Text.Get("Story.objective_from", name);
+        if (free?.from != null) return Text.Get("Story.objective_from", Fill(free.from));
+        return null;
+    }
+
+    /// <summary>The goal's portrait (Framework 0.121.0): the face of who it is from, rolled once by the game's own face
+    /// roll and kept in the story record, else the game's own wrist PDA picture. The game does not save a goal's
+    /// portrait, so a goal restored from a save is given it again.</summary>
+    private static void Portrait(Objective objective, StoryEntry<StoryArc> arc, int index)
+    {
+        var (person, _) = StoryRules.GoalSender(arc.Value, index);
+        objective.strPortraitOverride = (person != null ? Face(person) : null) ?? Social.Portraits.PdaImage;
+    }
+
+    /// <summary>A person's face picture name, rolling and keeping their face the first time it is needed.</summary>
+    private static string? Face(string person)
+    {
+        if (!record.Faces.TryGetValue(person, out var parts))
+        {
+            string? look = StoryContent.Library.People.TryGetValue(person, out var p) ? p.Value.face : null;
+            if (Social.Portraits.RandomFace(look) is not string[] rolled) return null;
+            record.Faces[person] = parts = rolled;
+            Save();
+        }
+        return Social.Portraits.Register(parts);
     }
 
     private static void Remove(Objective objective, bool completed)

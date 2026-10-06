@@ -356,7 +356,8 @@ def story():
         'id': {'type': 'string', 'pattern': story_id, 'maxLength': 32, 'description': 'Unique within the arc; it names the goal in saves, so keep it once published.'},
         'delivery': obj({'message': message, 'bulletin': {'type': 'string', 'pattern': story_id, 'description': 'A broadcast id that the next TV news item shows.'}},
                         description='What the player is told when the step begins.'),
-        'objective': obj({'title': text(60, 'The goal title in the GOALS list.'), 'description': {**text(300, 'The goal description.'), 'minLength': 0}}, ['title'],
+        'objective': obj({'title': text(60, 'The goal title in the GOALS list.'), 'description': {**text(300, 'The goal description.'), 'minLength': 0},
+                          'person': {**key, 'description': 'Whose face the goal shows and who it says it is from; left out, the sender of the step\'s letter, else the arc\'s last sender.'}}, ['title'],
                          'A goal in the GOALS list. A step without one waits on its tests unseen.'),
         'tests': tests,
         'onComplete': outcome,
@@ -409,7 +410,8 @@ def story():
                  'name': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'What people call it: the [place] placeholder.'}},
                 ['station', 'name'], 'A station, or a part of one, that content can belong to. Framework ships the game\'s regional stations.')
     person = obj({'notes': NOTES, 'name': {'type': 'string', 'minLength': 1, 'maxLength': 40}, 'role': {'type': 'string', 'minLength': 1, 'maxLength': 40},
-                  'home': {**key, 'description': 'The place they belong to.'}, 'faction': {**game, 'description': 'The game\'s faction name they belong to, for authors.'}},
+                  'home': {**key, 'description': 'The place they belong to.'}, 'faction': {**game, 'description': 'The game\'s faction name they belong to, for authors.'},
+                  'face': string('The look of the face the game makes for them, rolled once per save: masculine, feminine or any (default).', ['any', 'masculine', 'feminine'])},
                  ['name', 'home'], 'A named recurring person, shown as Name, role where a letter names its sender.')
     thread = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80}, 'notes': NOTES,
                   'place': {**key, 'description': 'The place its members belong to unless they name their own.'},

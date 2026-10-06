@@ -152,7 +152,7 @@
           "id": "letter",
           "objective": {
             "title": "Wait for the freight note",
-            "description": "Let one game hour pass while the receiving clerk at [place] checks the old description. You do not need to own a can to receive the letter; a carried example is requested next."
+            "description": "Give the receiving clerk at [place] an hour to check the old freight description."
           },
           "tests": [
             {
@@ -176,8 +176,8 @@
         {
           "id": "example",
           "objective": {
-            "title": "Carry a Rivetline D20 at [place]",
-            "description": "Be aboard or docked at [place] while carrying one Phobos' Rivetline D20 Drain Canister, including in a bag. The comparison stays in the receiving file here. Your can and its contents are kept."
+            "title": "Bring a Rivetline D20 to [place]",
+            "description": "Be at [place] with a Phobos' Rivetline D20 Drain Canister on you (a bag counts), so the clerk can compare it with the old description. You keep the can and what is in it."
           },
           "tests": [
             {
@@ -207,7 +207,7 @@
           "id": "correction",
           "objective": {
             "title": "Wait for the corrected freight account",
-            "description": "Let two game hours pass for the clerk to circulate the corrected account. Your can stays yours. The retained account comes on a data card."
+            "description": "Give the clerk two hours to send the corrected account round. Your copy comes on a data card."
           },
           "tests": [
             {
@@ -247,8 +247,8 @@
         {
           "id": "sample",
           "objective": {
-            "title": "Carry an aluminium ingot at [place]",
-            "description": "At [place], carry one Rivetline Aluminium Ingot, including in a bag. Bought, found or made stock is accepted. It identifies a present product, not the origin of an old batch, and stays yours."
+            "title": "Bring an aluminium ingot to [place]",
+            "description": "Be at [place] with one Rivetline Aluminium Ingot on you (a bag counts). Bought, found or made, any ingot will do, and you keep it."
           },
           "tests": [
             {
@@ -278,7 +278,7 @@
           "id": "letters",
           "objective": {
             "title": "Wait for the workers' letters to be attached",
-            "description": "Let three game hours pass while the clerk attaches the old repair letters to the material description. Your ingot is retained."
+            "description": "Give the clerk three hours to attach the workers' old repair letters to the material description."
           },
           "tests": [
             {
@@ -325,7 +325,7 @@
           "id": "archive",
           "objective": {
             "title": "Wait for Verdemorrow's galley letter",
-            "description": "Let one game hour pass while the archivist checks the galley photograph. Owning a rack does not prove that you have grown a crop."
+            "description": "Give the archivist an hour to look into the old galley photograph."
           },
           "tests": [
             {
@@ -349,8 +349,8 @@
         {
           "id": "portion",
           "objective": {
-            "title": "Carry Verdemorrow lettuce at [place]",
-            "description": "At [place], carry one Verdemorrow Lettuce portion, including in a bag, for the archive's comparison. Bought, found or grown stock is accepted. It is not consumed and does not certify a harvest."
+            "title": "Bring Verdemorrow lettuce to [place]",
+            "description": "Be at [place] with one Verdemorrow Lettuce portion on you (a bag counts), for the archive's comparison. Bought, found or grown, any will do, and you keep it."
           },
           "tests": [
             {
@@ -380,7 +380,7 @@
           "id": "names",
           "objective": {
             "title": "Wait for the crew names to join the photograph",
-            "description": "Let two game hours pass while the archivist prepares the new caption. Your food stays yours; no payment is due."
+            "description": "Give the archivist two hours to write the new caption with the crew's names."
           },
           "tests": [
             {
@@ -431,7 +431,7 @@
           "id": "service",
           "objective": {
             "title": "Wait for Asterel's old service letter",
-            "description": "Let two game hours pass while the service desk finds an old plate-number record. No flight or repair is tested."
+            "description": "Give the Asterel service desk two hours to find the record under the board's old plate number."
           },
           "tests": [
             {
@@ -456,7 +456,7 @@
           "id": "reply",
           "objective": {
             "title": "Acknowledge Asterel at [place]",
-            "description": "Be aboard or docked at [place], where the service reply joins the receiving account. Being here already counts. No module is surrendered and no flight or repair is tested."
+            "description": "Be at [place] so the service reply joins the receiving account. If you are already there, that counts."
           },
           "tests": [
             {
@@ -504,8 +504,8 @@
         {
           "id": "list",
           "objective": {
-            "title": "Wait for the brokers' plant description",
-            "description": "Let two game hours pass while a broker gathers the four makers' descriptions. This is a paperwork dispute; it does not start or assess your machines."
+            "title": "Wait for the four makers' leaflets",
+            "description": "Give the broker two hours to gather what each maker says about the proposed plant."
           },
           "tests": [
             {
@@ -530,7 +530,7 @@
           "id": "counter",
           "objective": {
             "title": "Return the quotation at [place]",
-            "description": "Be aboard or docked at [place] while the broker returns the incomplete quotation for revision. Being here already counts. No purchase, payment, installation or new connection is made."
+            "description": "Be at [place] so the broker can send the incomplete quotation back for revision. If you are already there, that counts."
           },
           "tests": [
             {
@@ -554,7 +554,7 @@
           "id": "reply",
           "objective": {
             "title": "Wait for the broker's final note",
-            "description": "Let four game hours pass for the final note. The letter makes no promise of a future installation or service contract."
+            "description": "Give the broker four hours to write back."
           },
           "tests": [
             {
@@ -600,8 +600,8 @@
         {
           "id": "bottle",
           "objective": {
-            "title": "Carry Alembrine spirit at [place]",
-            "description": "At [place], carry one bottle of Alembrine Spirit, including in a bag. Bought, found or made bottles count. It is kept; no brewing is checked. The desk compares its description with the old letters."
+            "title": "Bring Alembrine spirit to [place]",
+            "description": "Be at [place] with one bottle of Alembrine Spirit on you (a bag counts), so the desk can compare it with the old letters. Any bottle will do, and you keep it."
           },
           "tests": [
             {
@@ -631,7 +631,7 @@
           "id": "accounts",
           "objective": {
             "title": "Wait for the two pump accounts",
-            "description": "Let three game hours pass for the old customers' replies. There is no pump to find in the world and no recovery order."
+            "description": "Give the old customers three hours to reply about the borrowed pump."
           },
           "tests": [
             {
@@ -678,7 +678,7 @@
           "id": "bed",
           "objective": {
             "title": "Wait for Halewright's fitting letter",
-            "description": "Let half a game hour pass for the fitting letter. Your Ward-3 made this correspondence available; no patient, treatment or sickbay inspection is required."
+            "description": "Give Halewright half an hour to send the fitting letter."
           },
           "tests": [
             {
@@ -703,7 +703,7 @@
           "id": "watch",
           "objective": {
             "title": "Wait for the Short Return watch letter",
-            "description": "Let two game hours pass while Halewright finds the watchkeeper's letter. No patient is needed and no treatment or healing is performed."
+            "description": "Give Halewright two hours to find the watchkeeper's letter."
           },
           "tests": [
             {
@@ -728,7 +728,7 @@
           "id": "acknowledge",
           "objective": {
             "title": "Acknowledge the watch at [place]",
-            "description": "Be aboard or docked at [place], where Halewright keeps this correspondence, to close the copy. Being here already counts. Your equipment and supplies are kept; no medical result is certified."
+            "description": "Be at [place], where Halewright keeps this correspondence, to close it. If you are already there, that counts."
           },
           "tests": [
             {
@@ -774,7 +774,7 @@
           "id": "drawing",
           "objective": {
             "title": "Wait for the disputed drawing account",
-            "description": "Let one game hour pass for an account of an old refit dispute. Your own schematic and ship are not changed."
+            "description": "Give it an hour for the account of the old refit dispute to arrive."
           },
           "tests": [
             {
@@ -799,7 +799,7 @@
           "id": "dock",
           "objective": {
             "title": "Close the drawing file at [place]",
-            "description": "Be aboard or docked at [place], where this crew's drawing account was forwarded. Being here already counts. No schematic is loaded, no part is destroyed and no build site is created."
+            "description": "Be at [place], where the crew's drawing account was sent. If you are already there, that counts."
           },
           "tests": [
             {
@@ -845,7 +845,7 @@
           "id": "photo",
           "objective": {
             "title": "Wait for Slingwright's photograph dispute",
-            "description": "Let one game hour pass for the worker's account. Owning an RM-1 starts this correspondence; operating it is not required."
+            "description": "Give the worker an hour to send their account of the photograph."
           },
           "tests": [
             {
@@ -870,7 +870,7 @@
           "id": "reply",
           "objective": {
             "title": "Wait for the caption and the fee to be separated",
-            "description": "Let two more game hours pass while Slingwright closes the correspondence. No feed is used, no thrust is granted and no payment changes hands."
+            "description": "Give Slingwright two more hours to close the correspondence."
           },
           "tests": [
             {

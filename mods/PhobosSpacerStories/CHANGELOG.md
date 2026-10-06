@@ -4,9 +4,24 @@ Draft dates record preparation, not Workshop publication.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-06 - Draft
+
+### Changed
+
+- Rewrote the titles and descriptions of all 50 story goals in plain words: what to do next and what it is for, without long lists of what a goal does not do or check. With Framework 0.121.0, each goal also shows who it is from, with their face. Ids, tests and letters are unchanged, so goals already in a save carry on.
+
+### Fixed
+
+- Small talk names its speakers again: a story question reads like You ask Jorge White, not the raw us, asks and them grammar tokens in brackets. The fix is in Framework 0.121.0.
+- The normal build passes again. Its check now counts the collection from its own files; the 0.3.0 entry below recorded it as stopping at the old nine-file count.
+
 ### Documentation
 
-- Recorded the owner's first live small-talk screenshot and a focused handoff for Claude: the story sentence appears, but Framework's dialogue lead-in prints its speaker, listener and verb tokens literally. No formatting fix or broader gameplay validation is claimed.
+- Recorded the owner's first live small-talk screenshot and a focused handoff for Claude, now resolved by the Framework fix above.
+
+### Compatibility and limits
+
+- Still works with Framework 0.114.0; the faces, the From lines and the small-talk fix need Framework 0.121.0. Held draft, not yet read in the game.
 
 ## [0.3.0] - 2026-10-06 - Draft
 

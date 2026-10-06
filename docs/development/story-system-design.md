@@ -382,6 +382,43 @@ small talk with live speakers and the TV weighting in play.
 3. With Spacer Stories rewritten: local news on arrival, a stranger saying a `locals`
    line on the station and not aboard, a letter from a named person.
 
+## Round 7: who a goal is from (Framework 0.121.0)
+
+**Owner report and decisions (6 October 2026).** A Spacer Stories goal ("Wait for the
+brokers' plant description") looked suspicious: nothing said where it came from, its
+portrait was blank, and its description listed what it did not do. The owner chose
+game-made faces for story goals and asked that vanilla goals be left alone.
+
+**Observed in the game's code (decompile, `.local`).**
+- The GOALS panel loads `strPortraitOverride`, else the focus character's
+  `strPortraitImg`, plus ".png". It falls back to the game's "missing" sprite, the black
+  silhouette. Our goals named nothing; the vanilla "Replace Broken Transponder" goal names
+  nothing either.
+- `strPortraitOverride` is not saved.
+- The game's face roll (`FaceAnim2.GetRandomFace`) cannot be repeated from a seed: its
+  loot roll avoids values close to earlier ones drawn under the same name.
+
+**Design.**
+- Each correspondent's face is rolled once by the game's own roll, the first time a goal
+  needs it, and its parts are kept in the story record (`face.<person>`).
+- The portrait is composed from the game's portrait parts exactly as `FaceAnim2.GetPNG`
+  does, and registered in the game's picture cache under a name derived from the parts
+  ([Portraits.cs](../../src/PhobosFramework/Social/Portraits.cs)).
+- The goal names that picture, and is given it again on every load. A goal from no one
+  in particular names the game's own wrist PDA picture, as one vanilla plot does.
+- Each goal ends with "From Name, role (home)."
+- Authors may set `face` on a person and `person` on an objective.
+
+**Agent choices.**
+- The From line's wording.
+- Faces are stable per save, not across saves.
+- The Spacer Stories goal wording pass (0.3.1): plain next moves, without lists of what a
+  goal does not do; ids, tests and letters unchanged.
+- The ChatGPT prompt now says so.
+
+**Also in this round:** the small-talk grammar fix
+([handoff and resolution](story-chatter-grammar-handoff.md)).
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another

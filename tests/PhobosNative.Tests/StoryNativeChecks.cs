@@ -66,6 +66,35 @@ internal static class StoryNativeChecks
             foreach (System.Text.RegularExpressions.Match token in tokens.Matches(leadIn ?? ""))
                 check(vanilla.Contains(token.Value), "A lead-in uses only grammar tokens the game's own lines use: " + moment + " " + token.Value);
         }
+        // Framework 0.121.0 fix: a composed lead-in is registered with the game's own preparation before it is inflected
+        // (a string the game never registered came back as "[us] [asks] [them]").
+        var prepare = typeof(DataHandler).GetMethod("PrepareInflectedString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static, null, new[] { typeof(object), typeof(string) }, null);
+        check(prepare != null && typeof(GrammarUtils).GetField("inflectedStrings")?.FieldType == typeof(System.Collections.Generic.Dictionary<string, InflectedString>) &&
+              typeof(GrammarUtils).GetMethod("GetInflectedString", new[] { typeof(string), typeof(object) })?.ReturnType == typeof(string),
+            "The game still prepares a string by (object, string) and inflects only what it prepared");
+        // The game's own grammar tables, read from its tokens folder and unpacked by its own method, as it does at load.
+        DataHandler.dictJsonTokens = new(); DataHandler.dictVerbs = new();
+        foreach (string tokenFile in Directory.GetFiles(Path.Combine(StoryNativeData.Native, "tokens"), "*.json"))
+            foreach (var t in Newtonsoft.Json.JsonConvert.DeserializeObject<JsonCustomTokens[]>(File.ReadAllText(tokenFile))!) DataHandler.dictJsonTokens[t.strName] = t;
+        typeof(DataHandler).GetMethod("UnpackTokens", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!.Invoke(null, null);
+        check(DataHandler.dictVerbs.ContainsKey("asks") && DataHandler.aliases.Contains("us") && DataHandler.aliases.Contains("them"), "The game's grammar tables load: its verbs and speaker names");
+        if (prepare != null)
+            foreach (var moment in StoryMoments.Interactions.Keys)
+            {
+                string leadIn = string.Format((string)catalog["Story.moment." + moment]!, Phobos.Ostranauts.Framework.Social.Grammar.Slot);
+                prepare.Invoke(null, new object?[] { null, leadIn });
+                check(GrammarUtils.inflectedStrings.TryGetValue(leadIn, out var prepared) && prepared.tokens.Count == tokens.Matches(leadIn).Count,
+                    "Every token of a lead-in is one the game's preparation understands: " + moment);
+            }
+        // Framework 0.121.0: goal portraits are faces the game makes from its own parts, or its wrist PDA picture.
+        check(typeof(FaceAnim2).GetMethod("GetRandomFace", new[] { typeof(bool), typeof(bool), typeof(string) })?.ReturnType == typeof(string[]) &&
+              typeof(Ostranauts.Objectives.Objective).GetField("strPortraitOverride")?.FieldType == typeof(string) &&
+              typeof(DataHandler).GetMethod("AddPNG", new[] { typeof(string), typeof(UnityEngine.Texture2D) }) != null,
+            "The game still rolls a face, lets a goal name its portrait and takes a picture into its cache");
+        check(DataHandler.dictLoot.ContainsKey("TXTFacePartOrder") && DataHandler.dictLoot.ContainsKey("TXTPortraitType"), "The game's face part order and portrait types are loot tables");
+        string images = Path.Combine(StoryNativeData.Native, "..", "images");
+        check(File.Exists(Path.Combine(images, Phobos.Ostranauts.Framework.Social.Portraits.PdaImage + ".png")) && Directory.GetFiles(Path.Combine(images, "portraits"), "*.png").Length > 0,
+            "The wrist PDA picture and the portrait parts are where the game loads pictures from");
         var nodes = StoryLore.Nodes(library, _ => true, (owner, key, inline) => inline);
         check(nodes.Count == 10 && nodes.All(n => n.Parent == null || nodes.Any(p => p.Name == n.Parent)) && nodes.All(n => n.Name.StartsWith(StoryLore.NodePrefix, StringComparison.Ordinal)),
             "Both shared sections show with Agriculture's articles, and the Phobos operations section with its five; every parent is ours and no name is the game's");

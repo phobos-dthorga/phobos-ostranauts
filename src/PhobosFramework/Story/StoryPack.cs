@@ -69,6 +69,9 @@ public sealed class StoryPerson
     public string home = "";
     /// <summary>The game's faction name they belong to, for authors.</summary>
     public string? faction;
+    /// <summary>The look of the face the game makes for them (Framework 0.121.0): <c>masculine</c>, <c>feminine</c> or
+    /// <c>any</c> (the default). The face itself is rolled once per save by the game's own face roll.</summary>
+    public string? face;
 }
 
 /// <summary>A thread (Framework 0.114.0): the entries that declare it share its place, cast and requirements.</summary>
@@ -363,6 +366,9 @@ public sealed class StoryObjective
 {
     public string title = "";
     public string description = "";
+    /// <summary>Whose face the goal shows and who it says it is from (Framework 0.121.0); left out, the sender of the
+    /// step's letter, else the arc's last sender before it.</summary>
+    public string? person;
 }
 
 /// <summary>One goal test, from a fixed list of kinds interpreted in code.</summary>
@@ -495,6 +501,7 @@ public static class StorySchema
             Short(p.name, MaxName, where + ".name", true); Short(p.role, MaxName, where + ".role", false);
             if (!IsId(p.home)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".home", MaxIdLength));
             if (p.faction != null && !GameName.IsMatch(p.faction)) throw new ArgumentException(Text.Get("StorySchema.game_name", where + ".faction", p.faction));
+            if (!Social.PortraitRules.IsLook(p.face)) throw new ArgumentException(Text.Get("StorySchema.face", where + ".face", string.Join(", ", Social.PortraitRules.Looks)));
         }
         if (pack.threads.Count > MaxThreads) throw new ArgumentException(Text.Get("StorySchema.table_long", "threads", MaxThreads));
         foreach (var pair in pack.threads)
@@ -636,6 +643,7 @@ public static class StorySchema
             {
                 Words(step.objective.title, MaxObjectiveTitle, at + ".objective.title");
                 if (step.objective.description.Length > 0) Words(step.objective.description, MaxObjectiveDescription, at + ".objective.description");
+                if (step.objective.person != null && !IsId(step.objective.person)) throw new ArgumentException(Text.Get("StorySchema.id", at + ".objective.person", MaxIdLength));
             }
             Tests(step.tests, at, placed);
             Outcome(step.onComplete, at);

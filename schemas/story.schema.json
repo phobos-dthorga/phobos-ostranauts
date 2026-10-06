@@ -1189,6 +1189,12 @@
                         "minLength": 0,
                         "maxLength": 300,
                         "description": "The goal description. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                      },
+                      "person": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                        "maxLength": 48,
+                        "description": "Whose face the goal shows and who it says it is from; left out, the sender of the step's letter, else the arc's last sender."
                       }
                     },
                     "required": [
@@ -2352,6 +2358,15 @@
               "type": "string",
               "pattern": "^[A-Za-z0-9_]+$",
               "description": "The game's faction name they belong to, for authors."
+            },
+            "face": {
+              "type": "string",
+              "description": "The look of the face the game makes for them, rolled once per save: masculine, feminine or any (default).",
+              "enum": [
+                "any",
+                "masculine",
+                "feminine"
+              ]
             }
           },
           "required": [

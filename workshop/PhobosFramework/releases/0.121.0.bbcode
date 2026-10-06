@@ -1,0 +1,28 @@
+[h1]Phobos Framework 0.121.0[/h1]
+[b]Draft - not published | 2026-10-06[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Story goals show who they are from (owner request, 6 October 2026). A goal from a story correspondent shows their face in the GOALS list, made from the game's own portrait parts by the game's own face roll, the same way crew portraits are made. The face is rolled the first time it is needed and kept in the save, so a correspondent looks the same for the whole game. A goal from no one in particular shows the game's own wrist PDA picture. Each goal also ends with a line such as From Orra Pell, equipment broker (Port Mojave).
+[*]Story writers may give a person a face look (masculine, feminine or any) and a goal its own person. The story guide, the checker and the JSON Schema cover both.
+[*]Two shared tools for other mods: game-made faces for people who never appear in the world, and the game's grammar for reworded social lines.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Story small talk printed its lead-in as written, with the raw us, asks and them grammar tokens in brackets before the line. The game only expands grammar it prepared when it loaded, so each lead-in is now prepared through the game's own preparation first. A line now reads You ask Jorge White: or Jorge White asks you:, the same in the conversation and the social log. If a later game version removes that preparation, the game's own line is kept and the log says so once.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Each correspondent's face parts join Framework's existing story record on the player; older Framework versions keep them untouched. Goals already in a save gain their face and From line on the next load. The game itself does not save a goal's picture, so Framework gives it again on every load.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Vanilla goals keep the game's own pictures (owner choice). Faces and the corrected small talk have not yet been seen in the game.
+[/list]

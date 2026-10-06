@@ -136,6 +136,25 @@ class DataPackTests(unittest.TestCase):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.stores(bad, 'test')
 
+    def test_story_faces(self):
+        # Framework 0.121.0: a person's face look and a goal's own person, mirrored with the C# schema and the JSON Schema.
+        import copy
+        pack = {'schemaVersion': 1, 'schema': 'story',
+                'people': {'orra-pell': {'name': 'Orra Pell', 'role': 'broker', 'home': 'oklg', 'face': 'feminine'}},
+                'arcs': {'leaflets': {'title': 'Leaflets', 'steps': [
+                    {'id': 'list', 'objective': {'title': 'Wait for the list', 'person': 'orra-pell'}, 'tests': [{'kind': 'wait', 'hours': 2}]}]}}}
+        validate.story(pack, 'test', framework=False)
+        self.assertEqual(schemas.problems(json.loads(writer.render('story')), pack), [])
+        for change in (lambda p: p['people']['orra-pell'].update(face='female'),
+                       lambda p: p['people']['orra-pell'].update(face=1),
+                       lambda p: p['arcs']['leaflets']['steps'][0]['objective'].update(person='Orra Pell')):
+            bad = copy.deepcopy(pack)
+            change(bad)
+            with self.subTest(bad=bad):
+                with self.assertRaises(validate.Problem):
+                    validate.story(bad, 'test', framework=False)
+                self.assertNotEqual(schemas.problems(json.loads(writer.render('story')), bad), [])
+
     def test_story_packs(self):
         # Framework 0.107.0: story packs. The shipped seed is valid; each broken copy is refused, as the game's loader does.
         import copy

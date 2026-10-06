@@ -751,6 +751,7 @@ STORY_PERSON_TOKEN = re.compile(r'\[person:[a-z0-9]+(-[a-z0-9]+)*\]')
 STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait', 'credits', 'condition')
 STORY_MOMENTS = ('headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk')
 STORY_SPEAKERS = ('anyone', 'crew', 'others', 'locals')
+STORY_LOOKS = ('any', 'masculine', 'feminine')
 STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 400, 'message': 400, 'from': 40,
                 'objective': 60, 'description': 300, 'title': 80, 'steps': 12, 'tests': 4, 'rewards': 5,
                 'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720,
@@ -1042,7 +1043,9 @@ def story(pack, where, framework=None):
     for key, p in pack.get('people', {}).items():
         w = f'{where}/people/{key}'
         story_id(key, w)
-        fields(p, {'notes', 'name', 'role', 'home', 'faction'}, w)
+        fields(p, {'notes', 'name', 'role', 'home', 'faction', 'face'}, w)
+        if p.get('face') is not None and p['face'] not in STORY_LOOKS:
+            raise Problem(f'{w}/face: one of {", ".join(STORY_LOOKS)}')
         story_author({'notes': p.get('notes')}, w)
         story_short(p.get('name'), f'{w}/name', True)
         story_short(p.get('role'), f'{w}/role', False)
@@ -1131,7 +1134,8 @@ def story(pack, where, framework=None):
                     story_id(delivery['bulletin'], f'{sw}/delivery/bulletin')
             objective = step.get('objective')
             if objective is not None:
-                fields(objective, {'title', 'description'}, f'{sw}/objective')
+                fields(objective, {'title', 'description', 'person'}, f'{sw}/objective')
+                story_key(objective.get('person'), f'{sw}/objective/person')
                 story_words(objective.get('title'), STORY_LIMITS['objective'], f'{sw}/objective/title')
                 if objective.get('description', ''):
                     story_words(objective['description'], STORY_LIMITS['description'], f'{sw}/objective/description')

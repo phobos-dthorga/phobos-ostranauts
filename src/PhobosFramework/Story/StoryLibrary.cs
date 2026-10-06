@@ -204,6 +204,7 @@ public sealed class StoryLibrary
                 e.Value.steps.SelectMany(s => new[] { s.onComplete }.Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete)))
                     .SelectMany(o => o?.files ?? new List<string>()).Where(f => !library.files.ContainsKey(f)).Select(f => Text.Get("Story.unknown_file", f)).FirstOrDefault() ??
                 Messages(e.Value).Select(m => Person(m.person, e.Value.thread) ?? Mentioned(m.text, e.Value.thread)).FirstOrDefault(p => p != null) ??
+                e.Value.steps.Select(s => Person(s.objective?.person, e.Value.thread)).FirstOrDefault(p => p != null) ??
                 e.Value.steps.SelectMany(s => new[] { s.objective?.title, s.objective?.description }).Select(t => Mentioned(t, e.Value.thread)).FirstOrDefault(p => p != null) ??
                 // A dock-at test with no station needs the arc's place.
                 (library.PlaceOf(e.Value.thread, e.Value.place) == null && Tests(e.Value).Any(t => t.kind == StorySchema.DockAt && t.station == null) ? Text.Get("Story.no_place", e.Id) : null));
