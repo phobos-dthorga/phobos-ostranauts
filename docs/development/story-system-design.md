@@ -578,7 +578,7 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |
 | **Other mods' story packs** | Manufacturing, Shipbreaker, Medical, Auto Nav and War Has Been Declared content | Each mod registers its own pack as Agriculture does; only Agriculture ships a seed. | None beyond this release's rules |
 | **Encyclopedia pictures (art)** | Pictures for the shipped articles | The `image` field exists since round 4; suitable art is held for a cost check. | None |
-| **Variants for the mods' own messages** | Variety in code-side catalogue lines (the exchange wire's rose and fell lines, machine notices) | Round 10 covers pack text only (owner choice). A `Translations.GetVariant` reading `<key>.2` and on would extend it to catalogues. | None (code only) |
+| **Variants for the mods' own messages** | Variety in code-side catalogue lines (the exchange wire's rose and fell lines) | **Delivered in Framework 0.134.0** (owner go-ahead, 8 October 2026): catalogue keys `<key>.2` and on, read with `TranslationCatalog.Pick`, first used by Phobos Exchange 0.6.0's wire lines and causes. Controls, statuses and warnings keep one wording on purpose (agent choice). | None (code only) |
 | **No-repeat across a whole pool** | TV news and small talk that avoid repeating any recent item, not only the same entry's last variant | Round 10 remembers one pick per entry. A short recent-items memory per pool would need tuning against small pools. | None if kept in memory |
 
 ## Verification

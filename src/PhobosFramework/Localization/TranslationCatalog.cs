@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Phobos.Ostranauts.Framework.Story;
 
 namespace Phobos.Ostranauts.Framework.Localization;
 
@@ -30,6 +31,9 @@ public sealed class TranslationCatalog
     // Keys add-ons add for the things they add; the last language level loaded wins, as for ordinary keys.
     private readonly Dictionary<string, string> added = new Dictionary<string, string>(StringComparer.Ordinal);
     private readonly HashSet<string> reported = new HashSet<string>(StringComparer.Ordinal);
+    // The variant last shown per key with variants (Framework 0.134.0), in memory only: at most one entry per such key.
+    private readonly Dictionary<string, int> lastPick = new Dictionary<string, int>(StringComparer.Ordinal);
+    private static readonly Regex VariantKey = new Regex(@"^(.+)\.([0-9]+)$", RegexOptions.CultureInvariant);
     private readonly Action<string> log;
     private readonly EquipmentNames? equipment;
     public CultureInfo Culture { get; private set; } = CultureInfo.GetCultureInfo("en");
@@ -43,6 +47,7 @@ public sealed class TranslationCatalog
         this.equipment = equipment;
         english = Parse(englishJson);
         foreach (string message in english.Values) Signature(message);
+        CheckVariants(english);
         if (equipment != null)
         foreach (string key in equipment.Keys)
             if (!english.TryGetValue(key, out var description) || !equipment.IsDescription(key, description))
@@ -67,6 +72,58 @@ public sealed class TranslationCatalog
         }
         return result;
     }
+
+    /// <summary>Framework 0.134.0: a message may have variants, written as further keys <c>&lt;key&gt;.2</c>, <c>.3</c>
+    /// and on (<see cref="TextVariants.Key"/>), up to <see cref="TextVariants.MaxVariants"/> in all. A numbered key
+    /// whose base key exists is a variant: it must take the same arguments as the base and follow the one before it.
+    /// A packaging fault otherwise, refused when the catalog loads.</summary>
+    private static void CheckVariants(Dictionary<string, string> messages)
+    {
+        foreach (var pair in messages)
+        {
+            var match = VariantKey.Match(pair.Key);
+            if (!match.Success || !messages.TryGetValue(match.Groups[1].Value, out string? first)) continue;
+            string baseKey = match.Groups[1].Value;
+            if (!int.TryParse(match.Groups[2].Value, NumberStyles.None, CultureInfo.InvariantCulture, out int number) || number < 2 || number > TextVariants.MaxVariants)
+                throw new FormatException("Variant " + pair.Key + ": variants are numbered 2 to " + TextVariants.MaxVariants + ".");
+            if (!messages.ContainsKey(TextVariants.Key(baseKey, number - 2)))
+                throw new FormatException("Variant " + pair.Key + " has no variant before it.");
+            if (Signature(pair.Value) != Signature(first))
+                throw new FormatException("Variant " + pair.Key + " takes different arguments from " + baseKey + ".");
+        }
+    }
+
+    /// <summary>How many variants a message has (Framework 0.134.0): 1 for a message without any, 0 for an unknown key.</summary>
+    public int Variants(string key)
+    {
+        if (!english.ContainsKey(key)) return added.ContainsKey(key) ? 1 : 0;
+        int count = 1;
+        while (count < TextVariants.MaxVariants && english.ContainsKey(TextVariants.Key(key, count))) count++;
+        return count;
+    }
+
+    /// <summary>One variant of a message, counting from 0 (the base key), held to the variants it has. Each variant
+    /// translates under its own key; one a translation leaves out shows in English.</summary>
+    public string GetVariant(string key, int variant, params object[] args)
+    {
+        int count = Variants(key);
+        return Get(count <= 1 ? key : TextVariants.Key(key, Math.Max(0, Math.Min(count - 1, variant))), args);
+    }
+
+    /// <summary>A message for a line shown once and repeated over time (a wire report, a routine notice): one of its
+    /// variants by <paramref name="roll"/> (0 to 1), never the one this catalog showed last for the key
+    /// (<see cref="StoryRules.Variant(int, double, int?)"/>). A message without variants is <see cref="Get"/>.</summary>
+    public string Pick(string key, double roll, params object[] args)
+    {
+        int count = Variants(key);
+        if (count <= 1) return Get(key, args);
+        int variant = StoryRules.Variant(count, roll, lastPick.TryGetValue(key, out int previous) ? previous : null);
+        lastPick[key] = variant;
+        return GetVariant(key, variant, args);
+    }
+
+    /// <summary>Keys whose last shown variant is remembered (a performance footprint).</summary>
+    public int PickCount => lastPick.Count;
 
     // Parse indices, validate escaped braces/format syntax, and allow reordered or
     // repeated arguments. Formatting uses a neutral IFormattable probe, not gameplay data.
@@ -204,6 +261,9 @@ public static class Translations
 
     public static string Get(string owner, string key, string fallback) =>
         catalogs.TryGetValue(owner, out var catalog) && catalog.Contains(key) ? catalog.Get(key) : fallback;
+
+    /// <summary>Keys with variants whose last shown variant the catalogs remember (Framework 0.134.0).</summary>
+    public static int VariantPickCount => catalogs.Values.Sum(c => c.PickCount);
 
     public static void Select(string language)
     {

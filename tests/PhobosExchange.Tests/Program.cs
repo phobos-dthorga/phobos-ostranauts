@@ -767,6 +767,19 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     finally { AddOns.EnabledModDirectories = saved; AddOns.Reset(); }
 }
 
+// ---- Wire line variants (0.6.0, Framework 0.134.0) ---------------------------------------------------------
+{
+    var catalog = new Phobos.Ostranauts.Framework.Localization.TranslationCatalog(File.ReadAllText(Path.Combine(repo, "translations", "PhobosExchange", "en.json")));
+    foreach (string key in new[] { "Wire.rose", "Wire.fell", "Wire.turn_up", "Wire.turn_down", "Wire.news_up", "Wire.news_down", "Cause.market", "Cause.sector",
+                                   "Cause.company", "Cause.noise", "Cause.trading", "Cause.scarce", "Cause.plenty" })
+        Check(catalog.Variants(key) == 3, "the wire words " + key + " three ways");
+    Check(catalog.Variants("Cause.drift") == 2 && catalog.Variants("Cause.news") == 2 && catalog.Variants("Wire.more") == 1 && catalog.Variants("Wire.news_line") == 1,
+        "the short causes have two wordings; the overflow line and a pack's own wire line keep one");
+    var lines = Enumerable.Range(0, 3).Select(v => catalog.GetVariant("Wire.rose", v, "Keelhaul Freight", "KHF", "6.2%", catalog.GetVariant("Cause.scarce", v, "ores", "Zhonghuamen Terminal"))).ToList();
+    Check(lines.Distinct().Count() == 3 && lines.All(l => l.StartsWith("Market wire: Keelhaul Freight (KHF) ", StringComparison.Ordinal) && l.Contains("6.2%") && l.Contains("ores") && l.EndsWith(".")),
+        "every wording keeps the wire's label, the company, the figure and the cause: " + string.Join(" | ", lines));
+}
+
 // ---- The drift guard against Banking's cheapest loan (owner rule) ------------------------------------------
 {
     var lenders = System.Text.Json.JsonDocument.Parse(File.ReadAllText(Path.Combine(repo, "mods", "PhobosBank", "framework", "lenders.json"))).RootElement;

@@ -29,6 +29,19 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.134.0] - 2026-10-08 - Draft
+
+### Added
+
+- A mod's own lines can come in several wordings too, not only story text. A line shown again and again, such as a market report, can have up to eight versions in its translation file, and the mod shows one each time, never the same one twice running. Controls, statuses and warnings keep one wording, so you always recognise them.
+- Translators: each version has its own key, the line's key with .2, .3 and so on added. A version a translation leaves out shows in English.
+
+### Compatibility and limits
+
+- Saves: nothing new is saved. Which version was shown last is remembered until the game is closed.
+- A translation file written before this version keeps working.
+- Checked offline; not yet seen in the game.
+
 ## [0.133.0] - 2026-10-08 - Released
 
 ### Added

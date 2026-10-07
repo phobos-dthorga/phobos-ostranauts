@@ -21,8 +21,8 @@ namespace PhobosExchange;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ExchangeRules.Owner;
-    public const string Version = "0.5.2";
-    public const string MinimumFrameworkVersion = "0.132.0";
+    public const string Version = "0.6.0";
+    public const string MinimumFrameworkVersion = "0.134.0";
     internal const string ModName = "Phobos Exchange";
     internal static Action<string> Log = _ => { };
     /// <summary>Whether the package's data folder is enabled in the game's mod list, checked at each content load.</summary>

@@ -6,7 +6,7 @@ Current prepared Manufacturing requires Framework 0.127.2 for room heat, native 
 Current prepared War Has Been Declared requires Framework 0.123.0 for the shared build-site and combat-observation services.
 Current prepared Phobos Medical requires Framework 0.127.2 for the shared patient services and rectangular equipment.
 Current prepared Phobos Banking requires Framework 0.132.0 for the shared PDA apps, story services and holdings list.
-Current prepared Phobos Exchange requires Framework 0.132.0 for the shared charts, holdings and test-command services.
+Current prepared Phobos Exchange requires Framework 0.134.0 for the shared charts, holdings and test-command services.
 Current prepared Phobos Spacer Stories requires Framework 0.114.0 for story packs, small talk and data-card files.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package

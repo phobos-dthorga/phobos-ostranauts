@@ -43,6 +43,8 @@ moving:
 Big moves over a day and the turn of a phase go out on the **market wire**: a line in the
 crew log and on the Market page, naming the company and the cause, for example "Market
 wire: Smartlink (SMLK) rose 6.2% over the day, as demand for Weapons rose at Port Yangshan."
+Since 0.6.0 the wire words the same kind of move in a few different ways, so a report you
+read every day does not repeat itself word for word; the figures and the cause are the same.
 
 ## News and stories
 
@@ -216,7 +218,7 @@ bug report shows it. Keep a copy of the save first if you might want to go back.
 
 ## Requirements
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.132.0 or newer. Install it with
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.134.0 or newer. Install it with
 `./scripts/install-mods.ps1 -Mods Exchange` (see [Installing and updating our mods](installing-mods.md)).
 
 ## Where the ideas come from

@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.133.0",
+      "value": "0.134.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -3000,7 +3000,7 @@
     "Exchange.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.5.2",
+      "value": "0.6.0",
       "description": "PhobosExchange (Phobos Exchange) published source/package version.",
       "targets": [
         {
@@ -3054,7 +3054,7 @@
     "Exchange.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.132.0",
+      "value": "0.134.0",
       "description": "Current Phobos Exchange required Framework version, shared with local installer admission.",
       "targets": [
         {

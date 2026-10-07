@@ -48,6 +48,12 @@ to suit grammar. Preserve native tokens such as `[us]`, `[them]`, `[crafts]` and
 Use `{{` and `}}` for literal braces. JSON requires escaped newlines (`\n`) and
 quotes (`\"`) inside a value. Files contain one flat object of string values.
 
+Since Framework 0.134.0 a message may have **variants**: further keys with `.2`, `.3` and on
+added to its key (`Wire.rose.2`), up to eight in all, one of which the mod shows each time.
+Translate each variant under its own key. A variant your file leaves out shows in English, so
+translate all of a message's variants or none. A variant takes the same placeholders as the
+message it varies.
+
 ## Authoring
 
 The mandatory [player-language rule and glossary](player-language.md) apply to
@@ -63,6 +69,15 @@ Framework owns lookup, fallback, validation and language selection. Content mods
 own their catalogs and embed their English JSON as an assembly resource. Register
 with `Translations.Register(owner, assembly, resourceName)`, retain the returned
 `TranslationCatalog`, and call `Get(key, arguments)` for complete messages.
+
+A message shown again and again for flavour (a market wire report, not a control, status or
+warning, which keep one fixed wording so players can recognise them) may carry variants
+(Framework 0.134.0): add `<key>.2`, `<key>.3` and on to the English catalog, each with the
+same arguments as the base key, and read it with `Pick(key, roll, arguments)`, which returns
+one variant by the roll and never the one shown last for that key. `Variants(key)` counts
+them and `GetVariant(key, index, arguments)` reads one by number from 0. A variant numbered
+outside 2 to 8, one with a gap before it or one with other arguments refuses the catalog when
+it loads. First consumer: Phobos Exchange 0.6.0's wire lines and their causes.
 Construction recipes can supply `nameKey` and `descriptionKey`; the existing
 English `name` and `description` remain fallbacks. Register the owner's catalog
 before registering its recipes.

@@ -91805,6 +91805,386 @@
       ],
       "before": "Capture timing of the patches on {0} leaves out patches from {1}: they run before or after every probe, so this capture does not count their time.",
       "after": "Capture timing of the patches on {0} leaves out patches from {1}: they run before or after every probe, so this capture does not count their time."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.rose.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) ended the day up {2}, {3}.",
+      "after": "Market wire: {0} ({1}) ended the day up {2}, {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.rose.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) gained {2} on the day, {3}.",
+      "after": "Market wire: {0} ({1}) gained {2} on the day, {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.fell.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) ended the day down {2}, {3}.",
+      "after": "Market wire: {0} ({1}) ended the day down {2}, {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.fell.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) lost {2} on the day, {3}.",
+      "after": "Market wire: {0} ({1}) lost {2} on the day, {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.turn_up.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) has started to climb, {2}.",
+      "after": "Market wire: {0} ({1}) has started to climb, {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.turn_up.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) has turned the corner and is heading up, {2}.",
+      "after": "Market wire: {0} ({1}) has turned the corner and is heading up, {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.turn_down.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) has started to slide, {2}.",
+      "after": "Market wire: {0} ({1}) has started to slide, {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.turn_down.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) has topped out and is heading down, {2}.",
+      "after": "Market wire: {0} ({1}) has topped out and is heading down, {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_up.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) jumped {2} as the news broke.",
+      "after": "Market wire: {0} ({1}) jumped {2} as the news broke."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_up.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) is up {2} on the news.",
+      "after": "Market wire: {0} ({1}) is up {2} on the news."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_down.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) dropped {2} as the news broke.",
+      "after": "Market wire: {0} ({1}) dropped {2} as the news broke."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_down.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1}) is down {2} on the news.",
+      "after": "Market wire: {0} ({1}) is down {2} on the news."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.market.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "carried along by the whole market",
+      "after": "carried along by the whole market"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.market.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "in step with the rest of the board",
+      "after": "in step with the rest of the board"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.sector.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "in step with the rest of {0}",
+      "after": "in step with the rest of {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.sector.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "along with the rest of {0}",
+      "after": "along with the rest of {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.company.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "on its own account",
+      "after": "on its own account"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.company.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "on business of its own",
+      "after": "on business of its own"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.noise.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "on a burst of nervous trading",
+      "after": "on a burst of nervous trading"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.noise.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "on a short, sharp swing in trading",
+      "after": "on a short, sharp swing in trading"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.trading.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "pushed by a run of large orders",
+      "after": "pushed by a run of large orders"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.trading.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "on the back of some heavy orders",
+      "after": "on the back of some heavy orders"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.drift.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "riding its slow long-run growth",
+      "after": "riding its slow long-run growth"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.news.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "on the latest news",
+      "after": "on the latest news"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.scarce.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "with {0} in demand at {1}",
+      "after": "with {0} in demand at {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.scarce.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "as {1} called for more {0}",
+      "after": "as {1} called for more {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.plenty.2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "with less call for {0} at {1}",
+      "after": "with less call for {0} at {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.plenty.3",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.6.0 (8 October 2026): wire line and cause variants (Framework 0.134.0 catalogue variants), agent-authored, reviewed against the player-language guide; same arguments, label and figures as the first wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Core/MoveRules.cs:15",
+        "src/PhobosExchange/Market.cs:311"
+      ],
+      "before": "as {1} wanted less {0}",
+      "after": "as {1} wanted less {0}"
     }
   ],
   "documents": [
@@ -91812,7 +92192,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d0830c6d886a117df3f083ed8b50589b104bb9d6f900d357653b49cb4cd4bbef",
+      "sha256": "0bfa646985d289c80167b76fb0d29caec97613e9d724a027b6f6961c842782fd",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
@@ -91826,7 +92206,8 @@
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "SUPPORT.md",
@@ -91990,7 +92371,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7a0b913ee5c0ecbc0faa74da298d33b27a0e5e30cd851a624aef324a21ed2d26",
+      "sha256": "0f5638fb4f049e25a2f4e13804c3122efc82cbf6dbb2d579efb9c80f52d43426",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
@@ -92000,7 +92381,8 @@
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/crew-automation.md",
@@ -92400,14 +92782,15 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c3e349e71b4422c681b6aa01a50268870eaef30b62fe762666cb2bb01df93d9f",
+      "sha256": "f9616328be2527f72d141d047c89fa20963e0271ebb1a5ce84e8dbbfd61c72ce",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -92526,8 +92909,9 @@
       "path": "docs/development/localization.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "rewrite",
-      "sha256": "d020ee4608dba4168980cbca21c03f9a23c3a83bcddb8f62873dd39621efc201",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation."
+      "sha256": "5b478057e93d32f88fd31dcb466c3f413f0f12d1001a07b5d1298f96b75e7692",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons. 6 October 2026: maker product-copy pass. Reviewed the new descriptions and policy; preserved numerical and formatting contracts, explicit hazards and unsupported-capability limits. Current guide changes are version refreshes from the maintained tool; item references were regenerated from native definitions. Auto Nav overlay fallbacks match the catalogue. Offline checks do not establish gameplay or installation.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/development/locator-next-steps.md",
@@ -92698,7 +93082,7 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "6069c2110b3f571edbda52e496d4818fee43819c6142a1d3fcca33cbd9e17215",
+      "sha256": "20bc954f23c02eed3175ffad7d87b953979ac9c061e4841f52ffaaa150307e0f",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
@@ -92709,7 +93093,8 @@
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0 (catalogue variants and the wire, finding L106), and finding L107 recorded for Exchange 0.5.2 from session 48's notes; checked against the player-language guide."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -92924,11 +93309,12 @@
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "15f2d9a82818a988c1776fd234ce8b9f34bf9443ad076e95ec058904fd356ef2",
+      "sha256": "cd0434032f69d832ac5e5df04de29cb6285a66eb6e20b0fed996b357613cba7e",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008VariantHandoff": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide."
+      "review20261008VariantHandoff": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/development/terminal-social-network.md",
@@ -93022,11 +93408,12 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4992a294095d8fb675a5c94ba70d23434ce2a82a9ef6bae2bda19934ab048028",
+      "sha256": "fa8030ac4f49069339814d03969170364ab651bfe4d3cca2c461f51ca156fd87",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1: regenerated by the item-reference updater; only the version changed.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -93088,14 +93475,15 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b762804324df8adc11e4e1f8d2669924c77099d8366a3888ed32182d9021c682",
+      "sha256": "88c1dd9640649224791f413c5df9bd7698a77e71517a39a46f453c56e2ce58d6",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
-      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
+      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/item-references.md",
@@ -93167,7 +93555,7 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f13104487fa2b87364651842fff7fff46e8d33b17cfa4958f140e68488a867fa",
+      "sha256": "e9c6d911ddc230b03e35183aa612ba68f133d7937797adc37b503d1ca1e8875d",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93176,7 +93564,8 @@
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -93327,7 +93716,7 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8bdc700df9996ecccf0bcc15615da4d23f9f1408b040e2802bcd357cb4356715",
+      "sha256": "fd67a30c0d5cd1d800dff336479b9f06229cc4068e6e5c8beb2314af76283ffb",
       "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
@@ -93337,7 +93726,8 @@
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -93465,29 +93855,31 @@
       "path": "docs/exchange-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "new",
-      "sha256": "5f0b582e2a4bd8b5843121c02472ef7aa89564c796e4928a6a25af1e2513ad18",
+      "sha256": "c0b876888c3b1c26299a4150fd1db89f562bf53d548da4ef37161f16b4a2acdd",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
-      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
+      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/exchange-item-reference.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "new",
-      "sha256": "99fdfedad1a24f42b9a42b872c1b8bd2befc3175521335bbb7272fe1380bd907",
+      "sha256": "a7b0e46d8e5a5b89446d73d76f5b7785b04bcb2d199e971b5408978f7dfcde16",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "workshop/PhobosExchange/page.bbcode",
       "scope": "current player text; Workshop page draft",
       "decision": "new",
-      "sha256": "687e5ea163914afaf3ac634c95cadec1e1b03cf6e1b071eb4b166aaadecafe6d",
+      "sha256": "abd9a99b52cfc24192c420d1ea261fedeed2322e3aa3ae791e65fe846d61cb66",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
@@ -93496,7 +93888,8 @@
       "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange 0.3.0 Workshop draft checked for player-language and BBCode limits; explicitly held for owner gameplay checks.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "docs/development/console-command-audit.md",
@@ -93616,14 +94009,15 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "28bf517393709fe4f39ce331f3eb520fbafdf638a8eef5c940ea9153297059a6",
+      "sha256": "b2ba6d76a83791d9de51654e406bdad0718c53a2c1db1a2709b0417619329516",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -93877,7 +94271,7 @@
       "path": "mods/PhobosExchange/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "0c5ddad4df8a525c8ce0c17081e1b2ebe9e0676c3f43ff5c3f57e6eef8a70ff2",
+      "sha256": "80fe9d644dd990dd56478f8deab96a12f6ebcd0812bd0d3a0a002998eb6f348a",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93885,7 +94279,8 @@
       "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange 0.3.0 draft changelog for histories, story-driven price news and event responses; version remains held and no gameplay readiness is claimed.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "mods/PhobosExchange/framework/exchange.json",
@@ -93902,14 +94297,15 @@
       "path": "mods/PhobosExchange/mod_info.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "816f69c86474a07cb769e0c6a1220acad983ea766d3828b55cf66a42f8a962c6",
+      "sha256": "7aed6155f162b6054b7749377b0957c37c7f7f4ab2bec52203178a333a1bb880",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "mods/PhobosBank/mod_info.json",
@@ -93932,7 +94328,7 @@
       "path": "mods/PhobosFramework/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "8120dab190083ab1b18403d52b64607d50d6eaed6dff93cf6749d14a625d056a",
+      "sha256": "1535eab3bd214429901f8897bbc97d0de5ef31119a7430203b3713805f4bcba3",
       "review20261008PublicRelease": "Reviewed 2026-10-08: the version published to the public Workshop item is marked Released with its date; no other wording changed.",
       "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
@@ -93941,7 +94337,8 @@
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008LineReachPlay": "Reviewed 8 October 2026 for Framework 0.131.1: added the owner's in-play confirmation of line build-site reach (player character and all crew) and the note that draining, venting and reopening were not tested; wording read against player-language.md.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
+      "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
     },
     {
       "path": "mods/PhobosExchange/framework/story.json",

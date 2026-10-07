@@ -301,6 +301,13 @@ later, which must come out the same (letters use `StoryRules.LetterSeed` and
 `LetterRun`). Nothing about a pick is saved. First consumer beyond story packs: Phobos
 Exchange 0.5.0's wire lines.
 
+**Catalogue variants (0.134.0).** A mod's own catalogue line may vary too: add `<key>.2`,
+`<key>.3` and on to its English catalog (same arguments as the base key, at most eight in
+all) and read it with `TranslationCatalog.Pick(key, roll, args)`, which never shows the same
+variant twice running; `Variants(key)` and `GetVariant(key, index, args)` read them directly.
+Keep controls, statuses and warnings to one wording; vary only flavour lines that repeat. See
+[translation catalogs](localization.md). First consumer: Phobos Exchange 0.6.0's wire.
+
 **Story services for other mods (0.127.0).** Content that is not a story pack can still be
 local, gated and remembered the way story content is:
 `StoryLocation.Region`, `DockedPlace` and `Near(place)` say where the player is;

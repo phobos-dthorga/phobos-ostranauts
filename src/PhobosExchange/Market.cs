@@ -220,7 +220,7 @@ internal static class Market
                 string line = n.wire != null
                     // One of its wire variants (0.5.0), never the same as the last time this news broke.
                     ? Text.Get("Wire.news_line", Companies.NewsWire(model.Ids[i], n, VariantPicks.Next("exchange:" + model.Ids[i] + "/" + n.flag, n.wire.Count, UnityEngine.Random.value)), ticker, Percent(n.move))
-                    : Text.Get(n.move >= 0 ? "Wire.news_up" : "Wire.news_down", name, ticker, Percent(Math.Abs(n.move)));
+                    : Text.Pick(n.move >= 0 ? "Wire.news_up" : "Wire.news_down", name, ticker, Percent(Math.Abs(n.move)));
                 Notify("PhobosExchange.wire", NoticeLevel.Info, line, null);
                 moved = true;
             }
@@ -290,14 +290,16 @@ internal static class Market
         if (player.ship == null || !PlayerNotices.Post(player.ship, key, level, log, banner)) player.LogMessage(log, level == NoticeLevel.Caution ? "Badish" : "Neutral", player.strID);
     }
 
-    /// <summary>A market wire line: what moved, how far, and the largest part of the price that moved it.</summary>
+    /// <summary>A market wire line: what moved, how far, and the largest part of the price that moved it. Since 0.6.0 the
+    /// line and its cause are each one of their catalogue variants, so a wire that reports every day does not repeat
+    /// itself word for word.</summary>
     internal static string Wire(MoveReport r)
     {
         if (model == null) return "";
         string id = model.Ids[r.Company], name = Companies.Name(id), ticker = model.Entries[r.Company].ticker;
         string cause = Cause(r);
-        if (r.Turn) return Text.Get(r.Change >= 0 ? "Wire.turn_up" : "Wire.turn_down", name, ticker, cause);
-        return Text.Get(r.Change >= 0 ? "Wire.rose" : "Wire.fell", name, ticker, Percent(Math.Abs(r.Change)), cause);
+        if (r.Turn) return Text.Pick(r.Change >= 0 ? "Wire.turn_up" : "Wire.turn_down", name, ticker, cause);
+        return Text.Pick(r.Change >= 0 ? "Wire.rose" : "Wire.fell", name, ticker, Percent(Math.Abs(r.Change)), cause);
     }
 
     private static string Cause(MoveReport r)
@@ -306,21 +308,21 @@ internal static class Market
         var c = model.Entries[r.Company];
         switch (r.Cause)
         {
-            case Core.Cause.Market: return Text.Get("Cause.market");
-            case Core.Cause.Sector: return Text.Get("Cause.sector", Companies.SectorName(c.sector));
-            case Core.Cause.Company: return Text.Get("Cause.company");
-            case Core.Cause.Trading: return Text.Get("Cause.trading");
-            case Core.Cause.Drift: return Text.Get("Cause.drift");
-            case Core.Cause.News: return Text.Get("Cause.news");
+            case Core.Cause.Market: return Text.Pick("Cause.market");
+            case Core.Cause.Sector: return Text.Pick("Cause.sector", Companies.SectorName(c.sector));
+            case Core.Cause.Company: return Text.Pick("Cause.company");
+            case Core.Cause.Trading: return Text.Pick("Cause.trading");
+            case Core.Cause.Drift: return Text.Pick("Cause.drift");
+            case Core.Cause.News: return Text.Pick("Cause.news");
             case Core.Cause.Driver when r.Driver >= 0 && r.Driver < c.drivers.Count:
             {
                 var d = c.drivers[r.Driver];
                 // The driver's part moved with the price; the station's demand moved that way times the sign of its weight
                 // (a dearer input pulls the price down).
                 bool scarcer = (r.Change >= 0) == (d.weight > 0);
-                return Text.Get(scarcer ? "Cause.scarce" : "Cause.plenty", NativeMarket.CategoryName(d.category), NativeMarket.StationName(d.station));
+                return Text.Pick(scarcer ? "Cause.scarce" : "Cause.plenty", NativeMarket.CategoryName(d.category), NativeMarket.StationName(d.station));
             }
-            default: return Text.Get("Cause.noise");
+            default: return Text.Pick("Cause.noise");
         }
     }
 

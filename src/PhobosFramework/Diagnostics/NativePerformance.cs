@@ -114,6 +114,7 @@ internal static class NativePerformance
         Performance.RegisterFootprint("framework.upkeep.states", "footprint", () => Crew.Upkeep.StateCount);
         // Framework 0.132.0 (L101): the last variant picked per news item, advert and small-talk line, cleared on reload.
         Performance.RegisterFootprint("framework.story.variant_picks", "footprint", () => Story.VariantPicks.Count);
+        Performance.RegisterFootprint("framework.text.variant_picks", "footprint", () => Localization.Translations.VariantPickCount);
         Performance.RegisterFootprint("framework.fluid_route.ships", "footprint", () => Liquids.FluidRouteCache.ShipCount);
         Performance.RegisterFootprint("framework.buffered_drains.entries", "footprint", () => Liquids.BufferedDrains.EntryCount);
         // Framework 0.133.0 (L103): the line segments whose run the two-second top-up remembers.

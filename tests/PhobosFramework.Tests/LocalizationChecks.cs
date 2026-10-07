@@ -39,6 +39,36 @@ internal static class LocalizationChecks
         check(catalog.Get("work") == "{0}: {1:F1} kg", "Caller argument error does not throw into gameplay");
         check(Translations.Get("absent.provider", "recipe.key", "English recipe") == "English recipe", "Optional translation provider preserves recipe fallback");
 
+        // Framework 0.134.0: catalogue lines with variants, key, key.2, key.3 and on, picked with no immediate repeat.
+        {
+            var lines = new TranslationCatalog("{\"rose\":\"{0} rose {1}.\",\"rose.2\":\"{0} gained {1}.\",\"rose.3\":\"{0} closed up {1}.\",\"plain\":\"Ready\"}", warnings.Add);
+            check(lines.Variants("rose") == 3 && lines.Variants("plain") == 1 && lines.Variants("absent") == 0, "A message counts its variants; one without any has one");
+            check(lines.GetVariant("rose", 1, "KHF", "4%") == "KHF gained 4%." && lines.GetVariant("rose", 9, "KHF", "4%") == "KHF closed up 4%." && lines.GetVariant("plain", 2) == "Ready",
+                "A variant is read by its number from 0, held to the variants there are");
+            int? last = null; bool repeated = false; var seen = new HashSet<string>();
+            for (int i = 0; i < 60; i++)
+            {
+                string line = lines.Pick("rose", (i * 0.6180339887) % 1, "KHF", "4%");
+                repeated |= last.HasValue && line == lines.GetVariant("rose", last.Value, "KHF", "4%");
+                last = new[] { "KHF rose 4%.", "KHF gained 4%.", "KHF closed up 4%." }.ToList().IndexOf(line);
+                seen.Add(line);
+            }
+            check(!repeated && seen.Count == 3 && lines.PickCount == 1, "Picks never show the same variant twice running, use every one, and remember one entry per key");
+            check(lines.Pick("plain", 0.5) == "Ready" && lines.PickCount == 1, "A message without variants is read as it is, remembering nothing");
+            lines.Select("fr", "{\"rose\":\"{0} a monté de {1}.\"}");
+            check(lines.GetVariant("rose", 0, "KHF", "4 %") == "KHF a monté de 4 %." && lines.GetVariant("rose", 1, "KHF", "4 %") == "KHF gained 4 %.",
+                "Each variant translates under its own key; one a translation leaves out shows in English");
+            lines.Select("fr", "{\"rose.2\":\"{0} a gagné.\"}");
+            check(lines.GetVariant("rose", 1, "KHF", "4 %") == "KHF gained 4 %.", "A variant translation must take the same arguments as its English");
+            foreach (string broken in new[] { "{\"a\":\"{0}\",\"a.2\":\"{1}\"}", "{\"a\":\"x\",\"a.3\":\"y\"}", "{\"a\":\"x\",\"a.1\":\"y\"}", "{\"a\":\"x\",\"a.9\":\"y\"}" })
+            {
+                bool refused = false;
+                try { _ = new TranslationCatalog(broken); } catch (FormatException) { refused = true; }
+                check(refused, "A variant with other arguments, a gap, or a number outside 2 to 8 is a packaging fault: " + broken);
+            }
+            check(new TranslationCatalog("{\"Level.2\":\"Two\"}").Get("Level.2") == "Two", "A numbered key without a base key is an ordinary message");
+        }
+
         var makers = new EquipmentNames("{\"item\":{\"brand\":\"Asterel\",\"model\":\"N1\"},\"waste\":{\"brand\":\"\",\"model\":\"\"}}");
         var branded = new TranslationCatalog("{\"item\":\"Module{0}\",\"waste\":\"Spent Parts\",\"status\":\"Ready\"}", warnings.Add, makers);
         branded.Select("fr", "{\"item\":\"Module de navigation{0}\"}");

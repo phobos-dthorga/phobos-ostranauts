@@ -1311,6 +1311,38 @@ mostly at 8x, then 33 s spanning an autosave):
 
 The captures are kept in `.local/performance-captures/2026-10-08-framework-0.131.1/`.
 
+## 8 October: drivers follow station demand (L107)
+
+L107 — Phobos Exchange 0.5.2 (commit 63b37437, session 48; recorded here by session 6d from that
+session's notes, as the commit left the ledger unrefreshed).
+- **Reading the drivers** (`DriverReading`): about a dozen floating-point operations per
+  driver, no allocation. It runs only when drivers are read, through `Market.ReadDrivers` once
+  a game hour and at attach (measured as `PerformanceMetrics.Drivers`), over the 19 shipped
+  drivers, never per market step.
+- **The game's market**: `NativeMarket.Demand` adds two dictionary lookups per driver on the
+  game's `ShipMarket` (its stock and its maximum inventory for the category) beside the
+  existing price-modifier lookup: about 38 more lookups a game hour. The F3 drivers readout
+  does the same on demand.
+- **Loading**: a record from before 0.5.2 settles its drivers once more when the market
+  opens (one pass over the drivers); `ExchangeRecord` writes one short optional field.
+
+No new hot path or collection, so nothing for `RegisterFootprint`. Offline checks only; no
+capture accompanies this change.
+
+## 8 October: catalogue variants and the wire (L106)
+
+L106 — Framework 0.134.0, Phobos Exchange 0.6.0.
+- **Loading a catalog**: one pass over its keys for numbered variants, each checked against
+  its base key's arguments; once per load.
+- **A line read with `Pick`**: up to eight dictionary lookups to count the variants, one
+  random number, and one dictionary read and write for the last pick, then the same
+  formatting as before. The Exchange wire uses it for each report it posts (at most a few a
+  game day, plus one summary after an absence) and for each report's cause.
+- **Memory**: one small integer per catalogue key with variants that has been shown (at most
+  the fifteen Exchange keys today), registered as the `framework.text.variant_picks` footprint.
+
+Nothing runs per frame or per world tick. No capture accompanies this change.
+
 ## 8 October: variant lines (L101)
 
 L101 — Framework 0.132.0, Phobos Exchange 0.5.0, Phobos Banking 0.8.0.

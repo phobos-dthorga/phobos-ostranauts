@@ -5,6 +5,19 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-08 - Draft
+
+### Added
+
+- The market wire no longer repeats itself word for word. Its daily moves, turns and news reports, and the reasons it gives for them, each come in two or three wordings, and the wire never uses the same one twice running. The figures and the causes are unchanged.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.134.0, which lets a mod's own lines come in several wordings.
+- Saves: nothing new is saved.
+- Translators: each wording has its own key (Wire.rose, Wire.rose.2, Wire.rose.3 and so on); translate all of a line's wordings, or the ones left out show in English.
+- Checked offline; not yet seen in the game.
+
 ## [0.5.2] - 2026-10-08 - Draft
 
 ### Fixed
