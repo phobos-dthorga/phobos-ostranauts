@@ -226,7 +226,9 @@ card opening, card delivery, notices or pacing observed in play. No game files,
 load order, installation, saves or Workshop items were changed.
 
 Once the owner enables the add-on through an approved installation path, useful
-review commands from the [story guide](../writing-story-content.md) are:
+review commands from the [story guide](../writing-story-content.md) are below. Since
+Framework 0.128.1, `story start` and `story news` are test commands: type the game's own
+`unlockdebug` first and add `confirm` at the end; use a copy of the save.
 
 1. `phobosframework story` to inspect the loaded entries and refusals.
 2. `phobosframework story start spacertales-misfiled-can` to inspect the opening

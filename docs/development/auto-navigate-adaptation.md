@@ -263,7 +263,7 @@ F3 commands:
 | `phobosnav help` | Command list and ordinary-save usage |
 | `phobosnav status` | Version, engagement, economy registration and last result |
 | `phobosnav settings` | Effective flight defaults and config filename |
-| `phobosnav spawn` | Add one module to an open compatible console (debug grant) |
+| `phobosnav spawn` | Add one module to an open compatible console (debug grant; since 0.35.1 a test command needing the game's `unlockdebug` and `confirm`) |
 | `phobosnav fly` | Engage using the saved default through the same checks as the panel |
 | `phobosnav fly 0.5` | Request a 500 m arrival for this flight; larger hull clearance still applies |
 | `phobosnav arrival 1` | Save this console's 1 km default with no active/suspended flight |
@@ -311,7 +311,8 @@ data package through the normal game mod controls. Keep original Auto Navigate
 disabled and confirm it does not load.
 
 In an ordinary save, buy or assemble a module and fit it to a powered nav console.
-The explicit `phobosnav spawn` command remains available for debugging. Reopen the
+The explicit `phobosnav spawn` command remains available for debugging, behind the game's own
+`unlockdebug` and `confirm` since 0.35.1. Reopen the
 console and place the module using Edit. Select another ship/station
 with ample clearance and set a nonzero throttle before using Fly.
 

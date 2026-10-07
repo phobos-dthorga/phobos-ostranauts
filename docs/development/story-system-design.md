@@ -471,7 +471,10 @@ public, documented and usable by any mod:
 - `StoryArcs.TryBegin(arc, out message)`: starts an arc from code only when its
   requirements, thread and place hold and it is not under way (or finished and not
   repeatable). The limit on arcs starting by themselves does not apply. F3
-  `story try <arc>` uses it.
+  `story try <arc>` uses it. Since Framework 0.128.1 the F3 form is a test command (owner
+  rule, 7 October 2026: the game's `unlockdebug`, a warning, `confirm`, and the save marked
+  as test-changed), as are `story start`, `reset`, `news`, `file`, `flag`, `standing` and
+  `check`; `StoryArcs.TryBegin` itself, which Phobos Banking calls, is not gated.
 - **The game's day.** `afterDays`, `beforeDays` and `mentionDays` counted 86,400-second
   days; they now count the game's own 87,658.125-second day (`GameClock`, shared, checked
   natively against `CrewSim.SEC_PER_DAY` and `MathUtils`). A window of 10 days now opens

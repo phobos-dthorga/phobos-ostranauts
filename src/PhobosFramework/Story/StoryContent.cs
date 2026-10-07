@@ -92,9 +92,13 @@ public static class StoryContent
     /// <summary>A text from a pack, replaced by the owner's translation of <c>Story.&lt;key&gt;</c> when it has one.</summary>
     internal static string Words(string owner, string key, string inline) => Translations.Get(owner, "Story." + key, inline);
 
-    /// <summary>The F3 report: packs, problems, then the player's arcs.</summary>
+    /// <summary>The F3 report: packs, problems, then the player's arcs. The commands that change the save outside ordinary
+    /// play (start, try, reset, news, file, flag, standing and check) are test commands (owner rule, 7 October 2026;
+    /// Framework 0.128.1): they need the game's own unlockdebug and confirm at the end, through
+    /// <see cref="Diagnostics.DebugCommands"/>. Readouts, the Letters window and replies stay open.</summary>
     internal static string Command(string[] words)
     {
+        words = Controls.Confirmations.TakeWord(words, out bool confirmed);
         string sub = words.Length > 2 ? words[2].ToLowerInvariant() : "";
         string? id = words.Length > 3 ? words[3] : null;
         switch (sub)
@@ -105,27 +109,39 @@ public static class StoryContent
                 lines.AddRange(Library.Problems.Select(p => "  " + p));
                 lines.Add(StoryArcs.Describe());
                 return string.Join("\n", lines);
-            case "start" when id != null && words.Length == 4: return StoryArcs.StartCommand(id);
-            // Framework 0.127.0: start an arc the way another mod would, honouring its requirements and place.
-            case "try" when id != null && words.Length == 4: return StoryArcs.TryCommand(id);
-            case "reset" when id != null && words.Length == 4: return StoryArcs.ResetCommand(id);
-            case "news" when id != null && words.Length == 4: return StoryArcs.NewsCommand(id);
-            case "check" when words.Length == 3: StoryArcs.Check(); return Text.Get("Story.checked");
+            case "start" when id != null && words.Length == 4: return Test(Text.Get("Story.test_start", id), confirmed, () => StoryArcs.StartCommand(id));
+            // Framework 0.127.0: start an arc the way another mod would, honouring its requirements and place. Only the F3
+            // form is a test command; StoryArcs.TryBegin, which other mods call, is not gated.
+            case "try" when id != null && words.Length == 4: return Test(Text.Get("Story.test_try", id), confirmed, () => StoryArcs.TryCommand(id));
+            case "reset" when id != null && words.Length == 4: return Test(Text.Get("Story.test_reset", id), confirmed, () => StoryArcs.ResetCommand(id));
+            case "news" when id != null && words.Length == 4: return Test(Text.Get("Story.test_news", id), confirmed, () => StoryArcs.NewsCommand(id));
+            // An extra check is an extra chance for waiting arcs to start, beyond the normal pace.
+            case "check" when words.Length == 3: return Test(Text.Get("Story.test_check"), confirmed, () => { StoryArcs.Check(); return Text.Get("Story.checked"); });
             case "items" when words.Length >= 4: return Items(string.Join(" ", words.Skip(3)));
             case "chatter" when words.Length == 3: return StoryChatter.Describe();
-            case "file" when id != null && words.Length == 4: return StoryArcs.FileCommand(id);
+            case "file" when id != null && words.Length == 4: return Test(Text.Get("Story.test_file", id), confirmed, () => StoryArcs.FileCommand(id));
             case "chatter" when id != null && words.Length == 4: return StoryChatter.Force(id);
             // Grounding (Framework 0.114.0): where the player is, a thread's members, flags, and the places and people known.
             case "where" when words.Length == 3: return StoryArcs.WhereCommand();
             case "thread" when id != null && words.Length == 4: return StoryArcs.ThreadCommand(id);
-            case "flag" when id != null && (words.Length == 4 || words.Length == 5 && words[4] == "clear"): return StoryArcs.FlagCommand(id, words.Length == 5);
+            case "flag" when id != null && (words.Length == 4 || words.Length == 5 && words[4] == "clear"):
+                return Test(Text.Get(words.Length == 5 ? "Story.test_flag_clear" : "Story.test_flag", id), confirmed, () => StoryArcs.FlagCommand(id, words.Length == 5));
             case "places" when words.Length == 3: return StoryArcs.PlacesCommand();
             case "people" when words.Length == 3: return StoryArcs.PeopleCommand();
-            case "standing" when words.Length == 5: return StoryArcs.StandingCommand(words[3], words[4]);
+            case "standing" when words.Length == 5: return Test(Text.Get("Story.test_standing", words[3], words[4]), confirmed, () => StoryArcs.StandingCommand(words[3], words[4]));
             // Letters and replies (Framework 0.122.0): the same service the Letters window's buttons use.
             case "answer" when words.Length == 5: return StoryArcs.Answer(words[3], words[4]);
             case "letters" when words.Length <= 4: return LettersPanel.Show(id) ? Text.Get("Story.letters_opened") : Text.Get("Story.letters_unavailable");
             default: return Text.Get("Story.help");
         }
+    }
+
+    /// <summary>Runs a story test command through the gate, then marks the save as test-changed.</summary>
+    private static string Test(string what, bool confirmed, Func<string> run)
+    {
+        if (!Diagnostics.DebugCommands.Gate(Text.Get("Story.mod"), what, confirmed, out string message)) return message;
+        string result = run();
+        Diagnostics.DebugCommands.Record(Text.Owner, what);
+        return result + "\n" + Diagnostics.DebugCommands.Done(what);
     }
 }

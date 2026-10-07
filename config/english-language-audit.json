@@ -6702,13 +6702,13 @@
       "key": "NavigationService.phobosnav_help_status_settings_fly_stop_spawn",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Added the sensors command; existing commands and limits retained.",
+      "reason": "Added the sensors command; existing commands and limits retained. Auto Nav 0.35.1: spawn and spawnpursuit behind the unlockdebug gate; reviewed against player-language rules.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/NavigationService.cs:274"
       ],
       "before": "phobosnav: status | settings | fly [km] | dock | stop | resume | cruise <m/s> | arrivalspeed <m/s> | arrival <km> | defaults | torch on/off | forget | spawn. Defaults explicitly resets this console’s preferences; forget clears its saved flight. N2: rendezvous [km] | follow [km] | spawnpursuit. N3: firetarget | weapons <1–9> | volley | fireweapon | aimweapon | autoaim | engage | ceasefire | nativefire. Engage requires N3 and a separately selected qualified target, including during manual flight. Cease retains offensive Hold; nativefire releases it and may resume native autofire. Rendezvous/Follow match motion. Native N3 spawn: spawn PhobosNavModFireControl.\nphobosnav approachdock — approach the cleared target and hand over to terminal RCS docking.\nAudio: phobosnav watch | unwatch | cue-volume. Engage Approach/Rendezvous before watching.",
-      "after": "phobosnav: status | settings | sensors [passive|all] | fly [km] | dock | stop | resume | cruise <m/s> | arrivalspeed <m/s> | arrival <km> | defaults | torch on/off | forget | spawn. Defaults explicitly resets this console’s preferences; forget clears its saved flight. N2: rendezvous [km] | follow [km] | spawnpursuit. N3: firetarget | weapons <1–9> | volley | fireweapon | aimweapon | autoaim | engage | ceasefire | nativefire. Engage requires N3 and a separately selected qualified target, including during manual flight. Cease retains offensive Hold; nativefire releases it and may resume native autofire. Rendezvous/Follow match motion. Native N3 spawn: spawn PhobosNavModFireControl.\nphobosnav approachdock — approach the cleared target and hand over to terminal RCS docking.\nAudio: phobosnav watch | unwatch | cue-volume. Engage Approach/Rendezvous before watching.",
+      "after": "phobosnav: status | settings | sensors [passive|all] | fly [km] | dock | stop | resume | cruise <m/s> | arrivalspeed <m/s> | arrival <km> | defaults | torch on/off | forget | spawn. Defaults explicitly resets this console’s preferences; forget clears its saved flight. N2: rendezvous [km] | follow [km] | spawnpursuit. N3: firetarget | weapons <1–9> | volley | fireweapon | aimweapon | autoaim | engage | ceasefire | nativefire. Engage requires N3 and a separately selected qualified target, including during manual flight. Cease retains offensive Hold; nativefire releases it and may resume native autofire. Rendezvous/Follow match motion. Native N3 spawn: spawn PhobosNavModFireControl. Spawn and spawnpursuit create a module from nothing, so they need the game's unlockdebug first and confirm at the end.\nphobosnav approachdock — approach the cleared target and hand over to terminal RCS docking.\nAudio: phobosnav watch | unwatch | cue-volume. Engage Approach/Rendezvous before watching.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -81931,13 +81931,13 @@
       "key": "Story.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Framework 0.127.0: F3 story try says why an arc did not start, in the story report's own wording; the help lists the new command.",
+      "reason": "Framework 0.127.0: F3 story try says why an arc did not start, in the story report's own wording; the help lists the new command. Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Story/StoryContent.cs:128"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story try <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change> | story letters [arc] | story answer <arc> <reply>. None is needed: story content loads and runs by itself, and replies are sent from the Letters window; these are for authors testing it."
+      "after": "Story commands: phobosframework story | story start <arc> | story try <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words> | story where | story thread <thread> | story flag <flag> [clear] | story places | story people | story standing <faction> <change> | story letters [arc] | story answer <arc> <reply>. None is needed: story content loads and runs by itself, and replies are sent from the Letters window; these are for authors testing it. Start, try, reset, news, file, flag, standing and check change your save, so they need the game's unlockdebug first and confirm at the end."
     },
     {
       "mod": "PhobosFramework",
@@ -91270,6 +91270,175 @@
       ],
       "before": "Open {0}",
       "after": "Open {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Debug.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/DebugCommands.cs:78"
+      ],
+      "before": "Test commands have changed this save: {0}.",
+      "after": "Test commands have changed this save: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Debug.status_mod",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/DebugCommands.cs:78"
+      ],
+      "before": "{0} {1} times, last {2}",
+      "after": "{0} {1} times, last {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.mod",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:142"
+      ],
+      "before": "Phobos Framework",
+      "after": "Phobos Framework"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_start",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:112"
+      ],
+      "before": "start story arc {0} whatever its requirements",
+      "after": "start story arc {0} whatever its requirements"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_try",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:115"
+      ],
+      "before": "start story arc {0} now, if its requirements hold",
+      "after": "start story arc {0} now, if its requirements hold"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_reset",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:116"
+      ],
+      "before": "erase story arc {0}'s progress so it can run again",
+      "after": "erase story arc {0}'s progress so it can run again"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_news",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:117"
+      ],
+      "before": "queue bulletin {0} for the TV news",
+      "after": "queue bulletin {0} for the TV news"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_file",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:122"
+      ],
+      "before": "put story file {0} in your inventory",
+      "after": "put story file {0} in your inventory"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_flag",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:128"
+      ],
+      "before": "set story flag {0}",
+      "after": "set story flag {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_flag_clear",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:128"
+      ],
+      "before": "clear story flag {0}",
+      "after": "clear story flag {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_standing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:131"
+      ],
+      "before": "change your standing with {0} by {1}",
+      "after": "change your standing with {0} by {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_check",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.1: the story test commands behind the unlockdebug gate and the shared test-changed mark; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryContent.cs:119"
+      ],
+      "before": "run the story check now, an extra chance for waiting arcs to start",
+      "after": "run the story check now, an extra chance for waiting arcs to start"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.test_spawn",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Auto Nav 0.35.1: spawn and spawnpursuit behind the unlockdebug gate; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationService.cs:402"
+      ],
+      "before": "create a {0} module in this console from nothing",
+      "after": "create a {0} module in this console from nothing"
     }
   ],
   "documents": [
@@ -91277,11 +91446,12 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cb67b9cab3589483a282b8ed32c207edd6a8d68b5c11cd1630667a339a6983b3",
+      "sha256": "bf7e0c899999073066b0b3728c523b276677f3edb1cda185be2737261ab93874",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
-      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "SUPPORT.md",
@@ -91407,8 +91577,9 @@
       "path": "docs/auto-nav-pursuit.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2da4d6504ac4d6ca3ef806c063337f9d7c687e4d48fbb89434215c72e0455b5a",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "dc26d38407c76d38a415fbc3108796738f77e30ee4c8833e4f058de581ecb0c5",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/auto-nav-sensors.md",
@@ -91442,9 +91613,10 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fe7b6692fcd2e8037bc9ed44d1aeeb674e2e8b76ad96062a971551afea5ee3d1",
+      "sha256": "851147fe37b42a9b4691e0b72cebb091582d67e35bbf2e35afa81631cd8c2467",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/crew-automation.md",
@@ -91457,12 +91629,13 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "6a54848b4bc79ce8c22c32801791e655614dcd4f084e7e9b2a6c64fd5ba2dc42",
+      "sha256": "c07e054ec155650f7b37cb8a8e965d577d5d79084490fdea3ccd7fc588083d02",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments.",
-      "review20261007ShareMarket": "Reviewed 7 October 2026: one index line added for the share market and charts design record; existing wording retained."
+      "review20261007ShareMarket": "Reviewed 7 October 2026: one index line added for the share market and charts design record; existing wording retained.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -91661,8 +91834,9 @@
       "path": "docs/development/auto-navigate-adaptation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e44c0ecefb3f572a8f8678c16ec8165b4aa75cbfb898e3c91fdc18c698ae6ed2",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "d4aad77d9cd87b8a32f8b4e62ff832eb82ce90a5b63567258d467cd501a3b283",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/auto-navigate-reuse-review.md",
@@ -92317,8 +92491,9 @@
       "path": "docs/development/spacer-stories-authoring.md",
       "scope": "contributor index and source-backed story authoring record",
       "decision": "new",
-      "sha256": "6f7a187783c489e58d5a8ce113c3ccf3695a878cade61179890bf40938cfa8c3",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+      "sha256": "9c671342c545fc290e7a19eebd4a4732faffec4860cf6e5c6e41cd5029aafd3d",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/spacer-stories-rewrite-handoff.md",
@@ -92345,8 +92520,9 @@
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "2f3f22fcdbee424cddcdcae88df3f74ba298050de3ab37c1cef58427d919ec63",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "d3ac8a024cbef51926e668c67d988c27d2aa9b8fb1e0cdb2731f734b6a5023f2",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/terminal-social-network.md",
@@ -92568,9 +92744,10 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "689e7286ddd428350992fbe8cbb09787bf2da52e3f42a12d4eef046f6d0b4b4b",
+      "sha256": "79526d3dae98372447bc268a324c7060e1fdf999040e123e11745d2cc1b63e80",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -92689,8 +92866,9 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "cfbd0de9ef66262681fe7629f572a4c7ecf403cf74eabbceeba5d289079e7cf2",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "8e39029d20220af39cc39dac2949d50308ff976a4f2409237b5e05f42e725fee",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -92703,16 +92881,18 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e20527b376b73be9933f68a25d130b733a05ae6dd35b373e3ecfdcb71c3f7801",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "ff58eb2b95f1fd762a1b912cd486b6773474ccde7cbbfdd0ea2b856cdc8125e2",
+      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "00acff3131428e49065d9d70f801fd64410764e5d5aa99a5fb4d073782feb012",
+      "sha256": "428526cac124c9588e30e1a73fbacbcd3b70ed83c13827b7269248648a51f759",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -92835,8 +93015,15 @@
       "path": "workshop/PhobosExchange/page.bbcode",
       "scope": "current player text; Workshop page draft",
       "decision": "new",
-      "sha256": "5e3aff8e8ef636785c576b9aba5ea598397623bf2cb1b59468261c9844b93cb0",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "sha256": "d79200c301bfd5de37175166112a69ea22d2945c9d3863a684c0ab18b0e13f05",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md."
+    },
+    {
+      "path": "docs/development/console-command-audit.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "991d9f6615883a67d2eac99881b02a92011f5018c4b46e5e98f91050817e7e33",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     }
   ],
   "surfaces": [
@@ -92884,8 +93071,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a242adc34ee4d45a411f7f4f9ab581f55e2c608176653a7b06584b25647a8794",
-      "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause."
+      "sha256": "317c253eaaddb986b36943c7f7480c0d70e349aff8a102236996a3762235abe3",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -92896,8 +93083,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "08005e7ef802dddbe473a3ef46f2e179af4ed42c7571604f28494ac2d42a0dc3",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
+      "sha256": "baffe699202762e1b01724e85546e4e88ca1f251beb08954e0afafe867e92906",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
@@ -93145,8 +93332,8 @@
       "path": "mods/PhobosExchange/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "3f8db62e566271fa1d62655b1850cc29bd0a2455da73ef84e88471bb54a6d830",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "sha256": "41e5b033e4315f7295a815a5a49a40307bb9220bcc07dac9ab8e9ea0d7c3504d",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, shared holdings, test-command gate and new cover note; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosExchange/framework/exchange.json",
@@ -93168,6 +93355,20 @@
       "decision": "new",
       "sha256": "24f162af8094672207f17062ea8f4cc474ed08d185540d8bd678fddc971dbeb8",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: version, Framework requirement and description; nothing claimed as tested in play."
+    },
+    {
+      "path": "mods/PhobosAutoNav/CHANGELOG.md",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "76ded413519afe279d539a217055cf48ffb9ab70f1d3503036ae09db0c203e1a",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+    },
+    {
+      "path": "mods/PhobosFramework/CHANGELOG.md",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "baaaebbdcbefdbef07d93cff22a42b8a11595e9ae45bb6ebcdc872fea73eb38a",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     }
   ],
   "hardcodedReview": {

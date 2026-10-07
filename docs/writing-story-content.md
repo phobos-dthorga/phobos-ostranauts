@@ -496,7 +496,12 @@ override them in `BepInEx/config/PhobosFramework/story/`:
   `BepInEx/LogOutput.log`. An entry naming an item, condition, arc or section the game
   does not have is left out on its own, with a message.
 - **F3 console (optional):** nothing here is needed for story content to work. These
-  commands only save waiting while you write and test:
+  commands only save waiting while you write and test. Since Framework 0.128.1, the ones
+  that change your save (`story start`, `try`, `reset`, `news`, `file`, `flag`, `standing`
+  and `check`) are test commands: type the game's own `unlockdebug` first, read the warning,
+  and repeat the command with `confirm` at the end, for example
+  `phobosframework story start my-arc confirm`. The save is then marked as test-changed
+  (`phobosframework status` says so). Test on a copy of your save. The readouts below stay open:
   - `phobosframework story` lists the packs, anything left out and why, where you are
     docked, each arc (under way with each test's progress, finished, set aside, or why
     it cannot start yet), and how much small talk, tips and articles are in play.
@@ -505,7 +510,7 @@ override them in `BepInEx/config/PhobosFramework/story/`:
     `phobosframework story chatter <id>` makes the next small talk of that line's moment
     say it.
   - `phobosframework story start <arc>` starts an arc now, whatever its chance and requirements.
-  - `phobosframework story try <arc>` starts an arc only if its requirements and place hold, and says what blocks it otherwise, as another mod starting it would.
+  - `phobosframework story try <arc>` starts an arc only if its requirements and place hold, and says what blocks it otherwise, as another mod starting it would. (Another mod starting it from code, through `StoryArcs.TryBegin`, needs no `unlockdebug`.)
   - `phobosframework story check` runs the story check at once.
   - `phobosframework story reset <arc>` forgets an arc in this game so it can start again.
   - `phobosframework story items <words>` lists the item ids whose names contain the words.

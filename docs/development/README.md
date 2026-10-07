@@ -105,6 +105,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Field and shipboard medical system](medical-system-vision.md)
 - [Crew upkeep on long hauls](crew-upkeep-design.md)
 - [Press twice to go ahead: panel override audit (Framework 0.125.0)](panel-override-audit.md)
+- [F3 test commands: the unlockdebug audit (Framework 0.128.1)](console-command-audit.md)
 - [Store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0)](crew-loading-and-maintenance-sheet.md)
 - [Crew panel and Maintenance sheet clarity (Framework 0.117.0)](crew-panel-clarity.md)
 - [Merchant stock in useful quantities](merchant-stock.md)

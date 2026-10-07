@@ -47,6 +47,13 @@ internal static class ChartChecks
         check(DebugCommands.Decide(false, false) == DebugCommands.Decision.Locked && DebugCommands.Decide(false, true) == DebugCommands.Decision.Locked, "locked debug commands refuse, confirmed or not");
         check(DebugCommands.Decide(true, false) == DebugCommands.Decision.Warn, "unlocked, the first use only warns");
         check(DebugCommands.Decide(true, true) == DebugCommands.Decision.GoAhead, "unlocked and confirmed goes ahead");
+        // Framework 0.128.1: the shared test-change mark on the save.
+        string first = DebugCommands.Mark(null, 1234.5, "jump TSTD by +20%");
+        check(DebugCommands.Count(first) == 1 && first.EndsWith("|jump TSTD by +20%"), "the first test change counts one and names itself");
+        string second = DebugCommands.Mark(first, 2000, "a|b=c,d");
+        check(DebugCommands.Count(second) == 2 && !second.Substring(second.LastIndexOf('|') + 1).Contains('=') && !second.Contains(','), "later changes count up, in text the save store can hold");
+        check(DebugCommands.Count("garbage") == 0 && DebugCommands.Count(DebugCommands.Mark("garbage", 1, "x")) == 1, "a mark this version cannot read starts its count again");
+        check(Phobos.Ostranauts.Framework.Persistence.ObjectStateStore.SafeValue(DebugCommands.Mark(null, 1, new string('x', 900))), "a long description is cut to fit the save store");
 
         // Player holdings for overviews.
         PlayerHoldings.Register("test.b", () => new HoldingLine { Label = "B", Value = 2 });

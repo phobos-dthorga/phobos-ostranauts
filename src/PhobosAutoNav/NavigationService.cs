@@ -397,6 +397,10 @@ internal sealed partial class NavigationService
 
     private bool Spawn(out string response, string module = ModuleId)
     {
+        // A module from nothing is a test command (owner rule, 7 October 2026; Auto Nav 0.35.1): it needs the game's own
+        // unlockdebug and confirm at the end, through Framework's gate.
+        string what = Text.Get("NavigationService.test_spawn", module);
+        if (!Phobos.Ostranauts.Framework.Diagnostics.DebugCommands.Gate("Phobos Auto Nav", what, Overrides.Confirmed, out response)) return false;
         var co = OpenConsole;
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
         { response = Text.Get("NavigationService.finish_loading_a_game_first"); return false; }
@@ -416,7 +420,8 @@ internal sealed partial class NavigationService
             if (!item.bDestroyed && item.objCOParent == null && item.ship == null) item.Destroy();
             throw;
         }
-        response = Text.Get("NavigationService.module_added_reopen_the_console_and_place");
+        Phobos.Ostranauts.Framework.Diagnostics.DebugCommands.Record(Plugin.Id, what);
+        response = Text.Get("NavigationService.module_added_reopen_the_console_and_place") + " " + Phobos.Ostranauts.Framework.Diagnostics.DebugCommands.Done(what);
         return true;
     }
 }

@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.128.0";
+    public const string Version = "0.128.1";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -45,7 +45,9 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Translations.AddOnDirectories = Data.AddOns.TranslationFolders;
         Data.AddOns.EnabledModDirectories = () => DataHandler.dictModInfos?.Values.Where(m => m != null && !m.GetIsDisabled()).Select(m => m.GetDirectory()).Where(d => !string.IsNullOrEmpty(d)).ToArray() ?? Array.Empty<string>();
         FrameworkConsole.AddOns = () => Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe() + "\n" + Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe();
-        FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe() + "\n" + Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe();
+        FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe() + "\n" + Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe() +
+            // Framework 0.128.1: a save test commands have changed says so in the status report.
+            (Diagnostics.DebugCommands.StatusLine() is string tests ? "\n" + tests : "");
         FrameworkConsole.Loot = Registration.LootCarveRegistry.Describe;
         FrameworkConsole.Story = Story.StoryContent.Command;
         FrameworkConsole.Upkeep = Crew.Upkeep.Command;

@@ -29,6 +29,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.128.1] - 2026-10-07 - Draft
+
+### Changed
+
+- The story test commands now follow the owner's rule for test commands: story start, try, reset, news, file, flag, standing and check change your save, so they need the game's own unlockdebug first, warn you each time, and go ahead only with confirm at the end of the command. The readouts (story, where, thread, places, people, items, chatter) and replies from the Letters window stay open, and another mod starting an arc from code is unaffected.
+- A save a test command has changed is marked as test-changed on your character, with how many changes each mod made and the last one; phobosframework status says so, so a bug report shows it.
+
+### Save compatibility
+
+- Automatic. Only a save a test command changes gains the small test-changed mark.
+
 ## [0.128.0] - 2026-10-07 - Draft
 
 ### Added

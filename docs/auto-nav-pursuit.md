@@ -43,7 +43,8 @@ No extracted native artwork is distributed. UI interaction awaits owner evaluati
 
 F3 pursuit equivalents are `phobosnav rendezvous [km]`, `phobosnav follow [km]`,
 `phobosnav stop` and `phobosnav resume`. Flight settings remain shared. Native
-spawning is `spawn PhobosNavModPursuit`; `spawnpursuit` remains a development helper.
+spawning is `spawn PhobosNavModPursuit`; `spawnpursuit` remains a development helper, and since
+Auto Nav 0.35.1 it is a test command: the game's own `unlockdebug` first, then `confirm` at the end.
 Navigation braking and clearance take priority over N3's optional aiming request.
 
 ## Acquisition, persistence and limits
