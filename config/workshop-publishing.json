@@ -5,7 +5,7 @@
       "itemId": "3814698080",
       "requires": [],
       "hold": null,
-      "uploadedVersion": "0.127.1"
+      "uploadedVersion": "0.127.2"
     },
     "PhobosAgriculture": {
       "itemId": "3814698904",
@@ -13,7 +13,7 @@
         "PhobosFramework"
       ],
       "hold": null,
-      "uploadedVersion": "0.66.0"
+      "uploadedVersion": "0.66.1"
     },
     "PhobosShipbreaker": {
       "itemId": "3814711909",
@@ -38,7 +38,7 @@
         "PhobosFramework"
       ],
       "hold": "Unpublished draft: first operational release awaiting owner gameplay checks.",
-      "uploadedVersion": "0.58.0"
+      "uploadedVersion": "0.58.1"
     },
     "PhobosWarDeclared": {
       "itemId": "3814710699",
@@ -54,7 +54,7 @@
         "PhobosFramework"
       ],
       "hold": "Held draft: first release awaiting owner gameplay checks.",
-      "uploadedVersion": "0.5.1"
+      "uploadedVersion": "0.5.2"
     },
     "PhobosSpacerStories": {
       "itemId": "3814710184",
