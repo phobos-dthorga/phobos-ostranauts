@@ -212,6 +212,7 @@ class DataPackTests(unittest.TestCase):
                 validate.story(bad, 'test', framework=False)
         # Framework 0.132.0: a text may be a list of up to eight different variants, each under the text's own rules.
         survey = shipped['broadcasts']['galley-survey']['text']
+        survey = survey[0] if isinstance(survey, list) else survey  # the shipped text has variants since Agriculture 0.67.0
         varied = broken(lambda p: p['broadcasts']['galley-survey'].update(text=[survey, 'A second way to say it.']))
         validate.story(varied, 'test', framework=False)
         self.assertEqual(schemas.problems(json.loads(writer.render('story')), varied), [])
