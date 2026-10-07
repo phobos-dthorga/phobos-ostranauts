@@ -94,13 +94,16 @@ public static class SectionAssembly
         return site.GetCOsSafe(true).Count == 0;
     }
     private static readonly Dictionary<string, Contract> Jobs = new(StringComparer.Ordinal);
+    // The jobs by their finishing action's name ("MS" and the job id), so the effects hook, which sees every finished
+    // action in the game, finds ours without building a string for each one (Framework 0.133.0, L105).
+    private static readonly Dictionary<string, Contract> Finishes = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, Contract> Wholes = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, Contract> Selectors = new(StringComparer.Ordinal);
     private static ConditionalWeakTable<Interaction, CompletionGate> finishes = new();
     /// <summary>Raised when the selector table changes; the shared trigger hook rebuilds its table from it. A
     /// delegate rather than a direct call keeps this file compilable against the test doubles on its own.</summary>
     internal static Action SelectorsChanged = () => { };
-    internal static void Reset() { Jobs.Clear(); Wholes.Clear(); Selectors.Clear(); finishes = new(); SelectorsChanged(); }
+    internal static void Reset() { Jobs.Clear(); Finishes.Clear(); Wholes.Clear(); Selectors.Clear(); finishes = new(); SelectorsChanged(); }
     /// <summary>Our assembly selectors, for the shared trigger hook: a true native result stands only for a valid unit.</summary>
     internal static void AddRefinements(Dictionary<string, Func<CondOwner?, bool>> into)
     {
@@ -121,6 +124,7 @@ public static class SectionAssembly
         var contract = new Contract { Section = section, Output = installed, Selector = selector,
             Count = count, Mass = unitMass, Progress = workProgress };
         Jobs[jobId] = contract;
+        Finishes["MS" + jobId] = contract;
         Selectors[selector] = contract;
         SelectorsChanged();
         MaintenanceDefinitions.SetStat(d.Objects[section], "StatInstallProgressMax", workProgress);
@@ -190,8 +194,7 @@ public static class SectionAssembly
     }
     internal static bool Finish(Interaction action, bool cancelled)
     {
-        if (action.strName == null || !action.strName.StartsWith("MS", StringComparison.Ordinal) ||
-            !Jobs.TryGetValue(action.strName.Substring(2), out var c)) return true;
+        if (action.strName == null || !Finishes.TryGetValue(action.strName, out var c)) return true;
         return finishes.GetOrCreateValue(action).TryBegin(cancelled, () => {
             var site = action.objUs;
             if (site == null || site.bDestroyed || site.ship == null || (int)site.ship.LoadState < 2) return false;

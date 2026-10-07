@@ -26,6 +26,7 @@ internal sealed class FrameMeasurements
         (double.PositiveInfinity, "game.frame.over_500ms")
     };
     private readonly PerformanceMetric?[] buckets = new PerformanceMetric?[Buckets.Length];
+    private readonly PerformanceMetric? collectionFrame;
     private int sequence = -1, previous0, previous1, previous2;
     private long previousTick, previousBytes;
     internal bool AllocationSupported => allocated != null;
@@ -44,6 +45,10 @@ internal sealed class FrameMeasurements
         // session is the plainest sign that something holds on to memory.
         if (heap != null) afterCollection = Performance.Session?.RegisterGauge("memory.managed_heap_after_collection", "memory", "bytes");
         for (int i = 0; i < Buckets.Length; i++) buckets[i] = Performance.RegisterIncrement(Buckets[i].Name, "frames", "frames");
+        // Framework 0.133.0 (L102): the length of each frame in which a collection happened, which holds its pause. On
+        // the game's runtime every collection counts in all three generations, so the first is enough. Its count,
+        // total and worst against the whole frame total show how much of a capture went to collections.
+        collectionFrame = Performance.Session?.RegisterGauge("game.gc.frame_ms", "memory", "ms");
     }
     private static Func<long>? AllocationReader()
     {
@@ -79,6 +84,7 @@ internal sealed class FrameMeasurements
                     double ms = (tick - previousTick) * millisecondsPerTick; int bucket = 0;
                     while (ms > Buckets[bucket].UpperMs) bucket++;
                     Performance.Increment(interval, ms); Performance.Increment(buckets[bucket], 1);
+                    if (n0 > previous0) Performance.Increment(collectionFrame, ms);
                 }
                 if (n0 > previous0) Performance.Increment(gc0, n0 - previous0);
                 if (n0 > previous0 && heap != null) Performance.Increment(afterCollection, heap());

@@ -52,6 +52,8 @@ internal static class NativePerformance
             Performance.RegisterContext("game.speed_multiplier", () => Time.timeScale.ToString("R", CultureInfo.InvariantCulture));
             Performance.RegisterContext("game.paused", () => CrewSim.Paused ? "true" : "false");
             Performance.RegisterContext("game.navigation_console_visible", () => GUIOrbitDraw.IsOpen() ? "true" : "false");
+            // Framework 0.133.0: whether the game's save job is still writing, so a capture shows when each save ran.
+            if (SaveWatch() is Func<bool> saving) Performance.RegisterContext("game.saving", () => saving() ? "true" : "false");
         }
         catch (Exception ex)
         {
@@ -66,19 +68,41 @@ internal static class NativePerformance
             ["framework_version"] = FrameworkInfo.Version,
             ["bepinex_version"] = typeof(BaseUnityPlugin).Assembly.GetName().Version.ToString()
         };
-        foreach (var pair in new[] { ("phobosgekko.ostranauts.autonav", "autonav"), ("phobosgekko.ostranauts.shipbreaker", "shipbreaker"),
-            ("phobosgekko.ostranauts.agriculture", "agriculture"), ("phobosgekko.ostranauts.manufacturing", "manufacturing"),
-            ("phobosgekko.ostranauts.medical", "medical"), ("phobosgekko.ostranauts.wardeclared", "wardeclared") })
-            if (Chainloader.PluginInfos.TryGetValue(pair.Item1, out var plugin))
-            {
-                values[pair.Item2 + "_version"] = plugin.Metadata.Version.ToString();
-                values[pair.Item2 + "_build"] = plugin.Instance.GetType().Module.ModuleVersionId.ToString();
-            }
         values["framework_build"] = typeof(NativePerformance).Module.ModuleVersionId.ToString();
         values["allocation_measurement"] = frames?.AllocationSupported == true ? "main_thread_bytes" : "unavailable";
         values["memory_sources"] = MemoryMeasurements.Available;
         values["memory_sources_unavailable"] = MemoryMeasurements.Unavailable;
-        return values;
+        // Framework 0.133.0: whether the game's collector works in slices, which decides how a collection shows in the
+        // frame times, and what an empty timed span reads, which the report takes off the sampled trigger-check time.
+        values["gc_incremental"] = GcIncremental();
+        if (CaptureProbes.EmptySpanNanoseconds is double empty)
+            values["timer_overhead_ns"] = empty.ToString("0.0", CultureInfo.InvariantCulture);
+        // Every loaded Phobos mod names itself (Framework 0.133.0); a fixed list had missed Banking and Exchange.
+        var mods = new List<(string, string, string)>();
+        foreach (var plugin in Chainloader.PluginInfos.Values)
+            if (CaptureMetadata.Stem(plugin?.Metadata?.GUID, FrameworkInfo.PluginId) is string stem && plugin!.Instance != null)
+                mods.Add((stem, plugin.Metadata.Version.ToString(), plugin.Instance.GetType().Module.ModuleVersionId.ToString()));
+        return CaptureMetadata.Plan(values, mods, reserved: 2);
+    }
+    /// <summary>Reads whether the game's save job is still running: its saving manager's private job, which says when it
+    /// is done (a save writes its archive on a thread while play goes on). Null when the game's layout differs.</summary>
+    internal static Func<bool>? SaveWatch()
+    {
+        try
+        {
+            const BindingFlags any = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+            var instance = typeof(global::Ostranauts.Core.MonoSingleton<global::Ostranauts.Core.LoadManager>).GetField("_instance", any);
+            var job = typeof(global::Ostranauts.Core.LoadManager).GetField("_saveJob", any);
+            if (instance == null || !instance.IsStatic || job == null || job.FieldType != typeof(global::Ostranauts.Core.Models.SavingJob)) return null;
+            return () => instance.GetValue(null) is global::Ostranauts.Core.LoadManager manager &&
+                job.GetValue(manager) is global::Ostranauts.Core.Models.SavingJob running && !running.IsDone;
+        }
+        catch { return null; }
+    }
+    private static string GcIncremental()
+    {
+        try { return UnityEngine.Scripting.GarbageCollector.isIncremental ? "true" : "false"; }
+        catch { return "unknown"; }
     }
     /// <summary>What Framework keeps alive by key, the collections that would grow if a key were never let go.</summary>
     private static void Footprints()
@@ -92,6 +116,8 @@ internal static class NativePerformance
         Performance.RegisterFootprint("framework.story.variant_picks", "footprint", () => Story.VariantPicks.Count);
         Performance.RegisterFootprint("framework.fluid_route.ships", "footprint", () => Liquids.FluidRouteCache.ShipCount);
         Performance.RegisterFootprint("framework.buffered_drains.entries", "footprint", () => Liquids.BufferedDrains.EntryCount);
+        // Framework 0.133.0 (L103): the line segments whose run the two-second top-up remembers.
+        Performance.RegisterFootprint("framework.line_contents.segments", "footprint", () => Liquids.LineContents.RememberedSegments);
     }
     internal static void Poll()
     {

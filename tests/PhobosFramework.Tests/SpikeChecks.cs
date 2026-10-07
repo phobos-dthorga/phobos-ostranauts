@@ -40,5 +40,23 @@ internal static class SpikeChecks
         check(DiscoveryPlan.FullScanDue(0, 0) && DiscoveryPlan.FullScanDue(31, 30) && !DiscoveryPlan.FullScanDue(29, 30),
             "The full scan runs after a load (next time zero) and every 30 seconds");
         check(DiscoveryPlan.FullScanDue(double.NaN, 30), "A clock that cannot be read runs the full scan");
+
+        // Framework 0.133.0 (L103): the two-second top-up reads a run again only when it may have changed.
+        check(LineRunPlan.Next(LineRunState.Unknown) == LineRunStep.Read && LineRunPlan.Next(LineRunState.Full) == LineRunStep.Skip &&
+            LineRunPlan.Next(LineRunState.Wanting) == LineRunStep.Sources, "Unknown runs are read, full runs skipped, wanting runs ask their stores first");
+        check(LineRunPlan.After(false, false) == LineRunState.Full && LineRunPlan.After(true, true) == LineRunState.Unknown &&
+            LineRunPlan.After(true, false) == LineRunState.Wanting, "Full stays full; a filled run is read again; a run its stores could not fill waits");
+        check(LineRunPlan.FullDue(0, double.NegativeInfinity) && LineRunPlan.FullDue(31, 0) && !LineRunPlan.FullDue(29, 0) && LineRunPlan.FullDue(double.NaN, 0),
+            "Runs are built afresh first, every 30 seconds, and whenever the clock cannot be read");
+        var offered = new Dictionary<string, double> { ["Water"] = 4 };
+        check(LineRunPlan.Changed(null, offered, 1e-9), "A run never read against its stores is read");
+        check(!LineRunPlan.Changed(offered, new Dictionary<string, double> { ["Water"] = 4 }, 1e-9),
+            "Stores offering the same as when the run could take nothing more: the records are not read");
+        check(LineRunPlan.Changed(new Dictionary<string, double>(), offered, 1e-9), "Empty stores that gained stock wake a starved run");
+        check(LineRunPlan.Changed(offered, new Dictionary<string, double> { ["Water"] = 5 }, 1e-9) &&
+            LineRunPlan.Changed(offered, new Dictionary<string, double> { ["Water"] = 4, ["Ethanol"] = 1 }, 1e-9) &&
+            LineRunPlan.Changed(offered, new Dictionary<string, double>(), 1e-9), "A store that changed amount, gained a commodity or emptied wakes the run");
+        check(!LineRunPlan.Changed(new Dictionary<string, double> { ["Water"] = 0 }, new Dictionary<string, double>(), 1e-9),
+            "Amounts within the tolerance count as nothing offered");
     }
 }

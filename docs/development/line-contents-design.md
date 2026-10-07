@@ -200,7 +200,15 @@ lies under it or directly beside it on any side, not only on its one port tile.
   per allowed cell.
 - It reads each segment's record only in components that have a source, and writes
   only segments whose record changed (`TryWriteIfChanged`).
-- Pouring scans the ship's objects once per pass.
+- Since Framework 0.133.0 (L103) it keeps each ship's runs while the route cache keeps
+  the same layout, and remembers what each run needed (`LineRunPlan`). A full run is
+  not read again until one of its segments is written; every record write marks its
+  run. A run whose stores had nothing to give asks its stores first and is read again
+  only when they offer something different. Every run is read in full every 30
+  seconds and after any layout change or load. `framework.line_contents.segments`
+  counts the remembered segments.
+- Pouring takes the stowed drain canisters from the shared world sweep (since
+  Framework 0.72.0), not from a scan of the ship's objects.
 - The pass is measured as `framework.line_contents.maintain`.
 
 ## Checks

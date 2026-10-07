@@ -53,5 +53,28 @@ internal static class SavedStateChecks
             "A payload with fewer fields is a change");
         maps["PhobosState.Tests.Settle"]["schema"] = "nonsense";
         check(settled.Status() == SavedStateStatus.Invalid && !settled.TryWriteIfChanged(payload), "A corrupt envelope is retained by changed-only writes too");
+
+        // Framework 0.133.0 (L105): an identical record is recognised before the full validation, so it must still be
+        // ours under this schema; anything else is refused as before and left as it is.
+        Dictionary<string, string> Envelope(string schema, string recordOwner) => new(StringComparer.Ordinal)
+            { ["schema"] = schema, ["owner"] = recordOwner, ["data.mode"] = "active", ["data.elapsed"] = "13" };
+        var same = new Dictionary<string, string> { ["mode"] = "active", ["elapsed"] = "13" };
+        foreach (var (schema, recordOwner, status, what) in new[] {
+            ("1", "copied-console", SavedStateStatus.DifferentOwner, "another owner's record"),
+            ("2", "console-1", SavedStateStatus.UnsupportedVersion, "a newer schema"),
+            (" 1", "console-1", SavedStateStatus.Invalid, "a schema written with a space") })
+        {
+            var envelope = Envelope(schema, recordOwner);
+            maps["PhobosState.Tests.Settle"] = envelope;
+            check(settled.Status() == status && !settled.TryWriteIfChanged(same) && ReferenceEquals(envelope, maps["PhobosState.Tests.Settle"]),
+                "An identical payload does not overwrite " + what);
+        }
+        var extra = Envelope("1", "console-1"); extra["data.note"] = "bad=value";
+        maps["PhobosState.Tests.Settle"] = extra;
+        check(settled.Status() == SavedStateStatus.Invalid && !settled.TryWriteIfChanged(same) && ReferenceEquals(extra, maps["PhobosState.Tests.Settle"]),
+            "A record holding one more, unsafe field is not mistaken for an identical one");
+        var good = Envelope("1", "console-1");
+        maps["PhobosState.Tests.Settle"] = good;
+        check(settled.TryWriteIfChanged(same) && ReferenceEquals(good, maps["PhobosState.Tests.Settle"]), "A valid identical record is still left untouched");
     }
 }

@@ -1204,6 +1204,113 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 8 October: identical saved-state writes and one string per finished action (L105)
+
+L105 — Framework 0.133.0. Owner capture of 8 October (below): `framework.state.write` ran about 490 times a real
+second for 1.9 ms, and about 450 of those writes found the record already held exactly what was written. Such a
+write used to check every stored field and value character by character, then every new one, then build a new key
+string for each field to compare. It now checks the new fields, reads the stored schema and owner, and compares the
+values through key strings built once per field name (at most 4,096 kept). Only a record that differs is checked in
+full before it is replaced. The results for every status are unchanged, which the saved-state checks cover. The
+section-assembly effects hook, which sees every finished action in the game, no longer builds a string for each
+`MS...` action: its jobs are keyed by the full action name. Expected effect: the skipped writes cost about half what
+they did. That is an expectation from the code; the next capture measures it.
+
+## 8 October: the world sweep every ten seconds, objects joining a ship at once (L104)
+
+L104 — Framework 0.133.0; owner choice, 8 October 2026. `framework.world.sweep` was the largest Phobos cost in the
+owner's capture: 7.6 ms a real second, re-examining about 75,000 objects every two real seconds to find newly arrived
+machines. Each object that joins a ship (`Ship.AddCO`, both overloads: installation, purchase, spawning, dropping,
+and a ship that loads; the game's mode switch adds the new form through the same call, so a damaged or repaired machine is announced too) is now offered to the families at once, one definition lookup per object. The sweep runs every
+`WorldFamilies.CycleSeconds` = 10 real seconds as the safety net for anything that never joins a ship, such as a
+canister put straight into a container. Every consumer was checked for a command that would refuse because a new
+object had not been found yet; none reads the families from a command. The drain command finds its canister by its
+own search, and the families only drive background work: pouring, machine sounds, upkeep, and the machine scans of
+Agriculture, Manufacturing, Medical and Shipbreaker. Expected effect: about 1.5 ms a second instead of 7.6. A
+canister put into a store starts pouring within 10 to 20 real seconds instead of 2 to 4.
+
+## 8 October: the pipe top-up rereads only runs that may have changed (L103)
+
+L103 — Framework 0.133.0. `framework.line_contents.maintain` read the saved record of every segment on every run with
+a store every two real seconds: about 1.1 ms of its own time a pass on the owner's save, with a worst pass of 14.6 ms.
+That worst pass included the route cache's 30-second rebuild, which only happens to be asked for here.
+
+A segment's contents change only when Framework writes its record (top-up, pump, drain, vent, damage, reopening), and
+each write now marks its run. The top-up keeps its runs per ship and family while the route cache keeps the same layout
+(`LineRunPlan`):
+- A full run is skipped until one of its segments is written.
+- A run whose stores gave nothing asks its stores first, and is read again only when they offer something different.
+  This also settles a run its stores cannot fill any further, such as a gap smaller than the planner's smallest draw,
+  which used to repeat its store snapshots every pass.
+- Every run is read in full every 30 seconds, and after any layout change or load.
+
+Pouring from canisters and the route cache are unchanged, and the pass no longer copies the ship table.
+`framework.line_contents.segments` counts the remembered segments.
+
+Not changed: Ship's Water's tank list, a scan of the whole ship. It is rescanned only when a water run with drinking
+tanks is short, which the run cache makes rare, and the crew reserve needs every tank aboard, not only those on the
+line.
+
+Expected effect: a pass with every run full reads no records. That is an expectation; the next capture measures it.
+
+## 8 October: hook, collection and save timings in captures (L102)
+
+L102 — Framework 0.133.0, Phobos Exchange 0.5.1. This is the owner's request after the 8 October capture. Everything
+below is installed only while a capture records, as the stage 8 probes are, and costs nothing in ordinary play.
+
+Each patch-timing span brackets every patch on its method. That includes any other mod's patches, and its total is
+recorded once per frame.
+- **Interaction effects** (`game.interaction.apply_effects`, closed in a finalizer because the effects can throw):
+  one span over all prefixes and one over all postfixes (`game.interaction.effect_hooks`, ms). The game's own body is
+  not in it.
+- **Trigger check:** about 590,000 calls a second, where Framework's refinement postfix is the only Phobos patch.
+  Every call is counted (`game.condtrigger.calls`, now counted at the span start instead of a prefix) and one call in
+  16 is timed (`game.condtrigger.postfix_sampled_ms`, `game.condtrigger.sampled_calls`; owner choice, 8 October 2026).
+  The clock ticks every 100 ns, longer than the hook takes, so each timed span also holds the cost of reading the clock.
+  Framework measures that cost once at start-up as the lowest mean of eight batches of 512 empty spans, and writes it
+  to the metadata as `timer_overhead_ns`. `scripts/compare-performance.py --report` subtracts it and scales the timed
+  share up to every call, labelled as an estimate.
+- **Nesting:** spans nest the way the calls do (`HookSpan`). A trigger check run from inside a refinement, or an
+  interaction applied from inside a patch, is counted once and timed by the outer span. A prefix that skips the game's
+  method may leave the end-of-prefixes probe unrun, so the call's first postfix closes its prefix span. A span left
+  open by an exception is dropped at the end of the frame.
+- **Ordering:** span starts now run at `Priority.First + 1`, so a Phobos prefix at `Priority.First` is inside them.
+  When the probes are applied, any patch still outside a span is named once in the log. The offer-check span covers
+  ten Phobos postfixes now, not the seven of stage 8.
+
+Collections and saves:
+- `game.gc.frame_ms` records the length of every frame in which a collection happened. On the game's runtime the
+  three generation counts always match, so only the first is used.
+- `game.save.begin` and `game.save.serialise` time the main-thread part of the game's save (`LoadManager.SaveGame`,
+  `SaveGameData`). The archive is written on a thread the recorder does not measure.
+- A `game.saving` context reads the save job's done flag every frame, so each save's start and end appear in the
+  timeline even in summary mode.
+
+Metadata:
+- Capture metadata now names every loaded Phobos mod, including Banking and Exchange, which the old fixed list of six
+  missed. Each gets `<id>_version` and `<id>_build`, with the existing keys unchanged.
+- It stays within the recorder's 32 entries (`CaptureMetadata.Plan`): builds give way first, then versions, and
+  `metadata_truncated` says so.
+- New entries: `gc_incremental` and `timer_overhead_ns`.
+- Exchange's chart-history footprint is filed with the other footprints.
+
+The probes add work only while recording: one more postfix call per trigger check and a clock read on one call in 16,
+and four patch calls per interaction effect. That is expected to be 2 to 4 ms a second at 8x on the owner's save; the
+next capture shows it.
+
+**Baseline for L102 to L105**, the owner's 8 October capture (Framework 0.131.1; two windows of one recording: 300 s
+mostly at 8x, then 33 s spanning an autosave):
+- Phobos measured at 1.71% and 1.73% of real time. Framework 11.4 ms a second (7.6 of it the world sweep),
+  Agriculture 2.8, Manufacturing 0.9, Shipbreaker 0.6, War 0.4, Auto Nav 0.3, Medical 0.1, Banking and Exchange under
+  0.02, and all mods' offer-check postfixes 0.6.
+- The game's main loop was 54% of real time: its simulation step 34%, crew offer checks 12% (521 a second), the ship
+  update 5%.
+- About 14 frames a second, with one frame of 10 s inside the main loop but outside its simulation step and ship
+  update.
+- The managed heap was 9 to 10 GB with six collections in five minutes, and the save JSON is above 512 MiB.
+
+The captures are kept in `.local/performance-captures/2026-10-08-framework-0.131.1/`.
+
 ## 8 October: variant lines (L101)
 
 L101 — Framework 0.132.0, Phobos Exchange 0.5.0, Phobos Banking 0.8.0.

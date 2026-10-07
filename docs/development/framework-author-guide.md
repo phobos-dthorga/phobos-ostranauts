@@ -1325,8 +1325,10 @@ Since 0.46.0, `Discovery.WorldFamilies` replaces a content mod's own pass over e
 world object: register once (`WorldFamilies.Register(key, definitionId => ...)`, a pure
 definition-id predicate) and read `family.Members(list)` when you need the objects.
 Members are checked on every read (alive and registered in the world under their id);
-new objects are found by one shared sweep every two real seconds, spread across frames,
-or at once through `family.Offer(co)` (a mode-switch replacement). The pure logic is
+an object that joins a ship (installed, bought, spawned, dropped, arriving with a ship, or
+a mode switch's new form) is taken at once (Framework 0.133.0); anything else is found by
+one shared sweep every ten real seconds, spread across frames, or at once through
+`family.Offer(co)`. The pure logic is
 `Discovery.WorldIndex<T>`. Keep filters that depend on live state (installed, damaged,
 ship loaded) in your own loop over the members.
 

@@ -16,8 +16,8 @@ internal static class PerformanceMetrics
         // 0.3.0 (L99): a company's history before the save, drawn once per load when its chart first needs it.
         Past = Performance.RegisterOperation("exchange.past", "processing");
         // The chart history held in memory: a fixed number of closes and lifetime points per listed company, and the
-        // generated past drawn so far.
-        Performance.RegisterFootprint("exchange.history_closes", "memory",
+        // generated past drawn so far. Filed with the other mods' footprints (0.5.1), not with the game's memory readings.
+        Performance.RegisterFootprint("exchange.history_closes", "footprint",
             () => Market.Model == null ? 0 : Market.Model.Count * (ExchangeRules.HourlyCloses + ExchangeRules.DailyCloses + ExchangeRules.WeeklyCloses + ExchangeRules.LifetimeCapacity) + Market.Model.PastPoints);
     }
 }

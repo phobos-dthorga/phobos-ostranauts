@@ -47,6 +47,7 @@ public static class FrameworkLifecycle
         ConstructionRegistry.BeginLoad();
         Construction.SectionAssembly.Reset();
         Liquids.FluidRouteCache.InvalidateAll();
+        Liquids.LineContents.ResetRuns();
         Liquids.ShipsWaterSupply.Reset();
         Controls.ItemInformation.Reset();
         Trading.MarketStock.BeginLoad();

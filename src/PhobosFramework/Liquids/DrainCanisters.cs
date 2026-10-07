@@ -114,7 +114,8 @@ public static class DrainCanisters
             else PourInto(holder, receiver!, canister!, c.Commodity, c.Kg);
         }
     }
-    // Every drain canister in the world, from the shared sweep (a new one is seen within a cycle or two).
+    // Every drain canister in the world, from the shared sweep: one dropped aboard is seen at once, one put straight into a
+    // container within a cycle or two (ten real seconds a cycle since Framework 0.133.0).
     private static readonly Discovery.WorldFamily family = Discovery.WorldFamilies.Register(FrameworkInfo.PluginId + ".drain-canisters", id => id == DrainCanisterRules.Id);
     private static readonly List<CondOwner> stowed = new();
     /// <summary>The drain canisters that sit inside something, read once per top-up pass for every ship.</summary>

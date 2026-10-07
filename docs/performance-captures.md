@@ -108,12 +108,16 @@ back down:
 | `framework.crew.orders`, `framework.crew.jobs`, `framework.crew.retry_records` | Standing orders, crew jobs in progress, and their notices and retry records |
 | `framework.crew_skip.records` | What the managed time-skip keeps per crew member and machine |
 | `framework.fluid_route.ships`, `framework.buffered_drains.entries` | Ships with a cached line layout; stores with a buffered draw |
+| `framework.line_contents.segments` | Line segments whose run the two-second top-up remembers (Framework 0.133.0) |
+| `framework.story.variant_picks` | The last text variant shown per news item, advert and small-talk line (Framework 0.132.0) |
+| `exchange.history_closes` | Phobos Exchange's chart history held in memory |
 | `agriculture.sessions` | Agriculture machines with a live session |
 | `shipbreaker.furnace.sessions`, `shipbreaker.capture.sessions`, `shipbreaker.laser.sessions`, `shipbreaker.reclamation.sessions` | Shipbreaker machines and missions with a live session |
 | `war.records`, `war.tallies`, `war.damaged`, `war.part_facts` | War Has Been Declared's battle ledger, damage queue and schematic facts |
 
 Manufacturing, Auto Nav and Medical hold their sessions in tables that let go of a
-machine when the game does, so they cannot grow this way and report no footprint.
+machine when the game does, so they cannot grow this way and report no footprint;
+Banking keeps nothing by key either.
 A mod adds its own with `Performance.RegisterFootprint` at start-up.
 
 **Frame times** are also counted into fixed buckets (`game.frame.upto_8_3ms` up to
@@ -157,6 +161,45 @@ one recording, or windows missing in between, are reported.
 footprint levels (mean, maximum, last), rates per second, and self ms per second.
 `scripts/compare-performance.py` reads format 3 and reports self ms per second.
 
+## Each mod's share, hooks, collections and saves (Framework 0.133.0)
+
+To see how much of the main thread each Phobos mod takes, point the comparison
+script at a recording's files:
+
+```text
+python scripts/compare-performance.py --report BepInEx/captures/PhobosScope/*.json
+```
+
+For each window, in order, it gives every mod's own time per real second and as a
+share of real time (Framework, Agriculture, Manufacturing, Shipbreaker, Auto Nav,
+Medical, War Has Been Declared, Banking, Exchange), the game's own measured sections
+apart from them, the patch timings below, the frames with a collection and the
+saves. Own times do not overlap, so a mod's figures add up. All of it is main-thread
+elapsed time: nothing here measures the graphics card, and memory cannot be split by
+mod on the game's runtime.
+
+Framework 0.133.0 adds these, installed only while recording:
+
+| Key | What it is |
+| --- | --- |
+| `game.interaction.apply_effects` | The game's interaction effects, every mod's patches on them included |
+| `game.interaction.effect_hooks` | Milliseconds in every mod's patches on the interaction effects (ours and any other mod's), without the game's own work |
+| `game.condtrigger.postfix_sampled_ms`, `game.condtrigger.sampled_calls` | The trigger check's patches, timed on one call in 16; `game.condtrigger.calls` still counts every call |
+| `game.save.begin`, `game.save.serialise` | The main-thread part of the game's save; the archive itself is written on a thread the recorder does not measure |
+| `game.gc.frame_ms` | The length of each frame in which a collection happened, so collections' share of the frame time can be read |
+| `game.saving` (context) | Whether a save is being written, so a save shows in the timeline even in summary mode |
+
+The trigger check runs hundreds of thousands of times a second, and reading the clock
+costs about as much as the patch being timed. Only one call in 16 is timed, and the
+capture's metadata records what an empty timing reads (`timer_overhead_ns`). The
+report takes that off and scales the timed calls up to all of them, and calls the
+result an estimate. A patch another mod registers before every probe or after them
+all stays outside the timing, and the log names it once when recording starts.
+
+Capture metadata names every loaded Phobos mod, `<mod>_version` and `<mod>_build`,
+within the recorder's 32 entries (`metadata_truncated` says when builds or versions
+had to be left out), with `gc_incremental` and `timer_overhead_ns`.
+
 ## What is measured
 
 | Stable operation key | Coverage |
@@ -188,7 +231,7 @@ that sat in unscoped hooks before it:
 | `manufacturing.scan`, `manufacturing.power.hook`, `manufacturing.machine.step`, `manufacturing.manifold.refresh`, `manufacturing.regulator.tick` | The two-second world scan, the power hooks, machine steps, manifold rechecks and regulator ticks |
 | `autonav.guard.update`, `autonav.hazards.scan`, `autonav.persist.write`, `autonav.foreign_controller.check`, `autonav.contact.reads` | The pre-physics guard sweep, the asteroid scan, flight record writes, the other-controller check and the count of native contact reads |
 | `war.poll`, `war.lay_pending` | The two-second ship poll and the laying pass |
-| `framework.world.sweep`, `framework.world.sweep_objects` | Framework 0.46.0's shared world sweep that replaced each mod's own pass, and the objects it examined |
+| `framework.world.sweep`, `framework.world.sweep_objects` | Framework 0.46.0's shared world sweep that replaced each mod's own pass, and the objects it examined. Since Framework 0.133.0 an object joining a ship is taken at once and the sweep runs every ten seconds |
 | `game.crewsim.update`, `game.sim.advance`, `game.starsystem.update`, `game.powered.update`, `game.interaction.offer_check` | The game's own main loop, simulation step, ship update, appliance updates and crew offer checks, including every mod's hooks inside them. Installed only while a capture records (Framework 0.46.0) |
 | `game.interaction.offer_postfixes`, `game.condtrigger.calls` | Milliseconds spent in all mods' postfixes on the offer check, and how many trigger checks ran; summed in memory and recorded once per frame (Framework 0.47.0; 0.46.0 recorded one record per call and overflowed captures) |
 
@@ -203,8 +246,9 @@ native speed multiplier, pause, navigation-console visibility, and (when loaded)
 Shipbreaker's industrial/local control-panel visibility. Very short changes between
 polls can be missed. Speed uses `Time.timeScale`; pause is reported separately.
 The installed `CrewSim.TimeScaleMult`/`ResetTimeScale` implementations were inspected
-to verify this mapping. Metadata includes game, Framework, loader and loaded Phobos
-content versions, with no save data or arbitrary plugin configuration.
+to verify this mapping. Since Framework 0.133.0 a `game.saving` context marks each
+save. Metadata includes game, Framework, loader and every loaded Phobos mod's
+version and build, with no save data or arbitrary plugin configuration.
 
 Timings are inclusive **real elapsed time**, including nested calls and waits.
 Do not add parent and child timings into a CPU-use percentage. Detailed-event
@@ -221,7 +265,9 @@ phobos-scope analyse CAPTURE.json NEW_REPORT_DIRECTORY 1000
 ```
 
 Open `trace.json` from a detailed report in [Perfetto](https://ui.perfetto.dev).
-Use `summary.csv` for operation comparisons and `time-series.csv` for trends.
+Use `summary.csv` for operation comparisons. `time-series.csv` exists only for a
+detailed capture; for summary captures follow trends with the `series` command and
+the per-mod `--report` above.
 Read `report.json` for loss/incomplete/rejected warnings first. Missing observations
 are not zero, and a high elapsed duration is not automatically exclusive mod CPU.
 
@@ -267,7 +313,8 @@ it is not emitted by the new ship-scoped discovery path.
 
 `game.frame.interval` records main-thread frame intervals in milliseconds.
 `game.gc.gen0/1/2` record process collection-count increments, not per-mod
-collections. `game.allocations.main_thread` is available only when the runtime's
+collections. On the game's runtime every collection counts in all three, so they are
+always equal; `game.gc.frame_ms` (Framework 0.133.0) holds the frames they fell in. `game.allocations.main_thread` is available only when the runtime's
 counter passes an allocation probe. Early baseline captures reported unsupported
 zero totals; do not interpret those as allocation measurements. Metadata now
 records calibration support and assembly build IDs without object/player IDs.
@@ -278,7 +325,7 @@ Since Framework 0.104.0 summary windows keep counter totals rather than samples;
 For a future comparison, `scripts/compare-performance.py --before <captures...>
 --after <captures...>` emits JSON with per-run percentiles, long frames, operation
 cost per second, collections, memory and footprint ranges, and quality flags. It reads
-format 1 and format 2 captures. Supply three matched 30-second
+formats 1 to 3. Supply three matched 30-second
 captures per side and compare open/closed scenarios separately. Incomplete scopes
 limit their own operation totals, not otherwise valid frame samples. Unsupported
 allocation totals are omitted. This tool does not verify identical saves, zoom,

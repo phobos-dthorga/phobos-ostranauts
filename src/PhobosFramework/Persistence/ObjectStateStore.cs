@@ -65,14 +65,18 @@ public sealed class ObjectStateStore
     /// Every validation rule still applies; only the replacement of an identical map is skipped, so services that
     /// save on every power step write nothing while nothing changed.</summary>
     public bool TryWriteIfChanged(IReadOnlyDictionary<string, string> fields) => Write(fields, true);
+    // Framework 0.133.0 (L105): services that save on every power step mostly write what the record already holds (about
+    // 450 such writes a real second on the owner's 8 October 2026 capture). The new fields are checked first and an
+    // identical record is recognised without allocating; a record that equals checked fields under this schema and owner
+    // passes every rule Validate applies, so only a record that differs is validated in full before it is replaced.
     private bool Write(IReadOnlyDictionary<string, string> fields, bool skipUnchanged)
     {
         using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.StateWrite);
-        var state = Validate(out var current);
-        if (state != SavedStateStatus.Missing && state != SavedStateStatus.Ready) return false;
         foreach (var pair in fields) if (!SafeKey(pair.Key) || !SafeValue(pair.Value)) return false;
-        if (skipUnchanged && state == SavedStateStatus.Ready && Unchanged(current!, fields))
+        if (skipUnchanged && maps.TryGetValue(key, out var held) && held != null && Ours(held) && Unchanged(held, fields))
         { Diagnostics.Performance.Increment(Diagnostics.Performance.StateWritesSkipped); return true; }
+        var state = Validate(out _);
+        if (state != SavedStateStatus.Missing && state != SavedStateStatus.Ready) return false;
         var copy = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["schema"] = version.ToString(CultureInfo.InvariantCulture), ["owner"] = owner
@@ -81,12 +85,27 @@ public sealed class ObjectStateStore
         maps[key] = copy;
         return true;
     }
+    // This schema and owner, read as Validate reads them.
+    private bool Ours(Dictionary<string, string> map) =>
+        map.TryGetValue("schema", out var schema) && int.TryParse(schema, NumberStyles.None, CultureInfo.InvariantCulture, out int found) &&
+        found == version && map.TryGetValue("owner", out var savedOwner) && savedOwner == owner;
     private static bool Unchanged(Dictionary<string, string> current, IReadOnlyDictionary<string, string> fields)
     {
         if (current.Count != fields.Count + 2) return false;
         foreach (var pair in fields)
-            if (!current.TryGetValue(FieldPrefix + pair.Key, out var value) || !string.Equals(value, pair.Value, StringComparison.Ordinal)) return false;
+            if (!current.TryGetValue(Prefixed(pair.Key), out var value) || !string.Equals(value, pair.Value, StringComparison.Ordinal)) return false;
         return true;
+    }
+    // Field names are a small fixed set per service; their stored names are built once. The bound only guards against
+    // runaway names; past it each name is built on use, as before.
+    private const int PrefixedLimit = 4096;
+    private static readonly Dictionary<string, string> prefixed = new(StringComparer.Ordinal);
+    private static string Prefixed(string field)
+    {
+        if (prefixed.TryGetValue(field, out var name)) return name;
+        name = FieldPrefix + field;
+        if (prefixed.Count < PrefixedLimit) prefixed[field] = name;
+        return name;
     }
 
     /// <summary>Explicit consumer-authorized reset only; never call as automatic load recovery.</summary>

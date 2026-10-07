@@ -146,6 +146,7 @@ try
         "Orderly exit stops recording without implicit file writes"); 
     FrameChecks.Run(Check, directory);
     PeriodicChecks.Run(Check, directory);
+    ProbeChecks.Run(Check);
 }
 finally { Performance.Session = null; Directory.Delete(directory, recursive: true); }
 Console.WriteLine($"{checks} performance adapter checks passed.");

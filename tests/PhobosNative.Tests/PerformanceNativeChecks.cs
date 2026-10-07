@@ -67,6 +67,8 @@ internal static class PerformanceNativeChecks
         // Stage 8: capture probes resolve their game methods by exact signature; the shared world families classify ours only.
         foreach (var (name, target) in Phobos.Ostranauts.Framework.Diagnostics.CaptureProbes.Targets())
             check(target != null && target.DeclaringType?.Assembly == typeof(CrewSim).Assembly, "Capture probe target resolves in the game: " + name);
+        // Framework 0.133.0: the saving context reads the game's saving manager and its job by name.
+        check(Phobos.Ostranauts.Framework.Diagnostics.NativePerformance.SaveWatch() != null, "The capture's saving context finds the game's save job");
         check(PhobosAgriculture.Definitions.MachineDefinition(PhobosAgriculture.Definitions.Rack + "Installed") && PhobosAgriculture.Definitions.MachineDefinition(PhobosAgriculture.Definitions.Cooker + "LooseDmg") &&
             !PhobosAgriculture.Definitions.MachineDefinition("ItmAirPumpInstalled") && !PhobosAgriculture.Definitions.MachineDefinition(null), "Agriculture's world family is its machines by definition");
     }

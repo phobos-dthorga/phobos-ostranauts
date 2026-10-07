@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Phobos.Ostranauts.Framework.Flight;
 using Phobos.Ostranauts.Framework.Notices;
 using Phobos.Ostranauts.Framework.Persistence;
 using Phobos.Ostranauts.Framework.Processing;
@@ -103,6 +104,7 @@ public static class LineContents
     /// <summary>Saves what a segment holds and sets its native mass to its definition's dry mass plus the contents.</summary>
     public static bool Write(CondOwner co, LineMixture mixture)
     {
+        Touched(co);
         if (!Store(co).TryWriteIfChanged(mixture.Save())) return false;
         SetMass(co, mixture);
         return true;
@@ -115,11 +117,49 @@ public static class LineContents
     }
     private static void Forget(CondOwner co)
     {
+        Touched(co);
         co.mapGUIPropMaps?.Remove(MapKey);
         SetMass(co, new LineMixture());
     }
 
     // The maintainer ------------------------------------------------------------------------------------------------
+    // Framework 0.133.0 (L103): the runs of each ship and family, kept while the route cache keeps the same layout, with
+    // what each run needed when it was last read (LineRunPlan). Keys are let go when a layout is rebuilt, a ship stops
+    // being maintained, or a world loads.
+    private sealed class LineRun
+    {
+        internal CondOwner[] Segments = Array.Empty<CondOwner>();
+        internal readonly List<CondOwner> Sources = new();
+        internal LineRunState State;
+        internal Dictionary<string, double>? Offered;
+    }
+    private sealed class FamilyRuns
+    {
+        internal object? Layout;
+        internal double BuiltAt;
+        internal readonly List<LineRun> Runs = new();
+    }
+    private static readonly Dictionary<(Ship Ship, string Family), FamilyRuns> runs = new();
+    private static readonly Dictionary<CondOwner, LineRun> segmentRuns = new();
+    private static readonly List<Ship> owned = new();
+    private static readonly HashSet<Ship> maintained = new();
+    private static readonly List<(Ship, string)> stale = new();
+    /// <summary>Segments whose run the top-up remembers, for the capture footprint.</summary>
+    internal static int RememberedSegments => segmentRuns.Count;
+    // A segment's record is about to change: its run is read again on the next pass.
+    private static void Touched(CondOwner co)
+    {
+        if (segmentRuns.Count > 0 && co != null && segmentRuns.TryGetValue(co, out var run)) run.State = LineRunState.Unknown;
+    }
+    /// <summary>Forgets every remembered run (a world or content load).</summary>
+    internal static void ResetRuns() { runs.Clear(); segmentRuns.Clear(); }
+    private static void Drop((Ship, string) key)
+    {
+        if (!runs.TryGetValue(key, out var r)) return;
+        foreach (var run in r.Runs) foreach (var co in run.Segments) segmentRuns.Remove(co);
+        runs.Remove(key);
+    }
+
     internal static void Poll()
     {
         if (families.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.system?.dictShips == null || !cadence.Due()) return;
@@ -127,9 +167,10 @@ public static class LineContents
         // Canisters come from the shared world sweep, once for every ship (Framework 0.72.0), instead of a walk over
         // every object of every owned ship every two seconds.
         var canisters = DrainCanisters.Stowed();
-        foreach (var ship in CrewSim.system.dictShips.Values.ToArray())
+        maintained.Clear();
+        foreach (var ship in PlayerFleet.Owned(owned, false))
         {
-            if (ship == null || (int)ship.LoadState < 2 || CrewSim.system.GetShipOwner(ship.strRegID) != CrewSim.coPlayer?.strID) continue;
+            maintained.Add(ship);
             try
             {
                 foreach (var family in families) Maintain(ship, family);
@@ -137,19 +178,35 @@ public static class LineContents
             }
             catch (Exception e) { FrameworkLifecycle.Log(Text.Get("LineContents.failed", ship.strRegID, e.Message)); }
         }
+        stale.Clear();
+        foreach (var key in runs.Keys) if (!maintained.Contains(key.Ship)) stale.Add(key);
+        foreach (var key in stale) Drop(key);
     }
     /// <summary>Tops up every open run on a ship from the stores on its network.</summary>
     internal static void Maintain(Ship ship, LineHoldUpFamily family)
     {
         if (!family.StoreFilled || ship.nCols < 1 || ship.nRows < 1) return;
+        var key = (ship, family.Family.Id);
         // A ship already known to have no working segment of this line is not read again until something changes it.
-        if (FluidRouteCache.KnownEmpty(ship, family.Family)) return;
+        if (FluidRouteCache.KnownEmpty(ship, family.Family)) { Drop(key); return; }
         var topology = FluidRouteCache.Topology(ship, family.Family);
-        if (topology.Overflow) return;
+        if (topology.Overflow) { Drop(key); return; }
         var segments = FluidRouteCache.Segments(ship, family.Family);
-        if (segments.Count == 0) return;
+        if (segments.Count == 0) { Drop(key); return; }
+        var cached = Runs(ship, family, topology, segments);
+        for (int i = 0; i < cached.Runs.Count; i++) Service(family, ship, cached.Runs[i]);
+    }
+    // The runs with a store on them, built afresh when the route cache rebuilt the layout or the safety net runs out.
+    private static FamilyRuns Runs(Ship ship, LineHoldUpFamily family, FluidTopology topology, IReadOnlyDictionary<int, CondOwner> segments)
+    {
+        var key = (ship, family.Family.Id);
+        double now = Cadence.RealTime;
+        if (runs.TryGetValue(key, out var cached) && ReferenceEquals(cached.Layout, segments) && !LineRunPlan.FullDue(now, cached.BuiltAt)) return cached;
+        Drop(key);
+        var built = new FamilyRuns { Layout = segments, BuiltAt = now };
+        runs[key] = built;
         var participants = FluidRouteCache.Participants(ship, family.Family);
-        var sources = new Dictionary<int, List<CondOwner>>();
+        var sources = new Dictionary<int, LineRun>();
         // Ship's Water drinking tanks on a water line fill it too (Framework 0.65.0; owner decision, 1 October 2026),
         // above the crew reserve, after the Phobos stores on the same run.
         bool drinkingWater = family.Of(LineFamilies.Water) != null && ShipsWaterSupply.Available;
@@ -161,46 +218,81 @@ public static class LineContents
             if (!store && !(drinkingWater && spec == null && ShipsWaterSupply.IsDrinkingTank(co))) continue;
             int component = topology.ParticipantComponentOf(k);
             if (component < 0) continue;
-            if (!sources.TryGetValue(component, out var list)) sources[component] = list = new List<CondOwner>();
-            list.Add(co);
+            if (!sources.TryGetValue(component, out var run)) sources[component] = run = new LineRun();
+            run.Sources.Add(co);
         }
-        if (sources.Count == 0) return;
+        if (sources.Count == 0) return built;
         foreach (var group in segments.Where(p => sources.ContainsKey(topology.ComponentOf(p.Key))).GroupBy(p => topology.ComponentOf(p.Key)))
         {
-            var run = group.OrderBy(p => p.Key).Select(p => p.Value).ToArray();
-            var mixtures = new LineMixture?[run.Length];
-            bool wanting = false;
-            for (int i = 0; i < run.Length; i++)
-            {
-                mixtures[i] = Read(run[i]);
-                if (mixtures[i] != null && !mixtures[i]!.Closed && mixtures[i]!.Fraction(family.Of) < 1 - 1e-6) wanting = true;
-            }
-            if (!wanting) continue;
-            Fill(family, sources[group.Key], run, mixtures);
+            var run = sources[group.Key];
+            run.Segments = group.OrderBy(p => p.Key).Select(p => p.Value).ToArray();
+            built.Runs.Add(run);
+            foreach (var co in run.Segments) segmentRuns[co] = run;
         }
+        return built;
     }
-    private static void Fill(LineHoldUpFamily family, List<CondOwner> sources, CondOwner[] run, LineMixture?[] mixtures)
+    // One run's pass: skipped while full, its stores asked first while it wants more, otherwise every record read.
+    private static void Service(LineHoldUpFamily family, Ship ship, LineRun run)
     {
-        var usable = new List<CondOwner>();
-        var available = new Dictionary<string, double>(StringComparer.Ordinal);
-        var drinkingTanks = sources.Where(v => BulkVessels.Of(v) == null).ToArray();
-        var ship = run[0].ship;
-        double drinking = drinkingTanks.Length == 0 ? 0 : ShipsWaterSupply.LineAvailableKg(ship, drinkingTanks, Items.WaterTankService.CrewReserveKg);
-        if (drinking > LineMixture.Tolerance) available[LineFamilies.Water] = drinking;
+        var step = LineRunPlan.Next(run.State);
+        if (step == LineRunStep.Skip) return;
+        Offer? offer = null;
+        if (step == LineRunStep.Sources)
+        {
+            offer = Offered(ship, run.Sources);
+            if (!LineRunPlan.Changed(run.Offered, offer.Available, LineMixture.Tolerance)) return;
+        }
+        var mixtures = new LineMixture?[run.Segments.Length];
+        bool wanting = false;
+        for (int i = 0; i < run.Segments.Length; i++)
+        {
+            mixtures[i] = Read(run.Segments[i]);
+            if (mixtures[i] != null && !mixtures[i]!.Closed && mixtures[i]!.Fraction(family.Of) < 1 - 1e-6) wanting = true;
+        }
+        bool drew = false;
+        if (wanting)
+        {
+            offer ??= Offered(ship, run.Sources);
+            drew = Fill(family, offer, run.Segments, mixtures);
+        }
+        run.State = LineRunPlan.After(wanting, drew);
+        run.Offered = run.State == LineRunState.Wanting ? new Dictionary<string, double>(offer!.Available, StringComparer.Ordinal) : null;
+    }
+    // What a run's stores can give now: the Phobos stores in ID order, then the drinking tanks above the crew reserve.
+    private sealed class Offer
+    {
+        internal readonly List<CondOwner> Usable = new();
+        internal CondOwner[] DrinkingTanks = Array.Empty<CondOwner>();
+        internal double Drinking;
+        internal readonly Dictionary<string, double> Available = new(StringComparer.Ordinal);
+    }
+    private static Offer Offered(Ship ship, List<CondOwner> sources)
+    {
+        var offer = new Offer { DrinkingTanks = sources.Where(v => BulkVessels.Of(v) == null).ToArray() };
+        offer.Drinking = offer.DrinkingTanks.Length == 0 ? 0 : ShipsWaterSupply.LineAvailableKg(ship, offer.DrinkingTanks, Items.WaterTankService.CrewReserveKg);
+        if (offer.Drinking > LineMixture.Tolerance) offer.Available[LineFamilies.Water] = offer.Drinking;
         foreach (var v in sources.Where(v => BulkVessels.Of(v) != null).OrderBy(v => v.strID, StringComparer.Ordinal))
         {
             if (CommodityReservations.Held(v.strID)) continue;
             BufferedDrains.Settle(v);
             var snapshot = BulkVessel.Snapshot(v);
             if (snapshot.Protected || snapshot.AvailableKg <= LineMixture.Tolerance) continue;
-            usable.Add(v);
-            available[snapshot.Commodity] = (available.TryGetValue(snapshot.Commodity, out var a) ? a : 0) + snapshot.AvailableKg;
+            offer.Usable.Add(v);
+            offer.Available[snapshot.Commodity] = (offer.Available.TryGetValue(snapshot.Commodity, out var a) ? a : 0) + snapshot.AvailableKg;
         }
-        if (usable.Count == 0 && drinking <= LineMixture.Tolerance) return;
+        return offer;
+    }
+    // Returns whether anything was drawn into the run.
+    private static bool Fill(LineHoldUpFamily family, Offer offer, CondOwner[] run, LineMixture?[] mixtures)
+    {
+        var usable = offer.Usable; var available = offer.Available; var drinkingTanks = offer.DrinkingTanks;
+        var ship = run[0].ship;
+        if (usable.Count == 0 && offer.Drinking <= LineMixture.Tolerance) return false;
         var open = new List<LineMixture>(); var openObjects = new List<CondOwner>();
         for (int i = 0; i < run.Length; i++) if (mixtures[i] is { Closed: false } m) { open.Add(m); openObjects.Add(run[i]); }
-        var drawn = LinePlanner.Fill(open, available, family.Of);
-        if (drawn.Count == 0) return;
+        // The planner is given its own copy: what the stores offered is kept to compare on the next pass.
+        var drawn = LinePlanner.Fill(open, new Dictionary<string, double>(available, StringComparer.Ordinal), family.Of);
+        if (drawn.Count == 0) return false;
         // Debit the stores first; a segment is only credited with what a store actually gave.
         var given = new Dictionary<string, double>(StringComparer.Ordinal);
         foreach (var pair in drawn)
@@ -225,6 +317,7 @@ public static class LineContents
         foreach (var pair in drawn)
             if (given[pair.Key] < pair.Value - 1e-9) Rebalance(open, pair.Key, pair.Value - given[pair.Key]);
         for (int i = 0; i < open.Count; i++) Write(openObjects[i], open[i]);
+        return true;
     }
     // A store gave less than planned (a draw between the snapshot and the debit): take the shortfall back from the
     // segments last filled, so no segment holds what no store gave.
@@ -516,6 +609,14 @@ public static class LineContents
     }
 }
 
+// A world that loads lets go of every remembered run (Framework 0.133.0), as the route cache lets go of its layouts.
+[HarmonyPatch]
+internal static class LineContentsReload
+{
+    private static IEnumerable<System.Reflection.MethodBase> TargetMethods() =>
+        typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame) || m.Name == nameof(CrewSim.NewGame));
+    private static void Prefix() => LineContents.ResetRuns();
+}
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
 internal static class LineContentsModeSwitch
 {

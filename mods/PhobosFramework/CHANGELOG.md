@@ -29,6 +29,32 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.133.0] - 2026-10-08 - Draft
+
+### Added
+
+- Performance captures now time every mod's patches on the game's interaction effects and on its trigger checks, the part of the game's save that holds up play, and the frames in which the game cleans up its memory. A capture also marks when a save was being written.
+- The trigger checks run hundreds of thousands of times a second, so one in sixteen is timed; the capture records what the timing itself costs, and the report takes it off and calls the result an estimate.
+- Captures name every Phobos mod you have loaded, Banking and Exchange included, and never list more than the recorder accepts.
+
+### Changed
+
+- Faster at fast-forward. Phobos equipment that joins a ship (installed, bought, dropped, damaged or repaired) is noticed at once, so the search of the whole world for anything else now runs every ten seconds instead of every two. That saves about 6 ms of every second on a large save.
+- Line top-ups re-read a line only when something on it changed. A full line, or one whose stores have nothing to give, now costs almost nothing every two seconds.
+- Saving a machine's state when nothing in it changed costs about half what it did.
+
+### Compatibility and limits
+
+- Lines fill exactly as before: the same stores, the same order, the same amounts, every two seconds.
+- A drain canister put straight into a store, rather than dropped aboard first, may take up to 20 seconds to start pouring instead of 4.
+- The new capture timings are installed only while a capture records, and add a few milliseconds a second while it runs.
+- Saves: nothing new is saved.
+- Checked offline: the timings, nested and failed calls, the capture list, the line rules and the saved-state rules. Not yet seen in the game.
+
+### Documentation
+
+- The capture guide shows how to read each mod's share of the game's main thread for every window of a recording, with the comparison script's new report.
+
 ## [0.132.0] - 2026-10-08 - Draft
 
 ### Added

@@ -23,10 +23,17 @@ public sealed class WorldFamily
 /// (29 September 2026 fast-forward pass, stage 8). One sweep over the world's object map runs every
 /// <see cref="CycleSeconds"/> of real time, spread across frames so no single frame pays for it; the first sweep after
 /// a world or content load runs in one go. A member is read back only while it is alive and still registered in the
-/// world under its current id, so removal is exact; a new object is found within one to two cycles.</summary>
+/// world under its current id, so removal is exact.
+///
+/// Framework 0.133.0 (L104; owner choice, 8 October 2026): an object that joins a ship (installed, bought, spawned,
+/// dropped, arriving with a ship that loads, or the new form a mode switch adds, such as a damaged or repaired machine)
+/// is offered to the families at once, and the sweep that re-examines
+/// all of the world's objects (about 75,000 on the owner's save, 7.6 ms a real second at two seconds) runs every ten
+/// seconds as a safety net for anything that never joins a ship, such as a canister put straight into a container,
+/// which is then found within one to two cycles.</summary>
 public static class WorldFamilies
 {
-    public const double CycleSeconds = 2;
+    public const double CycleSeconds = 10;
     /// <summary>The fewest objects examined in a frame while a sweep is in progress.</summary>
     public const int MinimumSlice = 64;
     private static readonly WorldIndex<CondOwner> index = new(co => co.strCODef, Live);
@@ -86,6 +93,14 @@ public static class WorldFamilies
         using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.WorldSweep);
         Diagnostics.Performance.Increment(Diagnostics.Performance.WorldSweepObjects, index.Advance(Math.Max(MinimumSlice, due)));
     }
+
+    // An object joining a ship is offered at once: one definition lookup, no scan. Ship.AddCO has two overloads, each named
+    // by its parameter types (PatchResolutionChecks in the native suite resolves every patch); the object is the first
+    // argument of each.
+    [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO), typeof(CondOwner), typeof(bool))]
+    private static class AddPatch { private static void Postfix(CondOwner __0) { if (index.FamilyCount > 0) Offer(__0); } }
+    [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO), typeof(CondOwner), typeof(bool), typeof(bool))]
+    private static class AddSkipPatch { private static void Postfix(CondOwner __0) { if (index.FamilyCount > 0) Offer(__0); } }
 
     [HarmonyPatch]
     private static class ReloadPatch

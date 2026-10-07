@@ -5,6 +5,18 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-10-08 - Draft
+
+### Fixed
+
+- Performance captures list the chart history the exchange keeps in memory with the other mods' records, not with the game's own memory readings.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.132.0, as before; Framework 0.133.0 also names the exchange's version in each capture.
+- Saves: nothing new is saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.5.0] - 2026-10-08 - Draft
 
 ### Added

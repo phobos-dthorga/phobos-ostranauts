@@ -5,6 +5,8 @@
     <Compile Include="../../src/PhobosFramework/Diagnostics/Performance.cs" Link="Performance.cs" />
     <Compile Include="../../src/PhobosFramework/Diagnostics/PerformanceSession.cs" Link="PerformanceSession.cs" />
     <Compile Include="../../src/PhobosFramework/Diagnostics/FrameMeasurements.cs" Link="FrameMeasurements.cs" />
+    <Compile Include="../../src/PhobosFramework/Diagnostics/HookSpan.cs" Link="HookSpan.cs" />
+    <Compile Include="../../src/PhobosFramework/Diagnostics/CaptureMetadata.cs" Link="CaptureMetadata.cs" />
     <Compile Include="../../src/PhobosFramework/FrameworkConsole.cs" Link="FrameworkConsole.cs" />
     <EmbeddedResource Include="../../translations/PhobosFramework/en.json" LogicalName="PhobosFramework.en.json" />
   </ItemGroup>

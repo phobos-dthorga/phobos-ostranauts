@@ -53,9 +53,15 @@ internal static class FrameChecks
         frames = new FrameMeasurements(() => ++tick, 1000, _ => collections, null, () => { heapReads++; return managed; });
         check(Command("start detailed 30 100"), "Heap-after-collection fixture starts");
         frames.Poll(); frames.Poll(); collections++; managed = 3000; frames.Poll(); frames.Poll(); session.Stop(StopReason.Manual);
-        var after = Capture().GetProperty("counter_aggregates").EnumerateArray().Single(a => a.GetProperty("metric").GetInt32() == 5);
+        var heapCapture = Capture();
+        var after = heapCapture.GetProperty("counter_aggregates").EnumerateArray().Single(a => a.GetProperty("metric").GetInt32() == 5);
         check(heapReads == 1 && after.GetProperty("samples").GetInt64() == 1 && after.GetProperty("last").GetDouble() == 3000,
             "The heap is read once, at the frame after a collection");
+        // Framework 0.133.0 (L102): the frame that saw the collection is recorded once, with its length.
+        int gcFrame = heapCapture.GetProperty("definitions").EnumerateArray().Single(d => d.GetProperty("name").GetString() == "game.gc.frame_ms").GetProperty("id").GetInt32();
+        var collected = heapCapture.GetProperty("counter_aggregates").EnumerateArray().Single(a => a.GetProperty("metric").GetInt32() == gcFrame);
+        check(collected.GetProperty("samples").GetInt64() == 1 && collected.GetProperty("sum").GetDouble() == 1,
+            "Only the frame in which a collection happened is recorded as a collection frame, with its length");
 
         // Frame-time buckets: each frame counts once, by its upper bound; a summary capture keeps the counts.
         session = new PerformanceSession(directory, () => true, () => new Dictionary<string, string>(), _ => { });

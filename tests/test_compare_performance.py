@@ -85,3 +85,46 @@ class ComparisonTests(unittest.TestCase):
         self.assertEqual(perf.compare([row] * 3, [row] * 3)['operation_self_ms_per_second']['autonav.panel.refresh']['change_percent'], 0)
         self.assertIsNone(perf.analyse(capture())['operations'].get('autonav.panel.refresh'))
 
+    def test_report_per_mod(self):
+        # Framework 0.133.0: one recording's windows in order, own time per mod, hook spans and the trigger estimate.
+        def window(number, sweep_self):
+            raw = dict(capture(), format_version=3, end_tick=10000, counters=[],
+                       metadata=[dict(key='recording_id', value='r1'), dict(key='window', value=str(number)),
+                                 dict(key='timer_overhead_ns', value='100.0')])
+            raw['definitions'] = [dict(id=1, name='game.frame.interval', kind='gauge'),
+                                  dict(id=2, name='framework.world.sweep', kind='operation'),
+                                  dict(id=3, name='agriculture.machine.update', kind='operation'),
+                                  dict(id=4, name='game.sim.advance', kind='operation'),
+                                  dict(id=5, name='game.interaction.effect_hooks', kind='increment'),
+                                  dict(id=6, name='game.condtrigger.calls', kind='increment'),
+                                  dict(id=7, name='game.condtrigger.sampled_calls', kind='increment'),
+                                  dict(id=8, name='game.condtrigger.postfix_sampled_ms', kind='increment'),
+                                  dict(id=9, name='game.gc.frame_ms', kind='gauge'),
+                                  dict(id=10, name='game.save.begin', kind='operation')]
+            raw['aggregates'] = [dict(metric=2, calls=10, total_ticks=sweep_self, max_ticks=5, self_ticks=sweep_self, incomplete=0),
+                                 dict(metric=3, calls=10, total_ticks=30, max_ticks=5, self_ticks=20, incomplete=0),
+                                 dict(metric=4, calls=10, total_ticks=4000, max_ticks=900, self_ticks=4000, incomplete=0),
+                                 dict(metric=10, calls=1, total_ticks=700, max_ticks=700, self_ticks=700, incomplete=0)]
+            raw['counter_aggregates'] = [dict(metric=1, samples=100, sum=10000, min=50, max=900, last=50),
+                                         dict(metric=5, samples=10, sum=20, min=1, max=3, last=2),
+                                         dict(metric=6, samples=100, sum=1600, min=1, max=50, last=16),
+                                         dict(metric=7, samples=100, sum=100, min=1, max=3, last=1),
+                                         dict(metric=8, samples=100, sum=0.03, min=0, max=0.001, last=0),
+                                         dict(metric=9, samples=2, sum=1500, min=600, max=900, last=600)]
+            return perf.analyse(raw)
+        result = perf.report([window(2, 50), window(1, 100)])
+        first, second = result['windows']
+        self.assertEqual((first['window'], second['window']), ('1', '2'))
+        self.assertAlmostEqual(first['own_ms_per_second']['Framework'], 10)
+        self.assertAlmostEqual(first['own_ms_per_second']['Agriculture'], 2)
+        self.assertAlmostEqual(first['own_ms_per_second']['Game'], 470)
+        self.assertAlmostEqual(first['hook_ms_per_second']['interaction effects'], 2)
+        trigger = first['trigger_check_hooks']
+        # 100 timed calls read 0.03 ms, of which 100 x 100 ns is the timer: 0.02 ms over 100 calls, scaled to 1,600 calls in 10 s.
+        self.assertEqual(trigger['basis'], 'estimate')
+        self.assertAlmostEqual(trigger['ms_per_second'], 0.02 * 16 / 10)
+        self.assertAlmostEqual(first['phobos_ms_per_second'], 10 + 2 + 2 + 0.032)
+        self.assertEqual(first['collections'], dict(frames=2, total_ms=1500, worst_ms=900, share_of_frame_time_percent=15))
+        self.assertEqual(first['saves']['game.save.begin']['calls'], 1)
+        self.assertAlmostEqual(result['phobos_share_percent'], (1.4032 + 0.9032) / 2)
+

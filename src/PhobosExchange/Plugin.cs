@@ -21,7 +21,7 @@ namespace PhobosExchange;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ExchangeRules.Owner;
-    public const string Version = "0.5.0";
+    public const string Version = "0.5.1";
     public const string MinimumFrameworkVersion = "0.132.0";
     internal const string ModName = "Phobos Exchange";
     internal static Action<string> Log = _ => { };

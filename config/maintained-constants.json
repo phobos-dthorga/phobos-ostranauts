@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.132.0",
+      "value": "0.133.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -3000,7 +3000,7 @@
     "Exchange.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.5.0",
+      "value": "0.5.1",
       "description": "PhobosExchange (Phobos Exchange) published source/package version.",
       "targets": [
         {

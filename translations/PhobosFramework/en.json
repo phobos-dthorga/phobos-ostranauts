@@ -623,6 +623,7 @@
   "VesselContentsDisplay.trapped_desc": "What [us] trapped in its catch chamber when it was damaged, in kilograms. Repair it, then recover the contents from its panel.",
   "VesselContentsDisplay.failed": "Phobos Framework could not show a tank's contents on its card ({0}). The contents themselves are unaffected.",
   "Performance.probes_failed": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue.",
+  "Performance.probe_outside_span": "Capture timing of the patches on {0} leaves out patches from {1}: they run before or after every probe, so this capture does not count their time.",
   "FrameworkConsole.data_packs": "Data packs (shipped tables plus player files in BepInEx/config/<Mod>/<schema>):",
   "DataPacks.file_too_large": "The file is larger than 1 MiB.",
   "DataPacks.rejected_file": "Data pack {0}: player file {1} was skipped: {2}",
