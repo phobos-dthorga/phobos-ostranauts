@@ -11,7 +11,7 @@ Dates on Draft entries record preparation, not Steam publication.
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
-## [0.66.1] - 2026-10-07 - Draft
+## [0.66.1] - 2026-10-07 - Released
 
 ### Fixed
 

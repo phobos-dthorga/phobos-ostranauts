@@ -5,7 +5,7 @@ not Steam publication.
 
 ## [Unreleased]
 
-## [0.7.0] - 2026-10-07 - Draft
+## [0.7.0] - 2026-10-07 - Released
 
 ### Added
 

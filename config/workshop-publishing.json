@@ -15,7 +15,7 @@
       ],
       "hold": null,
       "uploadedVersion": "0.66.1",
-      "uploadedVisibility": "private"
+      "uploadedVisibility": "public"
     },
     "PhobosShipbreaker": {
       "itemId": "3814711909",
@@ -43,7 +43,7 @@
       ],
       "hold": "Unpublished draft: first operational release awaiting owner gameplay checks.",
       "uploadedVersion": "0.58.1",
-      "uploadedVisibility": "private"
+      "uploadedVisibility": "public"
     },
     "PhobosWarDeclared": {
       "itemId": "3814710699",
