@@ -191,6 +191,46 @@ reloaded.Advance(now + 1440, null);
 Check(Fingerprint(reloaded) == Fingerprint(one), "a reload halfway changes nothing that follows");
 Check(one.Advance(one.Clock - 10, null) == 0 && Fingerprint(one) == Fingerprint(two), "the clock never steps backwards");
 
+// ---- Opening a save's market (0.2.1: 0.1.0 read the drivers before starting and failed on every attach) ------
+double? Factor(DriverEntry d)
+{
+    foreach (var pair in pack.companies)
+        for (int j = 0; j < pair.Value.drivers.Count; j++)
+            if (ReferenceEquals(pair.Value.drivers[j], d)) return factors.TryGetValue((pair.Key, j), out double f) ? f : null;
+    return null;
+}
+{
+    var early = new MarketModel(pack, new ExchangeRecord());
+    early.SetDriverFactor(early.IndexOf("keel"), 0, 1.3);
+    early.ReadFactors(Factor);
+    Check(!early.Started, "a driver reading before the market starts is ignored, not a failure");
+    var opened = MarketModel.Open(pack, new ExchangeRecord(), now, Seed, Factor);
+    Check(opened.Started && opened.Clock == now, "opening a new save's market starts it and steps it to now");
+    for (int i = 0; i < opened.Count; i++)
+        Check(Near(opened.Price(i), pack.companies[opened.Ids[i]].price, 1e-9), "a new market opens at the pack's prices with its drivers read: " + opened.Ids[i]);
+    int keel = opened.IndexOf("keel"), lode = opened.IndexOf("lode");
+    Check(opened.DriverGoal(keel, 0) != 0 && opened.DriverPart(keel, 0) == opened.DriverGoal(keel, 0) && opened.DriverPart(lode, 1) == opened.DriverGoal(lode, 1),
+        "a new market's drivers start at their readings");
+    opened.Advance(now + 1440, null);
+    Check(Near(opened.DriverPart(keel, 0), opened.DriverGoal(keel, 0), 1e-12), "settled drivers do not drift over the first day");
+    var resumed = MarketModel.Open(pack, ExchangeRecord.Decode(opened.Record.Encode()), opened.Clock, Seed, Factor);
+    Check(Enumerable.Range(0, resumed.Count).All(i => resumed.LnPrice[i] == opened.LnPrice[i]) && resumed.DriverPart(keel, 0) == opened.DriverPart(keel, 0),
+        "opening a saved market resumes at its saved prices and drivers");
+}
+// The chart's points (0.2.1: the 120-day chart lost its newest 15 closes).
+{
+    var h = one.History(0);
+    var x = new double[HistoryView.MaxPoints]; var y = new double[HistoryView.MaxPoints];
+    int n = HistoryView.Fill(h.Daily, ExchangeRules.DaySeconds, one.Clock, one.LnPrice[0], x, y);
+    Check(h.Daily.Count == ExchangeRules.DailyCloses && n == ExchangeRules.DailyCloses + 1, "the 120-day chart draws every daily close, then now (" + n + ")");
+    Check(y[n - 2] == ExchangeRules.Price(h.Daily[h.Daily.Count - 1]) && x[n - 2] <= 0 && x[n - 2] > -1 && x[n - 1] == 0 && y[n - 1] == one.Price(0),
+        "the newest close sits within a day before now, and now is last");
+    Check(Enumerable.Range(1, n - 1).All(k => x[k] > x[k - 1]), "chart points run oldest first");
+    var shortX = new double[11]; var shortY = new double[11];
+    int m = HistoryView.Fill(h.Daily, ExchangeRules.DaySeconds, one.Clock, one.LnPrice[0], shortX, shortY);
+    Check(m == 11 && shortY[9] == ExchangeRules.Price(h.Daily[h.Daily.Count - 1]), "a short buffer keeps the newest closes");
+}
+
 // A change to the pack keeps every price where it was.
 {
     var record = ExchangeRecord.Decode(one.Record.Encode());

@@ -1230,6 +1230,12 @@ record's history is bounded (about 1.5 KB a company). Phobos Banking 0.7.0's ove
 Framework's holdings list once each time it is drawn (one value per providing mod: the
 exchange sums its holdings over eight companies). No capture accompanies this change.
 
+Phobos Exchange 0.2.1 (same finding): opening the market now starts it before reading the
+drivers, once per load, and a new market settles its drivers in one pass over its
+companies. The hourly driver read and the chart fill do the same work as before, the fill
+now in a game-free function sized from the largest series (121 points). No capture
+accompanies this change.
+
 ## 7 October: the credit line (L96)
 
 L96 — Phobos Banking 0.6.0. A credit line's balance is an ordinary Phobos loan to the

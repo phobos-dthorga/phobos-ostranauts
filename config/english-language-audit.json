@@ -91504,6 +91504,32 @@
       ],
       "before": "on the news",
       "after": "on the news"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.open_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added 7 October 2026 for Phobos Exchange 0.2.1: the market failing to open now closes trading for the load with one plain message; read against player-language.md.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:93"
+      ],
+      "before": "The exchange couldn't open this character's market, so trading stays closed until the game is loaded again. The record is left as it was: {0}",
+      "after": "The exchange couldn't open this character's market, so trading stays closed until the game is loaded again. The record is left as it was: {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.closed_fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added 7 October 2026 for Phobos Exchange 0.2.1: the market failing to open now closes trading for the load with one plain message; read against player-language.md.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:94"
+      ],
+      "before": "The exchange hit a fault opening its market, so trading is closed until you load the game again. Your shares and record are untouched; the log has the details.",
+      "after": "The exchange hit a fault opening its market, so trading is closed until you load the game again. Your shares and record are untouched; the log has the details."
     }
   ],
   "documents": [
@@ -91511,13 +91537,14 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aa2c8c688dfb16619b515738b250d2b32f0df5371a4dee8abacb3501fdd1eac1",
+      "sha256": "c9f6793441c82a65c9a0881b6d15293708d4bda16dfbead014f3dadac0e321e4",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
+      "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "SUPPORT.md",
@@ -93100,9 +93127,10 @@
       "path": "workshop/PhobosExchange/page.bbcode",
       "scope": "current player text; Workshop page draft",
       "decision": "new",
-      "sha256": "3f184a845bda69bd149c74d64e2c3979cd32a1b74764d3fa45411d66f5dbcf39",
+      "sha256": "d9c0b6a70c893890e9022b14c56fef721975edf4925cf9868c73094e5547b299",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md.",
-      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
+      "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/console-command-audit.md",
@@ -93425,8 +93453,9 @@
       "path": "mods/PhobosExchange/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "f301b0cd1cbd0ca9fbbebc55526da3085d7919d94ac0b173ffc8a05ffad0cbe7",
-      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+      "sha256": "286d0c21808adedb77e54afa3d856d74e1b8c0f0441c0289ff2e8e09d6df4fbc",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
+      "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosExchange/framework/exchange.json",
@@ -93439,8 +93468,9 @@
       "path": "mods/PhobosExchange/mod_info.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "aee602e163d2913090af9d048365bc004da9fbf642c2ff58bc3197c632c3c397",
-      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+      "sha256": "c2333f9fd9e316a4d9dba6c4c4d7b3a2e8007033aad1b030a8a5e781b8757125",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
+      "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosBank/mod_info.json",

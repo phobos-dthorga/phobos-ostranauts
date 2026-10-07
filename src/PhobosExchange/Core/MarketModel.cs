@@ -108,6 +108,45 @@ public sealed class MarketModel
         return -1;
     }
     public double Price(int i) => ExchangeRules.Price(LnPrice[i]);
+    /// <summary>Whether <see cref="Start"/> has run; driver readings before then are ignored.</summary>
+    public bool Started { get; private set; }
+
+    /// <summary>Opens a save's market (0.2.1): starts it, then reads every driver through <paramref name="factor"/> (the game's
+    /// price factor, or null for no reading). A new market's drivers start at their readings with the base moved to match,
+    /// so it opens at the pack's prices and does not drift over its first day while the drivers settle.</summary>
+    public static MarketModel Open(ExchangePack pack, ExchangeRecord record, long now, ulong seed, Func<DriverEntry, double?> factor, IMarketObserver? observer = null)
+    {
+        bool fresh = record.Clock == null;
+        var model = new MarketModel(pack, record);
+        model.Start(now, seed, observer);
+        model.ReadFactors(factor);
+        if (fresh) model.SettleDrivers();
+        return model;
+    }
+
+    /// <summary>Reads every driver's goal from the game's price factors.</summary>
+    public void ReadFactors(Func<DriverEntry, double?> factor)
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var drivers = Entries[i].drivers;
+            for (int j = 0; j < drivers.Count; j++) SetDriverFactor(i, j, factor(drivers[j]));
+        }
+    }
+
+    /// <summary>Moves every driver straight to its goal and the base the other way, so no price changes.</summary>
+    private void SettleDrivers()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var drivers = States[i].Drivers;
+            for (int j = 0; j < drivers.Length; j++)
+            {
+                States[i].LnBase -= targets[i][j] - drivers[j];
+                drivers[j] = targets[i][j];
+            }
+        }
+    }
 
     /// <summary>Brings the record in line with the pack and the moment: a new record is backfilled two years so the charts
     /// are not empty; companies new to the pack are listed now at the pack's price; a company whose figures changed in the
@@ -115,7 +154,7 @@ public sealed class MarketModel
     public int Start(long now, ulong seed, IMarketObserver? observer = null)
     {
         if (!Record.HasSeed) { Record.Seed = seed; Record.HasSeed = true; }
-        if (Record.Clock == null) return Backfill(now);
+        if (Record.Clock == null) { int filled = Backfill(now); Started = true; return filled; }
         long clock = Record.Clock.Value;
         if (Record.Market == null) { Record.Market = new TrendState(); Stationary(marketKernel, Record.Market, marketKey, clock); }
         market = Record.Market;
@@ -157,6 +196,7 @@ public sealed class MarketModel
             state.LastLn = LnPrice[i];
             if (histories[i].Hourly.Count == 0) SeedHistory(i, clock);
         }
+        Started = true;
         return Advance(now, observer);
     }
 
@@ -383,6 +423,8 @@ public sealed class MarketModel
     /// <summary>The goal a driver relaxes towards, from the game's price factor; null (no reading) holds it where it is.</summary>
     public void SetDriverFactor(int i, int j, double? factor)
     {
+        // Before Start there is no state to steer (0.1.0 read the drivers first and failed on every attach).
+        if (!Started) return;
         var d = Entries[i].drivers[j];
         if (factor is not double f || double.IsNaN(f) || double.IsInfinity(f)) { targets[i][j] = States[i].Drivers[j]; return; }
         double goal = d.weight * Math.Log(Math.Min(ExchangeRules.MaxFactor, Math.Max(ExchangeRules.MinFactor, f)));

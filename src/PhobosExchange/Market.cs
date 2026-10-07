@@ -40,6 +40,8 @@ internal static class Market
     private static SavedStateStatus status = SavedStateStatus.Missing;
     private static bool dirty;
     private static long driverHour = long.MinValue;
+    /// <summary>Why trading is closed for this load when the market failed to open, or null.</summary>
+    private static string? closedReason;
     private static readonly List<MoveReport> reports = new(64);
     private static readonly List<(int Company, int Side, double Level)> fired = new(16);
     private static (int Company, Alert Alert)[] alertTable = Array.Empty<(int, Alert)>();
@@ -73,22 +75,36 @@ internal static class Market
         {
             owner = player;
             status = Store(player).Read(out var fields);
-            model = null; watch = null;
+            model = null; watch = null; closedReason = null;
             if (status != SavedStateStatus.Ready && status != SavedStateStatus.Missing) { Plugin.Log(Text.Get("Market.record_kept", status)); refusal = Text.Get("Market.record_unreadable"); return false; }
             record = ExchangeRecord.Decode(fields);
             bool fresh = record.Clock == null;
-            model = new MarketModel(Companies.Pack, record);
-            ReadDrivers(force: true);
             long now = ExchangeRules.StepOf(StarSystem.fEpoch);
-            using (Performance.Measure(PerformanceMetrics.CatchUp)) model.Start(now, StableNoise.Fnv64(player.strID));
+            // The model is kept only once it has opened (0.2.1): a fault closes trading for this load, logged once, and
+            // nothing is saved over the record.
+            try
+            {
+                MarketModel opened;
+                using (Performance.Measure(PerformanceMetrics.CatchUp)) opened = MarketModel.Open(Companies.Pack, record, now, StableNoise.Fnv64(player.strID), DriverFactor);
+                model = opened;
+            }
+            catch (Exception ex)
+            {
+                Plugin.Log(Text.Get("Market.open_failed", ex));
+                refusal = closedReason = Text.Get("Market.closed_fault");
+                return false;
+            }
+            driverHour = ExchangeRules.HourOf(now);
             watch = new MoveWatch(model);
             RebuildAlerts();
             if (fresh) Plugin.Log(Text.Get("Market.opened", model.Count));
             dirty = true; Save(); Version++;
         }
-        if (model == null) { refusal = Text.Get("Market.record_unreadable"); return false; }
+        if (model == null) { refusal = closedReason ?? Text.Get("Market.record_unreadable"); return false; }
         return true;
     }
+
+    private static readonly Func<DriverEntry, double?> DriverFactor = d => NativeMarket.Factor(d.station, d.category);
 
     /// <summary>Once a real second: read the drivers when a game hour has turned, step the market to the game's clock, and
     /// tell the player what happened, in one line or a short summary.</summary>
@@ -120,11 +136,7 @@ internal static class Market
         if (!force && hour == driverHour) return;
         driverHour = hour;
         using var measure = Performance.Measure(PerformanceMetrics.Drivers);
-        for (int i = 0; i < model.Count; i++)
-        {
-            var drivers = model.Entries[i].drivers;
-            for (int j = 0; j < drivers.Count; j++) model.SetDriverFactor(i, j, NativeMarket.Factor(drivers[j].station, drivers[j].category));
-        }
+        model.ReadFactors(DriverFactor);
     }
 
     /// <summary>Writes the record when it changed: after a trade, an alert or a test command, and before the game saves.</summary>
@@ -299,10 +311,11 @@ internal static class Market
         var fill = buy ? TradeRules.Buy(c, market, model.LnPrice[i], shares, held, cash) : TradeRules.Sell(c, market, model.LnPrice[i], shares, held);
         string name = Companies.Name(model.Ids[i]);
         if (!fill.Ok) { message = Refusal(fill, name, c.ticker); return false; }
+        // The market moves first (0.2.1): if anything fails, no shares have changed hands and no money has moved.
+        model.Push(i, fill.Impact);
         if (held == null) record.Holdings[model.Ids[i]] = held = new Holding();
         long sharesBefore = held.Shares;
         TradeRules.Apply(held, fill);
-        model.Push(i, fill.Impact);
         string exchange = Companies.ExchangeName;
         player.AddCondAmount(Ledger.CURRENCY, buy ? -fill.Total : fill.Total);
         Ledger.RecordTransaction(player, exchange, buy ? -fill.Total : fill.Total,
@@ -417,10 +430,10 @@ internal static class Market
         foreach (var pair in record.Holdings) fresh.Holdings[pair.Key] = pair.Value;
         fresh.TestChanges = record.TestChanges;
         record = fresh;
-        model = new MarketModel(Companies.Pack!, record);
-        ReadDrivers(force: true);
+        long now = ExchangeRules.StepOf(StarSystem.fEpoch);
         // A new seed, so the reset market differs from the one it replaces.
-        model.Start(ExchangeRules.StepOf(StarSystem.fEpoch), StableNoise.Mix(StableNoise.Fnv64(owner.strID) + (ulong)(record.TestChanges + 1)));
+        model = MarketModel.Open(Companies.Pack!, record, now, StableNoise.Mix(StableNoise.Fnv64(owner.strID) + (ulong)(record.TestChanges + 1)), DriverFactor);
+        driverHour = ExchangeRules.HourOf(now);
         watch = new MoveWatch(model);
         RebuildAlerts();
         MarkTested(what);

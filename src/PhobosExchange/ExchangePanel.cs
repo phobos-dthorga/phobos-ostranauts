@@ -36,7 +36,7 @@ public sealed class ExchangePanel : GUIData
     private TMP_Text? priceLabel, changeLabel, quoteLabel, heldLabel, cashLabel, valueLabel;
     private Chart? chart;
     private readonly ChartData chartData = new();
-    private readonly ChartSeries series = new() { X = new double[ExchangeRules.WeeklyCloses + 2], Y = new double[ExchangeRules.WeeklyCloses + 2], Fill = true };
+    private readonly ChartSeries series = new() { X = new double[HistoryView.MaxPoints], Y = new double[HistoryView.MaxPoints], Fill = true };
     private GroupedList? list;
 
     /// <summary>Opens the panel. Returns null when it opened, or the reason it did not.</summary>
@@ -251,16 +251,8 @@ public sealed class ExchangePanel : GUIData
         var model = Market.Model;
         var h = model.History(v.Index);
         CloseSeries closes = range == Range.Hours ? h.Hourly : range == Range.Days ? h.Daily : h.Weekly;
-        long current = range == Range.Hours ? ExchangeRules.HourOf(model.Clock) : range == Range.Days ? ExchangeRules.DayOf(model.Clock) : ExchangeRules.WeekOf(model.Clock);
-        int n = 0;
-        for (int i = 0; i < closes.Count && n < series.X.Length - 1; i++)
-        {
-            // A close belongs to the end of its bucket, so the newest sits at -1 ... and now is 0.
-            series.X[n] = closes.FirstBucket + i + 1 - current;
-            series.Y[n] = ExchangeRules.Price(closes[i]);
-            n++;
-        }
-        series.X[n] = 0; series.Y[n] = model.Price(v.Index); n++;
+        double bucket = range == Range.Hours ? ExchangeRules.HourSeconds : range == Range.Days ? ExchangeRules.DaySeconds : ExchangeRules.WeekSeconds;
+        int n = HistoryView.Fill(closes, bucket, model.Clock, model.LnPrice[v.Index], series.X, series.Y);
         series.Count = n;
         series.Tone = n > 1 && series.Y[n - 1] < series.Y[0] ? Tone.Attention : Tone.Good;
         chartData.Levels.Clear();

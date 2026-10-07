@@ -1,0 +1,18 @@
+[h1]Phobos Exchange 0.2.1[/h1]
+[b]Draft - not published | 2026-10-07[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]The exchange failed to open in play: 0.1.0 read the stations' markets before the market had started, so every load failed and prices never moved, with an error logged every second. It now starts the market first. If opening ever fails again, trading closes until the next load with one plain message, and nothing is saved over your record.
+[*]A new market no longer drifts on its first day while the stations' markets settle in, which the wire reported as shortages or gluts. It opens at the listed prices with today's station markets already counted.
+[*]A trade now moves the market before it touches your shares or cash, so a fault can never leave shares bought but unpaid.
+[*]The 120-day chart showed only its oldest 105 days and drew a straight line to now. It now shows every day, and the latest point sits where it belongs, just before now.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Saves: no change to the record. A save in which 0.1.0 failed to open has no exchange record, so the market opens fresh with its two years of history.
+[*]Checked offline: opening a new and a saved market in the order the game uses, the first day with settled drivers, and the chart's points. Not yet seen in the game.
+[/list]

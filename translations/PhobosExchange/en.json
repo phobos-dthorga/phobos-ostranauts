@@ -15,6 +15,8 @@
   "Market.no_station": "there's no such station in this game.",
   "Market.opened": "Exchange opened for this save: {0} companies, with two years of price history.",
   "Market.poll_failed": "The exchange couldn't move its prices on: {0}",
+  "Market.open_failed": "The exchange couldn't open this character's market, so trading stays closed until the game is loaded again. The record is left as it was: {0}",
+  "Market.closed_fault": "The exchange hit a fault opening its market, so trading is closed until you load the game again. Your shares and record are untouched; the log has the details.",
   "Market.record_kept": "This character's exchange record reads as {0}; it is left untouched.",
   "Market.record_unreadable": "This character's exchange record is from a newer version or damaged, so trading is closed and the record is left as it is. Update Phobos Exchange to open it.",
   "Market.record_refused": "The exchange record couldn't be saved on this character; the log has the reason.",
