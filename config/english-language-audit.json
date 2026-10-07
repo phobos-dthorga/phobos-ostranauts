@@ -91994,7 +91994,7 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "e78bcdb636cbf82a702a261fdef30599a22022c4e6bcec7aca136793508335fe",
+      "sha256": "39f1b56d27681afd9557d38f0e0535abb99f16185c984313b52195ecbffc24e4",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
@@ -92002,7 +92002,8 @@
       "review20261007ShareMarket": "Reviewed 7 October 2026: one index line added for the share market and charts design record; existing wording retained.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007CrewWallets": "Reviewed 7 October 2026: index line for the crew personal wallets research record; no gameplay claim."
+      "review20261007CrewWallets": "Reviewed 7 October 2026: index line for the crew personal wallets research record; no gameplay claim.",
+      "review20261008VariantHandoff": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -92895,10 +92896,11 @@
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "6497a2ec5ba150c3a76166081e183d0a1bd8245561ce12e7a06ac4e49c9e3606",
+      "sha256": "15f2d9a82818a988c1776fd234ce8b9f34bf9443ad076e95ec058904fd356ef2",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
+      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
+      "review20261008VariantHandoff": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide."
     },
     {
       "path": "docs/development/terminal-social-network.md",
@@ -93399,9 +93401,10 @@
       "path": "docs/development/banking-stories-handoff.md",
       "scope": "development handoff",
       "decision": "New document; reviewed against player-language.md.",
-      "sha256": "f1fc10be6882dd228cfc8b1b28f067443ce3432441c8b3877a7605b93785210b",
+      "sha256": "ba4d8f92492d360da94aa76622f02d209049f86bb0bf7e08221416e6bdfdf0cb",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
-      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
+      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
+      "review20261008VariantHandoff": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide."
     },
     {
       "path": "docs/development/share-market-and-charts-design.md",
@@ -93459,13 +93462,14 @@
       "path": "docs/development/exchange-stories-handoff.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "ae7a8e8cad1bcb65a642a3bcadcf52aa3e9bbaf8eec9bb4160f6e8290e9741b6",
+      "sha256": "d641a1d7da1362875085afe3fa125d27710981642fd9cf39899129458380b418",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261007HandoffFix": "Reviewed 7 October 2026: the writers' handoff made self-contained for company histories (limits table, sector ids, a format example that validates, clearer rules on figures, months and old listings, how to check the work) and the wait test corrected to game hours up to 720; wording read against player-language.md.",
       "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: first-draft Exchange histories and story content; checked the canon/date boundary against the linked Blue Bottle Games data and kept company causes, price moves, and unsupported dates explicitly author-written. Counts and validator claims checked against the packs and separate shipped/add-on validation. No gameplay claim.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
-      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
+      "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
+      "review20261008VariantHandoff": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide."
     },
     {
       "path": "docs/development/crew-wallets-research.md",
@@ -93473,6 +93477,13 @@
       "decision": "new",
       "sha256": "6acc1fc505b04b45fe038de4a3ad8171402ad17e5e0144c00dde2c16f61ef850",
       "review": "Reviewed 7 October 2026: research-only design record for crew personal wallets (the game's own NPC cash and salary ledger observed in the decompile, a wallet-as-StatUSD design with station spending, allowance mode, inherited debts and later behaviour links, owner decisions of the same day, performance budget for weaker machines, saved structures and engine questions to verify); wording read against player-language.md; nothing built and nothing claimed as tested in play."
+    },
+    {
+      "path": "docs/development/variant-lines-handoff.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "d6e569d50059e2b87cc4f890d7f9afe5bc5d6372fdf5f919c060dba03d7ffb0d",
+      "review": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide."
     }
   ],
   "surfaces": [

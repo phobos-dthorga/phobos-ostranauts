@@ -258,7 +258,8 @@ reply labels, names, profiles and history lines stay one string.
 (`exchange-smartlink-spares-contract`) carries a second wire variant written by Claude only
 to show the wiring works; its `notes` say so. Replace it, or keep it if it reads well.
 The Keelhaul example add-on shows variants on its wire line, its surge news and its
-large-holder letter.
+large-holder letter. This is step 2 of the [variant lines handoff](variant-lines-handoff.md),
+which has the format, the rules for every variant and the order of the other steps.
 
 ## Rules (the code holds the text to these)
 

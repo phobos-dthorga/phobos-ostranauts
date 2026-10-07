@@ -542,6 +542,9 @@ directions), Exchange and Banking checks on their packs and the Keelhaul example
 Python mirror and JSON Schemas (the schema checker learned `anyOf`, string lengths, `maxItems`
 and `uniqueItems` for them).
 
+**Writers' handoff:** [variant lines](variant-lines-handoff.md), in five steps (Banking,
+Exchange, Agriculture, then Phobos Spacer Stories in two parts).
+
 **For the owner to try:** take a Corvane Mutual loan and let a bill go late twice; the two
 late letters differ, and each reads the same in the crew log and the Letters window. With the
 Keelhaul example installed, its wire line varies from one breaking to the next.

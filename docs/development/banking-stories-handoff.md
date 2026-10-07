@@ -134,6 +134,9 @@ every variant (above all: no consequence beyond the game's own).
 carries a second variant written by Claude only to show the wiring works; the arc's `notes`
 say so. Replace it, or keep it if it reads well.
 
+This is step 1 of the [variant lines handoff](variant-lines-handoff.md), which has the format,
+the rules for every variant and the order of the later steps.
+
 ## How it is wired and checked
 
 The 0.5.0 draft is merged into `mods/PhobosBank/framework/story.json`. The pack uses the
