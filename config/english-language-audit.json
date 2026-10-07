@@ -92009,7 +92009,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "39f1b56d27681afd9557d38f0e0535abb99f16185c984313b52195ecbffc24e4",
+      "sha256": "3785836273b93e6cc0724ef64d13eed3f6837669d5333ddecadcf6a190ab19e8",
+      "review20261008Reagents": "Reviewed 8 October 2026: index line for the reagent-sale design record; no other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
@@ -93501,6 +93502,13 @@
       "decision": "new",
       "sha256": "6acc1fc505b04b45fe038de4a3ad8171402ad17e5e0144c00dde2c16f61ef850",
       "review": "Reviewed 7 October 2026: research-only design record for crew personal wallets (the game's own NPC cash and salary ledger observed in the decompile, a wallet-as-StatUSD design with station spending, allowance mode, inherited debts and later behaviour links, owner decisions of the same day, performance budget for weaker machines, saved structures and engine questions to verify); wording read against player-language.md; nothing built and nothing claimed as tested in play."
+    },
+    {
+      "path": "docs/development/reagent-sale-at-industrial-hubs.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "307c20fa8b2ebdcaecec2ca46857e9e731e72cbfbcd4afceaa578def4c987d1c",
+      "review": "Reviewed 8 October 2026: research-only design record for selling reagents at the game's industrial hubs (what the game's merchant tables and production maps show, what our stock and bulk-supply code already has and lacks, the classification of every chemical and bulk commodity, the chain arithmetic under the value rules, the owner's four decisions of the same day, the implementation outline for the next round and a survey of other balance seams); wording read against player-language.md; nothing built and nothing claimed as tested in play."
     },
     {
       "path": "docs/development/variant-lines-handoff.md",

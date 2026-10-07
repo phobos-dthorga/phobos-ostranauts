@@ -380,9 +380,19 @@ delivery in the changelog and design record, and add or amend only the rule here
   probability separate from count; preserve native restocking and saved inventories; never put
   wholesale lots, installed machinery or process records into world loot. Every sold item is also
   offered at the CCRE and GalCon faction kiosks for scrip with a reputation tier in the same
-  change; nothing ever needs Honored (`docs/development/faction-kiosk-stock.md`). Keep every
-  machine family's merchant, loot, repair, Restore and dismantle coverage at parity with its
-  siblings.
+  change (a hub-only item at the kiosks in its market); nothing ever needs Honored
+  (`docs/development/faction-kiosk-stock.md`). Keep every machine family's merchant, loot,
+  repair, Restore and dismantle coverage at parity with its siblings.
+- **Reagent sale** (owner, 2026-10-08; `docs/development/reagent-sale-at-industrial-hubs.md`):
+  every reagent or bulk commodity a Phobos chain needs is sold somewhere. One that is otherwise
+  only made aboard sells only at the industrial hubs (Framework's `industrial` market group:
+  Port Yangshan, Upsilon Docking, Long Beach Terminal, Venus Orbital, Cassini Spaceport),
+  declared in the owning mod's economy pack, at the game's own prices; the kiosk buys bulk back
+  everywhere. Hub-sold stock counts as bought under the value rules above, so a chain fed from it
+  earns at most 1.25 x, and faction kiosks follow the item's market. Ores, crusts and nodules,
+  chain products (ingots, carbon stock and black, ferrosilicon), the phosphorus items, hydrogen,
+  ethanol and terminal remainders stay unsold; classify every new chemical in the record's table
+  before it ships. The data-pack fields and the station gate are the next round's work.
 
 ## Mod-specific rules
 
@@ -395,7 +405,8 @@ delivery in the changelog and design record, and add or amend only the rule here
   `docs/fluid-network-operations.md`; expansion record `docs/development/agriculture-crop-expansion.md`.
 - **Manufacturing.** Shipbreaker owns recovery and rough casting; Manufacturing owns refining,
   machining, tooling and finished components. Machines are purchase-only; ores and chunks are
-  mined, never sold. The K2 record keeps its holds and one-step conversion; new fields are
+  mined, never sold; reagents that cannot be bought elsewhere sell only at the industrial hubs
+  (Reagent sale, above). The K2 record keeps its holds and one-step conversion; new fields are
   optional and written only when non-zero, never required. Optional recipes (`chosen-<id>`) run
   only on a machine whose saved preference names them. Records:
   `docs/development/manufacturing-refinery-and-chemistry.md`, `docs/development/regolith-programme.md`.
