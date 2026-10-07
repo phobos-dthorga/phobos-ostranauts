@@ -105,6 +105,35 @@ are yours to develop or replace (keep the keys).
 - Ogiso's Bank and Ogiso's Register are the game's institutions: refer to them, never
   speak for them.
 
+## Variant lines (Phobos Banking 0.8.0, Framework 0.132.0)
+
+Owner direction, 8 October 2026: text that comes round again may be written several ways.
+A letter's `text`, a news item's `text` and `mention`, an advert's `text` and a small-talk
+`line` may each be a list of up to eight different strings instead of one; the game shows
+one each time. A letter takes its variants in turn, one each time its arc comes round,
+so a second late notice reads differently from the first; news, adverts, mentions and
+small talk pick at random, never the one just shown. Each variant keeps the field's own
+limits and placeholders (a letter at most 400 characters), and no two may be the same. A
+single string still works everywhere: add variants letter by letter, at your own pace.
+Keep each officer's voice the same across their variants, and every rule above applies to
+every variant (above all: no consequence beyond the game's own).
+
+**Where variants are wanted most**, in order:
+
+1. The twenty event letters (four events for each of five lenders). Every one is
+   repeatable: a player who borrows often reads the same `borrowed` and `late` letters many
+   times. Two or three variants each, the late notices first.
+2. The four news items whose `mention` repeats the news text word for word:
+   `bank-halcyon-bond-credit-news`, `bank-aerie-savings-credit-news`,
+   `bank-stillwater-advances-credit-news` and `bank-narrow-ledger-credit-news`. A mention
+   is what someone at the docks says about the news, so it reads better as speech than as
+   the headline repeated; give each a spoken mention, with variants if you like.
+3. The five adverts and five small-talk lines.
+
+**The proof already in place:** Corvane Mutual's late letter (`bank-corvane-mutual-late`)
+carries a second variant written by Claude only to show the wiring works; the arc's `notes`
+say so. Replace it, or keep it if it reads well.
+
 ## How it is wired and checked
 
 The 0.5.0 draft is merged into `mods/PhobosBank/framework/story.json`. The pack uses the

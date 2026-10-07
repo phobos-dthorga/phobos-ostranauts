@@ -686,7 +686,9 @@ What each field does:
   that move the price each time their story flag is set, or set again, by a story arc's
   `setFlags` or another mod: `flag` (a story flag id), `move` (how far the price jumps at once,
   a share from -0.3 to 0.3, at least 0.005 either way: 0.08 is up 8%), an optional `wire` line
-  (up to 300 characters, a neutral wire report, no placeholders) the market wire prints, and
+  (up to 300 characters, a neutral wire report, no placeholders) the market wire prints (since
+  Phobos Exchange 0.5.0 a list of up to eight different lines, one printed each time the news
+  breaks; see [variants](writing-story-content.md#variants)), and
   since 0.4.0 `carry` (from -0.15 to 0.15, the same way as the move: how far the company's
   own trend phase carries the price on, at its height a few weeks later) and `keeps` (0 to 1:
   the share of the jump that stays for good the first time it breaks). The rest of the jump,

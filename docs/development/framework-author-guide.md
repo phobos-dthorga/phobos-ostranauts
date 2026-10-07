@@ -287,6 +287,20 @@ conditions for added story content. The file format is in
 in [the story system design record](story-system-design.md). Consumers require
 **0.107.0**. First consumer: Agriculture 0.60.0.
 
+**Variant lines (0.132.0).** A text field that may carry variants is a `TextVariants`
+(`Phobos.Ostranauts.Framework.Story`): in JSON a string (one variant) or a list of up to
+`TextVariants.MaxVariants` (8) different strings, read by its own converter, so a pack of
+your own can use it too (a pack that does needs Framework 0.132.0, as older versions refuse
+a list). Check one with `StorySchema.Words(variants, max, where)` (each variant through the
+text rules, no two the same, a mistake naming the variant from 1). Each variant translates
+under its own key, `TextVariants.Key(baseKey, index)`: the base key for the first, then
+`.2`, `.3` and on. Pick with `StoryRules.Variant`: `Variant(count, roll, previous)` for text
+shown once (never the previous pick again), with `VariantPicks.Next(key, count, roll)`
+keeping the last pick per key in memory; `Variant(count, seed, run)` for text drawn again
+later, which must come out the same (letters use `StoryRules.LetterSeed` and
+`LetterRun`). Nothing about a pick is saved. First consumer beyond story packs: Phobos
+Exchange 0.5.0's wire lines.
+
 **Story services for other mods (0.127.0).** Content that is not a story pack can still be
 local, gated and remembered the way story content is:
 `StoryLocation.Region`, `DockedPlace` and `Near(place)` say where the player is;

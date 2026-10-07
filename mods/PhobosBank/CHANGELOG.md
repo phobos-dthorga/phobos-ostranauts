@@ -5,6 +5,18 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-10-08 - Draft
+
+### Added
+
+- Lender letters can come in different words. Corvane Mutual's late-bill letter now has a second wording, and its late letters take the two in turn. The second is a placeholder until the writers replace it; the other letters follow at the writers' pace.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.132.0, which reads text written several ways.
+- Saves: nothing new is saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.7.0] - 2026-10-07 - Released
 
 ### Added

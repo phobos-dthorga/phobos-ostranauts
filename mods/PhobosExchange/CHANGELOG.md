@@ -5,6 +5,21 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-08 - Draft
+
+### Added
+
+- The market wire can report each piece of news in different words. A company's news may carry up to eight wire lines, and the wire prints one each time the news breaks, never the same one twice running.
+- Smartlink's spares contract has two wire lines, the second a placeholder until the writers replace it. The other news keeps one line each for now; the writers add more at their own pace.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.132.0, which reads text written several ways.
+- Exchange files with a single wire line load unchanged. A file or add-on with several needs Phobos Exchange 0.5.0.
+- The Keelhaul Listing example add-on, now 1.3.0, shows variants on its wire line, its TV report and its large-holder letter.
+- Saves: nothing new is saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.4.0] - 2026-10-08 - Draft
 
 ### Added

@@ -105,6 +105,12 @@ Your files go under `phobos/<Mod>/<schema>/`, exactly as they sat under
   translations are yours and no two add-ons collide. An entry with a move on the exchange's
   own history shapes every company's drawn past, so keep those for events that truly moved
   the whole market.
+- **Variant lines** (Framework 0.132.0). A news item, advert, small-talk line, letter or
+  exchange wire line may be a list of up to eight ways of saying it, one shown each time
+  ([variants](writing-story-content.md#variants)). Changing a shipped text from your add-on
+  restates it whole, as a string or a list. An add-on that uses a list must require
+  Framework 0.132.0 or later (and Phobos Exchange 0.5.0 for a wire line), since older
+  versions refuse it.
 - **Never rename or remove a shipped entry.** Switch an outcome off with a weight
   of 0 instead.
 - **Leave `revision` out of recipes you add.** Framework gives each one a number

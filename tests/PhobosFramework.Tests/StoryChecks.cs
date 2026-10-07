@@ -97,6 +97,62 @@ internal static class StoryChecks
             check(r.SeenAt["contract-news"] == 600 && !r.DueAgain("contract-news", flags), "A showing records its latest time, and it waits again");
         }
 
+        // Framework 0.132.0: variant lines. A string is one variant; a list of up to eight different ones may be given.
+        {
+            const string Lettuce = @"""Crews report fresh lettuce aboard the [ship].""";
+            var one = Load(Pack);
+            check(one.broadcasts["greens-report"].text.Count == 1 && one.broadcasts["greens-report"].text.First.StartsWith("Crews"), "A single text is one variant, as every pack before wrote it");
+            var many = Load(With(Lettuce, "[ " + Lettuce + @", ""Fresh greens on the [ship] again."", ""The [ship] eats well this week."" ]"));
+            var text = many.broadcasts["greens-report"].text;
+            check(text.Count == 3 && text[1] == "Fresh greens on the [ship] again." && text.First.StartsWith("Crews"), "A list of variants loads in order");
+            Refused(With(Lettuce, "[ ]"), "An empty list of variants is refused");
+            Refused(With(Lettuce, "[ " + string.Join(", ", Enumerable.Range(1, 9).Select(i => "\"Lettuce, take " + i + ".\"")) + " ]"), "More than eight variants are refused");
+            Refused(With(Lettuce, "[ " + Lettuce + ", " + Lettuce + " ]"), "Two identical variants are refused");
+            Refused(With(Lettuce, "[ " + Lettuce + ", 3 ]"), "A variant that is not text is refused");
+            Refused(With(Lettuce, "[ " + Lettuce + @", ""Lettuce for [captain]."" ]"), "A bad token in a later variant is refused");
+            Refused(With(Lettuce, "[ " + Lettuce + ", \"" + new string('x', StorySchema.MaxBroadcast + 1) + "\" ]"), "An over-long later variant is refused");
+            Refused(With(Lettuce, @"{ ""text"": ""lettuce"" }"), "A text is a string or a list, nothing else");
+            try { StorySchema.Words(new TextVariants("Fine.", "Fine."), 100, "broadcasts.x.text"); check(false, "duplicate"); }
+            catch (ArgumentException ex) { check(ex.Message.Contains("broadcasts.x.text[2]"), "A refusal names the variant from 1, as its translation key counts: " + ex.Message); }
+            check(StorySchema.People(new TextVariants("Hi.", "From [person:ada].")).SequenceEqual(new[] { "ada" }), "People named in any variant are found");
+            check(TextVariants.Key("x.text", 0) == "x.text" && TextVariants.Key("x.text", 1) == "x.text.2" && TextVariants.Key("x.text", 7) == "x.text.8", "Each variant has its own translation key; the first keeps the old one");
+            check(new TextVariants("a", "b").At(5) == "b" && TextVariants.Empty.At(0) == "" && TextVariants.Empty.First == "", "An index out of range is held to the list");
+            check(StoryRules.Variant(1, 0.99, 0) == 0 && StoryRules.Variant(3, 0.0, null) == 0 && StoryRules.Variant(3, 0.5, null) == 1 && StoryRules.Variant(3, 0.99, null) == 2,
+                "A roll picks a variant across the list");
+            check(StoryRules.Variant(3, 0.5, 1) == 2 && StoryRules.Variant(3, 0.99, 2) == 0 && StoryRules.Variant(2, 0.1, 0) == 1, "A roll never picks the last variant again straight away");
+            int last = -1; bool repeated = false;
+            for (int i = 0; i < 200; i++) { int v = StoryRules.Variant(3, (i * 0.6180339887) % 1, last < 0 ? null : last); repeated |= v == last; last = v; }
+            check(!repeated, "Many rolls in a row never show the same variant twice running");
+            uint seed = StoryRules.LetterSeed("bank-late", "reminder", "d", null, 123.5);
+            check(seed == StoryRules.LetterSeed("bank-late", "reminder", "d", null, 123.5) && seed != StoryRules.LetterSeed("reminder", "bank-late", "d", null, 123.5) &&
+                  seed != StoryRules.LetterSeed("bank-late", "reminder", "d", null, 124.5) && seed != StoryRules.LetterSeed("bank-late", "reminder", "a", "pay", 123.5),
+                "A letter's start is fixed by its arc, step, kind, reply and the save, in order");
+            var runs = Enumerable.Range(0, 6).Select(r => StoryRules.Variant(3, seed, r)).ToList();
+            check(runs.Distinct().Count() == 3 && Enumerable.Range(1, 5).All(r => runs[r] != runs[r - 1]), "A repeating letter takes each variant in turn: " + string.Join(",", runs));
+            check(StoryRules.Variant(1, seed, 5) == 0, "A single letter text is always the first");
+            check(StoryRules.LetterRun(new ArcProgress { State = ArcState.Active, Completions = 2 }) == 2 && StoryRules.LetterRun(new ArcProgress { State = ArcState.Done, Completions = 3 }) == 2 &&
+                  StoryRules.LetterRun(new ArcProgress { State = ArcState.Done, Completions = 0 }) == 0,
+                "A letter's run is the same when delivered (before the arc counts as done) and when drawn again afterwards");
+            // A player file restates the whole text: a list over a shipped string, and a string over a shipped list.
+            string folder = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "phobos-story-variants-" + Guid.NewGuid().ToString("N"));
+            System.IO.Directory.CreateDirectory(folder);
+            try
+            {
+                StoryPack Over(string shipped, string file)
+                {
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(folder, "10-text.json"), file);
+                    return DataPacks.LoadText<StoryPack>(shipped, folder, "test", StorySchema.Name, p => StorySchema.Validate(p, false));
+                }
+                var listed = Over(Pack, @"{ ""broadcasts"": { ""greens-report"": { ""text"": [ ""One for the [ship]."", ""Two."" ] } } }");
+                check(listed.broadcasts["greens-report"].text.Count == 2 && listed.broadcasts["greens-report"].text[1] == "Two.", "A player file may give a list over a shipped string");
+                var single = Over(With(Lettuce, @"[ ""One."", ""Two."", ""Three."" ]"), @"{ ""broadcasts"": { ""greens-report"": { ""text"": ""Just this."" } } }");
+                check(single.broadcasts["greens-report"].text.Count == 1 && single.broadcasts["greens-report"].text.First == "Just this.", "A player file's string replaces a shipped list whole");
+                var shorter = Over(With(Lettuce, @"[ ""One."", ""Two."", ""Three."" ]"), @"{ ""broadcasts"": { ""greens-report"": { ""text"": [ ""Four."" ] } } }");
+                check(shorter.broadcasts["greens-report"].text.Count == 1 && shorter.broadcasts["greens-report"].text.First == "Four.", "A shorter list replaces a longer one, leaving none of the old variants behind");
+            }
+            finally { DataPacks.Reset(); try { System.IO.Directory.Delete(folder, true); } catch (System.IO.IOException) { } }
+        }
+
         // The schema refuses what the game could not show or the runner could not check.
         Refused(With(@"""weight"": 2", @"""weight"": 2, ""colour"": ""red"""), "An unknown field is refused");
         Refused(With("greens-report", "Greens_Report"), "Ids are lower-case and hyphenated");
@@ -125,7 +181,7 @@ internal static class StoryChecks
             ""manufacturing-news"": { ""region"": ""Tharsis"", ""text"": ""Stills."", ""requires"": { ""mods"": [ ""PhobosManufacturing"" ], ""owns"": [ ""Still"" ] } } } }");
         var items = new HashSet<string> { "Seed", "Packet", "Rack", "Cooker" };
         var library = StoryLibrary.Build(new[] { ("agriculture", pack), ("player", other) }, null, m => m == "PhobosAgriculture", items.Contains, _ => true);
-        check(library.Broadcasts["greens-report"].Owner == "agriculture" && library.Broadcasts["greens-report"].Value.text.StartsWith("Crews"), "The first pack keeps a shared id");
+        check(library.Broadcasts["greens-report"].Owner == "agriculture" && library.Broadcasts["greens-report"].Value.text.First.StartsWith("Crews"), "The first pack keeps a shared id");
         check(!library.Broadcasts.ContainsKey("rack-news") && !library.Broadcasts.ContainsKey("late-news"), "Unknown items and arcs leave an entry out");
         check(library.Broadcasts.ContainsKey("manufacturing-news"), "An entry for a mod that is not installed is kept unchecked (it never shows)");
         check(library.Problems.Count == 3 && library.Arcs.Count == 2 && library.Settings.maxActiveArcs == 2, "Three problems are listed and both arcs load");
@@ -484,6 +540,8 @@ internal static class StoryChecks
         check(!library.Broadcasts.ContainsKey("nowhere-news"), "A news item with no region, in a thread with no place, is left out");
         refused(With("\"region\": \"Outer System\", \"text\": \"Prices up.\"", "\"text\": \"Prices up.\""), "A news item with neither region, place nor thread is refused by the file check", false);
         check(!library.Broadcasts.ContainsKey("stranger-news") && library.Broadcasts.ContainsKey("ledger-news"), "A thread with a cast refuses a person outside it, and keeps one inside");
+        var later = StoryLibrary.Build(new[] { ("x", load(With("\"line\": \"Paperwork at [place] again.\"", "\"line\": [ \"Paperwork at [place] again.\", \"[person:orra] says the paperwork is late.\" ]"), false)) }, null, _ => true, null, null);
+        check(!later.Lines.Any(l => l.Id == "dock-talk") && library.Lines.Any(l => l.Id == "dock-talk"), "A person outside the cast is caught in a later variant too (Framework 0.132.0)");
         check(!library.Arcs.ContainsKey("no-home") && library.Arcs.ContainsKey("misfiled-can"), "A dock-at test with no station needs the arc's place, which a thread without one does not give");
         refused(With("\"thread\": \"loose\", \"steps\": [ { \"id\": \"dock\"", "\"steps\": [ { \"id\": \"dock\""), "A dock-at test with no station in an arc with no place or thread is refused by the file check", false);
         check(library.PlaceOf("ledger", null) == "oklg" && library.PlaceOf("ledger", "vorb") == "vorb" && library.PlaceOf(null, null) == null, "An entry's place is its own, else its thread's");

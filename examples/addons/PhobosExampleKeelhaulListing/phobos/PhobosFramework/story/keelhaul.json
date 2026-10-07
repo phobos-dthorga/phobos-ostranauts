@@ -36,7 +36,11 @@
           "exchange-keelhaul-freight-surge"
         ]
       },
-      "text": "Keelhaul Freight shares made a sharp move on the Lodestar Exchange. The desk has not tied it to a single contract; the next cargo report may tell buyers more than dock gossip.",
+      "text": [
+        "Keelhaul Freight shares made a sharp move on the Lodestar Exchange. The desk has not tied it to a single contract; the next cargo report may tell buyers more than dock gossip.",
+        "Keelhaul Freight shares jumped on the Lodestar Exchange. Brokers point at the belt runs; Keelhaul's own desk is saying nothing yet.",
+        "A busy session for Keelhaul Freight on the Lodestar Exchange, with buyers chasing the ore haulers. Nobody at Zhonghuamen Terminal will say why."
+      ],
       "onceEach": true
     },
     "keelhaul-slump-wire": {
@@ -115,7 +119,11 @@
           "delivery": {
             "message": {
               "person": "keelhaul-orla-brand",
-              "text": "Your holding is one of the larger names on Keelhaul's register. The belt run can go quiet without warning; watch the cargo reports and keep your own plans within reach."
+              "text": [
+                "Your holding is one of the larger names on Keelhaul's register. The belt run can go quiet without warning; watch the cargo reports and keep your own plans within reach.",
+                "[player-first], your name now sits near the top of Keelhaul's register. We are a small line: one bad debris season shows on the board. Keep an eye on the cargo reports.",
+                "A note from the shareholder desk: you hold more of Keelhaul than most. That gives you no say in the routes, but the belt's weather is your weather now too."
+              ]
             }
           },
           "tests": [

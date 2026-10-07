@@ -1204,6 +1204,25 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 8 October: variant lines (L101)
+
+L101 — Framework 0.132.0, Phobos Exchange 0.5.0, Phobos Banking 0.8.0.
+- **Showing a news item, an advert, a mention or a small-talk line, and the exchange wire
+  printing a news line**: one random number and one dictionary lookup and write
+  (`VariantPicks`, the last pick per entry), then the same translation lookup as before
+  under a key that may carry `.2` and on. Small talk picks inside its existing
+  per-interaction choice, so a conversation pays it once.
+- **A letter**, when delivered and each time the Letters window draws it: one hash of a
+  short joined string and one modulo. The window already re-read the pack per letter.
+- **Loading a pack**: each variant goes through the same text check a single text did; at
+  most eight per field.
+- **Memory**: the pick memory holds one small integer per entry ever shown in the session,
+  bounded by the loaded library and cleared when it reloads; it is registered as the
+  `framework.story.variant_picks` footprint. Exchange keys share it, one per company news
+  entry.
+
+Nothing runs per frame or per world tick. No capture accompanies this change.
+
 ## 8 October: recurring news (L100)
 
 L100 — Phobos Exchange 0.4.0, Framework 0.131.0.

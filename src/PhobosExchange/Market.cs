@@ -218,7 +218,8 @@ internal static class Market
                 watch?.Reported(i, ExchangeRules.HourOf(model.Clock));
                 string name = Companies.Name(model.Ids[i]), ticker = model.Entries[i].ticker;
                 string line = n.wire != null
-                    ? Text.Get("Wire.news_line", Companies.NewsWire(model.Ids[i], n), ticker, Percent(n.move))
+                    // One of its wire variants (0.5.0), never the same as the last time this news broke.
+                    ? Text.Get("Wire.news_line", Companies.NewsWire(model.Ids[i], n, VariantPicks.Next("exchange:" + model.Ids[i] + "/" + n.flag, n.wire.Count, UnityEngine.Random.value)), ticker, Percent(n.move))
                     : Text.Get(n.move >= 0 ? "Wire.news_up" : "Wire.news_down", name, ticker, Percent(Math.Abs(n.move)));
                 Notify("PhobosExchange.wire", NoticeLevel.Info, line, null);
                 moved = true;

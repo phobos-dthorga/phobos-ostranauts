@@ -2,8 +2,8 @@
 """Check the shipped data packs against the JSON Schema files in schemas/.
 
 A small validator for the subset of draft-07 the schemas use (type, const, enum,
-pattern, minimum/maximum/exclusiveMinimum, properties/additionalProperties,
-patternProperties, required, items, minItems); no third-party package is needed.
+pattern, minLength/maxLength, minimum/maximum/exclusiveMinimum, properties/additionalProperties,
+patternProperties, required, items, minItems/maxItems, uniqueItems, anyOf); no third-party package is needed.
 The Framework loader remains authoritative; this catches a schema that drifted
 from the validators or a pack an editor would flag.
 
@@ -20,12 +20,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def problems(schema, value, where='', out=None):
     out = out if out is not None else []
+    if 'anyOf' in schema:
+        # Framework 0.132.0: a text that may have variants is a string or a list of strings.
+        if all(problems(option, value, where) for option in schema['anyOf']):
+            out.append(f'{where or "/"}: matches none of the allowed forms')
+            return out
     kind = schema.get('type')
     if kind and not _is(kind, value):
         out.append(f'{where or "/"}: expected {kind}'); return out
     if 'const' in schema and value != schema['const']: out.append(f'{where}: expected {schema["const"]!r}')
     if 'enum' in schema and value not in schema['enum']: out.append(f'{where}: not one of {schema["enum"]}')
     if isinstance(value, str) and 'pattern' in schema and not re.search(schema['pattern'], value): out.append(f'{where}: does not match {schema["pattern"]}')
+    if isinstance(value, str):
+        if 'minLength' in schema and len(value) < schema['minLength']: out.append(f'{where}: shorter than {schema["minLength"]} character(s)')
+        if 'maxLength' in schema and len(value) > schema['maxLength']: out.append(f'{where}: longer than {schema["maxLength"]} character(s)')
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         if 'minimum' in schema and value < schema['minimum']: out.append(f'{where}: below {schema["minimum"]}')
         if 'exclusiveMinimum' in schema and value <= schema['exclusiveMinimum']: out.append(f'{where}: must be above {schema["exclusiveMinimum"]}')
@@ -44,6 +52,8 @@ def problems(schema, value, where='', out=None):
             if schema.get('additionalProperties') is False: out.append(f'{here}: unknown field')
     if isinstance(value, list):
         if 'minItems' in schema and len(value) < schema['minItems']: out.append(f'{where}: needs at least {schema["minItems"]} item(s)')
+        if 'maxItems' in schema and len(value) > schema['maxItems']: out.append(f'{where}: at most {schema["maxItems"]} item(s)')
+        if schema.get('uniqueItems') and len({json.dumps(v, sort_keys=True) for v in value}) < len(value): out.append(f'{where}: items repeat')
         if 'items' in schema:
             for i, item in enumerate(value): problems(schema['items'], item, f'{where}/{i}', out)
     return out

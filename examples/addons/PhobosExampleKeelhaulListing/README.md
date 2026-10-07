@@ -28,6 +28,11 @@ What it does:
   Phobos Exchange registers its `exchange` namespace: ids that start `exchange-` and then
   the add-on's own prefix belong to the add-on.
 
+- Shows **variant lines** (Framework 0.132.0, Phobos Exchange 0.5.0): its wire line, its
+  surge report on the TV and its large-holder letter are each written three ways, and the
+  game shows one each time, so news that comes round does not read the same twice running.
+  That is why it requires Framework 0.132.0 and Phobos Exchange 0.5.0.
+
 The remaining event is `sold-out`, when the player sells their last share. See the
 [exchange stories handoff](../../../docs/development/exchange-stories-handoff.md) for the
 flags and their timing.
@@ -36,4 +41,5 @@ To try it, copy this folder into the game's `Ostranauts_Data/Mods` folder, enabl
 the MODS screen after the Phobos mods, restart, and type `phobosframework addons` in the
 F3 console. KHF then shows on the exchange. To see the news without waiting, type the
 game's `unlockdebug`, then `phobosframework story flag keelhaul-titan-contract confirm`,
-on a copy of a save.
+on a copy of a save. `phobosframework story variants keelhaul-surge-wire` lists the surge
+report's three variants with their translation keys.

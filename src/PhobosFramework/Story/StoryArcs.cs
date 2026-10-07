@@ -52,6 +52,7 @@ public static partial class StoryArcs
         cadence = new Cadence(StoryContent.Library.Settings.checkSeconds);
         player = null; broadcastPool.Clear(); advertPool.Clear(); chatterPools = new(StringComparer.Ordinal); nearPlaces = new(StringComparer.Ordinal); lastRegionId = null;
         StoryChatter.Reset();
+        VariantPicks.Clear();
     }
 
     private static bool Ready => CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && CrewSim.coPlayer != null && !CrewSim.coPlayer.bDestroyed &&
@@ -174,6 +175,11 @@ public static partial class StoryArcs
 
     private static List<Objective> Open(string test) => Tracker.AllObjectives.Where(o => !o.Finished && o.strCT == test).ToList();
 
+    /// <summary>Which variant of a letter to show (Framework 0.132.0): the same when it is delivered to the crew log and
+    /// when the Letters window draws it again, and the next one each run of a repeating arc.</summary>
+    private static int LetterVariant(StoryEntry<StoryArc> arc, ArcProgress progress, string step, string kind, string? choice, TextVariants text) =>
+        StoryRules.Variant(text.Count, StoryRules.LetterSeed(arc.Id, step, kind, choice, record.Began), StoryRules.LetterRun(progress));
+
     /// <summary>Starts an arc at its first step. F3 starts ignore chance and requirements.</summary>
     private static void Begin(StoryEntry<StoryArc> arc, IStoryFacts facts)
     {
@@ -191,7 +197,8 @@ public static partial class StoryArcs
         progress.Step = index; progress.StepId = step.id; progress.StepStart = facts.Epoch;
         if (step.delivery?.message is StoryMessage message)
         {
-            Log(Sender(arc.Owner, arc.Id + "." + step.id + ".from", message), StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".message", message.text), PlaceOf(arc.Value.thread, arc.Value.place));
+            Log(Sender(arc.Owner, arc.Id + "." + step.id + ".from", message),
+                StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".message", message.text, LetterVariant(arc, progress, step.id, StoryLetter.Opening, null, message.text)), PlaceOf(arc.Value.thread, arc.Value.place));
             record.AddLetter(arc.Id, new StoryLetter(step.id, StoryLetter.Opening, null, facts.Epoch));
         }
         // A letter waiting for the player's reply says where to answer it (Framework 0.122.0).
@@ -231,7 +238,7 @@ public static partial class StoryArcs
         // The Letters window keeps the reply and every letter that arrives (Framework 0.122.0).
         if (choice != null || result?.message != null) record.AddLetter(arc.Id, new StoryLetter(step.id, letterKind, choice, facts.Epoch));
         if (result?.message is StoryMessage message)
-            Log(Sender(arc.Owner, key + ".doneFrom", message), StoryContent.Words(arc.Owner, key + ".done", message.text), place);
+            Log(Sender(arc.Owner, key + ".doneFrom", message), StoryContent.Words(arc.Owner, key + ".done", message.text, LetterVariant(arc, progress, step.id, letterKind, choice, message.text)), place);
         foreach (var reward in result?.items ?? new List<StoryReward>()) Give(reward.item, reward.count);
         if (result != null && result.credits > 0) Pay(result.credits, from, arc.Id);
         if (result != null && result.files.Count > 0) GiveFiles(result.files);

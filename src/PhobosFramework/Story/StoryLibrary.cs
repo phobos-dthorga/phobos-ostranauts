@@ -21,7 +21,8 @@ public sealed class StoryLine
     public string Id { get; }
     public string Owner { get; }
     public string Moment { get; }
-    public string Text { get; }
+    /// <summary>What is said: one text or its variants (Framework 0.132.0).</summary>
+    public TextVariants Text { get; }
     public string Key { get; }
     public string Speakers { get; }
     public int Weight { get; }
@@ -32,7 +33,7 @@ public sealed class StoryLine
     public string? Broadcast { get; }
     /// <summary>Game factions the speaker must belong to one of (Framework 0.115.0); empty for anyone.</summary>
     public IReadOnlyList<string> SpeakerFactions { get; }
-    public StoryLine(string id, string owner, string moment, string text, string key, string speakers, int weight, StoryRequires? requires,
+    public StoryLine(string id, string owner, string moment, TextVariants text, string key, string speakers, int weight, StoryRequires? requires,
         string? place = null, string? thread = null, string? broadcast = null, IReadOnlyList<string>? speakerFactions = null)
     { Id = id; Owner = owner; Moment = moment; Text = text; Key = key; Speakers = speakers; Weight = weight; Requires = requires; Place = place; Thread = thread; Broadcast = broadcast; SpeakerFactions = speakerFactions ?? Array.Empty<string>(); }
 }
@@ -164,7 +165,8 @@ public sealed class StoryLibrary
             if (thread != null && library.threads.TryGetValue(thread, out var t) && t.Value.people.Count > 0 && !t.Value.people.Contains(id)) return Text.Get("Story.not_in_cast", id, thread);
             return null;
         }
-        string? Mentioned(string? text, string? thread) => StorySchema.People(text).Select(p => Person(p, thread)).FirstOrDefault(p => p != null);
+        // Every variant of a text (Framework 0.132.0) must name only people the library has.
+        string? Mentioned(IEnumerable<string> named, string? thread) => named.Select(p => Person(p, thread)).FirstOrDefault(p => p != null);
         string? Reference(StoryRequires? r) => library.UnknownReference(r);
         string? Grounding(string? thread, string? place) => Thread(thread) ?? Place(place);
         bool Refuse<T>(Dictionary<string, StoryEntry<T>> table, Func<StoryEntry<T>, string?> problem)
@@ -185,20 +187,20 @@ public sealed class StoryLibrary
             changed |= Refuse(library.threads, e => Place(e.Value.place) ?? e.Value.people.Select(p => Person(p, null)).FirstOrDefault(p => p != null) ?? Reference(e.Value.requires));
             changed |= Refuse(library.broadcasts, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ??
                 (e.Value.region == null && library.Places.Region(library.PlaceOf(e.Value.thread, e.Value.place)) == null ? Text.Get("Story.no_region", e.Id) : null) ??
-                Mentioned(e.Value.text, e.Value.thread) ?? Mentioned(e.Value.mention, e.Value.thread));
-            changed |= Refuse(library.adverts, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ?? Mentioned(e.Value.text, e.Value.thread));
-            changed |= Refuse(library.chatter, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ?? Mentioned(e.Value.line, e.Value.thread));
+                Mentioned(StorySchema.People(e.Value.text), e.Value.thread) ?? Mentioned(StorySchema.People(e.Value.mention), e.Value.thread));
+            changed |= Refuse(library.adverts, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ?? Mentioned(StorySchema.People(e.Value.text), e.Value.thread));
+            changed |= Refuse(library.chatter, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ?? Mentioned(StorySchema.People(e.Value.line), e.Value.thread));
             changed |= Refuse(library.arcs, e => Reference(e.Value.requires) ?? Grounding(e.Value.thread, e.Value.place) ??
                 e.Value.steps.Select(s => s.delivery?.bulletin).Where(b => b != null && !library.broadcasts.ContainsKey(b)).Select(b => Text.Get("Story.unknown_bulletin", b!)).FirstOrDefault() ??
                 e.Value.steps.SelectMany(Outcomes)
                     .SelectMany(o => o?.files ?? new List<string>()).Where(f => !library.files.ContainsKey(f)).Select(f => Text.Get("Story.unknown_file", f)).FirstOrDefault() ??
-                Messages(e.Value).Select(m => Person(m.person, e.Value.thread) ?? Mentioned(m.text, e.Value.thread)).FirstOrDefault(p => p != null) ??
+                Messages(e.Value).Select(m => Person(m.person, e.Value.thread) ?? Mentioned(StorySchema.People(m.text), e.Value.thread)).FirstOrDefault(p => p != null) ??
                 e.Value.steps.Select(s => Person(s.objective?.person, e.Value.thread)).FirstOrDefault(p => p != null) ??
-                e.Value.steps.SelectMany(s => new[] { s.objective?.title, s.objective?.description }).Select(t => Mentioned(t, e.Value.thread)).FirstOrDefault(p => p != null) ??
+                e.Value.steps.SelectMany(s => new[] { s.objective?.title, s.objective?.description }).Select(t => Mentioned(StorySchema.People(t), e.Value.thread)).FirstOrDefault(p => p != null) ??
                 // A dock-at test with no station needs the arc's place.
                 (library.PlaceOf(e.Value.thread, e.Value.place) == null && Tests(e.Value).Any(t => t.kind == StorySchema.DockAt && t.station == null) ? Text.Get("Story.no_place", e.Id) : null));
             changed |= Refuse(library.files, e => (e.Value.startsArc != null && !library.arcs.ContainsKey(e.Value.startsArc) ? Text.Get("Story.unknown_arc", e.Value.startsArc) : null) ??
-                Grounding(e.Value.thread, e.Value.place) ?? Person(e.Value.person, e.Value.thread) ?? Mentioned(e.Value.text, e.Value.thread));
+                Grounding(e.Value.thread, e.Value.place) ?? Person(e.Value.person, e.Value.thread) ?? Mentioned(StorySchema.People(e.Value.text), e.Value.thread));
             changed |= Refuse(library.tips, e => Thread(e.Value.thread));
             changed |= Refuse(library.sections, e => Thread(e.Value.thread));
             changed |= Refuse(library.articles, e => Thread(e.Value.thread));

@@ -51,7 +51,9 @@ internal static class StoryChatter
             line = StoryRules.PickLine(pool, l => StoryRules.Voices(l, crew, l.Place != null && StoryArcs.SpeakerAt(us, l.Place), l.Place != null && StoryArcs.NearPlace(l.Place), factions), StoryArcs.Roll());
             if (line == null) return null;
         }
-        string said = StoryArcs.Fill(StoryContent.Words(line.Owner, line.Key, line.Text), line.Place);
+        // One of the line's variants (Framework 0.132.0), never the same twice running; kept with this use's choice.
+        int variant = VariantPicks.Next("line:" + line.Key, line.Text.Count, StoryArcs.Roll());
+        string said = StoryArcs.Fill(StoryContent.Words(line.Owner, line.Key, line.Text, variant), line.Place);
         // The lead-in goes through the game's own grammar for these speakers (Framework 0.121.0 fix: a composed string
         // the game never registered came back as "[us] [asks] [them]"); null keeps the game's own line.
         return Social.Grammar.Inflect(Text.Get("Story.moment." + moment, Social.Grammar.Slot), interaction, said);

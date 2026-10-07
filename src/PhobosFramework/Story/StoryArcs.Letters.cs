@@ -63,7 +63,7 @@ public static partial class StoryArcs
                 : free?.from != null ? Fill(free.from, place) : Text.Get("Story.letters_someone"),
             Face = person != null ? Face(person) : null
         };
-        foreach (var letter in letters) Add(view, arc, letter, place);
+        foreach (var letter in letters) Add(view, arc, progress, letter, place);
         view.LastEpoch = letters.Select(l => l.Epoch ?? 0).DefaultIfEmpty(progress.StepStart).Max();
         // The goal the correspondence is at, or the last one it had.
         var goalStep = arc.Value.steps.Take(shown + 1).LastOrDefault(s => s.objective != null);
@@ -91,16 +91,18 @@ public static partial class StoryArcs
     private static string ChoiceKey(string arc, string step, string choice) => arc + "." + step + ".choice." + choice;
 
     /// <summary>Adds one recorded letter, or a reply and its answer, in the words of the packs now.</summary>
-    private static void Add(CorrespondenceView view, StoryEntry<StoryArc> arc, StoryLetter letter, string? place)
+    private static void Add(CorrespondenceView view, StoryEntry<StoryArc> arc, ArcProgress progress, StoryLetter letter, string? place)
     {
         var step = arc.Value.steps.FirstOrDefault(s => s.id == letter.Step);
         if (step == null) return;
         string date = letter.Epoch is double at ? Text.Get("Story.date", MathUtils.GetYearFromS(at), MathUtils.GetMonthFromS(at).ToString("00"), MathUtils.GetDayOfMonthFromS(at).ToString("00")) : "";
         string stepKey = arc.Id + "." + step.id;
-        void Message(StoryMessage? message, string fromKey, string textKey)
+        // The variant the crew log showed (Framework 0.132.0), worked out again from the letter's kind and the arc's run.
+        void Message(StoryMessage? message, string fromKey, string textKey, string? choice = null)
         {
             if (message == null) return;
-            view.Letters.Add(new LetterView { Date = date, From = Fill(Sender(arc.Owner, fromKey, message), place), Text = Fill(StoryContent.Words(arc.Owner, textKey, message.text), place) });
+            int variant = LetterVariant(arc, progress, step.id, letter.Kind, choice, message.text);
+            view.Letters.Add(new LetterView { Date = date, From = Fill(Sender(arc.Owner, fromKey, message), place), Text = Fill(StoryContent.Words(arc.Owner, textKey, message.text, variant), place) });
         }
         switch (letter.Kind)
         {
@@ -111,7 +113,7 @@ public static partial class StoryArcs
                 if (choice == null) return;
                 string key = ChoiceKey(arc.Id, step.id, choice.id);
                 view.Letters.Add(new LetterView { Date = date, From = Text.Get("Story.letters_you"), Text = Fill(StoryContent.Words(arc.Owner, key + ".label", choice.label), place), Reply = true });
-                Message(choice.onComplete?.message, key + ".doneFrom", key + ".done");
+                Message(choice.onComplete?.message, key + ".doneFrom", key + ".done", choice.id);
                 break;
             default:
                 if (int.TryParse(letter.Kind.Substring(1), out int b) && step.branches != null && b >= 0 && b < step.branches.Count)

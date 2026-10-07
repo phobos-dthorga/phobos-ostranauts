@@ -108,10 +108,27 @@
               "description": "Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System; left out, the place's own."
             },
             "text": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 700,
-              "description": "The news item. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 700,
+                  "description": "The news item. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 700,
+                    "description": "The news item. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                  }
+                }
+              ],
+              "description": "The news item. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
             },
             "weight": {
               "type": "integer",
@@ -412,10 +429,27 @@
               "description": "When the entry may appear. Every part is optional and every part given must hold."
             },
             "mention": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 200,
-              "description": "What people say when they bring this news up in small talk, for a while after it was shown. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "description": "What people say when they bring this news up in small talk, for a while after it was shown. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "What people say when they bring this news up in small talk, for a while after it was shown. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                  }
+                }
+              ],
+              "description": "What people say when they bring this news up in small talk, for a while after it was shown. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
             },
             "thread": {
               "type": "string",
@@ -472,10 +506,27 @@
               "description": "Free text for maintainers; ignored by the game."
             },
             "text": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 400,
-              "description": "The advert; a line break may separate a heading. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 400,
+                  "description": "The advert; a line break may separate a heading. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 400,
+                    "description": "The advert; a line break may separate a heading. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                  }
+                }
+              ],
+              "description": "The advert; a line break may separate a heading. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
             },
             "weight": {
               "type": "integer",
@@ -1158,10 +1209,27 @@
                             "description": "The person it is from, shown as Name, role."
                           },
                           "text": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 400,
-                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 400,
+                                "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                              },
+                              {
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 8,
+                                "uniqueItems": true,
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 400,
+                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                }
+                              }
+                            ],
+                            "description": "The message, shown in the crew log. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
                           }
                         },
                         "required": [
@@ -1301,10 +1369,27 @@
                             "description": "The person it is from, shown as Name, role."
                           },
                           "text": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 400,
-                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 400,
+                                "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                              },
+                              {
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 8,
+                                "uniqueItems": true,
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 400,
+                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                }
+                              }
+                            ],
+                            "description": "The message, shown in the crew log. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
                           }
                         },
                         "required": [
@@ -1512,10 +1597,27 @@
                                   "description": "The person it is from, shown as Name, role."
                                 },
                                 "text": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "maxLength": 400,
-                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxLength": 400,
+                                      "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                    },
+                                    {
+                                      "type": "array",
+                                      "minItems": 1,
+                                      "maxItems": 8,
+                                      "uniqueItems": true,
+                                      "items": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 400,
+                                        "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                      }
+                                    }
+                                  ],
+                                  "description": "The message, shown in the crew log. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
                                 }
                               },
                               "required": [
@@ -1744,10 +1846,27 @@
                                   "description": "The person it is from, shown as Name, role."
                                 },
                                 "text": {
-                                  "type": "string",
-                                  "minLength": 1,
-                                  "maxLength": 400,
-                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxLength": 400,
+                                      "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                    },
+                                    {
+                                      "type": "array",
+                                      "minItems": 1,
+                                      "maxItems": 8,
+                                      "uniqueItems": true,
+                                      "items": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 400,
+                                        "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                                      }
+                                    }
+                                  ],
+                                  "description": "The message, shown in the crew log. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
                                 }
                               },
                               "required": [
@@ -1953,10 +2072,27 @@
               ]
             },
             "line": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 200,
-              "description": "What the speaker says, after the moment's lead-in. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "description": "What the speaker says, after the moment's lead-in. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "What the speaker says, after the moment's lead-in. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
+                  }
+                }
+              ],
+              "description": "What the speaker says, after the moment's lead-in. A text, or a list of up to 8 variants (one is picked each time). Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first], [ship], [place], [region], [station], [body], [date], [crew] and [person:key]."
             },
             "speakers": {
               "type": "string",

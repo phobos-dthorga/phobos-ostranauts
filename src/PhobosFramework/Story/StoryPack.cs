@@ -196,7 +196,8 @@ public sealed class StoryBroadcast
     public string? notes;
     /// <summary>Shown above the item as "Region News:"; taken from the place when left out (Framework 0.114.0).</summary>
     public string? region;
-    public string text = "";
+    /// <summary>The news item: a text, or a list of variants (Framework 0.132.0), one picked each time it is shown.</summary>
+    public TextVariants text = TextVariants.Empty;
     /// <summary>How often it is picked against other story broadcasts (1 to 100).</summary>
     public int weight = 1;
     /// <summary>Shown once in a save, then never again.</summary>
@@ -205,8 +206,9 @@ public sealed class StoryBroadcast
     /// recurs, such as a contract renewed or a recall repeated.</summary>
     public bool onceEach;
     public StoryRequires? requires;
-    /// <summary>What people say when they bring the news up in small talk (the headline moment), for a while after it was shown.</summary>
-    public string? mention;
+    /// <summary>What people say when they bring the news up in small talk (the headline moment), for a while after it was
+    /// shown: a text or a list of variants (Framework 0.132.0).</summary>
+    public TextVariants? mention;
     /// <summary>The thread it belongs to and the place it is news of (Framework 0.114.0).</summary>
     public string? thread, place;
 }
@@ -215,7 +217,8 @@ public sealed class StoryAdvert
 {
     public string? title;
     public string? notes;
-    public string text = "";
+    /// <summary>The advert: a text, or a list of variants (Framework 0.132.0).</summary>
+    public TextVariants text = TextVariants.Empty;
     public int weight = 1;
     public bool once;
     /// <summary>Shown once each time its required flags are set again (Framework 0.131.0).</summary>
@@ -231,7 +234,8 @@ public sealed class StoryChatterLine
     public string? notes;
     /// <summary>One of <see cref="StoryMoments"/>: which kind of small talk carries the line.</summary>
     public string moment = "";
-    public string line = "";
+    /// <summary>What is said: a text, or a list of variants (Framework 0.132.0), one picked each time.</summary>
+    public TextVariants line = TextVariants.Empty;
     /// <summary><c>anyone</c>, <c>crew</c> (the speaker is aboard one of the player's ships), <c>others</c>, or
     /// <c>locals</c> (others, at the line's place; Framework 0.114.0).</summary>
     public string speakers = StorySchema.Anyone;
@@ -383,7 +387,9 @@ public sealed class StoryMessage
 {
     /// <summary>Who it is from, shown before the text in the crew log; left out when <see cref="person"/> names them.</summary>
     public string? from;
-    public string text = "";
+    /// <summary>The letter: a text, or a list of variants (Framework 0.132.0). A repeating arc's letter takes the variants in
+    /// turn, each run the next, from a start fixed for the save.</summary>
+    public TextVariants text = TextVariants.Empty;
     /// <summary>The person it is from (Framework 0.114.0), shown as "Name, role".</summary>
     public string? person;
 }
@@ -890,6 +896,26 @@ public static class StorySchema
         if (message.from == null && message.person == null) throw new ArgumentException(Text.Get("StorySchema.from", where, MaxFrom));
         Words(message.text, MaxMessage, where + ".text");
     }
+
+    /// <summary>A text that may have variants (Framework 0.132.0): at least one and at most
+    /// <see cref="TextVariants.MaxVariants"/>, no two the same, and each one player text within its length. A variant's
+    /// place is named from 1, as its translation key counts.</summary>
+    public static void Words(TextVariants? text, int max, string where)
+    {
+        if (text == null || text.Count == 0) throw new ArgumentException(Text.Get("StorySchema.text_blank", where));
+        if (text.Count > TextVariants.MaxVariants) throw new ArgumentException(Text.Get("StorySchema.variants", where, TextVariants.MaxVariants, text.Count));
+        if (text.Count == 1) { Words(text[0], max, where); return; }
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        for (int i = 0; i < text.Count; i++)
+        {
+            string at = where + "[" + (i + 1) + "]";
+            Words(text[i], max, at);
+            if (!seen.Add(text[i])) throw new ArgumentException(Text.Get("StorySchema.variant_twice", at));
+        }
+    }
+
+    /// <summary>The person keys any variant names through <c>[person:key]</c>.</summary>
+    public static IEnumerable<string> People(TextVariants? text) => text == null ? Enumerable.Empty<string>() : text.Variants.SelectMany(v => People(v));
 
     /// <summary>Player text: not blank, within its length, no markup, and no bracketed token but the placeholders.</summary>
     public static void Words(string? text, int max, string where)

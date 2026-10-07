@@ -92,6 +92,8 @@ var story = DataPacks.LoadText<StoryPack>(File.ReadAllText(Path.Combine(repo, "m
 var bankStory = DataPacks.LoadText<StoryPack>(File.ReadAllText(Path.Combine(repo, "mods", "PhobosBank", "framework", "story.json")), "", BankRules.Owner, StorySchema.Name, p => StorySchema.Validate(p, false));
 var library = StoryLibrary.Build(new[] { ("framework", story), ("bank", bankStory) }, null, _ => true, null, null);
 Check(library.Problems.Count == 0, "the Banking story pack loads whole beside Framework's: " + string.Join("; ", library.Problems));
+Check(bankStory.arcs["bank-corvane-mutual-late"].steps[0].delivery!.message!.text.Count >= 2,
+    "a repeating letter may carry variants (Framework 0.132.0), shown in turn each time it comes");
 foreach (var arc in bankStory.arcs.Keys)
     Check(lenderPack.lenders.Keys.Any(l => LoanRules.Events.Any(e => arc == LoanRules.Arc(l, e))), "story arc " + arc + " is a lender's event arc, so Phobos Banking starts it");
 foreach (var arc in bankStory.arcs.Values) Check(arc.chance == 0 && arc.repeatable && arc.thread != null, "an event arc starts only from its event, may come again, and belongs to its lender's thread");

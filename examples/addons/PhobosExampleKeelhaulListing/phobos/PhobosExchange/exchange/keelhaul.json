@@ -32,7 +32,11 @@
           "move": 0.08,
           "carry": 0.04,
           "keeps": 0.5,
-          "wire": "Keelhaul Freight wins the Cassini Spaceport ore contract for the coming season."
+          "wire": [
+            "Keelhaul Freight wins the Cassini Spaceport ore contract for the coming season.",
+            "Cassini Spaceport hands Keelhaul Freight its ore contract for another season.",
+            "Keelhaul Freight holds on to the Cassini Spaceport ore run for the coming season."
+          ]
         }
       ]
     }

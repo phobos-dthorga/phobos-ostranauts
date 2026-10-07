@@ -196,8 +196,9 @@ public sealed class NewsEntry
     /// per save, and it stays: a contract won or a yard lost changes what the company is worth.</summary>
     public double move;
     /// <summary>The wire line the player reads when the news moves the price, in a wire service's neutral voice. Without
-    /// one the wire says the company moved on the news.</summary>
-    public string? wire;
+    /// one the wire says the company moved on the news. Since 0.5.0 a list of variants may be given (Framework
+    /// <see cref="TextVariants"/>): each time the news breaks one is picked, never the same twice running.</summary>
+    public TextVariants? wire;
     /// <summary>How far the news carries the price on after the jump (Phobos Exchange 0.4.0), as a share at its height a
     /// few weeks on: it pushes the company's own trend phase the same way, so the move usually runs on, with the
     /// market's usual uncertainty, then fades. 0 for none.</summary>
@@ -354,7 +355,8 @@ public static class ExchangeSchema
                 if (n.wire != null)
                 {
                     StorySchema.Words(n.wire, MaxWire, nw + ".wire");
-                    if (n.wire.IndexOf('[') >= 0) throw new ArgumentException(nw + ".wire: no placeholders");
+                    for (int v = 0; v < n.wire.Count; v++)
+                        if (n.wire[v].IndexOf('[') >= 0) throw new ArgumentException(nw + ".wire" + (n.wire.Count > 1 ? "[" + (v + 1) + "]" : "") + ": no placeholders");
                 }
                 // Phobos Exchange 0.4.0: news recurs, so how it plays out over time is bounded: the carry runs the same
                 // way as the jump, and the jump's unwind a player can count on is held to a few percent a week.

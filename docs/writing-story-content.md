@@ -18,7 +18,10 @@ Phobos Framework lets anyone add to the world's story with a data file:
   or PDA like the game's own; opening one can start an arc.
 
 You need no programming. One JSON file holds the lot, and the game checks it as it
-loads. This page explains the file, then gives a [prompt for ChatGPT](#writing-with-chatgpt)
+loads. Since Framework 0.132.0 a news item, advert, small-talk line or letter may give
+several ways of saying the same thing, and the game picks one each time it is shown
+(see [variants](#variants)), so content that comes round again does not read the same
+every time. This page explains the file, then gives a [prompt for ChatGPT](#writing-with-chatgpt)
 that writes one for you. For a complete collection to learn from, see Phobos Spacer
 Stories in `mods/PhobosSpacerStories`: nine files covering every kind of entry, packaged
 as its own data-only add-on.
@@ -220,11 +223,11 @@ flowchart LR
 | Field | Needed | What it does |
 | --- | --- | --- |
 | `region` | yes | Shown above the item as "Region News:". The game's own regions are Shipping & Inner System, Tharsis and Outer System. Up to 40 characters. |
-| `text` | yes | The news item, up to 700 characters. The game's own run to about 650. |
+| `text` | yes | The news item, up to 700 characters. The game's own run to about 650. May be a list of [variants](#variants). |
 | `weight` | no | 1 to 100 (default 1): how often it is picked against other story news. |
 | `once` | no | `true` shows it once in a save, then never again. |
 | `onceEach` | no | `true` (Framework 0.131.0) shows it once each time its required flags are set again: news of something that recurs, such as a contract renewed or a recall repeated. Needs at least one flag in `requires.flags`, and does not go with `once`. |
-| `mention` | no | What people say when they bring the news up in small talk (up to 200 characters), while the news item's requirements hold. |
+| `mention` | no | What people say when they bring the news up in small talk (up to 200 characters), while the news item's requirements hold. May be a list of [variants](#variants). |
 | `requires` | no | When it may show; see [requirements](#requirements). |
 | `title`, `notes` | no | For you; the game never shows them. |
 
@@ -233,7 +236,8 @@ stay the game's own (this share is a setting, below).
 
 ### Adverts (`adverts`)
 
-`text` (up to 400 characters; a line break can separate a heading), and `weight`,
+`text` (up to 400 characters; a line break can separate a heading; may be a list of
+[variants](#variants)), and `weight`,
 `once`, `onceEach`, `requires`, `title` and `notes` as for news.
 
 ### Small talk (`chatter`)
@@ -258,7 +262,7 @@ says your line instead, after a short lead-in:
 | Field | Needed | What it does |
 | --- | --- | --- |
 | `moment` | yes | One of the moments above. |
-| `line` | yes | What the speaker says, up to 200 characters. Write it as speech. |
+| `line` | yes | What the speaker says, up to 200 characters. Write it as speech. May be a list of [variants](#variants). |
 | `speakers` | no | `anyone` (default); `crew`, only someone aboard one of the player's ships (the player too); `others`, only someone who is not, such as station folk; or `locals`, others at the line's place (Framework 0.114.0). |
 | `speakerFactions` | no | Up to four of the game's faction names; only a speaker who belongs to one says the line (Framework 0.115.0). `OKLGLEO` is AyoSec, `OKLGCorp` the Ayotimiwa Ship Breaking Co., `OKLGCiv` OKLG's civilians; a place's `factions` list the rest. |
 | `weight` | no | 1 to 100 (default 1): how often it is picked against other lines for the same moment. |
@@ -333,17 +337,17 @@ Each step:
 | Field | Needed | What it does |
 | --- | --- | --- |
 | `id` | yes | Lower case and hyphens, unique in the arc. It is saved with the player's goal, so do not rename it after people play it. |
-| `delivery` | no | What the player is told as the step begins: a `message` (`from` and `text`, shown in the crew log) and/or a `bulletin`, the id of a news item the next TV news shows. |
+| `delivery` | no | What the player is told as the step begins: a `message` (`from` and `text`, shown in the crew log; the text, up to 400 characters, may be a list of [variants](#variants)) and/or a `bulletin`, the id of a news item the next TV news shows. |
 | `objective` | no | A goal in the GOALS list: `title` (up to 60 characters), `description` (up to 300) and, since Framework 0.121.0, `person`: whose face it shows and who it is from. Left out, that is the sender of the step's letter, else the last sender before it in the arc. A step without an objective waits unseen. |
+| `tests` | yes | 1 to 4 tests; all must pass to finish the step. |
+| `onComplete` | no | A `message` (its text may be a list of [variants](#variants)); `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them; `credits` (up to 50,000) paid to the player with a line in the game's ledger; and `files` (up to five data file ids) on one data card. |
+| `next` | no | The step that follows: another step's `id`, or `end`. By default the next step in order, or the end after the last. |
+| `branches` | no | Up to four other ways the step can finish; see [branches](#branches). |
 
 Write a goal as the player's next move and what it is for, in the story's own terms:
 "Give the broker two hours to write back", "Be at [place] with one bottle of Alembrine
 Spirit on you (a bag counts). You keep it." Say what a player could wrongly fear, such as
 losing an item or a deadline, but do not list everything the goal does not do.
-| `tests` | yes | 1 to 4 tests; all must pass to finish the step. |
-| `onComplete` | no | A `message`; `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them; `credits` (up to 50,000) paid to the player with a line in the game's ledger; and `files` (up to five data file ids) on one data card. |
-| `next` | no | The step that follows: another step's `id`, or `end`. By default the next step in order, or the end after the last. |
-| `branches` | no | Up to four other ways the step can finish; see [branches](#branches). |
 
 Two steps in a row should not have the same goal title: the game does not show a goal
 titled like one it showed in the last ten seconds (the story check offers it again).
@@ -471,6 +475,45 @@ in the crew log. The owner's choice is small changes only.
   `label`, `title` and `body`; for data files `name` and `text`; for arc steps `<arc>.<step>.title`, `.description`,
   `.from`, `.message`, `.doneFrom` and `.done`; for a branch's message
   `<arc>.<step>.b<n>.doneFrom` and `.done`, counting branches from 0.
+- A text with [variants](#variants) translates each under its own key: the first under
+  the key above, the second under the same key with `.2` added, the third `.3`, and so
+  on (`Story.greens-report.text.2`). `phobosframework story variants <id>` lists every
+  variant with its key.
+
+### Variants
+
+Since Framework 0.132.0 a text that is shown again and again may be written several ways.
+Instead of one string, give a list of up to eight different ones:
+
+```json
+"text": [
+  "Keelhaul Freight shares jumped on the Lodestar Exchange this session.",
+  "A busy session for Keelhaul Freight on the Lodestar Exchange, with buyers chasing the ore haulers."
+]
+```
+
+- **Where:** news `text` and `mention`, advert `text`, small-talk `line`, and the `text`
+  of every letter: a step's delivery and outcome, a branch's and a reply's. Everything
+  else stays one string: goal titles and descriptions (the game keeps them with the
+  player's goal), reply labels, tips, articles and data files (more entries are the
+  variety there), and names of places, people and threads.
+- **How one is picked:** news, adverts, mentions and small talk pick one at random each
+  time they are shown, never the one shown last time straight after it. A letter
+  takes its variants in turn, one each time its arc comes round, starting at a point
+  fixed for each save; the crew log and the Letters window always show the same one.
+- **Each variant follows the text's own rules:** the same length limit, the same
+  placeholders, no two the same. A mistake names the variant counting from 1
+  (`broadcasts.my-news.text[2]`).
+- **Write variants as the same news or letter in other words**, not as different
+  events: they must all be true at once, and the player may see any of them first.
+  Keep a person's voice the same across a letter's variants.
+- **A single string still works,** everywhere, as it always has: variants are optional
+  entry by entry, so older files load unchanged.
+- **Overriding:** a player file or add-on that changes a text restates it whole, a
+  string or a list; the old list is replaced, never mixed with the new.
+- **Older Framework versions** cannot read a list. An add-on that uses variants should
+  require Framework 0.132.0 or later in its `phobos-addon.json`.
+- **Translations:** translate every variant, or the ones left out show in English.
 
 ### Settings
 
@@ -522,6 +565,9 @@ override them in `BepInEx/config/PhobosFramework/story/`:
   - `phobosframework story thread <id>` lists a thread's members and what blocks each.
   - `phobosframework story flag <id>` sets a story flag; add `clear` to clear it.
   - `phobosframework story places` and `story people` list what the loaded packs know.
+  - `phobosframework story variants <id>` lists every variant of a news item (text and
+    mention), advert or small-talk line, or of every letter in an arc, each with its
+    translation key (Framework 0.132.0).
   - `phobosframework story standing <faction> <change>` changes a faction's view of you
     by up to 10 points, for testing content; check the FACTIONS app afterwards.
 
@@ -628,7 +674,13 @@ Rules:
   happened uses "newsSeen" or "arcsDone". Nothing should refer to events the player
   has not seen. Give each thread one news item with no requirements, as a rumour.
 - Broadcast text at most 700 characters; mention at most 200; advert text at most 400;
-  message text at most 400; goal title at most 60 and description at most 300. A news
+  message text at most 400; goal title at most 60 and description at most 300.
+- Variants: a broadcast's text and mention, an advert's text, a small-talk line and a
+  message's text may each be a list of 2 to 8 different strings instead of one string;
+  the game shows one each time. Give variants to anything that repeats (repeatable arcs,
+  onceEach news, small talk). Every variant says the same thing in other words, keeps
+  the same limits and placeholders, and no two are identical. Everything else is one
+  string. A news
   item in a thread needs no region (its place gives one); one without a thread needs
   "region": Shipping & Inner System, Tharsis or Outer System.
 - Goals: write the title and description as the player's next move and its purpose

@@ -1,0 +1,20 @@
+[h1]Phobos Framework 0.132.0[/h1]
+[b]Draft - not published | 2026-10-08[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Story text can be written several ways. A news item, what people say about it, an advert, a small-talk line or a letter may give up to eight variants, and the game shows one each time, so stories that come round again do not read the same every time.
+[*]News, adverts and small talk never show the same variant twice running. A repeating letter takes its variants in turn, and always reads the same in the crew log and the Letters window.
+[*]Each variant can be translated under its own key; translations written for the first keep working.
+[*]F3 console: phobosframework story variants, followed by a news item, advert, small-talk line or arc, lists every variant with its translation key.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Story files written before this version load unchanged: a single text stays valid everywhere. A file or add-on that uses variants needs Framework 0.132.0, as older versions refuse them.
+[*]Goal titles and descriptions, reply labels, tips, articles and data files stay single texts.
+[*]Saves: nothing new is saved. Which variant news and small talk showed last is remembered until the game is closed, so the first one after loading may repeat the last one seen before.
+[*]Checked offline: both kinds of pick, the letter rotation, translations, player files replacing a text whole, and every refusal. Not yet seen in the game.
+[/list]

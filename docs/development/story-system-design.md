@@ -483,6 +483,70 @@ public, documented and usable by any mod:
   two times (`ShiftCount`), including the game year's extra last second, which the game
   treats as the next year's first shift.
 
+## Round 10: variant lines (Framework 0.132.0)
+
+**Owner direction (8 October 2026):** variant lines and their handling for every Phobos mod
+wherever they add value, the shared code in Framework, backward compatible so ChatGPT can
+update the stories at its own pace. **Owner choices** in planning: this round covers pack text
+only (the mods' own catalogue messages are later work); besides the Keelhaul example, one
+proof in each shipped pack (one Exchange wire line, one Banking letter), labelled in `notes`
+as agent placeholders.
+
+**What was found first.** All story text reaches the player through `StoryContent.Words`, so
+variants needed one change there. Translations are strings only, so each variant needs its
+own key. Nothing about a pick needed saving except for letters: TV news, adverts, mentions,
+small talk and the exchange wire hand over the finished text once, but the Letters window
+draws a letter again from the pack each time it opens, and a repeating arc deletes its old
+letters when it starts again (`StoryArcs.Begin`), so the previous letter is never available
+to compare with. The game itself has no alternative-lines mechanism beyond gig text (rolled
+once and saved); its one no-repeat rule is a re-roll keyed by an id.
+
+**How it works.**
+
+- `TextVariants`: one polymorphic field, a string or a list of 1 to 8 different strings,
+  read by a converter. No second field: data packs merge lists by replacement and refuse
+  nulls, so a player file restates the whole text and nothing is left dangling. A single
+  string is valid everywhere, as before.
+- Fields with variants: news `text` and `mention`, advert `text`, small-talk `line`, every
+  letter's `text`, and Phobos Exchange's `wire`. Not variants, on purpose: goal titles and
+  descriptions (saved with the player's goal), reply labels, tips, sections, articles and
+  files (more entries are the variety there), people, places and names.
+- Translation keys: the first variant keeps the text's existing key, later ones add `.2`,
+  `.3` and on (`TextVariants.Key`), so existing translations still apply.
+- Shown once (TV news, adverts, mentions, small talk, the wire): a random pick that never
+  repeats the last pick for the same entry, remembered in memory only (`VariantPicks`,
+  bounded by the library's entries, cleared with it; Exchange keeps its own keys there).
+  Small talk picks inside the per-interaction choice, so the social log and the
+  conversation agree.
+- Letters: a deterministic pick, `(seed + run) % count`, the seed a hash of the arc, step,
+  letter kind, reply and the record's start time (variety between saves), the run the arc's
+  completion count. A repeating letter so takes each variant in turn, and the crew log and
+  the Letters window always agree, with nothing new saved.
+- F3 `phobosframework story variants <id>` (read-only) lists every variant with its key.
+
+**Agent choices** (owner may revise): at most 8 variants; letters rotate rather than roll;
+TV and talk roll with no immediate repeat.
+
+**Limits.** A variant list edited after a letter was delivered may draw that letter
+differently in the Letters window (the crew log keeps what was sent), as an edited letter
+already does. A step entered twice within one run shows the same variant both times. The
+no-repeat memory for TV and talk lasts the session, not the save.
+
+**Save footprint:** none. **Performance:** finding L101 (one roll and one dictionary lookup
+per pick; one hash per letter drawn).
+
+**Checks:** `StoryChecks` (string and list both load; refusals for an empty list, nine
+variants, a duplicate, a non-string item, a bad token and an over-long later variant; people
+named in any variant; both picking rules; the letter seed and run; overrides in both
+directions), Exchange and Banking checks on their packs and the Keelhaul example, and the
+Python mirror and JSON Schemas (the schema checker learned `anyOf`, string lengths, `maxItems`
+and `uniqueItems` for them).
+
+**For the owner to try:** take a Corvane Mutual loan and let a bill go late twice; the two
+late letters differ, and each reads the same in the crew log and the Letters window. With the
+Keelhaul example installed, its wire line varies from one breaking to the next.
+`phobosframework story variants keelhaul-surge-wire` lists the example's variants.
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another
@@ -511,6 +575,8 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |
 | **Other mods' story packs** | Manufacturing, Shipbreaker, Medical, Auto Nav and War Has Been Declared content | Each mod registers its own pack as Agriculture does; only Agriculture ships a seed. | None beyond this release's rules |
 | **Encyclopedia pictures (art)** | Pictures for the shipped articles | The `image` field exists since round 4; suitable art is held for a cost check. | None |
+| **Variants for the mods' own messages** | Variety in code-side catalogue lines (the exchange wire's rose and fell lines, machine notices) | Round 10 covers pack text only (owner choice). A `Translations.GetVariant` reading `<key>.2` and on would extend it to catalogues. | None (code only) |
+| **No-repeat across a whole pool** | TV news and small talk that avoid repeating any recent item, not only the same entry's last variant | Round 10 remembers one pick per entry. A short recent-items memory per pool would need tuning against small pools. | None if kept in memory |
 
 ## Verification
 

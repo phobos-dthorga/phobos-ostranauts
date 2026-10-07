@@ -92,6 +92,14 @@ public static class StoryContent
     /// <summary>A text from a pack, replaced by the owner's translation of <c>Story.&lt;key&gt;</c> when it has one.</summary>
     internal static string Words(string owner, string key, string inline) => Translations.Get(owner, "Story." + key, inline);
 
+    /// <summary>One variant of a text that may have several (Framework 0.132.0), replaced by the owner's translation of
+    /// its own key (<c>Story.&lt;key&gt;</c> for the first, <c>Story.&lt;key&gt;.2</c> and on for the others).</summary>
+    internal static string Words(string owner, string key, TextVariants text, int variant)
+    {
+        int index = text.Count == 0 ? 0 : Math.Max(0, Math.Min(variant, text.Count - 1));
+        return Translations.Get(owner, "Story." + TextVariants.Key(key, index), text.At(index));
+    }
+
     /// <summary>The F3 report: packs, problems, then the player's arcs. The commands that change the save outside ordinary
     /// play (start, try, reset, news, file, flag, standing and check) are test commands (owner rule, 7 October 2026;
     /// Framework 0.128.1): they need the game's own unlockdebug and confirm at the end, through
@@ -132,8 +140,36 @@ public static class StoryContent
             // Letters and replies (Framework 0.122.0): the same service the Letters window's buttons use.
             case "answer" when words.Length == 5: return StoryArcs.Answer(words[3], words[4]);
             case "letters" when words.Length <= 4: return LettersPanel.Show(id) ? Text.Get("Story.letters_opened") : Text.Get("Story.letters_unavailable");
+            // Framework 0.132.0, read-only: every variant of an entry's lines, with the key that translates each.
+            case "variants" when id != null && words.Length == 4: return Variants(id);
             default: return Text.Get("Story.help");
         }
+    }
+
+    /// <summary>F3 (Framework 0.132.0): every variant of a news item (its text and mention), an advert, a small-talk line or
+    /// every letter of an arc, each with its translation key, for writers checking their work.</summary>
+    internal static string Variants(string id)
+    {
+        var lines = new List<string>();
+        void Add(string owner, string key, TextVariants? text)
+        {
+            if (text == null) return;
+            for (int i = 0; i < text.Count; i++) lines.Add("  " + Text.Get("Story.variant_line", "Story." + TextVariants.Key(key, i), Words(owner, key, text, i)));
+        }
+        if (Library.Broadcasts.TryGetValue(id, out var b)) { Add(b.Owner, id + ".text", b.Value.text); Add(b.Owner, id + ".mention", b.Value.mention); }
+        else if (Library.Adverts.TryGetValue(id, out var a)) Add(a.Owner, id + ".text", a.Value.text);
+        else if (Library.Chatter.TryGetValue(id, out var c)) Add(c.Owner, id + ".line", c.Value.line);
+        else if (Library.Arcs.TryGetValue(id, out var arc))
+            foreach (var step in arc.Value.steps)
+            {
+                string stepKey = id + "." + step.id;
+                Add(arc.Owner, stepKey + ".message", step.delivery?.message?.text);
+                Add(arc.Owner, stepKey + ".done", step.onComplete?.message?.text);
+                for (int i = 0; i < (step.branches?.Count ?? 0); i++) Add(arc.Owner, stepKey + ".b" + i + ".done", step.branches![i].onComplete?.message?.text);
+                foreach (var choice in step.choices ?? new List<StoryChoice>()) Add(arc.Owner, stepKey + ".choice." + choice.id + ".done", choice.onComplete?.message?.text);
+            }
+        else return Text.Get("Story.variants_unknown", id);
+        return Text.Get("Story.variants_title", id, lines.Count) + (lines.Count > 0 ? "\n" + string.Join("\n", lines) : "");
     }
 
     /// <summary>Runs a story test command through the gate, then marks the save as test-changed.</summary>

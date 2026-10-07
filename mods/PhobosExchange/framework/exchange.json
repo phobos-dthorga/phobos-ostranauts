@@ -262,9 +262,13 @@
         {
           "flag": "exchange-smartlink-spares-contract",
           "move": 0.08,
-          "wire": "Smartlink wins a point-defence service contract from a group of tug operators.",
+          "wire": [
+            "Smartlink wins a point-defence service contract from a group of tug operators.",
+            "Smartlink renews its point-defence service work for a group of tug operators."
+          ],
           "carry": 0.04,
-          "keeps": 0.3
+          "keeps": 0.3,
+          "notes": "Variants after the first are agent placeholders (Framework 0.132.0 proof) for the writers to replace."
         },
         {
           "flag": "exchange-smartlink-cannon-inspection",

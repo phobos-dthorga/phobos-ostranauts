@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.131.1",
+      "value": "0.132.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -2900,7 +2900,7 @@
     "Bank.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.7.0",
+      "value": "0.8.0",
       "description": "PhobosBank (Phobos Banking) published source/package version.",
       "targets": [
         {
@@ -2954,7 +2954,7 @@
     "Bank.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.128.0",
+      "value": "0.132.0",
       "description": "Current Phobos Banking required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -3000,7 +3000,7 @@
     "Exchange.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.4.0",
+      "value": "0.5.0",
       "description": "PhobosExchange (Phobos Exchange) published source/package version.",
       "targets": [
         {
@@ -3054,7 +3054,7 @@
     "Exchange.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.131.0",
+      "value": "0.132.0",
       "description": "Current Phobos Exchange required Framework version, shared with local installer admission.",
       "targets": [
         {

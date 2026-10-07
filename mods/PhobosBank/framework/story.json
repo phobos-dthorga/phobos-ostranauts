@@ -111,14 +111,17 @@
       "thread": "bank-corvane-mutual",
       "chance": 0,
       "repeatable": true,
-      "notes": "Started by Phobos Banking when a Corvane Mutual bill turns late. The reply changes nothing in the ledger; the game's late fee stands either way.",
+      "notes": "Started by Phobos Banking when a Corvane Mutual bill turns late. The reply changes nothing in the ledger; the game's late fee stands either way. Variants after the first are agent placeholders (Framework 0.132.0 proof) for the writers to replace.",
       "steps": [
         {
           "id": "reminder",
           "delivery": {
             "message": {
               "person": "corvane-ines-varga",
-              "text": "[player-first], one of your bills to Corvane Mutual has gone past its shift. The station adds its late fee at every shift change it stays unpaid, and there is nothing I can do about that. Can we expect it soon?"
+              "text": [
+                "[player-first], one of your bills to Corvane Mutual has gone past its shift. The station adds its late fee at every shift change it stays unpaid, and there is nothing I can do about that. Can we expect it soon?",
+                "[player-first], a bill of yours to Corvane Mutual is still open past its shift. The station adds its late fee at each shift change until it is paid; that part is out of my hands. When can we expect it?"
+              ]
             }
           },
           "choices": [

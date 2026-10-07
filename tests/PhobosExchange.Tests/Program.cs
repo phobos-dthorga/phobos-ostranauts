@@ -424,6 +424,15 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.001 }")), "news too small to see is refused");
     Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05 }, { \"flag\": \"keel-a\", \"move\": 0.06 }")), "one flag names one piece of news for a company");
     Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": \"[player] did it\" }")), "a wire line has no placeholders");
+    // Variant wire lines (0.5.0, Framework 0.132.0): one of up to eight, each under the same rules.
+    var varied = LoadPack(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": [ \"Keel Yards wins a hull contract.\", \"Keel Yards signs for new hulls.\" ] }"));
+    Check(varied.companies["keel"].news[0].wire!.Count == 2 && varied.companies["keel"].news[0].wire![1] == "Keel Yards signs for new hulls.", "a wire line may be a list of variants");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": [ \"Keel Yards wins.\", \"[player] did it\" ] }")), "no variant of a wire line has a placeholder");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": [ \"Keel Yards wins.\", \"Keel Yards wins.\" ] }")), "two identical wire variants are refused");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": [ ] }")), "an empty list of wire variants is refused");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": [ \"Keel Yards wins.\", \"" + new string('x', 301) + "\" ] }")), "every wire variant keeps to 300 characters");
+    Check(Phobos.Ostranauts.Framework.Story.TextVariants.Key("News.keel.keel-a", 0) == "News.keel.keel-a" && Phobos.Ostranauts.Framework.Story.TextVariants.Key("News.keel.keel-a", 1) == "News.keel.keel-a.2",
+        "the first wire variant keeps its translation key, the second takes .2");
 
     // Recurring news (0.4.0): a jump at once, a share kept the first time only, the rest unwinding at the company's
     // half-life, and a carry through the company's own trend phase.
@@ -692,6 +701,9 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
         Check(DataPacks.Problems.Count == problems && story.arcs.ContainsKey("keelhaul-titan-contract") && story.arcs.ContainsKey("exchange-keelhaul-freight-bought") && story.threads.ContainsKey("keelhaul-freight"),
             "with the exchange namespace registered, its story and its bought letter load: " + string.Join("; ", DataPacks.Problems.Skip(problems).Select(x => x.File + ": " + x.Message)));
         Check(story.arcs["keelhaul-titan-contract"].steps.Last().onComplete!.setFlags.Contains("keelhaul-titan-contract"), "its arc sets the flag its news answers to");
+        Check(keelhaul.news.Single().wire!.Count == 3 && story.broadcasts["keelhaul-surge-wire"].text.Count == 3 &&
+              story.arcs["exchange-keelhaul-freight-major-holder"].steps[0].delivery!.message!.text.Count == 3,
+            "the example shows variant lines (Framework 0.132.0) on its wire line, its news item and its repeating letter");
     }
     finally { AddOns.EnabledModDirectories = saved; AddOns.Reset(); }
 }

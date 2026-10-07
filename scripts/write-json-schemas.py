@@ -297,6 +297,11 @@ def story():
     flags = {'type': 'array', 'maxItems': 4, 'uniqueItems': True, 'items': key}
     def text(limit, description):
         return {'type': 'string', 'minLength': 1, 'maxLength': limit, 'description': description + ' ' + plain}
+    def variants(limit, description):
+        # Framework 0.132.0: a text, or a list of up to 8 different variants, one picked each time it is shown.
+        one = text(limit, description)
+        return {'anyOf': [one, {'type': 'array', 'minItems': 1, 'maxItems': 8, 'uniqueItems': True, 'items': one}],
+                'description': description + ' A text, or a list of up to 8 variants (one is picked each time). ' + plain}
     def names(item, description):
         return {'type': 'array', 'items': item, 'maxItems': 16, 'description': description}
     requires = obj({
@@ -328,7 +333,7 @@ def story():
     place_ref = {**key, 'description': 'The place this entry belongs to, by key (phobosframework story places lists them).'}
     message = obj({'from': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Who it is from, shown before the text in the crew log; leave out when person names them.'},
                    'person': {**key, 'description': 'The person it is from, shown as Name, role.'},
-                   'text': text(400, 'The message, shown in the crew log.')}, ['text'], extra={'anyOf': [{'required': ['from']}, {'required': ['person']}]})
+                   'text': variants(400, 'The message, shown in the crew log.')}, ['text'], extra={'anyOf': [{'required': ['from']}, {'required': ['person']}]})
     test = obj({'kind': string('What the step waits for.', ['dock-at', 'have-item', 'install', 'wait', 'credits', 'condition']),
                 'station': {**station, 'description': 'dock-at only. ' + station['description'] + ' Left out, the arc\'s own place.'},
                 'item': {**game, 'description': 'have-item and install only: an item definition id.'},
@@ -376,11 +381,11 @@ def story():
     once_each = {'type': 'boolean', 'description': 'Shown once each time its required flags are set again (Framework 0.131.0); needs requires.flags, not with once.'}
     author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}
     broadcast = obj({**author, 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System; left out, the place\'s own.'},
-                     'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'onceEach': once_each, 'requires': requires,
-                     'mention': text(200, 'What people say when they bring this news up in small talk, for a while after it was shown.'),
+                     'text': variants(700, 'The news item.'), 'weight': weight, 'once': once, 'onceEach': once_each, 'requires': requires,
+                     'mention': variants(200, 'What people say when they bring this news up in small talk, for a while after it was shown.'),
                      'thread': thread_ref, 'place': place_ref}, ['text'],
                     extra={'anyOf': [{'required': ['region']}, {'required': ['place']}, {'required': ['thread']}]})
-    advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'onceEach': once_each, 'requires': requires,
+    advert = obj({**author, 'text': variants(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'onceEach': once_each, 'requires': requires,
                   'thread': thread_ref, 'place': place_ref}, ['text'])
     arc = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80, 'description': 'For authors and the F3 list.'}, 'notes': NOTES, 'requires': requires,
                'chance': num(0, 1, description='Chance per story check (every 30 s) that the eligible arc starts by itself, while the player is at its place if it has one; 0 starts it only from F3.'),
@@ -393,7 +398,7 @@ def story():
     mods_only = obj({'mods': requires['properties']['mods']}, description='Only installed mods can be required: no player exists when this is shown.')
     chatter = obj({**author,
                    'moment': string('Which kind of the game\'s own small talk carries the line.', ['headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk']),
-                   'line': text(200, 'What the speaker says, after the moment\'s lead-in.'),
+                   'line': variants(200, 'What the speaker says, after the moment\'s lead-in.'),
                    'speakers': string('Who may say it: anyone (default), crew (someone aboard one of the player\'s ships), others (anyone else) or locals (others, at the line\'s place).', ['anyone', 'crew', 'others', 'locals']),
                    'weight': weight, 'requires': requires,
                    'thread': thread_ref, 'place': {**place_ref, 'description': place_ref['description'] + ' Crew say the line while the player is there; others only when they are there.'},
@@ -557,7 +562,8 @@ def exchange():
         'notes': NOTES,
         'flag': string('The story flag that brings the news, set by a story arc or another mod.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
         'move': num(-0.3, 0.3, description='How far the price jumps when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way, each time it breaks.'),
-        'wire': string('The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders.'),
+        'wire': {'anyOf': [{'type': 'string', 'minLength': 1, 'maxLength': 300}, {'type': 'array', 'minItems': 1, 'maxItems': 8, 'uniqueItems': True, 'items': {'type': 'string', 'minLength': 1, 'maxLength': 300}}],
+                 'description': 'The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders. A list of up to 8 variants (Phobos Exchange 0.5.0) gives one each time the news breaks, never the same twice running.'},
         'carry': num(-0.15, 0.15, description='How far the news carries the price on through the company trend phase, at its height a few weeks on; the same way as the move (Phobos Exchange 0.4.0).'),
         'keeps': num(0, 1, description='The share of the jump that stays for good the first time this news breaks in a save; the rest, and every later jump, unwinds (Phobos Exchange 0.4.0).'),
     }, required=('flag', 'move'))

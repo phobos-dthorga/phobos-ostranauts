@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Localization;
+using Phobos.Ostranauts.Framework.Story;
 using PhobosExchange.Core;
 
 namespace PhobosExchange;
@@ -45,7 +46,10 @@ internal static class Companies
     public static string Name(string id) => Pack != null && Pack.companies.TryGetValue(id, out var c) ? Safe(Translations.Get(ExchangeRules.Owner, "Companies." + id + ".name", c.name), c.name) : id;
     public static string Profile(string id) => Pack != null && Pack.companies.TryGetValue(id, out var c) ? Translations.Get(ExchangeRules.Owner, "Companies." + id + ".profile", c.profile) : "";
     /// <summary>A news entry's wire line in the player's language (<c>News.&lt;company&gt;.&lt;flag&gt;</c>), else the pack's own.</summary>
-    public static string NewsWire(string id, NewsEntry n) => Translations.Get(ExchangeRules.Owner, "News." + id + "." + n.flag, n.wire ?? "");
+    /// <remarks>Phobos Exchange 0.5.0: a wire line may have variants; each translates under its own key, the first under
+    /// <c>News.&lt;company&gt;.&lt;flag&gt;</c>, the others <c>.2</c>, <c>.3</c> and on (Framework <see cref="TextVariants.Key"/>).</remarks>
+    public static string NewsWire(string id, NewsEntry n, int variant = 0) => n.wire == null ? "" :
+        Translations.Get(ExchangeRules.Owner, TextVariants.Key("News." + id + "." + n.flag, Math.Max(0, Math.Min(variant, n.wire.Count - 1))), n.wire.At(variant));
 
     /// <summary>A history entry's line in the player's language (0.3.0; <see cref="Milestone.Key"/>), else the pack's own.</summary>
     public static string HistoryText(Milestone m) => Translations.Get(ExchangeRules.Owner, m.Key, m.Entry.line);

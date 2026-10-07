@@ -466,8 +466,25 @@
                     "description": "How far the price jumps when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way, each time it breaks."
                   },
                   "wire": {
-                    "type": "string",
-                    "description": "The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders."
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 300
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 8,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 300
+                        }
+                      }
+                    ],
+                    "description": "The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders. A list of up to 8 variants (Phobos Exchange 0.5.0) gives one each time the news breaks, never the same twice running."
                   },
                   "carry": {
                     "type": "number",

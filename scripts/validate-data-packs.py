@@ -784,6 +784,31 @@ def story_plain(text):
     return ']' if ']' in rest else None
 
 
+STORY_MAX_VARIANTS = 8
+
+
+def story_variants(value, limit, where):
+    """Framework 0.132.0: a text that may have variants, a string or a list of 1 to 8 different strings, each player
+    text within its limit. A variant is named from 1, as its translation key counts."""
+    if isinstance(value, list):
+        if not value:
+            raise Problem(f'{where}: blank')
+        if len(value) > STORY_MAX_VARIANTS:
+            raise Problem(f'{where}: at most {STORY_MAX_VARIANTS} variants of a text; it has {len(value)}')
+        if len(value) == 1:
+            story_words(value[0], limit, where)
+            return value
+        seen = set()
+        for i, item in enumerate(value, 1):
+            story_words(item, limit, f'{where}[{i}]')
+            if item in seen:
+                raise Problem(f'{where}[{i}]: the same as an earlier variant')
+            seen.add(item)
+        return value
+    story_words(value, limit, where)
+    return [value]
+
+
 def story_words(text, limit, where):
     if not isinstance(text, str) or not text.strip():
         raise Problem(f'{where}: blank')
@@ -906,7 +931,7 @@ def story_message(m, where):
     story_key(m.get('person'), f'{where}/person')
     if sender is None and m.get('person') is None:
         raise Problem(f'{where}: a message names its sender (from) or a person')
-    story_words(m.get('text'), STORY_LIMITS['message'], f'{where}/text')
+    story_variants(m.get('text'), STORY_LIMITS['message'], f'{where}/text')
 
 
 def story_author(entry, where):
@@ -1084,7 +1109,7 @@ def story(pack, where, framework=None):
         story_id(key, w)
         fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'onceEach', 'requires', 'mention', 'thread', 'place'}, w)
         if b.get('mention') is not None:
-            story_words(b['mention'], STORY_LIMITS['line'], f'{w}/mention')
+            story_variants(b['mention'], STORY_LIMITS['line'], f'{w}/mention')
         story_author(b, w)
         story_key(b.get('thread'), f'{w}/thread')
         story_key(b.get('place'), f'{w}/place')
@@ -1093,7 +1118,7 @@ def story(pack, where, framework=None):
             raise Problem(f'{w}/region: a region of at most {STORY_LIMITS["region"]} characters')
         if region is None and b.get('place') is None and b.get('thread') is None:
             raise Problem(f'{w}: a news item is news of somewhere: give a region, a place or a thread')
-        story_words(b.get('text'), STORY_LIMITS['broadcast'], f'{w}/text')
+        story_variants(b.get('text'), STORY_LIMITS['broadcast'], f'{w}/text')
         number(b.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
         if not isinstance(b.get('once', False), bool):
             raise Problem(f'{w}/once: true or false')
@@ -1106,7 +1131,7 @@ def story(pack, where, framework=None):
         story_author(a, w)
         story_key(a.get('thread'), f'{w}/thread')
         story_key(a.get('place'), f'{w}/place')
-        story_words(a.get('text'), STORY_LIMITS['advert'], f'{w}/text')
+        story_variants(a.get('text'), STORY_LIMITS['advert'], f'{w}/text')
         number(a.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
         if not isinstance(a.get('once', False), bool):
             raise Problem(f'{w}/once: true or false')
@@ -1211,7 +1236,7 @@ def story(pack, where, framework=None):
         story_key(c.get('place'), f'{w}/place')
         if c.get('moment') not in STORY_MOMENTS:
             raise Problem(f'{w}/moment: one of {", ".join(STORY_MOMENTS)}')
-        story_words(c.get('line'), STORY_LIMITS['line'], f'{w}/line')
+        story_variants(c.get('line'), STORY_LIMITS['line'], f'{w}/line')
         if c.get('speakers', 'anyone') not in STORY_SPEAKERS:
             raise Problem(f'{w}/speakers: one of {", ".join(STORY_SPEAKERS)}')
         number(c.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
@@ -1559,9 +1584,11 @@ def exchange(pack, where):
             if abs(n['move']) < 0.005:
                 raise Problem(f'{nw}/move: at least 0.005 either way')
             if n.get('wire') is not None:
-                story_words(n['wire'], 300, f'{nw}/wire')
-                if '[' in n['wire']:
-                    raise Problem(f'{nw}/wire: no placeholders')
+                # Phobos Exchange 0.5.0: a wire line may be a list of variants.
+                wires = story_variants(n['wire'], 300, f'{nw}/wire')
+                for i, wire in enumerate(wires, 1):
+                    if '[' in wire:
+                        raise Problem(f'{nw}/wire' + (f'[{i}]' if len(wires) > 1 else '') + ': no placeholders')
             # Phobos Exchange 0.4.0: recurring news, its carry, its lasting share and its first week's unwind.
             carry = number(n.get('carry', 0), f'{nw}/carry', -EXCHANGE_NEWS_CARRY, EXCHANGE_NEWS_CARRY)
             if carry != 0 and (carry > 0) != (n['move'] > 0):

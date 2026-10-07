@@ -246,7 +246,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   files declare a `thread` or a `place` (the game's stations, `places` in Framework's pack) and
   letters name a `person`; threads connect through `setFlags`, `arcsAtStep` and `newsSeen`,
   never through text that assumes the player saw something. Standing changes stay small and
-  go through the game's own faction scores.
+  go through the game's own faction scores. Text that comes round again (news, mentions,
+  adverts, small talk, letters, exchange wire lines) may be a list of up to eight variants
+  (owner, 2026-10-08; Framework 0.132.0 `TextVariants`): a single string stays valid
+  everywhere, picks are code and never saved, and a letter's pick is reproducible so the
+  crew log and the Letters window agree. Shared picking and validation stay in Framework.
 - **Links.** Every machine-to-store or machine-to-machine link runs through touching equipment
   (within one tile) or a pipe or conveyor-belt network, never open floor; the refuelling kiosk is
   the only exception. Any pipe or belt on or beside equipment joins it; joins chain across the

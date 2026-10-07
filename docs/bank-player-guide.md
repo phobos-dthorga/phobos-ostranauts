@@ -220,5 +220,5 @@ ordinary mortgages owed to the lender's name, and no more interest is billed.
 
 ## Requirements
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.128.0 or newer. See
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.132.0 or newer. See
 [installing the mods](installing-mods.md).

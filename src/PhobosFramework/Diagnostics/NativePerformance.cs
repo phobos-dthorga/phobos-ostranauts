@@ -88,6 +88,8 @@ internal static class NativePerformance
         Performance.RegisterFootprint("framework.crew.retry_records", "footprint", () => Crew.CrewWork.RetryRecords);
         Performance.RegisterFootprint("framework.crew_skip.records", "footprint", () => Crew.CrewSkip.Records);
         Performance.RegisterFootprint("framework.upkeep.states", "footprint", () => Crew.Upkeep.StateCount);
+        // Framework 0.132.0 (L101): the last variant picked per news item, advert and small-talk line, cleared on reload.
+        Performance.RegisterFootprint("framework.story.variant_picks", "footprint", () => Story.VariantPicks.Count);
         Performance.RegisterFootprint("framework.fluid_route.ships", "footprint", () => Liquids.FluidRouteCache.ShipCount);
         Performance.RegisterFootprint("framework.buffered_drains.entries", "footprint", () => Liquids.BufferedDrains.EntryCount);
     }

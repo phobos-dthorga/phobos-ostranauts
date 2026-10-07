@@ -448,6 +448,29 @@ public static class StoryRules
     public static bool CooledDown(double finished, double epoch, double cooldownDays) =>
         cooldownDays <= 0 || epoch - finished >= GameClock.Seconds(cooldownDays);
 
+    /// <summary>Which of <paramref name="count"/> variants to show from a roll in [0, 1) (Framework 0.132.0): never
+    /// <paramref name="previous"/> again straight away when there is another (the vanilla game's no-repeat rule).</summary>
+    public static int Variant(int count, double roll, int? previous)
+    {
+        if (count <= 1) return 0;
+        int pick = (int)Math.Min(count - 1, Math.Max(0, Math.Floor((double.IsNaN(roll) ? 0 : roll) * count)));
+        return previous == pick ? (pick + 1) % count : pick;
+    }
+
+    /// <summary>Which variant a letter shows (Framework 0.132.0): from a start fixed by <paramref name="seed"/>, each run of
+    /// the arc the next, so a repeating letter never says the same twice running, and the crew log and the Letters
+    /// window, which draws it again from the pack, agree with nothing more saved.</summary>
+    public static int Variant(int count, uint seed, int run) => count <= 1 ? 0 : (int)((seed + (uint)Math.Max(0, run)) % (uint)count);
+
+    /// <summary>A letter's fixed start: the arc, step, kind of letter and reply, and when the player's story record began,
+    /// so different saves start at different variants.</summary>
+    public static uint LetterSeed(string arc, string step, string kind, string? choice, double? began) =>
+        Data.Outcomes.Hash(new[] { string.Join("|", arc, step, kind, choice ?? "", began?.ToString("R", CultureInfo.InvariantCulture) ?? "") });
+
+    /// <summary>Which run of an arc its letters belong to: the completions before it, so the count is the same when the
+    /// letter is delivered (before the arc counts as finished) and when the window draws it afterwards.</summary>
+    public static int LetterRun(ArcProgress progress) => progress.State == ArcState.Done ? Math.Max(0, progress.Completions - 1) : progress.Completions;
+
     /// <summary>The eligible small-talk lines, by moment.</summary>
     public static Dictionary<string, List<StoryLine>> ChatterPools(IEnumerable<StoryLine> lines, Func<StoryRequires?, bool> eligible)
     {

@@ -210,6 +210,20 @@ class DataPackTests(unittest.TestCase):
                     broken(lambda p: p['arcs']['verdemorrow-grain-sample']['requires'].update(mods=['Agri culture']))):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.story(bad, 'test', framework=False)
+        # Framework 0.132.0: a text may be a list of up to eight different variants, each under the text's own rules.
+        survey = shipped['broadcasts']['galley-survey']['text']
+        varied = broken(lambda p: p['broadcasts']['galley-survey'].update(text=[survey, 'A second way to say it.']))
+        validate.story(varied, 'test', framework=False)
+        self.assertEqual(schemas.problems(json.loads(writer.render('story')), varied), [])
+        for text in ([], [survey] * 2, [survey, 3], [survey, 'Hello [captain].'], [survey, 'x' * 701], ['v%d' % i for i in range(9)], {'text': survey}):
+            bad = broken(lambda p: p['broadcasts']['galley-survey'].update(text=text))
+            with self.subTest(variants=text), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+        try:
+            validate.story(broken(lambda p: p['broadcasts']['galley-survey'].update(text=[survey, survey])), 'test', framework=False)
+        except validate.Problem as problem:
+            self.assertIn('/text[2]', str(problem))
+        self.assertNotEqual(schemas.problems(json.loads(writer.render('story')), broken(lambda p: p['broadcasts']['galley-survey'].update(text=[survey, survey]))), [])
         framework = json.loads((ROOT / 'mods/PhobosFramework/framework/story.json').read_text(encoding='utf-8'))
         validate.story(framework, 'test', framework=True)
         self.assertEqual(framework['settings'], {'broadcastShare': 0.3, 'advertShare': 0.3, 'checkSeconds': 30, 'maxActiveArcs': 2,
@@ -741,8 +755,14 @@ class DataPackTests(unittest.TestCase):
         good['companies']['smartlink']['news'] = [{'flag': 'smlk-test-contract', 'move': 0.08, 'wire': 'Smartlink wins a contract.'}]
         validate.exchange(good, 'exchange')
         self.assertEqual(schemas.problems(json.loads(writer.render('exchange')), good), [])
+        good['companies']['smartlink']['news'][0]['wire'] = ['Smartlink wins a contract.', 'Smartlink signs a contract.']
+        validate.exchange(good, 'exchange')
+        self.assertEqual(schemas.problems(json.loads(writer.render('exchange')), good), [])
         for entry in ({'flag': 'Bad Flag', 'move': 0.08}, {'flag': 'smlk-a', 'move': 0.5}, {'flag': 'smlk-a', 'move': 0.001},
-                      {'flag': 'smlk-a', 'move': 0.05, 'wire': '[player] did it'}, {'flag': 'smlk-a', 'move': 0.05, 'odds': 1}):
+                      {'flag': 'smlk-a', 'move': 0.05, 'wire': '[player] did it'}, {'flag': 'smlk-a', 'move': 0.05, 'odds': 1},
+                      # Phobos Exchange 0.5.0: every variant of a wire line keeps the same rules.
+                      {'flag': 'smlk-a', 'move': 0.05, 'wire': []}, {'flag': 'smlk-a', 'move': 0.05, 'wire': ['Smartlink wins.', '[player] did it']},
+                      {'flag': 'smlk-a', 'move': 0.05, 'wire': ['Smartlink wins.', 'Smartlink wins.']}, {'flag': 'smlk-a', 'move': 0.05, 'wire': ['Smartlink wins.', 'x' * 301]}):
             bad = json.loads(json.dumps(pack))
             bad['companies']['smartlink']['news'] = [entry]
             with self.subTest(news=entry):

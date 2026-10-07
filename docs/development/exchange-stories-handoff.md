@@ -54,7 +54,9 @@ effects over time, again and again, as the game's own headlines do). Each item h
 - `flag`: the story flag that brings it. It breaks each time the flag is set, or set again;
   an arc that sets a flag already set renews it (Framework 0.131.0).
 - `move`: how far the price jumps at once, a share from -0.3 to 0.3, at least 0.005 either way.
-- `wire`: the line the market wire prints, up to 300 characters, no placeholders.
+- `wire`: the line the market wire prints, up to 300 characters, no placeholders. Since
+  Phobos Exchange 0.5.0 it may be a list of up to eight variants; the wire prints one each
+  time the news breaks, never the same one twice running (see Variant lines below).
 - `carry`: how far the company's trend carries the price on afterwards, at its height a
   few weeks later, from -0.15 to 0.15, the same way as the move. Usually, not always: the
   market's own ups and downs still apply.
@@ -225,6 +227,39 @@ independence (2059 or 2062), so leave that date alone.
 | Verdemorrow | 2049 | 2062 |
 | Halewright | 2045 | 2058 |
 
+## Variant lines (Phobos Exchange 0.5.0, Framework 0.132.0)
+
+Owner direction, 8 October 2026: text that comes round again may be written several ways.
+Wherever one string was allowed in these places, a list of up to eight different strings
+now is too, and the game picks one each time:
+
+- in `exchange.json`, a news entry's `wire`;
+- in `story.json`, a news item's `text` and `mention`, an advert's `text`, a small-talk
+  `line`, and the `text` of every letter (delivery, outcome, branch and reply).
+
+News, adverts, mentions, small talk and the wire pick at random, never the one just shown;
+a letter takes its variants in turn, one per time its arc comes round. Each variant keeps
+the field's own limits and placeholders, and no two may be the same. A single string still
+works everywhere, so nothing has to change at once: add variants entry by entry, at your
+own pace. Write variants as the same news in other words, not different events, and keep a
+correspondent's voice the same across a letter's variants. Goal titles and descriptions,
+reply labels, names, profiles and history lines stay one string.
+
+**Where variants are wanted most**, in order:
+
+1. The wire lines of all sixteen shipped news entries: each breaks again and again
+   (weekly by the shipped cooldowns), so the same line every week reads like a stuck
+   record. Two or three each.
+2. The 32 `onceEach` news items and the letters of the repeatable event arcs (`bought`,
+   `major-holder`), which also come round.
+3. The sixteen small-talk lines, which the docks repeat most of all.
+
+**The proof already in place:** Smartlink's spares-contract news
+(`exchange-smartlink-spares-contract`) carries a second wire variant written by Claude only
+to show the wiring works; its `notes` say so. Replace it, or keep it if it reads well.
+The Keelhaul example add-on shows variants on its wire line, its surge news and its
+large-holder letter.
+
 ## Rules (the code holds the text to these)
 
 These follow the Banking precedent
@@ -245,7 +280,8 @@ These follow the Banking precedent
   entry is the one place to say what happened, and still without figures (the wire adds
   the percentage itself).
 - **News comes round.** Each piece of news can break again and again; make its arc
-  repeatable with a cooldown, its TV item `onceEach`, and its lines fit to read more than once.
+  repeatable with a cooldown, its TV item `onceEach`, and its lines fit to read more than
+  once, with variants where the same words would grate.
 - **Weeks, not hours.** Prices run in phases that last weeks; stories pace the same way. A
   `wait` test counts game hours, up to 720 (about thirty game days); waits of a day (24) or
   more suit the market better than a few hours.

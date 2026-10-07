@@ -19,6 +19,8 @@ internal static class StoryNews
         { id = StoryRules.Pick(StoryArcs.BroadcastPool, StoryArcs.Roll()); fromPool = true; }
         if (id == null || !library.Broadcasts.TryGetValue(id, out var entry)) return original;
         StoryArcs.Shown(id, entry.Value.once || entry.Value.onceEach, fromPool ? StoryArcs.BroadcastPool : null);
+        // One of its variants (Framework 0.132.0), never the same as last time when it has more than one.
+        int variant = VariantPicks.Next("news:" + id, entry.Value.text.Count, StoryArcs.Roll());
         // The "Region News:" label: the item's own, else its place's (Framework 0.114.0).
         string? place = library.PlaceOf(entry.Value.thread, entry.Value.place);
         string region = entry.Value.region != null ? StoryContent.Words(entry.Owner, id + ".region", entry.Value.region) : library.Places.Region(place) ?? Text.Get("Story.these_parts");
@@ -26,7 +28,7 @@ internal static class StoryNews
         {
             strName = StoryRules.TestPrefix + id,
             strRegion = region,
-            strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, id + ".text", entry.Value.text), place)
+            strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, id + ".text", entry.Value.text, variant), place)
         };
     }
 
@@ -37,7 +39,8 @@ internal static class StoryNews
         string? id = StoryRules.Pick(StoryArcs.AdvertPool, StoryArcs.Roll());
         if (id == null || !library.Adverts.TryGetValue(id, out var entry)) return original;
         StoryArcs.Shown(id, entry.Value.once || entry.Value.onceEach, StoryArcs.AdvertPool);
-        return new JsonAd { strName = StoryRules.TestPrefix + id, strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, id + ".text", entry.Value.text), library.PlaceOf(entry.Value.thread, entry.Value.place)) };
+        int variant = VariantPicks.Next("advert:" + id, entry.Value.text.Count, StoryArcs.Roll());
+        return new JsonAd { strName = StoryRules.TestPrefix + id, strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, id + ".text", entry.Value.text, variant), library.PlaceOf(entry.Value.thread, entry.Value.place)) };
     }
 }
 
