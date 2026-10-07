@@ -16,8 +16,9 @@ public static class HopperRules
     public const string Kind = "hopper";
     /// <summary>The kiosk sells in whole kilograms.</summary>
     public const double KioskStepKg = 1;
-    /// <summary>The kiosk's price per kilogram is the bulk nutrient charge's own (750 cr for 500 g: 1,500 cr/kg), so a
-    /// kilogram bought loose or in bulk costs the same. The makeup salts (750 cr/kg) are only half a feed.</summary>
+    /// <summary>The kiosk's price per kilogram is the bulk nutrient charge's own (75 cr for 500 g: 150 cr/kg since the
+    /// 5 October 2026 economy audit), so a kilogram bought loose or in bulk costs the same. The makeup salts (3 cr for
+    /// 40 g: 75 cr/kg) are only half a feed.</summary>
     public static double PricePerKg(double chargePrice, double chargeKg)
     {
         if (!CropState.Finite(chargePrice) || !CropState.Finite(chargeKg) || chargePrice <= 0 || chargeKg <= 0) throw new ArgumentException("Invalid nutrient charge price.");

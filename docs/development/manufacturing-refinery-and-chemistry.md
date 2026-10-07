@@ -320,6 +320,11 @@ guardrail (30 September 2026): formulation is where a finished nutrient's value 
 made, the packets are capped at Agriculture's price, and no merchant sells the salts,
 so no trade loop pays. The native checks enforce all three.
 
+*Superseded figures (8 October 2026 note):* the salt prices above predate the 1 October
+repricing, and the makeup packet has been 3 cr since the
+[5 October economy audit](economy-audit-2026-10-05.md), so the formulation now returns
+about 0.27 x its salts.
+
 **Brand.** Lixivar, from lixiviation, the chemists' word for leaching; no chemical,
 mining or water-treatment company of that name was found in a web search on 30
 September 2026. The sulfuric acid plant and acid tanks join the same brand.
@@ -465,6 +470,12 @@ which sell, so the formulation earns about 4,150 cr a charge from about 75 cr of
 salts. Every salt in the blend is made aboard from mined feed (no merchant sells
 them), so bought stock alone never pays; the bought ammonia and acid, about 3 cr
 a charge, cannot run without those salts. The native checks prove each at live prices.
+
+*Superseded figures (8 October 2026 note):* the
+[5 October economy audit](economy-audit-2026-10-05.md) cut crop nutrients to 150 cr/kg, so
+a charge's 2.771 kg is worth about 416 cr against about 351 cr of salts and reagents at
+today's prices, about 1.18 x. The [reagent-sale record](reagent-sale-at-industrial-hubs.md)
+proposes selling the four salts at industrial hubs on the strength of that figure.
 
 ## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0)
 

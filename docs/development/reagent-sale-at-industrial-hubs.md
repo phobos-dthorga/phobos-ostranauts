@@ -309,48 +309,63 @@ hours.
 ## Other balance seams found
 
 Collected while reading for this record; each with its evidence and a one-line recommendation.
-None is implemented here.
+The owner answered each on 8 October 2026; the outcome follows each item.
 
 - **Refining payback.** The LC-3 and SA-3 chains repay their 48,000 to 56,000 cr machines in
   about 300 to 740 machine-hours; an hour of LC-3 time earns about 150 cr
   ([refining record](refining-business-and-interdependencies.md), the payback table). The owner
   said this is for play to judge. Recommendation: leave it until the hub sale has been played,
-  since bought salts change what the LC-3 is for.
+  since bought salts change what the LC-3 is for. **Owner, 8 October 2026:** profits from
+  refining, and perhaps manufacturing, must rise substantially: the band becomes 3 to 5 x the
+  ore, carried by product prices, with every guard kept. A dated repricing proposal comes
+  before the build, and the spirit reprice below joins it.
 - **Epsom salt surplus.** An olivine charge makes 32 and about 4 are ever used; magnesia has no
   consumer, so the Epsom-to-acid idea waits (same record, idea 8). Recommendation: a hub buyer
-  does not help a surplus; the consumer is the fix.
+  does not help a surplus; the consumer is the fix. **Owner:** research a consumer first; the
+  candidates are in the refining record under idea 8 (a furnace refractory lining recommended).
 - **Water above its gases.** Process water at 10 cr/kg is worth more than the hydrogen and
   carbon dioxide that make it, so any hydrogenation that yields water gains a little whenever
   its gases can be bought. Recommendation: keep hydrogen unsold (done) and write the K2 loop
-  into the native checks as a bound, so a later price change cannot open it unseen.
+  into the native checks as a bound, so a later price change cannot open it unseen. **Done:**
+  the Manufacturing native checks now fail if the station ever sells every gas a K2 mode takes
+  while that mode repays them, and say that hydrogen is not sold.
 - **Stale nutrient figures.** Crop nutrients fell from 1,500 to 150 cr/kg on 5 October, but the
   old figure or its consequences remain in `docs/agriculture-item-reference.md` (the E2 hopper
   entry), `docs/manufacturing-item-reference.md` (the LC-3 salts group), a code comment in
   `src/PhobosAgriculture/Core/HopperRules.cs`, the crop-nutrients note in
   `mods/PhobosManufacturing/framework/process-recipes.json`, two passages of
   `manufacturing-refinery-and-chemistry.md` ("about 4,150 cr a charge") and
-  `asteroid-feedstock-programme-status.md`. Recommendation: fix the reviewed wording in
-  `config/item-reference.json` and the notes in the implementation round, regenerate, and
-  refresh the ledger.
+  `asteroid-feedstock-programme-status.md`. **Done** in Agriculture 0.66.2 and Manufacturing
+  0.58.2 (owner, 8 October 2026: fix now as a patch); the design records keep their dated
+  figures with a note beside them.
 - **Fermenting sugar never pays.** A 10 cr sugar packet becomes about 4 cr of ethanol; beet mash
   is roughly even ([economy audit, 5 October](economy-audit-2026-10-05.md), finding 6). Flax and
   sugar beet still cost more in water and nutrients than their raw produce sells for.
   Recommendation: accept as flavour unless the owner wants a spirit price nearer the game's
-  vodka, which would move the Corker-2 towards a business.
+  vodka, which would move the Corker-2 towards a business. **Owner:** reprice spirit near the
+  game's vodka, inside the repricing proposal.
 - **Engineering salvage.** After the 5 October cut the mods together add about 1,115 cr a find,
   and Manufacturing's 732 cr is the largest share (same audit, decision 2). Recommendation: no
   change; late-game machines found broken are the intended rare prize.
 - **Agent-default prices.** The EC-4 at 96,000 and the CR-4 at 72,000 (both marked open to owner
   revision in `docs/equipment-economy.md`), and the regolith leach odds of 72/22/4/2
   (`regolith-programme.md`). Recommendation: judge in play with the oxygen-from-rock round.
+  **Owner:** folded into the repricing proposal.
 - **Banking rates.** Orrery Credit, the remote line usable anywhere, charges 0.06% a shift plus a
   3% draw fee and is described as dearer than the registered lenders, yet it is cheaper per
   shift than Stillwater Advances (0.08%), which is local and unregistered
   (`mods/PhobosBank/framework/lenders.json`). Recommendation: either raise Orrery or lower
   Stillwater at the balance pass the Banking record already defers, and say which is dearer.
+  **Done:** Orrery Credit charges 0.10% a shift from Phobos Banking 0.8.1 (owner: raise Orrery
+  above Stillwater).
 - **Exchange.** The share-market design record calls for a simulated test that manipulating a
   station's cargo market cannot pay through the exchange; no such test exists yet.
   Recommendation: write it before the owner's gameplay checks, since it is cheap offline.
+  **Investigated, 8 October 2026:** the test as specified would fail. On paper most drivers can
+  be swung by flooding a station with its category's cheapest goods for far less than a capped
+  holding could gain; the arithmetic and four options are in the
+  [Exchange record](share-market-and-charts-design.md#manipulation-by-cargo-what-the-numbers-say-8-october-2026).
+  An owner decision is needed before the guard is written.
 - **Repair arbitrage and water ice.** Buying a broken machine, repairing it and selling it whole
   earns up to tens of thousands; thawing a 1,200 cr ice block yields 227 cr of water. Both follow
   the game's own valuations and were accepted on 29 September and 5 October. No change.

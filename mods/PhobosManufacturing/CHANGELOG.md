@@ -6,6 +6,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.58.2] - 2026-10-08 - Draft
+
 ### Added
 
 - Prepared matching Oxsmith EC-4 and CR-4 artwork: oxide-red frames, pale ceramic decks and blackened steel, with an electrode lid and mould tray on the cell, injector caps and paired gas domes on the reactor. Original 1254 x 1254 sources, 256 x 256 working masters and 64 x 64 native review exports are retained with exact prompts and provenance. These are planned machines; this artwork adds no equipment or production.
@@ -14,11 +16,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Redrew the Lixivar AT-2, AT-3 and AT-4 acid tanks and Alembrine Cask-2, Cask-3 and Cask-4 ethanol tanks with plain sealed tops and containment rims. Sage enamel and slate distinguish acid; steel, copper and brass distinguish ethanol. There are no painted readings, gauges or fill strips. All forms keep their existing image names, footprints and storage rules; other silos and small sprites are unchanged.
-
 - Redrew the L2 Canister Filling Station, A2 Cabin Air Regulator and Alembrine Corker-2 Bottling Unit with the same mechanical finish as the new reactor artwork. Each keeps its maker's colours, two-by-two footprint and existing image names on every form. The owner excluded the really small sprites, so materials, pipe tiles, one-tile equipment and floor remain unchanged. Production, prices, ports and saved state are unchanged.
-
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
+
+### Fixed
+
+- The LC-3 salts entry in the item reference still priced makeup packets at 30 cr and crop nutrients at 1,500 cr a kilogram. They have been 3 cr and 150 cr a kilogram since the 5 October economy review; the entry now says so. Wording only; prices in the game are unchanged.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
 
 ## [0.58.1] - 2026-10-07 - Released
 

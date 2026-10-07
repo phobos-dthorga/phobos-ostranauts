@@ -581,6 +581,19 @@ internal static class ManufacturingNativeChecks
         double sold = buyback * (cycles * ProcessorRules.OxygenKgPerCycle * GasPrice("O2") + methaneMol * 2 * 0.018015 * Price(ManufacturingRules.Water) + crackBed.Deposits.Single().Kg * GasPrice("H2")) +
             1.2 * crackBed.Products.Where(p => !ChargeCommodities.Is(p.Id)).Sum(p => p.Count * Price(p.Id));
         check(sold < bought, $"Cracking methane made from bought water and CO2 never repays the purchase: {sold:F2} back from {bought:F2}");
+        // The K2 water seam (reagent-sale record, 8 October 2026): process water at 10 cr/kg is worth more than the hydrogen
+        // and carbon that make it, so a K2 run on gases bought at the kiosk would repay them through the buy-back. Hydrogen
+        // stays unsold (owner decision, 8 October 2026); if a station ever sells every gas a K2 mode takes, that mode's
+        // methane and water sold back at the kiosk's share must not repay the purchase.
+        foreach (bool monoxide in new[] { false, true })
+        {
+            var carbon = monoxide ? GasStores.CarbonMonoxideFamily : GasStores.CarbonDioxideFamily;
+            bool allSold = StoreService.StationGases.Contains(GasStores.HydrogenFamily) && StoreService.StationGases.Contains(carbon);
+            double k2Bought = SabatierRules.HydrogenKgPerCycle * GasPrice("H2") + SabatierRules.CarbonKg(monoxide) * GasPrice(carbon.Species);
+            double k2Back = buyback * (SabatierRules.MethaneKg(monoxide) * GasPrice("CH4") + SabatierRules.WaterKg(monoxide) * Price(ManufacturingRules.Water));
+            check(!allSold || k2Back < k2Bought, $"A K2 cycle ({(monoxide ? "carbon monoxide" : "carbon dioxide")} mode) on gases the station sells never repays them: {k2Back:F2} back from {k2Bought:F2}");
+        }
+        check(!StoreService.StationGases.Contains(GasStores.HydrogenFamily), "The station does not sell hydrogen (owner decision, 8 October 2026): a K2 fed bought hydrogen would gain through its water");
         // The game's own CO2 filters enter the V4's feed at the game level, spent or ready; the exact rule then takes only spent ones.
         var feedTrigger = DataHandler.dictCTs[RefineryRules.FeedTrigger];
         foreach (string filter in new[] { "ItmFilterCO201Dmg", "ItmFilterCO202Dmg" })

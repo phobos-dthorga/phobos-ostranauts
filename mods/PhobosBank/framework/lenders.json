@@ -106,12 +106,12 @@
   },
   "creditLines": {
     "orrery-credit": {
-      "notes": "System-wide credit line (Phobos Banking 0.6.0; owner choices, 7 October 2026: a new service, opened from anywhere, one revolving balance, a draw fee plus a higher rate). Terms are agent choices for the owner to review: dearer than the registered lenders at their counters, cheaper than the Narrow Ledger. Lore is ChatGPT's to write (docs/development/banking-stories-handoff.md).",
+      "notes": "System-wide credit line (Phobos Banking 0.6.0; owner choices, 7 October 2026: a new service, opened from anywhere, one revolving balance, a draw fee plus a higher rate). Terms are agent choices for the owner to review: dearer than every lender at its counter, Stillwater Advances included, and cheaper than the Narrow Ledger. The rate rose from 0.06% to 0.10% a shift in Phobos Banking 0.8.1 (owner decision, 8 October 2026), because 0.06% undercut Stillwater. Lore is ChatGPT's to write (docs/development/banking-stories-handoff.md).",
       "name": "Orrery Credit",
       "pitch": "Wherever your course takes you, Orrery Credit goes with it. Open a line from your PDA, draw when you need to, and pay it back by the shift. It costs more than walking into a lender's office, and we say so up front: a small fee on every draw and a higher rate on what you owe. You pay nothing until you draw.",
       "person": "orrery-tamsin-ware",
       "limit": 25000,
-      "ratePerShift": 0.0006,
+      "ratePerShift": 0.001,
       "drawFee": 0.03,
       "minDraw": 500
     }

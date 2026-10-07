@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.66.1",
+      "value": "0.66.2",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.58.1",
+      "value": "0.58.2",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -2900,7 +2900,7 @@
     "Bank.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.8.0",
+      "value": "0.8.1",
       "description": "PhobosBank (Phobos Banking) published source/package version.",
       "targets": [
         {

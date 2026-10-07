@@ -387,6 +387,39 @@ native condition. Cost S.
   owner wants it as a refractory for furnace Restore.
 - **Cost:** M. Needs supersession and a bagged Epsom product.
 
+#### Magnesia: candidate consumers (research note, 8 October 2026)
+
+The owner asked for a consumer before idea 8 is built, so the Epsom surplus does not just
+become a magnesia surplus. Each candidate below is industrial practice stated from general
+chemistry knowledge; **unverified** until a primary source is read and cited beside it, and
+none is designed or built. Ranked by fit with the mods and the endurance direction:
+
+1. **Refractory lining for the F6 furnace (recommended).** Dead-burned magnesia is the usual
+   basic refractory in steelmaking furnace linings. A Shipbreaker F6 repair or Restore bill, or
+   the proposed [heat-sink castings](furnace-repair-castings.md), could take a magnesia lining
+   pack made from it. It links Manufacturing to Shipbreaker, gives a recurring consumer that
+   scales with furnace use, and needs no new machine: a pressed lining is a new item with a V4
+   or LC-3 charge, and a bill change is a new recipe id under the frozen-recipe rule.
+2. **Acid-spill neutraliser for the acid tanks.** Magnesia is a slow, mild base used to
+   neutralise sulfuric acid spills without the heat of a strong alkali. The AT tanks' Recover
+   trapped acid job could offer to neutralise a bund instead, returning Epsom salt (a closed
+   magnesium loop that loses value, as the rules require). Small consumer, safety flavour.
+3. **Magnesium source for struvite.** Wastewater plants dose magnesium oxide or hydroxide to
+   precipitate struvite. In the LC-3 this would replace Epsom salt in the acid-route struvite,
+   which lowers Epsom demand further: useful only if the olivine charge is also cut, so not
+   recommended alone.
+4. **A Halewright stomach remedy.** Magnesium oxide is sold as an antacid and laxative. A
+   Medical `care` entry could use a pressed tablet against the game's nausea conditions. Fits
+   crew health, but the quantities are tiny, so it is flavour rather than a sink.
+5. **Not recommended:** magnesium phosphate cement for regolith pavers (it would consume the
+   scarce phosphorus) and magnesia as a CO2 sorbent (too slow at cabin temperature to compete
+   with the game's own scrubbers).
+
+**Agent recommendation:** build idea 8 together with candidate 1, so every magnesia unit has
+a furnace to go to; keep candidate 2 for the hazard work. Sources to read and cite before any
+build: a refractories handbook chapter on magnesia linings, a struvite-recovery review for the
+MgO dosing practice, and a pharmacopoeia monograph for magnesium oxide.
+
 ### 9. Water-gas hydrogen in the V4
 
 - **Charge:** 1 carbon stock + 3.000 kg water → 3.664 kg CO2 + 0.336 kg

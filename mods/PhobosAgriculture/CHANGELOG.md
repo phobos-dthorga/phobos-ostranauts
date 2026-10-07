@@ -6,10 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.66.2] - 2026-10-08 - Draft
+
 ### Changed
 
 - The read-only data copies in the framework folder now say so on their first line, and name the folder where your own data files go. Packaging only; nothing changes in the game.
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
+
+### Fixed
+
+- The Groundwork hopper's entry in the item reference still gave the kiosk price of crop nutrients as 1,500 cr a kilogram. It has been 150 cr a kilogram since the 5 October economy review; the entry now says so. Wording only; prices in the game are unchanged.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
 
 ## [0.66.1] - 2026-10-07 - Released
 

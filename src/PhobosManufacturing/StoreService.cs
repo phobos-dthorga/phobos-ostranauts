@@ -29,8 +29,12 @@ internal static class StoreService
     /// 0.19.0) sulfuric acid into any size of acid tank, at the game's own price per kilogram (its GasPrices table, as
     /// the refuelling kiosk charges; the game prices H2SO4 there).</summary>
     internal const double GasPurchaseStepKg = 10;
+    /// <summary>The gases the station sells. Hydrogen, methane, ammonia and carbon monoxide are bought back only; the native
+    /// value checks read this list, so adding a gas here is proved against the K2 loop (hydrogen and CO2 bought, methane and
+    /// water sold back) before it ships.</summary>
+    internal static readonly IReadOnlyList<GasFamily> StationGases = new[] { GasStores.OxygenFamily, GasStores.NitrogenFamily, GasStores.CarbonDioxideFamily };
     internal static readonly Phobos.Ostranauts.Framework.Trading.VesselSupplyProvider Supplies = new(Plugin.Id, () => Content.Ready ?
-        GasOffers(new[] { GasStores.OxygenFamily, GasStores.NitrogenFamily, GasStores.CarbonDioxideFamily }, selling: true) :
+        GasOffers(StationGases, selling: true) :
         Array.Empty<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer, IReadOnlyList<string>)>());
     /// <summary>The kiosk buys back from every gas store, hydrogen, methane and ammonia included, and from every liquid
     /// tank, at the Framework share of the station price (Manufacturing 0.26.0; owner decision, 1 October 2026). Ethanol

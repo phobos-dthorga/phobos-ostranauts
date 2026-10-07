@@ -91812,7 +91812,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dc987629baced486a0187e5948c1ef60b2d4e37125f4789341bca9054fc9a994",
+      "sha256": "fee5a5fefadb4c21c5884208e3a417b6b027d65a09ca6f1436eefa81fb8f398c",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
@@ -91852,7 +91853,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "f3cc6adcc28025bea3e18226ecc5be7f6943f427caea4df376fddab8443e2459",
+      "sha256": "2967c59b4ed22132c08525d407affbad64b46708870dd5d5a89ec819d9297911",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
@@ -91987,7 +91989,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7cae85fd4d8136302749e7f9292012c05959a9bb32492fd5387b66ec5b089078",
+      "sha256": "7a0b913ee5c0ecbc0faa74da298d33b27a0e5e30cd851a624aef324a21ed2d26",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
@@ -92165,7 +92168,8 @@
       "path": "docs/development/asteroid-feedstock-programme-status.md",
       "scope": "developer status record",
       "decision": "new",
-      "sha256": "71586695438b9f32f0232b811f4e3a5ab7683f5ae0bc530db8e87e270129ba9d",
+      "sha256": "1eb1b6a982d62b245fdda9102cef35494c37949a8d1cc3fabb23ac431735d08c",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
     },
     {
@@ -92576,7 +92580,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "0f5c539bd0cbd91e697fc3269b5643cf6101ea2d2d5beb5b0df74b1fa4629ec7",
+      "sha256": "d83373fc9b2439b24cc69b42a4fdf241fe9566aeeeb86954adb4eb17d82ff9c3",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
@@ -92761,7 +92766,8 @@
       "path": "docs/development/refining-business-and-interdependencies.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "7139f5c453bd88da7d770c2ab69f8b738d857244c472dae2037f3b0969a92a52",
+      "sha256": "0c6f2c47dac3bb629652931f5f3b2673a2032bdcca3463227466b2f1f146d0e2",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
@@ -93113,7 +93119,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "256ea6f0e8de60b5c915948aae625150a8150fed3c4674cbe8b39af8107daf10",
+      "sha256": "1231e7c973f4290aca32073bf1c654ac28c794ea6d08f6fc0009a2c7a29e07f9",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
@@ -93298,7 +93305,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2bc2875e162042207a7f26b71a62a5f8f6426814e2a5f755220cbd2314420ed5",
+      "sha256": "f2417684b76dfd14b25a2d20f8d0d83ee2360b7537e1cbf24e8fae4e59aa4d04",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
       "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
     },
@@ -93331,7 +93339,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "267e98f5499fa929ff1e0c2a3d872c9f66b3f775a3cad7935c4b6298e7b1df31",
+      "sha256": "db7ec300fce2675e34ca9f83064dc5180f6ad8808f378e14e3b9433bd816c4ad",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way.",
       "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
     },
@@ -93368,7 +93377,8 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "ca2e5a35f3b63cc81f5723ea0653ea40e6fdf85d7781ff4400b88c1fd01312f9",
+      "sha256": "23fb4405aabef105d4c33f064db41dcb23002364fdd231e4df4904348f284763",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
@@ -93382,7 +93392,8 @@
       "path": "docs/bank-player-guide.md",
       "scope": "current player guide",
       "decision": "New player guide for Phobos Banking 0.1.0.",
-      "sha256": "157ce6b51c4ef73d78d4786854dd93dbe745aea06d3e02b73fc032182a56b732",
+      "sha256": "28d800e68fc732a481f66c4377ea45a026aa03ef3f192b751a7e5bad83336b00",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
@@ -93391,7 +93402,8 @@
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "a33220faefe8991ed663a8ac64613dc89234e4a8bdc6f41fa8502d823e8690ca",
+      "sha256": "5d4053ad2a8c5cb5abefa100ebc448000abfc6e497224271694f2c2ff29f747c",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007HoldLifted": "Reviewed 2026-10-07: the owner lifted the gameplay-check hold; the publication status line now reads development candidate, as on the other uploaded mods. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93402,7 +93414,8 @@
       "path": "docs/bank-item-reference.md",
       "scope": "generated item reference",
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
-      "sha256": "df2496237bf93e01a3447cfb9ecf5aa07d68922c354835420f7f791f622c8cdd",
+      "sha256": "fe4d2f067e361dfffa538bc228f73044263131e00123bbe292a4a29dcb39528b",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
     },
@@ -93433,7 +93446,8 @@
       "path": "docs/development/share-market-and-charts-design.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "fe29633767fd11d6da8bfc183b42ace8e2817ddfcf02d54a90ffac0d94960760",
+      "sha256": "75011d8d025afa0d29b0f99a0ea4b73999a9b11d0e7c2e03cd8be5715782a781",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026: research-only design record for a Phobos Banking share market and a Framework chart control. Observed game behaviour, library source reading, agent proposals, unverified points and owner decisions are labelled; finance research attributed to its authors with primary links; no runtime or player catalogue text changed.",
       "review20261007ExchangePlanning": "Reviewed 7 October 2026: planning-round section added (owner decisions, corrections, model, time jumps, save record) and superseded notes on the original proposal; owner choices and agent choices labelled; no runtime text changed.",
       "review20261007ExchangeBuilt": "Reviewed 7 October 2026: as-built section for Phobos Exchange 0.1.0 (trend phases as the difference of two OU processes, measured costs labelled as offline .NET figures, the guard and economy results, owner checks pending).",
@@ -93507,7 +93521,8 @@
       "path": "docs/development/reagent-sale-at-industrial-hubs.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "307c20fa8b2ebdcaecec2ca46857e9e731e72cbfbcd4afceaa578def4c987d1c",
+      "sha256": "fd772cb1f237f76c6528e9215d6277e0930f5309b24f414cf6d8837381bba548",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 8 October 2026: research-only design record for selling reagents at the game's industrial hubs (what the game's merchant tables and production maps show, what our stock and bulk-supply code already has and lacks, the classification of every chemical and bulk commodity, the chain arithmetic under the value rules, the owner's four decisions of the same day, the implementation outline for the next round and a survey of other balance seams); wording read against player-language.md; nothing built and nothing claimed as tested in play."
     },
     {
@@ -93522,7 +93537,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d05a6d7e020c42a57d41bdae52144ea841fe3f4d6f92bf8407fc8882d178234d",
+      "sha256": "052ceb49a640ffcdae7f922d127c634d6acb1933483c1e3e47da18e2300549db",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
@@ -93540,7 +93556,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1b6837f5370f44406b3c4973debc4637c4699ef7974fb209aef3520252f465af",
+      "sha256": "569013ad53650bd7153aec7c52ec74a1ceee561fa9c274daa80777706c9742e0",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
     },
     {
@@ -93587,7 +93604,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "78c14efc79cf99977619f40f77bdf5d107e055d8e0a5b59e4d51545a68a41304",
+      "sha256": "85cc9cd094af50dfecae5635ea421d9522184fd323242b32137ec8a1f887f02e",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
     },
     {
@@ -93817,7 +93835,8 @@
     {
       "path": "mods/PhobosBank/CHANGELOG.md",
       "scope": "player-facing release changelog",
-      "sha256": "8b4ceae975deddc247f79849d1953777a2bd8d83fff8c3080dc4812c15acf32d",
+      "sha256": "16b6d1a605e52d85a9d2658a1354442c1385806134235be90aabae25447edce8",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
@@ -93868,7 +93887,8 @@
       "path": "mods/PhobosBank/mod_info.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "09c47dcd30039f79536f5075669d081f881ae3992ca0ad4ba2eba08fc9646ddb",
+      "sha256": "fa3d6e7121c97041874cba8a41e231f08fb4b9eca30eac4c57e22810b659c30c",
+      "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: version, Framework requirement and description; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up)."
     },

@@ -101,13 +101,14 @@ You can add lenders of your own or change these: see
 ## A credit line you can use anywhere
 
 **Orrery Credit** is a credit line you open and draw on from your PDA, wherever you are
-(owner choice, 7 October 2026). It costs more than a lender's counter, and says so: a fee
+(owner choice, 7 October 2026). It costs more than any lender's counter, and says so: a fee
 on every draw and a higher rate on what you owe. Its terms are agent choices for the owner
-to review:
+to review; the rate rose from 0.06% to 0.10% a shift in Phobos Banking 0.8.1 (owner
+decision, 8 October 2026). A line opened before then keeps the rate it opened with:
 
 | Limit | Interest a shift | Fee on each draw | Smallest draw |
 | --- | --- | --- | --- |
-| 25,000 | 0.06% | 3%, added to what you owe | 500 |
+| 25,000 | 0.10% | 3%, added to what you owe | 500 |
 
 1. Press **Credit line**, then **Open a credit line**. Opening costs nothing.
 2. Choose an amount and press **Draw**. The panel shows the fee, what you will owe and the

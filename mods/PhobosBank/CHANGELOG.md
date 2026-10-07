@@ -5,6 +5,17 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-10-08 - Draft
+
+### Balance
+
+- Orrery Credit now charges 0.10% a shift on what you owe, up from 0.06%. The line is sold as dearer than walking into any lender's office, but 0.06% undercut Stillwater Advances (0.08%). It stays cheaper than the Narrow Ledger (0.15%), and the 3% draw fee is unchanged (owner decision, 8 October 2026).
+
+### Compatibility and limits
+
+- Saves: a credit line you already opened keeps the rate it opened with, as every line does. Only lines opened after the update pay 0.10%.
+- Checked offline; not yet seen in the game.
+
 ## [0.8.0] - 2026-10-08 - Draft
 
 ### Added

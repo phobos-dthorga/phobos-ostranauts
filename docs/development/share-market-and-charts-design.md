@@ -684,6 +684,79 @@ old-record fixtures as for the loan book.
   `Ledger.RecordTransaction`; dividends are ledger lines. Payment of debts stays in the
   game's Finances window.
 
+### Manipulation by cargo: what the numbers say (8 October 2026)
+
+The owner asked for the simulated manipulation test on 8 October 2026. Working it out showed
+that the test as specified would fail today, so this section records the arithmetic and the
+options instead of a failing check. **Nothing is changed in the mod yet; an owner decision is
+needed.**
+
+**Observed** (the installed game's `ShipMarket`, read in the local decompile): a station's
+factor for a category is `1 + D × g`, where `D` is the station's net demand per hour from its
+production maps, clamped to ±0.8 (±1.7 under a blockade), and `g` is how empty its stock is
+(`1 − fill` when `D` is positive, `fill` when negative). Every item a player sells to or buys
+from that station's traders moves the stock by one unit through `MarketManager.ReportTransaction`,
+and `fill` is stock over the station's capacity for the category. So the player cannot change
+`D`, but can drive `fill` from one end to the other, which swings the factor across its whole
+range: between 1 and 1.8 when `D` is +0.8, and between 0.2 and 1 when it is −0.8.
+
+**Repository:** a driver's goal is `weight × ln(factor)`, followed with a one-day half-life; a
+holding is capped at 250,000 cr a company; a round trip costs two 0.4% commissions and the
+spread. The table takes the worst case (|D| = 0.8), the station's capacity from the game's
+cargo-kiosk configuration, and the cheapest item the game counts in each category, bought at
+1.2 x its base price and sold to the station at 0.5 x (a loss of 0.7 x a unit):
+
+| Company | Driver | Weight | Stock units | Cheapest item in the category | Cost to fill the stock | Most a capped holding gains, D = +0.8 | D = −0.8 |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: |
+| Smartlink | MTRS weapons | 0.5 | 13,200 | ammunition casings, 1 cr | 9,240 | 82,410 | 306,017 |
+| Smartlink | SVIR weapons | 0.4 | 8,800 | ammunition casings, 1 cr | 6,160 | 63,263 | 222,913 |
+| Testudo | SVIR hulls | 0.4 | 8,800 | floor grate, 15 cr | 92,400 | 63,263 | 222,913 |
+| Testudo | VCBR hulls | 0.3 | 130 | floor grate, 15 cr | 1,365 | 45,210 | 152,164 |
+| Testudo | MTRS metal | −0.2 | 13,200 | carbon fibre scrap, 0.12 cr | 1,109 | 28,187 | 91,932 |
+| Ayotimiwa | OKLG hulls | 0.4 | 1,000 | floor grate, 15 cr | 10,500 | 63,013 | 222,663 |
+| Ayotimiwa | OKLG ores | 0.3 | 500 | regolith, 35 cr | 12,250 | 44,960 | 151,914 |
+| Green Energy | BCRS intoxicants | 0.4 | 660 | drink bottle, 0.7 cr | 323 | 63,013 | 222,663 |
+| Green Energy | EJDR intoxicants | 0.3 | 880 | drink bottle, 0.7 cr | 431 | 44,960 | 151,914 |
+| Brightvein | BCRS ores | 0.5 | 660 | regolith, 35 cr | 16,170 | 81,910 | 305,517 |
+| Brightvein | MTRS metal | 0.3 | 13,200 | carbon fibre scrap, 0.12 cr | 1,109 | 44,710 | 151,664 |
+| Coldwell | MTRS volatiles | 0.4 | 13,200 | volatiles cargo, 1,000 cr | 9,240,000 | 62,763 | 222,413 |
+| Coldwell | MVOL volatiles | 0.3 | 330 | volatiles cargo, 1,000 cr | 231,000 | 44,710 | 151,664 |
+| Coldwell | VORB helium-3 | 0.2 | 2,000 | helium-3 cargo, 773 cr | 1,082,200 | 27,687 | 91,432 |
+| Verdemorrow | BCRS food | 0.4 | 660 | algae trencher, 60 cr | 27,720 | 63,013 | 222,663 |
+| Verdemorrow | HQCH food | 0.3 | 180 | algae trencher, 60 cr | 7,560 | 44,960 | 151,914 |
+| Halewright | BCRS medical | 0.3 | 660 | anti-nausea box, 0.03 cr | 14 | 45,210 | 152,164 |
+| Halewright | MHNG medical | 0.3 | 3,300 | anti-nausea box, 0.03 cr | 69 | 45,210 | 152,164 |
+| Halewright | SVIR medical | 0.2 | 8,800 | anti-nausea box, 0.03 cr | 185 | 28,187 | 91,932 |
+
+Only Coldwell's drivers (bulk volatiles and helium-3) and Testudo's Titan hulls cost more to
+swing than they could return. Everywhere else, flooding a station with the category's cheapest
+goods for a few hundred to a few thousand credits could, on paper, move a price by a third or
+more, so buying low before the flood (or high before a buy-out) and waiting for the station to
+drain pays many times over.
+
+**Unverified, and could each close the gap in play:** whether every trader at a driver station
+reports its trades to that station's market (only market actors do), whether a station takes
+junk such as anti-nausea boxes into its category stock, how fast the game's own haulers and
+production drain a flood, and the sign of `D` at each driver station (not read: it lives in the
+production code, which we hold only as IL). The figures are ceilings, not observed play.
+
+**Options for the owner** (agent proposals, not built):
+
+1. **Read demand, not stock (agent recommendation).** The game exposes each station's stock
+   and capacity for a category, so a driver can recover `D` from the factor and the fill and
+   follow `D` alone. Cargo trading then cannot move a share price; blockades, station events and
+   production changes still do. The cost: the player's own dumping no longer moves prices at
+   all, which the original design wanted as flavour.
+2. **Slow, capped drivers.** Follow the factor with a two-week half-life and cap each driver's
+   contribution (for example to ±5% of the price). A flood must be held for weeks against the
+   station's own draining, and the most it can move a capped holding is about 12,500 cr. Still
+   cheaper than that for most drivers, so this narrows the seam without closing it.
+3. **Drivers only on bulk categories.** Keep drivers only where the cheapest item is real bulk
+   cargo (volatiles, helium-3, ore pods), as Coldwell's already are, and move the other
+   companies onto sector and news only.
+4. **Accept it** as a reward for cunning, with a smaller holding cap. Breaks the owner's rule
+   that the share drift is the only gaining loop, so not recommended.
+
 ## Charts: a Framework control (agent proposal)
 
 A shared chart control in Framework, since many mods would use it: loan balances over time,

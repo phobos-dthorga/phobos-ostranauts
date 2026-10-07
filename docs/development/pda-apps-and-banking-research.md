@@ -617,7 +617,9 @@ balance plus a higher rate**. Claude's design, against the research above:
 - **Data:** a `creditLines` table in the lenders pack (limit, ratePerShift, drawFee,
   minDraw, optional person and requires; ids shared with the lenders, at most 31
   characters). **Orrery Credit** (agent choices): limit 25,000, 0.06% a shift (dearer
-  than the registered lenders' 0.02 to 0.03%, cheaper than the Narrow Ledger's 0.15%), a
+  than the registered lenders' 0.02 to 0.03%, cheaper than the Narrow Ledger's 0.15%;
+  raised to 0.10% in Phobos Banking 0.8.1, owner decision of 8 October 2026, because
+  0.06% undercut Stillwater Advances' 0.08%), a
   3% draw fee, smallest draw 500, no requirements.
 - **Book:** `account.<id>` holds the terms copied at opening; each balance cycle is a
   loan of kind `line`, so interest, the late flags and story events reuse the loan
