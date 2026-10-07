@@ -92957,7 +92957,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ff58eb2b95f1fd762a1b912cd486b6773474ccde7cbbfdd0ea2b856cdc8125e2",
+      "sha256": "604ae042967c352dc718e044add22537386b928c544e39fbe683450ae12b548c",
+      "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 2026-10-06 for Auto Nav 0.35.0 press twice to go ahead: second-press warnings name what is stopped and that the ship coasts; refusals name one cause.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
@@ -92965,7 +92966,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6d2ec666635dc658056a8aa4ddfecf7f79676f2923f5c655cd7fe1008f445893",
+      "sha256": "3ebce1602cc4b5ce2eef0ee3a1b8377f8d8fb5ac6beabdfcd8554a9ac7e7d92c",
+      "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93448,14 +93450,16 @@
       "path": "mods/PhobosAutoNav/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "76ded413519afe279d539a217055cf48ffb9ab70f1d3503036ae09db0c203e1a",
+      "sha256": "ff6766dcf8d9b82d61fd9d09457bb0203946c232be7d559e0dbd114e3c27258d",
+      "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosFramework/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "9715d342e98741114df2c418a00051aa9094da4d816ba7a67590fb54dc580abc",
+      "sha256": "3b4973b8da5de4fdf64d988bee94f6ec9045716bd32fa609d678e56eae4a7b69",
+      "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {

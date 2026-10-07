@@ -29,7 +29,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
-## [0.129.0] - 2026-10-07 - Draft
+## [0.129.0] - 2026-10-07 - Released
 
 ### Added
 
@@ -62,7 +62,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Automatic. Nothing new is saved by Framework.
 
-## [0.127.2] - 2026-10-07 - Draft
+## [0.127.2] - 2026-10-07 - Released
 
 ### Fixed
 
