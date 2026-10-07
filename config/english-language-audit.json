@@ -93774,7 +93774,8 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "fdbd4b81a1115591b525cb710fae80680c5b8498fe0d3f9a15b75f62b67d1115",
+      "sha256": "5d508d6aefb3bb364122119b78d706604fec83e604bac0e06bec826d232401cf",
+      "review20261008PublicRelease": "Reviewed 2026-10-08: the version published to the public Workshop item is marked Released with its date; no other wording changed.",
       "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
     },
     {
@@ -93859,7 +93860,8 @@
     {
       "path": "mods/PhobosBank/CHANGELOG.md",
       "scope": "player-facing release changelog",
-      "sha256": "16b6d1a605e52d85a9d2658a1354442c1385806134235be90aabae25447edce8",
+      "sha256": "e27e0afbc8045e7b2ceeb0dd0e2f8279fa30311356c3706796f80aa9c09450fb",
+      "review20261008PublicRelease": "Reviewed 2026-10-08: the version published to the public Workshop item is marked Released with its date; no other wording changed.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date.",
@@ -93930,7 +93932,8 @@
       "path": "mods/PhobosFramework/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "6fb93d3c6a9ed473ea069b7950866089f625f0d5e5b7bf4f1ba361c06730ab64",
+      "sha256": "8120dab190083ab1b18403d52b64607d50d6eaed6dff93cf6749d14a625d056a",
+      "review20261008PublicRelease": "Reviewed 2026-10-08: the version published to the public Workshop item is marked Released with its date; no other wording changed.",
       "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",

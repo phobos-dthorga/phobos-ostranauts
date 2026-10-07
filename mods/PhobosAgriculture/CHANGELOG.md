@@ -6,7 +6,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-## [0.66.2] - 2026-10-08 - Draft
+## [0.66.2] - 2026-10-08 - Released
 
 ### Changed
 

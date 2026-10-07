@@ -5,7 +5,7 @@ not Steam publication.
 
 ## [Unreleased]
 
-## [0.8.1] - 2026-10-08 - Draft
+## [0.8.1] - 2026-10-08 - Released
 
 ### Balance
 
