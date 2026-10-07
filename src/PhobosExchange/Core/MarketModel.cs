@@ -119,16 +119,19 @@ public sealed class MarketModel
     /// <summary>Whether <see cref="Start"/> has run; driver readings before then are ignored.</summary>
     public bool Started { get; private set; }
 
-    /// <summary>Opens a save's market (0.2.1): starts it, then reads every driver through <paramref name="factor"/> (the game's
-    /// price factor, or null for no reading). A new market's drivers start at their readings with the base moved to match,
-    /// so it opens at the pack's prices and does not drift over its first day while the drivers settle.</summary>
+    /// <summary>Opens a save's market (0.2.1): starts it, then reads every driver through <paramref name="factor"/> (the
+    /// factor the station's demand gives, or null for no reading). A new market's drivers start at their readings with the
+    /// base moved to match, so it opens at the pack's prices and does not drift over its first day while the drivers settle.
+    /// A save whose drivers followed station stock (before 0.5.2) is settled the same way once, so the change of reading
+    /// moves no price.</summary>
     public static MarketModel Open(ExchangePack pack, ExchangeRecord record, long now, ulong seed, Func<DriverEntry, double?> factor, IMarketObserver? observer = null)
     {
         bool fresh = record.Clock == null;
         var model = new MarketModel(pack, record);
         model.Start(now, seed, observer);
         model.ReadFactors(factor);
-        if (fresh) model.SettleDrivers();
+        if (fresh || record.DriverBasis < DriverReading.DemandBasis) model.SettleDrivers();
+        record.DriverBasis = Math.Max(record.DriverBasis, DriverReading.DemandBasis);
         return model;
     }
 

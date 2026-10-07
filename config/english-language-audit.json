@@ -90782,26 +90782,26 @@
       "key": "Cause.scarce",
       "category": "status/warning",
       "decision": "add",
-      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept. Revised 8 October 2026 for Phobos Exchange 0.5.2: drivers follow the station's demand, not its stock, so the text names demand.",
       "trace": "literal reference",
       "references": [
         "src/PhobosExchange/Market.cs:209"
       ],
       "before": "as {0} ran short at {1}",
-      "after": "as {0} ran short at {1}"
+      "after": "as demand for {0} rose at {1}"
     },
     {
       "mod": "PhobosExchange",
       "key": "Cause.plenty",
       "category": "status/warning",
       "decision": "add",
-      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept. Revised 8 October 2026 for Phobos Exchange 0.5.2: drivers follow the station's demand, not its stock, so the text names demand.",
       "trace": "literal reference",
       "references": [
         "src/PhobosExchange/Market.cs:209"
       ],
       "before": "as {0} piled up at {1}",
-      "after": "as {0} piled up at {1}"
+      "after": "as demand for {0} eased at {1}"
     },
     {
       "mod": "PhobosExchange",
@@ -91107,26 +91107,26 @@
       "key": "Console.drivers_heading",
       "category": "help/settings",
       "decision": "add",
-      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept. Revised 8 October 2026 for Phobos Exchange 0.5.2: drivers follow the station's demand, not its stock, so the text names demand.",
       "trace": "literal reference",
       "references": [
         "src/PhobosExchange/Plugin.cs:187"
       ],
       "before": "Drivers, read only: company, station, category, the game's price factor now, weight, where the signal is heading and where it is (log units).",
-      "after": "Drivers, read only: company, station, category, the game's price factor now, weight, where the signal is heading and where it is (log units)."
+      "after": "Drivers, read only: company, station, category, the price factor the station's demand gives at half stock (cargo trading does not move it), weight, where the signal is heading and where it is (log units)."
     },
     {
       "mod": "PhobosExchange",
       "key": "Console.driver_line",
       "category": "help/settings",
       "decision": "add",
-      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept. Revised 8 October 2026 for Phobos Exchange 0.5.2: drivers follow the station's demand, not its stock, so the text names demand.",
       "trace": "literal reference",
       "references": [
         "src/PhobosExchange/Plugin.cs:197"
       ],
       "before": "{0}: {1} ({2}) {3}: factor {4}, weight {5}, heading {6}, now {7}",
-      "after": "{0}: {1} ({2}) {3}: factor {4}, weight {5}, heading {6}, now {7}"
+      "after": "{0}: {1} ({2}) {3}: demand factor {4}, weight {5}, heading {6}, now {7}"
     },
     {
       "mod": "PhobosExchange",
@@ -91812,7 +91812,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fee5a5fefadb4c21c5884208e3a417b6b027d65a09ca6f1436eefa81fb8f398c",
+      "sha256": "d0830c6d886a117df3f083ed8b50589b104bb9d6f900d357653b49cb4cd4bbef",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
@@ -93446,7 +93447,8 @@
       "path": "docs/development/share-market-and-charts-design.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "75011d8d025afa0d29b0f99a0ea4b73999a9b11d0e7c2e03cd8be5715782a781",
+      "sha256": "f5260de932141cbebca542b0bc4127c843db3cc551e47c3fa0d95d0359362ce8",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026: research-only design record for a Phobos Banking share market and a Framework chart control. Observed game behaviour, library source reading, agent proposals, unverified points and owner decisions are labelled; finance research attributed to its authors with primary links; no runtime or player catalogue text changed.",
       "review20261007ExchangePlanning": "Reviewed 7 October 2026: planning-round section added (owner decisions, corrections, model, time jumps, save record) and superseded notes on the original proposal; owner choices and agent choices labelled; no runtime text changed.",
@@ -93460,7 +93462,8 @@
       "path": "docs/exchange-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "new",
-      "sha256": "60cebfafe6a4bf5688c6fa8f141e2b3bf27dc4c343d0193ab82081768444b95d",
+      "sha256": "5f0b582e2a4bd8b5843121c02472ef7aa89564c796e4928a6a25af1e2513ad18",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
@@ -93471,7 +93474,8 @@
       "path": "docs/exchange-item-reference.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "new",
-      "sha256": "bab87df43278ceedff39328401501f5b2c1cd870b6c8c6606c2b2ebeb6c05c2a",
+      "sha256": "99fdfedad1a24f42b9a42b872c1b8bd2befc3175521335bbb7272fe1380bd907",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
       "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play."
@@ -93480,7 +93484,8 @@
       "path": "workshop/PhobosExchange/page.bbcode",
       "scope": "current player text; Workshop page draft",
       "decision": "new",
-      "sha256": "404f0cc55175f82b255eb04097930b0dfb4a0b18011ae501ede8fcdf76ff1a78",
+      "sha256": "687e5ea163914afaf3ac634c95cadec1e1b03cf6e1b071eb4b166aaadecafe6d",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93521,7 +93526,8 @@
       "path": "docs/development/reagent-sale-at-industrial-hubs.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "fd772cb1f237f76c6528e9215d6277e0930f5309b24f414cf6d8837381bba548",
+      "sha256": "3fc87857bf8e3cb984bf91d66da04d947dd22270564096bbe5a76b98a5d0c457",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 8 October 2026: research-only design record for selling reagents at the game's industrial hubs (what the game's merchant tables and production maps show, what our stock and bulk-supply code already has and lacks, the classification of every chemical and bulk commodity, the chain arithmetic under the value rules, the owner's four decisions of the same day, the implementation outline for the next round and a survey of other balance seams); wording read against player-language.md; nothing built and nothing claimed as tested in play."
     },
@@ -93851,7 +93857,8 @@
       "path": "mods/PhobosExchange/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "55d9d902cc7c969106f712ba2e0678d5f28f65be4ca5f79024ab0075951b3987",
+      "sha256": "0c5ddad4df8a525c8ce0c17081e1b2ebe9e0676c3f43ff5c3f57e6eef8a70ff2",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
@@ -93875,7 +93882,8 @@
       "path": "mods/PhobosExchange/mod_info.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "f15f1fdce207e74a45821b21edb0b2e57fd598eee9ae68839a8985f16f2d5256",
+      "sha256": "816f69c86474a07cb769e0c6a1220acad983ea766d3828b55cf66a42f8a962c6",
+      "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",

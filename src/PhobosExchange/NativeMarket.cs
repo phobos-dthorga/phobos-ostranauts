@@ -17,6 +17,16 @@ internal static class NativeMarket
         return factor;
     }
 
+    /// <summary>The factor a driver follows (0.5.2): what the station's demand for the category gives at half stock, recovered
+    /// from the game's factor and the station's stock, so cargo trading there cannot move it. Null when the station has no
+    /// market, does not price the category, or holds its stock at the end where the factor says nothing about demand.</summary>
+    public static double? Demand(string station, string category)
+    {
+        var market = MarketManager.GetShipMarket(station);
+        if (market?.PriceModifiers == null || !market.PriceModifiers.TryGetValue(category, out float factor)) return null;
+        return Core.DriverReading.Factor(factor, market.GetStockCountForCategory(category), market.GetMaxInventoryForCategory(category));
+    }
+
     /// <summary>Why a driver cannot read anything, or null when the game knows the station's market and the category.</summary>
     public static string? Problem(string station, string category)
     {

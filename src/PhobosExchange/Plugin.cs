@@ -21,7 +21,7 @@ namespace PhobosExchange;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ExchangeRules.Owner;
-    public const string Version = "0.5.1";
+    public const string Version = "0.5.2";
     public const string MinimumFrameworkVersion = "0.132.0";
     internal const string ModName = "Phobos Exchange";
     internal static Action<string> Log = _ => { };
@@ -225,7 +225,7 @@ internal static class ConsolePatch
             for (int j = 0; j < drivers.Count; j++)
             {
                 var d = drivers[j];
-                double? factor = NativeMarket.Factor(d.station, d.category);
+                double? factor = NativeMarket.Demand(d.station, d.category);
                 text.Append('\n').Append(Text.Get("Console.driver_line", m.Entries[i].ticker, NativeMarket.StationName(d.station), d.station, NativeMarket.CategoryName(d.category),
                     factor is double f ? f.ToString("0.000", CultureInfo.InvariantCulture) : Text.Get("Console.no_reading"),
                     d.weight.ToString("+0.00;-0.00", CultureInfo.InvariantCulture), m.DriverGoal(i, j).ToString("+0.000;-0.000;0.000", CultureInfo.InvariantCulture),

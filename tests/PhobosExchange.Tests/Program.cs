@@ -217,6 +217,65 @@ double? Factor(DriverEntry d)
     Check(Enumerable.Range(0, resumed.Count).All(i => resumed.LnPrice[i] == opened.LnPrice[i]) && resumed.DriverPart(keel, 0) == opened.DriverPart(keel, 0),
         "opening a saved market resumes at its saved prices and drivers");
 }
+
+// ---- Drivers follow demand, not stock (0.5.2; owner decision, 8 October 2026) -------------------------------
+// The game's factor is 1 + D x g, g = 1 - fill for positive demand and fill for negative (ShipMarket, observed). A player
+// who floods or empties a station moves only the fill; the reading must not move with it.
+double NativeFactor(double demand, double fill) => 1 + demand * (demand >= 0 ? 1 - fill : fill);
+foreach (double demand in new[] { 0.8, 0.3, -0.3, -0.8 })
+{
+    double expected = 1 + demand * DriverReading.ReferenceFill;
+    foreach (double fill in new[] { 0.03, 0.1, 0.5, 0.9, 0.97 })
+    {
+        double? read = DriverReading.Factor(NativeFactor(demand, fill), fill * 1000, 1000);
+        Check(read is double r && Near(r, expected, 1e-9), $"a driver reads demand {demand} the same at {fill:P0} stock: {read}");
+    }
+}
+Check(DriverReading.Factor(1, 500, 1000) == 1, "a factor of one with stock between the ends is no demand");
+Check(DriverReading.Factor(1, 1000, 1000) == null && DriverReading.Factor(1, 0, 1000) == null, "a factor of one at either end of the stock says nothing about demand: the driver holds");
+Check(DriverReading.Factor(1.4, 999, 1000) == null && DriverReading.Factor(0.6, 1, 1000) == null, "a factor at the end where demand cannot be read holds the driver");
+Check(DriverReading.Factor(null, 500, 1000) == null && DriverReading.Factor(double.NaN, 500, 1000) == null, "no factor, no reading");
+Check(Near(DriverReading.Factor(1.4, 0, 0)!.Value, 1.2, 1e-12), "an empty capacity counts as an empty stock, as the game does");
+Check(Near(DriverReading.Factor(3, 0, 1000)!.Value, 1 + DriverReading.MaxDemand * DriverReading.ReferenceFill, 1e-12), "demand is held to the game's blockade bound");
+// The manipulation test the design record asked for: two markets, one flooded and one bought out, read the same.
+{
+    double Reading(DriverEntry d, double fill)
+    {
+        double demand = d.weight > 0 ? 0.8 : -0.8;
+        return DriverReading.Factor(NativeFactor(demand, fill), fill * 660, 660)!.Value;
+    }
+    var flooded = MarketModel.Open(pack, new ExchangeRecord(), now, Seed, d => Reading(d, 0.97));
+    var emptied = MarketModel.Open(pack, new ExchangeRecord(), now, Seed, d => Reading(d, 0.03));
+    for (int day = 1; day <= 14; day++)
+    {
+        double fill = day % 2 == 0 ? 0.97 : 0.03;
+        flooded.ReadFactors(d => Reading(d, fill));
+        emptied.ReadFactors(d => Reading(d, 1 - fill));
+        flooded.Advance(now + day * 1440, null);
+        emptied.Advance(now + day * 1440, null);
+    }
+    Check(Enumerable.Range(0, flooded.Count).All(i => Near(flooded.Price(i), emptied.Price(i), 1e-9)),
+        "flooding or emptying a driver station's stock for two weeks moves no share price");
+}
+// Saves from before 0.5.2 followed stock: their drivers settle once on load, so the new reading moves no price.
+{
+    var old = MarketModel.Open(pack, new ExchangeRecord(), now, Seed, Factor);
+    old.Advance(now + 1440, null);
+    var oldRecord = ExchangeRecord.Decode(old.Record.Encode());
+    oldRecord.DriverBasis = 0;
+    var oldFields = oldRecord.Encode();
+    Check(!oldFields.ContainsKey("drivers"), "a stock-following record writes no basis field, as 0.5.1 wrote none");
+    double[] before = Enumerable.Range(0, old.Count).Select(old.Price).ToArray();
+    var migrated = MarketModel.Open(pack, ExchangeRecord.Decode(oldFields), old.Clock, Seed, d => 0.7);
+    Check(Enumerable.Range(0, migrated.Count).All(i => Near(migrated.Price(i), before[i], 1e-12)), "an older save opens at its saved prices although every reading changed");
+    Check(migrated.Record.DriverBasis == DriverReading.DemandBasis && ExchangeRecord.Decode(migrated.Record.Encode()).DriverBasis == DriverReading.DemandBasis,
+        "the save then records that its drivers follow demand");
+    var again = MarketModel.Open(pack, ExchangeRecord.Decode(migrated.Record.Encode()), migrated.Clock, Seed, d => 1.3);
+    int keelAgain = again.IndexOf("keel");
+    // The settle moves the base by the drivers' change, so the reopened sum can differ in the last binary place.
+    Check(Enumerable.Range(0, again.Count).All(i => Near(again.LnPrice[i], migrated.LnPrice[i], 1e-12)), "a migrated save reopens at its saved prices");
+    Check(again.DriverGoal(keelAgain, 0) != again.DriverPart(keelAgain, 0), "a migrated save is settled only once: later readings move its drivers as usual");
+}
 // The chart's points (0.2.1: the 120-day chart lost its newest 15 closes).
 {
     var h = one.History(0);

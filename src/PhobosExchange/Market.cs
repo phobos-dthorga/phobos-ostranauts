@@ -117,7 +117,7 @@ internal static class Market
         return true;
     }
 
-    private static readonly Func<DriverEntry, double?> DriverFactor = d => NativeMarket.Factor(d.station, d.category);
+    private static readonly Func<DriverEntry, double?> DriverFactor = d => NativeMarket.Demand(d.station, d.category);
 
     /// <summary>Once a real second: read the drivers when a game hour has turned, step the market to the game's clock, and
     /// tell the player what happened, in one line or a short summary.</summary>
@@ -315,7 +315,7 @@ internal static class Market
             case Core.Cause.Driver when r.Driver >= 0 && r.Driver < c.drivers.Count:
             {
                 var d = c.drivers[r.Driver];
-                // The driver's part moved with the price; the game's factor moved that way times the sign of its weight
+                // The driver's part moved with the price; the station's demand moved that way times the sign of its weight
                 // (a dearer input pulls the price down).
                 bool scarcer = (r.Change >= 0) == (d.weight > 0);
                 return Text.Get(scarcer ? "Cause.scarce" : "Cause.plenty", NativeMarket.CategoryName(d.category), NativeMarket.StationName(d.station));

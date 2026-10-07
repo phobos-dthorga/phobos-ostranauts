@@ -365,7 +365,8 @@ The owner answered each on 8 October 2026; the outcome follows each item.
   be swung by flooding a station with its category's cheapest goods for far less than a capped
   holding could gain; the arithmetic and four options are in the
   [Exchange record](share-market-and-charts-design.md#manipulation-by-cargo-what-the-numbers-say-8-october-2026).
-  An owner decision is needed before the guard is written.
+  **Owner:** drivers follow station demand, not stock; built with the test in Phobos Exchange
+  0.5.2.
 - **Repair arbitrage and water ice.** Buying a broken machine, repairing it and selling it whole
   earns up to tens of thousands; thawing a 1,200 cr ice block yields 227 cr of water. Both follow
   the game's own valuations and were accepted on 29 September and 5 October. No change.

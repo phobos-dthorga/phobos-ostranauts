@@ -687,9 +687,9 @@ old-record fixtures as for the loan book.
 ### Manipulation by cargo: what the numbers say (8 October 2026)
 
 The owner asked for the simulated manipulation test on 8 October 2026. Working it out showed
-that the test as specified would fail today, so this section records the arithmetic and the
-options instead of a failing check. **Nothing is changed in the mod yet; an owner decision is
-needed.**
+that the test as specified would fail, so this section records the arithmetic and the options.
+**Owner decision, the same day: option 1, built in Phobos Exchange 0.5.2** (see the end of this
+section).
 
 **Observed** (the installed game's `ShipMarket`, read in the local decompile): a station's
 factor for a category is `1 + D × g`, where `D` is the station's net demand per hour from its
@@ -756,6 +756,20 @@ production code, which we hold only as IL). The figures are ceilings, not observ
    companies onto sector and news only.
 4. **Accept it** as a reward for cunning, with a smaller holding cap. Breaks the owner's rule
    that the share drift is the only gaining loop, so not recommended.
+
+**As built (Phobos Exchange 0.5.2, 8 October 2026; owner chose option 1).** `Core/DriverReading`
+recovers `D` from the factor and the station's stock (`GetStockCountForCategory`,
+`GetMaxInventoryForCategory`), clamps it to the game's bounds and gives a driver the factor
+`1 + D/2`, what that demand gives at half stock. At either end of the stock, where the factor
+says nothing about `D`, the reading is null and the driver holds. The offline checks prove the
+reading is the same at every stock level for demand of ±0.3 and ±0.8, and that two markets fed
+two weeks of alternating floods and buy-outs end at the same prices: this is the manipulation
+test the section above asked for. Saves from 0.1.0 to 0.5.1 open at their saved prices: their
+drivers settle once to the new reading and the record notes the basis (`drivers`, written only
+when set). The wire now says a price moved as demand rose or eased at a station. Cost of the
+choice: a player's own cargo trading no longer moves share prices at all. Not yet seen in play;
+the owner check is `phobosexchange drivers` at a driver station before and after selling it a
+hold of junk, which should leave the demand factor unchanged.
 
 ## Charts: a Framework control (agent proposal)
 

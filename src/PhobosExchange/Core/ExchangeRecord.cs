@@ -95,7 +95,7 @@ public sealed class ExchangeRecord
     public const string Name = "PhobosExchange";
     public const int Version = 1;
     private const string SeedKey = "seed", ClockKey = "clock", MarketKey = "trend.market", SectorPrefix = "trend.sector.", CompanyPrefix = "co.",
-        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", NewsPrefix = "news.", LifetimePrefix = "hist.m.", EffectsPrefix = "newsfx.";
+        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", DriverBasisKey = "drivers", NewsPrefix = "news.", LifetimePrefix = "hist.m.", EffectsPrefix = "newsfx.";
 
     public ulong Seed;
     public bool HasSeed;
@@ -115,6 +115,9 @@ public sealed class ExchangeRecord
     public int TestChanges;
     public long LastTestStep;
     public string LastTest = "";
+    /// <summary>What the saved drivers follow (0.5.2): 0 for station stock (0.1.0 to 0.5.1), <see cref="DriverReading.DemandBasis"/>
+    /// for station demand. Written only when non-zero; an older version keeps the field untouched.</summary>
+    public int DriverBasis;
     private readonly Dictionary<string, string> kept = new(StringComparer.Ordinal);
 
     public NewsState NewsFor(string id)
@@ -173,6 +176,8 @@ public sealed class ExchangeRecord
             }
             else if (key == TestKey && ours && p.Length == 4 && int.TryParse(p[1], NumberStyles.None, CultureInfo.InvariantCulture, out int tests) && Record.TryLong(p[2], out long at))
             { record.TestChanges = tests; record.LastTestStep = at; record.LastTest = p[3]; }
+            else if (key == DriverBasisKey && ours && p.Length == 2 && int.TryParse(p[1], NumberStyles.None, CultureInfo.InvariantCulture, out int basis) && basis > 0)
+                record.DriverBasis = basis;
             else record.kept[key] = value;
         }
         // History only feeds the charts: an unreadable series starts afresh rather than blocking anything.
@@ -228,6 +233,7 @@ public sealed class ExchangeRecord
             var parts = life.EncodeParts();
             for (int part = 0; part < parts.Count; part++) fields[LifetimePrefix + pair.Key + "." + part.ToString(CultureInfo.InvariantCulture)] = parts[part];
         }
+        if (DriverBasis > 0) fields[DriverBasisKey] = Record.FormatTag + "|" + DriverBasis.ToString(CultureInfo.InvariantCulture);
         if (TestChanges > 0)
             fields[TestKey] = string.Join("|", Record.FormatTag, TestChanges.ToString(CultureInfo.InvariantCulture), Record.Long(LastTestStep), ExchangeRules.Clean(LastTest).Replace("|", "/"));
         return fields;

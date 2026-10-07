@@ -23,10 +23,11 @@ Every company's price is made of a few parts, and the wire tells you which one d
 moving:
 
 - **The cargo markets it trades with.** Each company follows the game's own cargo market
-  at a few named stations. When weapons run short at Port Yangshan, Smartlink climbs;
-  when ore piles up at Zhonghuamen Terminal, Brightvein Mining slides. These are the same
-  station markets the game's traders and haulers work, so what you see on your travels
-  is what moves the board.
+  at a few named stations: what those stations need, not what happens to be in their
+  stores. When Port Yangshan's demand for weapons rises, Smartlink climbs; when
+  Zhonghuamen Terminal wants less ore, Brightvein Mining slides. Demand shifts with each
+  station's production, its blockades and the game's own events. Dumping a hold of junk on
+  a station, or buying out its stock, does not move a share price.
 - **Trend phases.** Prices run in rising and falling stretches that last weeks: the whole
   market, each sector and each company have their own. A phase that has turned tends to
   keep going for a while, which is where the money is.
@@ -41,7 +42,7 @@ moving:
 
 Big moves over a day and the turn of a phase go out on the **market wire**: a line in the
 crew log and on the Market page, naming the company and the cause, for example "Market
-wire: Smartlink (SMLK) rose 6.2% over the day, as Weapons ran short at Port Yangshan."
+wire: Smartlink (SMLK) rose 6.2% over the day, as demand for Weapons rose at Port Yangshan."
 
 ## News and stories
 
@@ -182,7 +183,7 @@ Everything on the panel is also on the F3 console through `phobosexchange`.
 | `phobosexchange sellall` | Sells everything; repeat it with `confirm` at the end to go ahead. |
 | `phobosexchange open` | Opens the panel. |
 | `phobosexchange history` or `history SMLK` | Read only: the exchange's history, or a company's founding, listing and history. |
-| `phobosexchange drivers` or `drivers SMLK` | Read only: each station signal a company follows, the game's price factor there now, and where the signal stands. |
+| `phobosexchange drivers` or `drivers SMLK` | Read only: each station signal a company follows, the price factor that station's demand gives at half stock, and where the signal stands. |
 | `phobosexchange state` or `state SMLK` | Read only: the parts of each price and the pace of its phase. |
 
 Two **test commands** change your save outside what the exchange was built to do, so they
