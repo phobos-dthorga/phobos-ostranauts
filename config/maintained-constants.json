@@ -2900,7 +2900,7 @@
     "Bank.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.8.1",
+      "value": "0.9.0",
       "description": "PhobosBank (Phobos Banking) published source/package version.",
       "targets": [
         {

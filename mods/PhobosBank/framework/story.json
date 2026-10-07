@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Phobos Banking story pack (0.5.0 draft): five lenders, their place-less letter threads, twenty event arcs, home adverts and news, local small talk, and a spacer-life article. Letters cannot alter the ledger; payment remains in the Finances window.",
+  "notes": "Phobos Banking story pack (0.5.0 draft): five lenders, their place-less letter threads, twenty event arcs, home adverts and news, local small talk, and a spacer-life article. Letters cannot alter the ledger; payment remains in the Finances window. Variant lines (Banking 0.9.0, 8 October 2026): every variant after the first, and the four rewritten mentions, are agent-authored by Claude under the owner's direction of 8 October 2026 and held for owner review.",
   "people": {
     "corvane-ines-varga": {
       "name": "Ines Varga",
@@ -94,7 +94,11 @@
           "delivery": {
             "message": {
               "person": "corvane-ines-varga",
-              "text": "Welcome to Corvane Mutual, [player-first]. Your loan is on our books and the money is in your account. The first instalment is already on your ledger; the rest come by the shift. Pay them in your Finances window and we will get along fine."
+              "text": [
+                "Welcome to Corvane Mutual, [player-first]. Your loan is on our books and the money is in your account. The first instalment is already on your ledger; the rest come by the shift. Pay them in your Finances window and we will get along fine.",
+                "[player-first], welcome to Corvane Mutual. The money is in your account and the loan is on our books. Your first instalment is on the ledger already, and one comes each shift after. Keep up with them in Finances and we will have no trouble.",
+                "Your Corvane Mutual loan is through, [player-first], and the money is yours. The first instalment already sits on your ledger; the others follow shift by shift. Pay them in your Finances window the way the yards like their work done: on time and without fuss."
+              ]
             }
           },
           "tests": [
@@ -111,7 +115,7 @@
       "thread": "bank-corvane-mutual",
       "chance": 0,
       "repeatable": true,
-      "notes": "Started by Phobos Banking when a Corvane Mutual bill turns late. The reply changes nothing in the ledger; the game's late fee stands either way. Variants after the first are agent placeholders (Framework 0.132.0 proof) for the writers to replace.",
+      "notes": "Started by Phobos Banking when a Corvane Mutual bill turns late. The reply changes nothing in the ledger; the game's late fee stands either way. Its letter variants are agent-authored (Framework 0.132.0 proof, kept and extended in Banking 0.9.0).",
       "steps": [
         {
           "id": "reminder",
@@ -120,7 +124,8 @@
               "person": "corvane-ines-varga",
               "text": [
                 "[player-first], one of your bills to Corvane Mutual has gone past its shift. The station adds its late fee at every shift change it stays unpaid, and there is nothing I can do about that. Can we expect it soon?",
-                "[player-first], a bill of yours to Corvane Mutual is still open past its shift. The station adds its late fee at each shift change until it is paid; that part is out of my hands. When can we expect it?"
+                "[player-first], a bill of yours to Corvane Mutual is still open past its shift. The station adds its late fee at each shift change until it is paid; that part is out of my hands. When can we expect it?",
+                "A word from Corvane Mutual, [player-first]: one of your bills has missed its shift. The station puts its late fee on at every shift change it stays open, and I have no say in that. Can we expect payment soon?"
               ]
             }
           },
@@ -132,7 +137,10 @@
               "onComplete": {
                 "message": {
                   "person": "corvane-ines-varga",
-                  "text": "Good. Every bill is in your Finances window, oldest first. Thank you, [player-first]."
+                  "text": [
+                    "Good. Every bill is in your Finances window, oldest first. Thank you, [player-first].",
+                    "Thank you, [player-first]. Your Finances window lists every bill, oldest first."
+                  ]
                 }
               }
             },
@@ -143,7 +151,10 @@
               "onComplete": {
                 "message": {
                   "person": "corvane-ines-varga",
-                  "text": "Noted. I cannot stop the late fee; that is the station's rule, not ours. Pay what you can, when you can, and keep me informed."
+                  "text": [
+                    "Noted. I cannot stop the late fee; that is the station's rule, not ours. Pay what you can, when you can, and keep me informed.",
+                    "I have written it down. The late fee is the station's rule, not ours to stop. Pay what you can when you can, and let me know how it goes."
+                  ]
                 },
                 "setFlags": [
                   "bank-corvane-mutual-asked-time"
@@ -166,7 +177,11 @@
           "delivery": {
             "message": {
               "person": "corvane-ines-varga",
-              "text": "[player], your bills to Corvane Mutual have been late for days and the fees grow every shift. We have no wish to make this harder than it is. Pay what you can in your Finances window, the oldest first, and the rest will follow."
+              "text": [
+                "[player], your bills to Corvane Mutual have been late for days and the fees grow every shift. We have no wish to make this harder than it is. Pay what you can in your Finances window, the oldest first, and the rest will follow.",
+                "[player], your Corvane Mutual bills have been late for days now, and every shift adds to the fees. Nobody here wants this to get harder for you. Start with the oldest bill in your Finances window and work forward from there.",
+                "Days late now, [player], and each shift puts more fees on your Corvane bills. I would rather see them cleared than watch them grow. Pay what you can in Finances, oldest first."
+              ]
             }
           },
           "tests": [
@@ -190,7 +205,11 @@
           "delivery": {
             "message": {
               "person": "corvane-ines-varga",
-              "text": "Paid in full, [player-first]. Corvane Mutual thanks you. Word of a good borrower gets around the yards, and our door stays open."
+              "text": [
+                "Paid in full, [player-first]. Corvane Mutual thanks you. Word of a good borrower gets around the yards, and our door stays open.",
+                "That is the last of it, [player-first]: your Corvane Mutual loan is paid in full. Thank you. Come and see us again whenever the yards give you reason to.",
+                "Your loan is cleared, [player-first], every instalment. Corvane Mutual is grateful, and you will find the same welcome at our desk next time."
+              ]
             }
           },
           "tests": [
@@ -222,7 +241,11 @@
           "delivery": {
             "message": {
               "person": "halcyon-laurent-chao",
-              "text": "Captain [player-first], thank you for placing your business with Halcyon Bond. Your loan is on the ledger, with payments due by the shift. Please keep the schedule in your Finances window close at hand; orderly accounts make for a better relationship."
+              "text": [
+                "Captain [player-first], thank you for placing your business with Halcyon Bond. Your loan is on the ledger, with payments due by the shift. Please keep the schedule in your Finances window close at hand; orderly accounts make for a better relationship.",
+                "Captain [player-first], Halcyon Bond is pleased to confirm your loan. The funds are in your account and the payments fall due shift by shift, as set out in your Finances window. I trust you will find the arrangement orderly.",
+                "Captain [player-first], your loan with Halcyon Bond is now in place. Payments are due by the shift; the full schedule is in your Finances window. Should any part of it need explaining, my desk will be glad to go through it with you."
+              ]
             }
           },
           "tests": [
@@ -246,7 +269,11 @@
           "delivery": {
             "message": {
               "person": "halcyon-laurent-chao",
-              "text": "Captain [player-first], one Halcyon Bond bill has passed its shift. The late fee is added at each shift change while it remains unpaid. Your Finances window shows what is due. Shall I note that payment is coming, that you need time, or that you cannot say yet?"
+              "text": [
+                "Captain [player-first], one Halcyon Bond bill has passed its shift. The late fee is added at each shift change while it remains unpaid. Your Finances window shows what is due. Shall I note that payment is coming, that you need time, or that you cannot say yet?",
+                "Captain [player-first], I regret to note that a Halcyon Bond bill is past its shift. A late fee is added at every shift change until it is settled; the amount stands in your Finances window. May I record that payment is coming, that you need time, or that you cannot yet say?",
+                "Captain [player-first], a bill on your Halcyon Bond account has gone unpaid past its shift, and the late fee is added at each shift change while it remains so. Finances shows the sum. Would you have me note that payment is coming, that you need time, or that you cannot say yet?"
+              ]
             }
           },
           "choices": [
@@ -257,7 +284,10 @@
               "onComplete": {
                 "message": {
                   "person": "halcyon-laurent-chao",
-                  "text": "Thank you for telling me. The ledger continues on its own schedule; please make any payment through Finances."
+                  "text": [
+                    "Thank you for telling me. The ledger continues on its own schedule; please make any payment through Finances.",
+                    "Thank you, Captain. I have noted it. The ledger keeps its own schedule meanwhile, so please make the payment through Finances."
+                  ]
                 }
               }
             },
@@ -268,7 +298,10 @@
               "onComplete": {
                 "message": {
                   "person": "halcyon-laurent-chao",
-                  "text": "I understand. I cannot alter the bill or its fee. The amount due remains in Finances."
+                  "text": [
+                    "I understand. I cannot alter the bill or its fee. The amount due remains in Finances.",
+                    "Noted, Captain. It is not within my power to change the bill or its fee; the amount due remains in Finances."
+                  ]
                 }
               }
             },
@@ -279,7 +312,10 @@
               "onComplete": {
                 "message": {
                   "person": "halcyon-laurent-chao",
-                  "text": "Understood. I would rather have a plain answer than a polished one. The outstanding bill remains on your ledger."
+                  "text": [
+                    "Understood. I would rather have a plain answer than a polished one. The outstanding bill remains on your ledger.",
+                    "Understood, Captain. A plain answer serves us both better than a hopeful one. The bill remains on your ledger until it is paid."
+                  ]
                 }
               }
             }
@@ -299,7 +335,11 @@
           "delivery": {
             "message": {
               "person": "halcyon-laurent-chao",
-              "text": "The oldest Halcyon Bond bill has now been unpaid for three days. The late fee continues to be added at each shift change. I would prefer our next letter to concern an account in good order. Please check the balance in Finances when you can."
+              "text": [
+                "The oldest Halcyon Bond bill has now been unpaid for three days. The late fee continues to be added at each shift change. I would prefer our next letter to concern an account in good order. Please check the balance in Finances when you can.",
+                "Captain [player-first], your oldest Halcyon Bond bill has been outstanding for three days, and the late fee is still added at every shift change. I would much prefer to be writing about an account in good order. The balance is in your Finances window.",
+                "Three days have passed since your oldest Halcyon Bond bill fell due, Captain. The late fee continues at each shift change. Please review the balance in Finances at your earliest convenience; an orderly account is in both our interests."
+              ]
             }
           },
           "tests": [
@@ -323,7 +363,11 @@
           "delivery": {
             "message": {
               "person": "halcyon-laurent-chao",
-              "text": "Your Halcyon Bond loan is paid in full, Captain [player-first]. Thank you for bringing the account to a proper close. The balance should now read as cleared in Finances."
+              "text": [
+                "Your Halcyon Bond loan is paid in full, Captain [player-first]. Thank you for bringing the account to a proper close. The balance should now read as cleared in Finances.",
+                "Captain [player-first], your Halcyon Bond loan is settled in full. Thank you for an orderly close; your Finances window should now show the balance cleared.",
+                "Halcyon Bond is pleased to confirm that your loan is paid in full, Captain [player-first]. It has been a pleasure to keep your account. The balance should read as cleared in Finances."
+              ]
             }
           },
           "tests": [
@@ -347,7 +391,11 @@
           "delivery": {
             "message": {
               "person": "aerie-maeve-okonjo",
-              "text": "Hello, [player-first]. Aerie Savings Union has recorded your loan. The payments follow the shift schedule shown in your Finances window. If the figures are hard to read, ask at the members’ desk and we will go through them with you."
+              "text": [
+                "Hello, [player-first]. Aerie Savings Union has recorded your loan. The payments follow the shift schedule shown in your Finances window. If the figures are hard to read, ask at the members’ desk and we will go through them with you.",
+                "Hello, [player-first]. Your loan with Aerie Savings Union is recorded and the money is yours to use. Each payment falls due by the shift, as your Finances window shows. If any line of it puzzles you, come by the members' desk and we will read it through together.",
+                "Hello, [player-first], and welcome to the Union. Your loan is on our books now, and the schedule of payments sits in your Finances window, shift by shift. Nobody here minds explaining it twice, so ask at the members' desk if it does not make sense."
+              ]
             }
           },
           "tests": [
@@ -371,7 +419,11 @@
           "delivery": {
             "message": {
               "person": "aerie-maeve-okonjo",
-              "text": "Hi, [player-first]. One of your Aerie bills has gone past its shift. The ledger adds a late fee at every shift change until it is paid. You can see the amount in Finances. Would you like me to note that payment is coming, that you need more time, or that you are not sure?"
+              "text": [
+                "Hi, [player-first]. One of your Aerie bills has gone past its shift. The ledger adds a late fee at every shift change until it is paid. You can see the amount in Finances. Would you like me to note that payment is coming, that you need more time, or that you are not sure?",
+                "Hi, [player-first]. An Aerie bill of yours is past its shift. Until it is paid, the ledger adds a late fee at every shift change; Finances shows how much. Shall I note that payment is on its way, that you need more time, or that you cannot say yet?",
+                "Hi, [player-first], it is Maeve at Aerie. One of your bills slipped past its shift, and the ledger will add a late fee at each shift change until it is cleared. The figure is in Finances. Can I note that you will pay soon, that you need time, or that you are not sure?"
+              ]
             }
           },
           "choices": [
@@ -382,7 +434,10 @@
               "onComplete": {
                 "message": {
                   "person": "aerie-maeve-okonjo",
-                  "text": "All right. I understand. The bill stays where it is until you pay it through Finances, so please use the amount shown there."
+                  "text": [
+                    "All right. I understand. The bill stays where it is until you pay it through Finances, so please use the amount shown there.",
+                    "Thank you, I have noted it. Until the payment goes through Finances the bill stays open, so please use the amount shown there."
+                  ]
                 }
               }
             },
@@ -393,7 +448,10 @@
               "onComplete": {
                 "message": {
                   "person": "aerie-maeve-okonjo",
-                  "text": "I understand. I cannot stop the ledger fee. The amount due is listed in Finances."
+                  "text": [
+                    "I understand. I cannot stop the ledger fee. The amount due is listed in Finances.",
+                    "I have noted that you need a little time. I wish I could pause the fee, but the ledger adds it regardless. Finances lists what is due."
+                  ]
                 }
               }
             },
@@ -404,7 +462,10 @@
               "onComplete": {
                 "message": {
                   "person": "aerie-maeve-okonjo",
-                  "text": "Thank you for saying so plainly. There is no need to make a promise you cannot keep. The bill and its fee remain on the ledger until paid."
+                  "text": [
+                    "Thank you for saying so plainly. There is no need to make a promise you cannot keep. The bill and its fee remain on the ledger until paid.",
+                    "That is an honest answer, and I would rather have it than a guess. The bill and its fee stay on the ledger until it is paid."
+                  ]
                 }
               }
             }
@@ -424,7 +485,11 @@
           "delivery": {
             "message": {
               "person": "aerie-maeve-okonjo",
-              "text": "I am checking in because your oldest Aerie bill has been unpaid for three days. The ledger keeps adding its late fee at each shift change. Please look at what is due in Finances, and take it one bill at a time if that is what you can manage."
+              "text": [
+                "I am checking in because your oldest Aerie bill has been unpaid for three days. The ledger keeps adding its late fee at each shift change. Please look at what is due in Finances, and take it one bill at a time if that is what you can manage.",
+                "Your oldest Aerie bill has now gone three days unpaid, [player-first], so I wanted to write. The late fee is still added at every shift change. Finances shows what is owed; one bill at a time is a perfectly good way to start.",
+                "A note from the members' desk: your oldest Aerie bill has been unpaid for three days, and the ledger adds its late fee at each shift change. Have a look at the total in Finances. Paying the oldest bill first is a fine place to begin."
+              ]
             }
           },
           "tests": [
@@ -448,7 +513,11 @@
           "delivery": {
             "message": {
               "person": "aerie-maeve-okonjo",
-              "text": "That Aerie loan is now paid in full, [player-first]. Thank you for closing the account. I hope the money did what you needed it to do, and that the next shift brings a little more room to breathe."
+              "text": [
+                "That Aerie loan is now paid in full, [player-first]. Thank you for closing the account. I hope the money did what you needed it to do, and that the next shift brings a little more room to breathe.",
+                "Paid in full, [player-first]. Your Aerie loan is closed, and the Union thanks you. I hope it carried you where you needed to go.",
+                "Your Aerie loan is settled, [player-first], every bill of it. Thank you. Money lent among neighbors only works when it comes home, and yours has."
+              ]
             }
           },
           "tests": [
@@ -472,7 +541,11 @@
           "delivery": {
             "message": {
               "person": "stillwater-dario-kessel",
-              "text": "Loan is on the books, [player-first]. Funds are in your account. Your payment schedule is in Finances; check it before the next shift turns over. Stillwater is quick with the paperwork, not magic with the numbers."
+              "text": [
+                "Loan is on the books, [player-first]. Funds are in your account. Your payment schedule is in Finances; check it before the next shift turns over. Stillwater is quick with the paperwork, not magic with the numbers.",
+                "Done, [player-first]: funds are in your account and the loan is on our books. Payments come by the shift, listed in Finances. Have a look before the next shift change catches you out.",
+                "Your Stillwater advance is through, [player-first]. The money is in your account and the schedule is in Finances, every shift of it. Quick to sign; the payments still come every shift."
+              ]
             }
           },
           "tests": [
@@ -496,7 +569,11 @@
           "delivery": {
             "message": {
               "person": "stillwater-dario-kessel",
-              "text": "One of your Stillwater bills missed its shift, [player-first]. The ledger adds a late fee at every shift change until it is paid. Finances has the current amount. Tell me whether you expect to pay soon, need time, or have no date to give."
+              "text": [
+                "One of your Stillwater bills missed its shift, [player-first]. The ledger adds a late fee at every shift change until it is paid. Finances has the current amount. Tell me whether you expect to pay soon, need time, or have no date to give.",
+                "[player-first], a Stillwater bill of yours is past its shift. The late fee goes on every shift change until it is paid; the current amount is in Finances. Quick answer: paying soon, need time, or no date yet?",
+                "Dario at Stillwater. You have a bill past its shift, and the ledger adds a late fee each shift change while it sits. Finances shows the figure. Will you pay soon, do you need time, or can you not say?"
+              ]
             }
           },
           "choices": [
@@ -507,7 +584,10 @@
               "onComplete": {
                 "message": {
                   "person": "stillwater-dario-kessel",
-                  "text": "Good. I hear you. The ledger will not wait for a reply, so make the payment through Finances when you can."
+                  "text": [
+                    "Good. I hear you. The ledger will not wait for a reply, so make the payment through Finances when you can.",
+                    "Good. Make it through Finances; the ledger does not wait on letters."
+                  ]
                 }
               }
             },
@@ -518,7 +598,10 @@
               "onComplete": {
                 "message": {
                   "person": "stillwater-dario-kessel",
-                  "text": "Understood. I cannot change the bill or the fee. The amount due is in Finances; that is the number to work from."
+                  "text": [
+                    "Understood. I cannot change the bill or the fee. The amount due is in Finances; that is the number to work from.",
+                    "Noted. I cannot move the bill or the fee, so work from the amount in Finances."
+                  ]
                 }
               }
             },
@@ -529,7 +612,10 @@
               "onComplete": {
                 "message": {
                   "person": "stillwater-dario-kessel",
-                  "text": "Fair enough. Better than inventing one. The debt stays on the ledger until you pay it through Finances."
+                  "text": [
+                    "Fair enough. Better than inventing one. The debt stays on the ledger until you pay it through Finances.",
+                    "Fair. No date beats a made-up one. The debt stays on the ledger until you pay it in Finances."
+                  ]
                 }
               }
             }
@@ -549,7 +635,11 @@
           "delivery": {
             "message": {
               "person": "stillwater-dario-kessel",
-              "text": "Your oldest Stillwater bill has now been unpaid for three days. The late fee keeps adding at every shift change. I will keep this short: check the current amount in Finances and pay what you can there."
+              "text": [
+                "Your oldest Stillwater bill has now been unpaid for three days. The late fee keeps adding at every shift change. I will keep this short: check the current amount in Finances and pay what you can there.",
+                "Short one, [player-first]: your oldest Stillwater bill is three days unpaid, and the late fee keeps adding each shift change. The current amount is in Finances. Pay what you can.",
+                "Three days on your oldest Stillwater bill now. The fee goes on every shift change. Check Finances, pay what you can, and the rest after."
+              ]
             }
           },
           "tests": [
@@ -573,7 +663,11 @@
           "delivery": {
             "message": {
               "person": "stillwater-dario-kessel",
-              "text": "That Stillwater loan is closed, [player-first]. Paid in full. The ledger should show no balance left on it. Keep the next schedule where you can find it; nobody gets quicker by guessing."
+              "text": [
+                "That Stillwater loan is closed, [player-first]. Paid in full. The ledger should show no balance left on it. Keep the next schedule where you can find it; nobody gets quicker by guessing.",
+                "Paid in full, [player-first]. Stillwater has closed that loan and the ledger shows nothing left. Quick in, quick out; that is how it should go.",
+                "That was the last payment, [player-first]. The Stillwater loan is closed with no balance. Thanks for keeping it simple."
+              ]
             }
           },
           "tests": [
@@ -597,7 +691,11 @@
           "delivery": {
             "message": {
               "person": "narrow-ledger-pell",
-              "text": "Your loan is entered, [player-first]. The money is in your account. The shift schedule is in Finances. Read it while you still have the patience; numbers look much the same tomorrow, only larger."
+              "text": [
+                "Your loan is entered, [player-first]. The money is in your account. The shift schedule is in Finances. Read it while you still have the patience; numbers look much the same tomorrow, only larger.",
+                "Entered, [player-first]. Money is in your account; the schedule is in Finances. Read it now. It does not get shorter by waiting.",
+                "The Narrow Ledger has your name down and you have the money. Payments go by the shift, as Finances shows. My advice, free this once: read the page twice."
+              ]
             }
           },
           "tests": [
@@ -621,7 +719,11 @@
           "delivery": {
             "message": {
               "person": "narrow-ledger-pell",
-              "text": "A Narrow Ledger bill has passed its shift. The ledger adds a late fee at every shift change while it stays unpaid. Look in Finances for the amount. Will you say payment is coming, ask for time, or leave the question unanswered?"
+              "text": [
+                "A Narrow Ledger bill has passed its shift. The ledger adds a late fee at every shift change while it stays unpaid. Look in Finances for the amount. Will you say payment is coming, ask for time, or leave the question unanswered?",
+                "One of your Narrow Ledger bills is past its shift. Every shift change it stays unpaid, the ledger adds a late fee. Finances has the number. So: payment coming, more time, or no answer at all?",
+                "Your bill missed its shift, [player-first]. The fee goes on at each shift change until it is paid; the amount is in Finances. Tell the counter: is payment coming, do you want time noted, or will you leave it unanswered?"
+              ]
             }
           },
           "choices": [
@@ -632,7 +734,10 @@
               "onComplete": {
                 "message": {
                   "person": "narrow-ledger-pell",
-                  "text": "When you can is a time, not a date. I hear you. The balance stays in Finances until you pay it."
+                  "text": [
+                    "When you can is a time, not a date. I hear you. The balance stays in Finances until you pay it.",
+                    "Noted, for what that is worth to the ledger. The balance sits in Finances until you pay it."
+                  ]
                 }
               }
             },
@@ -643,7 +748,10 @@
               "onComplete": {
                 "message": {
                   "person": "narrow-ledger-pell",
-                  "text": "I hear you. The ledger does not read a reply into the bill. Check the amount due in Finances."
+                  "text": [
+                    "I hear you. The ledger does not read a reply into the bill. Check the amount due in Finances.",
+                    "Put down. The ledger does not read notes, though; the amount due stays in Finances."
+                  ]
                 }
               }
             },
@@ -654,7 +762,10 @@
               "onComplete": {
                 "message": {
                   "person": "narrow-ledger-pell",
-                  "text": "Then we agree on one thing. The bill remains on the ledger, and the fee keeps its own hours."
+                  "text": [
+                    "Then we agree on one thing. The bill remains on the ledger, and the fee keeps its own hours.",
+                    "Honest, at least. The bill stays on the ledger and the fee keeps counting shifts."
+                  ]
                 }
               }
             }
@@ -674,7 +785,11 @@
           "delivery": {
             "message": {
               "person": "narrow-ledger-pell",
-              "text": "The oldest Narrow Ledger bill has been unpaid for three days. The ledger adds its fee every shift. I suggest reading the balance in Finances before it grows any harder to ignore. That is all the advice the counter gives for free."
+              "text": [
+                "The oldest Narrow Ledger bill has been unpaid for three days. The ledger adds its fee every shift. I suggest reading the balance in Finances before it grows any harder to ignore. That is all the advice the counter gives for free.",
+                "Three days unpaid on your oldest Narrow Ledger bill. The fee goes on every shift. Read the balance in Finances while it is still a number you can look at.",
+                "Your oldest bill with us has sat unpaid three days, [player-first]. The ledger adds its fee each shift and never tires of it. Finances has the balance. That is the whole letter."
+              ]
             }
           },
           "tests": [
@@ -698,7 +813,11 @@
           "delivery": {
             "message": {
               "person": "narrow-ledger-pell",
-              "text": "Paid in full, [player-first]. The Narrow Ledger has no balance left on that loan. Keep the receipt where you keep the other useful little things."
+              "text": [
+                "Paid in full, [player-first]. The Narrow Ledger has no balance left on that loan. Keep the receipt where you keep the other useful little things.",
+                "Settled, [player-first]. Nothing left on that loan. The counter is pleasantly surprised, and does not say so often.",
+                "That loan is cleared, [player-first]. No balance, and no more letters about it. Good."
+              ]
             }
           },
           "tests": [
@@ -715,69 +834,114 @@
     "bank-halcyon-bond-advert": {
       "thread": "bank-halcyon-bond",
       "place": "mtrs",
-      "text": "Halcyon Bond\nFor captains Port Yangshan already trusts. If Xinhua regards you warmly, speak with our client desk at [place]. We will put the terms in front of you before you decide.",
+      "text": [
+        "Halcyon Bond\nFor captains Port Yangshan already trusts. If Xinhua regards you warmly, speak with our client desk at [place]. We will put the terms in front of you before you decide.",
+        "Halcyon Bond\nYour standing with Xinhua already speaks for you. Let it open an account: our client desk at [place] sets out every term in writing before you commit to anything."
+      ],
       "weight": 1
     },
     "bank-aerie-savings-advert": {
       "thread": "bank-aerie-savings",
       "place": "vnca",
-      "text": "Aerie Savings Union\nOwned by the people who live in the clouds. Ask our members’ advisers at [place] about a cash loan or help financing a home. We will show you the schedule before you choose.",
+      "text": [
+        "Aerie Savings Union\nOwned by the people who live in the clouds. Ask our members’ advisers at [place] about a cash loan or help financing a home. We will show you the schedule before you choose.",
+        "Aerie Savings Union\nYour neighbors' savings, lent to you, and yours lent to them. Ask the members' advisers at [place] about a cash loan or help financing a home, with the schedule shown before you choose."
+      ],
       "weight": 1
     },
     "bank-stillwater-advances-advert": {
       "thread": "bank-stillwater-advances",
       "place": "jfts",
-      "text": "Stillwater Advances\nNeed money before the next shift? We keep the forms short and the cost plain. Ask Dario at [place]. Stillwater is quick with an answer; the schedule is yours to read before you sign.",
+      "text": [
+        "Stillwater Advances\nNeed money before the next shift? We keep the forms short and the cost plain. Ask Dario at [place]. Stillwater is quick with an answer; the schedule is yours to read before you sign.",
+        "Stillwater Advances\nShort forms, a fast answer and the cost in plain figures. Money before the next shift, from Dario at [place]. Read the schedule before you sign; we would rather you knew."
+      ],
       "weight": 1
     },
     "bank-narrow-ledger-advert": {
       "thread": "bank-narrow-ledger",
       "place": "coho",
-      "text": "The Narrow Ledger\nNo references and no questions about your standing. The Narrow Ledger lends small and fast, with the terms laid out before you sign. Find Pell at [place] and read the page twice.",
+      "text": [
+        "The Narrow Ledger\nNo references and no questions about your standing. The Narrow Ledger lends small and fast, with the terms laid out before you sign. Find Pell at [place] and read the page twice.",
+        "The Narrow Ledger\nTurned away elsewhere? We lend small, quick and without asking who you know. Pell at [place] lays the terms out before you sign. Read them twice; Pell will wait."
+      ],
       "weight": 1
     },
     "bank-corvane-mutual-advert": {
       "thread": "bank-corvane-mutual",
       "place": "oklg",
       "weight": 1,
-      "text": "Corvane Mutual\nK-Leg crews have kept us busy since the yards first turned a profit. Ask at [place] about a loan, read the shift schedule, and decide with the whole ledger in view."
+      "text": [
+        "Corvane Mutual\nK-Leg crews have kept us busy since the yards first turned a profit. Ask at [place] about a loan, read the shift schedule, and decide with the whole ledger in view.",
+        "Corvane Mutual\nWe have lent to K-Leg yard crews for as long as the yards have been worth borrowing for. Ask at [place], see the shift schedule in full, then decide."
+      ]
     }
   },
   "broadcasts": {
     "bank-halcyon-bond-credit-news": {
       "thread": "bank-halcyon-bond",
       "place": "mtrs",
-      "text": "At [place], captains compare notes on credit desks and the standing each one asks to see. Halcyon Bond is still looking for a warm word from Xinhua before it opens an account.",
-      "mention": "At [place], captains compare notes on credit desks and the standing each one asks to see. Halcyon Bond is still looking for a warm word from Xinhua before it opens an account.",
+      "text": [
+        "At [place], captains compare notes on credit desks and the standing each one asks to see. Halcyon Bond is still looking for a warm word from Xinhua before it opens an account.",
+        "Credit desks at [place] each ask something different of a captain, and Halcyon Bond asks for standing: an account opens there only for those Xinhua already regards warmly."
+      ],
+      "mention": [
+        "Halcyon Bond still wants Xinhua to think well of you before it lends. Fair enough, I suppose.",
+        "Asked at Halcyon about credit. First question: what does Xinhua think of you? There was no second question."
+      ],
       "weight": 1
     },
     "bank-aerie-savings-credit-news": {
       "thread": "bank-aerie-savings",
       "place": "vnca",
-      "text": "At [place], residents still ask who owns the Aerie Savings Union. The answer is the people who live in the cloud habitats, who pool their savings and lend among their neighbors.",
-      "mention": "At [place], residents still ask who owns the Aerie Savings Union. The answer is the people who live in the cloud habitats, who pool their savings and lend among their neighbors.",
+      "text": [
+        "At [place], residents still ask who owns the Aerie Savings Union. The answer is the people who live in the cloud habitats, who pool their savings and lend among their neighbors.",
+        "Ask around [place] who owns the Aerie Savings Union and the residents point at each other: the Union belongs to the people of the cloud habitats, who pool what they save and lend it among neighbors."
+      ],
+      "mention": [
+        "The Aerie union is owned by the people up here. Borrow from them and you're borrowing your neighbor's savings.",
+        "Nobody owns the Aerie union but us cloud folk. Strange, a bank that answers to the people next door."
+      ],
       "weight": 1
     },
     "bank-stillwater-advances-credit-news": {
       "thread": "bank-stillwater-advances",
       "place": "jfts",
-      "text": "At [place], the quick-money desks have a simple pitch: fewer waits, more cost. Port hands say the useful question is still what the next shift will put on the ledger.",
-      "mention": "At [place], the quick-money desks have a simple pitch: fewer waits, more cost. Port hands say the useful question is still what the next shift will put on the ledger.",
+      "text": [
+        "At [place], the quick-money desks have a simple pitch: fewer waits, more cost. Port hands say the useful question is still what the next shift will put on the ledger.",
+        "The quick-money desks at [place] still promise less waiting at more cost. Port hands say a sensible borrower asks what the next shift will add to the ledger before signing anything."
+      ],
+      "mention": [
+        "Stillwater's quick, sure. Quick costs more. Ask what the next shift puts on the ledger before you sign.",
+        "Every quick-money desk says the same thing: less waiting. Not one of them says less paying."
+      ],
       "weight": 1
     },
     "bank-narrow-ledger-credit-news": {
       "thread": "bank-narrow-ledger",
       "place": "coho",
-      "text": "At [place], the Narrow Ledger keeps a counter for captains turned away elsewhere. Its reputation is simple: few questions at the desk, careful reading afterward.",
-      "mention": "At [place], the Narrow Ledger keeps a counter for captains turned away elsewhere. Its reputation is simple: few questions at the desk, careful reading afterward.",
+      "text": [
+        "At [place], the Narrow Ledger keeps a counter for captains turned away elsewhere. Its reputation is simple: few questions at the desk, careful reading afterward.",
+        "Captains turned away by every other desk at [place] end up at the Narrow Ledger's counter. It asks few questions; regulars say the reading comes afterward, and it pays to do it carefully."
+      ],
+      "mention": [
+        "Turned away everywhere else? The Narrow Ledger will take you. Just read every line Pell hands you.",
+        "Pell asks no questions at the counter. You'll have plenty of your own once you read the page."
+      ],
       "weight": 1
     },
     "bank-corvane-mutual-credit-news": {
       "thread": "bank-corvane-mutual",
       "place": "oklg",
       "weight": 1,
-      "text": "At [place], crews are comparing lender pitches over a late meal. Yard hands have one piece of advice: read the shift schedule before the signing pad wakes up.",
-      "mention": "Read the shift schedule before the signing pad wakes up."
+      "text": [
+        "At [place], crews are comparing lender pitches over a late meal. Yard hands have one piece of advice: read the shift schedule before the signing pad wakes up.",
+        "Over a late meal at [place], yard crews trade notes on who lends and on what terms. The advice that goes round the table most: read the shift schedule before you wake the signing pad."
+      ],
+      "mention": [
+        "Read the shift schedule before the signing pad wakes up.",
+        "Yard rule for loans: read the schedule first, sign second. The pad doesn't care how tired you are."
+      ]
     }
   },
   "chatter": {
@@ -785,7 +949,11 @@
       "thread": "bank-halcyon-bond",
       "place": "mtrs",
       "moment": "small-talk",
-      "line": "Halcyon wants a warm word from Xinhua before it brings out a pen. They do like to know who is vouching for the hull.",
+      "line": [
+        "Halcyon wants a warm word from Xinhua before it brings out a pen. They do like to know who is vouching for the hull.",
+        "Want Halcyon's money? Get Xinhua to like you first. That's the whole application.",
+        "Halcyon lends to the captains Xinhua already trusts. Which is to say, not to me."
+      ],
       "speakers": "locals",
       "weight": 1
     },
@@ -793,7 +961,11 @@
       "thread": "bank-aerie-savings",
       "place": "vnca",
       "moment": "small-talk",
-      "line": "Aerie belongs to the people who live up here, they say. Nice to know somebody owns more than a bunk and a view.",
+      "line": [
+        "Aerie belongs to the people who live up here, they say. Nice to know somebody owns more than a bunk and a view.",
+        "The Aerie union lends our own savings back to us. Strange feeling, owing your neighbors.",
+        "Every Aerie member owns a sliver of the union. Mine's about the size of my bunk."
+      ],
       "speakers": "locals",
       "weight": 1
     },
@@ -801,7 +973,11 @@
       "thread": "bank-stillwater-advances",
       "place": "jfts",
       "moment": "small-talk",
-      "line": "Fast money is still money you owe. Dario never hides the second half of that sentence.",
+      "line": [
+        "Fast money is still money you owe. Dario never hides the second half of that sentence.",
+        "Stillwater signs you up before your coffee's cold. The bills take rather longer to go away.",
+        "Dario's honest about it, I'll give him that. Quick money, plain cost, no pretending otherwise."
+      ],
       "speakers": "locals",
       "weight": 1
     },
@@ -809,7 +985,11 @@
       "thread": "bank-narrow-ledger",
       "place": "coho",
       "moment": "small-talk",
-      "line": "Pell will lend to anyone. I asked what that kindness costs. Pell said, “Read the page.”",
+      "line": [
+        "Pell will lend to anyone. I asked what that kindness costs. Pell said, “Read the page.”",
+        "Nobody else would lend to me, so I went to Pell. Pell handed me the page and watched me read it. All of it.",
+        "The Narrow Ledger asks no questions. Pell says the page answers them all anyway."
+      ],
       "speakers": "locals",
       "weight": 1
     },
@@ -817,7 +997,11 @@
       "thread": "bank-corvane-mutual",
       "place": "oklg",
       "moment": "small-talk",
-      "line": "In the yards, a bill comes due on the same shift whether the weld held or not. That is why I read the schedule first.",
+      "line": [
+        "In the yards, a bill comes due on the same shift whether the weld held or not. That is why I read the schedule first.",
+        "Corvane has been lending to yard crews forever. Bills come due on the shift, same as the work does.",
+        "My first Corvane loan, I never read the schedule. My second, I read it twice. You learn."
+      ],
       "speakers": "locals",
       "weight": 1
     }

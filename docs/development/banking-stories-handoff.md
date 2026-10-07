@@ -130,9 +130,11 @@ every variant (above all: no consequence beyond the game's own).
    the headline repeated; give each a spoken mention, with variants if you like.
 3. The five adverts and five small-talk lines.
 
-**The proof already in place:** Corvane Mutual's late letter (`bank-corvane-mutual-late`)
-carries a second variant written by Claude only to show the wiring works; the arc's `notes`
-say so. Replace it, or keep it if it reads well.
+**Delivered in Banking 0.9.0** (8 October 2026): Claude wrote the variants for every letter,
+reply, news item, mention, advert and small-talk line, and rewrote the four copied mentions as
+speech, after the owner's ChatGPT plan ended; the pack's `notes` label them as agent-authored
+and held for owner review. Corvane Mutual's earlier proof letter was kept and given a third
+wording.
 
 This is step 1 of the [variant lines handoff](variant-lines-handoff.md), which has the format,
 the rules for every variant and the order of the later steps.

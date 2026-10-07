@@ -5,6 +5,23 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-10-08 - Draft
+
+### Added
+
+- Every lender letter now comes in two or three wordings, the replies to a late notice in two, and the lenders' news, adverts and small talk in two or three. A borrower who keeps coming back no longer reads the same letter each time: a lender's letters take their wordings in turn, and the rest pick one at random, never the same twice running. Each officer keeps their own voice, and nothing a letter says about your debt has changed.
+
+### Changed
+
+- Four news items had people at the docks repeat the headline word for word when they mentioned it. They now say it in their own words.
+
+### Compatibility and limits
+
+- The new wordings were written by Claude, the project's coding assistant, under the owner's direction of 8 October 2026, and are held for the owner's review.
+- Requires Phobos Framework 0.132.0, as before.
+- Saves: nothing new is saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.8.1] - 2026-10-08 - Released
 
 ### Balance

@@ -128,6 +128,11 @@ writing.
 
 ### Step 1: Phobos Banking (`mods/PhobosBank/framework/story.json`)
 
+**Done in Phobos Banking 0.9.0** (8 October 2026), written by Claude after the owner's
+ChatGPT plan ended, held for owner review: three wordings for every event letter, two for each
+reply, the four mentions rewritten as speech, and two or three wordings for the news, adverts
+and talk. A later writer may revise or add to any of them under the same rules.
+
 The smallest pack and the most repetitive: a player who borrows often reads the same letters
 many times.
 
