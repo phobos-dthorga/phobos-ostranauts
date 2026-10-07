@@ -21,8 +21,8 @@ namespace PhobosExchange;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ExchangeRules.Owner;
-    public const string Version = "0.1.0";
-    public const string MinimumFrameworkVersion = "0.128.0";
+    public const string Version = "0.2.0";
+    public const string MinimumFrameworkVersion = "0.129.0";
     internal const string ModName = "Phobos Exchange";
     internal static Action<string> Log = _ => { };
     /// <summary>Whether the package's data folder is enabled in the game's mod list, checked at each content load.</summary>
@@ -35,6 +35,11 @@ public sealed class Plugin : BaseUnityPlugin
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
         PerformanceMetrics.Initialize();
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
+        // The exchange's story pack (0.2.0): company threads for writers; Framework loads and checks it with the others.
+        Phobos.Ostranauts.Framework.Story.StoryContent.Register(new Phobos.Ostranauts.Framework.Data.DataPackSource(
+            ExchangeRules.Owner, ExchangeRules.ModFolder, Phobos.Ostranauts.Framework.Story.StorySchema.Name, typeof(Plugin).Assembly, "PhobosExchange.story.json"));
+        // Add-ons may write the story events of their own companies: exchange-<their prefix>-... (Framework 0.129.0).
+        Phobos.Ostranauts.Framework.Data.AddOns.RegisterNamespace("exchange");
         FrameworkLifecycle.ContentLoading += Load;
         FrameworkLifecycle.ContentLoaded += Loaded;
         SaveBoundary.BeforeShipSave += Market.BeforeShipSave;

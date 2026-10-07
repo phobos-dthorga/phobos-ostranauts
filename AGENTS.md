@@ -34,6 +34,14 @@ delivery in the changelog and design record, and add or amend only the rule here
   it arises in play; reuse existing mods first (`docs/development/mod-extension-survey.md`).
 - Owner choices, agent defaults and agent choices made while the owner is away are labelled as
   such in design records, so the owner can revise them.
+- **Who does what** (owner, 2026-10-07, every mod going forward): creative and world content
+  (companies, lenders, makers, stories, letters, news, adverts, flavour and lore) lives in
+  schema-checked data packs, never in code, so ChatGPT can write it and players can add to it
+  through their own files and Workshop add-ons. Claude builds the logic, the schemas, the
+  validators, the hooks between data and code, and a ChatGPT handoff document for each
+  content area (what exists, the ids and events to use, the voice and lore rules, the
+  limits); Claude may write a short placeholder or proof only to show the wiring works.
+  Keep a worked add-on example for each content area that players can extend.
 
 ## Git, sessions and publication boundaries
 
@@ -413,8 +421,12 @@ delivery in the changelog and design record, and add or amend only the rule here
   Banking loan's yearly cost, so borrowing to hold never pays (validator and test). Market
   noise is a stable hash of save, company and step, never rolled; a reload never rerolls it
   (peeking ahead by reloading is accepted). Pace for weeks of play; any time jump, up to years
-  at once, is caught up exactly at a bounded cost with no per-step side effects. Design record:
-  `docs/development/share-market-and-charts-design.md`.
+  at once, is caught up exactly at a bounded cost with no per-step side effects. Stories move
+  prices only through the pack's `news` entries (a story flag, a one-off move, a wire line);
+  the exchange tells stories through `exchange-<company>-<event>` flags and arcs and registers
+  the `exchange` add-on namespace. Design record:
+  `docs/development/share-market-and-charts-design.md`; writers' handoff
+  `docs/development/exchange-stories-handoff.md`.
 - **Medical.** The Halewright brand (models a word plus footprint width); the Ward-3 bed is the
   visual baseline (`docs/development/medical-art-handoff.md`). Treatments perform the game's own
   wound slotting on real items; the monitor never heals; a patient never treats themselves

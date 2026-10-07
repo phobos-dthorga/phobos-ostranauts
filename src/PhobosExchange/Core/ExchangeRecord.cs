@@ -50,6 +50,16 @@ public sealed class CompanyState
     public double LastLn;
 }
 
+/// <summary>The story news that has moved one company's price (Phobos Exchange 0.2.0): the total move, in log units,
+/// and the flags already applied, so each piece of news moves the price once per save. Saved under its own key, so a
+/// 0.1.0 record reads unchanged and an older version keeps this one untouched.</summary>
+public sealed class NewsState
+{
+    public double Move;
+    public readonly HashSet<string> Applied = new(StringComparer.Ordinal);
+    public bool Empty => Move == 0 && Applied.Count == 0;
+}
+
 /// <summary>Shares the player holds in one company.</summary>
 public sealed class Holding
 {
@@ -75,7 +85,7 @@ public sealed class ExchangeRecord
     public const string Name = "PhobosExchange";
     public const int Version = 1;
     private const string SeedKey = "seed", ClockKey = "clock", MarketKey = "trend.market", SectorPrefix = "trend.sector.", CompanyPrefix = "co.",
-        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test";
+        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", NewsPrefix = "news.";
 
     public ulong Seed;
     public bool HasSeed;
@@ -87,6 +97,8 @@ public sealed class ExchangeRecord
     public Dictionary<string, Holding> Holdings { get; } = new(StringComparer.Ordinal);
     public Dictionary<string, Alert> Alerts { get; } = new(StringComparer.Ordinal);
     public Dictionary<string, PriceHistory> Histories { get; } = new(StringComparer.Ordinal);
+    /// <summary>Story news applied per company (0.2.0).</summary>
+    public Dictionary<string, NewsState> News { get; } = new(StringComparer.Ordinal);
     /// <summary>Companies whose saved state or holding this version cannot read; they are not traded or stepped.</summary>
     public HashSet<string> Unreadable { get; } = new(StringComparer.Ordinal);
     /// <summary>How many test commands changed this save, and the last one (owner rule: a test-changed save says so).</summary>
@@ -94,6 +106,12 @@ public sealed class ExchangeRecord
     public long LastTestStep;
     public string LastTest = "";
     private readonly Dictionary<string, string> kept = new(StringComparer.Ordinal);
+
+    public NewsState NewsFor(string id)
+    {
+        if (!News.TryGetValue(id, out var n)) News[id] = n = new NewsState();
+        return n;
+    }
 
     public PriceHistory History(string id)
     {
@@ -128,6 +146,7 @@ public sealed class ExchangeRecord
                 else { record.kept[key] = value; record.Unreadable.Add(id); }
             }
             else if (key.StartsWith(AlertPrefix, StringComparison.Ordinal) && ours && TryAlert(p, out var alert)) record.Alerts[key.Substring(AlertPrefix.Length)] = alert;
+            else if (key.StartsWith(NewsPrefix, StringComparison.Ordinal) && ours && TryNews(p, out var news)) record.News[key.Substring(NewsPrefix.Length)] = news;
             else if (key.StartsWith(HistoryPrefix, StringComparison.Ordinal) && TryHistoryKey(key, out string hid, out char res, out int part))
             {
                 if (!histories.TryGetValue((hid, res), out var parts)) histories[(hid, res)] = parts = new Dictionary<int, string>();
@@ -163,6 +182,9 @@ public sealed class ExchangeRecord
         foreach (var pair in Alerts)
             if (!pair.Value.Empty)
                 fields[AlertPrefix + pair.Key] = string.Join("|", Record.FormatTag, pair.Value.Above is double a ? Record.Hex(a) : "", pair.Value.Below is double b ? Record.Hex(b) : "");
+        foreach (var pair in News)
+            if (!pair.Value.Empty)
+                fields[NewsPrefix + pair.Key] = string.Join("|", Record.FormatTag, Record.Hex(pair.Value.Move), string.Join(";", pair.Value.Applied.OrderBy(f => f, StringComparer.Ordinal)));
         foreach (var pair in Histories)
             foreach (char res in PriceHistory.Resolutions)
             {
@@ -194,6 +216,14 @@ public sealed class ExchangeRecord
         var drivers = new double[items.Length];
         for (int i = 0; i < items.Length; i++) if (!Record.TryHex(items[i], out drivers[i])) return false;
         c.Drivers = drivers;
+        return true;
+    }
+
+    private static bool TryNews(string[] p, out NewsState n)
+    {
+        n = new NewsState();
+        if (p.Length != 3 || !Record.TryHex(p[1], out n.Move)) return false;
+        if (p[2].Length > 0) foreach (var flag in p[2].Split(';')) { if (flag.Length == 0) return false; n.Applied.Add(flag); }
         return true;
     }
 

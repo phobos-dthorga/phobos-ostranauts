@@ -1411,6 +1411,12 @@ piped, and joins chain across the ship.
   hover readout are ordinary panel text. Presentation only, and only on panels: live
   readings never go on world sprites. Phobos Exchange is the first user; design record:
   [A share market for Phobos Banking, and Framework charts](share-market-and-charts-design.md).
+- **`Data.AddOns.RegisterNamespace` (0.129.0).** A mod that names story content after the entry
+  it concerns (Phobos Exchange's `exchange-<company>-<event>` arcs and flags) registers the
+  namespace in Awake. An add-on with prefix `p` may then add ids starting with `<ns>-p` as
+  well as `p`, so the events of its own entries can have its own stories, and never
+  another's. `AddOns.Owns` applies it to every table of every pack; the Python validator
+  mirrors the list (`EVENT_NAMESPACES`), and a test keeps the two equal.
 - **`Trading.PlayerHoldings` (0.128.0).** What the player owns through a mod, for another
   mod's overview: `PlayerHoldings.Register(owner, () => HoldingLine?)` with a label, a value
   in credits, a detail line and the PDA app that shows it; `PlayerHoldings.Read()` gathers

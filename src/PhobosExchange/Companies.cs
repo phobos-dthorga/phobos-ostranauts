@@ -44,6 +44,9 @@ internal static class Companies
     public static string ExchangeName => Pack == null ? "" : Safe(Translations.Get(ExchangeRules.Owner, "Market.name", Pack.market.name), Pack.market.name);
     public static string Name(string id) => Pack != null && Pack.companies.TryGetValue(id, out var c) ? Safe(Translations.Get(ExchangeRules.Owner, "Companies." + id + ".name", c.name), c.name) : id;
     public static string Profile(string id) => Pack != null && Pack.companies.TryGetValue(id, out var c) ? Translations.Get(ExchangeRules.Owner, "Companies." + id + ".profile", c.profile) : "";
+    /// <summary>A news entry's wire line in the player's language (<c>News.&lt;company&gt;.&lt;flag&gt;</c>), else the pack's own.</summary>
+    public static string NewsWire(string id, NewsEntry n) => Translations.Get(ExchangeRules.Owner, "News." + id + "." + n.flag, n.wire ?? "");
+
     public static string SectorName(string id) => Pack != null && Pack.sectors.TryGetValue(id, out var s) ? Safe(Translations.Get(ExchangeRules.Owner, "Sectors." + id + ".name", s.name), s.name) : id;
 
     /// <summary>A translated name only when it can sit in a ledger line; otherwise the pack's own.</summary>

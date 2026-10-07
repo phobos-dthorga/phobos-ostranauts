@@ -29,6 +29,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.129.0] - 2026-10-07 - Draft
+
+### Added
+
+- Add-ons can write story content for their own entries' events. A mod that names its story events after an entry, as Phobos Exchange does when a player first buys a company (the exchange, then the company, then bought), registers its namespace, and an add-on may then add ids that start with that namespace and its own prefix, never another's. Phobos Exchange registers exchange; Phobos Banking can register bank later.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.128.1] - 2026-10-07 - Draft
 
 ### Changed

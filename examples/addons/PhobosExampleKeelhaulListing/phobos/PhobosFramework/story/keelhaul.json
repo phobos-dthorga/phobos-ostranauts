@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Example add-on: Keelhaul Freight's story. A news arc that, after a while, sets the flag the exchange file maps to an 8% rise; and the exchange's own bought event for this company, which an add-on may name because Phobos Exchange registers the exchange namespace (exchange-<prefix>-...).",
+  "people": {
+    "keelhaul-orla-brand": {
+      "name": "Orla Brand",
+      "role": "shareholder desk, Keelhaul Freight",
+      "home": "bcer"
+    }
+  },
+  "threads": {
+    "keelhaul-freight": {
+      "title": "Keelhaul Freight",
+      "people": [ "keelhaul-orla-brand" ]
+    }
+  },
+  "broadcasts": {
+    "keelhaul-contract-news": {
+      "thread": "keelhaul-freight",
+      "region": "Outer System",
+      "text": "Cassini Spaceport has given its seasonal ore contract to Keelhaul Freight, a belt line better known for hauling plate than for winning tenders. Dock workers at Zhonghuamen Terminal expect longer queues at the ore chutes.",
+      "once": true
+    }
+  },
+  "arcs": {
+    "keelhaul-titan-contract": {
+      "title": "Keelhaul wins the Titan ore contract",
+      "thread": "keelhaul-freight",
+      "chance": 0.02,
+      "requires": { "mods": [ "PhobosExchange" ] },
+      "steps": [
+        {
+          "id": "contract",
+          "delivery": { "bulletin": "keelhaul-contract-news" },
+          "tests": [ { "kind": "wait", "hours": 2 } ],
+          "onComplete": { "setFlags": [ "keelhaul-titan-contract" ] }
+        }
+      ]
+    },
+    "exchange-keelhaul-freight-bought": {
+      "title": "A letter from Keelhaul's shareholder desk",
+      "thread": "keelhaul-freight",
+      "repeatable": false,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "keelhaul-orla-brand",
+              "text": "Your name came across the share register this morning. Keelhaul hauls ore and plate, mostly on time. The board asks nothing of small holders; I write because it is polite, and because ore prices at Zhonghuamen move us more than any speech will."
+            }
+          },
+          "tests": [ { "kind": "wait", "hours": 1 } ]
+        }
+      ]
+    }
+  }
+}

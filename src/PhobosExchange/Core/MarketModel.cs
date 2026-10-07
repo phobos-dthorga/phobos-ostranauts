@@ -14,7 +14,7 @@ public interface IMarketObserver
 }
 
 /// <summary>The parts a log price is made of, for explaining a move by its largest cause.</summary>
-public enum Cause { Market = 0, Sector = 1, Company = 2, Noise = 3, Trading = 4, Drift = 5, Driver = 6 }
+public enum Cause { Market = 0, Sector = 1, Company = 2, Noise = 3, Trading = 4, Drift = 5, News = 6, Driver = 7 }
 
 /// <summary>The market (Phobos Exchange 0.1.0; design record <c>docs/development/share-market-and-charts-design.md</c>).
 /// <para>log price = base + drift·years + market phase·followsMarket + sector phase·followsSector + company phase
@@ -38,6 +38,7 @@ public sealed class MarketModel
     /// <summary>Each company's log price at the last step.</summary>
     public readonly double[] LnPrice;
     private readonly PriceHistory[] histories;
+    private readonly NewsState[] news;
     private readonly ulong[] keys;
     private readonly int[] sectorOf;
     private readonly string[] sectorIds;
@@ -69,6 +70,7 @@ public sealed class MarketModel
         States = new CompanyState[Count];
         LnPrice = new double[Count];
         histories = new PriceHistory[Count];
+        news = new NewsState[Count];
         keys = new ulong[Count];
         sectorOf = new int[Count];
         trendKernels = new TrendKernel[Count];
@@ -93,6 +95,7 @@ public sealed class MarketModel
             jumpRate[i] = c.jumpsPerYear / ExchangeRules.YearSeconds;
             driftPerSecond[i] = c.drift / ExchangeRules.YearSeconds;
             histories[i] = record.History(Ids[i]);
+            news[i] = record.NewsFor(Ids[i]);
         }
     }
 
@@ -352,6 +355,7 @@ public sealed class MarketModel
             Cause.Noise => st.Noise,
             Cause.Trading => st.Impact,
             Cause.Drift => driftPerSecond[i] * (step - st.Listed) * ExchangeRules.StepSeconds,
+            Cause.News => news[i].Move,
             _ => 0
         };
     }
@@ -391,6 +395,18 @@ public sealed class MarketModel
     public void Push(int i, double logDelta)
     {
         States[i].Impact += logDelta;
+        LnPrice[i] += logDelta;
+        States[i].LastLn = LnPrice[i];
+    }
+
+    /// <summary>Whether a piece of story news has already moved this company's price in this save.</summary>
+    public bool NewsApplied(int i, string flag) => news[i].Applied.Contains(flag);
+
+    /// <summary>Story news breaks (0.2.0): the price moves once by <paramref name="logDelta"/>, and stays moved.</summary>
+    public void ApplyNews(int i, string flag, double logDelta)
+    {
+        if (!news[i].Applied.Add(flag)) return;
+        news[i].Move += logDelta;
         LnPrice[i] += logDelta;
         States[i].LastLn = LnPrice[i];
     }

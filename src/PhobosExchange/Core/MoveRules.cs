@@ -104,6 +104,13 @@ public sealed class MoveWatch
         }
     }
 
+    /// <summary>Holds back the day's move report for a company whose news the wire has just carried (0.2.0), so the same
+    /// move is not reported twice.</summary>
+    public void Reported(int company, long hour)
+    {
+        if (company >= 0 && company < count) lastReport[company] = hour;
+    }
+
     /// <summary>The part that moved most in the move's direction.</summary>
     public static void Largest(double[] now, double[] then, int direction, out Cause cause, out int driver)
     {

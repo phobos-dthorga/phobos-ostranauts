@@ -5,6 +5,22 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-07 - Draft
+
+### Added
+
+- Story news that moves prices: each company can list news in the exchange file, a story flag, how far the price moves and the line the market wire prints. When a story sets the flag, the price moves once and stays moved, and the wire names the news as the cause.
+- The exchange tells stories what you do: each company's biggest moves of the day, your first purchase, a large stake and selling out set story flags and start the matching story arcs when a story pack has them, so letters and news can follow your trading.
+- A story pack with a thread for the exchange and one for each company, ready for the stories to come.
+- A worked example add-on, Keelhaul Listing, that lists a company of its own, tells a story that lifts its price, and answers your first purchase with a letter. Add-ons can now write the story events of their own companies.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.129.0, which lets add-ons name the exchange's events for their own companies.
+- Saves: news that has moved a price is kept in the exchange record under its own entry. Saves from 0.1.0 load unchanged.
+- The stories themselves are not written yet: this version ships the hooks and the threads. The figures are still invented for the game.
+- Checked offline: the news validation, a price moving once and staying moved through a save and load, the wire not repeating news, the story event names, and the example add-on loading through the game's own loader. Not yet seen in the game.
+
 ## [0.1.0] - 2026-10-07 - Draft
 
 ### Added

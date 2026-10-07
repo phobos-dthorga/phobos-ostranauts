@@ -538,6 +538,12 @@ def exchange():
         'weight': num(-1, 1, description='How strongly the company follows it: positive when dear goods there help it, negative for an input; not 0.'),
         'limit': num(0.01, 0.3, description='The most this driver may move the log price either way (default 0.12).'),
     }, required=('station', 'category', 'weight'))
+    news = obj({
+        'notes': NOTES,
+        'flag': string('The story flag that brings the news, set by a story arc or another mod.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
+        'move': num(-0.3, 0.3, description='How far the price moves when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way. Once per save, and it stays.'),
+        'wire': string('The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders.'),
+    }, required=('flag', 'move'))
     company = obj({
         'notes': NOTES,
         'ticker': string('The trading symbol: two to five capital letters, unique.', pattern='^[A-Z]{2,5}$'),
@@ -557,6 +563,7 @@ def exchange():
         'followsSector': num(0, 2, description='How closely it follows its sector phases (default 1).'),
         'trend': trend,
         'drivers': {'type': 'array', 'maxItems': 6, 'items': driver, 'description': 'The game market signals the company follows.'},
+        'news': {'type': 'array', 'maxItems': 12, 'items': news, 'description': 'Story news that moves the price once when its story flag is set (Phobos Exchange 0.2.0).'},
     }, required=('ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear', 'jumpSize', 'spread', 'trend'))
     return obj({**header('exchange'), 'market': market,
                 'sectors': named(sector, 'Sectors by id (lowercase words joined by dashes, at most 24 characters); companies in one sector share its phases.', '^[a-z0-9]+(-[a-z0-9]+)*$'),

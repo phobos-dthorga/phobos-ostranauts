@@ -33,6 +33,11 @@ internal static class ExchangeNativeChecks
 
         var pack = DataPacks.LoadText<ExchangePack>(DataPacks.ShippedText(Companies.Source), "", ExchangeRules.Owner, ExchangeSchema.Name, ExchangeSchema.Validate);
         check(pack.companies.Count > 0, "The embedded company list loads");
+        // Exchange 0.2.0: the embedded story pack loads and keeps a thread for every company.
+        var story = DataPacks.LoadText<Phobos.Ostranauts.Framework.Story.StoryPack>(DataPacks.ShippedText(new DataPackSource(ExchangeRules.Owner, ExchangeRules.ModFolder,
+            Phobos.Ostranauts.Framework.Story.StorySchema.Name, typeof(Plugin).Assembly, "PhobosExchange.story.json")), "", ExchangeRules.Owner, Phobos.Ostranauts.Framework.Story.StorySchema.Name,
+            s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, false));
+        check(pack.companies.Keys.All(id => story.threads.ContainsKey("exchange-" + id)), "The embedded story pack has a thread for every company");
         string market = Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "market");
         var collections = JArray.Parse(File.ReadAllText(Path.Combine(market, "CoCollections", "cocollections.json"))).Select(c => (string)c["strName"]!).ToHashSet(StringComparer.Ordinal);
         var actors = JArray.Parse(File.ReadAllText(Path.Combine(market, "Markets", "market_actor_configs.json"))).ToDictionary(a => (string)a["strName"]!, a => a, StringComparer.Ordinal);

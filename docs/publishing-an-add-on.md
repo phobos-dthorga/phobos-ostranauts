@@ -14,7 +14,8 @@ What an add-on can do today (Phobos Framework 0.92.0):
   Phobos Agriculture.
 - Name the things it adds, and translate the Phobos mods into another language.
 - Add War Has Been Declared rebuild schematics.
-- List new companies and sectors on Phobos Exchange.
+- List new companies and sectors on Phobos Exchange, with story news that moves their price
+  and letters that answer the exchange's own events.
 
 ## 1. Get it working for yourself first
 
@@ -29,7 +30,9 @@ Copy [the template](../examples/addons/PhobosAddOnTemplate) and rename it. Two w
 examples sit beside it: [Richer Gangue](../examples/addons/PhobosExampleRicherGangue)
 for Phobos Manufacturing, and
 [Dockside Extras](../examples/addons/PhobosExampleDocksideExtras) for Phobos
-Shipbreaker and Phobos Agriculture.
+Shipbreaker and Phobos Agriculture, and
+[Keelhaul Listing](../examples/addons/PhobosExampleKeelhaulListing) for Phobos Exchange: a
+company of your own on the exchange, with a story that moves its share price.
 
 ```text
 MyAddon/
@@ -83,6 +86,17 @@ Your files go under `phobos/<Mod>/<schema>/`, exactly as they sat under
   entry. Anything you add (a recipe, an outcome table, a crop) must have an id that
   starts with your `idPrefix`, so two add-ons never collide and nothing of yours is
   mistaken for ours.
+- **Your own events too** (Framework 0.129.0). Some mods name story content after the entry
+  it concerns: Phobos Exchange starts the arc `exchange-<company>-bought` when a player first
+  buys a company, and the same for `surge`, `slump`, `major-holder` and `sold-out`. Those mods
+  register their namespace (`exchange`), and then an id that starts with the namespace, a
+  dash and your prefix is yours as well: an add-on with prefix `keelhaul` may add
+  `exchange-keelhaul-freight-bought` for its own company `keelhaul-freight`, and never
+  another company's. The rule covers every entry you add in any table of any pack (arcs,
+  threads, people, news, adverts, small talk). Story flags are not entries, so nothing
+  checks them, but give them your prefix (or the namespace and your prefix) all the same.
+  Phobos Banking does not register `bank` yet, so an added lender's letters cannot be named
+  `bank-<lender>-…` until it does.
 - **Never rename or remove a shipped entry.** Switch an outcome off with a weight
   of 0 instead.
 - **Leave `revision` out of recipes you add.** Framework gives each one a number

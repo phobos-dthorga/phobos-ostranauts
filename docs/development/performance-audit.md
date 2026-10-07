@@ -1204,6 +1204,15 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: story news on the exchange (L98)
+
+L98 — Phobos Exchange 0.2.0, Framework 0.129.0. The exchange's one-second poll now also asks
+the story record whether each company's news flags are set: one id check and one dictionary
+lookup per news entry not yet applied (none shipped yet; at most twelve a company), and
+nothing once applied. Story events are raised only on a reported big move or a trade. The
+add-on namespace check runs once per added entry when packs load. No capture accompanies
+this change.
+
 ## 7 October: the share market (L97)
 
 L97 — Phobos Exchange 0.1.0 (held draft) and its Framework chart control. The market steps

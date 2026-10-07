@@ -616,6 +616,31 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.lenders(shared, 'lenders')
 
+    def test_event_namespaces_match_the_mods(self):
+        # Framework 0.129.0: the Python mirror's namespaces are exactly those the mods register.
+        import re
+        registered = set()
+        for path in (ROOT / 'src').rglob('*.cs'):
+            registered.update(re.findall(r'AddOns\.RegisterNamespace\("([a-z]+)"\)', path.read_text(encoding='utf-8')))
+        self.assertEqual(registered, set(validate.EVENT_NAMESPACES))
+        self.assertTrue(validate.owns('exchange-keelhaul-freight-bought', 'keelhaul'))
+        self.assertFalse(validate.owns('exchange-smartlink-surge', 'keelhaul'))
+
+    def test_exchange_listing_example(self):
+        # Phobos Exchange 0.2.0 and Framework 0.129.0: the worked example lists a company with news and answers the
+        # exchange's own bought event, which the exchange namespace lets an add-on name.
+        example = ROOT / 'examples/addons/PhobosExampleKeelhaulListing'
+        manifest, checked = validate.check_addon(example)
+        self.assertEqual(manifest['id'], 'example-keelhaul-listing')
+        self.assertEqual(len(checked), 2)
+        saved = validate.EVENT_NAMESPACES
+        try:
+            validate.EVENT_NAMESPACES = ()
+            with self.assertRaises(validate.Problem):
+                validate.check_addon(example)
+        finally:
+            validate.EVENT_NAMESPACES = saved
+
     def test_exchange_pack_mirrors_the_game_rules(self):
         # Phobos Exchange 0.1.0: the shipped exchange passes; the Python mirror and the JSON Schema refuse the same mistakes,
         # and the mirror applies the owner's expected-return guard exactly as the game does.
@@ -653,6 +678,22 @@ class DataPackTests(unittest.TestCase):
         unknown['companies']['smartlink']['colour'] = 'blue'
         with self.assertRaises(validate.Problem):
             validate.exchange(unknown, 'exchange')
+        # Phobos Exchange 0.2.0: story news.
+        good = json.loads(json.dumps(pack))
+        good['companies']['smartlink']['news'] = [{'flag': 'smlk-test-contract', 'move': 0.08, 'wire': 'Smartlink wins a contract.'}]
+        validate.exchange(good, 'exchange')
+        self.assertEqual(schemas.problems(json.loads(writer.render('exchange')), good), [])
+        for entry in ({'flag': 'Bad Flag', 'move': 0.08}, {'flag': 'smlk-a', 'move': 0.5}, {'flag': 'smlk-a', 'move': 0.001},
+                      {'flag': 'smlk-a', 'move': 0.05, 'wire': '[player] did it'}, {'flag': 'smlk-a', 'move': 0.05, 'odds': 1}):
+            bad = json.loads(json.dumps(pack))
+            bad['companies']['smartlink']['news'] = [entry]
+            with self.subTest(news=entry):
+                with self.assertRaises(validate.Problem):
+                    validate.exchange(bad, 'exchange')
+        twice = json.loads(json.dumps(pack))
+        twice['companies']['smartlink']['news'] = [{'flag': 'smlk-a', 'move': 0.05}, {'flag': 'smlk-a', 'move': 0.06}]
+        with self.assertRaises(validate.Problem):
+            validate.exchange(twice, 'exchange')
         self.assertNotEqual(schemas.problems(json.loads(writer.render('exchange')), unknown), [])
 
 if __name__ == '__main__':

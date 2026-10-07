@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Phobos Exchange story pack (0.2.0 draft): one place-less thread for the exchange and one per listed company, so ChatGPT and add-ons have somewhere to put news, adverts, small talk and the event arcs the exchange starts. Content to come from the handoff in docs/development/exchange-stories-handoff.md.",
+  "threads": {
+    "exchange-lodestar": {
+      "title": "The Lodestar Exchange",
+      "notes": "Agent placeholder (Exchange 0.2.0): the exchange itself, for market-wide news, adverts and small talk. No place, so it reaches the player anywhere. ChatGPT writes its content; see docs/development/exchange-stories-handoff.md."
+    },
+    "exchange-smartlink": {
+      "title": "Smartlink",
+      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-smartlink-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-testudo": {
+      "title": "Testudo",
+      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-testudo-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-ayotimiwa": {
+      "title": "Ayotimiwa Corp.",
+      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-ayotimiwa-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-green-energy": {
+      "title": "The Green Energy Company",
+      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-green-energy-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-brightvein": {
+      "title": "Brightvein Mining",
+      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-brightvein-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-coldwell": {
+      "title": "Coldwell Volatiles",
+      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-coldwell-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-verdemorrow": {
+      "title": "Verdemorrow",
+      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-verdemorrow-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    },
+    "exchange-halewright": {
+      "title": "Halewright",
+      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-halewright-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+    }
+  }
+}

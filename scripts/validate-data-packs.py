@@ -1408,7 +1408,7 @@ def exchange(pack, where):
         if not isinstance(c, dict):
             raise Problem(f'{w}: expected an object')
         fields(c, {'notes', 'ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear',
-                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers'}, w)
+                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers', 'news'}, w)
         if 'notes' in c and (not isinstance(c['notes'], str) or len(c['notes']) > 2000):
             raise Problem(f'{w}/notes: at most 2000 characters')
         ticker = c.get('ticker')
@@ -1449,6 +1449,27 @@ def exchange(pack, where):
             if d['weight'] == 0:
                 raise Problem(f'{dw}/weight: not 0')
             number(d.get('limit', 0.12), f'{dw}/limit', 0.01, 0.3)
+        # Phobos Exchange 0.2.0: story news that moves the price once when its flag is set.
+        news = c.get('news', [])
+        if not isinstance(news, list) or len(news) > 12:
+            raise Problem(f'{w}/news: at most 12')
+        flags = set()
+        for i, n in enumerate(news):
+            nw = f'{w}/news/{i}'
+            if not isinstance(n, dict):
+                raise Problem(f'{nw}: expected an object')
+            fields(n, {'notes', 'flag', 'move', 'wire'}, nw)
+            story_id(n.get('flag'), f'{nw}/flag')
+            if n['flag'] in flags:
+                raise Problem(f'{nw}/flag: {n["flag"]} is used twice for this company')
+            flags.add(n['flag'])
+            number(n.get('move'), f'{nw}/move', -0.3, 0.3)
+            if abs(n['move']) < 0.005:
+                raise Problem(f'{nw}/move: at least 0.005 either way')
+            if n.get('wire') is not None:
+                story_words(n['wire'], 300, f'{nw}/wire')
+                if '[' in n['wire']:
+                    raise Problem(f'{nw}/wire: no placeholders')
         expected = exchange_expected_return(c, sectors[c['sector']]['trend'], m['trend'])
         if not expected <= EXCHANGE_MAX_RETURN:
             raise Problem(f'{w}: expected yearly return {expected:.3f} is above {EXCHANGE_MAX_RETURN}; lower the drift, the noise, the trend phases or the jumps')
@@ -1533,6 +1554,16 @@ def no_duplicates(pairs):
     return seen
 
 
+# Framework 0.129.0: event namespaces mods register (AddOns.RegisterNamespace). An add-on may add ids starting with
+# '<namespace>-<its prefix>' as well as with its prefix. Kept equal to the registrations in src by a test.
+EVENT_NAMESPACES = ('exchange',)
+
+
+def owns(key, prefix):
+    key = key.lower()
+    return key.startswith(prefix) or any(key.startswith(f'{ns}-{prefix}') for ns in EVENT_NAMESPACES)
+
+
 def check_addon(folder):
     """Validates an add-on folder against the shipped packs. Returns the list of files that were checked."""
     folder = Path(folder)
@@ -1600,7 +1631,7 @@ def check_addon(folder):
                     if not isinstance(entries, dict):
                         continue
                     for key in entries:
-                        if key not in merged.get(table, {}) and not key.lower().startswith(prefix):
+                        if key not in merged.get(table, {}) and not owns(key, prefix):
                             raise Problem(f'{rel}: an add-on may add only entries that start with its id prefix; {key} does not start with {manifest["idPrefix"]}')
                 if schema == 'process-recipes':
                     for key, recipe in overlay.get('recipes', {}).items():

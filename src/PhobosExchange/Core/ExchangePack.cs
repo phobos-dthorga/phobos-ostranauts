@@ -111,12 +111,32 @@ public sealed class CompanyEntry
     public TrendEntry trend = new();
     /// <summary>The native price signals it follows. No default entries: the file reader adds a file's list to a default one.</summary>
     public List<DriverEntry> drivers = new();
+    /// <summary>Story news that moves the price once (Phobos Exchange 0.2.0): when a story flag is set, by a story pack's arc
+    /// or by another mod, the price jumps by the entry's share and the wire carries its line. No default entries.</summary>
+    public List<NewsEntry> news = new();
+}
+
+/// <summary>A piece of story news and what it does to a company's price (Phobos Exchange 0.2.0; owner direction,
+/// 7 October 2026: stories are data that writers and players add, and the exchange reacts to them).</summary>
+public sealed class NewsEntry
+{
+    public string? notes;
+    /// <summary>The story flag that brings the news: a story id, set by an arc's <c>setFlags</c> or by another mod.</summary>
+    public string flag = "";
+    /// <summary>How far the price moves when the news breaks, as a share of the price: 0.08 is up 8%, -0.1 down 10%. Once
+    /// per save, and it stays: a contract won or a yard lost changes what the company is worth.</summary>
+    public double move;
+    /// <summary>The wire line the player reads when the news moves the price, in a wire service's neutral voice. Without
+    /// one the wire says the company moved on the news.</summary>
+    public string? wire;
 }
 
 public static class ExchangeSchema
 {
     public const string Name = "exchange";
-    public const int MaxIdLength = 24, MaxName = 40, MaxProfile = 400, MaxDrivers = 6, MaxCompanies = 40, MaxSectors = 16;
+    public const int MaxIdLength = 24, MaxName = 40, MaxProfile = 400, MaxDrivers = 6, MaxCompanies = 40, MaxSectors = 16, MaxNews = 12, MaxWire = 300;
+    /// <summary>The largest move one piece of news may make, either way, and the smallest worth reporting.</summary>
+    public const double MaxNewsMove = 0.3, MinNewsMove = 0.005;
     private static readonly Regex Ticker = new("^[A-Z]{2,5}$", RegexOptions.CultureInvariant);
     private static readonly Regex Station = new("^[A-Z0-9]{3,8}$", RegexOptions.CultureInvariant);
     private static readonly Regex Category = new("^Any[A-Za-z0-9]{1,37}$", RegexOptions.CultureInvariant);
@@ -191,6 +211,24 @@ public static class ExchangeSchema
                 if (!Finite(d.weight) || d.weight == 0 || Math.Abs(d.weight) > 1) throw new ArgumentException(dw + ".weight: from -1 to 1, not 0");
                 Range(d.limit, 0.01, 0.3, dw + ".limit");
             }
+            if (c.news == null || c.news.Count > MaxNews) throw new ArgumentException(where + ".news: at most " + MaxNews);
+            var flags = new HashSet<string>(StringComparer.Ordinal);
+            for (int i = 0; i < c.news.Count; i++)
+            {
+                string nw = where + ".news[" + i + "]";
+                var n = c.news[i] ?? throw new ArgumentException(nw + ": empty");
+                Notes(n.notes, nw);
+                if (!StorySchema.IsId(n.flag)) throw new ArgumentException(nw + ".flag: a story flag id, lowercase words joined by dashes");
+                if (!flags.Add(n.flag)) throw new ArgumentException(nw + ".flag: " + n.flag + " is used twice for this company");
+                if (!Finite(n.move) || Math.Abs(n.move) < MinNewsMove || n.move > MaxNewsMove || n.move < -MaxNewsMove)
+                    throw new ArgumentException(nw + ".move: from -" + MaxNewsMove + " to " + MaxNewsMove + ", at least " + MinNewsMove + " either way");
+                if (n.wire != null)
+                {
+                    StorySchema.Words(n.wire, MaxWire, nw + ".wire");
+                    if (n.wire.IndexOf('[') >= 0) throw new ArgumentException(nw + ".wire: no placeholders");
+                }
+            }
+            // One-off news is authored and bounded; the guard covers what a holder can expect from the market itself.
             double expected = ExpectedReturn(c, pack.sectors[c.sector].trend, m.trend);
             if (!(expected <= ExchangeRules.MaxExpectedReturn))
                 throw new ArgumentException(where + ": expected yearly return " + expected.ToString("0.000") + " is above " + ExchangeRules.MaxExpectedReturn.ToString("0.00") +

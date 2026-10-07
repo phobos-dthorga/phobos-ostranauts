@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "example-keelhaul-listing",
+  "name": "Example: Keelhaul Listing",
+  "author": "Phobos A. D'thorga",
+  "version": "1.0.0",
+  "idPrefix": "keelhaul",
+  "requires": {
+    "PhobosFramework": "0.129.0",
+    "PhobosExchange": "0.2.0"
+  },
+  "notes": "Kept in the Phobos Ostranauts repository as the worked example of a company listed on Phobos Exchange with its own story: news that moves its price and a letter when the player first buys in. Loaded by the repository's checks."
+}

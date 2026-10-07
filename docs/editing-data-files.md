@@ -682,6 +682,14 @@ What each field does:
 - **`trend`**: the company's own phases: `slowWeeks` (roughly how long one lasts),
   `fastWeeks` (how quickly it turns; `slowWeeks` must be at least one and a half times
   it) and `sd` (how far phases carry the price; 0.15 is about 15%).
+- **`news`** (Phobos Exchange 0.2.0): up to twelve pieces of story news that move the price
+  once when their story flag is set, by a story arc's `setFlags` or another mod: `flag` (a
+  story flag id), `move` (a share of the price from -0.3 to 0.3, at least 0.005 either way:
+  0.08 is up 8%) and an optional `wire` line (up to 300 characters, a neutral wire report, no
+  placeholders) the market wire prints. The move stays: a contract won changes what the
+  company is worth. See [exchange stories](development/exchange-stories-handoff.md) for how a
+  story and its news fit together, and the
+  [Keelhaul example](../examples/addons/PhobosExampleKeelhaulListing/README.md).
 - **`drivers`**: up to six of the game's station markets the company follows. `station`
   is the station's registration (such as `MTRS` for Port Yangshan), `category` the game's
   category of goods (such as `AnyWeapons`), `weight` from -1 to 1 (positive when goods

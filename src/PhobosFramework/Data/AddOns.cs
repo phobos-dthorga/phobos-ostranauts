@@ -119,8 +119,31 @@ public static class AddOns
     /// <summary>Whether an installed version meets a required one. An unreadable version never does.</summary>
     public static bool AtLeast(string installed, string required) =>
         Version.TryParse(installed, out var have) && Version.TryParse(required, out var need) && have >= need;
-    /// <summary>Whether an id belongs to an add-on's own namespace: it starts with the prefix, ignoring case.</summary>
-    public static bool Owns(AddOnManifest manifest, string id) => id != null && id.StartsWith(manifest.idPrefix, StringComparison.OrdinalIgnoreCase);
+    /// <summary>Whether an id belongs to an add-on's own namespace: it starts with the prefix, ignoring case, or (Framework
+    /// 0.129.0) with a registered event namespace followed by the prefix, such as <c>exchange-myaddon-</c>.</summary>
+    public static bool Owns(AddOnManifest manifest, string id)
+    {
+        if (id == null || manifest == null) return false;
+        if (id.StartsWith(manifest.idPrefix, StringComparison.OrdinalIgnoreCase)) return true;
+        foreach (var ns in namespaces)
+            if (id.StartsWith(ns + "-" + manifest.idPrefix, StringComparison.OrdinalIgnoreCase)) return true;
+        return false;
+    }
+
+    private static readonly HashSet<string> namespaces = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>Registers a mod's event namespace (Framework 0.129.0). A mod that names its story events after the entry they
+    /// concern, such as Phobos Exchange's <c>exchange-&lt;company&gt;-&lt;event&gt;</c>, registers <c>exchange</c> in Awake;
+    /// an add-on may then add ids starting with <c>exchange-&lt;its prefix&gt;</c>, so the events of its own companies can
+    /// have its own stories, and never another's. Lowercase letters only, 2 to 16.</summary>
+    public static void RegisterNamespace(string ns)
+    {
+        if (ns == null || ns.Length < 2 || ns.Length > 16 || ns.Any(c => c < 'a' || c > 'z')) throw new ArgumentException("An event namespace is 2 to 16 lowercase letters.", nameof(ns));
+        namespaces.Add(ns);
+    }
+
+    /// <summary>The registered event namespaces.</summary>
+    public static IReadOnlyCollection<string> Namespaces => namespaces;
 
     /// <summary>The add-ons whose files for this mod may load: those that ask no more of it than the installed version.
     /// One that asks for more is named once in the refusals.</summary>

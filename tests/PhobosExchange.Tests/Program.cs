@@ -364,6 +364,107 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     Check(byCompany.All(list => list.Zip(list.Skip(1), (a, b) => b.Hour - a.Hour).All(gap => gap >= cooldown)), "one report per company per cooldown");
 }
 
+// ---- Story news and story events (Phobos Exchange 0.2.0) --------------------------------------------------
+{
+    string withNews = Fixture.Replace("\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ] },",
+        "\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ], \"news\": [ { \"flag\": \"keel-titan-contract\", \"move\": 0.08, \"wire\": \"Keel Yards wins the Titan hull contract.\" }, { \"flag\": \"keel-yard-fire\", \"move\": -0.12 } ] },");
+    Check(withNews != Fixture, "the fixture takes news entries");
+    var newsPack = LoadPack(withNews);
+    Check(newsPack.companies["keel"].news.Count == 2 && newsPack.companies["keel"].news[1].wire == null && newsPack.companies["glow"].news.Count == 0, "news loads, with no wire line where none is given");
+    string BadNews(string entry) => Fixture.Replace("\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ] },",
+        "\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ], \"news\": [ " + entry + " ] },");
+    Check(Refused(BadNews("{ \"flag\": \"Keel Contract\", \"move\": 0.08 }")), "a news flag must be a story id");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.5 }")) && Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": -0.5 }")), "news may move a price at most 30% either way");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.001 }")), "news too small to see is refused");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05 }, { \"flag\": \"keel-a\", \"move\": 0.06 }")), "one flag moves a company once");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": \"[player] did it\" }")), "a wire line has no placeholders");
+
+    var market = NewMarket(newsPack, new ExchangeRecord(), now);
+    int k = market.IndexOf("keel");
+    double before = market.LnPrice[k];
+    Check(!market.NewsApplied(k, "keel-titan-contract"), "news has not broken before its flag");
+    market.ApplyNews(k, "keel-titan-contract", Math.Log(1.08));
+    Check(Near(Math.Exp(market.LnPrice[k] - before), 1.08, 1e-12) && market.NewsApplied(k, "keel-titan-contract"), "news moves the price by its share at once");
+    market.ApplyNews(k, "keel-titan-contract", Math.Log(1.08));
+    Check(Near(Math.Exp(market.LnPrice[k] - before), 1.08, 1e-12), "the same news never moves the price twice");
+    Check(Near(market.Part(k, Cause.News), Math.Log(1.08), 1e-12), "news is its own part of the price, for the wire");
+    var fields = market.Record.Encode();
+    Check(fields.TryGetValue("news.keel", out var saved) && saved.StartsWith("1|") && saved.EndsWith("|keel-titan-contract"), "applied news is saved under its own key");
+    var back = new MarketModel(newsPack, ExchangeRecord.Decode(fields));
+    back.Start(market.Clock, Seed);
+    Check(back.LnPrice[k] == market.LnPrice[k] && back.NewsApplied(k, "keel-titan-contract") && !back.NewsApplied(k, "keel-yard-fire"), "news survives a save and load exactly");
+    var oldRecord = market.Record.Encode();
+    oldRecord.Remove("news.keel");
+    var fromOld = ExchangeRecord.Decode(oldRecord);
+    Check(fromOld.News.Count == 0, "a 0.1.0 record, without news, reads as no news");
+    var future = market.Record.Encode();
+    future["news.keel"] = "2|from a newer version";
+    Check(ExchangeRecord.Decode(future).Encode()["news.keel"] == "2|from a newer version", "news from a newer version is kept untouched");
+    // The wire carries the news once: the day's move report does not repeat it.
+    var reports = new List<MoveReport>();
+    var watch = new MoveWatch(market);
+    var observer = new ReportObserver(watch, reports);
+    market.Advance(market.Clock + 26 * 60, observer);
+    reports.Clear();
+    market.ApplyNews(k, "keel-yard-fire", Math.Log(0.88));
+    watch.Reported(k, ExchangeRules.HourOf(market.Clock));
+    market.Advance(market.Clock + 30 * 60, observer);
+    Check(!reports.Any(r => r.Company == k && !r.Turn), "news the wire has carried is not reported again as the day's move");
+    var plain = new MoveWatch(market);
+    var plainReports = new List<MoveReport>();
+    var plainObserver = new ReportObserver(plain, plainReports);
+    market.Advance(market.Clock + 26 * 60, plainObserver);
+    market.ApplyNews(k, "keel-extra", Math.Log(1.2));
+    market.Advance(market.Clock + 60, plainObserver);
+    Check(plainReports.Any(r => r.Company == k && !r.Turn && r.Cause == Cause.News), "a move made by news is put down to the news");
+}
+{
+    // Story ids the exchange sets and starts are valid story ids for every shipped company (at most 48 characters).
+    string shippedExchange = Path.Combine(repo, "mods", "PhobosExchange", "framework", "exchange.json");
+    var companies = File.Exists(shippedExchange) ? LoadPack(File.ReadAllText(shippedExchange)).companies.Keys.ToList() : new List<string>();
+    foreach (var id in companies)
+        foreach (var what in ExchangeRules.Events)
+            Check(Phobos.Ostranauts.Framework.Story.StorySchema.IsId(ExchangeRules.StoryId(id, what)), "event id is a story id: " + ExchangeRules.StoryId(id, what));
+    Check(Phobos.Ostranauts.Framework.Story.StorySchema.IsId(ExchangeRules.StoryId(new string('a', ExchangeSchema.MaxIdLength), ExchangeRules.MajorHolder)), "the longest company id still makes valid event ids");
+    string shippedStory = Path.Combine(repo, "mods", "PhobosExchange", "framework", "story.json");
+    if (File.Exists(shippedStory))
+    {
+        var story = DataPacks.LoadText<Phobos.Ostranauts.Framework.Story.StoryPack>(File.ReadAllText(shippedStory), "", ExchangeRules.Owner, Phobos.Ostranauts.Framework.Story.StorySchema.Name,
+            s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, false));
+        Check(story.threads.ContainsKey("exchange-lodestar") && companies.All(id => story.threads.ContainsKey("exchange-" + id)), "the story pack has a thread for the exchange and every company");
+        foreach (var arc in story.arcs.Keys.Where(a => a.StartsWith("exchange-", StringComparison.Ordinal)))
+            Check(companies.Any(id => ExchangeRules.Events.Any(what => arc == ExchangeRules.StoryId(id, what))), "every exchange arc answers a known company's event: " + arc);
+    }
+}
+
+// ---- The worked example add-on (Exchange 0.2.0, Framework 0.129.0), through Framework's own loader --------------
+{
+    string example = Path.Combine(repo, "examples", "addons", "PhobosExampleKeelhaulListing");
+    var saved = AddOns.EnabledModDirectories;
+    try
+    {
+        AddOns.EnabledModDirectories = () => new[] { example };
+        AddOns.Reset();
+        int problems = DataPacks.Problems.Count;
+        var listed = DataPacks.Load<ExchangePack>(new DataPackSource(ExchangeRules.Owner, ExchangeRules.ModFolder, ExchangeSchema.Name, typeof(Fill).Assembly, "PhobosExchange.exchange.json"), ExchangeSchema.Validate);
+        Check(AddOns.Current.Count == 1 && AddOns.Refused.Count == 0 && DataPacks.Problems.Count == problems, "the example add-on is found and its exchange file is accepted: " + string.Join("; ", DataPacks.Problems.Skip(problems).Select(x => x.File + ": " + x.Message)));
+        Check(listed.companies.TryGetValue("keelhaul-freight", out var keelhaul) && keelhaul.ticker == "KHF" && keelhaul.news.Single().flag == "keelhaul-titan-contract" && listed.companies.Count == 9,
+            "its company joins the eight listed, with its news");
+        var story = DataPacks.Load<Phobos.Ostranauts.Framework.Story.StoryPack>(new DataPackSource("phobosgekko.ostranauts.framework", "PhobosFramework", Phobos.Ostranauts.Framework.Story.StorySchema.Name,
+            typeof(Phobos.Ostranauts.Framework.Story.StoryPack).Assembly, "PhobosFramework.story.json"), s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, true));
+        bool refusedWithoutNamespace = !AddOns.Namespaces.Contains("exchange") && DataPacks.Problems.Count > problems && !story.arcs.ContainsKey("exchange-keelhaul-freight-bought");
+        Check(refusedWithoutNamespace || AddOns.Namespaces.Contains("exchange"), "without the exchange namespace the add-on's event arc is refused");
+        AddOns.RegisterNamespace("exchange");
+        problems = DataPacks.Problems.Count;
+        story = DataPacks.Load<Phobos.Ostranauts.Framework.Story.StoryPack>(new DataPackSource("phobosgekko.ostranauts.framework", "PhobosFramework", Phobos.Ostranauts.Framework.Story.StorySchema.Name,
+            typeof(Phobos.Ostranauts.Framework.Story.StoryPack).Assembly, "PhobosFramework.story.json"), s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, true));
+        Check(DataPacks.Problems.Count == problems && story.arcs.ContainsKey("keelhaul-titan-contract") && story.arcs.ContainsKey("exchange-keelhaul-freight-bought") && story.threads.ContainsKey("keelhaul-freight"),
+            "with the exchange namespace registered, its story and its bought letter load: " + string.Join("; ", DataPacks.Problems.Skip(problems).Select(x => x.File + ": " + x.Message)));
+        Check(story.arcs["keelhaul-titan-contract"].steps.Last().onComplete!.setFlags.Contains("keelhaul-titan-contract"), "its arc sets the flag its news answers to");
+    }
+    finally { AddOns.EnabledModDirectories = saved; AddOns.Reset(); }
+}
+
 // ---- The drift guard against Banking's cheapest loan (owner rule) ------------------------------------------
 {
     var lenders = System.Text.Json.JsonDocument.Parse(File.ReadAllText(Path.Combine(repo, "mods", "PhobosBank", "framework", "lenders.json"))).RootElement;

@@ -91439,6 +91439,71 @@
       ],
       "before": "create a {0} module in this console from nothing",
       "after": "create a {0} module in this console from nothing"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Story.skipped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.2.0: wire lines for story news and the story-arc log line; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:202"
+      ],
+      "before": "Exchange: story arc {0} didn't start: {1}",
+      "after": "Exchange: story arc {0} didn't start: {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.2.0: wire lines for story news and the story-arc log line; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:183"
+      ],
+      "before": "Market wire: {0} ({1} {2})",
+      "after": "Market wire: {0} ({1} {2})"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_up",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.2.0: wire lines for story news and the story-arc log line; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:184"
+      ],
+      "before": "Market wire: {0} ({1}) rose {2} on the news.",
+      "after": "Market wire: {0} ({1}) rose {2} on the news."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.news_down",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.2.0: wire lines for story news and the story-arc log line; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:184"
+      ],
+      "before": "Market wire: {0} ({1}) fell {2} on the news.",
+      "after": "Market wire: {0} ({1}) fell {2} on the news."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.news",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.2.0: wire lines for story news and the story-arc log line; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:272"
+      ],
+      "before": "on the news",
+      "after": "on the news"
     }
   ],
   "documents": [
@@ -91446,12 +91511,13 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bf7e0c899999073066b0b3728c523b276677f3edb1cda185be2737261ab93874",
+      "sha256": "aa2c8c688dfb16619b515738b250d2b32f0df5371a4dee8abacb3501fdd1eac1",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "SUPPORT.md",
@@ -91613,10 +91679,11 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "851147fe37b42a9b4691e0b72cebb091582d67e35bbf2e35afa81631cd8c2467",
+      "sha256": "154056c326f44099241ef593f288ebc587781173def01aba445bc5531e50aa21",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
-      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/crew-automation.md",
@@ -91629,13 +91696,14 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "c07e054ec155650f7b37cb8a8e965d577d5d79084490fdea3ccd7fc588083d02",
+      "sha256": "1e019a81eaa40a0bebcfbdae16d9b1a2bf18f94afc17998c702118d542e0259c",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments.",
       "review20261007ShareMarket": "Reviewed 7 October 2026: one index line added for the share market and charts design record; existing wording retained.",
-      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -92009,9 +92077,10 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3d0fd2bc21a2801f08f615dd0db4a8e4c5b7b520b417ce1d2059817aabf57194",
+      "sha256": "9cca1357bd686b75f9965d2969f51d8a808d12d4cca5c99b302b75f433af9288",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -92300,13 +92369,14 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "10884e2aec38969221fdad84db571027d7506ef86ba05aee12871c8573f61463",
+      "sha256": "38cb27ac9395e888b1d1f5b7d559555a18bddd04500a804844d3c0451640a776",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it.",
       "review20261007L97": "Reviewed 7 October 2026: L97 added for the Phobos Exchange market core (fixed time grid, bounded catch-up, offline timings labelled as .NET on the owner's PC, Mono cost to be recorded in game); existing findings retained.",
-      "review20261007Bank070": "Reviewed 7 October 2026: L97 extended with Phobos Banking 0.7.0's holdings read on its overview; existing findings retained."
+      "review20261007Bank070": "Reviewed 7 October 2026: L97 extended with Phobos Banking 0.7.0's holdings read on its overview; existing findings retained.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -92585,9 +92655,10 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "cfb4461b04f184d6566576b5318bdc9e36f634d6e1c53ef9ea71ad7795a30123",
+      "sha256": "7406632fb7802ea8f66e2dbfee14eefc13306e4cf477797c7693edec5db1439d",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -92671,10 +92742,11 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "009699b43c2196dd223a3e3ca9a3f180160bc7ecededce9e06f0fb75274b40e2",
+      "sha256": "1ddfccaae7fe50eab556031e41aaa6e1367a345abeae3e8237bd8f995b542801",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
-      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/item-references.md",
@@ -92744,18 +92816,20 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "79526d3dae98372447bc268a324c7060e1fdf999040e123e11745d2cc1b63e80",
+      "sha256": "4fdfc3fd3a21574d986d9b9051fe794aebee843d8f2aa02f9ba66a1aee7afacc",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
-      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/publishing-an-add-on.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "b5686593a3ada0884079f514d228f6799371128e39005d4635ba25068b7c07dd",
+      "sha256": "39aaded160d28215f8ffa5bfb74c8c1a3d3a63e21134e3e588417f1f22799076",
       "review": "Add-on data folder fix, 6 October 2026",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/residue-collector.md",
@@ -92866,9 +92940,10 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "8e39029d20220af39cc39dac2949d50308ff976a4f2409237b5e05f42e725fee",
+      "sha256": "de94e6ff07f89d23c5cab53fd9d360dc3375311b079377e6fc9bbacfe0e3ce8c",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
-      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -92889,10 +92964,11 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "428526cac124c9588e30e1a73fbacbcd3b70ed83c13827b7269248648a51f759",
+      "sha256": "6d2ec666635dc658056a8aa4ddfecf7f79676f2923f5c655cd7fe1008f445893",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
-      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -92992,17 +93068,19 @@
       "path": "docs/development/share-market-and-charts-design.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "c8bca353cc705fe865e96b5e18857d80c82b1237026524e9d4efefdf92cb08f4",
+      "sha256": "c9e5cc29e25016fbab5f054172556b380b56b31a35483646f7c5ced200991efe",
       "review": "Reviewed 7 October 2026: research-only design record for a Phobos Banking share market and a Framework chart control. Observed game behaviour, library source reading, agent proposals, unverified points and owner decisions are labelled; finance research attributed to its authors with primary links; no runtime or player catalogue text changed.",
       "review20261007ExchangePlanning": "Reviewed 7 October 2026: planning-round section added (owner decisions, corrections, model, time jumps, save record) and superseded notes on the original proposal; owner choices and agent choices labelled; no runtime text changed.",
-      "review20261007ExchangeBuilt": "Reviewed 7 October 2026: as-built section for Phobos Exchange 0.1.0 (trend phases as the difference of two OU processes, measured costs labelled as offline .NET figures, the guard and economy results, owner checks pending)."
+      "review20261007ExchangeBuilt": "Reviewed 7 October 2026: as-built section for Phobos Exchange 0.1.0 (trend phases as the difference of two OU processes, measured costs labelled as offline .NET figures, the guard and economy results, owner checks pending).",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/exchange-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "new",
-      "sha256": "19b2caef90c0e57c29d68aec775b0f09f96d59c9468ad3b975f253caa9849356",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "sha256": "f49d2bedb496bdf110680bfe990eaf3f8e05f983e45fa28432fa6dde4b6f4cb8",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/exchange-item-reference.md",
@@ -93015,8 +93093,9 @@
       "path": "workshop/PhobosExchange/page.bbcode",
       "scope": "current player text; Workshop page draft",
       "decision": "new",
-      "sha256": "d79200c301bfd5de37175166112a69ea22d2945c9d3863a684c0ab18b0e13f05",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md."
+      "sha256": "3f184a845bda69bd149c74d64e2c3979cd32a1b74764d3fa45411d66f5dbcf39",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md.",
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/console-command-audit.md",
@@ -93024,6 +93103,13 @@
       "decision": "new",
       "sha256": "991d9f6615883a67d2eac99881b02a92011f5018c4b46e5e98f91050817e7e33",
       "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+    },
+    {
+      "path": "docs/development/exchange-stories-handoff.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "7e0afca29bf5a374b1974e95f91f097e4d5c0c0bd647efab6c97cff0d80d26e5",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     }
   ],
   "surfaces": [
@@ -93083,8 +93169,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "baffe699202762e1b01724e85546e4e88ca1f251beb08954e0afafe867e92906",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
+      "sha256": "23f173d0f11efd0d27066271370ccf2e295902e412b75fb9ae5dba3ff3430815",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
@@ -93332,8 +93418,8 @@
       "path": "mods/PhobosExchange/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "41e5b033e4315f7295a815a5a49a40307bb9220bcc07dac9ab8e9ea0d7c3504d",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, shared holdings, test-command gate and new cover note; wording read against player-language.md; nothing claimed as tested in play."
+      "sha256": "f301b0cd1cbd0ca9fbbebc55526da3085d7919d94ac0b173ffc8a05ffad0cbe7",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosExchange/framework/exchange.json",
@@ -93346,8 +93432,8 @@
       "path": "mods/PhobosExchange/mod_info.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "af64a245e33cb1f851caa1ad59953426f927cf32baf5b892fe620f8eb4934534",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "sha256": "aee602e163d2913090af9d048365bc004da9fbf642c2ff58bc3197c632c3c397",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosBank/mod_info.json",
@@ -93367,8 +93453,15 @@
       "path": "mods/PhobosFramework/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "baaaebbdcbefdbef07d93cff22a42b8a11595e9ae45bb6ebcdc872fea73eb38a",
-      "review": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play."
+      "sha256": "9715d342e98741114df2c418a00051aa9094da4d816ba7a67590fb54dc580abc",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+    },
+    {
+      "path": "mods/PhobosExchange/framework/story.json",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "3bd4433b12ca05c2017637333c1efc9ccd23464c9c00c93467ca6614ca0fed50",
+      "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
     }
   ],
   "hardcodedReview": {

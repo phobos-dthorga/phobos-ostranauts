@@ -5,6 +5,7 @@ using System.Text;
 using Phobos.Ostranauts.Framework.Diagnostics;
 using Phobos.Ostranauts.Framework.Notices;
 using Phobos.Ostranauts.Framework.Persistence;
+using Phobos.Ostranauts.Framework.Story;
 using Phobos.Ostranauts.Framework.Trading;
 using PhobosExchange.Core;
 
@@ -94,6 +95,7 @@ internal static class Market
     internal static void Poll()
     {
         if (!Attach(out _) || model == null) return;
+        News();
         long now = ExchangeRules.StepOf(StarSystem.fEpoch);
         if (now <= model.Clock) return;
         long gap = now - model.Clock;
@@ -154,6 +156,73 @@ internal static class Market
         var shown = reports.OrderByDescending(r => Math.Abs(r.Change)).Take(3).ToList();
         foreach (var r in shown) Notify("PhobosExchange.wire", NoticeLevel.Info, Wire(r), null);
         if (reports.Count > shown.Count) Notify("PhobosExchange.wire", NoticeLevel.Info, Text.Get("Wire.more", reports.Count - shown.Count), null);
+        // Big moves tell story content (0.2.0): the latest big move's direction is a flag, and its arc starts if a pack has one.
+        foreach (var r in reports)
+            if (!r.Turn) Event(r.Company, r.Change >= 0 ? ExchangeRules.Surge : ExchangeRules.Slump, r.Change >= 0 ? ExchangeRules.Slump : ExchangeRules.Surge);
+    }
+
+    // ---- Story (Phobos Exchange 0.2.0) ------------------------------------------------------------------------
+
+    /// <summary>Story news that moves prices: a company's news entry moves its price once per save when its story flag is
+    /// set (by a story pack's arc or by another mod), and the wire carries its line. A few flag lookups a second.</summary>
+    private static void News()
+    {
+        if (model == null) return;
+        bool moved = false;
+        for (int i = 0; i < model.Count; i++)
+        {
+            var entries = model.Entries[i].news;
+            for (int j = 0; j < entries.Count; j++)
+            {
+                var n = entries[j];
+                if (model.NewsApplied(i, n.flag) || !StoryFlags.Has(n.flag)) continue;
+                model.ApplyNews(i, n.flag, Math.Log(1 + n.move));
+                watch?.Reported(i, ExchangeRules.HourOf(model.Clock));
+                string name = Companies.Name(model.Ids[i]), ticker = model.Entries[i].ticker;
+                string line = n.wire != null
+                    ? Text.Get("Wire.news_line", Companies.NewsWire(model.Ids[i], n), ticker, Percent(n.move))
+                    : Text.Get(n.move >= 0 ? "Wire.news_up" : "Wire.news_down", name, ticker, Percent(Math.Abs(n.move)));
+                Notify("PhobosExchange.wire", NoticeLevel.Info, line, null);
+                moved = true;
+            }
+        }
+        if (moved) { dirty = true; Save(); Version++; }
+    }
+
+    /// <summary>An event for story content: sets the flag <c>exchange-&lt;company&gt;-&lt;event&gt;</c>, clears the one
+    /// it replaces, and starts the arc of the same name when a story pack has one, honouring its requirements.</summary>
+    private static void Event(int company, string what, string? replaces = null)
+    {
+        if (model == null) return;
+        string id = model.Ids[company];
+        if (replaces != null) Flag(ExchangeRules.StoryId(id, replaces), false);
+        Flag(ExchangeRules.StoryId(id, what), true);
+        string arc = ExchangeRules.StoryId(id, what);
+        if (!StoryContent.Library.Arcs.ContainsKey(arc)) return;
+        if (!StoryArcs.TryBegin(arc, out string message)) Plugin.Log(Text.Get("Story.skipped", arc, message));
+    }
+
+    private static void Flag(string flag, bool on)
+    {
+        try
+        {
+            if (on == StoryFlags.Has(flag)) return;
+            if (on) StoryFlags.Set(flag); else StoryFlags.Clear(flag);
+        }
+        catch (ArgumentException ex) { Plugin.Log(ex.Message); }
+    }
+
+    /// <summary>Story events after a trade: the first purchase, a major holding gained or lost, and selling out.</summary>
+    private static void TradeEvents(int i, long sharesBefore, Holding held)
+    {
+        if (model == null || Companies.Pack == null) return;
+        string id = model.Ids[i];
+        double value = TradeRules.Value(held, model.LnPrice[i], model.Entries[i].spread);
+        bool major = value >= ExchangeRules.MajorHolderShare * Companies.Pack.market.maxHolding;
+        if (sharesBefore == 0 && held.Shares > 0) Event(i, ExchangeRules.Bought, ExchangeRules.SoldOut);
+        if (major && !StoryFlags.Has(ExchangeRules.StoryId(id, ExchangeRules.MajorHolder))) Event(i, ExchangeRules.MajorHolder);
+        if (!major) Flag(ExchangeRules.StoryId(id, ExchangeRules.MajorHolder), false);
+        if (sharesBefore > 0 && held.Shares == 0) Event(i, ExchangeRules.SoldOut, ExchangeRules.Bought);
     }
 
     /// <summary>One summary after a long gap: how long, the biggest movers, and the player's shares.</summary>
@@ -200,6 +269,7 @@ internal static class Market
             case Core.Cause.Company: return Text.Get("Cause.company");
             case Core.Cause.Trading: return Text.Get("Cause.trading");
             case Core.Cause.Drift: return Text.Get("Cause.drift");
+            case Core.Cause.News: return Text.Get("Cause.news");
             case Core.Cause.Driver when r.Driver >= 0 && r.Driver < c.drivers.Count:
             {
                 var d = c.drivers[r.Driver];
@@ -230,6 +300,7 @@ internal static class Market
         string name = Companies.Name(model.Ids[i]);
         if (!fill.Ok) { message = Refusal(fill, name, c.ticker); return false; }
         if (held == null) record.Holdings[model.Ids[i]] = held = new Holding();
+        long sharesBefore = held.Shares;
         TradeRules.Apply(held, fill);
         model.Push(i, fill.Impact);
         string exchange = Companies.ExchangeName;
@@ -239,6 +310,7 @@ internal static class Market
         dirty = true; Save(); Version++;
         message = Text.Get(buy ? "Trade.bought" : "Trade.sold", fill.Shares, name, c.ticker, Money(fill.PerShare), Money(fill.Commission), Money(fill.Total), held.Shares);
         player.LogMessage(message, "Neutral", player.strID);
+        TradeEvents(i, sharesBefore, held);
         return true;
     }
 

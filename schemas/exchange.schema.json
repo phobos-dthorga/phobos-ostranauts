@@ -350,6 +350,40 @@
                 ]
               },
               "description": "The game market signals the company follows."
+            },
+            "news": {
+              "type": "array",
+              "maxItems": 12,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "notes": {
+                    "type": "string",
+                    "description": "Free text for maintainers; ignored by the game."
+                  },
+                  "flag": {
+                    "type": "string",
+                    "description": "The story flag that brings the news, set by a story arc or another mod.",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "move": {
+                    "type": "number",
+                    "minimum": -0.3,
+                    "maximum": 0.3,
+                    "description": "How far the price moves when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way. Once per save, and it stays."
+                  },
+                  "wire": {
+                    "type": "string",
+                    "description": "The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders."
+                  }
+                },
+                "required": [
+                  "flag",
+                  "move"
+                ]
+              },
+              "description": "Story news that moves the price once when its story flag is set (Phobos Exchange 0.2.0)."
             }
           },
           "required": [

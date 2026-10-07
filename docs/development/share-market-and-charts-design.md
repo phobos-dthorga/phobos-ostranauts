@@ -178,6 +178,35 @@ bound. Fields this version does not understand are kept exactly as they were.
   at several stations, the test commands before and after `unlockdebug`, and a long time
   jump for the away summary.
 
+### Stories as data (Phobos Exchange 0.2.0 and Framework 0.129.0, 7 October 2026, held draft)
+
+Owner direction, 7 October 2026: creative and world content is schema-checked data that
+ChatGPT writes and players add to; Claude builds the logic, schemas, validators and hooks,
+with a handoff for writers (now a rule in `AGENTS.md`). For the exchange:
+
+- **Story into price.** A company's `news` entries in the `exchange` pack name a story flag,
+  a one-off move (a share of the price, at most 30% either way) and an optional wire line.
+  When the flag is set, by an arc's `setFlags` or another mod, the price moves once and stays
+  moved: news is its own part of the log price (`Cause.News`), so the wire and later reports
+  name it, and the day's move report is held back so the news is not reported twice. Applied
+  news is saved under its own key (`news.<company>`), so a 0.1.0 record reads unchanged and an
+  older version keeps it untouched. One-off news is authored and bounded and is not part of
+  the return guard, which covers what a holder can expect from the market itself (agent
+  choice).
+- **Price into story.** The exchange sets flags and starts arcs named
+  `exchange-<company>-<event>` for `surge` and `slump` (each day's reported big move),
+  `bought`, `major-holder` (half the holding cap) and `sold-out`, as Banking does for loans.
+- **A story pack** registered by the exchange, holding one place-less thread for the exchange
+  and one per company as the writers' canvas; the content is ChatGPT's, from
+  [the handoff](exchange-stories-handoff.md).
+- **Players' own companies with their own stories.** Add-ons could add a company but not the
+  arcs for its events, because those ids start with `exchange-`, not the add-on's prefix.
+  Framework 0.129.0 adds event namespaces: a mod registers `exchange`, and an add-on with
+  prefix `p` may then add ids starting `exchange-p`. The worked example
+  `examples/addons/PhobosExampleKeelhaulListing` lists Keelhaul Freight, tells a story whose
+  flag lifts its price 8% and answers its `bought` event with a letter; the C# and Python
+  checks load it.
+
 ## What we can build on
 
 ### Our technical constraints (observed)

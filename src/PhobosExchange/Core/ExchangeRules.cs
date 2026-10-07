@@ -47,6 +47,14 @@ public static class ExchangeRules
     /// <summary>A gap longer than this ends with one "while you were away" summary in the crew log.</summary>
     public const double AwayDays = 3;
 
+    /// <summary>What the exchange tells story content (Phobos Exchange 0.2.0): an event starts the arc
+    /// <c>exchange-&lt;company&gt;-&lt;event&gt;</c> when a story pack has one, and sets the flag of the same name.</summary>
+    public const string Surge = "surge", Slump = "slump", Bought = "bought", MajorHolder = "major-holder", SoldOut = "sold-out";
+    public static readonly string[] Events = { Surge, Slump, Bought, MajorHolder, SoldOut };
+    /// <summary>A holding worth this share of the most one may hold makes the player a major holder.</summary>
+    public const double MajorHolderShare = 0.5;
+    public static string StoryId(string company, string what) => "exchange-" + company + "-" + what;
+
     /// <summary>The highest expected yearly return the pack may give a company (owner rule, 7 October 2026: at most half
     /// the cheapest Banking loan's yearly cost, so borrowing to hold never pays on average; a test checks this cap
     /// against Banking's shipped lenders).</summary>

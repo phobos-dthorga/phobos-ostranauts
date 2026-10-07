@@ -26,6 +26,14 @@ internal static class AddOnChecks
         Refused(Manifest("my-add-on", "myaddon").Replace("\"author\":\"A\"", "\"author\":\"A\",\"code\":\"x\""), "An unknown manifest field is refused");
         check(AddOns.AtLeast("0.44.0.0", "0.44.0") && AddOns.AtLeast("0.45.1", "0.44.0") && !AddOns.AtLeast("0.43.9", "0.44.0") && !AddOns.AtLeast("unknown", "0.1.0"), "Requirements compare versions, not text");
         check(AddOns.Owns(ok, "myaddon-steel") && AddOns.Owns(ok, "MyAddonSteel") && !AddOns.Owns(ok, "gangue-wash"), "An id belongs to an add-on when it starts with its prefix, in any case");
+        // Framework 0.129.0: a registered event namespace lets an add-on name the events of its own entries.
+        check(!AddOns.Owns(ok, "exchange-myaddon-freight-bought"), "Before a namespace is registered, its event ids are not an add-on's");
+        AddOns.RegisterNamespace("exchange");
+        check(AddOns.Owns(ok, "exchange-myaddon-freight-bought") && !AddOns.Owns(ok, "exchange-smartlink-surge") && !AddOns.Owns(ok, "bank-myaddon-x"),
+            "With exchange registered, an add-on owns exchange-<its prefix> ids and no one else's");
+        bool badNamespace = false;
+        try { AddOns.RegisterNamespace("Ex change"); } catch (ArgumentException) { badNamespace = true; }
+        check(badNamespace && AddOns.Namespaces.Contains("exchange"), "A namespace is lowercase letters only");
 
         // Translations and names from add-ons (Framework 0.91.0).
         check(AddOns.IsFolderOf("PhobosManufacturing", "phobosgekko.ostranauts.manufacturing") && AddOns.IsFolderOf("phobosframework", "phobosgekko.ostranauts.framework") &&

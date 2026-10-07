@@ -42,6 +42,16 @@ Big moves over a day and the turn of a phase go out on the **market wire**: a li
 crew log and on the Market page, naming the company and the cause, for example "Market
 wire: Smartlink (SMLK) rose 6.2% over the day, as Weapons ran short at Port Yangshan."
 
+## News and stories
+
+From version 0.2.0 the exchange has a story side. Story news can move a company's price
+for good: when a contract is won or a yard burns, the wire carries the line and the price
+jumps once. Stories also notice what you do: your first purchase of a company, a large
+stake, selling out, and a company's biggest moves can each bring a letter or news, when a
+story pack has one. Version 0.2.0 ships the hooks and a thread for each company; the stories
+themselves come in a later release, and add-ons can bring their own (see
+[Publishing an add-on](publishing-an-add-on.md)).
+
 ## Reading a company
 
 Pick a company in the list. Its page shows:
@@ -169,7 +179,7 @@ bug report shows it. Keep a copy of the save first if you might want to go back.
 
 ## Requirements
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.128.0 or newer. Install it with
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.129.0 or newer. Install it with
 `./scripts/install-mods.ps1 -Mods Exchange` (see [Installing and updating our mods](installing-mods.md)).
 
 ## Where the ideas come from

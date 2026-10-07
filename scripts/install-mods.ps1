@@ -450,6 +450,8 @@ foreach ($mod in $Mods) {
             # The PDA app's icon, the data folder the game needs in every mod, and the players' copy of the company list
             # (the plugin embeds it); the panel's text is in the plugin's catalogue.
             'data/conditions/phobos_exchange.json'; 'images/phobos/exchange/Shares.png'; 'framework/exchange.json'
+            # 0.2.0 adds the story pack: the exchange's and each company's threads, for writers and add-ons.
+            if ($version -ge [version]'0.2.0') { 'framework/story.json' }
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.

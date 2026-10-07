@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "schema": "exchange",
+  "notes": "Example add-on: one company listed on the Lodestar Exchange, in an existing sector, following ore at Zhonghuamen Terminal, with one piece of story news that moves its price when the story flag is set.",
+  "companies": {
+    "keelhaul-freight": {
+      "ticker": "KHF",
+      "name": "Keelhaul Freight",
+      "profile": "Bulk freight line running ore and plate between the belt markets and Port Yangshan. Its holds fill when ore runs short at Zhonghuamen Terminal.",
+      "sector": "resources",
+      "price": 18,
+      "dailyVolume": 50000,
+      "volatility": 0.009,
+      "volOfVol": 0.3,
+      "noiseHalfLifeYears": 6,
+      "drift": 0.04,
+      "jumpsPerYear": 3,
+      "jumpSize": 0.06,
+      "spread": 0.005,
+      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.13 },
+      "drivers": [ { "station": "BCRS", "category": "AnyOres", "weight": 0.3 } ],
+      "news": [
+        {
+          "flag": "keelhaul-titan-contract",
+          "move": 0.08,
+          "wire": "Keelhaul Freight wins the Cassini Spaceport ore contract for the coming season."
+        }
+      ]
+    }
+  }
+}
