@@ -33,7 +33,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Fixed
 
-- Crew and the player can reach every line build site again. A pipe or belt segment used to send its install, removal and repair work to the tile in front of it, so a segment laid along the hull, inside a wall or against one could never be reached, and the crew list only said it was out of reach. A segment now has no front: crew work on a line from any tile beside it, as they do with the game's own conduit. Draining, venting and reopening a line are reached the same way.
+- Crew and the player can reach every line build site again. A pipe or belt segment used to send its install, removal and repair work to the tile in front of it, so a segment laid along the hull, inside a wall or against one could never be reached, and the crew list only said it was out of reach. A segment now has no front: crew work on a line from any tile beside it, as they do with the game's own conduit. Draining, venting and reopening a line are reached the same way; they use the same point, but only installing was tested in play.
+- Confirmed in play by the owner, on a running save where these build sites could not be reached before this fix: both the player character and every crew member now build them.
 
 ### Save compatibility
 
