@@ -198,6 +198,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   ship or console, a choice only the player makes) refuses, naming the machine and the step.
   Classify every do-first refusal in `config/panel-override-audit.json` and keep
   `scripts/audit-panel-overrides.py --check` passing (`docs/development/panel-override-audit.md`).
+- **Test commands** (owner, 2026-10-07, every mod): an F3 test command that changes saved data,
+  or how play goes on if the player carries on, works only after the game's own `unlockdebug`
+  (Framework `DebugCommands`), warns on every use that the save then lies outside what the mod
+  was built for and that later versions will not put it back, needs `confirm`, and marks the
+  save as test-changed. Read-only readouts and ordinary player commands stay open.
 - **Native definitions first**, C# where the data system cannot express it. Never republish a
   native definition by name; amend in place (`DefinitionAmendments`, `NativeDefinitions.Amend`).
 - **Vanilla precedence** (`docs/development/vanilla-precedence-audit.md`): the game's own
@@ -345,7 +350,8 @@ delivery in the changelog and design record, and add or amend only the rule here
 - **Value.** Breaking whole equipment or parts into materials loses value against selling it
   whole; reverse steps that undo a refinement lose value. Refining is a business: chains earn
   about 1.5 to 2.5 times the ore at base prices; supply chains (water ice, hydrates, clay, gases)
-  keep native gas prices; bought stock at most 1.25 times; no gaining loop; the kiosk buys bulk
+  keep native gas prices; bought stock at most 1.25 times; no gaining loop (the one owner
+  exception is Phobos Exchange's share drift, under its own guard below); the kiosk buys bulk
   back from installed stores at 45% (never hopper nutrients). Rules and price table:
   `docs/development/refining-business-and-interdependencies.md`; prove new products in the native
   value checks. Building to sell must lose money: rerun `scripts/audit-economy.py` after any
@@ -398,6 +404,17 @@ delivery in the changelog and design record, and add or amend only the rule here
   purchases, integrated with the broker's own window; lenders local to stations build on the
   story system's places, people and threads. Apps on the PDA go through Framework `PdaApps`.
   Design record: `docs/development/pda-apps-and-banking-research.md`.
+- **Exchange** (owner, 2026-10-07). Phobos Exchange (`PhobosExchange`) is its own mod needing
+  only Framework; its link to Banking is optional at runtime (Framework `PlayerHoldings`).
+  Listed companies mix the game's ubercorps, invented ones and our makers; news about the
+  game's companies is a wire report, never their own words. Prices follow the game's cargo
+  market plus trend phases lasting weeks, with a real-world upward drift: the owner's one
+  exception to "no gaining loop", held to an expected annual return at most half the cheapest
+  Banking loan's yearly cost, so borrowing to hold never pays (validator and test). Market
+  noise is a stable hash of save, company and step, never rolled; a reload never rerolls it
+  (peeking ahead by reloading is accepted). Pace for weeks of play; any time jump, up to years
+  at once, is caught up exactly at a bounded cost with no per-step side effects. Design record:
+  `docs/development/share-market-and-charts-design.md`.
 - **Medical.** The Halewright brand (models a word plus footprint width); the Ward-3 bed is the
   visual baseline (`docs/development/medical-art-handoff.md`). Treatments perform the game's own
   wound slotting on real items; the monitor never heals; a patient never treats themselves

@@ -1,10 +1,16 @@
 # A share market for Phobos Banking, and Framework charts: research and design
 
-Research record, 7 October 2026. **Nothing here is built.** The owner asked whether a
-third-party stock-market library could give Phobos Banking a believable share market
-without writing one from scratch, and for a charting library that works in the game, for
-the market and for other uses. This record collects what was checked, what the game already
-offers, a proposed design, the pitfalls found so far and the decisions left to the owner.
+Research record, 7 October 2026. The owner asked whether a third-party stock-market library
+could give Phobos Banking a believable share market without writing one from scratch, and
+for a charting library that works in the game, for the market and for other uses. This
+record collects what was checked, what the game already offers, a proposed design, the
+pitfalls found so far and the decisions left to the owner.
+
+**A planning round the same day settled the decisions and revised the design.** The market
+becomes its own mod, Phobos Exchange. See
+[Planning round: owner decisions and the first build](#planning-round-owner-decisions-and-the-first-build-7-october-2026);
+where it differs from the original proposal below, the planning round wins, and the
+superseded sections say so.
 
 Labels used below: **Observed** is seen in the installed game's data files or in the local
 decompile used by the [banking research](pda-apps-and-banking-research.md) (kept in ignored
@@ -39,6 +45,108 @@ code, read but not run; **Agent proposal** is Claude's design for the owner to r
 4. **Treat the market as a business with a house edge, not a money tap.** The project's
    economy rules forbid loops that create value from nothing; a market whose shares simply
    rise over time is one. See [Economy rules](#economy-rules-and-the-house-edge).
+   *Superseded in part:* the owner chose a real-world upward drift under a guard (below).
+
+## Planning round: owner decisions and the first build (7 October 2026)
+
+The owner asked for every idea, suggestion and disagreement before a first build, answered
+the open decisions and corrected two of the agent's assumptions. Owner choices are marked
+**owner**; the rest are agent choices for the owner to revise.
+
+### Owner decisions
+
+- **A separate mod, Phobos Exchange** (owner). Its own PDA app, save record, Workshop page
+  and version; it needs only Framework. When Phobos Banking is also installed, the Banking
+  overview shows the player's holdings; neither mod requires the other.
+- **A mix of companies** (owner): the game's ubercorps, a few invented ones and our own
+  makers. News about the game's companies is a wire report, never their own statements.
+- **Visible trend phases with a real-world upward drift** (owner). Prices rise and fall in
+  phases lasting weeks, plainly visible on a chart; rises outlast falls because the long-run
+  drift is upward. This is the owner's one exception to the "no gaining loop" rule, held by
+  a guard: the expected yearly return stays at or below half the cheapest Banking loan's
+  yearly cost (Halcyon Bond, 0.02% a shift, 28.8% a game year), so borrowing to buy and hold
+  does not pay on average. A player who reads a phase right does profit.
+- **The game moves in weeks** (owner). Weeks are the normal pacing, so the market is tuned to
+  be watched over weeks, not hours. Years can pass in an instant (an arrest, plot or
+  character advancement): the market must handle that correctly, quickly and at a bounded
+  cost. Earlier work had trouble with exactly this kind of time jump.
+- **Test commands need the game's `unlockdebug`** (owner, every Phobos mod): any F3 test
+  command that would damage saved data, or change how play goes on if the player carries on,
+  works only after the game's own debug switch, and even then warns plainly that the save
+  then lies outside what the mod was built for. Read-only readouts and ordinary player
+  commands stay open. Framework gains a shared gate (`DebugCommands`); a later round audits
+  the existing mods' commands.
+- **Reloading to peek is accepted** (owner): stable noise means a reload never rerolls prices,
+  but a player can play ahead and reload; that cannot be avoided without changing the
+  foundation.
+- **First build** (owner): market, chart, alerts and the debug gate. Not yet: standing orders,
+  dividends, the docked-station edge, TV wire news, short selling, trading on credit.
+
+### Corrections to the original proposal
+
+- **Hauls are days, play is weeks.** The original "two-month haul" was wrong. At speed 1 a
+  game second is a real second (the game allows 0.25x to 16x, and skips of up to 24 hours);
+  0.7 AU at 1 g takes about 57 hours, so a haul is 2 to 5 game days within weeks of play.
+- **No GARCH(1,1).** Its parameters depend on the step size. The market must give the same
+  price at a given moment whether the player watched at 1x or skipped a day, so every random
+  process is an Ornstein–Uhlenbeck process stepped by its exact transition on a fixed grid of
+  60 game seconds. Volatility clustering (one of Cont's stylized facts) comes from a slowly
+  wandering log-volatility instead.
+- **Readable over realistic.** Day-to-day noise is calm (about 1 to 2% a game day); week-scale
+  trend phases carry the story; every big move and every turn of a phase is explained in the
+  crew log with its largest cause.
+- **The native market moves only when a station's stock moves.** Its price factor at a station
+  is fixed demand scaled by how full that station's store is. The trend phases therefore carry
+  the base movement, native drivers add to it, a driver whose station neither makes nor uses
+  its category is rejected by the native checks, and a read-only F3 readout shows the driver
+  values for a playtest.
+
+### The model (agent design)
+
+Every random term is an Ornstein–Uhlenbeck process X stepped exactly:
+X ← aX + s·√(1−a²)·z, with a = 2^(−Δ/half-life) and stationary spread s. The step index is
+n = floor(game time / 60 s); z comes from a stable hash of the save, the company, the step
+and a stream number, so it is never rolled.
+
+- **Trend phases.** A trend rate for the market (half-life about 6 weeks), each sector (about
+  4 weeks) and each company (about 3 weeks), each an OU process; the price carries its time
+  integral. Over any step the integral and the end value are jointly Gaussian with
+  closed-form moments, so one exact draw covers a minute, a day or fifty years.
+- **Noise.** About 1 to 2% a game day, scaled by a log-volatility that wanders with a 3-day
+  half-life (calm and stormy stretches), with slow reversion over years.
+- **Jumps.** Rare, decided by hash.
+- **Drivers.** The native price factors at named stations for named categories, read every game
+  hour, smoothed over a day, each term clamped.
+- **The player's own trading.** Square-root price impact (Tóth et al., 2011), fading with a
+  one-day half-life.
+- **Price.** ln P = ln B + μ·t + β·T(market) + γ·T(sector) + T(company) + D + w + I. Every term
+  adds in log space, so a move is attributed to its largest change.
+- **Drift guard.** The expected yearly return combines the drift, half the one-year variance of
+  every term and the jump term; the pack validator refuses more than 0.14, and a test checks
+  that this cap is at most half the cheapest yearly loan cost in Banking's shipped lenders file.
+- **Economy simulation.** A test runs borrow-and-hold, buy-the-dip and follow-the-trend players
+  over several seeds and game years: borrow-and-hold must lose on average; trend-following
+  profit per game month is reported as a balance figure for the owner.
+
+### Time jumps of any size (agent design, owner requirement)
+
+The gap from the last step to now is split into segments, each stepped exactly: one jump to
+two years before now when the gap is longer than that, weekly steps from two years to 120
+days, daily steps from 120 days to 3 days, and 60-second steps for the last 3 days. At most
+about 4,545 steps a company, whether the gap is ten minutes or fifty years, and the same save
+always gives the same result. Coarse steps are exact for levels, phases and drift; noise over
+a coarse step uses the mean volatility (a labelled approximation), and jumps use a hashed
+count. The step loop allocates nothing, writes no ledger line, posts no notice and builds no
+text; alerts crossed during a catch-up become one summary, and a gap of more than 3 days ends
+with one "while you were away" summary. The clock never steps backwards.
+
+### Save record (agent design)
+
+`PhobosState.PhobosExchange` through Framework's object state store, version 1: the seed and
+clock, trend states, each company's model state, holdings, alerts, a test-change marker, and
+history as 73 hourly, 120 daily and 104 weekly closes per company, stored compactly relative to
+each chunk's base. About 1.5 KB a company and fixed caps, so the record never grows without
+bound. Fields this version does not understand are kept exactly as they were.
 
 ## What we can build on
 
@@ -169,6 +277,8 @@ palette. None of that has been tried.
 
 ## Design proposal: the exchange (agent proposal)
 
+*The original proposal, kept as written. The [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026) moved the market into its own mod and revised the model, time handling and save format; where they differ, the planning round wins.*
+
 ### What the player does
 
 The aim is play for the long haul, when the crew runs the ship and the player has time:
@@ -213,6 +323,8 @@ equipment makers** (Verdemorrow, Halewright and the rest), which exist in the fi
 and would make the player's purchases feel part of a wider economy.
 
 ### The price model
+
+*Superseded in part by the [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026): hourly steps and GARCH(1,1) gave way to exact Ornstein–Uhlenbeck steps on a 60-second grid and trend phases lasting weeks. The research citations below still support the stylized facts the model reproduces.*
 
 Each listed company takes one step per game hour (3,600 seconds of game time). The change
 in the logarithm of its price over a step is the sum of four parts:
@@ -279,6 +391,8 @@ flowchart LR
 
 ### Time and long hauls
 
+*Superseded by the [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026): hauls are 2 to 5 game days within weeks of play, not months, and any time jump is caught up at a bounded cost.*
+
 - Steps are game hours. A time-skip steps the market hour by hour and checks standing orders
   at each step, as `CrewSkip` does for machines; it never applies a week at once.
 - A native time jump (the clock moving without our skip) is caught up by stepping through the
@@ -323,6 +437,8 @@ flowchart LR
 
 ## Determinism, saves and save reloading
 
+*Superseded in part by the [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026): the record is Phobos Exchange's own (`PhobosState.PhobosExchange`), not a section of Banking's, with hourly, daily and weekly closes; reloading to peek is accepted by the owner.*
+
 **Saved structures (proposal).** A new `exchange` section in the existing Banking record
 (`PhobosState.PhobosBank`): per-company state at the last step (price, volatility, fair
 value, fading impact, last hour stepped), the player's holdings and open orders, jumps
@@ -352,6 +468,8 @@ old-record fixtures as for the loan book.
   offline tests must feed the model recorded native factors, not the live game.
 
 ## Economy rules and the house edge
+
+*Superseded in part by the [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026): the owner chose a real-world upward drift, held to an expected yearly return at most half the cheapest Banking loan's yearly cost.*
 
 - **No gaining loop.** Real shares rise over time on average; in the game that would be
   money from nothing for any player who buys and waits. Proposal: authored drift so that,
@@ -395,6 +513,8 @@ views of performance captures.
 
 ## Decisions for the owner
 
+*Answered by the owner on 7 October 2026; see the [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026). Kept as asked.*
+
 1. **Which game companies may be listed?** All named above, a few (the shipbuilders,
    Smartlink, Ayotimiwa, the Green Energy Company), or none, with invented ubercorps only?
    Penumbra Group probably not. Should our own equipment makers be listed?
@@ -408,6 +528,8 @@ views of performance captures.
 7. **Charts:** a Framework control as recommended, or a trial of a forked XCharts first?
 
 ## Proposed rounds
+
+*Replaced by the [planning round](#planning-round-owner-decisions-and-the-first-build-7-october-2026): Framework charts arrive together with Phobos Exchange 0.1.0.*
 
 1. **Framework charts.** The control and its game-free core, first used for a loan or credit
    line balance history in Banking. Proves drawing in play before the market exists.
