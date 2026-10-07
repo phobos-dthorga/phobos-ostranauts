@@ -10,6 +10,10 @@
     "mods/PhobosExchange/images/phobos/exchange/Shares.png": {
       "sha256": "4AD6AD7E3F51467D7E74FABAF18AD784A4149F3343D2DBFBB898A9C81FF5A06B",
       "bytes": 10624
+    },
+    "assets/workshop/sources/PhobosExchange-scene.png": {
+      "sha256": "400EA2D1653EDBAFD7EAF90CF73FF21C1956AC939C11700498B9702CA5102AEB",
+      "bytes": 2046
     }
   },
   "notes": {

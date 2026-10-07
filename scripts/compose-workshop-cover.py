@@ -27,6 +27,7 @@ TITLE = {
     'E': ['XXXXXX', 'XXXXXX', 'XX....', 'XX....', 'XXXXX.', 'XXXXX.', 'XX....', 'XX....', 'XXXXXX', 'XXXXXX'],
     'F': ['XXXXXX', 'XXXXXX', 'XX....', 'XX....', 'XXXXX.', 'XXXXX.', 'XX....', 'XX....', 'XX....', 'XX....'],
     'G': ['.XXXXX', 'XXXXXX', 'XX....', 'XX....', 'XX.XXX', 'XX.XXX', 'XX..XX', 'XX..XX', 'XXXXXX', '.XXXXX'],
+    'H': ['XX..XX'] * 4 + ['XXXXXX', 'XXXXXX'] + ['XX..XX'] * 4,
     'I': ['XX'] * 10,
     'K': ['XX..XX', 'XX..XX', 'XX.XX.', 'XXXX..', 'XXX...', 'XXX...', 'XXXX..', 'XX.XX.', 'XX..XX', 'XX..XX'],
     'L': ['XX....'] * 8 + ['XXXXXX', 'XXXXXX'],
@@ -36,6 +37,7 @@ TITLE = {
     'T': ['XXXXXX', 'XXXXXX', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..'],
     'U': ['XX..XX'] * 8 + ['XXXXXX', '.XXXX.'],
     'W': ['XX....XX'] * 3 + ['XX.XX.XX'] * 3 + ['XXXXXXXX', 'XXXXXXXX', 'XXX..XXX', 'XX....XX'],
+    'X': ['XX..XX', 'XX..XX', '.XXXX.', '.XXXX.', '..XX..', '..XX..', '.XXXX.', '.XXXX.', 'XX..XX', 'XX..XX'],
     ' ': ['...'] * 10,
 }
 # Thin 5 x 7 subtitle glyphs, emboldened and stretched to 6 x 8 when drawn.
@@ -46,6 +48,7 @@ SUBTITLE = {
     'D': ['XXXX.', 'X...X', 'X...X', 'X...X', 'X...X', 'X...X', 'XXXX.'],
     'E': ['XXXXX', 'X....', 'X....', 'XXXX.', 'X....', 'X....', 'XXXXX'],
     'F': ['XXXXX', 'X....', 'X....', 'XXXX.', 'X....', 'X....', 'X....'],
+    'H': ['X...X', 'X...X', 'X...X', 'XXXXX', 'X...X', 'X...X', 'X...X'],
     'I': ['XXX', '.X.', '.X.', '.X.', '.X.', '.X.', 'XXX'],
     'L': ['X....', 'X....', 'X....', 'X....', 'X....', 'X....', 'XXXXX'],
     'N': ['X...X', 'XX..X', 'X.X.X', 'X.X.X', 'X..XX', 'X...X', 'X...X'],

@@ -447,6 +447,85 @@
         },
         "review": "Full-size artwork and composed Workshop preview inspected. The spacer, handheld ledger screen and overhead cabin remain clear after the cover crop; accepted as the agent-selected scene for owner review. Promotional illustration only, not a gameplay screenshot."
       }
+    },
+    {
+      "id": "PhobosExchange",
+      "frame": {
+        "path": "assets/workshop/previews/PhobosShipbreaker-512.png",
+        "sha256": "DA1C37E468E7E3129107D048888F3D44066D763E6B8A1E3898C773E50233312E",
+        "note": "Reuses the Shipbreaker cover's border, PHOBOS label and footer; its title, subtitle and scene are replaced."
+      },
+      "scene": {
+        "path": "assets/workshop/sources/PhobosExchange-scene.png",
+        "sha256": "400EA2D1653EDBAFD7EAF90CF73FF21C1956AC939C11700498B9702CA5102AEB",
+        "crop": [
+          0,
+          0,
+          244,
+          170
+        ],
+        "scale": 2,
+        "window": [
+          12,
+          141,
+          498,
+          480
+        ]
+      },
+      "header": {
+        "background": [
+          24,
+          29,
+          32
+        ],
+        "clear": [
+          [
+            28,
+            44,
+            499,
+            106
+          ],
+          [
+            24,
+            113,
+            494,
+            136
+          ]
+        ],
+        "title": {
+          "text": "EXCHANGE",
+          "x": 91,
+          "y": 48,
+          "cell": 6,
+          "body": [
+            237,
+            225,
+            202
+          ],
+          "highlight": [
+            255,
+            250,
+            225
+          ]
+        },
+        "subtitle": {
+          "text": "SHARES / CHARTS / ALERTS",
+          "centre": 254,
+          "y": 120,
+          "advance": 11,
+          "colour": [
+            237,
+            225,
+            202
+          ]
+        }
+      },
+      "generation": {
+        "provider": "none",
+        "operation": "drawn from fixed shapes by scripts/export-exchange-art.py, the source of record",
+        "date": "2026-10-07",
+        "review": "Placeholder scene (agent choice, 7 October 2026, while the mod is a held draft): an overhead cabin nook where a spacer checks the exchange board, three price lines on the bulkhead, a desk terminal and two crates. No image generator was used, to avoid an unasked cost; a generated scene can replace it before publication if the owner wants one. Promotional illustration only, not a gameplay screenshot."
+      }
     }
   ],
   "rejected": [
