@@ -21,8 +21,8 @@ namespace PhobosExchange;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ExchangeRules.Owner;
-    public const string Version = "0.2.1";
-    public const string MinimumFrameworkVersion = "0.129.0";
+    public const string Version = "0.3.0";
+    public const string MinimumFrameworkVersion = "0.130.0";
     internal const string ModName = "Phobos Exchange";
     internal static Action<string> Log = _ => { };
     /// <summary>Whether the package's data folder is enabled in the game's mod list, checked at each content load.</summary>
@@ -117,6 +117,7 @@ internal static class ConsolePatch
             case "alert" when parts.Length == 5 && (parts[3] == "above" || parts[3] == "below") && Level(parts[4], out double level):
                 __result = Market.SetAlert(parts[2], parts[3] == "above", level, out message); break;
             case "sellall": __result = Market.SellAll(confirmed, out message); break;
+            case "history": __result = History(parts.Length >= 3 ? parts[2] : null, out message); break;
             case "drivers": message = Drivers(parts.Length >= 3 ? parts[2] : null); __result = true; break;
             case "state": message = State(parts.Length >= 3 ? parts[2] : null); __result = true; break;
             case "test" when parts.Length == 5 && parts[2].Equals("shock", StringComparison.OrdinalIgnoreCase) && Level(parts[4], out double percent, allowNegative: true):
@@ -158,8 +159,34 @@ internal static class ConsolePatch
             text.Append('\n').Append(Text.Get("Console.quote_prices", Market.Money(v.Quote.Bid), Market.Money(v.Quote.Ask), v.SectorName));
             if (v.Held != null && v.Held.Shares > 0) text.Append('\n').Append(Text.Get("Console.quote_held", v.Held.Shares, Market.Money(v.Value), Market.Money(v.Held.Cost)));
             if (v.Alert != null && !v.Alert.Empty) text.Append('\n').Append(AlertText(v));
+            if (v.Age.Length > 0) text.Append('\n').Append(v.Age);
             text.Append('\n').Append(v.Profile);
         }
+        message = text.ToString();
+        return true;
+    }
+
+    /// <summary>Read-only (0.3.0): the exchange's history, or a company's founding, listing and history.</summary>
+    private static bool History(string? ticker, out string message)
+    {
+        if (!Market.Attach(out var refusal) || Market.Model == null) { message = refusal!; return false; }
+        var text = new StringBuilder();
+        List<HistoryLine> lines;
+        if (ticker == null)
+        {
+            text.Append(Companies.Pack?.market.opened is int opened ? Text.Get("Overview.opened", Companies.ExchangeName, opened) : Companies.ExchangeName);
+            lines = Market.ExchangeHistory();
+        }
+        else
+        {
+            var v = Market.Views().FirstOrDefault(x => x.Unavailable == null && x.Ticker.Equals(ticker, StringComparison.OrdinalIgnoreCase));
+            if (v == null) { message = Text.Get("Trade.unknown", ticker); return false; }
+            text.Append(Text.Get("Company.heading", v.Name, v.Ticker));
+            if (v.Age.Length > 0) text.Append(' ').Append(v.Age);
+            lines = Market.History(v.Index);
+        }
+        if (lines.Count == 0) text.Append('\n').Append(Text.Get("Console.history_empty"));
+        foreach (var line in lines) text.Append('\n').Append(line.Line);
         message = text.ToString();
         return true;
     }

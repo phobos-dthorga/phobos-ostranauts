@@ -47,6 +47,9 @@ internal static class Companies
     /// <summary>A news entry's wire line in the player's language (<c>News.&lt;company&gt;.&lt;flag&gt;</c>), else the pack's own.</summary>
     public static string NewsWire(string id, NewsEntry n) => Translations.Get(ExchangeRules.Owner, "News." + id + "." + n.flag, n.wire ?? "");
 
+    /// <summary>A history entry's line in the player's language (0.3.0; <see cref="Milestone.Key"/>), else the pack's own.</summary>
+    public static string HistoryText(Milestone m) => Translations.Get(ExchangeRules.Owner, m.Key, m.Entry.line);
+
     public static string SectorName(string id) => Pack != null && Pack.sectors.TryGetValue(id, out var s) ? Safe(Translations.Get(ExchangeRules.Owner, "Sectors." + id + ".name", s.name), s.name) : id;
 
     /// <summary>A translated name only when it can sit in a ledger line; otherwise the pack's own.</summary>

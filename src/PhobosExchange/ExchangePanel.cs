@@ -20,10 +20,9 @@ namespace PhobosExchange;
 public sealed class ExchangePanel : GUIData
 {
     public const string Key = "PhobosExchangePanel";
-    private enum Range { Hours, Days, Weeks }
     // Folded sectors and the chosen chart range are remembered while the game runs, not saved (agent default).
     private static readonly HashSet<string> folded = new(StringComparer.Ordinal);
-    private static Range range = Range.Days;
+    private static ChartRange range = ChartRange.Days;
     private ConsoleShell shell = null!;
     private Button? back;
     private bool holdingsPage;
@@ -111,6 +110,15 @@ public sealed class ExchangePanel : GUIData
         C.Heading(shell.Detail, Text.Get("Overview.wire"));
         if (Market.RecentWire.Count == 0) C.Label(shell.Detail, Text.Get("Overview.wire_quiet"));
         foreach (var line in Market.RecentWire) C.Label(shell.Detail, line);
+        // The exchange's own history (0.3.0), when the pack gives one.
+        var history = Market.ExchangeHistory();
+        int? opened = Companies.Pack?.market.opened;
+        if (opened != null || history.Count > 0)
+        {
+            C.Heading(shell.Detail, Text.Get("Overview.history_heading"));
+            if (opened is int year) C.Label(shell.Detail, Text.Get("Overview.opened", Companies.ExchangeName, year));
+            foreach (var line in history) C.Label(shell.Detail, line.Line);
+        }
         C.Heading(shell.Detail, Text.Get("Overview.how_heading"));
         C.Label(shell.Detail, Text.Get("Overview.how"));
     }
@@ -138,19 +146,27 @@ public sealed class ExchangePanel : GUIData
         C.Heading(shell.Detail, Text.Get("Company.heading", v.Name, v.Ticker));
         if (v.Unavailable != null) { C.Status(shell.Detail, v.Unavailable, Tone.Attention); return; }
         C.Label(shell.Detail, Text.Get("Company.sector", v.SectorName));
+        if (v.Age.Length > 0) C.Label(shell.Detail, v.Age);
         priceLabel = C.Label(shell.Detail, PriceText(v));
         changeLabel = C.Status(shell.Detail, ChangeText(v), ToneOf(v.DayChange));
         var ranges = C.Row(shell.Detail);
-        foreach (var r in new[] { Range.Hours, Range.Days, Range.Weeks })
+        foreach (var r in new[] { ChartRange.Hours, ChartRange.Days, ChartRange.Weeks, ChartRange.All })
         {
             var choice = r;
             var b = C.Button(ranges, Text.Get("Chart." + r.ToString().ToLowerInvariant() + "_range"), () => { range = choice; Render(); });
-            C.Size(b.transform, C.ControlHeight, 130);
+            C.Size(b.transform, C.ControlHeight, 110);
             C.Accent(b, range == r ? Tone.Good : Tone.Neutral);
         }
         chart = Chart.Create(shell.Detail, 220);
         FillChart(v);
         C.Label(shell.Detail, v.Profile);
+        // Its history before the game (0.3.0), when the pack gives one.
+        var history = Market.History(v.Index);
+        if (history.Count > 0)
+        {
+            C.Heading(shell.Detail, Text.Get("Company.history_heading"));
+            foreach (var line in history) C.Label(shell.Detail, line.Line);
+        }
 
         // The order: a number of lots, the price worked out before confirming.
         var model = Market.Model!;
@@ -244,16 +260,27 @@ public sealed class ExchangePanel : GUIData
 
     private static double Cash() => CrewSim.coPlayer == null ? 0 : CrewSim.coPlayer.GetCondAmount(Ledger.CURRENCY);
 
-    /// <summary>The chosen range's closes, oldest first, with the live price as the last point at "now" (0).</summary>
+    /// <summary>The chosen range's points, oldest first, with the live price last. All (0.3.0) reaches back to the listing
+    /// through the generated past, on a logarithmic scale with the years along the bottom and the history's events marked.</summary>
     private void FillChart(CompanyView v)
     {
         if (chart == null || Market.Model == null) return;
         var model = Market.Model;
         var h = model.History(v.Index);
-        CloseSeries closes = range == Range.Hours ? h.Hourly : range == Range.Days ? h.Daily : h.Weekly;
-        double bucket = range == Range.Hours ? ExchangeRules.HourSeconds : range == Range.Days ? ExchangeRules.DaySeconds : ExchangeRules.WeekSeconds;
-        int n = HistoryView.Fill(closes, bucket, model.Clock, model.LnPrice[v.Index], series.X, series.Y);
+        bool longView = range == ChartRange.Weeks || range == ChartRange.All;
+        var past = longView ? Market.Past(v.Index) : null;
+        int n = HistoryView.Fill(range, h, past, ExchangeSchema.ListingMonth(model.Entries[v.Index]), model.Clock, model.LnPrice[v.Index], series.X, series.Y);
         series.Count = n;
+        chartData.LogY = range == ChartRange.All;
+        chartData.Marks.Clear();
+        if (range == ChartRange.All)
+            foreach (var line in Market.History(v.Index))
+                if (line.Share is double share)
+                    chartData.Marks.Add(new ChartMark
+                    {
+                        X = (Phobos.Ostranauts.Framework.GameClock.MonthStart(line.Month) + Phobos.Ostranauts.Framework.GameClock.MonthSeconds / 2) / ExchangeRules.YearSeconds,
+                        Tone = share > 0 ? Tone.Good : Tone.Attention, Label = line.Text
+                    });
         series.Tone = n > 1 && series.Y[n - 1] < series.Y[0] ? Tone.Attention : Tone.Good;
         chartData.Levels.Clear();
         if (v.Alert?.Above is double above) chartData.Levels.Add(new ChartLevel { Y = above, Tone = Tone.Attention, Label = Text.Get("Chart.alert_above", Market.Money(above)) });
@@ -263,9 +290,17 @@ public sealed class ExchangePanel : GUIData
             double paid = v.Held.Cost / v.Held.Shares;
             chartData.Levels.Add(new ChartLevel { Y = paid, Tone = Tone.Neutral, Label = Text.Get("Chart.paid", Market.Money(paid)) });
         }
-        string unit = range == Range.Hours ? "Chart.hours" : range == Range.Days ? "Chart.days" : "Chart.weeks";
-        chartData.FormatX = x => Math.Abs(x) < 0.5 ? Text.Get("Chart.now") : Text.Get(unit, Math.Round(-x).ToString("0"));
-        chartData.FormatY = y => Market.Money(y);
+        if (range == ChartRange.All)
+        {
+            chartData.FormatX = x => Text.Get("Chart.year", Math.Floor(x + 1e-9).ToString("0"));
+            chartData.FormatY = y => Market.MoneyFigures(y);
+        }
+        else
+        {
+            string unit = range == ChartRange.Hours ? "Chart.hours" : range == ChartRange.Days ? "Chart.days" : "Chart.weeks";
+            chartData.FormatX = x => Math.Abs(x) < 0.5 ? Text.Get("Chart.now") : Text.Get(unit, Math.Round(-x).ToString("0"));
+            chartData.FormatY = y => Market.Money(y);
+        }
         chartData.Version++;
         chart.Show(chartData);
     }

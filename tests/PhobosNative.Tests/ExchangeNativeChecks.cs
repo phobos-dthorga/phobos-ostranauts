@@ -9,7 +9,7 @@ using Phobos.Ostranauts.Framework.Data;
 using PhobosExchange;
 using PhobosExchange.Core;
 
-/// <summary>Phobos Exchange 0.1.0 and Framework 0.128.0 against the installed game: the market members the exchange reads,
+/// <summary>Phobos Exchange 0.1.0 to 0.3.0 against the installed game: the market members the exchange reads,
 /// the ledger call it settles through, the game's debug switch the test-command gate reads, and every driver in the
 /// embedded company list against the game's own market data (the station has a cargo market, prices the category and
 /// makes or uses it, so no driver is dead). Nothing here runs a game session.</summary>
@@ -38,6 +38,12 @@ internal static class ExchangeNativeChecks
             Phobos.Ostranauts.Framework.Story.StorySchema.Name, typeof(Plugin).Assembly, "PhobosExchange.story.json")), "", ExchangeRules.Owner, Phobos.Ostranauts.Framework.Story.StorySchema.Name,
             s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, false));
         check(pack.companies.Keys.All(id => story.threads.ContainsKey("exchange-" + id)), "The embedded story pack has a thread for every company");
+        // Exchange 0.3.0: history ends the year before a new game begins, and the game's new-game epoch says when that is.
+        var systems = JArray.Parse(File.ReadAllText(Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "star_systems", "star_system.json")));
+        var newGame = systems.FirstOrDefault(s => (string?)s["strName"] == "NewGame");
+        check(newGame != null && Phobos.Ostranauts.Framework.GameClock.Year((double)newGame["dfEpoch"]!) == ExchangeRules.FirstSaveYear && MathUtils.GetYearFromS((double)newGame["dfEpoch"]!) == ExchangeRules.FirstSaveYear,
+            "A new game begins in the exchange's first save year, " + ExchangeRules.FirstSaveYear);
+        check(pack.companies.Values.All(c => c.listed is int l && l <= ExchangeRules.LastHistoryYear) && pack.market.opened != null, "Every shipped company has a listing year before the game begins");
         string market = Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data", "market");
         var collections = JArray.Parse(File.ReadAllText(Path.Combine(market, "CoCollections", "cocollections.json"))).Select(c => (string)c["strName"]!).ToHashSet(StringComparer.Ordinal);
         var actors = JArray.Parse(File.ReadAllText(Path.Combine(market, "Markets", "market_actor_configs.json"))).ToDictionary(a => (string)a["strName"]!, a => a, StringComparer.Ordinal);

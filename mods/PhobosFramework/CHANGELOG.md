@@ -29,6 +29,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.130.0] - 2026-10-07 - Draft
+
+### Added
+
+- Charts can draw values on a logarithmic scale, for prices that grew many times over the years, with ticks at 1, 2 and 5 in each decade.
+- Charts can carry dated marks: faint dashed lines down the chart, each naming its event when you point at it.
+- The shared game calendar knows years and months as the game counts them (twelve months of thirty game days), checked against the game's own calendar.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved.
+
 ## [0.129.0] - 2026-10-07 - Released
 
 ### Added

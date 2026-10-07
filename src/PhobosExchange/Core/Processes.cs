@@ -78,6 +78,15 @@ public sealed class OuKernel
     /// <summary>The variance of a change over <paramref name="seconds"/> from a stationary start, for unit noise:
     /// (1 − e^−kT)/k.</summary>
     public double VarianceOfChange(double seconds) => seconds * ExactMath.Phi(K * seconds);
+
+    /// <summary>One long step of a company's noise (shared by the market's catch-up and the generated past, 0.3.0): the
+    /// exact OU step at the mean volatility <paramref name="sigma"/> (per √second), with the jumps of the step counted by
+    /// their variance (a labelled approximation over long steps).</summary>
+    public double LongStep(double noise, double dt, double sigma, double jumpSize, double jumpRate, double z, double zJump)
+    {
+        Factors(dt, out double a, out double c);
+        return a * noise + sigma * c * z + jumpSize * Math.Sqrt(jumpRate) * c * zJump;
+    }
 }
 
 /// <summary>A trend phase (Phobos Exchange 0.1.0): the difference of a slow and a fast OU process driven by the same noise,

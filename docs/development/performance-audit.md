@@ -1204,6 +1204,26 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: company histories on the exchange (L99)
+
+L99 — Phobos Exchange 0.3.0, Framework 0.130.0. Three changes on the exchange's paths:
+- **A step's month check.** Each market step compares its step with a cached month
+  boundary, and only on a new month works out the month and samples one lifetime point per
+  company.
+- **Long time jumps.** A jump of more than two years now takes up to 240 month-aligned
+  steps instead of one, each touching only the lifetime points. The bound for any gap rose
+  from 4,610 to 4,850 steps; offline a thousand-year jump took 4,777 steps, about 10 ms on
+  .NET 10.
+- **The drawn past.** It is built once per load, for a company whose chart first needs it
+  (the 2-year or All range): about 4.5 ms offline for all eight shipped companies, then held
+  in memory (about 3,000 points). It is measured as `exchange.past`, and the
+  `exchange.history_closes` footprint now counts the lifetime points and the past.
+
+The panel's All chart draws up to a few thousand points through the chart's per-column
+thinning, and its log scale adds one logarithm per drawn point when the chart is measured
+(on a data or size change, never per frame). The calendar helpers are pure arithmetic. No
+capture accompanies this change.
+
 ## 7 October: story news on the exchange (L98)
 
 L98 — Phobos Exchange 0.2.0, Framework 0.129.0. The exchange's one-second poll now also asks

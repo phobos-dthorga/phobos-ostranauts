@@ -5,6 +5,26 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-07 - Draft
+
+### Added
+
+- Company histories from before the game: each company can have a founding year and a year it listed on the Lodestar Exchange, from 1879 to 2078. Its price chart now reaches back to its listing, however recently you installed the exchange.
+- An All chart range: the whole history from the listing to now, on a scale that keeps a rise from small beginnings readable, with the years along the bottom and the history's big events marked. Point at a mark to read it.
+- History entries for the exchange, each sector and each company: a year, an optional month, a line of text and, if it moved the price, how far. They shape the history drawn for the years before the game and are listed under Through the years on the company's page, and the exchange's own on the Market page. A company's share price at listing can be set too.
+- The company page and the F3 quote say when the company was founded and when it listed. F3 phobosexchange history, with or without a ticker, prints the exchange's or a company's history.
+- The shipped companies have placeholder founding and listing years, and the exchange an opening year, for the writers to replace. The Keelhaul Listing example add-on shows a company's history.
+- A time skip of more than two years now leaves a record of those years on the All chart instead of a straight line.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.130.0, for its charts' log scale and marks and its calendar months.
+- Saves: the exchange record gains the save's own monthly prices, kept to at most 240 points per company however long you play. The history before your first day with the exchange is never saved: it is drawn again at each load from the company list and your save, so later histories from writers or add-ons reach saves already started. What your save has actually seen never changes.
+- Saves from 0.1 and 0.2 load and start their monthly record from their two years of weekly prices. In a save played more than two years under an older version, the years before that are drawn rather than remembered.
+- A time skip of more than two years gives different, equally exact prices than 0.2 did, and a price alert can now go off partway through it.
+- History never moves a price in play: story news does that. History entries that move a price end in 2076, because the two years before a new game are the market's own record. A company added to a running save gets a drawn history for the years since 2079 too, which does not follow the market's own record of those years.
+- Checked offline: the year and month rules, the drawn history meeting its listing price and the save's own first price exactly, events showing as steps, the same history after a reload, the monthly record's thinning and saved form, older records, time skips of up to a thousand years within the step bound, and the calendar against the game's. Not yet seen in the game.
+
 ## [0.2.1] - 2026-10-07 - Draft
 
 ### Fixed

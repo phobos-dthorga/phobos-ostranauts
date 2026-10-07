@@ -3,11 +3,11 @@
   "id": "example-keelhaul-listing",
   "name": "Example: Keelhaul Listing",
   "author": "Phobos A. D'thorga",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "idPrefix": "keelhaul",
   "requires": {
     "PhobosFramework": "0.129.0",
-    "PhobosExchange": "0.2.0"
+    "PhobosExchange": "0.3.0"
   },
-  "notes": "Kept in the Phobos Ostranauts repository as the worked example of a company listed on Phobos Exchange with its own story: news that moves its price and a letter when the player first buys in. Loaded by the repository's checks."
+  "notes": "Kept in the Phobos Ostranauts repository as the worked example of a company listed on Phobos Exchange with its own story: news that moves its price, a letter when the player first buys in, and a history before the game that shapes its price chart. Loaded by the repository's checks."
 }

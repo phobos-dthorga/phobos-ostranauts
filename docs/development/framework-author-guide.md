@@ -298,7 +298,8 @@ the story library is built, in `FrameworkLifecycle.ContentLoaded`; `StoryFlags.H
 and `Clear` mark what happened for story packs to react to; `StoryArcs.TryBegin(arc, out
 message)` starts an arc only when its requirements hold. `GameClock` holds the game's
 calendar: its 87,658.125-second day, shifts as the game numbers them and `ShiftCount` for
-the shift changes between two times. First consumer: Phobos Banking 0.2.0.
+the shift changes between two times, and (0.130.0) years and months. First consumer:
+Phobos Banking 0.2.0.
 
 ## Carved loot shares (0.48.0)
 
@@ -1411,6 +1412,16 @@ piped, and joins chain across the ship.
   hover readout are ordinary panel text. Presentation only, and only on panels: live
   readings never go on world sprites. Phobos Exchange is the first user; design record:
   [A share market for Phobos Banking, and Framework charts](share-market-and-charts-design.md).
+- **Chart log scale and marks, calendar months (0.130.0).** `ChartData.LogY` draws the values on
+  a base-10 logarithmic scale (values of zero or less are left out), with ticks at 1, 2 and
+  5 in each decade, one a decade (or every few) over many decades, and ordinary steps under
+  a decade (`ChartRules.LogTicks`, `LogRange`). `ChartData.Marks` holds `ChartMark`s: faint
+  dashed vertical lines at an x, whose label the hover readout shows within six pixels.
+  `GameClock.Year`, `Month` (1 to 12, twelve months of thirty game days, the year's extra
+  second in the twelfth), `MonthIndex` (year × 12 + month − 1) and `MonthStart` give the
+  game's calendar months; a native check compares them with `MathUtils.GetYearFromS` and
+  `GetMonthFromS` away from a month's first second, which the game's float arithmetic gives
+  to the month before. First user: Phobos Exchange 0.3.0's company histories.
 - **`Data.AddOns.RegisterNamespace` (0.129.0).** A mod that names story content after the entry
   it concerns (Phobos Exchange's `exchange-<company>-<event>` arcs and flags) registers the
   namespace in Awake. An add-on with prefix `p` may then add ids starting with `<ns>-p` as

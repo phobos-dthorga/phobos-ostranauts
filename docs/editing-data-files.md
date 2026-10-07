@@ -149,7 +149,7 @@ as needing attention, until the file is back.
 | Phobos Framework 0.111.0 | `upkeep` | Crew upkeep: what a tuning session adds, how long an inspection is good, each machine family's share of the gain |
 | Phobos Framework 0.116.0 | `stores` | Which of the game's containers are not stores: weapons, chargers, filter holders, toilets |
 | Phobos Banking 0.2.0 | `lenders` | Who lends, where, to whom and on what terms: the CREDIT app's lenders. See [Adding a lender](#adding-a-lender) |
-| Phobos Exchange 0.1.0 | `exchange` | The exchange's terms, its sectors and the listed companies, with the game's station markets each one follows. See [Listing a company on the exchange](#listing-a-company-on-the-exchange) |
+| Phobos Exchange 0.1.0 | `exchange` | The exchange's terms, its sectors and the listed companies, with the game's station markets each one follows, and (0.3.0) their founding years and history. See [Listing a company on the exchange](#listing-a-company-on-the-exchange) |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -690,6 +690,26 @@ What each field does:
   company is worth. See [exchange stories](development/exchange-stories-handoff.md) for how a
   story and its news fit together, and the
   [Keelhaul example](../examples/addons/PhobosExampleKeelhaulListing/README.md).
+- **`founded`** and **`listed`** (Phobos Exchange 0.3.0): the year the company was founded
+  (its age, shown on its page) and the year its shares first traded on the exchange, where
+  its price history starts. `listed` defaults to `founded`. Both are whole years from 1879
+  to 2078, at most 200 years before the game begins in 2079, and a listing comes no earlier
+  than the founding or the exchange's `opened` year. Without either year, the company's
+  history starts with the save's own, as before 0.3.0.
+- **`listingPrice`** (0.3.0): the share price when it listed, from 0.01 to 100,000, for a
+  company listed by 2076. The history is drawn to meet it, so it says how much the company
+  grew. The growth it means, net of the moves in its history, must stay from -0.05 to 0.25
+  a year, so a short history is not a cliff. Without one, the company's own `drift` runs
+  backwards from the save's first day.
+- **`history`** (0.3.0): up to twelve dated entries by id: `year`, an optional `month` (1 to
+  12; left out, a stable hash of the id picks it), a `line` the company page lists (up to
+  200 characters, no figures and no placeholders) and an optional `move`: how far the price
+  went, from -0.6 to 1 (0.4 is up 40%), at least 0.01 either way. A move dates from the
+  listing and ends by 2076; an entry without one is lore only and may date from the
+  founding. The `market` and each sector take a `history` too (up to sixteen and eight
+  entries), which moves each company by its `followsMarket` or `followsSector`. History
+  only shapes the price history drawn for the years before a save's first day with the
+  exchange, which is drawn again at each load; it never moves a price in play.
 - **`drivers`**: up to six of the game's station markets the company follows. `station`
   is the station's registration (such as `MTRS` for Port Yangshan), `category` the game's
   category of goods (such as `AnyWeapons`), `weight` from -1 to 1 (positive when goods
@@ -701,7 +721,8 @@ The `market` entry holds the exchange's own terms: its name, the commission (a s
 each order, with `minCommission` the least in credits), how hard and how long an order
 pushes the price, the largest order (`maxOrderShare` of a day's volume), the most one
 player may hold of a company (`maxHolding`, in credits), the market-wide phases, and when
-the wire reports a move (`moveShare` over a day) or a turn (`turnShare` a week).
+the wire reports a move (`moveShare` over a day) or a turn (`turnShare` a week). Since
+0.3.0 it also holds the year the exchange `opened` and its own `history`.
 
 **The return guard.** The validator works out what holding each company for a game year
 earns on average, from the drift, the phases, the noise, the drivers and the jumps, and
@@ -710,6 +731,7 @@ to sit on shares a losing bet. If your company is refused, lower one of those fi
 
 A changed figure never makes a price jump in a save already running: the price carries on
 from where it was. An id names the company's saved state, so never rename a shipped
-company's id. Type `phobosexchange quotes` in F3 to see the list, and
-`phobosexchange drivers` to see what each station signal reads now. Add-ons may add
-companies and sectors under their own id prefix.
+company's id. Type `phobosexchange quotes` in F3 to see the list,
+`phobosexchange drivers` to see what each station signal reads now, and
+`phobosexchange history TICKER` to read a company's history. Add-ons may add companies and
+sectors under their own id prefix, and history entries under it too.

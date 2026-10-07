@@ -153,7 +153,8 @@ with one "while you were away" summary. The clock never steps backwards.
 clock, trend states, each company's model state, holdings, alerts, a test-change marker, and
 history as 73 hourly, 120 daily and 104 weekly closes per company, stored compactly relative to
 each chunk's base. About 1.5 KB a company and fixed caps, so the record never grows without
-bound. Fields this version does not understand are kept exactly as they were.
+bound. Fields this version does not understand are kept exactly as they were. (0.3.0 adds
+at most 240 monthly lifetime points a company; see Company histories below.)
 
 ### As built (Phobos Exchange 0.1.0 and Framework 0.128.0, 7 October 2026, held draft)
 
@@ -206,6 +207,92 @@ with a handoff for writers (now a rule in `AGENTS.md`). For the exchange:
   `examples/addons/PhobosExampleKeelhaulListing` lists Keelhaul Freight, tells a story whose
   flag lifts its price 8% and answers its `bought` event with a letter; the C# and Python
   checks load it.
+
+### The first fix in play (Phobos Exchange 0.2.1, 7 October 2026)
+
+The owner's `Player-prev.log` showed 0.1.0 failing on every attach and then every poll (a
+NullReferenceException in `MarketModel.SetDriverFactor`): the service read the drivers
+before the model had started, so prices never moved in play. `MarketModel.Open` now starts
+the market and then reads the drivers, and the service keeps a model only once it opened.
+A new market also settles its drivers at their first readings, moving the base the other
+way, so it opens at the pack's prices without a first-day drift. A trade moves the market
+before it touches shares or cash, and the chart's fill moved into the game-free
+`HistoryView` (the 120-day chart had drawn only its oldest 105 closes).
+
+### Company histories (Phobos Exchange 0.3.0 and Framework 0.130.0, 7 October 2026, held draft)
+
+**Owner decisions** (7 October 2026): price history and market data must exist from before
+the day a player installs the exchange, reaching back as far as each company's age, which
+the `exchange` pack decides within a fixed range; the writers' handoff covers it.
+- The range is 200 years: founding, listing and history years from 1879 to 2078 (a new game
+  always starts in 2079, the game's `NewGame` epoch, checked natively).
+- Two years per company: `founded` (its age, for the story) and `listed` (where its chart
+  starts, defaulting to `founded`), with an optional exchange `opened` year no listing
+  predates.
+- Authored history in this round: dated entries on the exchange, each sector and each
+  company, and an optional listing price.
+- The history before a save's own is redrawn from the pack and the save's seed at every
+  load, never stored, so later lore reaches saves already started; what the save played is
+  stored and never changes.
+
+**Agent choices, for the owner to revise:**
+- Entries that move a price end in 2076, and listing prices need a listing by 2076: the two
+  years before a new game are the backfill the save stores, so a move dated there could not
+  show without changing stored data.
+- An entry without a move is lore only and may date from the founding.
+- A month left out is picked by a stable FNV hash of the entry, the same for every player.
+- An authored listing price must imply a yearly growth, net of the entries' moves, from
+  -0.05 to 0.25, so a short history is never a cliff.
+- The placeholder founding, listing and opening years shipped for the writers to replace
+  (see [the handoff](exchange-stories-handoff.md)).
+
+```mermaid
+flowchart LR
+    A["Listing year<br/>(pack: listed or founded)"] -->|"drawn at each load:<br/>PastPrices, monthly"| B["The save's anchor<br/>(lifetime point 0)"]
+    B -->|"stored: backfill<br/>two years"| C["First day with<br/>the exchange"]
+    C -->|"stored: played,<br/>a point a month"| D["Now"]
+```
+
+**How it works.**
+- **The save's own lifetime points** (`LifetimeSeries`, keys `hist.m.<company>.<part>`): the
+  price at the start of each calendar month, from the anchor where the save's own history
+  begins (the backfill's first step for a new save, the first weekly close for a 0.1 or 0.2
+  record, the listing moment for a company added mid-save). At most 240 points; when full
+  they thin to every 2, 4, 8 … months on the calendar, always keeping the anchor and the
+  newest. A series this version cannot read is kept exactly and never sampled or rewritten.
+  0.2.x keeps the new keys untouched, because its history key rule reads only h, d and w.
+- **Long jumps** of more than two years are crossed in month-aligned steps every 1, 2, 4 …
+  months (at most 240), feeding only the lifetime points; the weekly, daily and minute
+  steps after them refill the rest. The bound is now 4,850 steps for any gap (4,777 for a
+  thousand years). Such a jump gives different, equally exact prices than 0.2 did, and an
+  alert can fire partway through it. A correction to the record above: prices are
+  bit-identical whatever the chunking only within the last three days (minute steps);
+  coarse steps depend on where the segments fall, and a given gap always gives the same
+  result.
+- **The drawn past** (`PastPrices`, game-free): the market's and each sector's phases run
+  monthly from a fixed origin (January 1879) with stationary starts and stream offsets of
+  their own, so they are the same whichever companies are present; each company's own phase
+  and noise start at its listing. The price at month t is the anchor's, moved by the phases
+  and noise since t, by the entries' moves between t and the anchor (the exchange's times
+  `followsMarket`, the sector's times `followsSector`), and by the drift run backwards. An
+  authored listing price adds a straight-line correction that meets it at the listing and
+  vanishes at the anchor. The ordinary process statistics are unchanged by a straight line,
+  so it only re-solves the long-run growth from the two fixed ends. Each path takes at most
+  4,800 steps; a span past 2279 would step every two months.
+- **Views** (`HistoryView`): each range draws its finest source first and fills in from
+  coarser ones only before the finer one begins (hourly, daily, weekly, lifetime points,
+  then the drawn past), clipped at the pack's listing month, so a company added mid-save
+  shows its drawn past on the 2-year chart. **All** uses Framework 0.130.0's log scale, the
+  calendar years along the bottom, unclamped prices and marks at the entries that moved the
+  price.
+- **Known limit:** a company added to a running save gets a drawn past for the years since
+  2079 too, which does not follow the market's own record of those years.
+
+**Measured offline** (.NET 10 on the owner's PC): drawing the past for all eight shipped
+companies takes about 4.5 ms (3,056 points), once per load at the first chart that needs
+it, measured in play as `exchange.past`. The shipped record is about 14 KB at first and
+about 21 KB after fifty years, where the lifetime points reach their cap. Not yet seen in
+play.
 
 ## What we can build on
 

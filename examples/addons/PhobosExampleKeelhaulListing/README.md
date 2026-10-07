@@ -11,6 +11,11 @@ What it does:
   follows ore at Zhonghuamen Terminal, and it has one piece of **news**: when the story flag
   `keelhaul-titan-contract` is set, the price rises 8% once and the market wire carries the
   line in the file (`phobos/PhobosExchange/exchange/keelhaul.json`).
+- Gives the company a **history before the game** (Phobos Exchange 0.3.0): founded in 2052,
+  listed in 2058 at 4 credits a share, with a lore entry for its founding and one event, the
+  Ceres ore route won in 2063, that lifted its price 30%. The exchange draws its price chart
+  back to 2058 from these, and the company page lists both entries. The ids carry the
+  add-on's `keelhaul` prefix.
 - Tells that story (`phobos/PhobosFramework/story/keelhaul.json`): an arc that, some while
   after it starts, puts the contract on the TV news and then sets the flag.
 - Answers one of the exchange's own events: Phobos Exchange starts the arc

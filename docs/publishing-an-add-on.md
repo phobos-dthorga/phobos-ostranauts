@@ -14,8 +14,9 @@ What an add-on can do today (Phobos Framework 0.92.0):
   Phobos Agriculture.
 - Name the things it adds, and translate the Phobos mods into another language.
 - Add War Has Been Declared rebuild schematics.
-- List new companies and sectors on Phobos Exchange, with story news that moves their price
-  and letters that answer the exchange's own events.
+- List new companies and sectors on Phobos Exchange, with story news that moves their price,
+  letters that answer the exchange's own events, and a history from before the game that
+  shapes their price chart.
 
 ## 1. Get it working for yourself first
 
@@ -32,7 +33,8 @@ for Phobos Manufacturing, and
 [Dockside Extras](../examples/addons/PhobosExampleDocksideExtras) for Phobos
 Shipbreaker and Phobos Agriculture, and
 [Keelhaul Listing](../examples/addons/PhobosExampleKeelhaulListing) for Phobos Exchange: a
-company of your own on the exchange, with a story that moves its share price.
+company of your own on the exchange, with a story that moves its share price and a history
+from before the game.
 
 ```text
 MyAddon/
@@ -97,6 +99,12 @@ Your files go under `phobos/<Mod>/<schema>/`, exactly as they sat under
   checks them, but give them your prefix (or the namespace and your prefix) all the same.
   Phobos Banking does not register `bank` yet, so an added lender's letters cannot be named
   `bank-<lender>-…` until it does.
+- **History entries under your prefix too** (Phobos Exchange 0.3.0). A company's, a sector's
+  and the exchange's `history` are tables of entries by id. Give every entry you add your
+  prefix, also on a shipped company or the exchange itself (`keelhaul-ceres-route`), so its
+  translations are yours and no two add-ons collide. An entry with a move on the exchange's
+  own history shapes every company's drawn past, so keep those for events that truly moved
+  the whole market.
 - **Never rename or remove a shipped entry.** Switch an outcome off with a weight
   of 0 instead.
 - **Leave `revision` out of recipes you add.** Framework gives each one a number

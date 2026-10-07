@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/publishing-an-add-on.md",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "1.0.0",
-    "strNotes": "A worked example of a Phobos add-on: Keelhaul Freight, a belt freight line listed on Phobos Exchange, with news that moves its share price and a letter when you first buy in. Data only; it needs Phobos Framework and Phobos Exchange."
+    "strModVersion": "1.1.0",
+    "strNotes": "A worked example of a Phobos add-on: Keelhaul Freight, a belt freight line listed on Phobos Exchange, with news that moves its share price, a letter when you first buy in, and a history before the game on its price chart. Data only; it needs Phobos Framework and Phobos Exchange."
   }
 ]

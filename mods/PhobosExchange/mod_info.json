@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.2.1",
-    "strNotes": "Adds an EXCHANGE app to the PDA home screen: shares in the system's companies, from the game's own ubercorps to Phobos makers, priced around the clock from the cargo markets at the stations they trade with. Watch their charts, buy and sell for cash, and set price alerts that work through time skips. Companies are a data file you can extend. Requires Phobos Framework 0.129.0 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
+    "strModVersion": "0.3.0",
+    "strNotes": "Adds an EXCHANGE app to the PDA home screen: shares in the system's companies, from the game's own ubercorps to Phobos makers, priced around the clock from the cargo markets at the stations they trade with. Watch their charts, buy and sell for cash, and set price alerts that work through time skips. Companies are a data file you can extend. Requires Phobos Framework 0.130.0 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
   }
 ]

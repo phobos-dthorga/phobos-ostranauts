@@ -1371,15 +1371,73 @@ def exchange_name(value, where):
         raise Problem(f'{where}: 1 to 40 characters, without | , ; = # [ ] < > or line breaks')
 
 
+# Phobos Exchange 0.3.0: histories before the game (mirrors ExchangeRules and ExchangeSchema; a test keeps them equal).
+EXCHANGE_FIRST_SAVE_YEAR, EXCHANGE_MAX_AGE_YEARS = 2079, 200
+EXCHANGE_EARLIEST_YEAR = EXCHANGE_FIRST_SAVE_YEAR - EXCHANGE_MAX_AGE_YEARS
+EXCHANGE_LAST_YEAR, EXCHANGE_LAST_MOVE_YEAR = EXCHANGE_FIRST_SAVE_YEAR - 1, EXCHANGE_FIRST_SAVE_YEAR - 3
+EXCHANGE_HISTORY_LIMITS = {'market': 16, 'sector': 8, 'company': 12, 'line': 200}
+EXCHANGE_HISTORY_MOVE = (-0.6, 1.0, 0.01)
+EXCHANGE_LISTING_GROWTH = (-0.05, 0.25)
+
+
+def exchange_year(value, where):
+    number(value, where, EXCHANGE_EARLIEST_YEAR, EXCHANGE_LAST_YEAR, integer=True)
+
+
+def exchange_history(table, limit, lore_from, move_from, where):
+    """A history table: lore may date from lore_from, a move from move_from and no later than EXCHANGE_LAST_MOVE_YEAR."""
+    if not isinstance(table, dict) or len(table) > limit:
+        raise Problem(f'{where}: expected id to history entry, at most {limit}')
+    for key, e in table.items():
+        w = f'{where}/{key}'
+        story_id(key, w, 24)
+        if not isinstance(e, dict):
+            raise Problem(f'{w}: expected an object')
+        fields(e, {'notes', 'year', 'month', 'move', 'line'}, w)
+        if 'notes' in e and (not isinstance(e['notes'], str) or len(e['notes']) > 2000):
+            raise Problem(f'{w}/notes: at most 2000 characters')
+        exchange_year(e.get('year'), f'{w}/year')
+        if 'month' in e:
+            number(e['month'], f'{w}/month', 1, 12, integer=True)
+        story_words(e.get('line'), EXCHANGE_HISTORY_LIMITS['line'], f'{w}/line')
+        if '[' in e['line']:
+            raise Problem(f'{w}/line: no placeholders')
+        if 'move' in e:
+            low, high, least = EXCHANGE_HISTORY_MOVE
+            number(e['move'], f'{w}/move', low, high)
+            if abs(e['move']) < least:
+                raise Problem(f'{w}/move: at least {least} either way')
+            if e['year'] > EXCHANGE_LAST_MOVE_YEAR:
+                raise Problem(f'{w}/year: a move comes by {EXCHANGE_LAST_MOVE_YEAR}; the two years before the game begins are drawn by the market')
+            if e['year'] < move_from:
+                raise Problem(f'{w}/year: a move comes no earlier than {move_from} (the listing)')
+        elif e['year'] < lore_from:
+            raise Problem(f'{w}/year: no earlier than {lore_from}')
+
+
+def exchange_listing_growth(pack, c, listing):
+    """The yearly growth an authored listing price implies up to the game's start, net of the history's moves since the
+    listing (the exchange's by followsMarket, the sector's by followsSector, the company's own)."""
+    moves = 0.0
+    tables = ((pack['market'].get('history', {}), c.get('followsMarket', 1)), (pack['sectors'][c['sector']].get('history', {}), c.get('followsSector', 1)),
+              (c.get('history', {}), 1))
+    for table, weight in tables:
+        for e in table.values():
+            if 'move' in e and e['year'] >= listing:
+                moves += weight * math.log(1 + e['move'])
+    return (math.log(c['price'] / c['listingPrice']) - moves) / (EXCHANGE_FIRST_SAVE_YEAR - listing)
+
+
 def exchange(pack, where):
-    """The exchange schema (Phobos Exchange 0.1.0). Whether a driver's station and category exist in the game is checked
-    by the native checks."""
+    """The exchange schema (Phobos Exchange 0.1.0; histories 0.3.0). Whether a driver's station and category exist in the
+    game is checked by the native checks."""
     fields(pack, {'schemaVersion', 'schema', 'notes', 'market', 'sectors', 'companies'}, where)
     m = pack.get('market')
     if not isinstance(m, dict):
         raise Problem(f'{where}/market: expected the exchange terms')
     w = f'{where}/market'
-    fields(m, {'notes', 'name', 'commission', 'minCommission', 'impact', 'impactHalfLifeDays', 'maxOrderShare', 'maxHolding', 'trend', 'moveShare', 'turnShare', 'reportCooldownDays'}, w)
+    fields(m, {'notes', 'name', 'commission', 'minCommission', 'impact', 'impactHalfLifeDays', 'maxOrderShare', 'maxHolding', 'trend', 'moveShare', 'turnShare', 'reportCooldownDays',
+               'opened', 'history'}, w)
     if 'notes' in m and (not isinstance(m['notes'], str) or len(m['notes']) > 2000):
         raise Problem(f'{w}/notes: at most 2000 characters')
     exchange_name(m.get('name'), f'{w}/name')
@@ -1387,6 +1445,12 @@ def exchange(pack, where):
                            ('maxHolding', 1000, 100000000), ('moveShare', 0.01, 0.5), ('turnShare', 0.001, 0.5), ('reportCooldownDays', 0, 30)):
         number(m.get(key), f'{w}/{key}', low, high)
     exchange_trend(m.get('trend'), f'{w}/trend')
+    # Phobos Exchange 0.3.0: the exchange's opening year and its own history.
+    opened = m.get('opened')
+    if opened is not None:
+        exchange_year(opened, f'{w}/opened')
+    market_from = opened if opened is not None else EXCHANGE_EARLIEST_YEAR
+    exchange_history(m.get('history', {}), EXCHANGE_HISTORY_LIMITS['market'], market_from, market_from, f'{w}/history')
     sectors = pack.get('sectors')
     if not isinstance(sectors, dict) or len(sectors) > 16:
         raise Problem(f'{where}/sectors: expected id to sector, at most 16')
@@ -1395,9 +1459,10 @@ def exchange(pack, where):
         story_id(key, w, 24)
         if not isinstance(s, dict):
             raise Problem(f'{w}: expected an object')
-        fields(s, {'notes', 'name', 'trend'}, w)
+        fields(s, {'notes', 'name', 'trend', 'history'}, w)
         exchange_name(s.get('name'), f'{w}/name')
         exchange_trend(s.get('trend'), f'{w}/trend')
+        exchange_history(s.get('history', {}), EXCHANGE_HISTORY_LIMITS['sector'], market_from, market_from, f'{w}/history')
     companies = pack.get('companies')
     if not isinstance(companies, dict) or len(companies) > 40:
         raise Problem(f'{where}/companies: expected id to company, at most 40')
@@ -1408,7 +1473,7 @@ def exchange(pack, where):
         if not isinstance(c, dict):
             raise Problem(f'{w}: expected an object')
         fields(c, {'notes', 'ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear',
-                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers', 'news'}, w)
+                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers', 'news', 'founded', 'listed', 'listingPrice', 'history'}, w)
         if 'notes' in c and (not isinstance(c['notes'], str) or len(c['notes']) > 2000):
             raise Problem(f'{w}/notes: at most 2000 characters')
         ticker = c.get('ticker')
@@ -1470,6 +1535,30 @@ def exchange(pack, where):
                 story_words(n['wire'], 300, f'{nw}/wire')
                 if '[' in n['wire']:
                     raise Problem(f'{nw}/wire: no placeholders')
+        # Phobos Exchange 0.3.0: founding and listing years, the price at listing and the company's own history.
+        founded, listed = c.get('founded'), c.get('listed')
+        if founded is not None:
+            exchange_year(founded, f'{w}/founded')
+        if listed is not None:
+            exchange_year(listed, f'{w}/listed')
+            if founded is not None and listed < founded:
+                raise Problem(f'{w}/listed: no earlier than its founding ({founded})')
+        listing = listed if listed is not None else founded
+        if listing is not None and opened is not None and listing < opened:
+            raise Problem(f'{w}/listed: no earlier than the exchange opened ({opened})')
+        history = c.get('history', {})
+        if listing is None and ('listingPrice' in c or history):
+            raise Problem(f'{w}: a listing price or history needs a founded or listed year')
+        exchange_history(history, EXCHANGE_HISTORY_LIMITS['company'], founded if founded is not None else (listing or EXCHANGE_EARLIEST_YEAR),
+                         listing or EXCHANGE_EARLIEST_YEAR, f'{w}/history')
+        if 'listingPrice' in c:
+            number(c['listingPrice'], f'{w}/listingPrice', 0.01, 100000)
+            if listing > EXCHANGE_LAST_MOVE_YEAR:
+                raise Problem(f'{w}/listingPrice: only for a company listed by {EXCHANGE_LAST_MOVE_YEAR}; the two years before the game begins are drawn by the market')
+            growth = exchange_listing_growth(pack, c, listing)
+            low, high = EXCHANGE_LISTING_GROWTH
+            if not low <= growth <= high:
+                raise Problem(f'{w}/listingPrice: it means growing {growth:.3f} a year besides the history\'s moves; keep that from {low} to {high}')
         expected = exchange_expected_return(c, sectors[c['sector']]['trend'], m['trend'])
         if not expected <= EXCHANGE_MAX_RETURN:
             raise Problem(f'{w}: expected yearly return {expected:.3f} is above {EXCHANGE_MAX_RETURN}; lower the drift, the noise, the trend phases or the jumps')

@@ -43,6 +43,27 @@ internal static class ChartChecks
         check(few == 3 && oy[2] == 7, "a short series is drawn as it is");
         check(ChartRules.Thin(xs, ys, 0, 0, 1, 10, ox, oy) == 0 && ChartRules.Thin(xs, ys, count, 0, count, 10, Array.Empty<double>(), oy) == 0, "nothing to draw, or nowhere to put it, gives nothing");
 
+        // Framework 0.130.0: a logarithmic axis and the calendar's months.
+        n = ChartRules.LogTicks(0, 3, 5, ticks);
+        check(n == 4 && ticks.Take(n).SequenceEqual(new double[] { 1, 10, 100, 1000 }), "a log axis over three decades ticks once a decade");
+        n = ChartRules.LogTicks(Math.Log10(0.8), Math.Log10(30), 6, ticks);
+        check(ticks.Take(n).SequenceEqual(new double[] { 1, 2, 5, 10, 20 }), "a decade and a half ticks 1, 2 and 5 in each decade within the range (" + string.Join(",", ticks.Take(n)) + ")");
+        n = ChartRules.LogTicks(-3, 9, 4, ticks);
+        check(n >= 3 && n <= 5 && ticks.Take(n).All(t => Math.Round(Math.Log10(t)) % 3 == 0), "many decades tick every few decades (" + string.Join(",", ticks.Take(n)) + ")");
+        n = ChartRules.LogTicks(Math.Log10(40), Math.Log10(90), 4, ticks);
+        check(n >= 2 && ticks.Take(n).All(t => t >= 40 && t <= 90), "under a decade a log axis ticks in ordinary steps between its values");
+        check(ChartRules.LogTicks(2, 2, 4, ticks) == 0 && ChartRules.LogTicks(0, double.PositiveInfinity, 4, ticks) == 0, "no span gives no log ticks");
+        check(ChartRules.LogRange(new[] { -1.0, 0, 10, 1000, double.NaN }, 5, out lo, out hi) && lo == 1 && hi == 3, "a log range leaves out zero, negative and unreadable values");
+        check(!ChartRules.LogRange(new[] { 0.0, -2 }, 2, out _, out _), "no positive value gives no log range");
+        check(Phobos.Ostranauts.Framework.GameClock.Year(65627498854) == 2079 && Phobos.Ostranauts.Framework.GameClock.Month(0) == 1, "a new game's epoch is the year 2079");
+        for (long m = 2079 * 12 - 30; m < 2079 * 12 + 30; m++)
+        {
+            double start = Phobos.Ostranauts.Framework.GameClock.MonthStart(m);
+            check(Phobos.Ostranauts.Framework.GameClock.MonthIndex(start) == m && Phobos.Ostranauts.Framework.GameClock.MonthIndex(start - 1) == m - 1 &&
+                  Phobos.Ostranauts.Framework.GameClock.MonthIndex(start + 1e6) == m, "months follow each other without gaps: " + m);
+        }
+        check(Phobos.Ostranauts.Framework.GameClock.Month(2080 * Phobos.Ostranauts.Framework.GameClock.YearSeconds - 0.5) == 12, "the year's extra second counts in its twelfth month");
+
         // The test-command gate (owner rule, 7 October 2026).
         check(DebugCommands.Decide(false, false) == DebugCommands.Decision.Locked && DebugCommands.Decide(false, true) == DebugCommands.Decision.Locked, "locked debug commands refuse, confirmed or not");
         check(DebugCommands.Decide(true, false) == DebugCommands.Decision.Warn, "unlocked, the first use only warns");

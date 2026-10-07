@@ -3,8 +3,9 @@ using System;
 namespace Phobos.Ostranauts.Framework.Controls;
 
 /// <summary>The arithmetic behind <see cref="Chart"/> (Framework 0.128.0): value ranges, tick steps of 1, 2 or 5 times a
-/// power of ten, and thinning a long series to at most a lowest and a highest point per pixel column, so a chart's mesh
-/// stays small however much history it shows. No game or Unity types, so the offline checks run it.</summary>
+/// power of ten, ticks for a logarithmic axis (0.130.0), and thinning a long series to at most a lowest and a highest
+/// point per pixel column, so a chart's mesh stays small however much history it shows. No game or Unity types, so the
+/// offline checks run it.</summary>
 public static class ChartRules
 {
     /// <summary>A tick step of 1, 2 or 5 times a power of ten giving about <paramref name="target"/> ticks over a span.</summary>
@@ -28,6 +29,49 @@ public static class ChartRules
         for (double v = first; v <= max + step * 1e-9 && n < ticks.Length; v = first + n * step)
             ticks[n++] = Math.Abs(v) < step * 1e-9 ? 0 : v;
         return n;
+    }
+
+    private static readonly double[] OneTwoFive = { 1, 2, 5 }, One = { 1 };
+
+    /// <summary>Ticks for a logarithmic axis (Framework 0.130.0): the range is given as base-10 logarithms, the ticks are
+    /// written as values. Several decades get 1, 2 and 5 in each decade, or one tick a decade (every few decades when
+    /// they are many); less than a decade falls back to ordinary steps between the two values. Returns how many.</summary>
+    public static int LogTicks(double minLog, double maxLog, int target, double[] ticks)
+    {
+        if (ticks == null || ticks.Length == 0 || !(maxLog > minLog) || double.IsInfinity(minLog) || double.IsInfinity(maxLog)) return 0;
+        double span = maxLog - minLog;
+        if (span < 1) return Ticks(Math.Pow(10, minLog), Math.Pow(10, maxLog), target, ticks);
+        if (target < 1) target = 1;
+        var multiples = span * OneTwoFive.Length <= target * 1.5 ? OneTwoFive : One;
+        int every = multiples == One ? Math.Max(1, (int)Math.Ceiling(span / target)) : 1;
+        int n = 0;
+        for (int e = (int)Math.Floor(minLog); e <= (int)Math.Ceiling(maxLog) && n < ticks.Length; e++)
+        {
+            if ((e % every + every) % every != 0) continue;
+            foreach (double k in multiples)
+            {
+                double log = Math.Log10(k) + e;
+                if (log < minLog - 1e-9 || log > maxLog + 1e-9 || n >= ticks.Length) continue;
+                ticks[n++] = k * Math.Pow(10, e);
+            }
+        }
+        return n;
+    }
+
+    /// <summary>The range of the base-10 logarithms of the positive, finite values (others are left out). False when
+    /// there are none.</summary>
+    public static bool LogRange(double[] values, int count, out double min, out double max)
+    {
+        min = double.PositiveInfinity; max = double.NegativeInfinity;
+        for (int i = 0; i < Math.Min(count, values?.Length ?? 0); i++)
+        {
+            double v = values![i];
+            if (!(v > 0) || double.IsInfinity(v)) continue;
+            double log = Math.Log10(v);
+            if (log < min) min = log;
+            if (log > max) max = log;
+        }
+        return !double.IsInfinity(min);
     }
 
     /// <summary>The value range to draw: the data's lowest and highest, padded by a share of the span; a flat or single

@@ -118,6 +118,55 @@
           "minimum": 0,
           "maximum": 30,
           "description": "The fewest game days between two reports on one company."
+        },
+        "opened": {
+          "type": "integer",
+          "minimum": 1879,
+          "maximum": 2078,
+          "description": "The year the exchange opened: no company lists before it (Phobos Exchange 0.3.0)."
+        },
+        "history": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-z0-9]+(-[a-z0-9]+)*$": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "notes": {
+                  "type": "string",
+                  "description": "Free text for maintainers; ignored by the game."
+                },
+                "year": {
+                  "type": "integer",
+                  "minimum": 1879,
+                  "maximum": 2078,
+                  "description": "A year from 1879 to 2078: at most 200 years before the game begins in 2079."
+                },
+                "month": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 12,
+                  "description": "The month, 1 to 12; without one a stable hash of the id picks it."
+                },
+                "move": {
+                  "type": "number",
+                  "minimum": -0.6,
+                  "maximum": 1.0,
+                  "description": "How far the price moved, as a share (0.4 is up 40 percent); at least 0.01 either way, and only by 2076. Without one the entry is lore only."
+                },
+                "line": {
+                  "type": "string",
+                  "description": "The line the company page lists, without figures; at most 200 characters, no placeholders."
+                }
+              },
+              "required": [
+                "year",
+                "line"
+              ]
+            }
+          },
+          "description": "The exchange history: events that moved every company, each by its followsMarket (Phobos Exchange 0.3.0)."
         }
       },
       "required": [
@@ -178,6 +227,49 @@
                 "fastWeeks",
                 "sd"
               ]
+            },
+            "history": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "notes": {
+                      "type": "string",
+                      "description": "Free text for maintainers; ignored by the game."
+                    },
+                    "year": {
+                      "type": "integer",
+                      "minimum": 1879,
+                      "maximum": 2078,
+                      "description": "A year from 1879 to 2078: at most 200 years before the game begins in 2079."
+                    },
+                    "month": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 12,
+                      "description": "The month, 1 to 12; without one a stable hash of the id picks it."
+                    },
+                    "move": {
+                      "type": "number",
+                      "minimum": -0.6,
+                      "maximum": 1.0,
+                      "description": "How far the price moved, as a share (0.4 is up 40 percent); at least 0.01 either way, and only by 2076. Without one the entry is lore only."
+                    },
+                    "line": {
+                      "type": "string",
+                      "description": "The line the company page lists, without figures; at most 200 characters, no placeholders."
+                    }
+                  },
+                  "required": [
+                    "year",
+                    "line"
+                  ]
+                }
+              },
+              "description": "The sector history: events that moved its companies, each by its followsSector (Phobos Exchange 0.3.0)."
             }
           },
           "required": [
@@ -384,6 +476,67 @@
                 ]
               },
               "description": "Story news that moves the price once when its story flag is set (Phobos Exchange 0.2.0)."
+            },
+            "founded": {
+              "type": "integer",
+              "minimum": 1879,
+              "maximum": 2078,
+              "description": "The year the company was founded: its age, for the story and its page (Phobos Exchange 0.3.0)."
+            },
+            "listed": {
+              "type": "integer",
+              "minimum": 1879,
+              "maximum": 2078,
+              "description": "The year its shares first traded on the exchange, where its price history starts; defaults to founded, no earlier than founded or the exchange opening."
+            },
+            "listingPrice": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 100000,
+              "description": "The share price at listing, for a company listed by 2076; its yearly growth to today, net of the history moves, stays from -0.05 to 0.25."
+            },
+            "history": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z0-9]+(-[a-z0-9]+)*$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "notes": {
+                      "type": "string",
+                      "description": "Free text for maintainers; ignored by the game."
+                    },
+                    "year": {
+                      "type": "integer",
+                      "minimum": 1879,
+                      "maximum": 2078,
+                      "description": "A year from 1879 to 2078: at most 200 years before the game begins in 2079."
+                    },
+                    "month": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 12,
+                      "description": "The month, 1 to 12; without one a stable hash of the id picks it."
+                    },
+                    "move": {
+                      "type": "number",
+                      "minimum": -0.6,
+                      "maximum": 1.0,
+                      "description": "How far the price moved, as a share (0.4 is up 40 percent); at least 0.01 either way, and only by 2076. Without one the entry is lore only."
+                    },
+                    "line": {
+                      "type": "string",
+                      "description": "The line the company page lists, without figures; at most 200 characters, no placeholders."
+                    }
+                  },
+                  "required": [
+                    "year",
+                    "line"
+                  ]
+                }
+              },
+              "description": "The company history (Phobos Exchange 0.3.0): a move comes on or after the listing, lore from the founding."
             }
           },
           "required": [
@@ -414,5 +567,5 @@
     "sectors",
     "companies"
   ],
-  "description": "Phobos Exchange pack: the exchange terms, its sectors and the listed companies. Each company expected yearly return must stay at or below 0.14 (checked by the validators)."
+  "description": "Phobos Exchange pack: the exchange terms, its sectors and the listed companies, with their history before the game. Each company expected yearly return must stay at or below 0.14 (checked by the validators)."
 }

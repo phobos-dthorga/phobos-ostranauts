@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework;
 
 namespace PhobosExchange.Core;
 
@@ -19,11 +20,12 @@ public enum Cause { Market = 0, Sector = 1, Company = 2, Noise = 3, Trading = 4,
 /// <summary>The market (Phobos Exchange 0.1.0; design record <c>docs/development/share-market-and-charts-design.md</c>).
 /// <para>log price = base + drift·years + market phase·followsMarket + sector phase·followsSector + company phase
 /// + drivers + noise + the player's fading impact.</para>
-/// Every random term steps exactly on a fixed grid of 60 game seconds with stable noise, so a price at a moment is the
-/// same whether the player watched or skipped, and a reload never rerolls it. Any gap is caught up within a fixed
-/// number of steps: one exact jump for anything older than two years, weekly steps to 120 days, daily steps to three
-/// days, then minute steps (owner requirement, 7 October 2026). The step loop allocates nothing and touches no game
-/// state; services act on what it reports through <see cref="IMarketObserver"/>.</summary>
+/// Every random term steps exactly on a fixed grid of 60 game seconds with stable noise, so within the last three days a
+/// price at a moment is the same whether the player watched or skipped, and a reload never rerolls it. Any gap is caught
+/// up within a fixed number of steps: month-aligned steps (at most 240, 0.3.0) for anything older than two years, weekly
+/// steps to 120 days, daily steps to three days, then minute steps (owner requirement, 7 October 2026). The step loop
+/// allocates nothing and touches no game state; services act on what it reports through <see cref="IMarketObserver"/>.
+/// The history before the save's own is drawn separately (<see cref="PastPrices"/>) and never moves a live price.</summary>
 public sealed class MarketModel
 {
     private const int StreamSlow = 0, StreamGap = 1, StreamVol = 2, StreamNoise = 3, StreamJumpU = 4, StreamJumpZ = 5;
@@ -53,6 +55,10 @@ public sealed class MarketModel
     private readonly double[] sigma, eta, volNoise, jumpRate, driftPerSecond;
     private readonly double[][] targets;
     private TrendState market = new();
+    /// <summary>The first step of the month after the last one sampled into the lifetime points.</summary>
+    private long monthBoundary = long.MinValue;
+    private PastPrices? pastPrices;
+    private readonly PastSeries?[] pasts;
 
     public MarketModel(ExchangePack pack, ExchangeRecord record)
     {
@@ -78,6 +84,7 @@ public sealed class MarketModel
         noiseKernels = new OuKernel[Count];
         sigma = new double[Count]; eta = new double[Count]; volNoise = new double[Count]; jumpRate = new double[Count]; driftPerSecond = new double[Count];
         targets = new double[Count][];
+        pasts = new PastSeries?[Count];
         impactKernel = new OuKernel(pack.market.impactHalfLifeDays * ExchangeRules.DaySeconds);
         driverKernel = new OuKernel(ExchangeRules.DriverHalfLifeDays * ExchangeRules.DaySeconds);
         for (int i = 0; i < Count; i++)
@@ -195,6 +202,7 @@ public sealed class MarketModel
             }
             state.LastLn = LnPrice[i];
             if (histories[i].Hourly.Count == 0) SeedHistory(i, clock);
+            SeedLifetime(i, clock);
         }
         Started = true;
         return Advance(now, observer);
@@ -218,6 +226,9 @@ public sealed class MarketModel
             targets[i] = (double[])States[i].Drivers.Clone();
             histories[i].Hourly.Clear(); histories[i].Daily.Clear(); histories[i].Weekly.Clear();
             LnPrice[i] = Compute(i, start);
+            // The save's own history begins here: the anchor its generated past joins (0.3.0).
+            histories[i].Lifetime = new LifetimeSeries();
+            histories[i].Lifetime.Open(ExchangeRules.MonthOf(start), LnPrice[i]);
         }
         int steps = Advance(now, null);
         for (int i = 0; i < Count; i++)
@@ -252,7 +263,48 @@ public sealed class MarketModel
         h.Hourly.Push(ExchangeRules.HourOf(step), LnPrice[i]);
         h.Daily.Push(ExchangeRules.DayOf(step), LnPrice[i]);
         h.Weekly.Push(ExchangeRules.WeekOf(step), LnPrice[i]);
+        h.Lifetime.Open(ExchangeRules.MonthOf(step), LnPrice[i]);
     }
+
+    /// <summary>A record from before 0.3.0 has no lifetime points: they begin at its oldest weekly close. A record played
+    /// under an older version since catches up from the weekly closes newer than its last point. Idempotent.</summary>
+    private void SeedLifetime(int i, long clock)
+    {
+        var h = histories[i];
+        var life = h.Lifetime;
+        if (life.Foreign) return;
+        if (life.Count == 0)
+        {
+            if (h.Weekly.Count > 0) life.Open(GameClock.MonthIndex((h.Weekly.FirstBucket + 1) * ExchangeRules.WeekSeconds), h.Weekly[0]);
+            else life.Open(ExchangeRules.MonthOf(clock), LnPrice[i]);
+        }
+        for (int k = 0; k < h.Weekly.Count; k++)
+            life.Sample(GameClock.MonthIndex((h.Weekly.FirstBucket + k + 1) * ExchangeRules.WeekSeconds), h.Weekly[k]);
+    }
+
+    /// <summary>The generated past before company <paramref name="i"/>'s own history (0.3.0): drawn on first use from the
+    /// pack and the save's seed, kept until the model is replaced, never saved. Empty without a listing year or lifetime
+    /// points.</summary>
+    public PastSeries Past(int i)
+    {
+        if (pasts[i] is PastSeries cached) return cached;
+        var life = histories[i].Lifetime;
+        if (life.Foreign || life.Count == 0 || ExchangeSchema.ListingMonth(Entries[i]) is not long listing || listing >= life.MonthAt(0)) return pasts[i] = PastSeries.None;
+        if (pastPrices == null || pastPrices.Horizon < life.MonthAt(0))
+        {
+            long horizon = 0;
+            for (int k = 0; k < Count; k++) if (histories[k].Lifetime.Count > 0) horizon = Math.Max(horizon, histories[k].Lifetime.MonthAt(0));
+            pastPrices = new PastPrices(Pack, Record.Seed, horizon);
+            Array.Clear(pasts, 0, Count);
+        }
+        return pasts[i] = pastPrices.For(Ids[i], life.MonthAt(0), life[0]);
+    }
+
+    /// <summary>Whether <see cref="Past"/> has been drawn for this company already.</summary>
+    public bool HasPast(int i) => pasts[i] != null;
+
+    /// <summary>The generated past's points held in memory, for the footprint.</summary>
+    public int PastPoints { get { int n = 0; foreach (var p in pasts) n += p?.Count ?? 0; return n; } }
 
     /// <summary>Steps the market to <paramref name="target"/>. Returns the number of steps taken, never more than
     /// <see cref="MaxStepsPerAdvance"/> whatever the gap. The clock never goes backwards.</summary>
@@ -266,7 +318,22 @@ public sealed class MarketModel
         {
             long dailyStart = target - (long)Math.Ceiling(ExchangeRules.DailyDays * ExchangeRules.DaySeconds / ExchangeRules.StepSeconds);
             long weeklyStart = target - (long)Math.Ceiling(ExchangeRules.WeeklyWeeks * ExchangeRules.WeekSeconds / ExchangeRules.StepSeconds);
-            if (last < weeklyStart) { CoarseStep(last, weeklyStart, observer); last = weeklyStart; steps++; }
+            if (last < weeklyStart)
+            {
+                // Older than two years (0.3.0): month-aligned steps every 1, 2, 4 … months, at most LongSteps of them,
+                // feeding only the lifetime points; the weekly, daily and minute steps that follow refill the rest.
+                long fromMonth = ExchangeRules.MonthOf(last), toMonth = ExchangeRules.MonthOf(weeklyStart);
+                long stride = 1;
+                while ((toMonth - fromMonth) / stride > ExchangeRules.LongSteps - 1) stride *= 2;
+                for (long m = (fromMonth / stride + 1) * stride; m <= toMonth; m += stride)
+                {
+                    long at = ExchangeRules.StepAtOrAfter(GameClock.MonthStart(m));
+                    if (at >= weeklyStart) break;
+                    if (at <= last) continue;
+                    CoarseStep(last, at, observer, true); last = at; steps++;
+                }
+                CoarseStep(last, weeklyStart, observer, true); last = weeklyStart; steps++;
+            }
             while (last < dailyStart)
             {
                 long next = Math.Min(dailyStart, ExchangeRules.StepAtOrAfter((ExchangeRules.WeekOf(last) + 1) * ExchangeRules.WeekSeconds));
@@ -286,7 +353,7 @@ public sealed class MarketModel
 
     /// <summary>The most steps one <see cref="Advance"/> can take, for any gap.</summary>
     public static int MaxStepsPerAdvance =>
-        1 + ExchangeRules.WeeklyWeeks + (int)Math.Ceiling(ExchangeRules.DailyDays) + 2 + (int)ExchangeRules.FineSteps;
+        ExchangeRules.LongSteps + 1 + ExchangeRules.WeeklyWeeks + (int)Math.Ceiling(ExchangeRules.DailyDays) + 2 + (int)ExchangeRules.FineSteps;
 
     private void FineStep(long from, long step, IMarketObserver? observer)
     {
@@ -316,7 +383,7 @@ public sealed class MarketModel
         Closed(from, step, true, observer);
     }
 
-    private void CoarseStep(long from, long to, IMarketObserver? observer)
+    private void CoarseStep(long from, long to, IMarketObserver? observer, bool longSegment = false)
     {
         double dt = (to - from) * ExchangeRules.StepSeconds;
         ulong seed = Record.Seed;
@@ -333,14 +400,13 @@ public sealed class MarketModel
             volKernels[i].Factors(dt, out double ah, out double ch);
             st.LogVol = ah * st.LogVol + volNoise[i] * ch * StableNoise.Normal(seed, key, to, Coarse + StreamVol);
             // Over a long step the noise uses its mean volatility (a labelled approximation) and the jumps their variance.
-            noiseKernels[i].Factors(dt, out double aw, out double cw);
-            double jumps = Entries[i].jumpSize * Math.Sqrt(jumpRate[i]) * cw;
-            st.Noise = aw * st.Noise + sigma[i] * cw * StableNoise.Normal(seed, key, to, Coarse + StreamNoise) + jumps * StableNoise.Normal(seed, key, to, Coarse + StreamJumpZ);
+            st.Noise = noiseKernels[i].LongStep(st.Noise, dt, sigma[i], Entries[i].jumpSize, jumpRate[i],
+                StableNoise.Normal(seed, key, to, Coarse + StreamNoise), StableNoise.Normal(seed, key, to, Coarse + StreamJumpZ));
             Relax(i, ae);
             st.Impact *= ai;
             LnPrice[i] = Compute(i, to);
         }
-        Closed(from, to, false, observer);
+        Closed(from, to, false, observer, longSegment);
     }
 
     private void Relax(int i, double keep)
@@ -350,20 +416,32 @@ public sealed class MarketModel
         for (int j = 0; j < drivers.Length; j++) drivers[j] = goal[j] + (drivers[j] - goal[j]) * keep;
     }
 
-    /// <summary>History for the buckets a step crossed, then the observer.</summary>
-    private void Closed(long from, long to, bool fine, IMarketObserver? observer)
+    /// <summary>History for the buckets a step crossed, then the observer. A step of a long jump feeds only the lifetime
+    /// points: the steps after it refill the hourly, daily and weekly closes.</summary>
+    private void Closed(long from, long to, bool fine, IMarketObserver? observer, bool longSegment = false)
     {
         Record.Clock = to;
         long hourFrom = ExchangeRules.HourOf(from), hourTo = ExchangeRules.HourOf(to);
         long dayFrom = ExchangeRules.DayOf(from), dayTo = ExchangeRules.DayOf(to);
         long weekFrom = ExchangeRules.WeekOf(from), weekTo = ExchangeRules.WeekOf(to);
+        // A new month (0.3.0): its first price joins the lifetime points.
+        long month = long.MinValue;
+        if (to >= monthBoundary)
+        {
+            month = ExchangeRules.MonthOf(to);
+            monthBoundary = ExchangeRules.StepAtOrAfter(GameClock.MonthStart(month + 1));
+        }
         for (int i = 0; i < Count; i++)
         {
             States[i].LastLn = LnPrice[i];
             var h = histories[i];
-            if (hourTo != hourFrom) h.Hourly.Push(hourTo - 1, LnPrice[i]);
-            if (dayTo != dayFrom) h.Daily.Push(dayTo - 1, LnPrice[i]);
-            if (weekTo != weekFrom) h.Weekly.Push(weekTo - 1, LnPrice[i]);
+            if (!longSegment)
+            {
+                if (hourTo != hourFrom) h.Hourly.Push(hourTo - 1, LnPrice[i]);
+                if (dayTo != dayFrom) h.Daily.Push(dayTo - 1, LnPrice[i]);
+                if (weekTo != weekFrom) h.Weekly.Push(weekTo - 1, LnPrice[i]);
+            }
+            if (month != long.MinValue) h.Lifetime.Sample(month, LnPrice[i]);
         }
         if (observer == null) return;
         observer.Stepped(this, to, fine);

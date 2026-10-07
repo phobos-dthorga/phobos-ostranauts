@@ -25,6 +25,19 @@ internal sealed class CompanyView
     public double Value;
     /// <summary>Why the company cannot be traded now (no longer listed, or its record is from a newer version), or null.</summary>
     public string? Unavailable;
+    /// <summary>Its age and listing (0.3.0): one line for its page, or "" when the pack gives no years.</summary>
+    public string Age = "";
+}
+
+/// <summary>One line of a company's or the exchange's history (Phobos Exchange 0.3.0), in the player's language.</summary>
+internal sealed class HistoryLine
+{
+    public long Month;
+    public int Year;
+    public string Text = "";
+    /// <summary>How far it moved the price, as a share; null for lore.</summary>
+    public double? Share;
+    public string Line => Share is double s ? PhobosExchange.Text.Get("Company.history_move", Year, Text, Market.Percent(s)) : PhobosExchange.Text.Get("Company.history_line", Year, Text);
 }
 
 /// <summary>The exchange service (Phobos Exchange 0.1.0). Reads the player's record, steps the market to the game's clock
@@ -470,7 +483,8 @@ internal static class Market
             var v = new CompanyView
             {
                 Id = model.Ids[i], Index = i, Ticker = c.ticker, Name = Companies.Name(model.Ids[i]), Sector = c.sector,
-                SectorName = Companies.SectorName(c.sector), Profile = Companies.Profile(model.Ids[i]), Quote = TradeRules.QuoteOf(model.LnPrice[i], c.spread)
+                SectorName = Companies.SectorName(c.sector), Profile = Companies.Profile(model.Ids[i]), Quote = TradeRules.QuoteOf(model.LnPrice[i], c.spread),
+                Age = Age(c)
             };
             var h = model.History(i);
             if (h.Hourly.Count >= 25) v.DayChange = Math.Exp(model.LnPrice[i] - h.Hourly[h.Hourly.Count - 25]) - 1;
@@ -514,6 +528,62 @@ internal static class Market
             Detail = Text.Get(ExchangeRules.CountKey("Holdings.detail", companies), companies, Companies.ExchangeName)
         };
     }
+
+    // ---- History before the game (Phobos Exchange 0.3.0) ----------------------------------------------------------
+
+    /// <summary>A company's generated past, drawn on first use after a load (measured as <c>exchange.past</c>).</summary>
+    internal static PastSeries Past(int i)
+    {
+        if (model == null || i < 0 || i >= model.Count) return PastSeries.None;
+        if (model.HasPast(i)) return model.Past(i);
+        using (Performance.Measure(PerformanceMetrics.Past)) return model.Past(i);
+    }
+
+    /// <summary>A company's founding and listing, in one line; "" when the pack gives neither.</summary>
+    internal static string Age(CompanyEntry c)
+    {
+        string exchange = Companies.ExchangeName;
+        string text = c.founded is int f
+            ? c.listed is int l && l != f ? Text.Get("Company.age_both", f, exchange, l) : Text.Get("Company.age_same", f, exchange)
+            : c.listed is int only ? Text.Get("Company.age_listed", exchange, only) : "";
+        if (text.Length > 0 && c.listingPrice is double price) text += " " + Text.Get("Company.listing_price", MoneyFigures(price));
+        return text;
+    }
+
+    /// <summary>The history a company's page lists, oldest first: the exchange's and its sector's since the company was
+    /// founded (or listed), and its own, each with how far it moved this company's price.</summary>
+    internal static List<HistoryLine> History(int i)
+    {
+        var lines = new List<HistoryLine>();
+        if (model == null || i < 0 || i >= model.Count) return lines;
+        var c = model.Entries[i];
+        long from = ExchangeRules.MonthIndex(c.founded ?? ExchangeSchema.ListingYear(c) ?? ExchangeRules.FirstSaveYear, 1);
+        foreach (var m in ExchangeSchema.Milestones(model.Pack, model.Ids[i]))
+        {
+            if (m.Scope != HistoryScope.Company && m.Month < from) continue;
+            // A move shows only once the company is listed; before then the entry is lore.
+            bool moved = m.Entry.move != null && ExchangeSchema.ListingMonth(c) is long listing && m.Month >= listing;
+            lines.Add(new HistoryLine { Month = m.Month, Year = m.Entry.year, Text = Companies.HistoryText(m), Share = moved ? m.Share : null });
+        }
+        return lines;
+    }
+
+    /// <summary>The exchange's own history, oldest first.</summary>
+    internal static List<HistoryLine> ExchangeHistory()
+    {
+        var pack = Companies.Pack;
+        if (pack == null) return new List<HistoryLine>();
+        return pack.market.history.Select(p => new Milestone(HistoryScope.Market, "", p.Key, p.Value, ExchangeSchema.MonthOf("market", p.Key, p.Value), 1))
+            .OrderBy(m => m.Month).ThenBy(m => m.Id, StringComparer.Ordinal)
+            .Select(m => new HistoryLine { Month = m.Month, Year = m.Entry.year, Text = Companies.HistoryText(m), Share = m.Entry.move })
+            .ToList();
+    }
+
+    /// <summary>A price of any size: two decimals from a hundredth up, and significant figures below, for history that
+    /// reaches back to small beginnings.</summary>
+    internal static string MoneyFigures(double amount) => amount >= 0.01 || amount <= 0
+        ? Text.Get("Money", amount.ToString(amount >= 100 ? "n0" : "#,0.00##"))
+        : Text.Get("Money", amount.ToString("0.###E+0"));
 
     internal static string Money(double amount) => Text.Get("Money", amount.ToString("n"));
     internal static string Percent(double share) => Text.Get("Percent", (share * 100).ToString("+0.0;-0.0;0.0"));

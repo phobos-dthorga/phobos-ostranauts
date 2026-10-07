@@ -221,13 +221,14 @@ double? Factor(DriverEntry d)
 {
     var h = one.History(0);
     var x = new double[HistoryView.MaxPoints]; var y = new double[HistoryView.MaxPoints];
-    int n = HistoryView.Fill(h.Daily, ExchangeRules.DaySeconds, one.Clock, one.LnPrice[0], x, y);
-    Check(h.Daily.Count == ExchangeRules.DailyCloses && n == ExchangeRules.DailyCloses + 1, "the 120-day chart draws every daily close, then now (" + n + ")");
+    int n = HistoryView.Fill(ChartRange.Days, h, null, null, one.Clock, one.LnPrice[0], x, y);
+    Check(h.Daily.Count == ExchangeRules.DailyCloses && n >= ExchangeRules.DailyCloses + 1 &&
+          Enumerable.Range(0, ExchangeRules.DailyCloses).All(k => y[n - 1 - ExchangeRules.DailyCloses + k] == ExchangeRules.Price(h.Daily[k])), "the 120-day chart draws every daily close, then now (" + n + ")");
     Check(y[n - 2] == ExchangeRules.Price(h.Daily[h.Daily.Count - 1]) && x[n - 2] <= 0 && x[n - 2] > -1 && x[n - 1] == 0 && y[n - 1] == one.Price(0),
         "the newest close sits within a day before now, and now is last");
-    Check(Enumerable.Range(1, n - 1).All(k => x[k] > x[k - 1]), "chart points run oldest first");
+    Check(Enumerable.Range(1, n - 1).All(k => x[k] > x[k - 1]) && x[0] >= -ExchangeRules.DailyDays, "chart points run oldest first, within the range");
     var shortX = new double[11]; var shortY = new double[11];
-    int m = HistoryView.Fill(h.Daily, ExchangeRules.DaySeconds, one.Clock, one.LnPrice[0], shortX, shortY);
+    int m = HistoryView.Fill(ChartRange.Days, h, null, null, one.Clock, one.LnPrice[0], shortX, shortY);
     Check(m == 11 && shortY[9] == ExchangeRules.Price(h.Daily[h.Daily.Count - 1]), "a short buffer keeps the newest closes");
 }
 
@@ -262,7 +263,8 @@ double? Factor(DriverEntry d)
 
 // ---- Time jumps of any size (owner requirement) ------------------------------------------------------------
 foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0), ("a day", ExchangeRules.DaySeconds), ("three days", 3 * ExchangeRules.DaySeconds),
-             ("a month", 30 * ExchangeRules.DaySeconds), ("a year", ExchangeRules.YearSeconds), ("fifty years", 50 * ExchangeRules.YearSeconds) })
+             ("a month", 30 * ExchangeRules.DaySeconds), ("a year", ExchangeRules.YearSeconds), ("two and a half years", 2.5 * ExchangeRules.YearSeconds),
+             ("ten years", 10 * ExchangeRules.YearSeconds), ("fifty years", 50 * ExchangeRules.YearSeconds), ("a thousand years", 1000 * ExchangeRules.YearSeconds) })
 {
     var a = NewMarket(pack, new ExchangeRecord(), now);
     var b = NewMarket(pack, new ExchangeRecord(), now);
@@ -279,6 +281,10 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     {
         var h = a.History(i);
         Check(h.Hourly.Count <= ExchangeRules.HourlyCloses && h.Daily.Count <= ExchangeRules.DailyCloses && h.Weekly.Count <= ExchangeRules.WeeklyCloses, "history stays within its caps after " + label);
+        // 0.3.0: the lifetime points keep the whole span, bounded, starting at the anchor and running forward.
+        var life = h.Lifetime;
+        Check(life.Count <= ExchangeRules.LifetimeCapacity && life.MonthAt(0) == b.History(i).Lifetime.MonthAt(0) && Enumerable.Range(1, life.Count - 1).All(k => life.MonthAt(k) > life.MonthAt(k - 1)) &&
+              life.LastMonth == ExchangeRules.MonthOf(target) && (seconds < 2 * ExchangeRules.YearSeconds || life.Count >= 30), "the lifetime points cover a jump of " + label + " (" + life.Count + ", every " + life.Resolution + " months)");
     }
     Console.WriteLine($"  jump of {label}: {steps} steps, {watch.Elapsed.TotalMilliseconds:0.0} ms");
 }
@@ -477,6 +483,148 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     }
 }
 
+// ---- Company histories before the game (Exchange 0.3.0) --------------------------------------------------------
+{
+    long newGame = ExchangeRules.StepOf(65627498854);
+    Check(ExchangeRules.MonthOf(newGame) / 12 == ExchangeRules.FirstSaveYear, "a new game's epoch falls in the first save year");
+    string H(string find, string replace) { Check(Fixture.Contains(find), "fixture has " + find); return replace; }
+    string history = Fixture
+        .Replace("\"reportCooldownDays\": 1", H("\"reportCooldownDays\": 1", "\"reportCooldownDays\": 1, \"opened\": 2030, \"history\": { \"ceres-panic\": { \"year\": 2061, \"month\": 4, \"move\": -0.3, \"line\": \"Panic selling after the Ceres yard fire.\" } }"))
+        .Replace("\"name\": \"Shipbuilding\", \"trend\": { \"slowWeeks\": 8, \"fastWeeks\": 2, \"sd\": 0.08 } }", H("\"name\": \"Shipbuilding\", \"trend\": { \"slowWeeks\": 8, \"fastWeeks\": 2, \"sd\": 0.08 } }",
+                 "\"name\": \"Shipbuilding\", \"trend\": { \"slowWeeks\": 8, \"fastWeeks\": 2, \"sd\": 0.08 }, \"history\": { \"hull-boom\": { \"year\": 2050, \"move\": 0.25, \"line\": \"Hull orders double across the yards.\" } } }"))
+        .Replace("\"price\": 42,", H("\"price\": 42,", "\"price\": 42, \"founded\": 2031, \"listed\": 2040, \"listingPrice\": 8, \"history\": { \"first-yard\": { \"year\": 2033, \"line\": \"Opens its first yard.\" }, " +
+                 "\"titan-order\": { \"year\": 2066, \"month\": 9, \"move\": 0.4, \"line\": \"Wins a Titan fleet order.\" } },"))
+        .Replace("\"price\": 12.5,", H("\"price\": 12.5,", "\"price\": 12.5, \"founded\": 2045,"));
+    var hp = LoadPack(history);
+    var keelMilestones = ExchangeSchema.Milestones(hp, "keel");
+    Check(keelMilestones.Select(m => m.Id).SequenceEqual(new[] { "first-yard", "hull-boom", "ceres-panic", "titan-order" }), "a company's history is the exchange's, its sector's and its own, oldest first");
+    Check(keelMilestones[0].LogMove == 0 && Near(keelMilestones[2].LogMove, Math.Log(0.7), 1e-12) && keelMilestones[2].Key == "Market.history.ceres-panic" &&
+          keelMilestones[1].Key == "Sectors.ships.history.hull-boom" && keelMilestones[3].Key == "Companies.keel.history.titan-order", "lore moves nothing; each entry has its catalogue key");
+    var lodePanic = ExchangeSchema.Milestones(hp, "lode").Single(m => m.Id == "ceres-panic");
+    Check(Near(lodePanic.LogMove, 0.8 * Math.Log(0.7), 1e-12), "the exchange's history moves a company by its followsMarket");
+    long hashed = keelMilestones[1].Month;
+    Check(hashed / 12 == 2050 && hashed == ExchangeSchema.MonthOf("sector:ships", "hull-boom", hp.sectors["ships"].history["hull-boom"]), "a month left out is picked by a stable hash, within its year");
+    Check(Near(ExchangeSchema.ListingGrowth(hp, "keel"), (Math.Log(42 / 8.0) - keelMilestones.Sum(m => m.LogMove)) / (2079 - 2040), 1e-12), "an authored listing price's yearly growth is worked net of the history's moves");
+
+    string Bad(string find, string replace) { Check(history.Contains(find), "history fixture has " + find); return history.Replace(find, replace); }
+    Check(Refused(Bad("\"opened\": 2030", "\"opened\": 1878")), "a year before the 200 years allowed is refused");
+    Check(Refused(Bad("\"founded\": 2031", "\"founded\": 2079")), "a year from the game's start on is refused");
+    Check(Refused(Bad("\"listed\": 2040", "\"listed\": 2030")), "a listing before the founding is refused");
+    Check(Refused(Bad("\"founded\": 2031, \"listed\": 2040", "\"founded\": 2025, \"listed\": 2028")), "a listing before the exchange opened is refused");
+    Check(Refused(Bad("\"year\": 2066", "\"year\": 2077")), "a move in the two years the market draws is refused");
+    Check(Refused(Bad("\"year\": 2066", "\"year\": 2035")), "a move before the listing is refused");
+    Check(!Refused(Bad("\"year\": 2033", "\"year\": 2032")) && Refused(Bad("\"year\": 2033", "\"year\": 2030")), "lore may date from the founding, not before");
+    Check(Refused(Bad("\"month\": 4", "\"month\": 13")), "a month is 1 to 12");
+    Check(Refused(Bad("\"move\": -0.3", "\"move\": -0.7")) && Refused(Bad("\"move\": 0.4", "\"move\": 1.5")) && Refused(Bad("\"move\": 0.4", "\"move\": 0.005")), "a move stays from -0.6 to 1, at least 0.01");
+    Check(Refused(Bad("Opens its first yard.", "Opens [its] first yard.")), "a history line has no placeholders");
+    Check(Refused(Bad("\"price\": 12.5, \"founded\": 2045,", "\"price\": 12.5, \"founded\": 2070, \"listingPrice\": 0.5,")) &&
+          Refused(Bad("\"price\": 12.5, \"founded\": 2045,", "\"price\": 12.5, \"founded\": 2070, \"listingPrice\": 200,")), "a listing price that means a cliff or a collapse is refused");
+    Check(Refused(Bad("\"price\": 12.5, \"founded\": 2045,", "\"price\": 12.5, \"founded\": 2077, \"listingPrice\": 12,")), "a listing price for a company listed in the two years the market draws is refused");
+    Check(Refused(Bad("\"price\": 230,", "\"price\": 230, \"listingPrice\": 20,")) &&
+          Refused(Bad("\"price\": 230,", "\"price\": 230, \"history\": { \"x\": { \"year\": 2050, \"line\": \"Something happened.\" } },")), "a listing price or history needs a founding or listing year");
+
+    // The past: drawn from the pack and the seed, joined to where the save's own history begins.
+    var hm = MarketModel.Open(hp, new ExchangeRecord(), newGame, Seed, _ => null);
+    int keel = hm.IndexOf("keel"), lode = hm.IndexOf("lode"), glow = hm.IndexOf("glow");
+    var life = hm.History(keel).Lifetime;
+    Check(life.MonthAt(0) == ExchangeRules.MonthOf(hm.Record.Companies["keel"].Listed) && life.Count >= 20, "a new market's lifetime points start where its backfill starts (" + life.Count + ")");
+    var past = hm.Past(keel);
+    Check(past.Count == life.MonthAt(0) - 2040 * 12 && past.Months[0] == 2040 * 12 && past.Months[past.Count - 1] == life.MonthAt(0) - 1, "the past runs monthly from the listing to the month before the save's own history");
+    Check(Near(past.Ln[0], Math.Log(8), 1e-12), "an authored listing price is met exactly");
+    Check(Math.Abs(past.Ln[past.Count - 1] - life[0]) < 0.08, "the past joins the save's own history without a jump (" + (past.Ln[past.Count - 1] - life[0]).ToString("0.0000") + ")");
+    // The same past with the Titan order as lore only: the noise is the same, so the difference is the move itself, a
+    // step in the month after it, plus the straight line that keeps the listing price.
+    var lore = MarketModel.Open(LoadPack(history.Replace("\"month\": 9, \"move\": 0.4,", "\"month\": 9,")), new ExchangeRecord(), newGame, Seed, _ => null).Past(keel);
+    int titan = Array.IndexOf(past.Months, ExchangeRules.MonthIndex(2066, 9));
+    double D(int k) => past.Ln[k] - lore.Ln[k];
+    double kink = (D(titan + 1) - D(titan)) - (D(titan) - D(titan - 1));
+    Check(Near(kink, Math.Log(1.4), 1e-9), "a history move shows as a step in the month after it (" + kink.ToString("0.000000") + ")");
+    Check(hm.Past(glow).Count == 0, "a company without a founding or listing year has no past");
+    var lodePast = hm.Past(lode);
+    Check(lodePast.Count > 0 && lodePast.Months[0] == 2045 * 12, "the listing defaults to the founding");
+    var again = MarketModel.Open(hp, new ExchangeRecord(), newGame, Seed, _ => null);
+    Check(again.Past(keel).Ln.SequenceEqual(past.Ln) && again.Past(keel).Months.SequenceEqual(past.Months), "the same save draws the same past every time");
+    var reload = new MarketModel(hp, ExchangeRecord.Decode(hm.Record.Encode()));
+    reload.Start(hm.Clock, Seed);
+    Check(reload.Past(keel).Ln.Zip(past.Ln, (a, b) => Math.Abs(a - b)).Max() < 1e-3, "a reload draws the same past again from the saved anchor");
+    var withNova = LoadPack(history.Replace("\"companies\": {", """
+        "companies": {
+            "nova": { "ticker": "NOVA", "name": "Nova Lamps", "profile": "Lamps.", "sector": "ships", "price": 9, "dailyVolume": 9000, "volatility": 0.009, "founded": 2050,
+              "volOfVol": 0.3, "noiseHalfLifeYears": 6, "drift": 0.03, "jumpsPerYear": 2, "jumpSize": 0.05, "spread": 0.005, "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.12 } },
+        """));
+    var other = MarketModel.Open(withNova, new ExchangeRecord(), newGame, Seed, _ => null);
+    Check(other.Past(other.IndexOf("keel")).Ln.SequenceEqual(past.Ln), "another company in the pack changes nothing in this one's past");
+    var gen = new PastPrices(hp, Seed, life.MonthAt(0));
+    gen.For("keel", life.MonthAt(0), life[0]);
+    Check(gen.Stride == 1 && gen.Steps <= 3 * ExchangeRules.MaxPastSteps, "a past from 1879 steps monthly within the bound (" + gen.Steps + " steps)");
+    Check(new PastPrices(hp, Seed, ExchangeRules.MonthIndex(2500, 1)).Stride == 2, "a past reaching centuries ahead steps every few months, within the bound");
+    var timer = Stopwatch.StartNew();
+    var full = new PastPrices(hp, Seed, life.MonthAt(0));
+    foreach (var id in hp.companies.Keys) full.For(id, life.MonthAt(0), 0);
+    Console.WriteLine($"  past for every fixture company: {full.Steps} steps, {timer.Elapsed.TotalMilliseconds:0.0} ms");
+
+    // The views: All runs from the listing to now; a company new to a save shows its past on the two-year chart.
+    var xs = new double[HistoryView.MaxPoints]; var ys = new double[HistoryView.MaxPoints];
+    int count = HistoryView.Fill(ChartRange.All, hm.History(keel), past, ExchangeSchema.ListingMonth(hp.companies["keel"]), hm.Clock, hm.LnPrice[keel], xs, ys);
+    Check(Math.Abs(xs[0] - 2040) < 0.01 && Near(ys[0], 8, 1e-9) && Math.Abs(xs[count - 1] - hm.Clock * 60 / ExchangeRules.YearSeconds) < 1e-9 && ys[count - 1] == Math.Exp(hm.LnPrice[keel]),
+        "the All chart runs from the listing price to now, in calendar years");
+    Check(Enumerable.Range(1, count - 1).All(k => xs[k] > xs[k - 1]) && count == past.Count + life.Count + 1, "the past, then the save's own points, then now, in order (" + count + ")");
+    var later = ExchangeRecord.Decode(hm.Record.Encode());
+    var mid = new MarketModel(withNova, later);
+    mid.Start(hm.Clock + 10, Seed);
+    int nova = mid.IndexOf("nova");
+    Check(mid.History(nova).Lifetime.Count == 1 && mid.History(nova).Lifetime.MonthAt(0) == ExchangeRules.MonthOf(hm.Clock), "a company new to a save starts its own history now");
+    count = HistoryView.Fill(ChartRange.Weeks, mid.History(nova), mid.Past(nova), ExchangeSchema.ListingMonth(withNova.companies["nova"]), mid.Clock, mid.LnPrice[nova], xs, ys);
+    Check(count > 20 && xs[0] < -90 && xs[0] >= -ExchangeRules.WeeklyWeeks && Enumerable.Range(1, count - 1).All(k => xs[k] > xs[k - 1]), "its two-year chart shows its generated past (" + count + " points)");
+    var young = LoadPack(history.Replace("\"price\": 12.5, \"founded\": 2045,", "\"price\": 12.5, \"founded\": 2078,"));
+    var ym = MarketModel.Open(young, new ExchangeRecord(), newGame, Seed, _ => null);
+    count = HistoryView.Fill(ChartRange.Weeks, ym.History(ym.IndexOf("lode")), ym.Past(ym.IndexOf("lode")), ExchangeSchema.ListingMonth(young.companies["lode"]), ym.Clock, ym.LnPrice[ym.IndexOf("lode")], xs, ys);
+    double listedAt = (Phobos.Ostranauts.Framework.GameClock.MonthStart(2078 * 12) - ym.Clock * 60.0) / ExchangeRules.WeekSeconds;
+    Check(xs[0] >= listedAt && xs[0] < listedAt + 2 && ym.Past(ym.IndexOf("lode")).Count == 0, "a company listed in the two years the market draws shows nothing from before its listing");
+
+    // Records from 0.1 and 0.2 have no lifetime points: they begin at the oldest weekly close, and catch up.
+    var fields = hm.Record.Encode();
+    foreach (var key in fields.Keys.Where(k => k.StartsWith("hist.m.", StringComparison.Ordinal)).ToList()) fields.Remove(key);
+    var old = new MarketModel(hp, ExchangeRecord.Decode(fields));
+    old.Start(hm.Clock, Seed);
+    var weekly = old.History(keel).Weekly;
+    Check(old.History(keel).Lifetime.MonthAt(0) == Phobos.Ostranauts.Framework.GameClock.MonthIndex((weekly.FirstBucket + 1) * ExchangeRules.WeekSeconds) && old.History(keel).Lifetime.Count >= 20,
+        "an older record's lifetime points begin at its oldest weekly close");
+    var twice = new MarketModel(hp, ExchangeRecord.Decode(old.Record.Encode()));
+    twice.Start(hm.Clock, Seed);
+    Check(twice.Record.Encode().OrderBy(p => p.Key).SequenceEqual(old.Record.Encode().OrderBy(p => p.Key)), "starting twice changes nothing");
+    // 0.2's own key rule, frozen here: it never reads the lifetime keys, so it keeps them untouched.
+    static bool Read020(string key) { var p = key.Split('.'); return p.Length == 4 && p[1].Length == 1 && "hdw".IndexOf(p[1][0]) >= 0; }
+    Check(hm.Record.Encode().Keys.Where(k => k.StartsWith("hist.m.", StringComparison.Ordinal)).All(k => !Read020(k)), "0.2 keeps the lifetime keys untouched");
+    var future = hm.Record.Encode();
+    foreach (var key in future.Keys.Where(k => k.StartsWith("hist.m.keel.", StringComparison.Ordinal)).ToList()) future.Remove(key);
+    future["hist.m.keel.0"] = "2|from a newer version";
+    var guarded = new MarketModel(hp, ExchangeRecord.Decode(future));
+    guarded.Start(hm.Clock + 50000, Seed);
+    var written = guarded.Record.Encode();
+    Check(guarded.History(keel).Lifetime.Foreign && written["hist.m.keel.0"] == "2|from a newer version" && !written.ContainsKey("hist.m.keel.1") && guarded.Past(keel).Count == 0,
+        "lifetime points this version cannot read are kept as they were and never written over");
+
+    // The lifetime series itself.
+    var series = new LifetimeSeries(6);
+    series.Open(100, 1); series.Sample(100, 2); series.Sample(99, 3); series.Open(50, 9);
+    Check(series.Count == 1 && series[0] == 1 && series.MonthAt(0) == 100, "the anchor is never replaced, and nothing older joins");
+    for (long m = 101; m <= 140; m++) series.Sample(m, m);
+    Check(series.Count <= 6 && series.MonthAt(0) == 100 && series[0] == 1 && series.LastMonth == 140 &&
+          Enumerable.Range(1, series.Count - 2).All(k => series.MonthAt(k) % series.Resolution == 0), "a full series thins to the calendar grid, keeping the anchor and the newest (every " + series.Resolution + ")");
+    var wild = new LifetimeSeries();
+    wild.Open(22548, 0);
+    for (int k = 1; k < 3000; k++) wild.Sample(22548 + k, k % 3 == 0 ? 50 : -50 + k * 0.001);
+    var parts = wild.EncodeParts();
+    Check(parts.All(p => p.Length <= ObjectStateStore.MaxValueLength && ObjectStateStore.SafeValue(p)) && parts.Count <= LifetimeSeries.MaxParts, "an extreme series fits the save store (" + parts.Count + " parts)");
+    Check(LifetimeSeries.TryDecode(parts.Select((p, k) => (p, k)).ToDictionary(t => t.k, t => t.p), out var back) && back.Count == wild.Count && back.Resolution == wild.Resolution &&
+          Enumerable.Range(0, back.Count).All(k => back.MonthAt(k) == wild.MonthAt(k) && Math.Abs(back[k] - wild[k]) <= 0.00005 + 1e-9), "lifetime points round-trip to 0.005%");
+    Check(!LifetimeSeries.TryDecode(new Dictionary<int, string> { [1] = parts[0] }, out _) &&
+          !LifetimeSeries.TryDecode(new Dictionary<int, string> { [0] = "1|1|100|3FF0000000000000|0;0|0;1" }, out _) &&
+          !LifetimeSeries.TryDecode(new Dictionary<int, string> { [0] = "1|3|100|3FF0000000000000|0|0" }, out _) &&
+          !LifetimeSeries.TryDecode(new Dictionary<int, string> { [0] = "1|1|100|3FF0000000000000|0;!|0;1" }, out _), "lifetime parts missing, not running forward, off the grid's powers of two or unreadable are refused");
+}
+
 // ---- The worked example add-on (Exchange 0.2.0, Framework 0.129.0), through Framework's own loader --------------
 {
     string example = Path.Combine(repo, "examples", "addons", "PhobosExampleKeelhaulListing");
@@ -490,6 +638,8 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
         Check(AddOns.Current.Count == 1 && AddOns.Refused.Count == 0 && DataPacks.Problems.Count == problems, "the example add-on is found and its exchange file is accepted: " + string.Join("; ", DataPacks.Problems.Skip(problems).Select(x => x.File + ": " + x.Message)));
         Check(listed.companies.TryGetValue("keelhaul-freight", out var keelhaul) && keelhaul.ticker == "KHF" && keelhaul.news.Single().flag == "keelhaul-titan-contract" && listed.companies.Count == 9,
             "its company joins the eight listed, with its news");
+        Check(keelhaul!.founded == 2052 && keelhaul.listed == 2058 && keelhaul.listingPrice == 4 && keelhaul.history.Keys.All(k => k.StartsWith("keelhaul-", StringComparison.Ordinal)) &&
+              ExchangeSchema.Milestones(listed, "keelhaul-freight").Count(m => m.Entry.move != null) == 1, "and its history before the game (0.3.0), under its own prefix");
         var story = DataPacks.Load<Phobos.Ostranauts.Framework.Story.StoryPack>(new DataPackSource("phobosgekko.ostranauts.framework", "PhobosFramework", Phobos.Ostranauts.Framework.Story.StorySchema.Name,
             typeof(Phobos.Ostranauts.Framework.Story.StoryPack).Assembly, "PhobosFramework.story.json"), s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, true));
         bool refusedWithoutNamespace = !AddOns.Namespaces.Contains("exchange") && DataPacks.Problems.Count > problems && !story.arcs.ContainsKey("exchange-keelhaul-freight-bought");
@@ -529,7 +679,20 @@ if (File.Exists(shipped))
         double er = ExchangeSchema.ExpectedReturn(pair.Value, shippedPack.sectors[pair.Value.sector].trend, shippedPack.market.trend);
         Console.WriteLine($"  {pair.Value.ticker}: expected yearly return {er:P1}");
         Check(pair.Value.drivers.Count > 0, "every shipped company follows the game's market: " + pair.Key);
+        Check(pair.Value.founded != null && pair.Value.listed != null && pair.Value.listed >= shippedPack.market.opened, "every shipped company has a founding and a listing year: " + pair.Key);
     }
+    Check(shippedPack.market.opened != null, "the shipped exchange has an opening year");
+    // The record's size with the shipped companies (0.3.0): at first, and after fifty years of lifetime points.
+    var sized = MarketModel.Open(shippedPack, new ExchangeRecord(), ExchangeRules.StepOf(65627498854), Seed, _ => null);
+    int atFirst = sized.Record.Encode().Sum(p => p.Key.Length + p.Value.Length);
+    for (int year = 0; year < 50; year++) sized.Advance(sized.Clock + (long)(ExchangeRules.YearSeconds / ExchangeRules.StepSeconds), null);
+    var fifty = sized.Record.Encode();
+    int afterFifty = fifty.Sum(p => p.Key.Length + p.Value.Length);
+    Console.WriteLine($"  shipped record: {atFirst} characters at first, {afterFifty} after fifty years");
+    Check(fifty.Values.All(v => v.Length <= ObjectStateStore.MaxValueLength) && afterFifty < 40000, "the shipped record stays bounded over fifty years (" + afterFifty + ")");
+    var timePast = Stopwatch.StartNew();
+    for (int i = 0; i < sized.Count; i++) sized.Past(i);
+    Console.WriteLine($"  shipped past for every company: {sized.PastPoints} points, {timePast.Elapsed.TotalMilliseconds:0.0} ms");
     Economy(shippedPack, "shipped");
 }
 

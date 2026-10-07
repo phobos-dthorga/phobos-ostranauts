@@ -26,12 +26,26 @@ public sealed class ChartLevel
     public string Label = "";
 }
 
+/// <summary>A dashed vertical mark at one x, such as a dated event in a price's history (Framework 0.130.0). Its label is
+/// read in the hover readout when the pointer is near it.</summary>
+public sealed class ChartMark
+{
+    public double X;
+    public Tone Tone = Tone.Neutral;
+    public string Label = "";
+}
+
 /// <summary>What a chart shows. Bump <see cref="Version"/> whenever the data changes; the chart redraws only then (or when
 /// its size changes), never per frame.</summary>
 public sealed class ChartData
 {
     public readonly List<ChartSeries> Series = new();
     public readonly List<ChartLevel> Levels = new();
+    /// <summary>Dated marks across the chart (Framework 0.130.0).</summary>
+    public readonly List<ChartMark> Marks = new();
+    /// <summary>Draw the values on a logarithmic scale (Framework 0.130.0), for values that span several times their own
+    /// size, such as a price over decades. Values of zero or less are left out.</summary>
+    public bool LogY;
     /// <summary>Axis and hover words, supplied by the consumer in the player's language.</summary>
     public Func<double, string> FormatX = v => v.ToString("0.##");
     public Func<double, string> FormatY = v => v.ToString("0.##");
@@ -44,7 +58,7 @@ public sealed class ChartData
 /// Presentation only: it never reads or changes game state. Never on world sprites: live readings belong on panels.</summary>
 public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
-    private const float Left = 68, Bottom = 24, Top = 8, Right = 10, LineWidth = 2, GridWidth = 1, DashOn = 6, DashOff = 4;
+    private const float Left = 68, Bottom = 24, Top = 8, Right = 10, LineWidth = 2, GridWidth = 1, DashOn = 6, DashOff = 4, MarkReach = 6;
     private const int TargetTicksY = 4, TargetTicksX = 5, MaxTicks = 12;
     private static readonly Color Grid = new(.32f, .49f, .59f, .28f);
     private ChartData? data;
@@ -54,6 +68,7 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
     private readonly double[] ticksY = new double[MaxTicks], ticksX = new double[MaxTicks];
     private int tickCountY, tickCountX;
     private double minX, maxX, minY, maxY;
+    private bool log;
     private readonly List<(double[] X, double[] Y, int Count)> thinned = new();
     private readonly List<(double[] X, double[] Y)> buffers = new();
     private readonly double[] range = new double[2];
@@ -111,15 +126,23 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
         thinned.Clear();
         minX = double.PositiveInfinity; maxX = double.NegativeInfinity; minY = double.PositiveInfinity; maxY = double.NegativeInfinity;
         if (data == null) return;
+        // On a logarithmic scale the y range, ticks and positions are worked in base-10 logarithms (see V).
+        log = data.LogY;
         foreach (var s in data.Series)
         {
             int n = Math.Min(s.Count, Math.Min(s.X.Length, s.Y.Length));
             if (n <= 0) continue;
             minX = Math.Min(minX, s.X[0]); maxX = Math.Max(maxX, s.X[n - 1]);
-            ChartRules.Range(s.Y, n, 0, out double lo, out double hi);
+            double lo, hi;
+            if (log) { if (!ChartRules.LogRange(s.Y, n, out lo, out hi)) continue; }
+            else ChartRules.Range(s.Y, n, 0, out lo, out hi);
             minY = Math.Min(minY, lo); maxY = Math.Max(maxY, hi);
         }
-        foreach (var level in data.Levels) { minY = Math.Min(minY, level.Y); maxY = Math.Max(maxY, level.Y); }
+        foreach (var level in data.Levels)
+        {
+            if (log && !(level.Y > 0)) continue;
+            minY = Math.Min(minY, V(level.Y)); maxY = Math.Max(maxY, V(level.Y));
+        }
         if (double.IsInfinity(minX) || !(maxX > minX)) { minX = 0; maxX = Math.Max(1, double.IsInfinity(maxX) ? 1 : maxX); }
         if (double.IsInfinity(minY)) { minY = 0; maxY = 1; }
         range[0] = minY; range[1] = maxY;
@@ -135,9 +158,13 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
             var (outX, outY) = buffers[k];
             thinned.Add((outX, outY, ChartRules.Thin(s.X, s.Y, n, minX, maxX, columns, outX, outY)));
         }
-        tickCountY = ChartRules.Ticks(minY, maxY, TargetTicksY, ticksY);
+        tickCountY = log ? ChartRules.LogTicks(minY, maxY, TargetTicksY, ticksY) : ChartRules.Ticks(minY, maxY, TargetTicksY, ticksY);
         tickCountX = ChartRules.Ticks(minX, maxX, TargetTicksX, ticksX);
     }
+
+    /// <summary>A value as the y axis measures it: its base-10 logarithm on a logarithmic scale (the smallest double for
+    /// zero or less, which falls below the chart).</summary>
+    private double V(double y) => log ? Math.Log10(y > 0 ? y : double.Epsilon) : y;
 
     private Rect Plot()
     {
@@ -146,7 +173,7 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
     }
 
     private Vector2 At(Rect plot, double x, double y) =>
-        new(plot.xMin + (float)ChartRules.Map(x, minX, maxX, plot.width), plot.yMin + (float)ChartRules.Map(y, minY, maxY, plot.height));
+        new(plot.xMin + (float)ChartRules.Map(x, minX, maxX, plot.width), plot.yMin + (float)ChartRules.Map(V(y), minY, maxY, plot.height));
 
     protected override void OnPopulateMesh(VertexHelper vh)
     {
@@ -175,10 +202,20 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
         }
         foreach (var level in data.Levels)
         {
+            if (log && !(level.Y > 0)) continue;
             var ink = Tones.Of(level.Tone);
             float y = At(plot, minX, level.Y).y;
             for (float x = plot.xMin; x < plot.xMax; x += DashOn + DashOff)
                 Segment(vh, new Vector2(x, y), new Vector2(Math.Min(plot.xMax, x + DashOn), y), LineWidth, ink);
+        }
+        foreach (var mark in data.Marks)
+        {
+            if (mark.X < minX || mark.X > maxX) continue;
+            var ink = Tones.Of(mark.Tone);
+            var faint = new Color(ink.r, ink.g, ink.b, .6f);
+            float x = At(plot, mark.X, minY).x;
+            for (float y = plot.yMin; y < plot.yMax; y += DashOn + DashOff)
+                Segment(vh, new Vector2(x, y), new Vector2(x, Math.Min(plot.yMax, y + DashOn)), GridWidth, faint);
         }
         if (hovering && data.Series.Count > 0 && thinned.Count > 0 && thinned[0].Count > 0)
         {
@@ -218,7 +255,7 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
         }
         foreach (var level in data.Levels)
         {
-            if (string.IsNullOrEmpty(level.Label)) continue;
+            if (string.IsNullOrEmpty(level.Label) || log && !(level.Y > 0)) continue;
             var a = At(plot, minX, level.Y);
             Place(used++, level.Label, new Vector2(plot.xMin + 4, a.y + 1), new Vector2(Math.Max(40, plot.width - 8), 20), TextAlignmentOptions.BottomLeft);
         }
@@ -251,14 +288,33 @@ public sealed class Chart : MaskableGraphic, IPointerEnterHandler, IPointerExitH
         {
             readout = PanelWidgets.Label(transform, "", false);
             readout.fontSize = 14; readout.color = ConsoleWidgets.Amber; readout.textWrappingMode = TextWrappingModes.NoWrap;
-            var r = (RectTransform)readout.transform; r.anchorMin = r.anchorMax = new Vector2(0, 0); r.pivot = Vector2.zero; r.sizeDelta = new Vector2(220, 20);
+            var r = (RectTransform)readout.transform; r.anchorMin = r.anchorMax = new Vector2(0, 0); r.pivot = Vector2.zero;
         }
         var (xs, ys, n) = thinned[0];
         int i = Nearest(plot, xs, n);
         readout.gameObject.SetActive(true);
-        readout.text = data.FormatX(xs[i]) + "  " + data.FormatY(ys[i]);
-        float x = Math.Min(plot.xMax - 220, Math.Max(plot.xMin, At(plot, xs[i], ys[i]).x + 6));
+        // Near a mark, the readout names it (0.130.0); otherwise it reads the nearest point.
+        var mark = NearestMark(plot);
+        readout.text = mark != null ? data.FormatX(mark.X) + "  " + mark.Label : data.FormatX(xs[i]) + "  " + data.FormatY(ys[i]);
+        float width = Math.Min(plot.width, mark != null ? 480 : 220);
+        ((RectTransform)readout.transform).sizeDelta = new Vector2(width, 20);
+        float anchor = mark != null ? At(plot, mark.X, minY).x : At(plot, xs[i], ys[i]).x;
+        float x = Math.Min(plot.xMax - width, Math.Max(plot.xMin, anchor + 6));
         ((RectTransform)readout.transform).anchoredPosition = new Vector2(x, plot.yMax - 20) - rectTransform.rect.min;
+    }
+
+    /// <summary>The mark within a few pixels of the pointer, if any.</summary>
+    private ChartMark? NearestMark(Rect plot)
+    {
+        if (data == null) return null;
+        ChartMark? best = null; float gap = MarkReach;
+        foreach (var mark in data.Marks)
+        {
+            if (mark.X < minX || mark.X > maxX || string.IsNullOrEmpty(mark.Label)) continue;
+            float d = Math.Abs(At(plot, mark.X, minY).x - pointer.x);
+            if (d <= gap) { gap = d; best = mark; }
+        }
+        return best;
     }
 
     public void OnPointerEnter(PointerEventData eventData) { hovering = true; Move(eventData); }

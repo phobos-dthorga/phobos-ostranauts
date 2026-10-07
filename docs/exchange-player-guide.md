@@ -13,8 +13,9 @@ built and checked offline, and nothing about it has been seen in play yet.
 3. **Market** lists the companies by sector; **Your shares** shows what you hold.
    **Close** returns you to the game; **Back** returns to the list on a narrow screen.
 
-The first time you open it in a save, the exchange starts with two years of price
-history already on the charts, so there is something to read straight away.
+The first time you open it in a save, the charts already reach back: two years of the
+market's own recent record, and before that each company's history since it listed, so
+there is something to read straight away however late in a game you install it.
 
 ## What moves a price
 
@@ -59,10 +60,32 @@ Pick a company in the list. Its page shows:
 - the price, what you would get selling (the lower figure) and what you would pay buying
   (the higher one); the gap between them is the **spread**;
 - the change over the last game day and week;
-- a chart, over **3 days** (hourly), **120 days** (daily) or **2 years** (weekly), with your
-  alert levels and what you paid marked as dashed lines; point at the chart to read a
-  value;
-- what the company does, and what you hold.
+- when it was founded and when it listed on the exchange;
+- a chart, over **3 days** (hourly), **120 days** (daily), **2 years** (weekly) or **All**,
+  with your alert levels and what you paid marked as dashed lines; point at the chart to
+  read a value;
+- what the company does, and what you hold;
+- **Through the years**: the events in its past, and the exchange's and its sector's since
+  it was founded, each with how far it moved this company's price.
+
+## A company's history
+
+**All** shows a company's whole price history, from the day it listed to now, with the
+years along the bottom. It is drawn on a scale where each step up the side is ten times
+the last, so a company that grew from a few credits a share still reads clearly, and a fall
+of half looks the same in any decade. Faint dashed lines mark the big events of its past;
+point at one to read what happened.
+
+The history from before your first day with the exchange is drawn from the company list,
+the same for you every time you load: it starts at the company's listing price (when the
+list gives one), passes through the events of its past, and meets the market's own record
+two years before you started. It is history, not a forecast: it never moves a price in
+play, and it can change when a writer or an add-on adds to a company's story. What your
+own save has seen stays as it was.
+
+The founding and listing years shipped with this version are placeholders, to be replaced
+by the companies' real histories in a later release. The exchange's own opening year and
+history are on the Market page.
 
 ## Buying and selling
 
@@ -99,8 +122,10 @@ together afterwards.
 
 ## While you are away
 
-Time skips and fast play are fine: the market moves minute by minute through them, and the
-same moment always has the same price however you got there. After a skip, the wire lists
+Time skips and fast play are fine. Up to three game days, the market moves minute by minute
+through them, so the same moment has the same price however you got there. A longer jump is
+crossed in exact steps of days, weeks or months (at a fixed cost, however many years pass),
+so the path differs from watching it all, but the market behaves the same. After a skip, the wire lists
 the biggest moves and any alerts. After anything longer than three game days, such as years
 passing at once, you get one summary instead: how long you were away, the biggest movers
 and what your shares are worth now against before.
@@ -148,6 +173,7 @@ Everything on the panel is also on the F3 console through `phobosexchange`.
 | `phobosexchange alerts` | Every alert you have set. |
 | `phobosexchange sellall` | Sells everything; repeat it with `confirm` at the end to go ahead. |
 | `phobosexchange open` | Opens the panel. |
+| `phobosexchange history` or `history SMLK` | Read only: the exchange's history, or a company's founding, listing and history. |
 | `phobosexchange drivers` or `drivers SMLK` | Read only: each station signal a company follows, the game's price factor there now, and where the signal stands. |
 | `phobosexchange state` or `state SMLK` | Read only: the parts of each price and the pace of its phase. |
 
@@ -166,8 +192,10 @@ bug report shows it. Keep a copy of the save first if you might want to go back.
 ## Saves and removal
 
 - The exchange keeps one record on your character: the market's state, your shares and
-  alerts, and the chart history (a fixed size, about 12 KB in all, so it never grows without
-  bound). Nothing else in the save changes, apart from your cash and the ledger lines your
+  alerts, and the chart history: about 14 KB with the shipped companies at first, and never
+  more than about 22 KB however long you play, because the point a month it keeps from
+  0.3.0 is thinned to at most 240 a company. The history from before your first day is
+  never saved; it is drawn again at each load. Nothing else in the save changes, apart from your cash and the ledger lines your
   trades write.
 - Reloading a save never rerolls prices: the same moment always has the same price. That
   also means you could play ahead and reload to peek; that's yours to resist.
@@ -179,7 +207,7 @@ bug report shows it. Keep a copy of the save first if you might want to go back.
 
 ## Requirements
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.129.0 or newer. Install it with
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.130.0 or newer. Install it with
 `./scripts/install-mods.ps1 -Mods Exchange` (see [Installing and updating our mods](installing-mods.md)).
 
 ## Where the ideas come from

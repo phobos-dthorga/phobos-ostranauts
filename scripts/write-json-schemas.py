@@ -517,6 +517,16 @@ def exchange():
         'fastWeeks': num(0.25, 26, description='How quickly a phase turns: the fast half-life in game weeks.'),
         'sd': num(0, 0.5, description='How far phases carry the price: the standard deviation of the log price (0.15 is about 15%).'),
     }, required=('slowWeeks', 'fastWeeks', 'sd'))
+    # Phobos Exchange 0.3.0: dated history before the game, which shapes the generated price history.
+    year = num(1879, 2078, integer=True, description='A year from 1879 to 2078: at most 200 years before the game begins in 2079.')
+    entry = obj({
+        'notes': NOTES,
+        'year': year,
+        'month': num(1, 12, integer=True, description='The month, 1 to 12; without one a stable hash of the id picks it.'),
+        'move': num(-0.6, 1.0, description='How far the price moved, as a share (0.4 is up 40 percent); at least 0.01 either way, and only by 2076. Without one the entry is lore only.'),
+        'line': string('The line the company page lists, without figures; at most 200 characters, no placeholders.'),
+    }, required=('year', 'line'))
+    history = named(entry, 'History entries by id (lowercase words joined by dashes, at most 24 characters). Add-ons give theirs their own prefix.', '^[a-z0-9]+(-[a-z0-9]+)*$')
     market = obj({
         'notes': NOTES,
         'name': string('The exchange name in the world: 1 to 40 characters, ' + name_text + '.'),
@@ -530,8 +540,11 @@ def exchange():
         'moveShare': num(0.01, 0.5, description='A change over one game day this large (a share of the price) is reported with its cause.'),
         'turnShare': num(0.001, 0.5, description='A phase moving this fast (a share of the price per game week) counts as a trend when it turns.'),
         'reportCooldownDays': num(0, 30, description='The fewest game days between two reports on one company.'),
+        'opened': {**year, 'description': 'The year the exchange opened: no company lists before it (Phobos Exchange 0.3.0).'},
+        'history': {**history, 'description': 'The exchange history: events that moved every company, each by its followsMarket (Phobos Exchange 0.3.0).'},
     }, required=('name', 'commission', 'minCommission', 'impact', 'impactHalfLifeDays', 'maxOrderShare', 'maxHolding', 'trend', 'moveShare', 'turnShare', 'reportCooldownDays'))
-    sector = obj({'notes': NOTES, 'name': string('The sector name shown on the panel: 1 to 40 characters, ' + name_text + '.'), 'trend': trend}, required=('name', 'trend'))
+    sector = obj({'notes': NOTES, 'name': string('The sector name shown on the panel: 1 to 40 characters, ' + name_text + '.'), 'trend': trend,
+                  'history': {**history, 'description': 'The sector history: events that moved its companies, each by its followsSector (Phobos Exchange 0.3.0).'}}, required=('name', 'trend'))
     driver = obj({
         'station': string('The station registration whose cargo market the company follows, such as MTRS.', pattern='^[A-Z0-9]{3,8}$'),
         'category': string('The game category of goods, such as AnyWeapons.', pattern='^Any[A-Za-z0-9]{1,37}$'),
@@ -564,12 +577,16 @@ def exchange():
         'trend': trend,
         'drivers': {'type': 'array', 'maxItems': 6, 'items': driver, 'description': 'The game market signals the company follows.'},
         'news': {'type': 'array', 'maxItems': 12, 'items': news, 'description': 'Story news that moves the price once when its story flag is set (Phobos Exchange 0.2.0).'},
+        'founded': {**year, 'description': 'The year the company was founded: its age, for the story and its page (Phobos Exchange 0.3.0).'},
+        'listed': {**year, 'description': 'The year its shares first traded on the exchange, where its price history starts; defaults to founded, no earlier than founded or the exchange opening.'},
+        'listingPrice': num(0.01, 100000, description='The share price at listing, for a company listed by 2076; its yearly growth to today, net of the history moves, stays from -0.05 to 0.25.'),
+        'history': {**history, 'description': 'The company history (Phobos Exchange 0.3.0): a move comes on or after the listing, lore from the founding.'},
     }, required=('ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear', 'jumpSize', 'spread', 'trend'))
     return obj({**header('exchange'), 'market': market,
                 'sectors': named(sector, 'Sectors by id (lowercase words joined by dashes, at most 24 characters); companies in one sector share its phases.', '^[a-z0-9]+(-[a-z0-9]+)*$'),
                 'companies': named(company, 'Listed companies by id (lowercase words joined by dashes, at most 24 characters); the id names the company saved state.', '^[a-z0-9]+(-[a-z0-9]+)*$')},
                required=('schemaVersion', 'schema', 'market', 'sectors', 'companies'),
-               description='Phobos Exchange pack: the exchange terms, its sectors and the listed companies. Each company expected yearly return must stay at or below 0.14 (checked by the validators).')
+               description='Phobos Exchange pack: the exchange terms, its sectors and the listed companies, with their history before the game. Each company expected yearly return must stay at or below 0.14 (checked by the validators).')
 
 
 SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders, 'exchange': exchange}

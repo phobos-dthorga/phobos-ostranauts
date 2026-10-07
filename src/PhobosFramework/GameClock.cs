@@ -16,6 +16,29 @@ public static class GameClock
     /// <summary>Game seconds in a number of game days.</summary>
     public static double Seconds(double days) => days * DaySeconds;
 
+    /// <summary>The year an epoch falls in, as the game's <c>MathUtils.GetYearFromS</c> counts it (Framework 0.130.0).</summary>
+    public static int Year(double epoch) => epoch > 0 ? (int)(epoch / YearSeconds) : 0;
+
+    /// <summary>The month of the year an epoch falls in, 1 to 12: twelve months of thirty game days, the year's one
+    /// extra second counting in the twelfth. Matches the game's <c>MathUtils.GetMonthFromS</c> except exactly on a month's
+    /// first second, which the game's float arithmetic gives to the month before.</summary>
+    public static int Month(double epoch)
+    {
+        if (!(epoch > 0)) return 1;
+        double inYear = epoch - Year(epoch) * YearSeconds;
+        return Math.Min(12, (int)(inYear / MonthSeconds) + 1);
+    }
+
+    /// <summary>Months since the calendar's start, year × 12 + month − 1: consecutive months are consecutive numbers.</summary>
+    public static long MonthIndex(double epoch) => (long)Year(epoch) * 12 + Month(epoch) - 1;
+
+    /// <summary>The epoch a month (numbered as <see cref="MonthIndex"/>) begins at.</summary>
+    public static double MonthStart(long monthIndex)
+    {
+        long year = monthIndex >= 0 ? monthIndex / 12 : (monthIndex - 11) / 12;
+        return year * YearSeconds + (monthIndex - year * 12) * MonthSeconds;
+    }
+
     /// <summary>The shift of the day an epoch falls in (1 to 4), as the game's <c>MathUtils.GetShiftFromS</c> numbers it.</summary>
     public static int Shift(double epoch)
     {

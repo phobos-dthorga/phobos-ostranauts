@@ -423,7 +423,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   Banking loan's yearly cost, so borrowing to hold never pays (validator and test). Market
   noise is a stable hash of save, company and step, never rolled; a reload never rerolls it
   (peeking ahead by reloading is accepted). Pace for weeks of play; any time jump, up to years
-  at once, is caught up exactly at a bounded cost with no per-step side effects. Stories move
+  at once, is caught up exactly at a bounded cost with no per-step side effects. Company
+  ages and history before the game are pack data (owner, 2026-10-07: years from 1879 to
+  2078, founding and listing per company): they shape only the past drawn before a save's
+  own history, which is redrawn from the pack and the seed at each load and never saved,
+  never a live price; what the save played is stored and never changes. Stories move
   prices only through the pack's `news` entries (a story flag, a one-off move, a wire line);
   the exchange tells stories through `exchange-<company>-<event>` flags and arcs and registers
   the `exchange` add-on namespace. Design record:

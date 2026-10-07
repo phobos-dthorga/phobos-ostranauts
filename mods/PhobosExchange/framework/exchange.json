@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "schema": "exchange",
-  "notes": "Phobos Exchange 0.1.0 (agent-authored balance for the owner to review, 7 October 2026). Owner choices: a mix of the game's ubercorps, invented companies and our own makers; trend phases lasting weeks over a real-world upward drift, with each company's expected yearly return at most 0.14 (half the cheapest Phobos Banking loan's yearly cost). Drivers name stations whose cargo market makes or uses the category (checked against the game's own market data). Design record: docs/development/share-market-and-charts-design.md.",
+  "notes": "Phobos Exchange 0.1.0, histories from 0.3.0 (agent-authored balance for the owner to review, 7 October 2026). Owner choices: a mix of the game's ubercorps, invented companies and our own makers; trend phases lasting weeks over a real-world upward drift, with each company's expected yearly return at most 0.14 (half the cheapest Phobos Banking loan's yearly cost). Drivers name stations whose cargo market makes or uses the category (checked against the game's own market data). Founding, listing and opening years are agent placeholders for the writers (see docs/development/exchange-stories-handoff.md); history tables start empty. Design record: docs/development/share-market-and-charts-design.md.",
   "market": {
-    "notes": "Lodestar Exchange: agent-chosen name. Commission and spread are the house's take; impact follows the square-root shape of Toth et al. (2011) at an authored scale.",
+    "notes": "Lodestar Exchange: agent-chosen name. Commission and spread are the house's take; impact follows the square-root shape of Toth et al. (2011) at an authored scale. Opening year 2034 is an agent placeholder for the writers.",
     "name": "Lodestar Exchange",
     "commission": 0.004,
     "minCommission": 25,
@@ -14,21 +14,25 @@
     "trend": { "slowWeeks": 10, "fastWeeks": 2.5, "sd": 0.08 },
     "moveShare": 0.05,
     "turnShare": 0.02,
-    "reportCooldownDays": 1
+    "reportCooldownDays": 1,
+    "opened": 2034,
+    "history": {}
   },
   "sectors": {
-    "industry": { "name": "Heavy industry", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.08 } },
-    "resources": { "name": "Mining and volatiles", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.09 } },
-    "consumer": { "name": "Food and comforts", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.07 } },
-    "health": { "name": "Medicine", "trend": { "slowWeeks": 9, "fastWeeks": 2, "sd": 0.06 } }
+    "industry": { "name": "Heavy industry", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.08 }, "history": {} },
+    "resources": { "name": "Mining and volatiles", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.09 }, "history": {} },
+    "consumer": { "name": "Food and comforts", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.07 }, "history": {} },
+    "health": { "name": "Medicine", "trend": { "slowWeeks": 9, "fastWeeks": 2, "sd": 0.06 }, "history": {} }
   },
   "companies": {
     "smartlink": {
-      "notes": "The game's ubercorp (its own description of its point-defence suites). Weapons are used at Port Yangshan (MTRS) and Cassini Spaceport (SVIR).",
+      "notes": "The game's ubercorp (its own description of its point-defence suites). Weapons are used at Port Yangshan (MTRS) and Cassini Spaceport (SVIR). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "SMLK",
       "name": "Smartlink",
       "profile": "Weapons maker best known for its point-defence cannon suites, which it calls unrivalled in the system; its rivals call that grandstanding. Its shares follow demand for arms at Port Yangshan and Cassini Spaceport.",
       "sector": "industry",
+      "founded": 1952,
+      "listed": 2036,
       "price": 184,
       "dailyVolume": 9000,
       "volatility": 0.009,
@@ -39,17 +43,20 @@
       "jumpSize": 0.07,
       "spread": 0.004,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.14 },
+      "history": {},
       "drivers": [
         { "station": "MTRS", "category": "AnyWeapons", "weight": 0.5 },
         { "station": "SVIR", "category": "AnyWeapons", "weight": 0.4 }
       ]
     },
     "testudo": {
-      "notes": "The game's shipbuilder (Dream, Rouncy, Mesa, Bulk Lifter; hardsuits, flooring, furniture). Hull is used at Cassini Spaceport (SVIR) and Cloudbreak (VCBR); metal is an input bought at Port Yangshan (MTRS).",
+      "notes": "The game's shipbuilder (Dream, Rouncy, Mesa, Bulk Lifter; hardsuits, flooring, furniture). Hull is used at Cassini Spaceport (SVIR) and Cloudbreak (VCBR); metal is an input bought at Port Yangshan (MTRS). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "TSTD",
       "name": "Testudo",
       "profile": "Shipbuilder behind the Dream, Rouncy, Mesa and Bulk Lifter, and maker of hardsuits, deck flooring and station furniture. Follows demand for hull at Cassini Spaceport and Cloudbreak, and pays for metal from Port Yangshan.",
       "sector": "industry",
+      "founded": 2019,
+      "listed": 2038,
       "price": 96,
       "dailyVolume": 16000,
       "volatility": 0.008,
@@ -60,6 +67,7 @@
       "jumpSize": 0.06,
       "spread": 0.004,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.13 },
+      "history": {},
       "drivers": [
         { "station": "SVIR", "category": "AnyHull", "weight": 0.4 },
         { "station": "VCBR", "category": "AnyHull", "weight": 0.3 },
@@ -67,11 +75,13 @@
       ]
     },
     "ayotimiwa": {
-      "notes": "The game's K-Leg operator: shipbreaking, salvage buying, kiosks and refuelling with the OKLG Port Authority. K-Leg (OKLG) makes hull and ore.",
+      "notes": "The game's K-Leg operator: shipbreaking, salvage buying, kiosks and refuelling with the OKLG Port Authority. K-Leg (OKLG) makes hull and ore. Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "AYO",
       "name": "Ayotimiwa Corp.",
       "profile": "Runs the shipbreaking yards, salvage buying, kiosks and refuelling at K-Leg with the OKLG Port Authority. Earns on the hull plate and ore that pass through the yard, so its shares follow their prices there.",
       "sector": "industry",
+      "founded": 1987,
+      "listed": 2034,
       "price": 58,
       "dailyVolume": 22000,
       "volatility": 0.01,
@@ -82,17 +92,20 @@
       "jumpSize": 0.07,
       "spread": 0.005,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.14 },
+      "history": {},
       "drivers": [
         { "station": "OKLG", "category": "AnyHull", "weight": 0.4 },
         { "station": "OKLG", "category": "AnyOres", "weight": 0.3 }
       ]
     },
     "green-energy": {
-      "notes": "The game's intoxicants maker (the Rosebud, Tharsis Landing; Damask Rose cigarettes). Intoxicants are used at Zhonghuamen Terminal (BCRS) and Port Shajiang (EJDR).",
+      "notes": "The game's intoxicants maker (the Rosebud, Tharsis Landing; Damask Rose cigarettes). Intoxicants are used at Zhonghuamen Terminal (BCRS) and Port Shajiang (EJDR). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "GEC",
       "name": "The Green Energy Company",
       "profile": "Intoxicants maker based in the Rosebud on Tharsis Landing, best known for its Damask Rose cigarettes. Its shares follow demand at Zhonghuamen Terminal and Port Shajiang.",
       "sector": "consumer",
+      "founded": 2034,
+      "listed": 2040,
       "price": 41,
       "dailyVolume": 30000,
       "volatility": 0.009,
@@ -103,17 +116,20 @@
       "jumpSize": 0.06,
       "spread": 0.005,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.13 },
+      "history": {},
       "drivers": [
         { "station": "BCRS", "category": "AnyIntoxicants", "weight": 0.4 },
         { "station": "EJDR", "category": "AnyIntoxicants", "weight": 0.3 }
       ]
     },
     "brightvein": {
-      "notes": "Invented (agent choice; no collision found in the repository or the game's data). Ore is used at Zhonghuamen Terminal (BCRS); metal at Port Yangshan (MTRS).",
+      "notes": "Invented (agent choice; no collision found in the repository or the game's data). Ore is used at Zhonghuamen Terminal (BCRS); metal at Port Yangshan (MTRS). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "BVM",
       "name": "Brightvein Mining",
       "profile": "Belt ore miner selling into Zhonghuamen Terminal. Profits rise when ore runs short there and when metal is dear at Port Yangshan, and fall when the bins are full.",
       "sector": "resources",
+      "founded": 2044,
+      "listed": 2051,
       "price": 23.5,
       "dailyVolume": 60000,
       "volatility": 0.011,
@@ -124,17 +140,20 @@
       "jumpSize": 0.08,
       "spread": 0.006,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.15 },
+      "history": {},
       "drivers": [
         { "station": "BCRS", "category": "AnyOres", "weight": 0.5 },
         { "station": "MTRS", "category": "AnyMetal", "weight": 0.3 }
       ]
     },
     "coldwell": {
-      "notes": "Invented (agent choice; no collision found). Volatiles are used at Port Yangshan (MTRS) and Upsilon Docking (MVOL); helium-3 at Venus Orbital (VORB).",
+      "notes": "Invented (agent choice; no collision found). Volatiles are used at Port Yangshan (MTRS) and Upsilon Docking (MVOL); helium-3 at Venus Orbital (VORB). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "CWV",
       "name": "Coldwell Volatiles",
       "profile": "Hauls water ice and volatiles in to Port Yangshan and Upsilon Docking, with a sideline in helium-3 for Venus Orbital. A shortage at either dock is good news for Coldwell.",
       "sector": "resources",
+      "founded": 2038,
+      "listed": 2047,
       "price": 34,
       "dailyVolume": 40000,
       "volatility": 0.01,
@@ -145,6 +164,7 @@
       "jumpSize": 0.07,
       "spread": 0.006,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.14 },
+      "history": {},
       "drivers": [
         { "station": "MTRS", "category": "AnyVolatiles", "weight": 0.4 },
         { "station": "MVOL", "category": "AnyVolatiles", "weight": 0.3 },
@@ -152,11 +172,13 @@
       ]
     },
     "verdemorrow": {
-      "notes": "Our own maker (Phobos Agriculture's brand). Food is used at Zhonghuamen Terminal (BCRS) and Qincheng Station (HQCH).",
+      "notes": "Our own maker (Phobos Agriculture's brand). Food is used at Zhonghuamen Terminal (BCRS) and Qincheng Station (HQCH). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "VERD",
       "name": "Verdemorrow",
       "profile": "Maker of the Firstlight cultivation racks, Hearth galley cookers and Continuance planting stock. When food runs short at Zhonghuamen Terminal or Qincheng Station, more crews grow their own.",
       "sector": "consumer",
+      "founded": 2049,
+      "listed": 2062,
       "price": 27,
       "dailyVolume": 35000,
       "volatility": 0.008,
@@ -167,17 +189,20 @@
       "jumpSize": 0.05,
       "spread": 0.005,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.12 },
+      "history": {},
       "drivers": [
         { "station": "BCRS", "category": "AnyFood", "weight": 0.4 },
         { "station": "HQCH", "category": "AnyFood", "weight": 0.3 }
       ]
     },
     "halewright": {
-      "notes": "Our own maker (Phobos Medical's brand). Medical goods are used at Zhonghuamen Terminal (BCRS), Qiantangmen (MHNG) and Cassini Spaceport (SVIR).",
+      "notes": "Our own maker (Phobos Medical's brand). Medical goods are used at Zhonghuamen Terminal (BCRS), Qiantangmen (MHNG) and Cassini Spaceport (SVIR). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
       "ticker": "HALE",
       "name": "Halewright",
       "profile": "Maker of the Ward-3 bed and other shipboard medical equipment. Follows demand for medical supplies at Zhonghuamen Terminal, Qiantangmen and Cassini Spaceport.",
       "sector": "health",
+      "founded": 2045,
+      "listed": 2058,
       "price": 71,
       "dailyVolume": 12000,
       "volatility": 0.007,
@@ -188,6 +213,7 @@
       "jumpSize": 0.05,
       "spread": 0.004,
       "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.12 },
+      "history": {},
       "drivers": [
         { "station": "BCRS", "category": "AnyMedical", "weight": 0.3 },
         { "station": "MHNG", "category": "AnyMedical", "weight": 0.3 },

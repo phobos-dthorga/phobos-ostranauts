@@ -56,6 +56,11 @@ public sealed class MarketEntry
     public double turnShare;
     /// <summary>The fewest game days between two reports on one company.</summary>
     public double reportCooldownDays;
+    /// <summary>The year the exchange opened (Phobos Exchange 0.3.0): no company lists before it. Lore for the writers.</summary>
+    public int? opened;
+    /// <summary>The exchange's own history (0.3.0): events that moved every listed company, each by its
+    /// <c>followsMarket</c>. Keyed by id, so an add-on can add one of its own.</summary>
+    public Dictionary<string, HistoryEntry> history = new(StringComparer.Ordinal);
 }
 
 public sealed class SectorEntry
@@ -63,6 +68,25 @@ public sealed class SectorEntry
     public string? notes;
     public string name = "";
     public TrendEntry trend = new();
+    /// <summary>The sector's history (0.3.0): events that moved its companies, each by its <c>followsSector</c>.</summary>
+    public Dictionary<string, HistoryEntry> history = new(StringComparer.Ordinal);
+}
+
+/// <summary>A dated event before the game begins (Phobos Exchange 0.3.0; owner decision, 7 October 2026): it shapes the
+/// price history generated for the years before a save's first exchange day, and the company's page lists it. Without a
+/// move it is lore only and may date from the company's founding. History never moves a price in play: that is what
+/// story news is for.</summary>
+public sealed class HistoryEntry
+{
+    public string? notes;
+    public int year;
+    /// <summary>The month, 1 to 12. Without one, a stable hash of the id picks it, the same for every player.</summary>
+    public int? month;
+    /// <summary>How far the price moved, as a share of the price: 0.4 is up 40%, -0.3 down 30%. Without one the entry is
+    /// lore only.</summary>
+    public double? move;
+    /// <summary>The line the company's page lists, without figures: the price history shows how far it went.</summary>
+    public string line = "";
 }
 
 /// <summary>One native price signal a company follows: the game's price factor for a category of goods at a station.
@@ -114,6 +138,48 @@ public sealed class CompanyEntry
     /// <summary>Story news that moves the price once (Phobos Exchange 0.2.0): when a story flag is set, by a story pack's arc
     /// or by another mod, the price jumps by the entry's share and the wire carries its line. No default entries.</summary>
     public List<NewsEntry> news = new();
+    /// <summary>The year the company was founded (Phobos Exchange 0.3.0): its age, for the story and its page.</summary>
+    public int? founded;
+    /// <summary>The year its shares first traded on the exchange (0.3.0): its price history reaches back to here.
+    /// Defaults to <see cref="founded"/>; with neither, the history starts with the save's own.</summary>
+    public int? listed;
+    /// <summary>The share price when it listed, in credits (0.3.0). Without one, the history's long-run drift simply runs
+    /// back from the save's first day.</summary>
+    public double? listingPrice;
+    /// <summary>The company's own history (0.3.0), keyed by id.</summary>
+    public Dictionary<string, HistoryEntry> history = new(StringComparer.Ordinal);
+}
+
+/// <summary>Which history a milestone comes from.</summary>
+public enum HistoryScope { Market, Sector, Company }
+
+/// <summary>A history entry as it applies to one company (Phobos Exchange 0.3.0): its month and how far it moved this
+/// company's price (the market's by <c>followsMarket</c>, the sector's by <c>followsSector</c>).</summary>
+public readonly struct Milestone
+{
+    public readonly HistoryScope Scope;
+    /// <summary>The market, sector or company the entry belongs to ("" for the market), and the entry's id.</summary>
+    public readonly string Owner, Id;
+    public readonly HistoryEntry Entry;
+    /// <summary>The calendar month it happened in (<see cref="ExchangeRules.MonthIndex"/>).</summary>
+    public readonly long Month;
+    public readonly double Weight;
+
+    public Milestone(HistoryScope scope, string owner, string id, HistoryEntry entry, long month, double weight)
+    { Scope = scope; Owner = owner; Id = id; Entry = entry; Month = month; Weight = weight; }
+
+    /// <summary>The move in this company's log price; 0 for lore.</summary>
+    public double LogMove => Entry.move is double m ? Weight * Math.Log(1 + m) : 0;
+    /// <summary>The move as a share of this company's price.</summary>
+    public double Share => Math.Exp(LogMove) - 1;
+    /// <summary>The catalogue key of its line: <c>Market.history.&lt;id&gt;</c>, <c>Sectors.&lt;sector&gt;.history.&lt;id&gt;</c>
+    /// or <c>Companies.&lt;company&gt;.history.&lt;id&gt;</c>.</summary>
+    public string Key => Scope switch
+    {
+        HistoryScope.Market => "Market.history." + Id,
+        HistoryScope.Sector => "Sectors." + Owner + ".history." + Id,
+        _ => "Companies." + Owner + ".history." + Id
+    };
 }
 
 /// <summary>A piece of story news and what it does to a company's price (Phobos Exchange 0.2.0; owner direction,
@@ -137,6 +203,46 @@ public static class ExchangeSchema
     public const int MaxIdLength = 24, MaxName = 40, MaxProfile = 400, MaxDrivers = 6, MaxCompanies = 40, MaxSectors = 16, MaxNews = 12, MaxWire = 300;
     /// <summary>The largest move one piece of news may make, either way, and the smallest worth reporting.</summary>
     public const double MaxNewsMove = 0.3, MinNewsMove = 0.005;
+    /// <summary>History (0.3.0): entries per market, sector and company, the length of a line, and a move's bounds.</summary>
+    public const int MaxMarketHistory = 16, MaxSectorHistory = 8, MaxCompanyHistory = 12, MaxLine = 200;
+    public const double MaxHistoryRise = 1.0, MaxHistoryFall = 0.6, MinHistoryMove = 0.01;
+    public const double MinListingPrice = 0.01, MaxListingPrice = 100000;
+
+    /// <summary>The year a company's price history starts: its listing, else its founding; null for none.</summary>
+    public static int? ListingYear(CompanyEntry c) => c.listed ?? c.founded;
+    /// <summary>The month its price history starts: January of its listing year.</summary>
+    public static long? ListingMonth(CompanyEntry c) => ListingYear(c) is int year ? ExchangeRules.MonthIndex(year, 1) : null;
+
+    /// <summary>The month an entry happened in: its own, or one a stable hash of its owner and id picks.</summary>
+    public static long MonthOf(string owner, string id, HistoryEntry e) =>
+        ExchangeRules.MonthIndex(e.year, e.month ?? 1 + (int)(StableNoise.Fnv64(owner + "/" + id) % 12));
+
+    /// <summary>Every history entry that applies to a company, oldest first: the market's, its sector's and its own, each
+    /// with its weight.</summary>
+    public static List<Milestone> Milestones(ExchangePack pack, string companyId)
+    {
+        var list = new List<Milestone>();
+        if (!pack.companies.TryGetValue(companyId, out var c)) return list;
+        foreach (var pair in pack.market.history)
+            list.Add(new Milestone(HistoryScope.Market, "", pair.Key, pair.Value, MonthOf("market", pair.Key, pair.Value), c.followsMarket));
+        if (pack.sectors.TryGetValue(c.sector, out var s))
+            foreach (var pair in s.history)
+                list.Add(new Milestone(HistoryScope.Sector, c.sector, pair.Key, pair.Value, MonthOf("sector:" + c.sector, pair.Key, pair.Value), c.followsSector));
+        foreach (var pair in c.history)
+            list.Add(new Milestone(HistoryScope.Company, companyId, pair.Key, pair.Value, MonthOf("company:" + companyId, pair.Key, pair.Value), 1));
+        list.Sort((a, b) => a.Month != b.Month ? a.Month.CompareTo(b.Month) : string.CompareOrdinal(a.Key, b.Key));
+        return list;
+    }
+
+    /// <summary>The yearly growth an authored listing price implies up to the game's start, net of the moves in the
+    /// company's history since its listing.</summary>
+    public static double ListingGrowth(ExchangePack pack, string companyId)
+    {
+        var c = pack.companies[companyId];
+        if (c.listingPrice is not double price || ListingMonth(c) is not long from) return 0;
+        double moves = Milestones(pack, companyId).Where(m => m.Month >= from && m.Month < ExchangeRules.MonthIndex(ExchangeRules.FirstSaveYear, 1)).Sum(m => m.LogMove);
+        return (Math.Log(c.price / price) - moves) / (ExchangeRules.FirstSaveYear - ListingYear(c)!.Value);
+    }
     private static readonly Regex Ticker = new("^[A-Z]{2,5}$", RegexOptions.CultureInvariant);
     private static readonly Regex Station = new("^[A-Z0-9]{3,8}$", RegexOptions.CultureInvariant);
     private static readonly Regex Category = new("^Any[A-Za-z0-9]{1,37}$", RegexOptions.CultureInvariant);
@@ -159,6 +265,9 @@ public static class ExchangeSchema
         Range(m.moveShare, 0.01, 0.5, "market.moveShare");
         Range(m.turnShare, 0.001, 0.5, "market.turnShare");
         Range(m.reportCooldownDays, 0, 30, "market.reportCooldownDays");
+        if (m.opened is int opened) Year(opened, "market.opened");
+        int marketFrom = m.opened ?? ExchangeRules.EarliestYear;
+        History(m.history, MaxMarketHistory, marketFrom, marketFrom, "market.history");
 
         if (pack.sectors == null) throw new ArgumentException("sectors: expected id to sector");
         if (pack.sectors.Count > MaxSectors) throw new ArgumentException("sectors: at most " + MaxSectors);
@@ -170,6 +279,7 @@ public static class ExchangeSchema
             Notes(s.notes, where);
             CheckName(s.name, where + ".name");
             Trend(s.trend, where + ".trend");
+            History(s.history, MaxSectorHistory, marketFrom, marketFrom, where + ".history");
         }
 
         if (pack.companies == null) throw new ArgumentException("companies: expected id to company");
@@ -228,6 +338,30 @@ public static class ExchangeSchema
                     if (n.wire.IndexOf('[') >= 0) throw new ArgumentException(nw + ".wire: no placeholders");
                 }
             }
+            // History (0.3.0): founding and listing years, the price at listing and the company's own events.
+            if (c.founded is int founded) Year(founded, where + ".founded");
+            if (c.listed is int listed)
+            {
+                Year(listed, where + ".listed");
+                if (c.founded is int f && listed < f) throw new ArgumentException(where + ".listed: no earlier than its founding (" + f + ")");
+            }
+            int? listing = ListingYear(c);
+            if (listing is int ly && m.opened is int op && ly < op) throw new ArgumentException(where + ".listed: no earlier than the exchange opened (" + op + ")");
+            if (c.history == null) throw new ArgumentException(where + ".history: expected id to history entry");
+            if (listing == null && (c.listingPrice != null || c.history.Count > 0))
+                throw new ArgumentException(where + ": a listing price or history needs a founded or listed year");
+            History(c.history, MaxCompanyHistory, c.founded ?? listing ?? ExchangeRules.EarliestYear, listing ?? ExchangeRules.EarliestYear, where + ".history");
+            if (c.listingPrice is double listingPrice)
+            {
+                Range(listingPrice, MinListingPrice, MaxListingPrice, where + ".listingPrice");
+                if (listing > ExchangeRules.LastMoveYear)
+                    throw new ArgumentException(where + ".listingPrice: only for a company listed by " + ExchangeRules.LastMoveYear + "; the two years before the game begins are drawn by the market");
+                double growth = ListingGrowth(pack, pair.Key);
+                if (!(growth >= ExchangeRules.MinListingGrowth && growth <= ExchangeRules.MaxListingGrowth))
+                    throw new ArgumentException(where + ".listingPrice: it means growing " + growth.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture) +
+                        " a year besides the history's moves; keep that from " + ExchangeRules.MinListingGrowth.ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                        " to " + ExchangeRules.MaxListingGrowth.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
             // One-off news is authored and bounded; the guard covers what a holder can expect from the market itself.
             double expected = ExpectedReturn(c, pack.sectors[c.sector].trend, m.trend);
             if (!(expected <= ExchangeRules.MaxExpectedReturn))
@@ -262,6 +396,40 @@ public static class ExchangeSchema
         Range(t.slowWeeks, 0.5, 104, where + ".slowWeeks");
         if (!(t.slowWeeks >= t.fastWeeks * 1.5)) throw new ArgumentException(where + ".slowWeeks: at least one and a half times fastWeeks");
         Range(t.sd, 0, 0.5, where + ".sd");
+    }
+
+    private static void Year(int year, string where)
+    {
+        if (year < ExchangeRules.EarliestYear || year > ExchangeRules.LastHistoryYear)
+            throw new ArgumentException(where + ": a year from " + ExchangeRules.EarliestYear + " to " + ExchangeRules.LastHistoryYear + " (the game begins in " + ExchangeRules.FirstSaveYear + ")");
+    }
+
+    /// <summary>A history table: lore may date from <paramref name="loreFrom"/>, a move from <paramref name="moveFrom"/>
+    /// and no later than <see cref="ExchangeRules.LastMoveYear"/>.</summary>
+    private static void History(Dictionary<string, HistoryEntry>? history, int max, int loreFrom, int moveFrom, string where)
+    {
+        if (history == null) throw new ArgumentException(where + ": expected id to history entry");
+        if (history.Count > max) throw new ArgumentException(where + ": at most " + max);
+        foreach (var pair in history)
+        {
+            string w = where + "." + pair.Key;
+            var e = pair.Value ?? throw new ArgumentException(w + ": empty");
+            Id(pair.Key, w);
+            Notes(e.notes, w);
+            Year(e.year, w + ".year");
+            if (e.month is int month && (month < 1 || month > 12)) throw new ArgumentException(w + ".month: 1 to 12");
+            StorySchema.Words(e.line, MaxLine, w + ".line");
+            if (e.line.IndexOf('[') >= 0) throw new ArgumentException(w + ".line: no placeholders");
+            if (e.move is double move)
+            {
+                if (!Finite(move) || Math.Abs(move) < MinHistoryMove || move > MaxHistoryRise || move < -MaxHistoryFall)
+                    throw new ArgumentException(w + ".move: from -" + MaxHistoryFall + " to " + MaxHistoryRise + ", at least " + MinHistoryMove + " either way");
+                if (e.year > ExchangeRules.LastMoveYear)
+                    throw new ArgumentException(w + ".year: a move comes by " + ExchangeRules.LastMoveYear + "; the two years before the game begins are drawn by the market");
+                if (e.year < moveFrom) throw new ArgumentException(w + ".year: a move comes no earlier than " + moveFrom + " (the listing)");
+            }
+            else if (e.year < loreFrom) throw new ArgumentException(w + ".year: no earlier than " + loreFrom);
+        }
     }
 
     private static void Id(string id, string where)

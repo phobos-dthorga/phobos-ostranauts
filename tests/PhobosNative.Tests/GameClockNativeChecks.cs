@@ -20,5 +20,16 @@ internal static class GameClockNativeChecks
         foreach (double t in new[] { 0.0, 50000, GameClock.DaySeconds * 17.5, GameClock.YearSeconds * 1.3 })
             check(MathUtils.GetHourFromS(t) == (int)(t % GameClock.YearSeconds % GameClock.DaySeconds / GameClock.HourSeconds) &&
                   MathUtils.GetYearFromS(t) == (int)(t / GameClock.YearSeconds), "Hours and years follow the game at " + t);
+        // Framework 0.130.0: years and months, sampled across the years around a new game's start, away from the first
+        // second of a month (where the game's float arithmetic gives the month before).
+        int monthMismatches = 0, samples = 0;
+        for (double t = 2070 * GameClock.YearSeconds + 1234; t < 2090 * GameClock.YearSeconds; t += GameClock.DaySeconds * 3.7)
+        {
+            double inMonth = (t - GameClock.Year(t) * GameClock.YearSeconds) % GameClock.MonthSeconds;
+            if (inMonth < 10 || inMonth > GameClock.MonthSeconds - 10) continue;
+            samples++;
+            if (MathUtils.GetYearFromS(t) != GameClock.Year(t) || MathUtils.GetMonthFromS(t) != GameClock.Month(t)) monthMismatches++;
+        }
+        check(samples > 1500 && monthMismatches == 0, "GameClock's years and months follow MathUtils over " + samples + " samples: " + monthMismatches + " differ");
     }
 }

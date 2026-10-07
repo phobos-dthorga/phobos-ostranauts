@@ -55,6 +55,29 @@ public static class ExchangeRules
     public const double MajorHolderShare = 0.5;
     public static string StoryId(string company, string what) => "exchange-" + company + "-" + what;
 
+    /// <summary>Company histories (Phobos Exchange 0.3.0; owner decisions, 7 October 2026). A new game always starts in
+    /// <see cref="FirstSaveYear"/> (the game's own new-game epoch, checked natively); founding, listing and history dates
+    /// reach back at most <see cref="MaxAgeYears"/> before it and end the year before.</summary>
+    public const int FirstSaveYear = 2079, MaxAgeYears = 200;
+    public const int EarliestYear = FirstSaveYear - MaxAgeYears, LastHistoryYear = FirstSaveYear - 1;
+    /// <summary>Milestones that move a price, and authored listing prices, end in this year (agent choice): the two years
+    /// before a new game's start are the history the save itself stores, drawn by the market model.</summary>
+    public const int LastMoveYear = FirstSaveYear - 3;
+    /// <summary>The save's own lifetime history: monthly points, thinned to stay within this many.</summary>
+    public const int LifetimeCapacity = 240;
+    /// <summary>A time jump of more than two years is crossed in at most this many month-aligned steps (plus two).</summary>
+    public const int LongSteps = 240;
+    /// <summary>The generated past steps each path at most this many times; a longer span steps every few months.</summary>
+    public const int MaxPastSteps = 4800;
+    /// <summary>The bound on an authored listing price: the yearly growth it implies, net of the milestones, lies within
+    /// these (agent default, so a short history is not a cliff).</summary>
+    public const double MinListingGrowth = -0.05, MaxListingGrowth = 0.25;
+
+    /// <summary>The calendar month a step falls in, numbered as Framework's <see cref="GameClock.MonthIndex"/>.</summary>
+    public static long MonthOf(long step) => GameClock.MonthIndex(TimeOf(step));
+    /// <summary>The month a year and month (1 to 12) name.</summary>
+    public static long MonthIndex(int year, int month) => (long)year * 12 + month - 1;
+
     /// <summary>The highest expected yearly return the pack may give a company (owner rule, 7 October 2026: at most half
     /// the cheapest Banking loan's yearly cost, so borrowing to hold never pays on average; a test checks this cap
     /// against Banking's shipped lenders).</summary>

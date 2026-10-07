@@ -3,6 +3,7 @@ agrees with the C# RecipeFreeze canonical form on a fixed sample (the same sampl
 tests/PhobosFramework.Tests/DataPackChecks.cs)."""
 import importlib.util
 import json
+import math
 from pathlib import Path
 import subprocess
 import sys
@@ -640,6 +641,63 @@ class DataPackTests(unittest.TestCase):
                 validate.check_addon(example)
         finally:
             validate.EVENT_NAMESPACES = saved
+
+    def test_exchange_histories_mirror_the_game_rules(self):
+        # Phobos Exchange 0.3.0: founding and listing years, listing prices and history entries. The mirror's year range
+        # is the game code's, and the mirror and the JSON Schema refuse the same mistakes.
+        import re
+        rules = (ROOT / 'src/PhobosExchange/Core/ExchangeRules.cs').read_text(encoding='utf-8')
+        first, age = re.search(r'FirstSaveYear = (\d+), MaxAgeYears = (\d+)', rules).groups()
+        self.assertEqual((int(first), int(age)), (validate.EXCHANGE_FIRST_SAVE_YEAR, validate.EXCHANGE_MAX_AGE_YEARS))
+        self.assertIn('LastMoveYear = FirstSaveYear - 3', rules)
+        path = ROOT / 'mods/PhobosExchange/framework/exchange.json'
+        pack = json.loads(path.read_text(encoding='utf-8'))
+        self.assertIsNotNone(pack['market'].get('opened'))
+        self.assertTrue(all('founded' in c and 'listed' in c for c in pack['companies'].values()))
+        good = json.loads(json.dumps(pack))
+        good['market']['history'] = {'ceres-panic': {'year': 2061, 'month': 4, 'move': -0.3, 'line': 'Panic selling after the Ceres yard fire.'}}
+        good['sectors']['industry']['history'] = {'hull-boom': {'year': 2050, 'move': 0.25, 'line': 'Hull orders double across the yards.'}}
+        smartlink = good['companies']['smartlink']
+        smartlink['listingPrice'] = 30
+        smartlink['history'] = {'first-contract': {'year': 1960, 'line': 'Its first defence contract.'},
+                                'titan-move': {'year': 2045, 'move': 0.2, 'line': 'Moves its headquarters to Titan.'}}
+        validate.exchange(good, 'exchange')
+        self.assertEqual(schemas.problems(json.loads(writer.render('exchange')), good), [])
+        expected = (math.log(184 / 30) - (math.log(0.7) + math.log(1.25) + math.log(1.2))) / (2079 - 2036)
+        self.assertAlmostEqual(validate.exchange_listing_growth(good, smartlink, 2036), expected, places=12)
+
+        def refused(change, schema_too=False):
+            bad = json.loads(json.dumps(good))
+            change(bad)
+            with self.assertRaises(validate.Problem):
+                validate.exchange(bad, 'exchange')
+            if schema_too:
+                self.assertNotEqual(schemas.problems(json.loads(writer.render('exchange')), bad), [])
+
+        cases = {
+            'opened before the 200 years': (lambda p: p['market'].update(opened=1878), True),
+            'a year from the game start': (lambda p: p['companies']['smartlink'].update(founded=2079), True),
+            'listed before founded': (lambda p: p['companies']['testudo'].update(listed=2018), False),
+            'listed before the exchange opened': (lambda p: p['companies']['testudo'].update(founded=2020, listed=2030), False),
+            'a move in the drawn years': (lambda p: p['companies']['smartlink']['history']['titan-move'].update(year=2077), False),
+            'a move before the listing': (lambda p: p['companies']['smartlink']['history']['titan-move'].update(year=2035), False),
+            'lore before the founding': (lambda p: p['companies']['smartlink']['history']['first-contract'].update(year=1950), False),
+            'month 13': (lambda p: p['market']['history']['ceres-panic'].update(month=13), True),
+            'a fall too deep': (lambda p: p['market']['history']['ceres-panic'].update(move=-0.7), True),
+            'a rise too steep': (lambda p: p['sectors']['industry']['history']['hull-boom'].update(move=1.5), True),
+            'a move too small': (lambda p: p['sectors']['industry']['history']['hull-boom'].update(move=0.005), False),
+            'a placeholder in a line': (lambda p: p['companies']['smartlink']['history']['first-contract'].update(line='Its [first] contract.'), False),
+            'an unknown field': (lambda p: p['companies']['smartlink']['history']['first-contract'].update(colour='red'), True),
+            'a cliff of a listing price': (lambda p: p['companies']['verdemorrow'].update(listingPrice=0.1), False),
+            'a collapse of a listing price': (lambda p: p['companies']['smartlink'].update(listingPrice=100000), False),
+            'a listing price for a late listing': (lambda p: p['companies']['verdemorrow'].update(listed=2077, listingPrice=27), False),
+            'a history without years': (lambda p: p['companies']['halewright'].update(founded=None, listed=None, history={'x': {'year': 2060, 'line': 'Something happened.'}}) or
+                                        [p['companies']['halewright'].pop(k) for k in ('founded', 'listed')], False),
+            'too many entries': (lambda p: p['sectors']['industry']['history'].update({f'e{i}': {'year': 2050, 'line': 'An event.'} for i in range(9)}), False),
+        }
+        for label, (change, schema_too) in cases.items():
+            with self.subTest(label):
+                refused(change, schema_too)
 
     def test_exchange_pack_mirrors_the_game_rules(self):
         # Phobos Exchange 0.1.0: the shipped exchange passes; the Python mirror and the JSON Schema refuse the same mistakes,

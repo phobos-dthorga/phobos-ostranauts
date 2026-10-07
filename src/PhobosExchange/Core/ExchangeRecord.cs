@@ -85,7 +85,7 @@ public sealed class ExchangeRecord
     public const string Name = "PhobosExchange";
     public const int Version = 1;
     private const string SeedKey = "seed", ClockKey = "clock", MarketKey = "trend.market", SectorPrefix = "trend.sector.", CompanyPrefix = "co.",
-        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", NewsPrefix = "news.";
+        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", NewsPrefix = "news.", LifetimePrefix = "hist.m.";
 
     public ulong Seed;
     public bool HasSeed;
@@ -123,6 +123,7 @@ public sealed class ExchangeRecord
     {
         var record = new ExchangeRecord();
         var histories = new Dictionary<(string Id, char Res), Dictionary<int, string>>();
+        var lifetimes = new Dictionary<string, Dictionary<int, (string Key, string Value)>>(StringComparer.Ordinal);
         foreach (var pair in fields ?? new Dictionary<string, string>())
         {
             string key = pair.Key, value = pair.Value ?? "";
@@ -152,6 +153,11 @@ public sealed class ExchangeRecord
                 if (!histories.TryGetValue((hid, res), out var parts)) histories[(hid, res)] = parts = new Dictionary<int, string>();
                 parts[part] = value;
             }
+            else if (key.StartsWith(LifetimePrefix, StringComparison.Ordinal) && TryLifetimeKey(key, out string lid, out int lpart))
+            {
+                if (!lifetimes.TryGetValue(lid, out var parts)) lifetimes[lid] = parts = new Dictionary<int, (string, string)>();
+                parts[lpart] = (key, value);
+            }
             else if (key == TestKey && ours && p.Length == 4 && int.TryParse(p[1], NumberStyles.None, CultureInfo.InvariantCulture, out int tests) && Record.TryLong(p[2], out long at))
             { record.TestChanges = tests; record.LastTestStep = at; record.LastTest = p[3]; }
             else record.kept[key] = value;
@@ -160,6 +166,14 @@ public sealed class ExchangeRecord
         foreach (var pair in histories)
             if (CloseSeries.TryDecode(pair.Value, record.History(pair.Key.Id).Of(pair.Key.Res).Capacity, out var series))
                 Copy(series, record.History(pair.Key.Id).Of(pair.Key.Res));
+        // The lifetime points (0.3.0) are the save's only record of its own past beyond two years, so a series this
+        // version cannot read is kept exactly as saved and left alone, never started afresh.
+        foreach (var pair in lifetimes)
+        {
+            if (LifetimeSeries.TryDecode(pair.Value.ToDictionary(p => p.Key, p => p.Value.Value), out var life)) { record.History(pair.Key).Lifetime = life; continue; }
+            foreach (var part in pair.Value.Values) record.kept[part.Key] = part.Value;
+            record.History(pair.Key).Lifetime.Foreign = true;
+        }
         return record;
     }
 
@@ -186,12 +200,18 @@ public sealed class ExchangeRecord
             if (!pair.Value.Empty)
                 fields[NewsPrefix + pair.Key] = string.Join("|", Record.FormatTag, Record.Hex(pair.Value.Move), string.Join(";", pair.Value.Applied.OrderBy(f => f, StringComparer.Ordinal)));
         foreach (var pair in Histories)
+        {
             foreach (char res in PriceHistory.Resolutions)
             {
                 var series = pair.Value.Of(res);
                 for (int part = 0; part < series.PartCount; part++)
                     fields[HistoryPrefix + res + "." + pair.Key + "." + part.ToString(CultureInfo.InvariantCulture)] = series.EncodePart(part);
             }
+            var life = pair.Value.Lifetime;
+            if (life.Foreign || life.Count == 0) continue;
+            var parts = life.EncodeParts();
+            for (int part = 0; part < parts.Count; part++) fields[LifetimePrefix + pair.Key + "." + part.ToString(CultureInfo.InvariantCulture)] = parts[part];
+        }
         if (TestChanges > 0)
             fields[TestKey] = string.Join("|", Record.FormatTag, TestChanges.ToString(CultureInfo.InvariantCulture), Record.Long(LastTestStep), ExchangeRules.Clean(LastTest).Replace("|", "/"));
         return fields;
@@ -250,6 +270,16 @@ public sealed class ExchangeRecord
         if (p.Length != 4 || p[1].Length != 1 || Array.IndexOf(PriceHistory.Resolutions, p[1][0]) < 0 || p[2].Length == 0 ||
             !int.TryParse(p[3], NumberStyles.None, CultureInfo.InvariantCulture, out part) || part > 8) return false;
         id = p[2]; res = p[1][0];
+        return true;
+    }
+
+    /// <summary>hist.m.&lt;id&gt;.&lt;part&gt; (0.3.0); older versions keep these keys untouched.</summary>
+    private static bool TryLifetimeKey(string key, out string id, out int part)
+    {
+        id = ""; part = 0;
+        var p = key.Split('.');
+        if (p.Length != 4 || p[2].Length == 0 || !int.TryParse(p[3], NumberStyles.None, CultureInfo.InvariantCulture, out part) || part >= LifetimeSeries.MaxParts) return false;
+        id = p[2];
         return true;
     }
 
