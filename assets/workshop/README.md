@@ -1,15 +1,16 @@
 # Workshop preview artwork
 
-Nine coordinated cover illustrations for Phobos Framework, Auto Nav,
-Shipbreaker, Agriculture, Manufacturing, War Has Been Declared, Medical,
-Spacer Stories and Banking. These are promotional illustrations,
+Ten coordinated cover illustrations for Phobos Framework, Auto Nav,
+Shipbreaker, Agriculture, Manufacturing, War Has Been Declared, Exchange,
+Medical, Spacer Stories and Banking. These are promotional illustrations,
 not gameplay screenshots or a claim of release readiness. Approach Assist and Phobos Scope
 are deliberately outside this set, as selected by the owner on 25 September 2026.
 The owner approved the original four-cover set and requested native-menu integration on the same day.
 
 The designs connect different parts of life aboard: dependable systems, careful
-navigation, material recovery, cultivation, medical care, personal finances and
-crew stories. They do not promise unlimited resources or perfect recycling.
+navigation, material recovery, cultivation, medical care, market watching,
+personal finances and crew stories. They do not promise unlimited resources or
+perfect recycling.
 
 ![The original four Phobos Workshop covers](previews/collection.png)
 
@@ -21,6 +22,7 @@ crew stories. They do not promise unlimited resources or perfect recycling.
 | Phobos Agriculture | [512px](previews/PhobosAgriculture-512.png) | [256px](previews/PhobosAgriculture-256.png) | Potato and lettuce cultivation; explicitly marked **in development**. |
 | Phobos Manufacturing | [512px](previews/PhobosManufacturing-512.png) | [256px](previews/PhobosManufacturing-256.png) | Volatiles refinery, water-splitting cell and hydrogen store; composed cover (see below). |
 | Phobos' War Has Been Declared | [512px](previews/PhobosWarDeclared-512.png) | [256px](previews/PhobosWarDeclared-256.png) | A torn hull with pale-blue build sites laid where parts were lost and two crew carrying a panel; composed cover (see below). An illustration of the idea, not a screenshot. |
+| Phobos Exchange | [512px](previews/PhobosExchange-512.png) | [256px](previews/PhobosExchange-256.png) | A spacer follows market prices at a shipboard chart desk; composed cover (see below). Original promotional art, not a gameplay screenshot. |
 | Phobos Medical | [512px](previews/PhobosMedical-512.png) | [256px](previews/PhobosMedical-256.png) | A spacer resting in the Halewright Ward-3; REST / RECOVER / RETURN. Original promotional art, with no additional treatment claim. |
 | Phobos Spacer Stories | [512px](previews/PhobosSpacerStories-512.png) | [256px](previews/PhobosSpacerStories-256.png) | Two spacers sharing a story at a mess table, with correspondence, a terminal and a data card; READ / REMEMBER / RETELL. |
 | Phobos Banking | [512px](previews/PhobosBank-512.png) | [256px](previews/PhobosBank-256.png) | A working spacer checks the debt overview on their PDA; CREDIT / DEBT / REPAY. Original promotional art, not a gameplay screenshot. |
@@ -69,7 +71,7 @@ generator or included in these covers.
 
 The covers have mixed generated-art provenance. OpenAI's built-in image generation
 was used for the original covers, Medical and Spacer Stories; PixelLab produced the
-Manufacturing and War Has Been Declared scene layers. The Banking scene was generated
+Manufacturing, Exchange and War Has Been Declared scene layers. The Banking scene was generated
 with OpenAI's gpt-image-2 Image API through the bundled fallback CLI. Its exact
 prompt, input reference roles, model, source hashes and image-use record are in the
 [composition manifest](composed.json). The two style references were existing
@@ -221,6 +223,24 @@ codex/rejected-artwork, with its request, archive reason and SHA-256 recorded in
 [the composition manifest](composed.json). The owner confirmed a commercial
 license for that earlier generation; it was replaced solely because the owner
 asked for this OpenAI-generated, vanilla-style scene.
+
+## Exchange: a composed cover
+
+On **7 October 2026** PixelLab's `create_image_pro` produced one **244 x 170**
+scene for the Exchange cover, using the Spacer Stories cover for style and the
+superseded Exchange placeholder for subject and layout only. The scene shows a
+spacer checking a handheld price chart beneath a shipboard market display. It
+cost 20 generations from the subscription allowance, with no credit purchase.
+The generated source is retained at
+[`PhobosExchange-scene.png`](sources/PhobosExchange-scene.png); its exact prompt,
+source hashes, job and asset IDs are in the [composition manifest](composed.json).
+
+`python scripts/compose-workshop-cover.py` places it in the shared cover frame,
+draws the established EXCHANGE title and subtitle, then writes the 512px and 256px
+exports and `mods/PhobosExchange/preview.png`. `scripts/export-exchange-art.py`
+continues to draw only the PDA app icon. PixelLab output is subject to
+[PixelLab's terms of service](https://pixellab.ai/termsofservice). The scene is
+original promotional artwork, not a gameplay screenshot.
 
 ## Native-menu integration
 

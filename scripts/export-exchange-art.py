@@ -1,10 +1,12 @@
 """Draw Phobos Exchange's EXCHANGE PDA icon deterministically.
 
-No image generation and no game asset: every icon shape is drawn here from fixed coordinates, so the script is
-the icon's source. The icon follows the game's own PDA icons (a white disc with a black glyph, 256 pixels square,
-tinted by the game); its master is drawn at 1024 pixels and reduced with Lanczos filtering. It also draws the held Workshop
-cover's scene layer (244 x 170, recorded in assets/workshop/composed.json), a placeholder until the owner chooses
-otherwise. Use --check to compare committed outputs without writing.
+No game asset is used: the icon shapes are drawn from fixed coordinates, so this
+script is their source. The icon follows the game's own PDA icons (a white disc
+with a black glyph, 256 pixels square, tinted by the game); its master is drawn
+at 1024 pixels and reduced with Lanczos filtering. The Workshop cover scene is
+separate generated artwork retained at assets/workshop/sources/PhobosExchange-scene.png
+and composed by scripts/compose-workshop-cover.py. Use --check to compare the
+icon outputs without writing.
 """
 import argparse
 import hashlib
@@ -19,8 +21,6 @@ ROOT = Path(__file__).resolve().parents[1]
 MASTER = 'assets/phobos-exchange/Shares-1024.png'
 ICON = 'mods/PhobosExchange/images/phobos/exchange/Shares.png'
 RECORD = 'assets/phobos-exchange/exports.json'
-SCENE = 'assets/workshop/sources/PhobosExchange-scene.png'
-SCENE_SIZE = (244, 170)
 MASTER_SIZE, ICON_SIZE = 1024, 256
 WHITE, BLACK, CLEAR = (255, 255, 255, 255), (0, 0, 0, 255), (0, 0, 0, 0)
 # A price line that dips, then climbs through two runs to the top right.
@@ -41,53 +41,6 @@ def icon_master():
     return image
 
 
-def scene():
-    """The cover's scene layer, overhead like the game's rooms: a cabin nook where a spacer checks the exchange board on
-    the bulkhead, a desk terminal and two crates. Promotional placeholder, no lettering; drawn from fixed shapes."""
-    deck, seam, wall, strip = (44, 48, 52), (36, 40, 44), (28, 31, 34), (60, 66, 72)
-    steel, screen, cream, edge = (96, 104, 110), (18, 26, 32), (196, 186, 160), (150, 140, 116)
-    green, amber, blue, rust, skin, crate = (130, 170, 120), (210, 150, 70), (92, 128, 150), (150, 84, 48), (196, 150, 120), (120, 100, 70)
-    image = Image.new('RGB', SCENE_SIZE, deck)
-    draw = ImageDraw.Draw(image)
-    for x in range(0, SCENE_SIZE[0], 20):
-        draw.line([(x, 34), (x, SCENE_SIZE[1])], fill=seam)
-    for y in range(54, SCENE_SIZE[1], 20):
-        draw.line([(0, y), (SCENE_SIZE[0], y)], fill=seam)
-    draw.rectangle((0, 0, SCENE_SIZE[0], 33), fill=wall)
-    draw.rectangle((0, 32, SCENE_SIZE[0], 35), fill=strip)
-    # The board on the bulkhead: three price lines, the market's in cream, a rising one in green, a falling one in amber.
-    draw.rectangle((30, 4, 214, 62), fill=steel)
-    draw.rectangle((34, 8, 210, 58), fill=screen)
-    for x in range(42, 206, 24):
-        draw.line([(x, 12), (x, 54)], fill=(30, 40, 46))
-    lines = [
-        (cream, [(38, 40), (60, 36), (82, 38), (104, 32), (126, 34), (148, 28), (170, 30), (192, 24), (206, 26)]),
-        (green, [(38, 50), (60, 46), (82, 48), (104, 40), (126, 36), (148, 30), (170, 22), (192, 18), (206, 14)]),
-        (amber, [(38, 20), (60, 24), (82, 22), (104, 30), (126, 34), (148, 40), (170, 38), (192, 46), (206, 48)]),
-    ]
-    for colour, points in lines:
-        draw.line(points, fill=colour, width=2)
-    for x, height in ((40, 3), (46, 5), (52, 2), (58, 6), (64, 4)):
-        draw.rectangle((x, 56 - height, x + 3, 56), fill=blue)
-    # The desk below the board, with a terminal and a mug.
-    draw.rectangle((70, 94, 174, 118), fill=edge)
-    draw.rectangle((72, 96, 172, 116), fill=cream)
-    draw.rectangle((104, 98, 138, 110), fill=(30, 34, 38))
-    draw.line([(107, 107), (113, 104), (119, 106), (127, 101), (135, 100)], fill=green, width=1)
-    draw.ellipse((152, 100, 160, 108), fill=(80, 90, 96))
-    draw.ellipse((154, 102, 158, 106), fill=(40, 30, 24))
-    # The spacer, seen from above, facing the board.
-    draw.ellipse((106, 122, 138, 146), fill=rust)
-    draw.ellipse((113, 118, 131, 136), fill=(60, 44, 36))
-    draw.ellipse((115, 121, 129, 134), fill=skin)
-    # Two crates against the edges.
-    for box in ((14, 120, 44, 150), (200, 126, 230, 156)):
-        draw.rectangle(box, fill=crate)
-        draw.rectangle((box[0] + 2, box[1] + 2, box[2] - 2, box[3] - 2), outline=(90, 74, 52))
-        draw.line([(box[0] + 2, box[1] + 2), (box[2] - 2, box[3] - 2)], fill=(90, 74, 52))
-    return image
-
-
 def png(image):
     buffer = io.BytesIO()
     image.save(buffer, format='PNG', optimize=True)
@@ -101,11 +54,11 @@ def sha256(data):
 def outputs():
     master = icon_master()
     icon = master.resize((ICON_SIZE, ICON_SIZE), Image.LANCZOS)
-    files = {MASTER: png(master), ICON: png(icon), SCENE: png(scene())}
+    files = {MASTER: png(master), ICON: png(icon)}
     record = {
         'schemaVersion': 1,
         'tool': 'scripts/export-exchange-art.py',
-        'generation': 'none: drawn from fixed shapes by the script, which is the source of record',
+        'generation': 'the EXCHANGE PDA icon is drawn from fixed shapes by this script; the Workshop cover scene is separately generated and recorded in assets/workshop/composed.json',
         'files': {path: {'sha256': sha256(data), 'bytes': len(data)} for path, data in files.items()},
         'notes': {
             ICON: 'EXCHANGE PDA app icon, 256 px like the game\'s own; reduced from the 1024 px master with Lanczos filtering.'

@@ -457,7 +457,7 @@
       },
       "scene": {
         "path": "assets/workshop/sources/PhobosExchange-scene.png",
-        "sha256": "400EA2D1653EDBAFD7EAF90CF73FF21C1956AC939C11700498B9702CA5102AEB",
+        "sha256": "35E20617C9C5908B8DA486D9770A50C83D409480CFFA5879D36BCF0556A2E54D",
         "crop": [
           0,
           0,
@@ -521,10 +521,28 @@
         }
       },
       "generation": {
-        "provider": "none",
-        "operation": "drawn from fixed shapes by scripts/export-exchange-art.py, the source of record",
+        "provider": "PixelLab",
+        "operation": "create_image_pro",
         "date": "2026-10-07",
-        "review": "Placeholder scene (agent choice, 7 October 2026, while the mod is a held draft): an overhead cabin nook where a spacer checks the exchange board, three price lines on the bulkhead, a desk terminal and two crates. No image generator was used, to avoid an unasked cost; a generated scene can replace it before publication if the owner wants one. Promotional illustration only, not a gameplay screenshot."
+        "jobId": "67676680-1af1-466f-8caf-07bde3edc556",
+        "assetId": "81f59fb7-fc0a-550e-a6ad-812f535591e8",
+        "model": "pro",
+        "width": 244,
+        "height": 170,
+        "noBackground": false,
+        "costGenerations": 20,
+        "styleImage": "assets/workshop/previews/PhobosSpacerStories-512.png (public raw GitHub URL at source commit a26d99975b1111f09fc2ab3b93fcbdd0ed4750f6)",
+        "styleImageSha256": "87C24F54D6CD43262BBC82988347FFD472140110B17113C23693C455437F8FB4",
+        "references": [
+          {
+            "path": "assets/workshop/sources/PhobosExchange-scene.png",
+            "sha256": "400EA2D1653EDBAFD7EAF90CF73FF21C1956AC939C11700498B9702CA5102AEB",
+            "role": "Subject and layout reference only: a shipboard market board with several price lines and a working spacer at a desk; its old placeholder shapes were not reused."
+          }
+        ],
+        "inputProvenance": "Only original Phobos artwork was supplied: one existing cover for pixel style, and the superseded Phobos Exchange placeholder for subject/layout reference. No game-derived artwork, screenshots, third-party mod sprites or official logos were supplied.",
+        "prompt": "Create one original 244 x 170 pixel-art scene layer for the Phobos Exchange square Steam Workshop cover. A lived-in spaceship market-watch nook seen from a high near-overhead angle with only a little shallow oblique depth: worn charcoal bulkhead, scratched grey steel deck plates, cream enamel workbench, muted teal service panel and a restrained amber work light. The clear focal point is a wide, practical shipboard market display mounted on the bulkhead, with a dark glass face, faint grid and three distinct simple price traces in warm ivory, muted green and restrained ochre, plus a few tiny abstract volume bars; absolutely no words, letters, numbers, ticker symbols or logos. Below it, a single working spacer in faded rust-orange coveralls sits at a narrow desk, seen mostly from above, studying a small dark handheld PDA with a simple pale-green rising and falling line on the screen. One mug, a couple of chunky switches and a shut small locker add ordinary ship life without clutter. Make the room feel cramped, maintained and useful, not a modern trading floor: no office furniture, cash, coins, banknotes, screens full of tiny details or speculative technology. Keep each major silhouette large and readable at thumbnail size. Original promotional illustration, not a game screenshot. Preserve the established subdued Ostranauts material palette and visibly stepped pixel clusters, broad crisp shapes, dark outlines, limited tonal bands and restrained local shading. The mounted board and PDA represent the market app symbolically; do not add any other interface text.",
+        "review": "The generated scene shows a spacer checking a PDA beneath a market board with three price traces, framed in the existing Phobos cover design. It is original promotional art, not an in-game screenshot."
       }
     }
   ],
