@@ -88803,8 +88803,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e8cb89a62fda19f44883a7cb18df2550f54c3e07f6f64f0ef99570ea36df2d8b",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
+      "sha256": "973e3932fee58f44c4fc7958dd08b7257d9ffcec2bec9913ba0e4c3dc75268fe",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: version and summary reflect the held lender-story draft.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
@@ -90275,15 +90275,15 @@
       "path": "docs/bank-player-guide.md",
       "scope": "current player guide",
       "decision": "New player guide for Phobos Banking 0.1.0.",
-      "sha256": "7aa1cfddd8a0b353a0e072d7eed7306827b913952a67528697f0dd1a57893f4c",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
+      "sha256": "cd0b63dbd364a1ffcb421eec181b340042dbdc4147f77de8ae58b350157980a5",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: five lender event letters, replies, local story content and unchanged payment and late-fee rules; gameplay remains unverified."
     },
     {
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "7df7fb444a596109f5d9c0ef761cafca811003391822cfcf0215f8e0c6d2ef77",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
+      "sha256": "14216c66753063321b7a1df4c3503975a872fe94ea2f4e654774f8653d52d741",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: held draft describes the five lenders and new letters, adverts, station news, chatter and article; no unverified gameplay claims added."
     },
     {
       "path": "docs/bank-item-reference.md",
@@ -90310,8 +90310,8 @@
       "path": "docs/development/banking-stories-handoff.md",
       "scope": "development handoff",
       "decision": "New document; reviewed against player-language.md.",
-      "sha256": "43a78a7f3f40b05e2795667de7e2b2dfa47203429b85b762b08dd9107b072309",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
+      "sha256": "1d639e7a7979d10a997bb1f86dc14400408e3225b1af983d28347234951ea8fd",
+      "review": "Reviewed 7 October 2026 after the 0.5.0 story draft: original lender voices and constraints retained; completed content and deliberately omitted optional threads recorded."
     }
   ],
   "surfaces": [
@@ -90594,6 +90594,25 @@
       "scope": "original inline English story text, placed people and threads, goal contracts and card documents",
       "sha256": "d894c15c5e2452a4f372b95e2203d38b50b00211a6b4178cf8d7835d11884218",
       "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+    },
+    {
+      "path": "mods/PhobosBank/framework/story.json",
+      "scope": "player-facing story pack: lender letters, replies, adverts, station news, small talk and encyclopedia text",
+      "decision": "new",
+      "sha256": "dc6795ad2c691f1af95a30fe1cae951e5c94ce29ec2f1fa25cd6aecb8052c26a",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: lender voices match their pitches; event letters use only implemented outcomes, leave payment to Finances, and make no claims beyond the game’s consequences."
+    },
+    {
+      "path": "mods/PhobosBank/CHANGELOG.md",
+      "scope": "player-facing release changelog",
+      "sha256": "f8e1ae4ed1bb5ae8952af8fb2b4052cdae15b32af00773a626879a05dc5eda1d",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: records five lenders’ event letters and station story content, with payment and gameplay verification limits stated plainly."
+    },
+    {
+      "path": "workshop/PhobosBank/releases/0.5.0.bbcode",
+      "scope": "generated Workshop release notes",
+      "sha256": "bb23a11f5d966ccb24a14d625aa2b70e84ef13b779a7e060f6386f360c5da10d",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: generated from the held changelog entry and checked against the story pack."
     }
   ],
   "hardcodedReview": {

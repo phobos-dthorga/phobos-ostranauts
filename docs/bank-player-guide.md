@@ -3,8 +3,8 @@
 Phobos Banking adds a **CREDIT** app to your PDA. It shows what you owe, read
 straight from your own ledger, lets you borrow from lenders where you are, and
 finances a ship or an apartment at the broker, and takes you to the game's Finances
-window to pay. Version 0.4.0 is a held draft: checked offline; the debts screen has
-been seen in play, borrowing, broker financing and the lenders' letters not yet.
+window to pay. Version 0.5.0 is a held draft: the debts screen has been seen in
+play, but borrowing, broker financing and the lender stories have not.
 
 ## Opening it
 
@@ -161,15 +161,14 @@ consequences as any lender: the game's late fee. Their letters may sound colder.
 
 ## Letters from your lenders
 
-Each lender has an officer who writes to you: when you borrow, when a bill turns late,
-when it has been late for three game days, and when you pay a loan off. Letters arrive
-wherever you are, in the crew log and in the Letters window (click the goal they bring,
-or F3 `phobosframework story letters`). A late letter may ask for a reply. Replies only
-change the story: bills are paid in the Finances window, and the game's late fee stands
-either way. Paying a loan off can earn a little standing with the lender's station.
+Each lender has an officer who writes when you borrow, when a bill turns late, when it
+has been late for three game days, and when you pay a loan off. Letters arrive wherever
+you are, in the crew log and the Letters window (click the goal they bring, or F3
+`phobosframework story letters`). A late letter asks you to reply. Your answer only advances the story; it does not pay or defer the bill. Pay through Finances, and the late fee
+still applies. Paying a Corvane Mutual loan off adds two standing with OKLGCorp.
 
-Phobos Banking 0.4.0 ships Corvane Mutual's letters; the other lenders' letters, adverts
-and news are being written.
+Each lender also has a local advert, station news and small talk. An encyclopedia entry
+covers credit by the shift.
 
 ## For story writers
 
@@ -188,11 +187,6 @@ Your ledger is the game's own. The loans you take from Phobos lenders are also k
 one small Phobos record on your character: lender, terms and how far interest has been
 billed. Remove the mod and the CREDIT app goes; the loans stay in your ledger as
 ordinary mortgages owed to the lender's name, and no more interest is billed.
-
-## Coming later
-
-More letters, adverts and news for every lender are being written. The research and plan are in
-[PDA apps and a banking mod](development/pda-apps-and-banking-research.md).
 
 ## Requirements
 

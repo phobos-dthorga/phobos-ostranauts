@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Phobos Banking story pack (0.4.0). The lenders' officers and threads, and one complete example set of letters for Corvane Mutual, written by Claude as wiring proof and a model; ChatGPT writes the rest (docs/development/banking-stories-handoff.md). Phobos Banking starts the arc bank-<lender>-<event> when the event happens, if it exists: borrowed, late, late-long, repaid.",
+  "notes": "Phobos Banking story pack (0.5.0 draft): five lenders, their place-less letter threads, twenty event arcs, home adverts and news, local small talk, and a spacer-life article. Letters cannot alter the ledger; payment remains in the Finances window.",
   "people": {
     "corvane-ines-varga": {
       "name": "Ines Varga",
@@ -193,6 +193,625 @@
           }
         }
       ]
+    },
+    "bank-halcyon-bond-borrowed": {
+      "title": "Halcyon Bond: A new loan",
+      "thread": "bank-halcyon-bond",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the borrowed event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "halcyon-laurent-chao",
+              "text": "Captain [player-first], thank you for placing your business with Halcyon Bond. Your loan is on the ledger, with payments due by the shift. Please keep the schedule in your Finances window close at hand; orderly accounts make for a better relationship."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-halcyon-bond-late": {
+      "title": "Halcyon Bond: A late bill",
+      "thread": "bank-halcyon-bond",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "halcyon-laurent-chao",
+              "text": "Captain [player-first], one Halcyon Bond bill has passed its shift. The late fee is added at each shift change while it remains unpaid. Your Finances window shows what is due. Shall I note that payment is coming, that you need time, or that you cannot say yet?"
+            }
+          },
+          "choices": [
+            {
+              "id": "bank-prompt",
+              "label": "Payment is coming shortly",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "halcyon-laurent-chao",
+                  "text": "Thank you for telling me. The ledger continues on its own schedule; please make any payment through Finances."
+                }
+              }
+            },
+            {
+              "id": "bank-time",
+              "label": "Please note that I need time",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "halcyon-laurent-chao",
+                  "text": "I understand. I cannot alter the bill or its fee. The amount due remains in Finances."
+                }
+              }
+            },
+            {
+              "id": "bank-silent",
+              "label": "I cannot give you an answer today",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "halcyon-laurent-chao",
+                  "text": "Understood. I would rather have a plain answer than a polished one. The outstanding bill remains on your ledger."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "bank-halcyon-bond-late-long": {
+      "title": "Halcyon Bond: Still unpaid",
+      "thread": "bank-halcyon-bond",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late-long event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "halcyon-laurent-chao",
+              "text": "The oldest Halcyon Bond bill has now been unpaid for three days. The late fee continues to be added at each shift change. I would prefer our next letter to concern an account in good order. Please check the balance in Finances when you can."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-halcyon-bond-repaid": {
+      "title": "Halcyon Bond: Paid in full",
+      "thread": "bank-halcyon-bond",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the repaid event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "halcyon-laurent-chao",
+              "text": "Your Halcyon Bond loan is paid in full, Captain [player-first]. Thank you for bringing the account to a proper close. The balance should now read as cleared in Finances."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-aerie-savings-borrowed": {
+      "title": "Aerie Savings Union: A new loan",
+      "thread": "bank-aerie-savings",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the borrowed event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "aerie-maeve-okonjo",
+              "text": "Hello, [player-first]. Aerie Savings Union has recorded your loan. The payments follow the shift schedule shown in your Finances window. If the figures are hard to read, ask at the members’ desk and we will go through them with you."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-aerie-savings-late": {
+      "title": "Aerie Savings Union: A late bill",
+      "thread": "bank-aerie-savings",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "aerie-maeve-okonjo",
+              "text": "Hi, [player-first]. One of your Aerie bills has gone past its shift. The ledger adds a late fee at every shift change until it is paid. You can see the amount in Finances. Would you like me to note that payment is coming, that you need more time, or that you are not sure?"
+            }
+          },
+          "choices": [
+            {
+              "id": "bank-soon",
+              "label": "I expect to pay it shortly",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "aerie-maeve-okonjo",
+                  "text": "All right. I understand. The bill stays where it is until you pay it through Finances, so please use the amount shown there."
+                }
+              }
+            },
+            {
+              "id": "bank-patience",
+              "label": "Please give me a little time",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "aerie-maeve-okonjo",
+                  "text": "I understand. I cannot stop the ledger fee. The amount due is listed in Finances."
+                }
+              }
+            },
+            {
+              "id": "bank-uncertain",
+              "label": "I do not know when I can pay",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "aerie-maeve-okonjo",
+                  "text": "Thank you for saying so plainly. There is no need to make a promise you cannot keep. The bill and its fee remain on the ledger until paid."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "bank-aerie-savings-late-long": {
+      "title": "Aerie Savings Union: Still unpaid",
+      "thread": "bank-aerie-savings",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late-long event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "aerie-maeve-okonjo",
+              "text": "I am checking in because your oldest Aerie bill has been unpaid for three days. The ledger keeps adding its late fee at each shift change. Please look at what is due in Finances, and take it one bill at a time if that is what you can manage."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-aerie-savings-repaid": {
+      "title": "Aerie Savings Union: Paid in full",
+      "thread": "bank-aerie-savings",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the repaid event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "aerie-maeve-okonjo",
+              "text": "That Aerie loan is now paid in full, [player-first]. Thank you for closing the account. I hope the money did what you needed it to do, and that the next shift brings a little more room to breathe."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-stillwater-advances-borrowed": {
+      "title": "Stillwater Advances: A new loan",
+      "thread": "bank-stillwater-advances",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the borrowed event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "stillwater-dario-kessel",
+              "text": "Loan is on the books, [player-first]. Funds are in your account. Your payment schedule is in Finances; check it before the next shift turns over. Stillwater is quick with the paperwork, not magic with the numbers."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-stillwater-advances-late": {
+      "title": "Stillwater Advances: A late bill",
+      "thread": "bank-stillwater-advances",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "stillwater-dario-kessel",
+              "text": "One of your Stillwater bills missed its shift, [player-first]. The ledger adds a late fee at every shift change until it is paid. Finances has the current amount. Tell me whether you expect to pay soon, need time, or have no date to give."
+            }
+          },
+          "choices": [
+            {
+              "id": "bank-soon",
+              "label": "I will sort it soon",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "stillwater-dario-kessel",
+                  "text": "Good. I hear you. The ledger will not wait for a reply, so make the payment through Finances when you can."
+                }
+              }
+            },
+            {
+              "id": "bank-time",
+              "label": "I need a little more time",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "stillwater-dario-kessel",
+                  "text": "Understood. I cannot change the bill or the fee. The amount due is in Finances; that is the number to work from."
+                }
+              }
+            },
+            {
+              "id": "bank-none",
+              "label": "I have no date for you",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "stillwater-dario-kessel",
+                  "text": "Fair enough. Better than inventing one. The debt stays on the ledger until you pay it through Finances."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "bank-stillwater-advances-late-long": {
+      "title": "Stillwater Advances: Still unpaid",
+      "thread": "bank-stillwater-advances",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late-long event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "stillwater-dario-kessel",
+              "text": "Your oldest Stillwater bill has now been unpaid for three days. The late fee keeps adding at every shift change. I will keep this short: check the current amount in Finances and pay what you can there."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-stillwater-advances-repaid": {
+      "title": "Stillwater Advances: Paid in full",
+      "thread": "bank-stillwater-advances",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the repaid event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "stillwater-dario-kessel",
+              "text": "That Stillwater loan is closed, [player-first]. Paid in full. The ledger should show no balance left on it. Keep the next schedule where you can find it; nobody gets quicker by guessing."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-narrow-ledger-borrowed": {
+      "title": "The Narrow Ledger: A new loan",
+      "thread": "bank-narrow-ledger",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the borrowed event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "narrow-ledger-pell",
+              "text": "Your loan is entered, [player-first]. The money is in your account. The shift schedule is in Finances. Read it while you still have the patience; numbers look much the same tomorrow, only larger."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-narrow-ledger-late": {
+      "title": "The Narrow Ledger: A late bill",
+      "thread": "bank-narrow-ledger",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "narrow-ledger-pell",
+              "text": "A Narrow Ledger bill has passed its shift. The ledger adds a late fee at every shift change while it stays unpaid. Look in Finances for the amount. Will you say payment is coming, ask for time, or leave the question unanswered?"
+            }
+          },
+          "choices": [
+            {
+              "id": "bank-soon",
+              "label": "I will pay when I can",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "narrow-ledger-pell",
+                  "text": "When you can is a time, not a date. I hear you. The balance stays in Finances until you pay it."
+                }
+              }
+            },
+            {
+              "id": "bank-time",
+              "label": "Put down that I asked for time",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "narrow-ledger-pell",
+                  "text": "I hear you. The ledger does not read a reply into the bill. Check the amount due in Finances."
+                }
+              }
+            },
+            {
+              "id": "bank-none",
+              "label": "I have nothing useful to tell you",
+              "next": "end",
+              "onComplete": {
+                "message": {
+                  "person": "narrow-ledger-pell",
+                  "text": "Then we agree on one thing. The bill remains on the ledger, and the fee keeps its own hours."
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "bank-narrow-ledger-late-long": {
+      "title": "The Narrow Ledger: Still unpaid",
+      "thread": "bank-narrow-ledger",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the late-long event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "narrow-ledger-pell",
+              "text": "The oldest Narrow Ledger bill has been unpaid for three days. The ledger adds its fee every shift. I suggest reading the balance in Finances before it grows any harder to ignore. That is all the advice the counter gives for free."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bank-narrow-ledger-repaid": {
+      "title": "The Narrow Ledger: Paid in full",
+      "thread": "bank-narrow-ledger",
+      "chance": 0,
+      "repeatable": true,
+      "notes": "Started by Phobos Banking on the repaid event; letters and replies do not change the debt.",
+      "steps": [
+        {
+          "id": "bank-letter",
+          "delivery": {
+            "message": {
+              "person": "narrow-ledger-pell",
+              "text": "Paid in full, [player-first]. The Narrow Ledger has no balance left on that loan. Keep the receipt where you keep the other useful little things."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "adverts": {
+    "bank-halcyon-bond-advert": {
+      "thread": "bank-halcyon-bond",
+      "place": "mtrs",
+      "text": "Halcyon Bond\nFor captains Port Yangshan already trusts. If Xinhua regards you warmly, speak with our client desk at [place]. We will put the terms in front of you before you decide.",
+      "weight": 1
+    },
+    "bank-aerie-savings-advert": {
+      "thread": "bank-aerie-savings",
+      "place": "vnca",
+      "text": "Aerie Savings Union\nOwned by the people who live in the clouds. Ask our members’ advisers at [place] about a cash loan or help financing a home. We will show you the schedule before you choose.",
+      "weight": 1
+    },
+    "bank-stillwater-advances-advert": {
+      "thread": "bank-stillwater-advances",
+      "place": "jfts",
+      "text": "Stillwater Advances\nNeed money before the next shift? We keep the forms short and the cost plain. Ask Dario at [place]. Stillwater is quick with an answer; the schedule is yours to read before you sign.",
+      "weight": 1
+    },
+    "bank-narrow-ledger-advert": {
+      "thread": "bank-narrow-ledger",
+      "place": "coho",
+      "text": "The Narrow Ledger\nNo references and no questions about your standing. The Narrow Ledger lends small and fast, with the terms laid out before you sign. Find Pell at [place] and read the page twice.",
+      "weight": 1
+    },
+    "bank-corvane-mutual-advert": {
+      "thread": "bank-corvane-mutual",
+      "place": "oklg",
+      "weight": 1,
+      "text": "Corvane Mutual\nK-Leg crews have kept us busy since the yards first turned a profit. Ask at [place] about a loan, read the shift schedule, and decide with the whole ledger in view."
+    }
+  },
+  "broadcasts": {
+    "bank-halcyon-bond-credit-news": {
+      "thread": "bank-halcyon-bond",
+      "place": "mtrs",
+      "text": "At [place], captains compare notes on credit desks and the standing each one asks to see. Halcyon Bond is still looking for a warm word from Xinhua before it opens an account.",
+      "mention": "At [place], captains compare notes on credit desks and the standing each one asks to see. Halcyon Bond is still looking for a warm word from Xinhua before it opens an account.",
+      "weight": 1
+    },
+    "bank-aerie-savings-credit-news": {
+      "thread": "bank-aerie-savings",
+      "place": "vnca",
+      "text": "At [place], residents still ask who owns the Aerie Savings Union. The answer is the people who live in the cloud habitats, who pool their savings and lend among their neighbors.",
+      "mention": "At [place], residents still ask who owns the Aerie Savings Union. The answer is the people who live in the cloud habitats, who pool their savings and lend among their neighbors.",
+      "weight": 1
+    },
+    "bank-stillwater-advances-credit-news": {
+      "thread": "bank-stillwater-advances",
+      "place": "jfts",
+      "text": "At [place], the quick-money desks have a simple pitch: fewer waits, more cost. Port hands say the useful question is still what the next shift will put on the ledger.",
+      "mention": "At [place], the quick-money desks have a simple pitch: fewer waits, more cost. Port hands say the useful question is still what the next shift will put on the ledger.",
+      "weight": 1
+    },
+    "bank-narrow-ledger-credit-news": {
+      "thread": "bank-narrow-ledger",
+      "place": "coho",
+      "text": "At [place], the Narrow Ledger keeps a counter for captains turned away elsewhere. Its reputation is simple: few questions at the desk, careful reading afterward.",
+      "mention": "At [place], the Narrow Ledger keeps a counter for captains turned away elsewhere. Its reputation is simple: few questions at the desk, careful reading afterward.",
+      "weight": 1
+    },
+    "bank-corvane-mutual-credit-news": {
+      "thread": "bank-corvane-mutual",
+      "place": "oklg",
+      "weight": 1,
+      "text": "At [place], crews are comparing lender pitches over a late meal. Yard hands have one piece of advice: read the shift schedule before the signing pad wakes up.",
+      "mention": "Read the shift schedule before the signing pad wakes up."
+    }
+  },
+  "chatter": {
+    "bank-halcyon-bond-credit-talk": {
+      "thread": "bank-halcyon-bond",
+      "place": "mtrs",
+      "moment": "small-talk",
+      "line": "Halcyon wants a warm word from Xinhua before it brings out a pen. They do like to know who is vouching for the hull.",
+      "speakers": "locals",
+      "weight": 1
+    },
+    "bank-aerie-savings-credit-talk": {
+      "thread": "bank-aerie-savings",
+      "place": "vnca",
+      "moment": "small-talk",
+      "line": "Aerie belongs to the people who live up here, they say. Nice to know somebody owns more than a bunk and a view.",
+      "speakers": "locals",
+      "weight": 1
+    },
+    "bank-stillwater-advances-credit-talk": {
+      "thread": "bank-stillwater-advances",
+      "place": "jfts",
+      "moment": "small-talk",
+      "line": "Fast money is still money you owe. Dario never hides the second half of that sentence.",
+      "speakers": "locals",
+      "weight": 1
+    },
+    "bank-narrow-ledger-credit-talk": {
+      "thread": "bank-narrow-ledger",
+      "place": "coho",
+      "moment": "small-talk",
+      "line": "Pell will lend to anyone. I asked what that kindness costs. Pell said, “Read the page.”",
+      "speakers": "locals",
+      "weight": 1
+    },
+    "bank-corvane-mutual-credit-talk": {
+      "thread": "bank-corvane-mutual",
+      "place": "oklg",
+      "moment": "small-talk",
+      "line": "In the yards, a bill comes due on the same shift whether the weld held or not. That is why I read the schedule first.",
+      "speakers": "locals",
+      "weight": 1
+    }
+  },
+  "articles": {
+    "bank-credit-by-the-shift": {
+      "section": "phobos-spacer-life",
+      "label": "Credit by the shift",
+      "title": "Reading a loan before you take it",
+      "body": "Ogiso's Bank and Ogiso's Register anchor the system's formal credit records. Around them, station lenders offer their own terms: registered houses may ask for standing, while independent counters may ask fewer questions and charge more. A ship or apartment may have a purchase mortgage; a cash loan adds another mortgage line to the ledger.\n\nCheck who holds the debt, what the shift schedule says, and what remains outstanding before signing. A lender's interest charge is separate from a late fee on an unpaid bill. The ledger adds the late fee at each shift change until the bill is paid. Letters can remind or explain; they do not move money. Use the Finances window to pay and to check what remains due. A smaller down payment does not make the purchase cost less overall."
     }
   }
 }

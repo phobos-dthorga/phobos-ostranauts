@@ -5,6 +5,19 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-07 - Draft
+
+### Added
+
+- Complete lender correspondence: repeatable letters when a loan is taken, a bill turns late, a bill has been late for three game days, and a loan is paid off. All five lenders now have four event letters; each late letter offers two or three replies with its own answer.
+- A local advert, station news item and small-talk line for each lender, plus an encyclopedia article about credit and shift payments.
+
+### Compatibility and limits
+
+- No new Phobos Banking save fields. Story progress uses Framework’s existing story record; Corvane Mutual’s existing reply flag is unchanged.
+- Replies only advance the story. They do not pay, delay or change a bill; payments remain in the Finances window, and the game's late-fee rule is unchanged.
+- The story pack passes the offline data-pack validator and Banking checks. This draft has not been verified in play.
+
 ## [0.4.0] - 2026-10-07 - Draft
 
 ### Added

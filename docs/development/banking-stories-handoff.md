@@ -1,9 +1,10 @@
 # Phobos Banking stories: handoff for ChatGPT
 
-Handoff, 7 October 2026. The owner asked for the lore and storytelling behind Phobos
-Banking's lenders to come from ChatGPT; Claude wires and checks it. This page says what
-already exists, what to write, and the rules the game and our code hold the text to.
-Everything here is a request; nothing is written yet except one example set.
+Handoff, 7 October 2026. The owner asked ChatGPT to write the lore and storytelling
+behind Phobos Banking's lenders, with Claude wiring and checking the pack. The core
+request is now implemented in the held 0.5.0 draft. This page preserves the lender
+choices and the rules for future story edits; optional longer lender threads were left
+out. Nothing here records Steam publication or gameplay verification.
 
 ## What exists (Phobos Banking 0.4.0)
 
@@ -37,35 +38,20 @@ requirements hold:
 repaid a loan), `bank-<lender id>-late` (a bill is late now; cleared when none is) and
 `bank-<lender id>-late-long` (late for three days now; cleared with it).
 
-**The example set.** `mods/PhobosBank/framework/story.json` holds the officers, a thread
-per lender (`bank-<lender id>`) and Corvane Mutual's four letters, written by Claude to
-prove the wiring. Treat them as a model you may rewrite: the welcome letter, a late
-reminder with two replies (one sets the flag `bank-corvane-mutual-asked-time`), a sterner
-notice when late for days, and thanks on repayment with a small standing gain with
-OKLGCorp.
+**The example set.** `mods/PhobosBank/framework/story.json` retains Corvane Mutual's
+four letters, first written by Claude as proof of the event wiring. They remain the model
+for the event arcs: a welcome, a late notice with replies, a longer-late notice and thanks
+on repayment. In 0.5.0 the other four lenders receive the same event coverage, with their
+own voices and reply letters.
 
-## What to write
+## What the 0.5.0 draft adds
 
-1. **Letters for every lender's four events**: Halcyon Bond, Aerie Savings Union,
-   Stillwater Advances and the Narrow Ledger (sixteen arcs), and Corvane Mutual's four if
-   you want to improve them. Each lender's letters should sound like that lender. The
-   unregistered lenders may be colder, slicker or more threatening in tone, but see the
-   rules below on what they may not claim.
-2. **Replies** where they add something: a late letter may offer two to four replies
-   (promise to pay, ask for patience, refuse, bluster), each with its own answer letter
-   and, if you like, a flag of your own the lender's later letters can read.
-3. **Adverts** for each lender, placed at its home (`place`), and perhaps a news item or
-   two about the credit trade (a lender expanding, a crackdown on unregistered lending at
-   a station, the Narrow Ledger's reputation in Corsair's Hollow).
-4. **Small talk** about borrowing and debt, placed where it fits, and optionally lines
-   that react to the player's flags (crew noticing the player owes the Narrow Ledger).
-5. **An encyclopedia article or two** on credit in the system: Ogiso's Bank and the
-   registered houses, how station mortgages work by the shift, and the counters that lend
-   when nobody else will.
-6. **Optional longer threads**: a lender with a story beyond the letters (Halcyon Bond's
-   exclusive client list, a Stillwater clerk who quietly helps borrowers, Pell's
-   history). These can start on their own (`chance` above 0, gated by flags and places)
-   rather than from an event.
+- Four repeatable event arcs for each of the five lenders: borrowed, late, late-long and
+  repaid. Late letters offer replies with separate answer letters; none changes the debt.
+- A home advert, station news item and local small-talk line for each lender.
+- An encyclopedia article on credit, station lenders and shift payments.
+- Optional longer lender threads were left out. The letters and local material stand on
+  their own, and the owner can choose a direction for longer stories later.
 
 ## Rules (the game and our code hold the text to these)
 
@@ -96,10 +82,10 @@ OKLGCorp.
 - Ogiso's Bank and Ogiso's Register are the game's institutions: refer to them, never
   speak for them.
 
-## How it gets wired
+## How it is wired and checked
 
-Send the pack as one JSON file (or several, one per lender). Claude merges it into
-`mods/PhobosBank/framework/story.json`, runs the story validator, the Banking tests (every
-event arc must belong to a known lender and event) and the native checks against the
-game's data, adds the text to the language ledger and updates the changelog. The arcs
-start working with no code change.
+The 0.5.0 draft is merged into `mods/PhobosBank/framework/story.json`. The pack uses the
+existing Banking event hooks, lender officers and place-less threads; no code change was
+needed. The story validator checks the pack shape, and Banking checks require each event
+arc to belong to a known lender and event. Future edits follow the same checks, update the
+language ledger and changelog, and stay in Draft until the owner confirms publication.

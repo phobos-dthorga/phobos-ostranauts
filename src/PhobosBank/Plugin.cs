@@ -17,7 +17,7 @@ namespace PhobosBank;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = BankRules.Owner;
-    public const string Version = "0.4.0";
+    public const string Version = "0.5.0";
     public const string MinimumFrameworkVersion = "0.127.0";
     internal const string ModName = "Phobos Banking";
     internal static Action<string> Log = _ => { };
