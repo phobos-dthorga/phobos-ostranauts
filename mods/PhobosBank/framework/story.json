@@ -29,6 +29,12 @@
       "name": "Pell",
       "role": "the counter, the Narrow Ledger",
       "home": "coho"
+    },
+    "orrery-tamsin-ware": {
+      "name": "Tamsin Ware",
+      "role": "accounts desk, Orrery Credit",
+      "home": "oklg",
+      "notes": "Agent placeholder (0.6.0): Orrery Credit is system-wide; her desk sits at OKLG until ChatGPT's lore says otherwise."
     }
   },
   "threads": {
@@ -65,6 +71,13 @@
       "notes": "Letters from the counter in Corsair's Hollow.",
       "people": [
         "narrow-ledger-pell"
+      ]
+    },
+    "bank-orrery-credit": {
+      "title": "Orrery Credit",
+      "notes": "Letters from the system-wide credit line (0.6.0). No place, so its letters reach the player anywhere. Letters are ChatGPT's to write.",
+      "people": [
+        "orrery-tamsin-ware"
       ]
     }
   },

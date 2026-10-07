@@ -2,9 +2,10 @@
 
 Phobos Banking adds a **CREDIT** app to your PDA. It shows what you owe, read
 straight from your own ledger, lets you borrow from lenders where you are, and
-finances a ship or an apartment at the broker, and takes you to the game's Finances
-window to pay. Version 0.5.0 is a held draft: the debts screen has been seen in
-play, but borrowing, broker financing and the lender stories have not.
+finances a ship or an apartment at the broker, gives you a credit line you can draw on
+anywhere, and takes you to the game's Finances window to pay. Version 0.6.0 is a held
+draft: the debts screen has been seen in play, but borrowing, broker financing, the
+lender stories and the credit line have not.
 
 ## Opening it
 
@@ -24,6 +25,9 @@ The F3 console does the same through `phobosbank`:
 | `phobosbank loans` | Lists your loans from Phobos lenders: borrowed, still owed, rate and interest billed so far. |
 | `phobosbank approve <lender> ship` or `home` | Asks a lender to pre-approve a ship or apartment purchase at a broker. |
 | `phobosbank withdraw` | Drops your pre-approval; brokers are back to their own terms. |
+| `phobosbank line` | Shows the credit line: opened or not, what you owe, what is available and the least due this shift. |
+| `phobosbank openline` | Opens your credit line, from anywhere. |
+| `phobosbank draw <amount>` | Draws cash on your credit line, from anywhere (for example `phobosbank draw 2000`). |
 | `phobosbank open` | Opens the Credit panel. |
 | `phobosbank finances` | Opens the game's Finances window. |
 
@@ -91,6 +95,30 @@ The shipped lenders (agent choices for the owner to review):
 
 You can add lenders of your own or change these: see
 [Adding a lender](editing-data-files.md#adding-a-lender).
+
+## A credit line you can use anywhere
+
+**Orrery Credit** is a credit line you open and draw on from your PDA, wherever you are
+(owner choice, 7 October 2026). It costs more than a lender's counter, and says so: a fee
+on every draw and a higher rate on what you owe. Its terms are agent choices for the owner
+to review:
+
+| Limit | Interest a shift | Fee on each draw | Smallest draw |
+| --- | --- | --- | --- |
+| 25,000 | 0.06% | 3%, added to what you owe | 500 |
+
+1. Press **Credit line**, then **Open a credit line**. Opening costs nothing.
+2. Choose an amount and press **Draw**. The panel shows the fee, what you will owe and the
+   least you can pay each shift before you confirm. The money is paid in at once.
+3. Repay in the Finances window. Each shift the line raises one instalment, the least you
+   can pay, plus its interest. To pay off more, select that instalment and use **Prepay**.
+4. Draw again whenever you like, up to the limit. Each draw spreads the whole balance over
+   a fresh term, as the game's own Prepay does, so the least you pay each shift follows the
+   new balance.
+
+When the balance is paid off, interest stops, and the line stays open for next time.
+Anything unpaid at a shift change gains the game's usual 17.5% late fee; nothing else
+happens.
 
 ## Financing a ship or an apartment
 

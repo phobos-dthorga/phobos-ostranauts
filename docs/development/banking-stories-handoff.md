@@ -53,6 +53,29 @@ own voices and reply letters.
 - Optional longer lender threads were left out. The letters and local material stand on
   their own, and the owner can choose a direction for longer stories later.
 
+## Orrery Credit (Phobos Banking 0.6.0)
+
+A sixth institution, unlike the five lenders: **Orrery Credit**, a system-wide credit line
+the player opens and draws on from the PDA anywhere (owner choices, 7 October 2026). It
+costs more than a lender's counter and says so: a fee on each draw and a higher rate.
+Claude chose the name (an orrery is a model of the whole system) and a placeholder
+person, **Tamsin Ware, accounts desk** (`orrery-tamsin-ware`, home `oklg` for now); both
+are yours to develop or replace (keep the keys).
+
+- **Events:** `line-opened` (arc `bank-orrery-credit-line-opened`) when the player opens
+  the line, and `late`, `late-long` and `repaid` as for the lenders (`repaid` when the
+  balance is paid off; the line stays open). There is no event per draw.
+- **Flags:** `bank-orrery-credit-line-open`, and the late ones as for the lenders.
+- **Thread:** `bank-orrery-credit`, no place.
+- **Lore rule:** immediate credit anywhere in the system is a gameplay convenience, not
+  established Ostranauts canon. Do not invent a system-wide network, instant settlement or
+  a technology to explain it; the fiction may say the line is authorised against the
+  captain's account, and leave it there.
+- **Wanted:** its four event letters (line-opened, late, late-long, repaid), a voice, a
+  little history, adverts that are not tied to one place (use a `thread` with no place,
+  or several placed adverts), and whatever small talk suits a credit line everyone has
+  heard of.
+
 ## Rules (the game and our code hold the text to these)
 
 - Write story pack JSON exactly as [writing story content](../writing-story-content.md)

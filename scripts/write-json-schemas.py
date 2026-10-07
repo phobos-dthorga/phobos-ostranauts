@@ -493,7 +493,19 @@ def lenders():
                    'description': 'What it lends for: cash, ship (a ship broker purchase) or home (an apartment from a real-estate broker).'},
         'minDownShare': num(0.1, 1, description='For ship and home loans: the least paid down, as a share of the price (default 0.5).'),
     }, required=('name', 'pitch', 'home', 'ratePerShift', 'minPrincipal', 'maxPrincipal', 'offers'))
-    return obj({**header('lenders'), 'lenders': named(lender, 'Lenders by id (lowercase words joined by dashes, at most 32 characters).', '^[a-z0-9]+(-[a-z0-9]+)*$')},
+    line = obj({
+        'notes': NOTES,
+        'name': string('The service name shown in the app and on the ledger: 1 to 40 characters, without | , = # [ ] < >.'),
+        'pitch': string("The service's own words to a customer; at most 400 characters, no placeholders."),
+        'person': string('The story person who speaks for the service; optional.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
+        'requires': {'type': 'object', 'description': 'Who may open the line: a story requires block; none means anyone.'},
+        'limit': num(1000, 1000000, description='The most that may be owed on the line, fee included, in credits.'),
+        'ratePerShift': num(None, 0.01, exclusive_minimum=0, description='Interest per shift on the balance, as a share.'),
+        'drawFee': num(0, 0.2, description='The fee on each draw, as a share of the amount drawn, added to the balance.'),
+        'minDraw': num(100, 1000000, description='The smallest draw, in credits (default 500); with its fee, within the limit.'),
+    }, required=('name', 'pitch', 'limit', 'ratePerShift', 'drawFee'))
+    return obj({**header('lenders'), 'lenders': named(lender, 'Lenders by id (lowercase words joined by dashes, at most 32 characters).', '^[a-z0-9]+(-[a-z0-9]+)*$'),
+                'creditLines': named(line, 'System-wide credit lines by id (Phobos Banking 0.6.0): opened and drawn on from anywhere; ids must differ from every lender id, at most 31 characters.', '^[a-z0-9]+(-[a-z0-9]+)*$')},
                required=('schemaVersion', 'schema', 'lenders'),
                description="Phobos Banking lenders pack: who lends where, to whom and on what terms. Terms are copied into a loan when it is taken.")
 

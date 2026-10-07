@@ -1204,6 +1204,14 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: the credit line (L96)
+
+L96 — Phobos Banking 0.6.0. A credit line's balance is an ordinary Phobos loan to the
+existing five-second loan poll, so the poll's work grows by at most one loan per open
+line. The Credit line page reads the lines, the player's account and one mortgage line
+when it opens and every two seconds while open. Opening and drawing run once per press.
+Nothing runs per frame or per world tick. No capture accompanies this change.
+
 ## 7 October: lenders' letters (L95)
 
 L95 — Phobos Banking 0.4.0. The five-second loan poll now finds the oldest late bill per

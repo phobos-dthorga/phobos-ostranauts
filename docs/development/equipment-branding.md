@@ -326,3 +326,9 @@ Mutual), Laurent Chao (Halcyon Bond), Maeve Okonjo (Aerie Savings Union), Dario 
 (Stillwater Advances) and Pell (the Narrow Ledger). The
 game's own **Ogiso's Bank** and **Ogiso's Register** stay the game's: we refer to them
 and never speak for them.
+
+**Orrery Credit** (Phobos Banking 0.6.0, agent choice, 7 October 2026): the system-wide
+credit line. An orrery is a model of the whole solar system, for a service that follows the
+captain anywhere in it; measured and a little grand, with plain terms. Its placeholder
+person is Tamsin Ware, accounts desk. Collision search over this record and the repository
+found no other use of the word.

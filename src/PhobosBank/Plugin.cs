@@ -17,7 +17,7 @@ namespace PhobosBank;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = BankRules.Owner;
-    public const string Version = "0.5.0";
+    public const string Version = "0.6.0";
     public const string MinimumFrameworkVersion = "0.127.0";
     internal const string ModName = "Phobos Banking";
     internal static Action<string> Log = _ => { };
@@ -100,6 +100,21 @@ internal static class ConsolePatch
             case "lenders": message = DescribeLenders(); __result = true; break;
             case "approve" when parts.Length == 4: __result = Financing.PreApprove(parts[2], parts[3].ToLowerInvariant(), out message); break;
             case "withdraw": __result = Financing.Withdraw(out message); break;
+            // The credit line (0.6.0).
+            case "line": message = CreditLines.Describe(); __result = true; break;
+            case "openline":
+            {
+                string? id = parts.Length >= 3 ? parts[2] : CreditLines.DefaultId();
+                if (id == null) { message = Text.Get("Console.help"); __result = false; break; }
+                __result = CreditLines.Open(id, out message); break;
+            }
+            case "draw":
+            {
+                string? id = parts.Length >= 4 ? parts[3] : CreditLines.DefaultId();
+                if (parts.Length < 3 || id == null || !double.TryParse(parts[2], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double sum))
+                { message = Text.Get("Console.help"); __result = false; break; }
+                __result = CreditLines.Draw(id, sum, out message); break;
+            }
             case "loans": message = Loans.Describe(); __result = true; break;
             case "borrow":
                 if (parts.Length != 4 || !double.TryParse(parts[3], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double amount))

@@ -23,7 +23,8 @@ public sealed class Loan
     /// <summary>All interest billed so far, in credits.</summary>
     public double InterestBilled;
     public LoanState State = LoanState.Open;
-    /// <summary><c>cash</c>, <c>ship</c> or <c>home</c>; the registration of the ship or apartment for the last two.</summary>
+    /// <summary><c>cash</c>, <c>ship</c>, <c>home</c> or <c>line</c> (a credit line's balance, 0.6.0); the registration of
+    /// the ship or apartment for ship and home.</summary>
     public string Kind = LenderSchema.Cash;
     public string? Collateral;
     /// <summary>When the loan was repaid or settled.</summary>
@@ -38,16 +39,26 @@ public sealed class Approval
     public double Limit, Expires;
 }
 
+/// <summary>A credit line account (Phobos Banking 0.6.0): the service and its terms, copied when it was opened, so a
+/// later change to the lenders file never changes an open account. Its balance is the open <c>line</c> loan.</summary>
+public sealed class Account
+{
+    public string Line = "", Payee = "";
+    public double Limit, RatePerShift, DrawFee, MinDraw, Opened;
+}
+
 /// <summary>The player's loan book, saved on the player character as one Phobos record (<c>PhobosState.PhobosBank</c>).
 /// Fields this version does not understand are kept exactly as they were.</summary>
 public sealed class LoanBook
 {
     public const string Name = "PhobosBank";
     public const int Version = 1;
-    private const string LoanPrefix = "loan.", NextKey = "next", ApprovalKey = "approval", FormatTag = "1";
+    private const string LoanPrefix = "loan.", NextKey = "next", ApprovalKey = "approval", AccountPrefix = "account.", FormatTag = "1";
     public int Next = 1;
     public Dictionary<int, Loan> Loans { get; } = new();
     public Approval? Approval;
+    /// <summary>Credit line accounts by line id (0.6.0).</summary>
+    public Dictionary<string, Account> Accounts { get; } = new(StringComparer.Ordinal);
     private readonly Dictionary<string, string> kept = new(StringComparer.Ordinal);
 
     public IEnumerable<Loan> Open => Loans.Values.Where(l => l.State == LoanState.Open).OrderBy(l => l.Number);
@@ -68,6 +79,7 @@ public sealed class LoanBook
             else if (pair.Key.StartsWith(LoanPrefix, StringComparison.Ordinal) && int.TryParse(pair.Key.Substring(LoanPrefix.Length), NumberStyles.None, CultureInfo.InvariantCulture, out int n) &&
                      TryLoan(n, pair.Value, out var loan)) book.Loans[n] = loan;
             else if (pair.Key == ApprovalKey && TryApproval(pair.Value, out var approval)) book.Approval = approval;
+            else if (pair.Key.StartsWith(AccountPrefix, StringComparison.Ordinal) && TryAccount(pair.Key.Substring(AccountPrefix.Length), pair.Value, out var account)) book.Accounts[account.Line] = account;
             else book.kept[pair.Key] = pair.Value;
         }
         // A record whose counter was lost never reuses a number.
@@ -83,6 +95,8 @@ public sealed class LoanBook
                 Num(loan.Principal), Num(loan.RatePerShift), Num(loan.Opened), loan.BilledTo.ToString(CultureInfo.InvariantCulture), Num(loan.InterestBilled),
                 State(loan.State), loan.Kind, loan.Collateral ?? "", loan.Closed is double c ? Num(c) : "");
         if (Approval is Approval a) fields[ApprovalKey] = string.Join("|", FormatTag, a.Lender, a.Kind, Num(a.Limit), Num(a.Expires));
+        foreach (var account in Accounts.Values)
+            fields[AccountPrefix + account.Line] = string.Join("|", FormatTag, account.Payee, Num(account.Limit), Num(account.RatePerShift), Num(account.DrawFee), Num(account.MinDraw), Num(account.Opened));
         return fields;
     }
 
@@ -99,11 +113,21 @@ public sealed class LoanBook
         if (!TryNum(p[4], out loan.Principal) || !TryNum(p[5], out loan.RatePerShift) || !TryNum(p[6], out loan.Opened) ||
             !long.TryParse(p[7], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out loan.BilledTo) || !TryNum(p[8], out loan.InterestBilled)) return false;
         switch (p[9]) { case "open": loan.State = LoanState.Open; break; case "repaid": loan.State = LoanState.Repaid; break; case "settled": loan.State = LoanState.Settled; break; default: return false; }
-        if (!LenderSchema.Offers.Contains(p[10])) return false;
+        if (!LenderSchema.LoanKinds.Contains(p[10])) return false;
         loan.Kind = p[10];
         loan.Collateral = p[11].Length == 0 ? null : p[11];
         if (p[12].Length > 0) { if (!TryNum(p[12], out double closed)) return false; loan.Closed = closed; }
         return true;
+    }
+
+    private static bool TryAccount(string line, string value, out Account account)
+    {
+        account = new Account { Line = line };
+        var p = value.Split('|');
+        if (p.Length != 7 || p[0] != FormatTag || line.Length == 0 || p[1].Length == 0) return false;
+        account.Payee = p[1];
+        return TryNum(p[2], out account.Limit) && account.Limit > 0 && TryNum(p[3], out account.RatePerShift) && TryNum(p[4], out account.DrawFee) &&
+               TryNum(p[5], out account.MinDraw) && TryNum(p[6], out account.Opened);
     }
 
     private static bool TryApproval(string value, out Approval approval)
@@ -173,9 +197,32 @@ public static class LoanRules
         return new string(chars).Trim();
     }
 
+    /// <summary>What is left to draw on a credit line: its limit less what is owed, never below zero.</summary>
+    public static double LineAvailable(double limit, double owed) => Math.Max(0, limit - Math.Max(0, owed));
+
+    /// <summary>The fee on a draw, to the cent.</summary>
+    public static double DrawFee(double amount, double feeShare) => amount <= 0 || feeShare <= 0 ? 0 : Math.Round(amount * feeShare, 2);
+
+    /// <summary>The largest draw, in whole hundreds, whose fee still fits in what is available.</summary>
+    public static double MaxDraw(double available, double feeShare) => Math.Max(0, Math.Floor(available / (1 + Math.Max(0, feeShare)) / 100) * 100);
+
+    /// <summary>Whether a draw may be made: whole hundreds, at least the smallest draw, and with its fee within what is
+    /// available.</summary>
+    public static bool CanDraw(double amount, double feeShare, double minDraw, double available) =>
+        amount >= minDraw && Math.Abs(amount / 100 - Math.Round(amount / 100)) < 1e-9 && amount + DrawFee(amount, feeShare) <= available + 0.005;
+
+    /// <summary>How a loan ends when the game's ledger no longer holds a balance for it (0.6.0 fix). The game removes a
+    /// mortgage line when the Finances window's Prepay pays it off and when a ship sale's escrow covers it. A cash loan
+    /// or a credit line has no collateral, so it was repaid; a ship or apartment loan was repaid unless the collateral
+    /// has changed hands, when the sale settled it.</summary>
+    public static LoanState Closed(string kind, bool lineGone, bool collateralKept) =>
+        !lineGone || kind == LenderSchema.Cash || kind == LenderSchema.Line || collateralKept ? LoanState.Repaid : LoanState.Settled;
+
     /// <summary>Story flags a lender's loans set: borrowed, repaid, late.</summary>
     public static string Flag(string lender, string what) => "bank-" + lender + "-" + what;
     public const string Borrowed = "borrowed", Repaid = "repaid", Late = "late", LateLong = "late-long";
+    /// <summary>A credit line's own event and flag (0.6.0): <c>bank-&lt;id&gt;-line-opened</c> and <c>bank-&lt;id&gt;-line-open</c>.</summary>
+    public const string LineOpened = "line-opened", LineOpen = "line-open";
 
     /// <summary>The story arc a lender's event starts when a story pack has one (Phobos Banking 0.4.0): the
     /// <c>bank-&lt;lender&gt;-&lt;event&gt;</c> arc for <c>borrowed</c>, <c>late</c>, <c>late-long</c> and <c>repaid</c>.</summary>

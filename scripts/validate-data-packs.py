@@ -1247,7 +1247,8 @@ def story(pack, where, framework=None):
 
 
 # Phobos Banking 0.2.0: who lends, where and on what terms (mirrors PhobosBank.Core.LenderSchema).
-LENDER_LIMITS = {'id': 32, 'name': 40, 'pitch': 400, 'loans': 5, 'rate': 0.01, 'min': 1000, 'max': 5000000, 'down': 0.1}
+LENDER_LIMITS = {'id': 32, 'line_id': 31, 'name': 40, 'pitch': 400, 'loans': 5, 'rate': 0.01, 'min': 1000, 'max': 5000000, 'down': 0.1,
+                 'line_min': 1000, 'line_max': 1000000, 'fee': 0.2, 'draw': 100}
 LENDER_OFFERS = ('cash', 'ship', 'home')
 LENDER_UNSAFE = set('|,=#[]<>')
 
@@ -1255,7 +1256,7 @@ LENDER_UNSAFE = set('|,=#[]<>')
 def lenders(pack, where):
     """The lenders schema (Phobos Banking 0.2.0). Whether a lender's home, person and requirement entries exist is
     checked by the game against the built story library."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'lenders'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'lenders', 'creditLines'}, where)
     table = pack.get('lenders')
     if not isinstance(table, dict):
         raise Problem(f'{where}/lenders: expected id to lender')
@@ -1289,6 +1290,35 @@ def lenders(pack, where):
         if not isinstance(offers, list) or not offers or any(o not in LENDER_OFFERS for o in offers) or len(set(offers)) != len(offers):
             raise Problem(f'{w}/offers: one or more of {", ".join(LENDER_OFFERS)}, each once')
         number(l.get('minDownShare', 0.5), f'{w}/minDownShare', LENDER_LIMITS['down'], 1)
+    # Phobos Banking 0.6.0: system-wide credit lines, ids shared with the lenders (story arcs and flags use them).
+    lines = pack.get('creditLines', {})
+    if not isinstance(lines, dict):
+        raise Problem(f'{where}/creditLines: expected id to credit line')
+    for key, c in lines.items():
+        w = f'{where}/creditLines/{key}'
+        story_id(key, w, LENDER_LIMITS['line_id'])
+        if key in table:
+            raise Problem(f'{w}: a lender already has this id; story arcs and flags are named by it')
+        if not isinstance(c, dict):
+            raise Problem(f'{w}: expected an object')
+        fields(c, {'notes', 'name', 'pitch', 'person', 'requires', 'limit', 'ratePerShift', 'drawFee', 'minDraw'}, w)
+        if 'notes' in c and (not isinstance(c['notes'], str) or len(c['notes']) > 2000):
+            raise Problem(f'{w}/notes: at most 2000 characters')
+        name = c.get('name')
+        if not isinstance(name, str) or not name.strip() or len(name) > LENDER_LIMITS['name'] or LENDER_UNSAFE & set(name) or any(ord(ch) < 32 for ch in name):
+            raise Problem(f'{w}/name: 1 to {LENDER_LIMITS["name"]} characters, without | , = # [ ] < > or line breaks')
+        story_words(c.get('pitch'), LENDER_LIMITS['pitch'], f'{w}/pitch')
+        if '[' in c['pitch']:
+            raise Problem(f'{w}/pitch: no placeholders')
+        if c.get('person') is not None:
+            story_id(c['person'], f'{w}/person')
+        story_requires(c.get('requires'), f'{w}/requires')
+        number(c.get('limit'), f'{w}/limit', LENDER_LIMITS['line_min'], LENDER_LIMITS['line_max'])
+        number(c.get('ratePerShift'), f'{w}/ratePerShift', 0, LENDER_LIMITS['rate'], exclusive_low=True)
+        number(c.get('drawFee'), f'{w}/drawFee', 0, LENDER_LIMITS['fee'])
+        number(c.get('minDraw', 500), f'{w}/minDraw', LENDER_LIMITS['draw'], LENDER_LIMITS['line_max'])
+        if c.get('minDraw', 500) * (1 + c['drawFee']) > c['limit']:
+            raise Problem(f'{w}/minDraw: with its fee, the smallest draw must fit within the limit')
 
 
 SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders}

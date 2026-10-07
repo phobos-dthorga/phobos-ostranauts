@@ -603,6 +603,18 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.lenders(unknown, 'lenders')
         self.assertNotEqual(schemas.problems(json.loads(writer.render('lenders')), unknown), [])
+        # Phobos Banking 0.6.0: credit lines.
+        self.assertIn('orrery-credit', pack['creditLines'])
+        for field, value in (('drawFee', 0.5), ('limit', 10), ('ratePerShift', 0), ('minDraw', 50), ('minDraw', 30000), ('name', 'Orrery|Credit')):
+            bad = json.loads(json.dumps(pack))
+            bad['creditLines']['orrery-credit'][field] = value
+            with self.subTest(line_field=field, value=value):
+                with self.assertRaises(validate.Problem):
+                    validate.lenders(bad, 'lenders')
+        shared = json.loads(json.dumps(pack))
+        shared['creditLines']['corvane-mutual'] = shared['creditLines']['orrery-credit']
+        with self.assertRaises(validate.Problem):
+            validate.lenders(shared, 'lenders')
 
 if __name__ == '__main__':
     unittest.main()

@@ -595,3 +595,34 @@ story entry the game does not have is left out, with the reason in the log and i
 Each lender also leaves story flags a story pack can react to: `bank-<id>-borrowed` once
 you borrow, `bank-<id>-repaid` once a loan from it is repaid, and `bank-<id>-late` while
 any of its bills is late.
+
+### Credit lines
+
+The same file holds system-wide credit lines (Phobos Banking 0.6.0) under `creditLines`:
+services the player opens and draws on from the PDA anywhere, one revolving balance each.
+This file makes Orrery Credit's line bigger and cheaper to draw on:
+
+```json
+{
+  "creditLines": {
+    "orrery-credit": { "limit": 50000, "drawFee": 0.02 }
+  }
+}
+```
+
+What a credit line holds:
+
+- **`name`**, **`pitch`**: as for a lender. **`person`** (optional): a story person who
+  speaks for the service. **`requires`** (optional): who may open the line, the story
+  block; none means anyone, anywhere.
+- **`limit`**: the most that may be owed on the line, fees included, 1,000 to 1,000,000.
+- **`ratePerShift`**: interest on what is owed, per shift change, above 0 and at most 0.01.
+- **`drawFee`**: the fee on each draw, as a share of the amount drawn (0 to 0.2), added to
+  what is owed.
+- **`minDraw`** (default 500, from 100): the smallest draw; with its fee, within the limit.
+
+Ids share the lenders' namespace (no credit line may use a lender's id) and are at most 31
+characters, because story arcs and flags are named by them: `bank-<id>-line-opened` and
+`bank-<id>-line-open`, beside the `late`, `late-long` and `repaid` ones. Terms are copied
+into a player's account when it is opened, so a change here applies to accounts opened
+after it.

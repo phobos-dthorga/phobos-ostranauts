@@ -87329,14 +87329,16 @@
       "key": "Console.help",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Phobos Banking 0.3.0: broker financing. Each crew-log line says what the lender will do or why the broker's own terms stand; buttons say what they do; placeholders and commands kept.",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosBank/Plugin.cs:103",
-        "src/PhobosBank/Plugin.cs:105"
+        "src/PhobosBank/Plugin.cs:108",
+        "src/PhobosBank/Plugin.cs:115",
+        "src/PhobosBank/Plugin.cs:121",
+        "src/PhobosBank/Plugin.cs:123"
       ],
       "before": "phobosbank [debts|open|finances]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window.",
-      "after": "phobosbank [debts|open|finances|lenders|loans|borrow <lender> <amount>|approve <lender> ship|home|withdraw]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window; lenders lists who lends where; loans lists your loans from Phobos lenders; borrow takes a cash loan where you are; approve asks a lender to finance a ship or apartment purchase at a broker; withdraw drops that pre-approval."
+      "after": "phobosbank [debts|open|finances|lenders|loans|borrow <lender> <amount>|approve <lender> ship|home|withdraw|line|openline [line]|draw <amount> [line]]: debts lists what you owe; open shows the Credit panel; finances opens the game's Finances window; lenders lists who lends where; loans lists your loans from Phobos lenders; borrow takes a cash loan where you are; approve asks a lender to finance a ship or apartment purchase at a broker; withdraw drops that pre-approval; line shows your credit line; openline opens it; draw draws cash on it from anywhere."
     },
     {
       "mod": "PhobosBank",
@@ -88796,6 +88798,424 @@
       ],
       "before": "Phobos Banking did not start story arc {0}: {1}",
       "after": "Phobos Banking did not start story arc {0}: {1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Panel.line",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:49"
+      ],
+      "before": "Credit line",
+      "after": "Credit line"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:33",
+        "src/PhobosBank/CreditLines.cs:137"
+      ],
+      "before": "No credit line is offered.",
+      "after": "No credit line is offered."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.none_detail",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:33"
+      ],
+      "before": "No credit line service is set up in this game. The lenders file in the mod's framework folder lists them under creditLines; your own files in BepInEx/config/PhobosBank/lenders add more.",
+      "after": "No credit line service is set up in this game. The lenders file in the mod's framework folder lists them under creditLines; your own files in BepInEx/config/PhobosBank/lenders add more."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.row_closed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:38"
+      ],
+      "before": "{0}\nnot opened",
+      "after": "{0}\nnot opened"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.row_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:38"
+      ],
+      "before": "{0}\n{1} available",
+      "after": "{0}\n{1} available"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.what",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:50"
+      ],
+      "before": "A credit line you can draw on from anywhere, through your PDA. Dearer than a lender's counter, but always to hand.",
+      "after": "A credit line you can draw on from anywhere, through your PDA. Dearer than a lender's counter, but always to hand."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.terms",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:53"
+      ],
+      "before": "Limit {0}. Interest {1}% a shift on what you owe, billed at each shift change. Each draw adds a {2}% fee to the balance. Smallest draw {3}.",
+      "after": "Limit {0}. Interest {1}% a shift on what you owe, billed at each shift change. Each draw adds a {2}% fee to the balance. Smallest draw {3}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.repay",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:54"
+      ],
+      "before": "Repay in the Finances window: each shift the line raises one instalment, the least you can pay; select it and use Prepay to pay off more. A bill left unpaid at a shift change gains the usual {0}% late fee.",
+      "after": "Repay in the Finances window: each shift the line raises one instalment, the least you can pay; select it and use Prepay to pay off more. A bill left unpaid at a shift change gains the usual {0}% late fee."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.requires",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:53"
+      ],
+      "before": "Not open to you yet: {0}.",
+      "after": "Not open to you yet: {0}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.open_button",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:58"
+      ],
+      "before": "Open a credit line with {0}",
+      "after": "Open a credit line with {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.confirm_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:86"
+      ],
+      "before": "Open a credit line with {0}? Limit {1}, interest {2}% a shift on what you owe, and a {3}% fee on each draw. Opening costs nothing; you pay only on what you draw.",
+      "after": "Open a credit line with {0}? Limit {1}, interest {2}% a shift on what you owe, and a {3}% fee on each draw. Opening costs nothing; you pay only on what you draw."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.confirm_open_yes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:88"
+      ],
+      "before": "Open the line",
+      "after": "Open the line"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.opened",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:82"
+      ],
+      "before": "Credit line opened with {0}: draw up to {1} from anywhere, at {2}% interest a shift and a {3}% fee on each draw.",
+      "after": "Credit line opened with {0}: draw up to {1} from anywhere, at {2}% interest a shift and a {3}% fee on each draw."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:71",
+        "src/PhobosBank/CreditLines.cs:93"
+      ],
+      "before": "There is no credit line called {0}. phobosbank line lists them.",
+      "after": "There is no credit line called {0}. phobosbank line lists them."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.already_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:72"
+      ],
+      "before": "Your credit line with {0} is already open.",
+      "after": "Your credit line with {0} is already open."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.not_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:94"
+      ],
+      "before": "Open your credit line with {0} first: phobosbank openline, or the Credit line page.",
+      "after": "Open your credit line with {0} first: phobosbank openline, or the Credit line page."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:97"
+      ],
+      "before": "Draw in whole hundreds, from {0} up to {1}, fee included in what is available.",
+      "after": "Draw in whole hundreds, from {0} up to {1}, fee included in what is available."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.account",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:62"
+      ],
+      "before": "Your account",
+      "after": "Your account"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.balance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:63"
+      ],
+      "before": "Owed {0}. Available {1} of your {2} limit.",
+      "after": "Owed {0}. Available {1} of your {2} limit."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.minimum",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:64"
+      ],
+      "before": "The least you can pay this shift: {0}, raised as a bill in the Finances window.",
+      "after": "The least you can pay this shift: {0}, raised as a bill in the Finances window."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:70"
+      ],
+      "before": "Less is available than the smallest draw ({0}) once its fee is counted. Pay some of the balance off to draw again.",
+      "after": "Less is available than the smallest draw ({0}) once its fee is counted. Pay some of the balance off to draw again."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.draw_heading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:76"
+      ],
+      "before": "Draw",
+      "after": "Draw"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.quote",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:80"
+      ],
+      "before": "Draw {0}: a fee of {1} is added, so you would owe {2}. The least you can pay each shift becomes about {3}.",
+      "after": "Draw {0}: a fee of {1} is added, so you would owe {2}. The least you can pay each shift becomes about {3}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.draw_button",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:81"
+      ],
+      "before": "Draw {0}",
+      "after": "Draw {0}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.confirm_draw",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:93"
+      ],
+      "before": "Draw {0} on your {1} line? The money goes into your account now; a fee of {2} is added to what you owe, with {3}% interest a shift on the balance.",
+      "after": "Draw {0} on your {1} line? The money goes into your account now; a fee of {2} is added to what you owe, with {3}% interest a shift on the balance."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.confirm_draw_yes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/BankPanel.Line.cs:95"
+      ],
+      "before": "Draw",
+      "after": "Draw"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.drawn",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:119"
+      ],
+      "before": "Drew {0} on your {1} line. Fee {2}; you now owe {3}, with {4}% interest a shift. Repay in the Finances window.",
+      "after": "Drew {0} on your {1} line. Fee {2}; you now owe {3}, with {4}% interest a shift. Repay in the Finances window."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Line.can_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:139"
+      ],
+      "before": "you can open it now",
+      "after": "you can open it now"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:113"
+      ],
+      "before": "{0} credit line",
+      "after": "{0} credit line"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Ledger.drawn",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:117"
+      ],
+      "before": "Draw on {0} credit line",
+      "after": "Draw on {0} credit line"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.line_closed",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:139"
+      ],
+      "before": "{0}: {1}, not opened. Limit {2}, {3}% a shift, {4}% fee a draw; {5}.",
+      "after": "{0}: {1}, not opened. Limit {2}, {3}% a shift, {4}% fee a draw; {5}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Console.line_open",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Banking 0.6.0: the credit line. Terms, fee and the new minimum quoted before a confirmation; repayment directs the player to the Finances window and its Prepay; every refusal says what is in the way; placeholders and commands kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosBank/CreditLines.cs:140"
+      ],
+      "before": "{0}: {1}, open. Owed {2}, available {3}, least due this shift {4}; {5}% a shift, {6}% fee a draw.",
+      "after": "{0}: {1}, open. Owed {2}, available {3}, least due this shift {4}; {5}% a shift, {6}% fee a draw."
     }
   ],
   "documents": [
@@ -88803,8 +89223,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "973e3932fee58f44c4fc7958dd08b7257d9ffcec2bec9913ba0e4c3dc75268fe",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: version and summary reflect the held lender-story draft.",
+      "sha256": "5e4865f81cf26d2aaaab4b724c262f861eb2cdbbfcdbc546708f1aa247446fe7",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
     },
     {
@@ -89307,8 +89727,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "69565ecb609e6316483a1c7479f492faede1605957d062c3adceb8b2a73661bb",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
+      "sha256": "4f83bd1264bdfdff3a07ac4e09237ab369ace290ddadfe8f9b11387b379bb7ad",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -89644,8 +90064,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "a867436741dcd3c3fc67f6f0711d06903d90acea6253800adbac7517ca9dee80",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
+      "sha256": "6896ecbbfe812fd6196b8f081e5525b8b77954207ad4176b09eb8f5fc4f440a0",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
@@ -89925,8 +90345,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "500649f20509869667f97a4e2594cb99082e8230a3a6ff9c894be2ad5b76017a",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
+      "sha256": "9847aa573bbd019f3f543e008739ad0a230e50c506ae76d288c7ffb809cd7a4a",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -90262,8 +90682,8 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "86bae756a265d1bb4347d636d523592eda7353a02cd02b8e74e64cbc6fd27499",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0 and remote credit research: story record checked against the handoff; modern card mechanics attributed to CFPB sources; remote cash-line models, game constraints, open choices and unverified lore assumptions are labelled. No implementation or gameplay test claimed."
+      "sha256": "ca2e5a35f3b63cc81f5723ea0653ea40e6fdf85d7781ff4400b88c1fd01312f9",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
       "path": "docs/development/panel-override-audit.md",
@@ -90276,22 +90696,22 @@
       "path": "docs/bank-player-guide.md",
       "scope": "current player guide",
       "decision": "New player guide for Phobos Banking 0.1.0.",
-      "sha256": "cd0b63dbd364a1ffcb421eec181b340042dbdc4147f77de8ae58b350157980a5",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: five lender event letters, replies, local story content and unchanged payment and late-fee rules; gameplay remains unverified."
+      "sha256": "a4e6452e6d2fa6a305d29455604e4cb337cd06893600c140337d9e2d7aa8c355",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "14216c66753063321b7a1df4c3503975a872fe94ea2f4e654774f8653d52d741",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: held draft describes the five lenders and new letters, adverts, station news, chatter and article; no unverified gameplay claims added."
+      "sha256": "4d81ac8fef5b23d8de70ed5afe24acccb3539b7b7a1b9131b5bb2b3590566240",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
       "path": "docs/bank-item-reference.md",
       "scope": "generated item reference",
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
-      "sha256": "8fc7773ce9f2c2822a40055549cae1e5e2d9cbca0a266b748900d95b85a7330c",
-      "review": "Reviewed 7 October 2026: regenerated for Phobos Banking 0.5.0 (version line only)."
+      "sha256": "834019694820b2e243f714ff53d668b4cd3fd3420b2d5d71a7e433c0dc28d224",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     },
     {
       "path": "docs/development/health-condition-directions.md",
@@ -90311,8 +90731,8 @@
       "path": "docs/development/banking-stories-handoff.md",
       "scope": "development handoff",
       "decision": "New document; reviewed against player-language.md.",
-      "sha256": "1d639e7a7979d10a997bb1f86dc14400408e3225b1af983d28347234951ea8fd",
-      "review": "Reviewed 7 October 2026 after the 0.5.0 story draft: original lender voices and constraints retained; completed content and deliberately omitted optional threads recorded."
+      "sha256": "e3c689cdfec41edfecc3483dc0cc158663d3f4f2444e08a871f9a6a53ef80bac",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
     }
   ],
   "surfaces": [
@@ -90600,14 +91020,14 @@
       "path": "mods/PhobosBank/framework/story.json",
       "scope": "player-facing story pack: lender letters, replies, adverts, station news, small talk and encyclopedia text",
       "decision": "new",
-      "sha256": "dc6795ad2c691f1af95a30fe1cae951e5c94ce29ec2f1fa25cd6aecb8052c26a",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: lender voices match their pitches; event letters use only implemented outcomes, leave payment to Finances, and make no claims beyond the game’s consequences."
+      "sha256": "077aa2f7129f911b8e25ae0a9fb0a5a6e3478e91db2a1c2c1474f87f7635cf5e",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: Orrery Credit's placeholder person and place-less thread added to the story pack; the 0.6.0 changelog entry (credit line, repaid fix) checked against the code."
     },
     {
       "path": "mods/PhobosBank/CHANGELOG.md",
       "scope": "player-facing release changelog",
-      "sha256": "f8e1ae4ed1bb5ae8952af8fb2b4052cdae15b32af00773a626879a05dc5eda1d",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: records five lenders’ event letters and station story content, with payment and gameplay verification limits stated plainly."
+      "sha256": "184e66c4a376f5b3cd964217c341cd36f86da6ce8580cfc8755759c9891e55ec",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: Orrery Credit's placeholder person and place-less thread added to the story pack; the 0.6.0 changelog entry (credit line, repaid fix) checked against the code."
     },
     {
       "path": "workshop/PhobosBank/releases/0.5.0.bbcode",

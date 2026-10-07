@@ -16,19 +16,28 @@ internal static class Lenders
     public const string Resource = "PhobosBank.lenders.json";
     public static DataPackSource Source => new(BankRules.Owner, BankRules.ModFolder, LenderSchema.Name, typeof(Lenders).Assembly, Resource);
     private static Dictionary<string, LenderEntry> lenders = new(StringComparer.Ordinal);
+    private static Dictionary<string, CreditLineEntry> lines = new(StringComparer.Ordinal);
     private static readonly List<string> problems = new();
 
     public static IReadOnlyDictionary<string, LenderEntry> All => lenders;
+    /// <summary>The system-wide credit lines (0.6.0).</summary>
+    public static IReadOnlyDictionary<string, CreditLineEntry> Lines => lines;
     public static IReadOnlyList<string> Problems => problems;
 
     /// <summary>Reads the pack (content loading). A shipped pack that fails is a packaging fault: no lenders, said in the log.</summary>
     public static void Load()
     {
         problems.Clear();
-        try { lenders = new Dictionary<string, LenderEntry>(DataPacks.Load<LenderPack>(Source, LenderSchema.Validate).lenders, StringComparer.Ordinal); }
+        try
+        {
+            var pack = DataPacks.Load<LenderPack>(Source, LenderSchema.Validate);
+            lenders = new Dictionary<string, LenderEntry>(pack.lenders, StringComparer.Ordinal);
+            lines = new Dictionary<string, CreditLineEntry>(pack.creditLines, StringComparer.Ordinal);
+        }
         catch (Exception ex) when (ex is ArgumentException || ex is FormatException || ex is InvalidOperationException)
         {
             lenders = new Dictionary<string, LenderEntry>(StringComparer.Ordinal);
+            lines = new Dictionary<string, CreditLineEntry>(StringComparer.Ordinal);
             problems.Add(Text.Get("Lenders.pack_failed", ex.Message)); Plugin.Log(problems[problems.Count - 1]);
         }
     }
@@ -43,7 +52,18 @@ internal static class Lenders
                 lenders.Remove(pair.Key);
                 problems.Add(Text.Get("Lenders.refused", pair.Key, problem)); Plugin.Log(problems[problems.Count - 1]);
             }
+        foreach (var pair in lines.ToArray())
+            if (LenderSchema.Unknown(pair.Value, library) is string problem)
+            {
+                lines.Remove(pair.Key);
+                problems.Add(Text.Get("Lenders.refused", pair.Key, problem)); Plugin.Log(problems[problems.Count - 1]);
+            }
     }
+
+    /// <summary>A credit line's name and pitch in the player's language, as for lenders (<c>CreditLines.&lt;id&gt;.name</c>).</summary>
+    public static string LineName(string id) => lines.TryGetValue(id, out var c) ? LenderSchema.LedgerSafe(LineWords(id, "name", c.name)) ? LineWords(id, "name", c.name) : c.name : id;
+    public static string LinePitch(string id) => lines.TryGetValue(id, out var c) ? LineWords(id, "pitch", c.pitch) : "";
+    private static string LineWords(string id, string field, string inline) => Translations.Get(BankRules.Owner, "CreditLines." + id + "." + field, inline);
 
     /// <summary>The lender's name and pitch in the player's language: a translation of <c>Lenders.&lt;id&gt;.name</c> or
     /// <c>.pitch</c> when the catalogue has one, else the pack's own words.</summary>

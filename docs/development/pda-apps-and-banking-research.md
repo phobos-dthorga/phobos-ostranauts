@@ -599,6 +599,37 @@ severe enough that the remote line should not make missed payments even harsher.
   account/story event? No good-standing gate is proposed yet; denying emergency access
   for already being in trouble could undermine the feature's purpose.
 
+## Remote credit line as built
+
+Phobos Banking 0.6.0, 7 October 2026, held draft. Owner choices that day settled the open
+decisions above: **a new system-wide service** (not one of the five lenders), **opened from
+anywhere** through the PDA, **one revolving balance**, and **a draw fee added to the
+balance plus a higher rate**. Claude's design, against the research above:
+
+- **Repayment uses the game's own Prepay.** The decompile shows `PrepayWindow.OnPrepayConfirm`
+  paying an amount off a mortgage line, removing the selected instalment and resetting
+  the line's start time (`fTime`), which spreads the rest over a fresh full term. So the
+  balance is one native mortgage line. Its shift instalment is the minimum payment,
+  Prepay pays more, and a draw adds the amount and its fee to the line and resets its
+  start time as Prepay does. This answers the question of what repayment interval and
+  amount the Finances window can support: per shift, with Prepay for any extra amount. No
+  statement cycle or grace period was imitated; the game bills by the shift.
+- **Data:** a `creditLines` table in the lenders pack (limit, ratePerShift, drawFee,
+  minDraw, optional person and requires; ids shared with the lenders, at most 31
+  characters). **Orrery Credit** (agent choices): limit 25,000, 0.06% a shift (dearer
+  than the registered lenders' 0.02 to 0.03%, cheaper than the Narrow Ledger's 0.15%), a
+  3% draw fee, smallest draw 500, no requirements.
+- **Book:** `account.<id>` holds the terms copied at opening; each balance cycle is a
+  loan of kind `line`, so interest, the late flags and story events reuse the loan
+  service. Opening sets `bank-<id>-line-open` and fires `line-opened`.
+- **Not added:** merchant card payments, new default consequences, a standing gate, limit
+  growth. A later round could raise limits for good payers (the per-lender standing score
+  set aside earlier).
+- **Fix found on the way:** Prepay paying a loan off in full removes its mortgage line,
+  which 0.2.0 to 0.5.0 reported as "settled" by a ship sale. A cash loan or a line is now
+  repaid when its line is gone; a ship or home loan is settled only when the collateral
+  has changed hands (`LoanRules.Closed`).
+
 ## Proposed rounds
 
 1. **Framework `PdaApps` and the debts screen** (built; see above). The PDA icon, the panel, and the

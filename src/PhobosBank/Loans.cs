@@ -120,7 +120,7 @@ internal static class Loans
         if (sum <= 0 || Math.Abs(sum - amount) > 0.5) { message = Text.Get("Lender.amount", BankPanel.Money(view.Entry.minPrincipal), BankPanel.Money(view.Headroom)); return false; }
 
         var player = owner!;
-        var loan = Open(lenderId, view, sum, LenderSchema.Cash, null, LoanRules.LoanDescription(Text.Get("Ledger.loan", view.Name), book.Next));
+        var loan = Open(lenderId, view.Name, view.Entry.ratePerShift, sum, LenderSchema.Cash, null, LoanRules.LoanDescription(Text.Get("Ledger.loan", view.Name), book.Next));
         player.AddCondAmount(Ledger.CURRENCY, sum);
         Ledger.RecordTransaction(player, loan.Payee, sum, LoanRules.Clean(Text.Get("Ledger.borrowed", loan.Payee)));
         Ledger.AddLI(new LedgerLI(loan.Payee, player.strID, (float)sum, loan.Description, Ledger.CURRENCY, StarSystem.fEpoch, LedgerLI.Frequency.Mortgage));
@@ -130,16 +130,20 @@ internal static class Loans
         return true;
     }
 
-    /// <summary>Records a new loan in the book, terms fixed now, and marks it for story content.</summary>
-    internal static Loan Open(string lenderId, LenderView view, double principal, string kind, string? collateral, string description)
+    /// <summary>Records a new loan in the book, terms fixed now, and marks it for story content. A credit line's balance
+    /// (kind <c>line</c>) is not a new borrowing, so it fires no borrowed event; the line's opening did.</summary>
+    internal static Loan Open(string lenderId, string payeeName, double ratePerShift, double principal, string kind, string? collateral, string description)
     {
         var loan = book.Add(new Loan
         {
-            Lender = lenderId, Payee = LoanRules.Clean(view.Name), Description = description, Principal = principal, RatePerShift = view.Entry.ratePerShift,
+            Lender = lenderId, Payee = LoanRules.Clean(payeeName), Description = description, Principal = principal, RatePerShift = ratePerShift,
             Opened = StarSystem.fEpoch, BilledTo = GameClock.ShiftCount(StarSystem.fEpoch), Kind = kind, Collateral = collateral
         });
-        Flag(LoanRules.Flag(lenderId, LoanRules.Borrowed), true);
-        Story(lenderId, LoanRules.Borrowed);
+        if (kind != LenderSchema.Line)
+        {
+            Flag(LoanRules.Flag(lenderId, LoanRules.Borrowed), true);
+            Story(lenderId, LoanRules.Borrowed);
+        }
         return loan;
     }
 
@@ -165,7 +169,10 @@ internal static class Loans
             var line = Line(loan, player.strID);
             if (line == null || line.fAmount <= BankRules.PaidOffBelow || line.Paid)
             {
-                loan.State = line == null ? LoanState.Settled : LoanState.Repaid; loan.Closed = now; changed = true;
+                // The game removes a mortgage line both when Prepay pays it off and when a ship sale's escrow covers it
+                // (0.6.0 fix: a loan prepaid in full was reported as settled by a sale).
+                bool kept = loan.Collateral != null && CrewSim.system?.GetShipOwner(loan.Collateral) == player.strID;
+                loan.State = LoanRules.Closed(loan.Kind, line == null, kept); loan.Closed = now; changed = true;
                 if (loan.State == LoanState.Repaid) { Flag(LoanRules.Flag(loan.Lender, LoanRules.Repaid), true); Story(loan.Lender, LoanRules.Repaid); }
                 player.LogMessage(Text.Get(loan.State == LoanState.Repaid ? "Loans.repaid" : "Loans.settled", loan.Payee), "Good", player.strID);
                 continue;
@@ -198,7 +205,7 @@ internal static class Loans
     }
 
     /// <summary>Sets or clears a story flag; true when it has just been set.</summary>
-    private static bool Flag(string flag, bool on)
+    internal static bool Flag(string flag, bool on)
     {
         try
         {
@@ -212,7 +219,7 @@ internal static class Loans
 
     /// <summary>Starts the lender's story arc for an event when a story pack has one, honouring its requirements
     /// (Phobos Banking 0.4.0). Arcs are optional: none means nothing happens.</summary>
-    private static void Story(string lender, string what)
+    internal static void Story(string lender, string what)
     {
         string arc = LoanRules.Arc(lender, what);
         if (!StoryContent.Library.Arcs.ContainsKey(arc)) return;

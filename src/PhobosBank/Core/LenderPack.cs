@@ -14,6 +14,32 @@ public sealed class LenderPack : DataPack
 {
     /// <summary>Lenders by id: lowercase words joined by dashes. Story flags use the id.</summary>
     public Dictionary<string, LenderEntry> lenders = new(StringComparer.Ordinal);
+    /// <summary>System-wide credit lines by id (Phobos Banking 0.6.0): opened and drawn on from the PDA anywhere, one
+    /// revolving balance each. Ids share the lenders' namespace, because story arcs and flags are named by them.</summary>
+    public Dictionary<string, CreditLineEntry> creditLines = new(StringComparer.Ordinal);
+}
+
+/// <summary>A credit line (Phobos Banking 0.6.0; owner choices, 7 October 2026: a system-wide service, opened from
+/// anywhere, one revolving balance, a draw fee plus a higher rate). The balance is one of the game's own mortgage lines:
+/// its shift instalment is the minimum payment, the Finances window's Prepay pays more, and each draw adds to it and
+/// spreads it over a fresh term, as the game's own Prepay does.</summary>
+public sealed class CreditLineEntry
+{
+    public string? notes;
+    public string name = "";
+    public string pitch = "";
+    /// <summary>The story person who speaks for the service; optional.</summary>
+    public string? person;
+    /// <summary>Who may open the line: a story requirement block; none means anyone.</summary>
+    public StoryRequires? requires;
+    /// <summary>The most that may be owed on the line, fee included, in credits.</summary>
+    public double limit;
+    /// <summary>Interest per shift on the balance, as a share.</summary>
+    public double ratePerShift;
+    /// <summary>The fee on each draw, as a share of the amount drawn, added to the balance.</summary>
+    public double drawFee;
+    /// <summary>The smallest draw, in credits.</summary>
+    public double minDraw = 500;
 }
 
 public sealed class LenderEntry
@@ -51,8 +77,13 @@ public static class LenderSchema
     public const string Name = "lenders";
     public const string Cash = "cash", Ship = "ship", Home = "home";
     public static readonly IReadOnlyList<string> Offers = new[] { Cash, Ship, Home };
-    /// <summary>Lender ids stay short enough for the story flags built from them (<c>bank-&lt;id&gt;-borrowed</c>).</summary>
-    public const int MaxIdLength = 32, MaxName = 40, MaxPitch = 400, MaxLoans = 5;
+    /// <summary>What a loan in the book is for: a lender's three, and a credit line's balance (0.6.0).</summary>
+    public const string Line = "line";
+    public static readonly IReadOnlyList<string> LoanKinds = new[] { Cash, Ship, Home, Line };
+    /// <summary>Lender ids stay short enough for the story flags built from them (<c>bank-&lt;id&gt;-borrowed</c>); credit
+    /// line ids one shorter, for <c>bank-&lt;id&gt;-line-opened</c>.</summary>
+    public const int MaxIdLength = 32, MaxLineIdLength = 31, MaxName = 40, MaxPitch = 400, MaxLoans = 5;
+    public const double MinLineLimit = 1000, MaxLineLimit = 1000000, MaxDrawFee = 0.2, MinDraw = 100;
     public const double MaxRatePerShift = 0.01, MinPrincipal = 1000, MaxPrincipal = 5000000, MinDownShare = 0.1;
 
     /// <summary>The checks every file passes, shipped or player. Whether the home, person and requirement entries exist
@@ -81,7 +112,29 @@ public static class LenderSchema
                 throw new ArgumentException(where + ".offers: one or more of " + string.Join(", ", Offers) + ", each once");
             if (!Finite(l.minDownShare) || l.minDownShare < MinDownShare || l.minDownShare > 1) throw new ArgumentException(where + ".minDownShare: from " + MinDownShare + " to 1");
         }
+        if (pack.creditLines == null) throw new ArgumentException("creditLines: expected id to credit line");
+        foreach (var pair in pack.creditLines)
+        {
+            string where = "creditLines." + pair.Key;
+            var c = pair.Value ?? throw new ArgumentException(where + ": empty");
+            if (!StorySchema.IsId(pair.Key, MaxLineIdLength)) throw new ArgumentException(where + ": an id is lowercase letters and digits joined by dashes, at most " + MaxLineIdLength);
+            if (pack.lenders.ContainsKey(pair.Key)) throw new ArgumentException(where + ": a lender already has this id; story arcs and flags are named by it");
+            if (c.notes != null && c.notes.Length > 2000) throw new ArgumentException(where + ".notes: at most 2000 characters");
+            if (!LedgerSafe(c.name) || c.name.Length > MaxName) throw new ArgumentException(where + ".name: 1 to " + MaxName + " characters, without | , = # [ ] < > or line breaks");
+            StorySchema.Words(c.pitch, MaxPitch, where + ".pitch");
+            if (c.pitch.IndexOf('[') >= 0) throw new ArgumentException(where + ".pitch: no placeholders");
+            if (c.person != null && !StorySchema.IsId(c.person)) throw new ArgumentException(where + ".person: a story person key");
+            StorySchema.ValidateRequires(c.requires, where);
+            if (!Finite(c.limit) || c.limit < MinLineLimit || c.limit > MaxLineLimit) throw new ArgumentException(where + ".limit: from " + MinLineLimit + " to " + MaxLineLimit);
+            if (!Finite(c.ratePerShift) || c.ratePerShift <= 0 || c.ratePerShift > MaxRatePerShift) throw new ArgumentException(where + ".ratePerShift: above 0 and at most " + MaxRatePerShift);
+            if (!Finite(c.drawFee) || c.drawFee < 0 || c.drawFee > MaxDrawFee) throw new ArgumentException(where + ".drawFee: from 0 to " + MaxDrawFee);
+            if (!Finite(c.minDraw) || c.minDraw < MinDraw || c.minDraw * (1 + c.drawFee) > c.limit) throw new ArgumentException(where + ".minDraw: at least " + MinDraw + ", and with its fee within the limit");
+        }
     }
+
+    /// <summary>The first story entry a credit line names that the library does not know, or null.</summary>
+    public static string? Unknown(CreditLineEntry line, StoryLibrary library) =>
+        library.UnknownPerson(line.person) ?? library.UnknownReference(line.requires);
 
     /// <summary>The first story entry a lender names that the library does not know, or null.</summary>
     public static string? Unknown(LenderEntry lender, StoryLibrary library) =>

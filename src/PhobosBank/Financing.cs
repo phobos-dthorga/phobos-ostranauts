@@ -103,7 +103,7 @@ internal static class Financing
             Ledger.AddLI(bill);
         }
         line.strPayee = payee;
-        Loans.Open(offer.Lender, view, principal, offer.Kind, regId, mortgageDescription);
+        Loans.Open(offer.Lender, view.Name, view.Entry.ratePerShift, principal, offer.Kind, regId, mortgageDescription);
         Loans.Book.Approval = null;
         Loans.SaveBook();
         message = Text.Get(offer.Kind == LenderSchema.Home ? "Financing.done_home" : "Financing.done_ship", offer.Name, BankPanel.Money(principal), regId, Loans.Percent(offer.Rate));

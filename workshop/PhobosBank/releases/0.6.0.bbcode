@@ -1,0 +1,25 @@
+[h1]Phobos Banking 0.6.0[/h1]
+[b]Draft - not published | 2026-10-07[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]A credit line you can use anywhere: Orrery Credit, a system-wide service, opened and drawn on from your PDA wherever you are. Limit 25,000, interest 0.06% a shift on what you owe and a 3% fee on each draw, added to the balance (agent choices for the owner to review). The Credit line page shows the limit, what you owe, what is available and the least you can pay this shift, and quotes each draw's fee and new minimum before you confirm.
+[*]Repaying works through the Finances window: each shift the line raises one instalment, the least you can pay; Prepay pays off more. Each draw spreads the whole balance over a fresh term, as the game's own Prepay does. When the balance is paid off, interest stops and the line stays open.
+[*]Credit lines are data: a creditLines table in the lenders file, for players and add-ons to add or tune. Story writers get the line-opened event and the line-open flag.
+[*]F3 console: phobosbank line, phobosbank openline and phobosbank draw amount.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]A loan paid off in full with the Finances window's Prepay is now reported as repaid, with the repaid flag and letter. It was reported as settled by a ship sale, because the game removes the mortgage line in both cases. A ship or apartment loan counts as settled only when the ship or apartment has changed hands.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Saves: an opened credit line is one more record in the loan book, with its terms copied when it was opened; its balance is one of the game's own mortgage lines. Nothing changes in existing loans.
+[*]Not paying has only the game's own consequences, the 17.5% late fee on each unpaid bill.
+[*]Checked offline and against the game's own Prepay and instalment code; not yet seen in play.
+[/list]

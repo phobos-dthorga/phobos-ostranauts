@@ -165,4 +165,45 @@ Check(LoanRules.MinDownShare(100000, 0.3, 100000, 5000) == 0.3, "the lender's ow
 foreach (var pair in lenderPack.lenders.Where(l => l.Value.offers.Contains(LenderSchema.Ship) || l.Value.offers.Contains(LenderSchema.Home)))
     Check(pair.Value.minDownShare < 0.5, pair.Key + " finances a purchase from less than the broker's own 50% down");
 
+// ---- Credit lines (0.6.0) -----------------------------------------------------------------------------
+Check(lenderPack.creditLines.ContainsKey("orrery-credit"), "the shipped pack holds the Orrery Credit line");
+var orrery = lenderPack.creditLines["orrery-credit"];
+Check(orrery.ratePerShift > lenderPack.lenders.Values.Where(l => l.accredited).Max(l => l.ratePerShift) && orrery.ratePerShift < lenderPack.lenders.Values.Max(l => l.ratePerShift) && orrery.drawFee > 0,
+    "the line costs more than any registered lender's counter, less than the dearest lender, and charges a draw fee");
+foreach (var pair in lenderPack.creditLines)
+{
+    Check(LenderSchema.Unknown(pair.Value, library) == null, "credit line " + pair.Key + " names only known people");
+    Check(StorySchema.IsId(LoanRules.Arc(pair.Key, LoanRules.LineOpened)) && StorySchema.IsId(LoanRules.Flag(pair.Key, LoanRules.LineOpen)), "credit line " + pair.Key + "'s story arc and flag ids are valid");
+    Check(pair.Value.person == null || bankStory.people.ContainsKey(pair.Value.person), "credit line " + pair.Key + "'s person is in the Banking story pack");
+}
+Check(StorySchema.IsId(LoanRules.Arc(new string('a', LenderSchema.MaxLineIdLength), LoanRules.LineOpened)), "the longest credit line id still makes a valid arc id");
+string WithLine(string find, string replace) { Check(shippedLenders.Contains(find), "fixture has " + find); return shippedLenders.Replace(find, replace); }
+Check(RefusedLenders(WithLine("\"drawFee\": 0.03", "\"drawFee\": 0.5")), "a ruinous draw fee is refused");
+Check(RefusedLenders(WithLine("\"limit\": 25000", "\"limit\": 300")), "a line below the smallest limit is refused");
+Check(RefusedLenders(WithLine("\"minDraw\": 500", "\"minDraw\": 30000")), "a smallest draw that cannot fit the limit is refused");
+Check(RefusedLenders(WithLine("\"orrery-credit\": {", "\"corvane-mutual\": {")), "a credit line cannot take a lender's id");
+Check(LoanRules.LineAvailable(25000, 10000) == 15000 && LoanRules.LineAvailable(25000, 30000) == 0, "available is the limit less what is owed");
+Check(LoanRules.DrawFee(1000, 0.03) == 30 && LoanRules.DrawFee(1234, 0.03) == 37.02 && LoanRules.DrawFee(1000, 0) == 0, "the draw fee is the share of the draw, to the cent");
+Check(LoanRules.MaxDraw(25000, 0.03) == 24200 && LoanRules.MaxDraw(1000, 0.03) == 900 && LoanRules.MaxDraw(0, 0.03) == 0, "the largest draw leaves room for its fee, in whole hundreds");
+Check(LoanRules.CanDraw(24200, 0.03, 500, 25000) && !LoanRules.CanDraw(24300, 0.03, 500, 25000) && !LoanRules.CanDraw(400, 0.03, 500, 25000) && !LoanRules.CanDraw(550, 0.03, 500, 25000),
+    "a draw is whole hundreds, at least the smallest draw, with its fee within what is available");
+string l2 = LoanRules.LoanDescription("Orrery Credit credit line", 2), l12 = LoanRules.LoanDescription("Orrery Credit credit line", 12);
+Check(!(l12 + "; Remaining: 100").Contains(l2) && !(d30 + "; Remaining: 100").Contains(l2) && !(l2 + "; Remaining: 100").Contains(d3), "a line's instalments and a loan's never pay each other down");
+// The 0.6.0 fix: how a loan ends when the game's ledger no longer holds it.
+Check(LoanRules.Closed(LenderSchema.Cash, true, false) == LoanState.Repaid && LoanRules.Closed(LenderSchema.Line, true, false) == LoanState.Repaid,
+    "a cash loan or a credit line with no ledger line left was paid off (Prepay removes it)");
+Check(LoanRules.Closed(LenderSchema.Ship, true, true) == LoanState.Repaid && LoanRules.Closed(LenderSchema.Ship, true, false) == LoanState.Settled && LoanRules.Closed(LenderSchema.Home, true, false) == LoanState.Settled,
+    "a ship or home loan was repaid while the collateral is still the player's, settled by its sale when it is not");
+Check(LoanRules.Closed(LenderSchema.Ship, false, false) == LoanState.Repaid, "a paid-off line still in the ledger is repaid");
+var accounts = new LoanBook();
+accounts.Accounts["orrery-credit"] = new Account { Line = "orrery-credit", Payee = "Orrery Credit", Limit = 25000, RatePerShift = 0.0006, DrawFee = 0.03, MinDraw = 500, Opened = 5e6 };
+var cycle = accounts.Add(new Loan { Lender = "orrery-credit", Payee = "Orrery Credit", Description = l2, Principal = 1030, RatePerShift = 0.0006, Opened = 5e6, BilledTo = 7, Kind = LenderSchema.Line });
+var accountFields = accounts.Encode();
+accountFields["account.future-line"] = "9|whatever";
+var accountsBack = LoanBook.Decode(accountFields);
+var acc = accountsBack.Accounts["orrery-credit"];
+Check(acc.Payee == "Orrery Credit" && acc.Limit == 25000 && acc.RatePerShift == 0.0006 && acc.DrawFee == 0.03 && acc.MinDraw == 500 && acc.Opened == 5e6, "a credit line account round-trips with its copied terms");
+Check(accountsBack.Loans[cycle.Number].Kind == LenderSchema.Line && accountsBack.Loans[cycle.Number].Principal == 1030, "a credit line's balance cycle round-trips as a line loan");
+Check(accountsBack.Encode()["account.future-line"] == "9|whatever" && accountsBack.Encode().Values.All(v => ObjectStateStore.SafeValue(v)), "an account this version cannot read is kept, and every value passes the save store");
+
 Console.WriteLine($"Phobos Banking checks passed: {checks}.");

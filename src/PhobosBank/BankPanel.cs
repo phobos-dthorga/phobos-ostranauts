@@ -42,9 +42,11 @@ public sealed partial class BankPanel : GUIData
     private void Build()
     {
         shell = ConsoleShell.Create(transform, Text.Get("Panel.title"), C.Slate);
-        C.Button(shell.Navigation, Text.Get("Panel.overview"), () => { lenders = false; selected = ""; shell.Page(true); Render(); });
+        C.Button(shell.Navigation, Text.Get("Panel.overview"), () => { lenders = false; credit = false; selected = ""; shell.Page(true); Render(); });
         // Lenders (Banking 0.2.0): who lends here, on what terms, and borrowing.
-        C.Button(shell.Navigation, Text.Get("Panel.lenders"), () => { lenders = true; lender = ""; shell.Page(false); Render(); });
+        C.Button(shell.Navigation, Text.Get("Panel.lenders"), () => { lenders = true; credit = false; lender = ""; shell.Page(false); Render(); });
+        // The credit line (Banking 0.6.0): a system-wide revolving balance, drawn on from anywhere.
+        C.Button(shell.Navigation, Text.Get("Panel.line"), () => { credit = true; lenders = false; shell.Page(true); Render(); });
         // Back only pages from a debt to the list on a narrow screen; on a wide one both show at once.
         back = C.Button(shell.Navigation, C.Text("back"), () => { shell.Page(false); Render(); });
         back.gameObject.SetActive(shell.IsNarrow);
@@ -54,6 +56,7 @@ public sealed partial class BankPanel : GUIData
 
     private void Render()
     {
+        if (credit) { RenderLine(); return; }
         if (lenders) { RenderLenders(); return; }
         var summary = Debts.Read();
         signature = summary.Signature;
@@ -158,7 +161,7 @@ public sealed partial class BankPanel : GUIData
         next = Time.unscaledTime + BankRules.PanelRefreshSeconds;
         // A paid bill, a new instalment or a late fee redraws the panel, keeping its scroll; on the lenders page, a move
         // into or out of a lender's reach does.
-        if ((lenders ? LendersSignature() : Debts.Read().Signature) != signature) Render();
+        if ((credit ? LineSignature() : lenders ? LendersSignature() : Debts.Read().Signature) != signature) Render();
     }
 }
 

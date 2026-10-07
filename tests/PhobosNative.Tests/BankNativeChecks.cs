@@ -98,6 +98,22 @@ internal static class BankNativeChecks
         check(typeof(Ledger).GetMethod(nameof(Ledger.RecordTransaction)) != null && typeof(Ledger).GetMethod(nameof(Ledger.AddLI), new[] { typeof(LedgerLI) }) != null,
             "The ledger calls a loan uses are still there");
 
+        // ---- Credit lines (0.6.0) ----------------------------------------------------------------------
+        // The game's own Prepay re-spreads a balance by resetting the line's start time; a draw does the same.
+        var prepay = typeof(LedgerLI).Assembly.GetType("Ostranauts.UI.Finance.PrepayWindow");
+        check(prepay != null && prepay.GetMethod("OnPrepayConfirm", BindingFlags.NonPublic | BindingFlags.Instance) != null && prepay.GetField("_mortgageLI", BindingFlags.NonPublic | BindingFlags.Instance) != null,
+            "The game's Prepay window still pays a mortgage line down, the repayment a credit line relies on");
+        double saved = StarSystem.fEpoch;
+        try
+        {
+            var respread = new LedgerLI("Orrery Credit", "player", 5000, LoanRules.LoanDescription("Orrery Credit credit line", 2), Ledger.CURRENCY, 1000, LedgerLI.Frequency.Mortgage);
+            StarSystem.fEpoch = 1000 + 200 * Phobos.Ostranauts.Framework.GameClock.ShiftSeconds;
+            respread.fAmount += 3090; respread.fTime = StarSystem.fEpoch;
+            double native = Math.Min(MathUtils.MortgagePaymentPerShift(respread), respread.fAmount), mirror = BankRules.Instalment(8090, BankRules.ShiftsLeft(0));
+            check(Math.Abs(native - mirror) <= 1e-3 * mirror, $"After a draw restarts the line's term, the game's instalment is the panel's new minimum: game {native:0.00}, ours {mirror:0.00}");
+        }
+        finally { StarSystem.fEpoch = saved; }
+
         // ---- Financing at the broker (0.3.0) ------------------------------------------------------------
         var popup = typeof(Ostranauts.ShipGUIs.ShipBroker.ConfirmBuyShipPopup);
         var any = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
