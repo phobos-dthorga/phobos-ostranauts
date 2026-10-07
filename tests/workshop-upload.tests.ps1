@@ -121,6 +121,44 @@ $fresh = (& python (Join-Path $repo 'scripts/prepare-workshop.py') --mod Framewo
 Check (($fresh.changeNoteVersions -join ',') -eq '1.0.2') 'A fresh candidate starts after the newly recorded version'
 & $uploader @common -Mod Framework -Operation Update | Out-Null
 Check ((Catalogue $repo).mods.PhobosFramework.uploadedVersion -eq '1.0.2') 'An update must record the uploaded version'
+Check ((Catalogue $repo).mods.PhobosFramework.uploadedVisibility -eq 'private') 'An update must record the visibility it sent'
+
+# Only real updates go to Steam: the same version with the same visibility is skipped before any receipt.
+function Receipts { @(Get-ChildItem -LiteralPath (Join-Path $repo '.local/workshop-receipts/PhobosFramework') -Directory).Count }
+$before = Receipts
+Check ((& $uploader @common -Mod Framework -Operation Update) -match 'nothing to upload') 'An update with nothing new must be skipped'
+Check ((Receipts) -eq $before) 'A skipped update writes no receipt'
+$batch = Join-Path $repoRoot 'scripts/update-workshop.ps1'
+$batchArgs = @{ RepositoryRoot = $repo; NoBuild = $true; SteamCmdPath = $fake; SteamUser = 'fixture-account' }
+Check ((& $batch @batchArgs) -contains 'Nothing to update.') 'The batch must find nothing to update'
+function Release([string]$Version) {
+    Put $repo 'mods/PhobosFramework/mod_info.json' "[{`"strName`":`"Phobos Framework`",`"strModVersion`":`"$Version`"}]"
+    $log = (Get-Content -LiteralPath (Join-Path $repo 'mods/PhobosFramework/CHANGELOG.md') -Raw).Replace("None.`n`n", "None.`n`n## [$Version] - 2026-10-01 - Draft`n`n### Fixed`n`n- Fix $Version.`n`n")
+    Put $repo 'mods/PhobosFramework/CHANGELOG.md' $log
+    Put $repo 'workshop/PhobosFramework/page.bbcode' "[h1]Phobos Framework[/h1]`n[b]Version:[/b] $Version`n[b]Publication status:[/b] Draft`n"
+    & python (Join-Path $repo 'scripts/workshop-release-notes.py') --write | Out-Null
+    Remove-Item -LiteralPath (Join-Path $repo 'dist/PhobosFramework-P0/Mods/PhobosFramework') -Recurse -Force
+    Copy-Item -LiteralPath (Join-Path $repo 'mods/PhobosFramework') -Destination (Join-Path $repo 'dist/PhobosFramework-P0/Mods/PhobosFramework') -Recurse
+    git -C $repo add -A
+    git -C $repo -c user.name=Test -c user.email=test@example.invalid commit -q -m $Version
+}
+Release '1.0.3'
+Start-Sleep -Seconds 1
+Check ((& $batch @batchArgs -WhatIf) -contains 'To update: PhobosFramework 1.0.2 -> 1.0.3') 'The batch must list the newer version'
+Check ((Receipts) -eq $before) 'WhatIf uploads nothing'
+& $batch @batchArgs | Out-Null
+Check ((Catalogue $repo).mods.PhobosFramework.uploadedVersion -eq '1.0.3' -and (Receipts) -eq $before + 1) 'The batch must update once and record it'
+Check ((& $batch @batchArgs) -contains 'Nothing to update.') 'A second batch run must find nothing to update'
+# A visibility change of the same version still goes through, and later updates keep that visibility.
+Start-Sleep -Seconds 1
+git -C $repo add -A
+git -C $repo -c user.name=Test -c user.email=test@example.invalid commit -q -m 'recorded upload'
+& python (Join-Path $repo 'scripts/prepare-workshop.py') --mod Framework --prepare | Out-Null
+& $uploader @common -Mod Framework -Operation Update -Visibility Unlisted 3>$null | Out-Null
+Check ((Catalogue $repo).mods.PhobosFramework.uploadedVisibility -eq 'unlisted' -and (Receipts) -eq $before + 2) 'A visibility change must be sent and recorded'
+Check ((& $uploader @common -Mod Framework -Operation Update) -match 'already on Steam as Unlisted') 'An update must keep the recorded visibility'
+Start-Sleep -Seconds 1
+Check ((& $uploader @common -Mod Framework -Operation Update -Force 3>$null) -match 'as Unlisted') '-Force must send the same version again'
 
 # --- Local-copy removal ----------------------------------------------------------------
 $game = Join-Path $fixtures 'game'

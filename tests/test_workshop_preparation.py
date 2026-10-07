@@ -231,6 +231,23 @@ class PreparationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'uploadedVersion'):
             w.catalogue(self.root)
 
+    def test_pending_lists_only_newer_versions(self):
+        def row():
+            return w.pending(self.root)['mods'][0]
+        self.assertFalse(row()['needsUpload'])  # not on the Workshop yet: a Create, not an update
+        w.record_item_id(self.root, self.name, '4242')
+        self.assertTrue(row()['needsUpload'])  # an item with no recorded version
+        w.record_uploaded_version(self.root, self.name, '1.0.0', 'private')
+        self.assertEqual((row()['needsUpload'], row()['uploadedVisibility']), (False, 'private'))
+        self.release([('1.0.1', 'A fix.'), ('1.0.0', 'Example.')], uploaded='1.0.0')
+        self.assertEqual((row()['needsUpload'], row()['version']), (True, '1.0.1'))
+        # Recording without a visibility keeps the one already recorded.
+        w.record_uploaded_version(self.root, self.name, '1.0.0', 'public')
+        w.record_uploaded_version(self.root, self.name, '1.0.1')
+        self.assertEqual((row()['needsUpload'], row()['uploadedVisibility']), (False, 'public'))
+        with self.assertRaisesRegex(ValueError, 'Visibility'):
+            w.record_uploaded_version(self.root, self.name, '1.0.1', 'secret')
+
     def test_publication_order(self):
         config = {'mods': {'PhobosB': {'requires': ['PhobosA']}, 'PhobosA': {'requires': []}, 'PhobosC': {'requires': ['PhobosB', 'PhobosA']}}}
         self.assertEqual(w.publication_order(config), ['PhobosA', 'PhobosB', 'PhobosC'])

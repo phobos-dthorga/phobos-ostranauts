@@ -50,10 +50,12 @@ delivery in the changelog and design record, and add or amend only the rule here
   work.
 - Steam: `scripts/prepare-workshop.ps1`/`.py` prepare candidates offline
   (`docs/development/workshop-upload-preparation.md`); `scripts/upload-workshop.ps1` is the
-  owner-run uploader and `scripts/remove-local-mods.ps1` retires local copies. Agents maintain
-  and test them (fake SteamCMD in `tests/workshop-upload.tests.ps1`) but never run a real upload,
-  handle credentials, subscribe, announce or change visibility. Keep real item IDs, dependencies
-  and holds in `config/workshop-publishing.json`, unknown IDs as null.
+  owner-run uploader, `scripts/update-workshop.ps1` updates only items whose mod version is
+  newer than the one uploaded, and `scripts/remove-local-mods.ps1` retires local copies. Agents
+  maintain and test them (fake SteamCMD in `tests/workshop-upload.tests.ps1`) but never run a
+  real upload, handle credentials, subscribe, announce or change visibility. Keep real item IDs,
+  dependencies, holds and the uploaded version and visibility in
+  `config/workshop-publishing.json`, unknown IDs as null.
 - Never commit saves, decompiled game source, game assemblies, extracted game assets,
   credentials or personal machine paths. Resolve game paths from local settings
   (`.local/install-settings.json`) or arguments. Game-derived research material stays in ignored

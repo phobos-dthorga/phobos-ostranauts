@@ -120,37 +120,67 @@ yourself (the script never downloads it). The account must own Ostranauts. Pass
 # Create the item (always Private). SteamCMD asks for password / Steam Guard.
 ./scripts/upload-workshop.ps1 -Mod Framework -Operation Create
 
-# Later versions: prepare a fresh candidate, then update.
+# Later versions of every mod at once: see what is due, then update only those.
+./scripts/update-workshop.ps1 -WhatIf
+./scripts/update-workshop.ps1 -AcknowledgeHold
+
+# Or one mod: prepare a fresh candidate, then update.
 ./scripts/upload-workshop.ps1 -Mod Framework -Operation Update
 
 # After a successful private subscription test, from a committed candidate.
 ./scripts/upload-workshop.ps1 -Mod Framework -Operation Update -Visibility Public -ConfirmPublic
 ```
 
+### Only real updates
+
+An item is due for an update only when its mod's version differs from the
+`uploadedVersion` recorded for it. Every relevant change raises the version
+(AGENTS.md), while guide and research edits that leave it alone also change the
+packaged documentation; uploading those would only repeat a change note, so they
+wait for the mod's next version.
+
+- `update-workshop.ps1` reads the catalogue and every mod's version (`python
+  scripts/prepare-workshop.py --pending`) before building anything. It lists each
+  mod as up to date, not on the Workshop yet (create those one at a time with
+  `-Operation Create`) or due, then builds, prepares and updates only the due mods,
+  dependencies first, stopping at the first failure or unrecorded upload. `-Mod`
+  limits the check, `-WhatIf` only lists, `-NoBuild` stages packages already in
+  `dist/`, and `-AcknowledgeHold` is passed through for held private items.
+- `upload-workshop.ps1 -Operation Update` on its own returns without a receipt or
+  SteamCMD when that version is already on the item with the same visibility.
+  `-Force` sends it again deliberately; a visibility change goes through with a
+  warning that Steam will show the same version's change note again.
+- An Update keeps the item's recorded `uploadedVisibility` unless `-Visibility` is
+  given, so updating a public item never makes it private by accident.
+  `-ConfirmPublic` is needed only when an item first becomes public; later updates
+  of a public item still need a committed candidate.
+
 What it does, in order:
 
-1. Picks the newest candidate for the mod (or `-Candidate`), re-verifies every
+1. For an Update, stops here if the version is already on the item with the
+   chosen visibility (see above).
+2. Picks the newest candidate for the mod (or `-Candidate`), re-verifies every
    file hash, and checks it matches the current source version, the catalogue's
    item ID and the requested `-Operation`. A catalogue that already has an ID
    refuses Create; a candidate prepared before an ID was recorded is refused too.
-2. Applies the rules above: blockers, Private-only creation, clean tree and
-   `-ConfirmPublic` for Public, and no second Create while an earlier one is
-   unresolved.
-3. Writes `upload.vdf` (with the chosen visibility) and `receipt.json` under
+3. Applies the rules above: blockers, Private-only creation, clean tree for any
+   wider visibility, `-ConfirmPublic` when an item first becomes Public, and no
+   second Create while an earlier one is unresolved.
+4. Writes `upload.vdf` (with the chosen visibility) and `receipt.json` under
    `.local/workshop-receipts/<ModId>/<time>-<version>-<operation>/` **before**
    starting SteamCMD. The candidate itself is never modified.
-4. Runs `steamcmd +login <account> +workshop_build_item <vdf> +quit` in the same
+5. Runs `steamcmd +login <account> +workshop_build_item <vdf> +quit` in the same
    console, so SteamCMD's own prompts work. It keeps SteamCMD's fresh log files
    with the receipt.
-5. For Create, SteamCMD writes the new item ID back into the VDF (Valve's
+6. For Create, SteamCMD writes the new item ID back into the VDF (Valve's
    [SteamCMD Workshop guide](https://partner.steamgames.com/doc/features/workshop/implementation#SteamCmd)).
    The script records it in `config/workshop-publishing.json` (commit that). If
    no ID comes back, check your Workshop items on Steam **before** retrying, then:
    `./scripts/upload-workshop.ps1 -Reconcile <receipt dir> -ItemId <id>` or
    `-NotCreated`. A blind retry could create a duplicate.
 
-6. Records the version it sent as the mod's `uploadedVersion` in
-   `config/workshop-publishing.json` (commit that): after a Create that returned an
+7. Records the version and visibility it sent as the mod's `uploadedVersion` and
+   `uploadedVisibility` in `config/workshop-publishing.json` (commit that): after a Create that returned an
    ID, after an Update whose SteamCMD run exited 0, and on `-Reconcile -ItemId`.
    A failed Update records nothing, so the next change note repeats its versions.
 

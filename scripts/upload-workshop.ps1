@@ -7,6 +7,9 @@ Never run by builds, CI or preparation. You type your Steam password and Steam G
 code into SteamCMD's own prompt; this script never sees, stores or passes them.
 Each run keeps a receipt under .local/workshop-receipts/ before contacting Steam.
 New items are always created Private; test a subscription before choosing Public.
+An Update keeps the item's recorded visibility unless -Visibility says otherwise, and
+does nothing when that version is already on Steam with that visibility (-Force sends
+it again). To update every item that has a newer version, use update-workshop.ps1.
 See docs/development/workshop-upload-preparation.md.
 .EXAMPLE
 ./scripts/upload-workshop.ps1 -Mod Framework -Operation Create -SteamUser myaccount -WhatIf
@@ -24,9 +27,10 @@ param(
     [Parameter(Mandatory, ParameterSetName = 'Upload')]
     [ValidateSet('Create', 'Update')]
     [string]$Operation,
+    # Default: Private for a Create; for an Update, the visibility recorded at the last upload.
     [Parameter(ParameterSetName = 'Upload')]
     [ValidateSet('Private', 'FriendsOnly', 'Unlisted', 'Public')]
-    [string]$Visibility = 'Private',
+    [string]$Visibility,
     # A staging directory from prepare-workshop; default is the newest one for this mod.
     [Parameter(ParameterSetName = 'Upload')]
     [string]$Candidate,
@@ -42,6 +46,9 @@ param(
     [switch]$ConfirmPublic,
     [Parameter(ParameterSetName = 'Upload')]
     [switch]$WhatIf,
+    # Send an Update even though this version is already on Steam with this visibility.
+    [Parameter(ParameterSetName = 'Upload')]
+    [switch]$Force,
     # After an uncertain create: record the item Steam shows, or confirm none exists.
     [Parameter(Mandatory, ParameterSetName = 'Reconcile')]
     [string]$Reconcile,
@@ -88,7 +95,7 @@ if ($PSCmdlet.ParameterSetName -eq 'Reconcile') {
     if ($ItemId) {
         if ($receipt.operation -eq 'update' -and $ItemId -ne $receipt.itemId) { throw "This update targeted item $($receipt.itemId)." }
         if ($receipt.operation -eq 'create') { Invoke-Preparer @('--mod', $receipt.mod, '--record-item-id', $ItemId) | Out-Null }
-        Invoke-Preparer @('--mod', $receipt.mod, '--record-uploaded-version', $receipt.version) | Out-Null
+        Invoke-Preparer @('--mod', $receipt.mod, '--record-uploaded-version', $receipt.version, '--visibility', $visibilityKey[$receipt.visibility]) | Out-Null
         $receipt.itemId = $ItemId
         $receipt.status = 'reconciled-submitted'
     } else {
@@ -109,6 +116,18 @@ if (-not $SteamCmdPath) {
     $found = Get-Command steamcmd -ErrorAction SilentlyContinue
     $SteamCmdPath = if ($found) { $found.Source } elseif (Test-Path -LiteralPath 'C:/steamcmd/steamcmd.exe') { 'C:/steamcmd/steamcmd.exe' }
 }
+$entry = (Get-Content -LiteralPath (Join-Path $root 'config/workshop-publishing.json') -Raw | ConvertFrom-Json -AsHashtable).mods[$id]
+$current = $entry.itemId
+$version = (@(Get-Content -LiteralPath (Join-Path $root "mods/$id/mod_info.json") -Raw | ConvertFrom-Json))[0].strModVersion
+$recordedVisibility = $null
+foreach ($name in $visibilityKey.Keys) { if ($visibilityKey[$name] -eq $entry['uploadedVisibility']) { $recordedVisibility = $name } }
+if (-not $Visibility) { $Visibility = if ($Operation -eq 'Update' -and $recordedVisibility) { $recordedVisibility } else { 'Private' } }
+
+# 0. Nothing new: this version is already on the item with this visibility, so another upload would only repeat its change note.
+if ($Operation -eq 'Update' -and $current -and $entry['uploadedVersion'] -eq $version -and $recordedVisibility -eq $Visibility -and -not $Force) {
+    Write-Output "$id $version is already on Steam as $Visibility; nothing to upload. Raise the version for a new release, or use -Force to send it again."
+    return
+}
 
 # 1. The candidate: verified, current and matching the requested operation.
 if (-not $Candidate) {
@@ -121,8 +140,6 @@ $Candidate = (Resolve-Path -LiteralPath $Candidate).Path
 $verified = Invoke-Preparer @('--verify', $Candidate)
 if ($verified.mod -ne $id) { throw "Candidate is for $($verified.mod), not $id." }
 $manifest = Get-Content -LiteralPath (Join-Path $Candidate 'manifest.json') -Raw | ConvertFrom-Json -AsHashtable
-$entry = (Get-Content -LiteralPath (Join-Path $root 'config/workshop-publishing.json') -Raw | ConvertFrom-Json -AsHashtable).mods[$id]
-$current = $entry.itemId
 if ($manifest.operation -ne $Operation.ToLowerInvariant()) { throw "Candidate is prepared for $($manifest.operation), not $Operation." }
 if ($current -and -not $manifest.itemId) { throw "$id already has item $current. Prepare a fresh candidate, which will update it instead of creating a duplicate." }
 if ($manifest.itemId -and $manifest.itemId -ne $current) { throw 'Catalogue item ID changed since this candidate was prepared. Prepare a fresh candidate.' }
@@ -130,7 +147,6 @@ if ($manifest.itemId -and $manifest.itemId -ne $current) { throw 'Catalogue item
 if ($manifest.ContainsKey('changeNoteVersions') -and $current -and $manifest.uploadedVersion -ne $entry['uploadedVersion']) {
     throw 'Another upload was recorded since this candidate was prepared, so its change note is out of date. Prepare a fresh candidate.'
 }
-$version = (@(Get-Content -LiteralPath (Join-Path $root "mods/$id/mod_info.json") -Raw | ConvertFrom-Json))[0].strModVersion
 if ($manifest.version -ne $version) { throw "Candidate is $($manifest.version) but the source is now $version. Prepare a fresh candidate." }
 
 # 2. Publication rules.
@@ -145,7 +161,12 @@ if ($blockers.Count -gt 0) {
 if ($Visibility -ne 'Private') {
     if ($Operation -eq 'Create') { throw 'New items are created Private. Test a subscription, then run an Update with the wider visibility.' }
     if ($manifest.workingTreeDirty) { throw 'Candidate was prepared from uncommitted changes. Commit, then prepare a fresh candidate.' }
-    if ($Visibility -eq 'Public' -and -not $ConfirmPublic) { throw 'Public visibility needs -ConfirmPublic after a successful private subscription test.' }
+    # Confirmation is for making an item public; later updates of a public item keep it public without asking again.
+    if ($Visibility -eq 'Public' -and $recordedVisibility -ne 'Public' -and -not $ConfirmPublic) { throw 'Public visibility needs -ConfirmPublic after a successful private subscription test.' }
+}
+if ($Operation -eq 'Update' -and $entry['uploadedVersion'] -eq $version) {
+    $why = if ($recordedVisibility -ne $Visibility) { "a visibility change from $recordedVisibility" } else { '-Force' }
+    Write-Warning "$version is already on Steam; sending it again for $why adds another change note for the same version."
 }
 $open = @(if (Test-Path -LiteralPath (Join-Path $receiptRoot $id)) {
     Get-ChildItem -LiteralPath (Join-Path $receiptRoot $id) -Directory | Where-Object {
@@ -208,15 +229,15 @@ if ($receipt.operation -eq 'create' -and $returned -ne '0') {
     $receipt.itemId = $returned
     Write-Json $receipt (Join-Path $receiptDir 'receipt.json')
     Invoke-Preparer @('--mod', $id, '--record-item-id', $returned) | Out-Null
-    Invoke-Preparer @('--mod', $id, '--record-uploaded-version', $version) | Out-Null
+    Invoke-Preparer @('--mod', $id, '--record-uploaded-version', $version, '--visibility', $visibilityKey[$Visibility]) | Out-Null
     $receipt.status = 'created-unverified'
     Write-Output "Steam returned item $returned; recorded with version $version in config/workshop-publishing.json (commit it)."
 } elseif ($receipt.operation -eq 'create') {
     Write-Warning "No item ID came back. Check your Workshop items on Steam before anything else, then run: ./scripts/upload-workshop.ps1 -Reconcile '$receiptDir' -ItemId <id> (or -NotCreated)."
 } elseif ($receipt.steamCmdExitCode -eq 0) {
     # The next change note starts after this version. A failed run records nothing, so its versions are described again next time.
-    Invoke-Preparer @('--mod', $id, '--record-uploaded-version', $version) | Out-Null
-    Write-Output "Recorded version $version as uploaded in config/workshop-publishing.json (commit it)."
+    Invoke-Preparer @('--mod', $id, '--record-uploaded-version', $version, '--visibility', $visibilityKey[$Visibility]) | Out-Null
+    Write-Output "Recorded version $version ($Visibility) as uploaded in config/workshop-publishing.json (commit it)."
 } else {
     Write-Warning "SteamCMD exited with code $($receipt.steamCmdExitCode); version $version was not recorded as uploaded. Check the item on Steam; if the update did arrive, run: ./scripts/upload-workshop.ps1 -Reconcile '$receiptDir' -ItemId $($receipt.itemId)"
 }

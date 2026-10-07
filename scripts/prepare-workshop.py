@@ -85,6 +85,8 @@ def catalogue(root):
         uploaded = item.get('uploadedVersion')
         if uploaded is not None and (item_id is None or not isinstance(uploaded, str) or not VERSION.fullmatch(uploaded)):
             raise ValueError('uploadedVersion must be a version number, and only on a mod with an item ID')
+        if item.get('uploadedVisibility') is not None and (uploaded is None or item['uploadedVisibility'] not in VISIBILITY):
+            raise ValueError('uploadedVisibility must be private, friends, unlisted or public, beside an uploadedVersion')
     for item_id in value['externalRequiredItems']:
         if not re.fullmatch(r'[1-9][0-9]*', item_id) or item_id not in value.get('externalRequiredItemNames', {}):
             raise ValueError('External required items need a decimal ID and a name')
@@ -342,22 +344,43 @@ def record_item_id(root, name, item_id):
     return {'status': 'recorded', 'mod': name, 'itemId': item_id, 'catalogue': CATALOGUE}
 
 
-def record_uploaded_version(root, name, version):
-    """Save the version just sent to a mod's item, so the next change note starts after it."""
+def pending(root):
+    """Which items need an upload, from the catalogue and mod versions alone: no package checks, never writes.
+    An item needs one when its mod's version differs from the version last uploaded to it."""
+    config = catalogue(root)
+    rows = []
+    for name in publication_order(config):
+        item = config['mods'][name]
+        version = json.loads((root / 'mods' / name / 'mod_info.json').read_text(encoding='utf-8-sig'))[0]['strModVersion']
+        rows.append({'mod': name, 'version': version, 'itemId': item['itemId'],
+                     'uploadedVersion': item.get('uploadedVersion'), 'uploadedVisibility': item.get('uploadedVisibility'),
+                     'needsUpload': bool(item['itemId']) and item.get('uploadedVersion') != version})
+    return {'schemaVersion': 1, 'status': 'pending', 'uploadEnabled': False, 'mods': rows}
+
+
+def record_uploaded_version(root, name, version, visibility=None):
+    """Save the version (and visibility) just sent to a mod's item, so the next change note starts after it
+    and an update with nothing new is skipped."""
     if not VERSION.fullmatch(version or ''):
         raise ValueError('Uploaded versions are numbers like 1.2.3')
+    if visibility is not None and visibility not in VISIBILITY:
+        raise ValueError('Visibility must be private, friends, unlisted or public')
     path = root / CATALOGUE
     config = json.loads(path.read_text(encoding='utf-8-sig'))
     if name not in config['mods']:
         raise ValueError('Unknown mod')
     if not config['mods'][name]['itemId']:
         raise ValueError(f'{name} has no item ID; record the item before its uploaded version')
-    if config['mods'][name].get('uploadedVersion') == version:
-        return {'status': 'unchanged', 'mod': name, 'uploadedVersion': version}
-    config['mods'][name]['uploadedVersion'] = version
+    item = config['mods'][name]
+    visibility = visibility or item.get('uploadedVisibility')
+    if item.get('uploadedVersion') == version and item.get('uploadedVisibility') == visibility:
+        return {'status': 'unchanged', 'mod': name, 'uploadedVersion': version, 'uploadedVisibility': visibility}
+    item['uploadedVersion'] = version
+    if visibility:
+        item['uploadedVisibility'] = visibility
     path.write_bytes((json.dumps(config, indent=2, ensure_ascii=False) + '\n').encode('utf-8'))
     catalogue(root)
-    return {'status': 'recorded', 'mod': name, 'uploadedVersion': version, 'catalogue': CATALOGUE}
+    return {'status': 'recorded', 'mod': name, 'uploadedVersion': version, 'uploadedVisibility': visibility, 'catalogue': CATALOGUE}
 
 
 def main():
@@ -366,10 +389,11 @@ def main():
     parser.add_argument('--prepare', action='store_true')
     parser.add_argument('--verify', type=Path)
     parser.add_argument('--status', action='store_true', help='Publishing overview of every mod; read-only')
+    parser.add_argument('--pending', action='store_true', help='Which items have a newer mod version than the one uploaded; read-only')
     parser.add_argument('--record-item-id', metavar='ID', help='Save a real Steam item ID for --mod')
     parser.add_argument('--record-uploaded-version', metavar='VERSION', help='Save the version just uploaded to the item of --mod')
     parser.add_argument('--upload-vdf', type=Path, metavar='CANDIDATE', help='Write an upload VDF for a verified candidate')
-    parser.add_argument('--visibility', default='private', choices=sorted(VISIBILITY))
+    parser.add_argument('--visibility', choices=sorted(VISIBILITY), help='For --upload-vdf (default private) or --record-uploaded-version')
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
     try:
@@ -381,6 +405,8 @@ def main():
             report = verify(args.verify.resolve())
         elif args.status:
             report = status(ROOT)
+        elif args.pending:
+            report = pending(ROOT)
         elif args.record_item_id:
             if not args.mod:
                 raise ValueError('--record-item-id needs --mod')
@@ -388,11 +414,11 @@ def main():
         elif args.record_uploaded_version:
             if not args.mod:
                 raise ValueError('--record-uploaded-version needs --mod')
-            report = record_uploaded_version(ROOT, name, args.record_uploaded_version)
+            report = record_uploaded_version(ROOT, name, args.record_uploaded_version, args.visibility)
         elif args.upload_vdf:
             if not args.output:
                 raise ValueError('--upload-vdf needs --output')
-            report = upload_vdf(args.upload_vdf.resolve(), args.visibility, args.output)
+            report = upload_vdf(args.upload_vdf.resolve(), args.visibility or 'private', args.output)
         else:
             report = prepare(ROOT, name) if args.prepare else plan(ROOT, name)[0]
         print(json.dumps(report, indent=2))
