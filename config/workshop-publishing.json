@@ -5,7 +5,7 @@
       "itemId": "3814698080",
       "requires": [],
       "hold": null,
-      "uploadedVersion": "0.127.2",
+      "uploadedVersion": "0.129.0",
       "uploadedVisibility": "public"
     },
     "PhobosAgriculture": {
@@ -33,8 +33,8 @@
         "PhobosFramework"
       ],
       "hold": null,
-      "uploadedVersion": "0.35.0",
-      "uploadedVisibility": "private"
+      "uploadedVersion": "0.35.1",
+      "uploadedVisibility": "public"
     },
     "PhobosManufacturing": {
       "itemId": "3814709399",
@@ -77,8 +77,8 @@
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Held draft: first release awaiting owner gameplay checks.",
-      "uploadedVersion": "0.6.0",
+      "hold": null,
+      "uploadedVersion": "0.7.0",
       "uploadedVisibility": "private"
     },
     "PhobosExchange": {

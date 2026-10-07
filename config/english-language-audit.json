@@ -93033,7 +93033,8 @@
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "2f31a89ff104d0a9cc74792db960a7284b42ec9fa33e8f9106c8d4c932d50367",
+      "sha256": "52afdb67e36204778ee6be4f357160e6aa0200d19390f4dc6f9ad329f74ec770",
+      "review20261007HoldLifted": "Reviewed 2026-10-07: the owner lifted the gameplay-check hold; the publication status line now reads development candidate, as on the other uploaded mods. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
     },
