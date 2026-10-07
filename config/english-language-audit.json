@@ -89399,11 +89399,12 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "1e79e47f6589b74af0708a5cabfa7acf7ac830be66aa212e0060c322cdfc21c7",
+      "sha256": "6a54848b4bc79ce8c22c32801791e655614dcd4f084e7e9b2a6c64fd5ba2dc42",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
-      "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments."
+      "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments.",
+      "review20261007ShareMarket": "Reviewed 7 October 2026: one index line added for the share market and charts design record; existing wording retained."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -90733,6 +90734,13 @@
       "decision": "New document; reviewed against player-language.md.",
       "sha256": "e3c689cdfec41edfecc3483dc0cc158663d3f4f2444e08a871f9a6a53ef80bac",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
+    },
+    {
+      "path": "docs/development/share-market-and-charts-design.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "f883624f4e14a1745db3064649243b29182894e9e7382f804fea75ca729c90b1",
+      "review": "Reviewed 7 October 2026: research-only design record for a Phobos Banking share market and a Framework chart control. Observed game behaviour, library source reading, agent proposals, unverified points and owner decisions are labelled; finance research attributed to its authors with primary links; no runtime or player catalogue text changed."
     }
   ],
   "surfaces": [
