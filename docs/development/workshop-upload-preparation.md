@@ -241,6 +241,38 @@ mod's changelog, set the page's Publication status and add the item link, then
 regenerate release notes (`python scripts/workshop-release-notes.py --write`) and
 commit. See [changelogs and publication records](workshop-publication.md).
 
+### Pulling from Steam
+
+Changes made on Steam itself (a visibility switch or a page edit in Steam's
+editor) can be brought back into the repository, the reverse of an upload:
+
+```powershell
+# Report each item's live state and what would change; writes nothing.
+python scripts/pull-workshop.py --visibility --description --changelog
+
+# Apply, for every item or for chosen mods.
+python scripts/pull-workshop.py --visibility --description --changelog --write
+python scripts/pull-workshop.py --mod Agriculture --visibility --write
+```
+
+- `--visibility` records the item's live visibility as its `uploadedVisibility`,
+  so later updates keep it.
+- `--description` replaces `workshop/<ModId>/page.bbcode` with the live
+  description (line endings normalised). A live page describing a different
+  version from the source is not pulled, so it never overwrites a newer page.
+- `--changelog` marks the version on a public item (its `uploadedVersion`)
+  Released in the mod's changelog, dated by Steam's last update of the item, and
+  regenerates its release notes. Other versions are left as they are.
+
+It reads Valve's
+[GetPublishedFileDetails](https://partner.steamgames.com/doc/webapi/ISteamRemoteStorage#GetPublishedFileDetails)
+Web API method without a key or login, so Steam answers only for items anyone can
+see: a private or friends-only item reads as not found and keeps its records. It
+also warns when a public item is still held in the catalogue. Pulled pages and
+changelogs need their language-ledger rows refreshed before committing. The tool
+never uploads, logs in or handles credentials; tests use a stand-in for Steam
+(`tests/test_workshop_pull.py`).
+
 ## The game's own UPLOAD button (fallback)
 
 Ostranauts 1.0.1.5 has its own uploader (`SteamWorkshopManager`, observed in local

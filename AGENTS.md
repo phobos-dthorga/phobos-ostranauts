@@ -59,7 +59,9 @@ delivery in the changelog and design record, and add or amend only the rule here
 - Steam: `scripts/prepare-workshop.ps1`/`.py` prepare candidates offline
   (`docs/development/workshop-upload-preparation.md`); `scripts/upload-workshop.ps1` is the
   owner-run uploader, `scripts/update-workshop.ps1` updates only items whose mod version is
-  newer than the one uploaded, and `scripts/remove-local-mods.ps1` retires local copies. Agents
+  newer than the one uploaded, `scripts/pull-workshop.py` brings visibility, page and changelog
+  changes made on Steam back into the repository (read-only Web API, no login), and
+  `scripts/remove-local-mods.ps1` retires local copies. Agents
   maintain and test them (fake SteamCMD in `tests/workshop-upload.tests.ps1`) but never run a
   real upload, handle credentials, subscribe, announce or change visibility. Keep real item IDs,
   dependencies, holds and the uploaded version and visibility in
