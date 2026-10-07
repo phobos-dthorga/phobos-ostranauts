@@ -1,38 +1,65 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Agriculture's story pack (Agriculture 0.60.0): TV news, adverts and one short arc about Verdemorrow Agronomics, so story content can be tried in play; since 0.61.0 also small talk, loading tips and two encyclopedia articles, and since 0.62.0 a data file. A seed for writers to expand; see docs/writing-story-content.md. Your own entries go in BepInEx/config/PhobosAgriculture/story/*.json (or in BepInEx/config/PhobosFramework/story for content that belongs to no mod).",
+  "notes": "Agriculture's story pack (Agriculture 0.60.0): TV news, adverts and one short arc about Verdemorrow Agronomics, so story content can be tried in play; since 0.61.0 also small talk, loading tips and two encyclopedia articles, and since 0.62.0 a data file. A seed for writers to expand; see docs/writing-story-content.md. Your own entries go in BepInEx/config/PhobosAgriculture/story/*.json (or in BepInEx/config/PhobosFramework/story for content that belongs to no mod). Variant lines (Agriculture 0.67.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "broadcasts": {
     "verdemorrow-seed-trials": {
       "title": "Continuance trials",
       "region": "Outer System",
-      "text": "Verdemorrow Agronomics says its Continuance seed lines have now come through forty growing cycles aboard working ships, from ore haulers to salvage tugs. Crews on long runs report fresh lettuce at the galley table and fewer arguments over the last tin of beans. The company is keen to add that a grow rack is not a farm: keep the air warm, the water clean and the nutrients coming, or the rack will let you know.",
+      "text": [
+        "Verdemorrow Agronomics says its Continuance seed lines have now come through forty growing cycles aboard working ships, from ore haulers to salvage tugs. Crews on long runs report fresh lettuce at the galley table and fewer arguments over the last tin of beans. The company is keen to add that a grow rack is not a farm: keep the air warm, the water clean and the nutrients coming, or the rack will let you know.",
+        "Forty growing cycles aboard working ships, from ore haulers to salvage tugs, and Verdemorrow Agronomics says its Continuance seed lines have come through every one. Long-haul crews talk of fresh lettuce at the galley table and fewer fights over the last tin of beans. Verdemorrow adds a caution: a grow rack is not a farm. Keep the air warm, the water clean and the nutrients coming, or the rack will tell you about it."
+      ],
       "weight": 2,
-      "mention": "Verdemorrow reckon their seed has done forty cycles on working ships. Fresh lettuce every time, they say."
+      "mention": [
+        "Verdemorrow reckon their seed has done forty cycles on working ships. Fresh lettuce every time, they say.",
+        "Heard Verdemorrow's seed has come through forty cycles on working ships. Fresh lettuce, they say. I'll believe it when I taste it.",
+        "Forty grow cycles on working ships, Verdemorrow says. Still only gets you lettuce if somebody waters it."
+      ]
     },
     "dwarf-wheat-shortage": {
       "title": "Seed wheat short",
       "region": "Shipping & Inner System",
-      "text": "Dwarf wheat is in short supply along the inner routes this quarter. Brokers blame a poor season in the Tharsis greenhouses and a rush of ship crews who have discovered fresh bread. Verdemorrow Agronomics is asking spacers who grow their own to hold back some grain for the trials rather than eat the lot.",
+      "text": [
+        "Dwarf wheat is in short supply along the inner routes this quarter. Brokers blame a poor season in the Tharsis greenhouses and a rush of ship crews who have discovered fresh bread. Verdemorrow Agronomics is asking spacers who grow their own to hold back some grain for the trials rather than eat the lot.",
+        "Brokers along the inner routes report dwarf wheat in short supply this quarter, blaming a poor season in the Tharsis greenhouses and ship crews newly fond of fresh bread. Verdemorrow Agronomics asks spacers who grow their own to set some grain aside for its trials rather than eat it all."
+      ],
       "notes": "Also the bulletin that opens the arc verdemorrow-grain-sample.",
-      "mention": "Dwarf wheat is short all along the inner routes. Seems everyone has discovered bread at once."
+      "mention": [
+        "Dwarf wheat is short all along the inner routes. Seems everyone has discovered bread at once.",
+        "No dwarf wheat to be had on the inner routes. Everybody's baking, apparently.",
+        "Seed wheat's scarce this quarter. Verdemorrow wants growers to save some instead of baking the lot."
+      ]
     },
     "galley-survey": {
       "title": "Galley survey",
       "region": "Outer System",
-      "text": "A survey of long-haul crews puts a hot meal from their own galley ahead of shore leave, a working shower and, in one case, the captain. Hearth-2 owners were the most cheerful respondents, though researchers note they were also the only ones who had eaten that day.",
+      "text": [
+        "A survey of long-haul crews puts a hot meal from their own galley ahead of shore leave, a working shower and, in one case, the captain. Hearth-2 owners were the most cheerful respondents, though researchers note they were also the only ones who had eaten that day.",
+        "Ask long-haul crews what beats shore leave and, says a new survey, the answer is a hot meal from their own galley, ahead of a working shower and, for one crew, the captain. Hearth-2 owners answered most cheerfully; researchers point out they were also the only ones who had eaten that day."
+      ],
       "requires": { "owns": [ "PhobosVerdemorrowHearth2Installed" ] },
-      "mention": "Some survey reckons crews rate a hot meal from their own galley above shore leave. Can't say I disagree."
+      "mention": [
+        "Some survey reckons crews rate a hot meal from their own galley above shore leave. Can't say I disagree.",
+        "A survey says crews would take a hot galley meal over shore leave. Depends who's cooking, I'd say.",
+        "Galley meal over shore leave? Some survey says so. Must've been a long run."
+      ]
     }
   },
   "adverts": {
     "firstlight-advert": {
       "title": "Firstlight-4",
-      "text": "Verdemorrow Firstlight-4\nFour trays, one crop, no excuses. Fresh greens on any ship with power, water and a crew who remembers to harvest. Verdemorrow Agronomics: where we go, life grows."
+      "text": [
+        "Verdemorrow Firstlight-4\nFour trays, one crop, no excuses. Fresh greens on any ship with power, water and a crew who remembers to harvest. Verdemorrow Agronomics: where we go, life grows.",
+        "Verdemorrow Firstlight-4\nFresh greens, grown aboard. Four trays and one crop at a time, on any ship with power, water and a crew willing to harvest. Verdemorrow Agronomics: where we go, life grows."
+      ]
     },
     "groundwork-advert": {
       "title": "Groundwork",
-      "text": "Groundwork Nutrients\nYour crop cannot live on ration bars, and frankly neither should you. Groundwork charges dose by hand or through a W2 water supply. Ask for them at the supply kiosk."
+      "text": [
+        "Groundwork Nutrients\nYour crop cannot live on ration bars, and frankly neither should you. Groundwork charges dose by hand or through a W2 water supply. Ask for them at the supply kiosk.",
+        "Groundwork Nutrients\nPlants need feeding too. Groundwork charges dose a rack by hand or through a W2 water supply, so your crop eats properly even when the crew does not. Ask at the supply kiosk."
+      ]
     }
   },
   "arcs": {
@@ -86,34 +113,58 @@
     "rack-hum": {
       "moment": "complaint",
       "speakers": "crew",
-      "line": "That grow rack hums all night. I can hear it through the bulkhead.",
+      "line": [
+        "That grow rack hums all night. I can hear it through the bulkhead.",
+        "Who put the grow rack next to my bunk? It hums like it's proud of itself.",
+        "That rack hums the whole night through. The lettuce sleeps better than I do."
+      ],
       "requires": { "owns": [ "PhobosVerdemorrowFirstlight4Installed" ] }
     },
     "flatbread-joke": {
       "moment": "joke",
       "speakers": "crew",
-      "line": "What's the difference between Hearth flatbread and a ration bar? Eighty-four hours of wheat and somebody who cares.",
+      "line": [
+        "What's the difference between Hearth flatbread and a ration bar? Eighty-four hours of wheat and somebody who cares.",
+        "Why's Hearth flatbread better than a ration bar? Somebody cared about it for eighty-four hours.",
+        "They say a ration bar never let anyone down. Never cheered anyone up either. Pass the flatbread."
+      ],
       "requires": { "owns": [ "PhobosVerdemorrowHearth2Installed" ] }
     },
     "crop-worry": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "Every time the cabin warms up I think the crop's going to cook. Then I go and check the panel again.",
+      "line": [
+        "Every time the cabin warms up I think the crop's going to cook. Then I go and check the panel again.",
+        "If the cabin gets any warmer the crop's done for. I've checked the panel three times this shift.",
+        "I dream about the grow rack overheating. That's normal, right?"
+      ],
       "requires": { "owns": [ "PhobosVerdemorrowFirstlight4Installed" ] }
     },
     "kiosk-potatoes": {
       "moment": "small-talk",
       "speakers": "others",
-      "line": "Saw a hauler crew trading their own potatoes at the kiosk. Potatoes. Out here."
+      "line": [
+        "Saw a hauler crew trading their own potatoes at the kiosk. Potatoes. Out here.",
+        "Some crew sold home-grown potatoes at the kiosk. Home-grown. On a ship.",
+        "There's a hauler crew out there with a potato surplus. Strangest cargo I've heard of in a while."
+      ]
     },
     "verdemorrow-beginnings": {
       "moment": "story",
       "speakers": "others",
-      "line": "Old hand told me Verdemorrow started with one rack bolted into an ore hauler's galley. Probably true, the way they tell it."
+      "line": [
+        "Old hand told me Verdemorrow started with one rack bolted into an ore hauler's galley. Probably true, the way they tell it.",
+        "They say the first Verdemorrow rack was bolted into an ore hauler's galley. Whoever did that must've been hungry.",
+        "Verdemorrow started small, I heard. One rack, one hauler, and one cook who was tired of beans."
+      ]
     },
     "unnamed-crop": {
       "moment": "superstition",
-      "line": "Never name a crop before it's harvested. Everybody knows that."
+      "line": [
+        "Never name a crop before it's harvested. Everybody knows that.",
+        "Don't name the crop till it's in the bowl. Bad luck.",
+        "You named the lettuce? Before harvest? Well, it's your funeral. Its funeral, anyway."
+      ]
     }
   },
   "tips": {

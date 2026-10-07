@@ -185,6 +185,10 @@ often.
 
 ### Step 3: Phobos Agriculture (`mods/PhobosAgriculture/framework/story.json`)
 
+**Done in Phobos Agriculture 0.67.0** (8 October 2026), written by Claude, held for owner
+review: two wordings for each news item and advert, three for each mention and small-talk
+line. Agriculture's Framework minimum rose to 0.132.0 with it.
+
 A short step: three news items with their mentions, two adverts and six small-talk lines,
 two or three variants each. The arc's two letters are read once a save; leave them.
 

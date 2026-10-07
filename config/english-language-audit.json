@@ -92192,7 +92192,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "56018dc7ee88039615b802b33f3864302dda0e474da95c7636e0c886bc6b4bdf",
+      "sha256": "c16b394296f28cf5ce13a9d9593a4eaa3f3287961f040beb20efafb42a8bfd49",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
@@ -92208,7 +92208,8 @@
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
       "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
       "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references.",
-      "review20261008Bank090": "Reviewed 8 October 2026 for Phobos Banking 0.9.0: agent-authored variants for every lender letter, reply, news item, advert and small-talk line, and the four mentions rewritten as speech; each officer's voice kept, no consequence beyond the game's late fee, no rates or limits quoted, money only in Finances. Version lines, changelog, page line, handoff status and regenerated item references checked against the player-language guide."
+      "review20261008Bank090": "Reviewed 8 October 2026 for Phobos Banking 0.9.0: agent-authored variants for every lender letter, reply, news item, advert and small-talk line, and the four mentions rewritten as speech; each officer's voice kept, no consequence beyond the game's late fee, no rates or limits quoted, money only in Finances. Version lines, changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "SUPPORT.md",
@@ -92236,9 +92237,10 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "2967c59b4ed22132c08525d407affbad64b46708870dd5d5a89ec819d9297911",
+      "sha256": "94e631adce98da51dd7c41cb2df9020b95249786f00e5f264c8b13f0646796ab",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -92372,7 +92374,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0f5638fb4f049e25a2f4e13804c3122efc82cbf6dbb2d579efb9c80f52d43426",
+      "sha256": "9bfd568bf966e1a04466c11046a29d015fab7e30aac468855ed38d761a8812a0",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
@@ -92383,7 +92385,8 @@
       "review20261007LineReach": "Reviewed 7 October 2026 for Framework 0.131.1, the line build-site reach fix: the changelog entry and the Workshop page line (crew work on a line from any tile beside it, hull runs included) and version lines; wording read against player-language.md; the cause checked against the game's CheckWalk, GetPos and SetGoal2 code and the owner's save; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
       "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
-      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "docs/crew-automation.md",
@@ -93476,7 +93479,7 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "88c1dd9640649224791f413c5df9bd7698a77e71517a39a46f453c56e2ce58d6",
+      "sha256": "c718c38935960d9bf265ab302be8b74a1867289bf12e68a892350df5d864fd3a",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93484,7 +93487,8 @@
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
-      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references."
+      "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "docs/item-references.md",
@@ -93699,10 +93703,11 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f2417684b76dfd14b25a2d20f8d0d83ee2360b7537e1cbf24e8fae4e59aa4d04",
+      "sha256": "0197f19a5a80599c3ff7ae69bb8bd9c9f13149fefdef80e5da2b92fd02008c6c",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
-      "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
+      "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -93952,10 +93957,11 @@
       "path": "docs/development/variant-lines-handoff.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "1beed88323f8e5022f91a8940127e3be508f33e525480c8a8f8c74fc537380f2",
+      "sha256": "f71b0a669a3dd4c2300f1117317c63a5f968d89a10ee4763b194a37751e82550",
       "review": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide.",
       "review20261008Bank090": "Reviewed 8 October 2026 for Phobos Banking 0.9.0: agent-authored variants for every lender letter, reply, news item, advert and small-talk line, and the four mentions rewritten as speech; each officer's voice kept, no consequence beyond the game's late fee, no rates or limits quoted, money only in Finances. Version lines, changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
-      "review20261008Exchange060Stories": "Reviewed 8 October 2026 for Phobos Exchange 0.6.0 (step 2 of the variant lines handoff): agent-authored wordings for every wire line, TV report, advert and shareholder letter, and company-specific small talk; game companies only reported on, never speaking; no figures in story text; nothing promised beyond the news entries. Changelog, page line and handoff status checked against the player-language guide."
+      "review20261008Exchange060Stories": "Reviewed 8 October 2026 for Phobos Exchange 0.6.0 (step 2 of the variant lines handoff): agent-authored wordings for every wire line, TV report, advert and shareholder letter, and company-specific small talk; game companies only reported on, never speaking; no figures in story text; nothing promised beyond the news entries. Changelog, page line and handoff status checked against the player-language guide.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     }
   ],
   "surfaces": [
@@ -93981,9 +93987,10 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "569013ad53650bd7153aec7c52ec74a1ceee561fa9c274daa80777706c9742e0",
+      "sha256": "b08199341357e2c7b2b2c0f4e2fd5b0485a904ab19247fe7ccf3297ae2725d4e",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -94098,8 +94105,9 @@
     {
       "path": "mods/PhobosAgriculture/framework/story.json",
       "scope": "shipped story content: TV news, adverts and goal text",
-      "sha256": "5c886e369688f9fa55e40de7ae2c085169f03158a84266a758df30c995285603",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "443efd482a232aeb3386d5fb99250642ad106245aad52b40ea8d4f63cdfdd752",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026",
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
     },
     {
       "path": "mods/PhobosFramework/framework/story.json",

@@ -6,6 +6,19 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.67.0] - 2026-10-08 - Draft
+
+### Added
+
+- Verdemorrow's TV news, what people say about it, its adverts and the crew's talk about racks, flatbread and crops each come in two or three wordings now, so the same line does not come round word for word. News, adverts and talk pick one at random, never the same twice running.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.132.0, which reads text written several ways (up from 0.127.2).
+- The new wordings were written by Claude, the project's coding assistant, under the owner's direction of 8 October 2026, and are held for the owner's review.
+- Saves: nothing new is saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.66.2] - 2026-10-08 - Released
 
 ### Changed

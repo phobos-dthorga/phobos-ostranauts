@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.66.2",
+      "value": "0.67.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -681,7 +681,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.127.2",
+      "value": "0.132.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-08",
-  "baselineCommit": "2a09804a6092fa6c67100be3878b7528569122a9",
+  "baselineCommit": "d9f7c50bc9ef5aa44510b30784d17161b1b56bce",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -947,7 +947,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "29f36ecc89fd636f12ea8b913cdc3854b3aef3465317a254728a91a240891e4a",
+      "sha256": "3d960285ad2f9b21905832875340edf60572bbf927c677479faebbb4be2a6c0a",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-06 performance pass; see the linked findings for the disposition.",
