@@ -639,7 +639,9 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
         Check(listed.companies.TryGetValue("keelhaul-freight", out var keelhaul) && keelhaul.ticker == "KHF" && keelhaul.news.Single().flag == "keelhaul-titan-contract" && listed.companies.Count == 9,
             "its company joins the eight listed, with its news");
         Check(keelhaul!.founded == 2052 && keelhaul.listed == 2058 && keelhaul.listingPrice == 4 && keelhaul.history.Keys.All(k => k.StartsWith("keelhaul-", StringComparison.Ordinal)) &&
-              ExchangeSchema.Milestones(listed, "keelhaul-freight").Count(m => m.Entry.move != null) == 1, "and its history before the game (0.3.0), under its own prefix");
+              ExchangeSchema.Milestones(listed, "keelhaul-freight").Count(m => m.Scope == HistoryScope.Company && m.Entry.move != null) == 1 &&
+              ExchangeSchema.Milestones(listed, "keelhaul-freight").All(m => m.Scope == HistoryScope.Company || m.Month >= 0),
+              "and its history before the game (0.3.0), under its own prefix, beside the shipped exchange's and sector's");
         var story = DataPacks.Load<Phobos.Ostranauts.Framework.Story.StoryPack>(new DataPackSource("phobosgekko.ostranauts.framework", "PhobosFramework", Phobos.Ostranauts.Framework.Story.StorySchema.Name,
             typeof(Phobos.Ostranauts.Framework.Story.StoryPack).Assembly, "PhobosFramework.story.json"), s => Phobos.Ostranauts.Framework.Story.StorySchema.Validate(s, true));
         bool refusedWithoutNamespace = !AddOns.Namespaces.Contains("exchange") && DataPacks.Problems.Count > problems && !story.arcs.ContainsKey("exchange-keelhaul-freight-bought");
