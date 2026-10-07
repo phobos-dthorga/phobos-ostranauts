@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Phobos Exchange 0.3.0 first content draft (7 October 2026): non-canon dates, market anecdotes and company events are authored proposals for owner review. Game-canon anchors are recorded in docs/development/share-market-and-charts-design.md. The story pack changes prices only through declared news flags.",
+  "notes": "Phobos Exchange 0.3.0 first content draft (7 October 2026): non-canon dates, market anecdotes and company events are authored proposals for owner review. Game-canon anchors are recorded in docs/development/share-market-and-charts-design.md. The story pack changes prices only through declared news flags. Variant lines (Phobos Exchange 0.6.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "people": {
     "exchange-mara-voss": {
       "name": "Mara Voss",
@@ -134,7 +134,10 @@
           "exchange-smartlink-spares-contract"
         ]
       },
-      "text": "A group of tug operators has awarded Smartlink a point-defence service contract. Port Yangshan yard crews expect more work on older cannon suites while the new order is filled.",
+      "text": [
+        "A group of tug operators has awarded Smartlink a point-defence service contract. Port Yangshan yard crews expect more work on older cannon suites while the new order is filled.",
+        "Smartlink has signed a point-defence service contract with a group of tug operators. At Port Yangshan, yard crews are clearing bays for the older cannon suites the work will bring in."
+      ],
       "title": "Smartlink report",
       "onceEach": true
     },
@@ -148,7 +151,10 @@
           "exchange-smartlink-cannon-inspection"
         ]
       },
-      "text": "A safety inspection has delayed delivery of a Smartlink cannon assembly at Cassini Spaceport. The inspection is continuing, and the shipyard has not named a new delivery date.",
+      "text": [
+        "A safety inspection has delayed delivery of a Smartlink cannon assembly at Cassini Spaceport. The inspection is continuing, and the shipyard has not named a new delivery date.",
+        "A Smartlink cannon assembly is waiting on a safety inspection at Cassini Spaceport before it can be delivered. Inspectors are still at work, and no new delivery date has been named."
+      ],
       "title": "Smartlink report",
       "onceEach": true
     },
@@ -161,7 +167,11 @@
           "exchange-smartlink-surge"
         ]
       },
-      "text": "Smartlink shares made a sharp move on the Lodestar Exchange. The desk has no single contract to point to; the market has been brisk all week.",
+      "text": [
+        "Smartlink shares made a sharp move on the Lodestar Exchange. The desk has no single contract to point to; the market has been brisk all week.",
+        "Smartlink shares jumped on the Lodestar Exchange. Brokers on the desk can point to no single contract behind it, only a busy week of trading in arms.",
+        "A strong session for Smartlink on the Lodestar Exchange, with buyers out in force. Nobody on the desk will tie the rise to one order."
+      ],
       "title": "Smartlink price move",
       "onceEach": true
     },
@@ -174,7 +184,11 @@
           "exchange-smartlink-slump"
         ]
       },
-      "text": "Smartlink shares fell sharply on the Lodestar Exchange. Buyers are waiting for the next station report before they call the bottom.",
+      "text": [
+        "Smartlink shares fell sharply on the Lodestar Exchange. Buyers are waiting for the next station report before they call the bottom.",
+        "Smartlink shares dropped hard on the Lodestar Exchange. The desk says buyers are sitting on their hands until the next station report comes in.",
+        "A poor session for Smartlink on the Lodestar Exchange, with sellers outnumbering buyers. Brokers want the next station report before anyone calls the bottom."
+      ],
       "title": "Smartlink price move",
       "onceEach": true
     },
@@ -188,7 +202,10 @@
           "exchange-testudo-cabin-refit"
         ]
       },
-      "text": "Testudo has won a run of cabin refits for working haulers at Cloudbreak. The yard is splitting the work between several crews to keep the ships in service.",
+      "text": [
+        "Testudo has won a run of cabin refits for working haulers at Cloudbreak. The yard is splitting the work between several crews to keep the ships in service.",
+        "Hauling crews at Cloudbreak have booked Testudo for a run of cabin refits. The yard is spreading the jobs across several crews so no ship sits idle for long."
+      ],
       "title": "Testudo report",
       "onceEach": true
     },
@@ -202,7 +219,10 @@
           "exchange-testudo-foundry-check"
         ]
       },
-      "text": "Testudo has paused one foundry line for a crack inspection. The company has not said how many hull orders will be delayed while the check is under way.",
+      "text": [
+        "Testudo has paused one foundry line for a crack inspection. The company has not said how many hull orders will be delayed while the check is under way.",
+        "One of Testudo's foundry lines has stopped while inspectors look for cracks. Testudo has not said how many hull orders will wait on the result."
+      ],
       "title": "Testudo report",
       "onceEach": true
     },
@@ -215,7 +235,11 @@
           "exchange-testudo-surge"
         ]
       },
-      "text": "Testudo shares climbed sharply on the Lodestar Exchange. A strong week at the yards is not a delivery schedule, so the brokers are watching for the next order book.",
+      "text": [
+        "Testudo shares climbed sharply on the Lodestar Exchange. A strong week at the yards is not a delivery schedule, so the brokers are watching for the next order book.",
+        "Testudo shares rose sharply on the Lodestar Exchange. Brokers credit a busy week at the yards but want to see the next order book before they call it more than that.",
+        "A brisk session lifted Testudo on the Lodestar Exchange. Yard talk is cheerful; the desk is waiting to see the orders on paper."
+      ],
       "title": "Testudo price move",
       "onceEach": true
     },
@@ -228,7 +252,11 @@
           "exchange-testudo-slump"
         ]
       },
-      "text": "Testudo shares fell sharply on the Lodestar Exchange. Several yards are holding their next orders until the station market settles.",
+      "text": [
+        "Testudo shares fell sharply on the Lodestar Exchange. Several yards are holding their next orders until the station market settles.",
+        "Testudo shares slid hard on the Lodestar Exchange as several yards held back their next orders. Brokers expect little change until the station market settles.",
+        "A weak session for Testudo on the Lodestar Exchange. Yard buyers are holding off on new hulls while the station markets find their level."
+      ],
       "title": "Testudo price move",
       "onceEach": true
     },
@@ -242,7 +270,10 @@
           "exchange-ayotimiwa-hull-auction"
         ]
       },
-      "text": "K-Leg's latest salvage auction has drawn more independent buyers than expected. Crews are lining up for hull plate and usable fittings, though the yard has not changed its terms.",
+      "text": [
+        "K-Leg's latest salvage auction has drawn more independent buyers than expected. Crews are lining up for hull plate and usable fittings, though the yard has not changed its terms.",
+        "Independent buyers turned out in numbers for the latest salvage auction at K-Leg, bidding for hull plate and fittings that still work. The yard's terms are unchanged."
+      ],
       "title": "Ayotimiwa Corp. report",
       "onceEach": true
     },
@@ -256,7 +287,10 @@
           "exchange-ayotimiwa-yard-delay"
         ]
       },
-      "text": "A failure in yard equipment has delayed departures from K-Leg. The Port Authority says crews are being routed around the damaged bay while repairs continue.",
+      "text": [
+        "A failure in yard equipment has delayed departures from K-Leg. The Port Authority says crews are being routed around the damaged bay while repairs continue.",
+        "Departures from K-Leg are running late after yard equipment failed. The Port Authority is routing crews around the damaged bay until repairs are done."
+      ],
       "title": "Ayotimiwa Corp. report",
       "onceEach": true
     },
@@ -269,7 +303,11 @@
           "exchange-ayotimiwa-surge"
         ]
       },
-      "text": "Ayotimiwa shares rose sharply on the Lodestar Exchange. K-Leg's name is in every dockside conversation, but the desk has not tied the move to one auction.",
+      "text": [
+        "Ayotimiwa shares rose sharply on the Lodestar Exchange. K-Leg's name is in every dockside conversation, but the desk has not tied the move to one auction.",
+        "Ayotimiwa shares climbed sharply on the Lodestar Exchange. Talk on the docks is all K-Leg, though no broker will pin the rise on a single auction.",
+        "A strong session for Ayotimiwa on the Lodestar Exchange. Salvage buyers have been busy, but the desk sees no one sale behind it."
+      ],
       "title": "Ayotimiwa Corp. price move",
       "onceEach": true
     },
@@ -282,7 +320,11 @@
           "exchange-ayotimiwa-slump"
         ]
       },
-      "text": "Ayotimiwa shares fell sharply on the Lodestar Exchange. The yard is still open; brokers are waiting to see how the next lots move.",
+      "text": [
+        "Ayotimiwa shares fell sharply on the Lodestar Exchange. The yard is still open; brokers are waiting to see how the next lots move.",
+        "Ayotimiwa shares dropped hard on the Lodestar Exchange. K-Leg's yard is working as usual; brokers want to see how the next lots sell.",
+        "A poor session for Ayotimiwa on the Lodestar Exchange. Nothing has closed at K-Leg, and the desk is waiting on the next salvage lots for a clearer picture."
+      ],
       "title": "Ayotimiwa Corp. price move",
       "onceEach": true
     },
@@ -296,7 +338,10 @@
           "exchange-green-energy-cigarette-run"
         ]
       },
-      "text": "The Green Energy Company has filled a large Damask Rose order for station stores. Merchants at Tharsis Landing say the delivery arrived in time for the next supply run.",
+      "text": [
+        "The Green Energy Company has filled a large Damask Rose order for station stores. Merchants at Tharsis Landing say the delivery arrived in time for the next supply run.",
+        "A large Damask Rose order from the Green Energy Company has reached station stores. Tharsis Landing merchants say it landed in good time for the next supply run."
+      ],
       "title": "The Green Energy Company report",
       "onceEach": true
     },
@@ -310,7 +355,10 @@
           "exchange-green-energy-seed-recall"
         ]
       },
-      "text": "The Green Energy Company has recalled a seed lot after a storage failure. Growers are checking their stock while replacement consignments are arranged.",
+      "text": [
+        "The Green Energy Company has recalled a seed lot after a storage failure. Growers are checking their stock while replacement consignments are arranged.",
+        "After a storage failure, the Green Energy Company is recalling a lot of seed. Growers are going through their stock while replacements are arranged."
+      ],
       "title": "The Green Energy Company report",
       "onceEach": true
     },
@@ -323,7 +371,11 @@
           "exchange-green-energy-surge"
         ]
       },
-      "text": "Green Energy Company shares climbed sharply on the Lodestar Exchange. Store orders have been lively, though nobody at the Tharsis board can name a single cause.",
+      "text": [
+        "Green Energy Company shares climbed sharply on the Lodestar Exchange. Store orders have been lively, though nobody at the Tharsis board can name a single cause.",
+        "Shares in the Green Energy Company rose sharply on the Lodestar Exchange. Store orders have been brisk; the Tharsis board can offer no one reason for it.",
+        "A strong session for the Green Energy Company on the Lodestar Exchange. Traders mention busy store orders, but nobody will name a cause."
+      ],
       "title": "The Green Energy Company price move",
       "onceEach": true
     },
@@ -336,7 +388,11 @@
           "exchange-green-energy-slump"
         ]
       },
-      "text": "Green Energy Company shares fell sharply on the Lodestar Exchange. Traders are holding for the next shipment report before they change their plans.",
+      "text": [
+        "Green Energy Company shares fell sharply on the Lodestar Exchange. Traders are holding for the next shipment report before they change their plans.",
+        "Shares in the Green Energy Company fell hard on the Lodestar Exchange. Traders are sitting tight until the next shipment report.",
+        "A weak session for the Green Energy Company on the Lodestar Exchange. The Tharsis board is waiting on shipment news before anyone moves."
+      ],
       "title": "The Green Energy Company price move",
       "onceEach": true
     },
@@ -350,7 +406,10 @@
           "exchange-brightvein-new-seam"
         ]
       },
-      "text": "Brightvein has reported a clean ore seam and added a second carrier to the route. Zhonghuamen Terminal expects the first lot after the next belt run.",
+      "text": [
+        "Brightvein has reported a clean ore seam and added a second carrier to the route. Zhonghuamen Terminal expects the first lot after the next belt run.",
+        "A clean ore seam has led Brightvein to put a second carrier on its route. The first lot is due at Zhonghuamen Terminal after the next belt run."
+      ],
       "title": "Brightvein Mining report",
       "onceEach": true
     },
@@ -364,7 +423,10 @@
           "exchange-brightvein-hauler-damage"
         ]
       },
-      "text": "Damage to a Brightvein hauler has delayed an ore delivery to Zhonghuamen Terminal. The cargo is safe, but the company has not given a replacement arrival date.",
+      "text": [
+        "Damage to a Brightvein hauler has delayed an ore delivery to Zhonghuamen Terminal. The cargo is safe, but the company has not given a replacement arrival date.",
+        "An ore delivery to Zhonghuamen Terminal is late after a Brightvein hauler was damaged. The cargo is reported safe; no new arrival date has been given."
+      ],
       "title": "Brightvein Mining report",
       "onceEach": true
     },
@@ -377,7 +439,11 @@
           "exchange-brightvein-surge"
         ]
       },
-      "text": "Brightvein shares made a sharp move on the Lodestar Exchange. The board has no confirmed seam report to explain it; crews are still checking the latest cargo sheets.",
+      "text": [
+        "Brightvein shares made a sharp move on the Lodestar Exchange. The board has no confirmed seam report to explain it; crews are still checking the latest cargo sheets.",
+        "Brightvein shares jumped on the Lodestar Exchange. No seam report has been confirmed to account for it, and crews are still reading the latest cargo sheets.",
+        "A strong session for Brightvein Mining on the Lodestar Exchange. Talk of good ore is going round the belt; the desk has seen nothing on paper yet."
+      ],
       "title": "Brightvein Mining price move",
       "onceEach": true
     },
@@ -390,7 +456,11 @@
           "exchange-brightvein-slump"
         ]
       },
-      "text": "Brightvein shares dropped sharply on the Lodestar Exchange. A full ore bin is not a promise that the next buyer will be nearby.",
+      "text": [
+        "Brightvein shares dropped sharply on the Lodestar Exchange. A full ore bin is not a promise that the next buyer will be nearby.",
+        "Brightvein shares fell hard on the Lodestar Exchange. Ore is plentiful; buyers close enough to take it are not.",
+        "A poor session for Brightvein Mining on the Lodestar Exchange. Brokers point to full bins at the terminal and wonder where the next buyer will come from."
+      ],
       "title": "Brightvein Mining price move",
       "onceEach": true
     },
@@ -404,7 +474,10 @@
           "exchange-coldwell-ice-delivery"
         ]
       },
-      "text": "Coldwell has completed a water-ice run after a long delay at the docks. Stores at Port Yangshan have begun clearing the waiting orders.",
+      "text": [
+        "Coldwell has completed a water-ice run after a long delay at the docks. Stores at Port Yangshan have begun clearing the waiting orders.",
+        "After a long wait at the docks, Coldwell's water-ice run has been delivered. Port Yangshan stores are working through the orders that piled up in the meantime."
+      ],
       "title": "Coldwell Volatiles report",
       "onceEach": true
     },
@@ -418,7 +491,10 @@
           "exchange-coldwell-tanker-repair"
         ]
       },
-      "text": "A tanker repair has kept one of Coldwell's volatile cargoes off the route. Upsilon Docking is looking for a replacement load while the ship remains in the bay.",
+      "text": [
+        "A tanker repair has kept one of Coldwell's volatile cargoes off the route. Upsilon Docking is looking for a replacement load while the ship remains in the bay.",
+        "One of Coldwell's volatile cargoes has missed its run while a tanker is repaired. Upsilon Docking is hunting for a replacement load as the ship sits in the bay."
+      ],
       "title": "Coldwell Volatiles report",
       "onceEach": true
     },
@@ -431,7 +507,11 @@
           "exchange-coldwell-surge"
         ]
       },
-      "text": "Coldwell shares rose sharply on the Lodestar Exchange. Ice stores are moving again at Port Yangshan, but the desk has not linked the price change to one shipment.",
+      "text": [
+        "Coldwell shares rose sharply on the Lodestar Exchange. Ice stores are moving again at Port Yangshan, but the desk has not linked the price change to one shipment.",
+        "Coldwell Volatiles shares climbed sharply on the Lodestar Exchange. Ice is selling at Port Yangshan, but brokers will not tie the rise to any one shipment.",
+        "A strong session for Coldwell on the Lodestar Exchange. The docks are busy with ice; the desk sees no single cargo behind the move."
+      ],
       "title": "Coldwell Volatiles price move",
       "onceEach": true
     },
@@ -444,7 +524,11 @@
           "exchange-coldwell-slump"
         ]
       },
-      "text": "Coldwell shares slid sharply on the Lodestar Exchange. Brokers are asking for the next arrival report before they take a view on the route.",
+      "text": [
+        "Coldwell shares slid sharply on the Lodestar Exchange. Brokers are asking for the next arrival report before they take a view on the route.",
+        "Coldwell Volatiles shares fell hard on the Lodestar Exchange. Brokers want the next arrival report before they form a view on the route.",
+        "A weak session for Coldwell on the Lodestar Exchange. Until the next tanker comes in, the desk is reluctant to say much."
+      ],
       "title": "Coldwell Volatiles price move",
       "onceEach": true
     },
@@ -458,7 +542,10 @@
           "exchange-verdemorrow-garden-orders"
         ]
       },
-      "text": "Verdemorrow has received a new run of orders for shipboard cultivation equipment. Buyers at Qincheng Station say more crews are making room for a small grow rack between cargo runs.",
+      "text": [
+        "Verdemorrow has received a new run of orders for shipboard cultivation equipment. Buyers at Qincheng Station say more crews are making room for a small grow rack between cargo runs.",
+        "Orders for shipboard cultivation equipment are coming in to Verdemorrow. At Qincheng Station, buyers say more crews are finding room for a small grow rack between cargo runs."
+      ],
       "title": "Verdemorrow report",
       "onceEach": true
     },
@@ -472,7 +559,10 @@
           "exchange-verdemorrow-stock-check"
         ]
       },
-      "text": "A storage failure has delayed part of Verdemorrow's planting-stock shipment. The company is checking the affected containers before they leave the depot.",
+      "text": [
+        "A storage failure has delayed part of Verdemorrow's planting-stock shipment. The company is checking the affected containers before they leave the depot.",
+        "Part of a Verdemorrow planting-stock shipment is held at the depot after a storage failure. The company is checking each affected container before it goes out."
+      ],
       "title": "Verdemorrow report",
       "onceEach": true
     },
@@ -485,7 +575,11 @@
           "exchange-verdemorrow-surge"
         ]
       },
-      "text": "Verdemorrow shares climbed sharply on the Lodestar Exchange. Grow-room orders are up at Qincheng Station, though the market has not named them as the cause.",
+      "text": [
+        "Verdemorrow shares climbed sharply on the Lodestar Exchange. Grow-room orders are up at Qincheng Station, though the market has not named them as the cause.",
+        "Verdemorrow shares rose sharply on the Lodestar Exchange. Qincheng Station reports more grow-room orders, though the desk stops short of calling that the reason.",
+        "A strong session for Verdemorrow on the Lodestar Exchange. Crews are buying grow racks and traders are buying the shares, though the desk will not link the two."
+      ],
       "title": "Verdemorrow price move",
       "onceEach": true
     },
@@ -498,7 +592,11 @@
           "exchange-verdemorrow-slump"
         ]
       },
-      "text": "Verdemorrow shares fell sharply on the Lodestar Exchange. Buyers are checking the next planting-stock delivery before they call the season.",
+      "text": [
+        "Verdemorrow shares fell sharply on the Lodestar Exchange. Buyers are checking the next planting-stock delivery before they call the season.",
+        "Verdemorrow shares slid hard on the Lodestar Exchange. Buyers want to see the next planting-stock delivery before they judge the season.",
+        "A poor session for Verdemorrow on the Lodestar Exchange. The desk is waiting on the planting-stock deliveries before calling it more than a bad day."
+      ],
       "title": "Verdemorrow price move",
       "onceEach": true
     },
@@ -512,7 +610,10 @@
           "exchange-halewright-clinic-orders"
         ]
       },
-      "text": "Halewright has filled a run of clinic orders from outer-system stations. Qiantangmen's buyers expect the next shipment to include beds and replacement fittings.",
+      "text": [
+        "Halewright has filled a run of clinic orders from outer-system stations. Qiantangmen's buyers expect the next shipment to include beds and replacement fittings.",
+        "A run of clinic orders from outer-system stations has shipped from Halewright. Buyers at Qiantangmen expect beds and replacement fittings in the next consignment."
+      ],
       "title": "Halewright report",
       "onceEach": true
     },
@@ -526,7 +627,10 @@
           "exchange-halewright-fitting-recall"
         ]
       },
-      "text": "Halewright has delayed a shipment while it checks a batch of clinic fittings. The company has asked customers to hold the affected boxes until the inspection is complete.",
+      "text": [
+        "Halewright has delayed a shipment while it checks a batch of clinic fittings. The company has asked customers to hold the affected boxes until the inspection is complete.",
+        "A Halewright shipment is on hold while a batch of clinic fittings is checked. Customers have been asked to set the affected boxes aside until the inspection is done."
+      ],
       "title": "Halewright report",
       "onceEach": true
     },
@@ -539,7 +643,11 @@
           "exchange-halewright-surge"
         ]
       },
-      "text": "Halewright shares moved sharply higher on the Lodestar Exchange. Clinic buyers have been active, but the board has not named one order as the cause.",
+      "text": [
+        "Halewright shares moved sharply higher on the Lodestar Exchange. Clinic buyers have been active, but the board has not named one order as the cause.",
+        "Halewright shares climbed sharply on the Lodestar Exchange. Clinic buyers have kept busy, though no single order is being named as the reason.",
+        "A strong session for Halewright on the Lodestar Exchange. Station clinics are ordering; the desk will not say which order moved the board."
+      ],
       "title": "Halewright price move",
       "onceEach": true
     },
@@ -552,7 +660,11 @@
           "exchange-halewright-slump"
         ]
       },
-      "text": "Halewright shares moved sharply lower on the Lodestar Exchange. Station clinics still need supplies; the next freight report will tell more than the gossip.",
+      "text": [
+        "Halewright shares moved sharply lower on the Lodestar Exchange. Station clinics still need supplies; the next freight report will tell more than the gossip.",
+        "Halewright shares fell hard on the Lodestar Exchange. Clinics still need their supplies, and brokers say the next freight report will tell more than the rumours.",
+        "A weak session for Halewright on the Lodestar Exchange. Gossip is plentiful; the desk is waiting for the freight report instead."
+      ],
       "title": "Halewright price move",
       "onceEach": true
     }
@@ -563,35 +675,50 @@
       "place": "hqch",
       "weight": 2,
       "title": "Verdemorrow grow-room supplies",
-      "text": "Keep a little food close at hand. Verdemorrow fits cultivation racks, cookers and planting stock for working ships. A grow room still needs light, water, space and someone to tend it."
+      "text": [
+        "Keep a little food close at hand. Verdemorrow fits cultivation racks, cookers and planting stock for working ships. A grow room still needs light, water, space and someone to tend it.",
+        "Fresh food, a few steps from the galley. Verdemorrow supplies Firstlight racks, Hearth cookers and Continuance planting stock for working ships. Give a crop light, water, room and a little care, and it gives back."
+      ]
     },
     "exchange-advert-halewright": {
       "thread": "exchange-halewright",
       "place": "mhng",
       "weight": 2,
       "title": "Halewright clinic fittings",
-      "text": "A cramped sickbay can still be kept in order. Halewright supplies beds and practical clinic equipment for crews who have to treat a hurt spacer before the next station call."
+      "text": [
+        "A cramped sickbay can still be kept in order. Halewright supplies beds and practical clinic equipment for crews who have to treat a hurt spacer before the next station call.",
+        "When the next station is days away, the sickbay is yours to run. Halewright makes beds and clinic equipment sized for working ships, for crews who look after their own."
+      ]
     },
     "exchange-advert-brightvein": {
       "thread": "exchange-brightvein",
       "place": "bcer",
       "weight": 2,
       "title": "Brightvein ore runs",
-      "text": "Ore only earns its keep once it reaches a buyer. Brightvein runs regular belt cargo when the route, the hold and the dock queue all line up."
+      "text": [
+        "Ore only earns its keep once it reaches a buyer. Brightvein runs regular belt cargo when the route, the hold and the dock queue all line up.",
+        "Rock is only worth something at the dock. Brightvein Mining runs belt ore to its buyers on a steady schedule, whenever the route, the hold and the queue allow."
+      ]
     },
     "exchange-advert-coldwell": {
       "thread": "exchange-coldwell",
       "place": "mtrs",
       "weight": 2,
       "title": "Coldwell sealed cargo",
-      "text": "Water ice and industrial volatiles travel better when the cargo stays sealed. Coldwell hauls the cold loads through the inner routes and keeps the paperwork with the tanks."
+      "text": [
+        "Water ice and industrial volatiles travel better when the cargo stays sealed. Coldwell hauls the cold loads through the inner routes and keeps the paperwork with the tanks.",
+        "Sealed tanks, cold cargo, papers in order. Coldwell Volatiles hauls water ice and industrial volatiles along the inner routes, and hands over every load the way it was loaded."
+      ]
     },
     "exchange-advert-lodestar": {
       "thread": "exchange-lodestar",
       "place": "mtrs",
       "weight": 2,
       "title": "Read the Lodestar board",
-      "text": "Sela Nkomo, Lodestar market desk: Shortages, full bins and long waits at the docks all reach the share board in time. Read the station reports, mind the run you can afford, and remember that a share is not a wage."
+      "text": [
+        "Sela Nkomo, Lodestar market desk: Shortages, full bins and long waits at the docks all reach the share board in time. Read the station reports, mind the run you can afford, and remember that a share is not a wage.",
+        "Sela Nkomo, Lodestar market desk: Every price on the board started as a station report. Read them, buy only what you could live without, and remember that a share is not a wage."
+      ]
     }
   },
   "chatter": {
@@ -605,7 +732,11 @@
           "exchange-smartlink-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Smartlink's up on the board. Somebody out there must be expecting trouble.",
+        "Every time Smartlink climbs, I check whether my point-defence is paid for."
+      ]
     },
     "exchange-smartlink-slump-chatter": {
       "thread": "exchange-smartlink",
@@ -617,7 +748,11 @@
           "exchange-smartlink-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Smartlink's down. Doesn't make their cannon any cheaper at the counter, mind.",
+        "Board says Smartlink's sliding. The yard's still got a row of suites waiting on parts."
+      ]
     },
     "exchange-testudo-surge-chatter": {
       "thread": "exchange-testudo",
@@ -629,7 +764,11 @@
           "exchange-testudo-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Testudo's climbing. Half the yard says it's the refits, the other half says it's luck.",
+        "Testudo shares up, and my hull's still on the waiting list. Funny old market."
+      ]
     },
     "exchange-testudo-slump-chatter": {
       "thread": "exchange-testudo",
@@ -641,7 +780,11 @@
           "exchange-testudo-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Testudo's slipping on the board. The yards are so quiet you can hear the welders thinking.",
+        "Testudo's down. Orders are thin, and the yard's thinner."
+      ]
     },
     "exchange-ayotimiwa-surge-chatter": {
       "thread": "exchange-ayotimiwa",
@@ -653,7 +796,11 @@
           "exchange-ayotimiwa-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Ayotimiwa's up. The yard bosses will be unbearable in the canteen.",
+        "Ayotimiwa climbing on the board. Must've been a good auction, or a good rumour."
+      ]
     },
     "exchange-ayotimiwa-slump-chatter": {
       "thread": "exchange-ayotimiwa",
@@ -665,7 +812,11 @@
           "exchange-ayotimiwa-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Ayotimiwa's down on the board. The yard's still cutting hulls, same as yesterday.",
+        "Shares down, plate still coming off the hulls. The board doesn't swing a cutter."
+      ]
     },
     "exchange-green-energy-surge-chatter": {
       "thread": "exchange-green-energy",
@@ -677,7 +828,11 @@
           "exchange-green-energy-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Green Energy's up. Everyone smokes more when the news is bad, so make of that what you will.",
+        "Damask Rose shares climbing. I'd rather have the cigarettes, honestly."
+      ]
     },
     "exchange-green-energy-slump-chatter": {
       "thread": "exchange-green-energy",
@@ -689,7 +844,11 @@
           "exchange-green-energy-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Green Energy's falling on the board. The Rosebud's still selling, last I looked.",
+        "Shares down, smoke still rising over the Rosebud. The board isn't everything."
+      ]
     },
     "exchange-brightvein-surge-chatter": {
       "thread": "exchange-brightvein",
@@ -701,7 +860,11 @@
           "exchange-brightvein-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Brightvein's up. Someone found good rock, or someone said they did.",
+        "Board's kind to Brightvein today. The haulers will want a raise by tomorrow."
+      ]
     },
     "exchange-brightvein-slump-chatter": {
       "thread": "exchange-brightvein",
@@ -713,7 +876,11 @@
           "exchange-brightvein-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Brightvein's sliding. Too much ore and nobody near enough to buy it.",
+        "Brightvein down. Plenty of rock at the terminal, not much call for it."
+      ]
     },
     "exchange-coldwell-surge-chatter": {
       "thread": "exchange-coldwell",
@@ -725,7 +892,11 @@
           "exchange-coldwell-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Coldwell's climbing. When ice runs short, the people hauling it eat well.",
+        "Board's up on Coldwell. Must be thirsty out there."
+      ]
     },
     "exchange-coldwell-slump-chatter": {
       "thread": "exchange-coldwell",
@@ -737,7 +908,11 @@
           "exchange-coldwell-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Coldwell's down. Ice in the bins, tankers in the bay, and nobody buying.",
+        "Coldwell shares slipping. I'll call it bad when the water runs out."
+      ]
     },
     "exchange-verdemorrow-surge-chatter": {
       "thread": "exchange-verdemorrow",
@@ -749,7 +924,11 @@
           "exchange-verdemorrow-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Verdemorrow's up. More crews growing their own, I reckon. Can't blame them.",
+        "Grow-rack people are doing well on the board. Fresh greens are worth something out here."
+      ]
     },
     "exchange-verdemorrow-slump-chatter": {
       "thread": "exchange-verdemorrow",
@@ -761,7 +940,11 @@
           "exchange-verdemorrow-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Verdemorrow's down. Doesn't stop my lettuce growing.",
+        "Board's sour on Verdemorrow today. My grow rack hasn't noticed."
+      ]
     },
     "exchange-halewright-surge-chatter": {
       "thread": "exchange-halewright",
@@ -773,7 +956,11 @@
           "exchange-halewright-surge"
         ]
       },
-      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+      "line": [
+        "That board's climbing again. Check what the stations are short of before you call it a trend.",
+        "Halewright's up. Busy clinics are good for somebody, I suppose.",
+        "Halewright climbing on the board. Must be a lot of bruised spacers about."
+      ]
     },
     "exchange-halewright-slump-chatter": {
       "thread": "exchange-halewright",
@@ -785,7 +972,11 @@
           "exchange-halewright-slump"
         ]
       },
-      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+      "line": [
+        "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has.",
+        "Halewright's down. The clinic still needs its beds, whatever the board says.",
+        "Shares sliding on Halewright. I'd still want one of their beds if I broke something."
+      ]
     }
   },
   "articles": {
@@ -869,7 +1060,11 @@
           "delivery": {
             "message": {
               "person": "exchange-mara-voss",
-              "text": "I saw your name enter Smartlink's public register. A share is a claim on the company, not a berth in its armoury; the people at the yard still have their own work to finish."
+              "text": [
+                "I saw your name enter Smartlink's public register. A share is a claim on the company, not a berth in its armoury; the people at the yard still have their own work to finish.",
+                "Your name is on Smartlink's public register now. Owning a piece of the company does not get you into its armoury; the yard crews still answer to their own schedule.",
+                "Smartlink's register has a new name on it: yours. A share is a piece of the company, not a place in its armoury, and the yard will keep working to its own orders."
+              ]
             }
           },
           "tests": [
@@ -891,7 +1086,11 @@
           "delivery": {
             "message": {
               "person": "exchange-mara-voss",
-              "text": "Your holding now stands out on my working copy of the register. That can make a sale slower to place when the board is thin. Check the market report before you make plans around it."
+              "text": [
+                "Your holding now stands out on my working copy of the register. That can make a sale slower to place when the board is thin. Check the market report before you make plans around it.",
+                "On my copy of the register, your Smartlink holding is now one of the larger ones. A stake that size can be slow to sell on a quiet board. Read the market report before you count on it.",
+                "You hold enough Smartlink now that I notice it on the register. Big holdings take longer to sell without moving the price, so plan with the market report in hand."
+              ]
             }
           },
           "tests": [
@@ -1007,7 +1206,11 @@
           "delivery": {
             "message": {
               "person": "exchange-ivo-pell",
-              "text": "Your Testudo holding is on the public register now. The company builds useful ships, but you still need a yard slot, a crew and supplies before a hull can earn its keep."
+              "text": [
+                "Your Testudo holding is on the public register now. The company builds useful ships, but you still need a yard slot, a crew and supplies before a hull can earn its keep.",
+                "I see your name on Testudo's register. They build good ships; a share in them still will not get you a yard slot, a crew or the supplies a hull needs.",
+                "Welcome to Testudo's register. Owning part of a shipbuilder is not the same as owning a ship: the slot, the crew and the stores are still yours to find."
+              ]
             }
           },
           "tests": [
@@ -1029,7 +1232,11 @@
           "delivery": {
             "message": {
               "person": "exchange-ivo-pell",
-              "text": "The register shows you as one of Testudo's larger outside holders. Keep a little room in your plans: yard orders can arrive in a rush and then go quiet."
+              "text": [
+                "The register shows you as one of Testudo's larger outside holders. Keep a little room in your plans: yard orders can arrive in a rush and then go quiet.",
+                "You are among Testudo's bigger outside holders now. Yard orders come in bursts and dry up just as fast, so leave some slack in your plans.",
+                "The register puts you near the top of Testudo's outside holders. Shipyards live by the order book, and order books are rarely steady; plan for the quiet months."
+              ]
             }
           },
           "tests": [
@@ -1145,7 +1352,11 @@
           "delivery": {
             "message": {
               "person": "exchange-bisi-nwosu",
-              "text": "Your Ayotimiwa holding is entered on the public register. Shares do not reserve a salvage berth; when you bring a ship to K-Leg, the yard still deals with the ship in front of it."
+              "text": [
+                "Your Ayotimiwa holding is entered on the public register. Shares do not reserve a salvage berth; when you bring a ship to K-Leg, the yard still deals with the ship in front of it.",
+                "Your name is on Ayotimiwa's register now. That buys no place in the K-Leg queue; the yard still deals with whatever ship is in front of it.",
+                "You own a slice of Ayotimiwa. The yard at K-Leg will neither know nor care when you dock; a share buys no berth."
+              ]
             }
           },
           "tests": [
@@ -1167,7 +1378,11 @@
           "delivery": {
             "message": {
               "person": "exchange-bisi-nwosu",
-              "text": "Your Ayotimiwa position is now large enough for the register to flag it. K-Leg has no shortage of people with opinions about the yard; keep your plans tied to what you can actually see."
+              "text": [
+                "Your Ayotimiwa position is now large enough for the register to flag it. K-Leg has no shortage of people with opinions about the yard; keep your plans tied to what you can actually see.",
+                "The register flags your Ayotimiwa holding as a large one. Everyone at K-Leg has a theory about the yard; trust what you can see over what you hear.",
+                "Yours is now one of the larger outside stakes in Ayotimiwa. Dock talk about the yard is cheap and plentiful; watch the auctions and the plate prices instead."
+              ]
             }
           },
           "tests": [
@@ -1283,7 +1498,11 @@
           "delivery": {
             "message": {
               "person": "exchange-anika-das",
-              "text": "Your name is on the public register. That gives you a stake in the Green Energy Company; it does not put you in the Rosebud's crew or change what its stores can sell."
+              "text": [
+                "Your name is on the public register. That gives you a stake in the Green Energy Company; it does not put you in the Rosebud's crew or change what its stores can sell.",
+                "You are on the Green Energy Company's register now. A stake in the company is all it is: no place among the Rosebud's people, and no say over what its stores sell.",
+                "I see you have bought into the Green Energy Company. Owning shares does not make you one of the Rosebud's crew, and it changes nothing on its shelves."
+              ]
             }
           },
           "tests": [
@@ -1305,7 +1524,11 @@
           "delivery": {
             "message": {
               "person": "exchange-anika-das",
-              "text": "The register marks you as a substantial outside holder in the Green Energy Company. Judge it by deliveries and station demand, not by the noise around the name."
+              "text": [
+                "The register marks you as a substantial outside holder in the Green Energy Company. Judge it by deliveries and station demand, not by the noise around the name.",
+                "You now hold a substantial outside stake in the Green Energy Company. Watch its deliveries and what the stations want, and let the talk about the name go past.",
+                "The register lists you among the Green Energy Company's larger outside holders. A well-known name draws a lot of chatter; deliveries and demand tell you more."
+              ]
             }
           },
           "tests": [
@@ -1421,7 +1644,11 @@
           "delivery": {
             "message": {
               "person": "exchange-daro-fen",
-              "text": "Your name is on Brightvein's register. We move ore when the route and the buyers line up; owning a share will not put a new load in your hold."
+              "text": [
+                "Your name is on Brightvein's register. We move ore when the route and the buyers line up; owning a share will not put a new load in your hold.",
+                "Welcome to Brightvein's register. We haul ore when there is a route and a buyer; a share in us puts nothing in your hold.",
+                "Your Brightvein shares are on our register. Glad to have you. Fair warning from the freight desk: ore runs when it runs, and owning a piece of us will not load your ship."
+              ]
             }
           },
           "tests": [
@@ -1443,7 +1670,11 @@
           "delivery": {
             "message": {
               "person": "exchange-daro-fen",
-              "text": "The register shows a large outside position in Brightvein. Ore work can be lumpy, so keep enough room in your plans for a quiet run."
+              "text": [
+                "The register shows a large outside position in Brightvein. Ore work can be lumpy, so keep enough room in your plans for a quiet run.",
+                "Yours is a large outside holding in Brightvein now. Mining has good runs and empty ones; plan for an empty one.",
+                "The freight desk notices when one name holds this much of Brightvein. Some runs come back full and some do not, so leave room in your plans for a lean stretch."
+              ]
             }
           },
           "tests": [
@@ -1559,7 +1790,11 @@
           "delivery": {
             "message": {
               "person": "exchange-sen-adu",
-              "text": "Your Coldwell holding is on the register. We make a living by moving sealed cargo when a ship and a buyer are both ready; the shares do not reserve a tank."
+              "text": [
+                "Your Coldwell holding is on the register. We make a living by moving sealed cargo when a ship and a buyer are both ready; the shares do not reserve a tank.",
+                "You are on Coldwell's register. We earn by moving sealed cargo once a ship and a buyer are both ready; a share does not hold a tank for you.",
+                "Welcome to Coldwell's register. We haul cold cargo when the ship, the load and the buyer line up. Your shares come with no tank space, I am afraid."
+              ]
             }
           },
           "tests": [
@@ -1581,7 +1816,11 @@
           "delivery": {
             "message": {
               "person": "exchange-sen-adu",
-              "text": "We have a large outside holding to note on the register. The useful question is still whether our next cargo reaches a buyer before the next dock bill comes due."
+              "text": [
+                "We have a large outside holding to note on the register. The useful question is still whether our next cargo reaches a buyer before the next dock bill comes due.",
+                "Your Coldwell holding is now a large one on our register. What matters is whether our next cargo finds a buyer before the dock bills come due.",
+                "I have noted a large outside holding on our register: yours. For what it is worth from the cargo desk, watch the arrival reports; they tell you more than the board does."
+              ]
             }
           },
           "tests": [
@@ -1697,7 +1936,11 @@
           "delivery": {
             "message": {
               "person": "exchange-hana-ortiz",
-              "text": "Glad to see your name on our share register. If your crew is thinking about a garden, our Firstlight racks and Continuance planting stock still need a habitable room and regular care."
+              "text": [
+                "Glad to see your name on our share register. If your crew is thinking about a garden, our Firstlight racks and Continuance planting stock still need a habitable room and regular care.",
+                "Welcome to Verdemorrow's share register. Should your crew want a garden of its own, our Firstlight racks and Continuance stock will need a room with air and someone to look after them.",
+                "Nice to see your name among our shareholders. A share will not grow anything, mind; for that you want a Firstlight rack, some Continuance stock, a warm room and a patient crew."
+              ]
             }
           },
           "tests": [
@@ -1719,7 +1962,11 @@
           "delivery": {
             "message": {
               "person": "exchange-hana-ortiz",
-              "text": "Your holding is one of the larger names on our register. We build useful equipment, but a share cannot grow a crop for you; the room and the crew still matter."
+              "text": [
+                "Your holding is one of the larger names on our register. We build useful equipment, but a share cannot grow a crop for you; the room and the crew still matter.",
+                "You are now one of our larger shareholders. Thank you. Our racks do good work, but only with a room and a crew to tend them, and a share provides neither.",
+                "The service desk sees your name near the top of our register now. The equipment is ours to build; the growing is still up to whoever tends the room."
+              ]
             }
           },
           "tests": [
@@ -1835,7 +2082,11 @@
           "delivery": {
             "message": {
               "person": "exchange-mala-sen",
-              "text": "Your Halewright holding is on the public register. The company sells equipment, not a staffed clinic; a crew still has to make room and look after the gear."
+              "text": [
+                "Your Halewright holding is on the public register. The company sells equipment, not a staffed clinic; a crew still has to make room and look after the gear.",
+                "Your name is on Halewright's register now. They make clinic equipment, not clinicians; a crew still has to find the space and care for the gear.",
+                "You have bought into Halewright. A good bed is only half a sickbay; the crew that runs it is the other half, and no share buys that."
+              ]
             }
           },
           "tests": [
@@ -1857,7 +2108,11 @@
           "delivery": {
             "message": {
               "person": "exchange-mala-sen",
-              "text": "The register shows you among Halewright's larger outside holders. Clinic orders can be steady until one missing shipment stops the work, so watch the stores as well as the board."
+              "text": [
+                "The register shows you among Halewright's larger outside holders. Clinic orders can be steady until one missing shipment stops the work, so watch the stores as well as the board.",
+                "You hold one of the larger outside stakes in Halewright now. Clinic buying is steady right up until a shipment goes missing; keep an eye on station stores as well as the board.",
+                "The register lists you among Halewright's bigger outside holders. A medical buyer's advice: the stores tell you sooner than the board when clinic orders are about to stall."
+              ]
             }
           },
           "tests": [

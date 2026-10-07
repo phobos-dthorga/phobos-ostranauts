@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "exchange",
-  "notes": "Phobos Exchange 0.3.0 first content draft (7 October 2026): market, sector and company histories plus two story events per company are authored proposals for owner review. Game-canon anchors and the division between canon and invention are documented in docs/development/share-market-and-charts-design.md. Prices in play change only through declared news flags.",
+  "notes": "Phobos Exchange 0.3.0 first content draft (7 October 2026): market, sector and company histories plus two story events per company are authored proposals for owner review. Game-canon anchors and the division between canon and invention are documented in docs/development/share-market-and-charts-design.md. Prices in play change only through declared news flags. Wire variants (Phobos Exchange 0.6.0, 8 October 2026): every wire line after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "market": {
     "notes": "The Lodestar Exchange opened in 2034 (agent-authored setting choice, owner review pending). Market history and all company histories are first-draft proposals; game-canon anchors and the division between canon and invention are documented in docs/development/share-market-and-charts-design.md.",
     "name": "Lodestar Exchange",
@@ -264,16 +264,21 @@
           "move": 0.08,
           "wire": [
             "Smartlink wins a point-defence service contract from a group of tug operators.",
-            "Smartlink renews its point-defence service work for a group of tug operators."
+            "Smartlink renews its point-defence service work for a group of tug operators.",
+            "A group of tug operators hands Smartlink the servicing of its point-defence suites."
           ],
           "carry": 0.04,
           "keeps": 0.3,
-          "notes": "Variants after the first are agent placeholders (Framework 0.132.0 proof) for the writers to replace."
+          "notes": "Its wire variants are agent-authored (Framework 0.132.0 proof, extended in Phobos Exchange 0.6.0)."
         },
         {
           "flag": "exchange-smartlink-cannon-inspection",
           "move": -0.07,
-          "wire": "A safety inspection delays delivery of a Smartlink cannon assembly.",
+          "wire": [
+            "A safety inspection delays delivery of a Smartlink cannon assembly.",
+            "Smartlink holds back a cannon assembly until it clears a safety inspection.",
+            "A Smartlink cannon assembly sits undelivered pending a safety inspection."
+          ],
           "carry": -0.035,
           "keeps": 0.3
         }
@@ -354,14 +359,22 @@
         {
           "flag": "exchange-testudo-cabin-refit",
           "move": 0.07,
-          "wire": "Testudo wins a run of cabin refits for working haulers.",
+          "wire": [
+            "Testudo wins a run of cabin refits for working haulers.",
+            "Working haulers book Testudo for a run of cabin refits.",
+            "Testudo picks up a string of cabin refit jobs from hauling crews."
+          ],
           "carry": 0.035,
           "keeps": 0.3
         },
         {
           "flag": "exchange-testudo-foundry-check",
           "move": -0.08,
-          "wire": "Testudo pauses one foundry line for a crack inspection.",
+          "wire": [
+            "Testudo pauses one foundry line for a crack inspection.",
+            "A crack inspection idles one of Testudo's foundry lines.",
+            "Testudo stops a foundry line while inspectors look for cracks."
+          ],
           "carry": -0.04,
           "keeps": 0.3
         }
@@ -436,14 +449,22 @@
         {
           "flag": "exchange-ayotimiwa-hull-auction",
           "move": 0.09,
-          "wire": "K-Leg's latest salvage auction draws a larger group of independent buyers.",
+          "wire": [
+            "K-Leg's latest salvage auction draws a larger group of independent buyers.",
+            "More independent buyers than usual turn out for the salvage auction at K-Leg.",
+            "Bidding widens at K-Leg's salvage auction as independent buyers crowd in."
+          ],
           "carry": 0.045,
           "keeps": 0.3
         },
         {
           "flag": "exchange-ayotimiwa-yard-delay",
           "move": -0.06,
-          "wire": "A yard equipment failure delays departures from K-Leg.",
+          "wire": [
+            "A yard equipment failure delays departures from K-Leg.",
+            "Departures from K-Leg run late after yard equipment fails.",
+            "An equipment fault in the K-Leg yards holds up outbound ships."
+          ],
           "carry": -0.03,
           "keeps": 0.3
         }
@@ -517,14 +538,22 @@
         {
           "flag": "exchange-green-energy-cigarette-run",
           "move": 0.06,
-          "wire": "The Green Energy Company fills a large Damask Rose order for station stores.",
+          "wire": [
+            "The Green Energy Company fills a large Damask Rose order for station stores.",
+            "Station stores take delivery of a large Damask Rose order from the Green Energy Company.",
+            "A large Damask Rose order for station shelves goes out from the Green Energy Company."
+          ],
           "carry": 0.03,
           "keeps": 0.3
         },
         {
           "flag": "exchange-green-energy-seed-recall",
           "move": -0.08,
-          "wire": "The Green Energy Company recalls a seed lot after a storage failure.",
+          "wire": [
+            "The Green Energy Company recalls a seed lot after a storage failure.",
+            "A storage failure prompts the Green Energy Company to recall a lot of seed.",
+            "The Green Energy Company pulls a badly stored seed lot from sale."
+          ],
           "carry": -0.04,
           "keeps": 0.3
         }
@@ -599,14 +628,22 @@
         {
           "flag": "exchange-brightvein-new-seam",
           "move": 0.11,
-          "wire": "Brightvein reports a clean ore seam and adds a second carrier to the run.",
+          "wire": [
+            "Brightvein reports a clean ore seam and adds a second carrier to the run.",
+            "A clean seam lets Brightvein put a second carrier on its ore run.",
+            "Brightvein Mining strikes a clean seam; a second carrier joins its ore run."
+          ],
           "carry": 0.055,
           "keeps": 0.3
         },
         {
           "flag": "exchange-brightvein-hauler-damage",
           "move": -0.09,
-          "wire": "Damage to a Brightvein hauler delays an ore delivery to Zhonghuamen Terminal.",
+          "wire": [
+            "Damage to a Brightvein hauler delays an ore delivery to Zhonghuamen Terminal.",
+            "An ore delivery to Zhonghuamen Terminal runs late after a Brightvein hauler is damaged.",
+            "A damaged hauler holds up Brightvein's ore for Zhonghuamen Terminal."
+          ],
           "carry": -0.045,
           "keeps": 0.3
         }
@@ -687,14 +724,22 @@
         {
           "flag": "exchange-coldwell-ice-delivery",
           "move": 0.08,
-          "wire": "Coldwell completes a water-ice run after a long delay at the docks.",
+          "wire": [
+            "Coldwell completes a water-ice run after a long delay at the docks.",
+            "After a long wait at the docks, Coldwell delivers its water-ice run.",
+            "Coldwell Volatiles lands a delayed water-ice cargo."
+          ],
           "carry": 0.04,
           "keeps": 0.3
         },
         {
           "flag": "exchange-coldwell-tanker-repair",
           "move": -0.07,
-          "wire": "A tanker repair keeps one of Coldwell's volatile cargoes off the route.",
+          "wire": [
+            "A tanker repair keeps one of Coldwell's volatile cargoes off the route.",
+            "One of Coldwell's volatile cargoes misses its run while a tanker is repaired.",
+            "Coldwell Volatiles loses a cargo run to tanker repairs."
+          ],
           "carry": -0.035,
           "keeps": 0.3
         }
@@ -768,14 +813,22 @@
         {
           "flag": "exchange-verdemorrow-garden-orders",
           "move": 0.08,
-          "wire": "Verdemorrow receives a new run of orders for shipboard cultivation equipment.",
+          "wire": [
+            "Verdemorrow receives a new run of orders for shipboard cultivation equipment.",
+            "Orders for shipboard cultivation equipment pick up at Verdemorrow.",
+            "Crews place a fresh run of orders with Verdemorrow for shipboard growing gear."
+          ],
           "carry": 0.04,
           "keeps": 0.3
         },
         {
           "flag": "exchange-verdemorrow-stock-check",
           "move": -0.07,
-          "wire": "A storage failure delays part of Verdemorrow's planting-stock shipment.",
+          "wire": [
+            "A storage failure delays part of Verdemorrow's planting-stock shipment.",
+            "Part of a Verdemorrow planting-stock shipment is held back after a storage failure.",
+            "Verdemorrow ships its planting stock short while a storage failure is put right."
+          ],
           "carry": -0.035,
           "keeps": 0.3
         }
@@ -856,14 +909,22 @@
         {
           "flag": "exchange-halewright-clinic-orders",
           "move": 0.08,
-          "wire": "Halewright fills a run of clinic orders from outer-system stations.",
+          "wire": [
+            "Halewright fills a run of clinic orders from outer-system stations.",
+            "Outer-system stations take delivery of a run of Halewright clinic orders.",
+            "Halewright ships a string of clinic orders to outer-system stations."
+          ],
           "carry": 0.04,
           "keeps": 0.3
         },
         {
           "flag": "exchange-halewright-fitting-recall",
           "move": -0.06,
-          "wire": "Halewright delays a shipment while it checks a batch of clinic fittings.",
+          "wire": [
+            "Halewright delays a shipment while it checks a batch of clinic fittings.",
+            "A batch of clinic fittings under inspection holds up a Halewright shipment.",
+            "Halewright keeps a shipment back to check a batch of clinic fittings."
+          ],
           "carry": -0.03,
           "keeps": 0.3
         }

@@ -254,9 +254,11 @@ reply labels, names, profiles and history lines stay one string.
    `major-holder`), which also come round.
 3. The sixteen small-talk lines, which the docks repeat most of all.
 
-**The proof already in place:** Smartlink's spares-contract news
-(`exchange-smartlink-spares-contract`) carries a second wire variant written by Claude only
-to show the wiring works; its `notes` say so. Replace it, or keep it if it reads well.
+**Delivered in Phobos Exchange 0.6.0** (8 October 2026): Claude wrote the variants for every
+wire line, TV report, advert and shareholder letter, and company-specific small talk, after
+the owner's ChatGPT plan ended; the packs' `notes` label them as agent-authored and held for
+owner review. The market wire's own move, turn and cause lines (in the mod's translation file)
+come in two or three wordings too (Framework 0.134.0).
 The Keelhaul example add-on shows variants on its wire line, its surge news and its
 large-holder letter. This is step 2 of the [variant lines handoff](variant-lines-handoff.md),
 which has the format, the rules for every variant and the order of the other steps.

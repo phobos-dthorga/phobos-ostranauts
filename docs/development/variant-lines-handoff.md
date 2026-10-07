@@ -159,6 +159,12 @@ many times.
 
 ### Step 2: Phobos Exchange (`mods/PhobosExchange/framework/exchange.json` and `story.json`)
 
+**Done in Phobos Exchange 0.6.0** (8 October 2026), written by Claude, held for owner review:
+three wordings for every wire line and shareholder letter, two or three for every TV report
+and advert, and two company-specific small-talk lines for each company's good and bad day
+(the shipped two lines were the same for all eight companies). The Smartlink placeholder was
+kept and given a third wording. The one-off `lodestar-first-board` letter is left as it is.
+
 Exchange news breaks again every week or two, so the same wire line and TV item come round
 often.
 
