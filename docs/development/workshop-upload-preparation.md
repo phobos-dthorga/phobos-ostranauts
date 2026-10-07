@@ -273,6 +273,33 @@ changelogs need their language-ledger rows refreshed before committing. The tool
 never uploads, logs in or handles credentials; tests use a stand-in for Steam
 (`tests/test_workshop_pull.py`).
 
+### Tidying the Change Notes tab
+
+Steam has no tool route for editing or deleting a change note: Valve's
+[ISteamUGC](https://partner.steamgames.com/doc/api/ISteamUGC) and SteamCMD only
+add one per upload. The item owner can edit each entry's text in the item's
+Change Notes tab, as the
+[Garry's Mod wiki's Workshop updating page](https://wiki.facepunch.com/gmod/Workshop_Addon_Updating)
+describes; whether an entry can be deleted outright is unverified. The tooling
+already avoids untidy entries (only due updates are sent, each note covers every
+version since the last upload, public uploads say Released); for entries made
+before that, worksheets give the text to paste:
+
+```powershell
+python scripts/workshop-change-notes.py                  # every item
+python scripts/workshop-change-notes.py --mod Framework  # one item
+```
+
+It rebuilds each item's entries from the upload receipts, which keep the exact
+text and time of every upload that reached Steam, and writes
+`.local/workshop-change-notes/<ModId>.md`, newest first as Steam lists them. An
+entry that repeats a version the item already had (a re-send or a visibility
+change) gets a one-line pointer to that version's entry; on an item now public,
+a Draft - not published heading becomes Released (public upload) or Uploaded
+privately. Every other entry is Keep. Receipts live only in the checkout that
+uploaded, so run it there. It never contacts Steam
+(`tests/test_workshop_change_notes.py`).
+
 ## The game's own UPLOAD button (fallback)
 
 Ostranauts 1.0.1.5 has its own uploader (`SteamWorkshopManager`, observed in local
