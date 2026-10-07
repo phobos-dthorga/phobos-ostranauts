@@ -24,6 +24,8 @@ TEXT_MAX_BYTES = 7999
 PREVIEW_MAX_BYTES = 1_000_000
 VISIBILITY = {'public': 0, 'friends': 1, 'private': 2, 'unlisted': 3}
 VERSION = re.compile(r'\d+\.\d+\.\d+')
+# Folders whose uncommitted changes do not count against a public upload (see working_tree_dirty).
+DIRTY_EXEMPT_FOLDERS = ('docs/research/', 'docs/development/')
 # A public upload is the publication itself, so the text it sends says so; the repository records follow
 # once the owner has confirmed the item (docs/development/workshop-upload-preparation.md).
 PUBLIC_STATUS = '[b]Publication status:[/b] Public on the Steam Workshop'
@@ -260,12 +262,17 @@ def draft_values(report, target, title, description, change_note, visibility='pr
 
 
 def working_tree_dirty(root):
-    """Uncommitted changes other than the catalogue. Every upload writes its own record there (item ID,
-    uploaded version and visibility), and the uploader checks those against the candidate, so an
-    uncommitted record must not hold back the next public upload."""
+    """Uncommitted changes outside the exempt paths. Every upload writes its own record to the catalogue
+    (item ID, uploaded version and visibility), and the uploader checks those against the candidate; research
+    and development records change constantly in parallel sessions (owner, 2026-10-08). Neither should hold
+    back a public upload."""
     entries = subprocess.check_output(['git', 'status', '--porcelain', '-z'], cwd=root)
     # Each entry is 'XY path'; a rename's original path follows as its own entry and counts as a change.
-    return any(entry and entry[3:] != CATALOGUE for entry in entries.decode('utf-8').split('\0'))
+    return any(entry and not exempt(entry[3:]) for entry in entries.decode('utf-8').split('\0'))
+
+
+def exempt(path):
+    return path == CATALOGUE or path.startswith(DIRTY_EXEMPT_FOLDERS)
 
 
 def prepare(root, name):

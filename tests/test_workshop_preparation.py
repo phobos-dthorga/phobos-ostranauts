@@ -250,7 +250,9 @@ class PreparationTests(unittest.TestCase):
 
     def test_uncommitted_catalogue_alone_is_not_dirty(self):
         cases = {b'': False, b' M config/workshop-publishing.json\0': False,
-                 b' M config/workshop-publishing.json\0?? tmp/\0': True, b' M mods/PhobosExample/data/README.md\0': True}
+                 b' M config/workshop-publishing.json\0?? tmp/\0': True, b' M mods/PhobosExample/data/README.md\0': True,
+                 b' M docs/development/notes.md\0?? docs/research/\0 M config/workshop-publishing.json\0': False,
+                 b' M docs/player-guide.md\0': True, b' M docs/developmental.md\0': True}
         for status, dirty in cases.items():
             with self.subTest(status=status), patch.object(w.subprocess, 'check_output', return_value=status):
                 self.assertEqual(w.working_tree_dirty(self.root), dirty)
