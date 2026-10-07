@@ -82,7 +82,7 @@ The rules:
 ## Editor help
 
 The repository ships a JSON Schema for each pack in `schemas/` (`economy`,
-`process-recipes`, `materials`, `vessels`, `equipment`, `crops`, `care`, `lenders` and the others). Point your editor at them and it will
+`process-recipes`, `materials`, `vessels`, `equipment`, `crops`, `care`, `lenders`, `exchange` and the others). Point your editor at them and it will
 complete field names and flag a wrong type or range as you type. In VS Code, add
 to your settings (adjust the path to where you cloned or downloaded the schemas):
 
@@ -149,6 +149,7 @@ as needing attention, until the file is back.
 | Phobos Framework 0.111.0 | `upkeep` | Crew upkeep: what a tuning session adds, how long an inspection is good, each machine family's share of the gain |
 | Phobos Framework 0.116.0 | `stores` | Which of the game's containers are not stores: weapons, chargers, filter holders, toilets |
 | Phobos Banking 0.2.0 | `lenders` | Who lends, where, to whom and on what terms: the CREDIT app's lenders. See [Adding a lender](#adding-a-lender) |
+| Phobos Exchange 0.1.0 | `exchange` | The exchange's terms, its sectors and the listed companies, with the game's station markets each one follows. See [Listing a company on the exchange](#listing-a-company-on-the-exchange) |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -626,3 +627,81 @@ characters, because story arcs and flags are named by them: `bank-<id>-line-open
 `bank-<id>-line-open`, beside the `late`, `late-long` and `repaid` ones. Terms are copied
 into a player's account when it is opened, so a change here applies to accounts opened
 after it.
+
+## Listing a company on the exchange
+
+Phobos Exchange 0.1.0 reads its companies from the `exchange` pack. Put your file in
+`BepInEx/config/PhobosExchange/exchange/`; the shipped `exchange.json` in the mod's
+`framework` folder is the reference. A file changes or adds entries by id, so this adds a
+company and leaves the rest alone:
+
+```json
+{
+  "schemaVersion": 1,
+  "schema": "exchange",
+  "companies": {
+    "keelhaul-freight": {
+      "ticker": "KHF",
+      "name": "Keelhaul Freight",
+      "profile": "Bulk freighter line between the belt and Mars.",
+      "sector": "resources",
+      "price": 18,
+      "dailyVolume": 50000,
+      "volatility": 0.009,
+      "volOfVol": 0.3,
+      "noiseHalfLifeYears": 6,
+      "drift": 0.04,
+      "jumpsPerYear": 3,
+      "jumpSize": 0.06,
+      "spread": 0.005,
+      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.13 },
+      "drivers": [ { "station": "BCRS", "category": "AnyOres", "weight": 0.3 } ]
+    }
+  }
+}
+```
+
+What each field does:
+
+- **`ticker`**: two to five capital letters, used by no other company. **`name`** and
+  **`profile`**: what the panel shows; the profile is a neutral wire-service description,
+  at most 400 characters.
+- **`sector`**: one of the `sectors` entries; companies in a sector rise and fall
+  together for weeks at a time. You can add sectors too.
+- **`price`**: the price per share when the company is first listed in a save.
+- **`dailyVolume`**: shares traded in a game day. The bigger it is, the less your own orders
+  push the price, and the larger one order may be.
+- **`volatility`** (a share of the price per game day, 0.001 to 0.05) and **`volOfVol`**:
+  day-to-day noise and how much it swings between calm and stormy stretches.
+  **`noiseHalfLifeYears`**: how slowly that noise fades back.
+- **`drift`**: the steady upward drift per game year, 0 to 0.1.
+- **`jumpsPerYear`** and **`jumpSize`**: sudden jumps.
+- **`spread`**: the gap between buying and selling prices, as a share of the price.
+- **`followsMarket`** and **`followsSector`** (default 1): how closely it follows the
+  market's and its sector's phases.
+- **`trend`**: the company's own phases: `slowWeeks` (roughly how long one lasts),
+  `fastWeeks` (how quickly it turns; `slowWeeks` must be at least one and a half times
+  it) and `sd` (how far phases carry the price; 0.15 is about 15%).
+- **`drivers`**: up to six of the game's station markets the company follows. `station`
+  is the station's registration (such as `MTRS` for Port Yangshan), `category` the game's
+  category of goods (such as `AnyWeapons`), `weight` from -1 to 1 (positive when goods
+  running short there help the company, negative for something it buys), and `limit`
+  (default 0.12) the most that driver may move the price either way. A station that
+  neither makes nor uses the category never moves, so pick one that does.
+
+The `market` entry holds the exchange's own terms: its name, the commission (a share of
+each order, with `minCommission` the least in credits), how hard and how long an order
+pushes the price, the largest order (`maxOrderShare` of a day's volume), the most one
+player may hold of a company (`maxHolding`, in credits), the market-wide phases, and when
+the wire reports a move (`moveShare` over a day) or a turn (`turnShare` a week).
+
+**The return guard.** The validator works out what holding each company for a game year
+earns on average, from the drift, the phases, the noise, the drivers and the jumps, and
+refuses any company above 0.14 (14%). That keeps borrowing from a Phobos Banking lender
+to sit on shares a losing bet. If your company is refused, lower one of those figures.
+
+A changed figure never makes a price jump in a save already running: the price carries on
+from where it was. An id names the company's saved state, so never rename a shipped
+company's id. Type `phobosexchange quotes` in F3 to see the list, and
+`phobosexchange drivers` to see what each station signal reads now. Add-ons may add
+companies and sectors under their own id prefix.

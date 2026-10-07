@@ -510,7 +510,62 @@ def lenders():
                description="Phobos Banking lenders pack: who lends where, to whom and on what terms. Terms are copied into a loan when it is taken.")
 
 
-SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders}
+def exchange():
+    name_text = 'without | , ; = # [ ] < > or line breaks'
+    trend = obj({
+        'slowWeeks': num(0.5, 104, description='How long a phase lasts, roughly: the slow half-life in game weeks; at least 1.5 times fastWeeks.'),
+        'fastWeeks': num(0.25, 26, description='How quickly a phase turns: the fast half-life in game weeks.'),
+        'sd': num(0, 0.5, description='How far phases carry the price: the standard deviation of the log price (0.15 is about 15%).'),
+    }, required=('slowWeeks', 'fastWeeks', 'sd'))
+    market = obj({
+        'notes': NOTES,
+        'name': string('The exchange name in the world: 1 to 40 characters, ' + name_text + '.'),
+        'commission': num(0, 0.05, description='The broker commission, as a share of an order value.'),
+        'minCommission': num(0, 10000, description='The least commission on an order, in credits.'),
+        'impact': num(0, 5, description='How hard an order pushes the price: impact = this x daily volatility x the square root of (shares / daily volume).'),
+        'impactHalfLifeDays': num(0.05, 30, description='How quickly the push fades: a half-life in game days.'),
+        'maxOrderShare': num(0.01, 5, description='The largest order, as a share of one company daily volume.'),
+        'maxHolding': num(1000, 100000000, description='The most one player may hold in one company, valued at the asking price, in credits.'),
+        'trend': {**trend, 'description': 'The market-wide trend phase every company follows to its own degree.'},
+        'moveShare': num(0.01, 0.5, description='A change over one game day this large (a share of the price) is reported with its cause.'),
+        'turnShare': num(0.001, 0.5, description='A phase moving this fast (a share of the price per game week) counts as a trend when it turns.'),
+        'reportCooldownDays': num(0, 30, description='The fewest game days between two reports on one company.'),
+    }, required=('name', 'commission', 'minCommission', 'impact', 'impactHalfLifeDays', 'maxOrderShare', 'maxHolding', 'trend', 'moveShare', 'turnShare', 'reportCooldownDays'))
+    sector = obj({'notes': NOTES, 'name': string('The sector name shown on the panel: 1 to 40 characters, ' + name_text + '.'), 'trend': trend}, required=('name', 'trend'))
+    driver = obj({
+        'station': string('The station registration whose cargo market the company follows, such as MTRS.', pattern='^[A-Z0-9]{3,8}$'),
+        'category': string('The game category of goods, such as AnyWeapons.', pattern='^Any[A-Za-z0-9]{1,37}$'),
+        'weight': num(-1, 1, description='How strongly the company follows it: positive when dear goods there help it, negative for an input; not 0.'),
+        'limit': num(0.01, 0.3, description='The most this driver may move the log price either way (default 0.12).'),
+    }, required=('station', 'category', 'weight'))
+    company = obj({
+        'notes': NOTES,
+        'ticker': string('The trading symbol: two to five capital letters, unique.', pattern='^[A-Z]{2,5}$'),
+        'name': string('The company name: 1 to 40 characters, ' + name_text + '.'),
+        'profile': string('What the company does, in a wire service neutral voice; at most 400 characters, no placeholders.'),
+        'sector': string('One of the sectors.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
+        'price': num(0.5, 100000, description='The price when first listed in a save, in credits per share.'),
+        'dailyVolume': num(100, 1e9, description='Shares that change hands in a game day: the scale of the player price impact.'),
+        'volatility': num(0.001, 0.05, description='Day-to-day noise: the standard deviation of the log price over a game day.'),
+        'volOfVol': num(0, 1, description='How much the noise wanders between calm and stormy stretches.'),
+        'noiseHalfLifeYears': num(0.25, 50, description='How slowly accumulated noise fades back: a half-life in game years.'),
+        'drift': num(0, 0.1, description='The steady upward drift of the log price per game year (owner choice: real-world drift).'),
+        'jumpsPerYear': num(0, 12, description='Sudden jumps a game year.'),
+        'jumpSize': num(0, 0.3, description='The typical size of a jump: a standard deviation of the log price.'),
+        'spread': num(0, 0.05, description='The gap between buying and selling prices, as a share of the price.'),
+        'followsMarket': num(0, 2, description='How closely the company follows the market phases (default 1).'),
+        'followsSector': num(0, 2, description='How closely it follows its sector phases (default 1).'),
+        'trend': trend,
+        'drivers': {'type': 'array', 'maxItems': 6, 'items': driver, 'description': 'The game market signals the company follows.'},
+    }, required=('ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear', 'jumpSize', 'spread', 'trend'))
+    return obj({**header('exchange'), 'market': market,
+                'sectors': named(sector, 'Sectors by id (lowercase words joined by dashes, at most 24 characters); companies in one sector share its phases.', '^[a-z0-9]+(-[a-z0-9]+)*$'),
+                'companies': named(company, 'Listed companies by id (lowercase words joined by dashes, at most 24 characters); the id names the company saved state.', '^[a-z0-9]+(-[a-z0-9]+)*$')},
+               required=('schemaVersion', 'schema', 'market', 'sectors', 'companies'),
+               description='Phobos Exchange pack: the exchange terms, its sectors and the listed companies. Each company expected yearly return must stay at or below 0.14 (checked by the validators).')
+
+
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders, 'exchange': exchange}
 
 
 def render(name):

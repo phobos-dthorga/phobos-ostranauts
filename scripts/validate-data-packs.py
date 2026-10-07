@@ -10,6 +10,7 @@ Usage: validate-data-packs.py [--format json] [paths...]
 """
 import argparse
 import json
+import math
 import re
 from pathlib import Path
 import sys
@@ -1321,7 +1322,140 @@ def lenders(pack, where):
             raise Problem(f'{w}/minDraw: with its fee, the smallest draw must fit within the limit')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders}
+# Phobos Exchange 0.1.0: the market, its sectors and the listed companies (mirrors PhobosExchange.Core.ExchangeSchema).
+EXCHANGE_DAY, EXCHANGE_YEAR = 87658.125, 31556926
+EXCHANGE_MAX_RETURN = 0.14
+EXCHANGE_TICKER = re.compile(r'^[A-Z]{2,5}$')
+EXCHANGE_STATION = re.compile(r'^[A-Z0-9]{3,8}$')
+EXCHANGE_CATEGORY = re.compile(r'^Any[A-Za-z0-9]{1,37}$')
+EXCHANGE_UNSAFE = set('|,;=#[]<>')
+
+
+def exchange_trend(t, where):
+    if not isinstance(t, dict):
+        raise Problem(f'{where}: expected slowWeeks, fastWeeks and sd')
+    fields(t, {'slowWeeks', 'fastWeeks', 'sd'}, where)
+    number(t.get('fastWeeks'), f'{where}/fastWeeks', 0.25, 26)
+    number(t.get('slowWeeks'), f'{where}/slowWeeks', 0.5, 104)
+    if not t['slowWeeks'] >= t['fastWeeks'] * 1.5:
+        raise Problem(f'{where}/slowWeeks: at least one and a half times fastWeeks')
+    number(t.get('sd'), f'{where}/sd', 0, 0.5)
+
+
+def exchange_trend_variance(t, seconds):
+    """A trend phase's variance of change over a span (the difference of two OU processes sharing their noise)."""
+    week = 7 * EXCHANGE_DAY
+    ks, kf = math.log(2) / (t['slowWeeks'] * week), math.log(2) / (t['fastWeeks'] * week)
+    vs, vf, c = 1 / (2 * ks), 1 / (2 * kf), 1 / (ks + kf)
+    sd = t['sd']
+    a = 0 if sd <= 0 else sd / math.sqrt(vs + vf - 2 * c)
+    cov = a * a * (math.exp(-ks * seconds) * (vs - c) + math.exp(-kf * seconds) * (vf - c))
+    return max(0.0, 2 * (sd * sd - cov))
+
+
+def exchange_expected_return(c, sector, market):
+    """The owner's guard: the expected yearly return of buying at a random moment and holding a game year."""
+    year = EXCHANGE_YEAR
+    variance = (c.get('followsMarket', 1) ** 2 * exchange_trend_variance(market, year) + c.get('followsSector', 1) ** 2 * exchange_trend_variance(sector, year)
+                + exchange_trend_variance(c['trend'], year))
+    k = math.log(2) / (c['noiseHalfLifeYears'] * year)
+    variance += c['volatility'] ** 2 / EXCHANGE_DAY * (1 - math.exp(-k * year)) / k
+    driver_range = sum(d.get('limit', 0.12) for d in c.get('drivers', []))
+    variance += driver_range * driver_range / 3
+    jumps = c['jumpsPerYear'] * (math.exp(c['jumpSize'] ** 2 / 2) - 1)
+    return math.exp(c['drift'] + variance / 2 + jumps) - 1
+
+
+def exchange_name(value, where):
+    if not isinstance(value, str) or not value.strip() or len(value) > 40 or EXCHANGE_UNSAFE & set(value) or any(ord(ch) < 32 for ch in value):
+        raise Problem(f'{where}: 1 to 40 characters, without | , ; = # [ ] < > or line breaks')
+
+
+def exchange(pack, where):
+    """The exchange schema (Phobos Exchange 0.1.0). Whether a driver's station and category exist in the game is checked
+    by the native checks."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'market', 'sectors', 'companies'}, where)
+    m = pack.get('market')
+    if not isinstance(m, dict):
+        raise Problem(f'{where}/market: expected the exchange terms')
+    w = f'{where}/market'
+    fields(m, {'notes', 'name', 'commission', 'minCommission', 'impact', 'impactHalfLifeDays', 'maxOrderShare', 'maxHolding', 'trend', 'moveShare', 'turnShare', 'reportCooldownDays'}, w)
+    if 'notes' in m and (not isinstance(m['notes'], str) or len(m['notes']) > 2000):
+        raise Problem(f'{w}/notes: at most 2000 characters')
+    exchange_name(m.get('name'), f'{w}/name')
+    for key, low, high in (('commission', 0, 0.05), ('minCommission', 0, 10000), ('impact', 0, 5), ('impactHalfLifeDays', 0.05, 30), ('maxOrderShare', 0.01, 5),
+                           ('maxHolding', 1000, 100000000), ('moveShare', 0.01, 0.5), ('turnShare', 0.001, 0.5), ('reportCooldownDays', 0, 30)):
+        number(m.get(key), f'{w}/{key}', low, high)
+    exchange_trend(m.get('trend'), f'{w}/trend')
+    sectors = pack.get('sectors')
+    if not isinstance(sectors, dict) or len(sectors) > 16:
+        raise Problem(f'{where}/sectors: expected id to sector, at most 16')
+    for key, s in sectors.items():
+        w = f'{where}/sectors/{key}'
+        story_id(key, w, 24)
+        if not isinstance(s, dict):
+            raise Problem(f'{w}: expected an object')
+        fields(s, {'notes', 'name', 'trend'}, w)
+        exchange_name(s.get('name'), f'{w}/name')
+        exchange_trend(s.get('trend'), f'{w}/trend')
+    companies = pack.get('companies')
+    if not isinstance(companies, dict) or len(companies) > 40:
+        raise Problem(f'{where}/companies: expected id to company, at most 40')
+    tickers = set()
+    for key, c in companies.items():
+        w = f'{where}/companies/{key}'
+        story_id(key, w, 24)
+        if not isinstance(c, dict):
+            raise Problem(f'{w}: expected an object')
+        fields(c, {'notes', 'ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear',
+                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers'}, w)
+        if 'notes' in c and (not isinstance(c['notes'], str) or len(c['notes']) > 2000):
+            raise Problem(f'{w}/notes: at most 2000 characters')
+        ticker = c.get('ticker')
+        if not isinstance(ticker, str) or not EXCHANGE_TICKER.match(ticker):
+            raise Problem(f'{w}/ticker: two to five capital letters')
+        if ticker in tickers:
+            raise Problem(f'{w}/ticker: {ticker} is already used by another company')
+        tickers.add(ticker)
+        exchange_name(c.get('name'), f'{w}/name')
+        story_words(c.get('profile'), 400, f'{w}/profile')
+        if '[' in c['profile']:
+            raise Problem(f'{w}/profile: no placeholders')
+        if c.get('sector') not in sectors:
+            raise Problem(f'{w}/sector: one of the sectors')
+        for field, low, high in (('price', 0.5, 100000), ('dailyVolume', 100, 1e9), ('volatility', 0.001, 0.05), ('volOfVol', 0, 1), ('noiseHalfLifeYears', 0.25, 50),
+                                 ('drift', 0, 0.1), ('jumpsPerYear', 0, 12), ('jumpSize', 0, 0.3), ('spread', 0, 0.05)):
+            number(c.get(field), f'{w}/{field}', low, high)
+        number(c.get('followsMarket', 1), f'{w}/followsMarket', 0, 2)
+        number(c.get('followsSector', 1), f'{w}/followsSector', 0, 2)
+        exchange_trend(c.get('trend'), f'{w}/trend')
+        drivers = c.get('drivers', [])
+        if not isinstance(drivers, list) or len(drivers) > 6:
+            raise Problem(f'{w}/drivers: at most 6')
+        seen = set()
+        for i, d in enumerate(drivers):
+            dw = f'{w}/drivers/{i}'
+            if not isinstance(d, dict):
+                raise Problem(f'{dw}: expected an object')
+            fields(d, {'station', 'category', 'weight', 'limit'}, dw)
+            if not isinstance(d.get('station'), str) or not EXCHANGE_STATION.match(d['station']):
+                raise Problem(f'{dw}/station: a station registration such as MTRS')
+            if not isinstance(d.get('category'), str) or not EXCHANGE_CATEGORY.match(d['category']):
+                raise Problem(f'{dw}/category: a game category such as AnyWeapons')
+            if (d['station'], d['category']) in seen:
+                raise Problem(f'{dw}: the same station and category twice')
+            seen.add((d['station'], d['category']))
+            number(d.get('weight'), f'{dw}/weight', -1, 1)
+            if d['weight'] == 0:
+                raise Problem(f'{dw}/weight: not 0')
+            number(d.get('limit', 0.12), f'{dw}/limit', 0.01, 0.3)
+        expected = exchange_expected_return(c, sectors[c['sector']]['trend'], m['trend'])
+        if not expected <= EXCHANGE_MAX_RETURN:
+            raise Problem(f'{w}: expected yearly return {expected:.3f} is above {EXCHANGE_MAX_RETURN}; lower the drift, the noise, the trend phases or the jumps')
+    return companies
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep, 'stores': stores, 'lenders': lenders, 'exchange': exchange}
 
 
 # ---- Add-ons (Framework 0.90.0): a mod folder with phobos-addon.json and phobos/<Mod>/<schema>/*.json ----

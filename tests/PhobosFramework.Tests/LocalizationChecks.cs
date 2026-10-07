@@ -95,7 +95,7 @@ internal static class LocalizationChecks
         // Keys a panel builds from an enum name must all exist: every machine state reaches the shared console line.
         foreach (var state in (Phobos.Ostranauts.Framework.Controls.EquipmentState[])Enum.GetValues(typeof(Phobos.Ostranauts.Framework.Controls.EquipmentState)))
             check(consoleEnglish.ContainsKey("Console.state_" + state), "Shared console state key exists: " + state);
-        foreach (string mod in new[] { "PhobosFramework", "PhobosShipbreaker", "PhobosAutoNav", "PhobosManufacturing", "PhobosAgriculture", "PhobosWarDeclared", "PhobosMedical", "PhobosBank" })
+        foreach (string mod in new[] { "PhobosFramework", "PhobosShipbreaker", "PhobosAutoNav", "PhobosManufacturing", "PhobosAgriculture", "PhobosWarDeclared", "PhobosMedical", "PhobosBank", "PhobosExchange" })
         {
             string translations = Path.Combine(repo, "translations", mod);
             var baseline = TranslationCatalog.Parse(File.ReadAllText(Path.Combine(translations, "en.json")));

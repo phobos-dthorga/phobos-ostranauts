@@ -345,6 +345,7 @@ RegionalEconomyChecks.Run(game, Check, Throws);
 StockQuantityChecks.Run(Check, Throws);
 FactionKioskChecks.Run(Check);
 BankNativeChecks.Run(game, repo, Check);
+ExchangeNativeChecks.Run(game, Check);
 GameClockNativeChecks.Run(Check);
 // Last: it runs the game's own Installables.Create over every native install job.
 WarDeclaredNativeChecks.Run(game, Check);

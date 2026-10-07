@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories', 'Bank')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories', 'Bank', 'Exchange')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -189,6 +189,19 @@ if ('Bank' -in $Mods) {
     if ($minimumPhobosFramework -lt [version]'0.126.0') { $minimumPhobosFramework = [version]'0.126.0' }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
+if ('Exchange' -in $Mods) {
+    $needsPhobosFramework = $true
+    $exchangePackage = if ($overrideMod -eq 'Exchange') { $PackagePath } else { Join-Path $PackageRoot 'PhobosExchange-P0' }
+    $exchangeMetadata = Join-Path $exchangePackage 'Mods/PhobosExchange/mod_info.json'
+    if (Test-Path -LiteralPath $exchangeMetadata -PathType Leaf) {
+        $exchangeInfo = @(Get-Content -LiteralPath $exchangeMetadata -Raw | ConvertFrom-Json)
+        if ($exchangeInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosExchange.' }
+        $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'Exchange.Framework' ([version]$exchangeInfo[0].strModVersion) $minimumPhobosFramework
+    }
+    # Every Phobos Exchange package needs the chart, holdings and test-command services first shipped in Framework 0.128.0.
+    if ($minimumPhobosFramework -lt [version]'0.128.0') { $minimumPhobosFramework = [version]'0.128.0' }
+    $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
+}
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
 $gameRoot = $locations.OstranautsPath
 $orderFile = $locations.LoadOrderPath
@@ -234,7 +247,7 @@ if ($HoldManufacturing) {
 }
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } 'Medical' { 'Medical' } 'SpacerStories' { 'Spacer Stories' } 'Bank' { 'Banking' } }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } 'Medical' { 'Medical' } 'SpacerStories' { 'Spacer Stories' } 'Bank' { 'Banking' } 'Exchange' { 'Exchange' } }
     # Data-only mods ship a native folder alone: no plugin assembly or translations.
     $dataOnly = $mod -eq 'SpacerStories'
     $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
@@ -433,6 +446,11 @@ foreach ($mod in $Mods) {
             # 0.4.0 adds the story pack: the lenders' officers, threads and letters.
             if ($version -ge [version]'0.4.0') { 'framework/story.json' }
         }
+        'Exchange' {
+            # The PDA app's icon, the data folder the game needs in every mod, and the players' copy of the company list
+            # (the plugin embeds it); the panel's text is in the plugin's catalogue.
+            'data/conditions/phobos_exchange.json'; 'images/phobos/exchange/Shares.png'; 'framework/exchange.json'
+        }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
             'data/conditions/phobos_war_declared.json'; 'schematics/safe.json'; 'schematics/everything.json'; 'schematics/hull-only.json'; 'schematics/safe-walls.json'
@@ -607,7 +625,7 @@ foreach ($mod in $Mods) {
         $modFiles += [pscustomobject]@{ Source = $scopeSource; Target = $scopeTarget; Backup = "$id/plugin/Phobos.Scope.Recording.dll" }
     }
     $translationSource = Join-Path (Split-Path -Parent $dllSource) 'translations'
-    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'Bank')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
+    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'Bank', 'Exchange')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
         ($mod -in @('Framework', 'Shipbreaker') -and $version -ge [version]'0.7.0')
     if ($needsTranslations -and -not (Test-Path -LiteralPath (Join-Path $translationSource 'en.json') -PathType Leaf)) {
         throw "Package is incomplete: $id/translations/en.json"

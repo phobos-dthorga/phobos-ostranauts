@@ -21,7 +21,7 @@ See docs/development/workshop-upload-preparation.md.
 [CmdletBinding(DefaultParameterSetName = 'Upload')]
 param(
     [Parameter(Mandatory, ParameterSetName = 'Upload')]
-    [ValidateSet('Framework', 'AutoNav', 'Shipbreaker', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories', 'Bank')]
+    [ValidateSet('Framework', 'AutoNav', 'Shipbreaker', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories', 'Bank', 'Exchange')]
     [string]$Mod,
     # Must match the candidate: Create for a mod without an item ID, Update afterwards.
     [Parameter(Mandatory, ParameterSetName = 'Upload')]

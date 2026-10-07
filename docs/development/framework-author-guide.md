@@ -1399,6 +1399,31 @@ piped, and joins chain across the ship.
   under the home screen is the player's own setting and cannot be added to. Phobos
   Banking is the first user; design record:
   [PDA apps and banking research](pda-apps-and-banking-research.md).
+- **`Controls.Chart` and `ChartRules` (0.128.0).** A line chart for panels:
+  `Chart.Create(parent, height)` then `chart.Show(data)` with a `ChartData` holding
+  `ChartSeries` (x and y arrays the consumer owns, a count, a tone, an optional faint fill),
+  dashed `ChartLevel`s (an alert, what the player paid) and `FormatX`/`FormatY` for the
+  axis and readout words in the player's language. Bump `ChartData.Version` when the data
+  changes; the chart redraws only then or when its size changes, never per frame, and
+  thins every series to at most two points per pixel column (`ChartRules.Thin`, keeping
+  the highest, lowest, first and newest points) so long histories stay cheap. Ticks fall
+  on 1, 2 or 5 times a power of ten (`ChartRules.NiceStep`, `Ticks`); axis labels and the
+  hover readout are ordinary panel text. Presentation only, and only on panels: live
+  readings never go on world sprites. Phobos Exchange is the first user; design record:
+  [A share market for Phobos Banking, and Framework charts](share-market-and-charts-design.md).
+- **`Trading.PlayerHoldings` (0.128.0).** What the player owns through a mod, for another
+  mod's overview: `PlayerHoldings.Register(owner, () => HoldingLine?)` with a label, a value
+  in credits, a detail line and the PDA app that shows it; `PlayerHoldings.Read()` gathers
+  every line in owner order and leaves out a provider that fails. Phobos Exchange registers
+  its shares and Phobos Banking lists them; neither needs the other.
+- **`Diagnostics.DebugCommands` (0.128.0; owner rule, 7 October 2026).** The gate on F3
+  test commands that change saved data or how play goes on: `DebugCommands.Gate(mod, what,
+  confirmed, out message)` refuses until the game's own `unlockdebug`
+  (`CrewSim.bEnableDebugCommands`), then warns on every use that the save will lie outside
+  what the mod was built for and that no later version will put it back, and goes ahead only
+  with `confirm` at the end of the command. After the change, mark the save in the mod's
+  own record and call `DebugCommands.Record(owner, what)` for the log. Read-only readouts and
+  ordinary player commands are never gated. The pure rule is `DebugCommands.Decide`.
 - **`Controls.ProviderPanel`.** The shared equipment Control Panel (Operation,
   Connections, Details) over any `IEquipmentProvider` with `IEquipmentPanelFields`:
   register a `ProviderPanelSpec` (native GUI key, provider, access, resolution, the

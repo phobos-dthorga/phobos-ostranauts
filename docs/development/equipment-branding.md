@@ -332,3 +332,21 @@ credit line. An orrery is a model of the whole solar system, for a service that 
 captain anywhere in it; measured and a little grand, with plain terms. Its placeholder
 person is Tamsin Ware, accounts desk. Collision search over this record and the repository
 found no other use of the word.
+
+## Phobos Exchange (0.1.0, 7 October 2026)
+
+The exchange and the companies it lists are businesses, not equipment, so they carry no
+`Phobos'` prefix or model number; they are recorded here so later equipment cannot collide
+with them. Agent choices for the owner to review; a collision search over this repository
+and the installed game's data found none of the new words in use.
+
+| Name | Role | Etymology and voice |
+| --- | --- | --- |
+| Lodestar Exchange | The exchange itself | A lodestar is the star a navigator steers by: the board spacers check before choosing where to haul. Plain, brisk, a little proud of itself |
+| Brightvein Mining | Listed company: belt ore miner | A bright vein of ore; a miner that sells into the belt's smelters |
+| Coldwell Volatiles | Listed company: ice and volatiles hauler | A cold well of ice and gas; a hauler working the outer docks |
+
+The other listed companies are the game's own (Smartlink, Testudo, Ayotimiwa Corp. and the
+Green Energy Company, reported on in a wire-service voice and never spoken for) and two of
+ours: **Verdemorrow** (Phobos Agriculture) and **Halewright** (Phobos Medical). Tickers:
+SMLK, TSTD, AYO, GEC, BVM, CWV, VERD, HALE.

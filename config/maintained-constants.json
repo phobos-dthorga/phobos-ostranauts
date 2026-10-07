@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.127.2",
+      "value": "0.128.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -2989,6 +2989,106 @@
         },
         {
           "path": "docs/bank-player-guide.md",
+          "pattern": "BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+) or newer",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Exchange.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.1.0",
+      "description": "PhobosExchange (Phobos Exchange) published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosExchange/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosExchange/PhobosExchange.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosExchange/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Exchange\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosExchange/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-exchange.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
+      ]
+    },
+    "Exchange.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosExchange native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosExchange/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "Exchange.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.128.0",
+      "description": "Current Phobos Exchange required Framework version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosExchange/Plugin.cs",
+          "pattern": "MinimumFrameworkVersion = \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"Exchange\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Phobos Exchange requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\| \\*\\*Phobos Exchange\\*\\* \\| [0-9.]+ \\|[^|]*\\| Requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosExchange/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosExchange/mod_info.json",
+          "pattern": "Requires Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "docs/exchange-player-guide.md",
           "pattern": "BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+) or newer",
           "count": 1
         }

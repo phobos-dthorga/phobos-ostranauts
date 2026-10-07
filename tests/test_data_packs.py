@@ -616,5 +616,44 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.lenders(shared, 'lenders')
 
+    def test_exchange_pack_mirrors_the_game_rules(self):
+        # Phobos Exchange 0.1.0: the shipped exchange passes; the Python mirror and the JSON Schema refuse the same mistakes,
+        # and the mirror applies the owner's expected-return guard exactly as the game does.
+        path = ROOT / 'mods/PhobosExchange/framework/exchange.json'
+        pack = json.loads(path.read_text(encoding='utf-8'))
+        validate.exchange(pack, 'exchange')
+        self.assertEqual(schemas.problems(json.loads(writer.render('exchange')), pack), [])
+        for key, company in pack['companies'].items():
+            expected = validate.exchange_expected_return(company, pack['sectors'][company['sector']]['trend'], pack['market']['trend'])
+            with self.subTest(company=key):
+                self.assertGreater(expected, 0)
+                self.assertLessEqual(expected, validate.EXCHANGE_MAX_RETURN)
+        for field, value in (('ticker', 'smlk'), ('ticker', 'TOOLONG'), ('drift', 0.2), ('volatility', 0), ('sector', 'farming'), ('name', 'Smart;link'),
+                             ('spread', 0.2), ('price', 0)):
+            bad = json.loads(json.dumps(pack))
+            bad['companies']['smartlink'][field] = value
+            with self.subTest(field=field, value=value):
+                with self.assertRaises(validate.Problem):
+                    validate.exchange(bad, 'exchange')
+        repeated = json.loads(json.dumps(pack))
+        repeated['companies']['testudo']['ticker'] = repeated['companies']['smartlink']['ticker']
+        with self.assertRaises(validate.Problem):
+            validate.exchange(repeated, 'exchange')
+        wild = json.loads(json.dumps(pack))
+        wild['companies']['smartlink']['trend']['sd'] = 0.5
+        with self.assertRaises(validate.Problem):
+            validate.exchange(wild, 'exchange')
+        for driver_field, value in (('station', 'mtrs'), ('category', 'Weapons'), ('weight', 0), ('limit', 0.5)):
+            bad = json.loads(json.dumps(pack))
+            bad['companies']['smartlink']['drivers'][0][driver_field] = value
+            with self.subTest(driver_field=driver_field, value=value):
+                with self.assertRaises(validate.Problem):
+                    validate.exchange(bad, 'exchange')
+        unknown = json.loads(json.dumps(pack))
+        unknown['companies']['smartlink']['colour'] = 'blue'
+        with self.assertRaises(validate.Problem):
+            validate.exchange(unknown, 'exchange')
+        self.assertNotEqual(schemas.problems(json.loads(writer.render('exchange')), unknown), [])
+
 if __name__ == '__main__':
     unittest.main()

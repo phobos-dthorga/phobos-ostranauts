@@ -112,6 +112,12 @@ with a promise.
 | Hold fire | Block automatic offensive fire; explain how Return to ship controls releases that hold. |
 | Repair / Restore | Replace failed parts / treat wear. Keep these distinct game actions. |
 | Saved-state fault | Saved contents or settings cannot be checked safely; retain precise details in logs. |
+| Share | A part of a company bought on Phobos Exchange; worth what it would sell for now. |
+| Spread | The gap between the price a share sells at and the price it buys at; say which side the player gets. |
+| Commission | The broker's fee on every order, named with its amount. |
+| Price alert | A level the player sets on one company; it goes off once when the price reaches it, then clears. |
+| Trend / phase | A rise or fall that lasts weeks; say whether it is the whole market, a sector or one company. |
+| Test command | An F3 command that changes the save outside what a mod was built for; locked until the game's unlockdebug, warned on every use, and confirmed. Read-only readouts are not test commands. |
 
 “Native”, “receipt”, “reconciliation”, “commit”, “binding”, “authored” and
 “authority” remain appropriate in developer documentation and diagnostics.

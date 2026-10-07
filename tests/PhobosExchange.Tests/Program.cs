@@ -379,7 +379,18 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
 // ---- Economy: borrowing to hold never pays; trend-following is reported --------------------------------------
 Economy(pack, "fixture");
 string shipped = Path.Combine(repo, "mods", "PhobosExchange", "framework", "exchange.json");
-if (File.Exists(shipped)) Economy(LoadPack(File.ReadAllText(shipped)), "shipped");
+if (File.Exists(shipped))
+{
+    var shippedPack = LoadPack(File.ReadAllText(shipped));
+    Check(shippedPack.companies.Count >= 6 && shippedPack.companies.Count <= 10, "the shipped exchange lists six to ten companies");
+    foreach (var pair in shippedPack.companies)
+    {
+        double er = ExchangeSchema.ExpectedReturn(pair.Value, shippedPack.sectors[pair.Value.sector].trend, shippedPack.market.trend);
+        Console.WriteLine($"  {pair.Value.ticker}: expected yearly return {er:P1}");
+        Check(pair.Value.drivers.Count > 0, "every shipped company follows the game's market: " + pair.Key);
+    }
+    Economy(shippedPack, "shipped");
+}
 
 void Economy(ExchangePack p, string label)
 {

@@ -1,7 +1,7 @@
 #requires -Version 7.0
 [CmdletBinding()]
 param(
-    [ValidateSet('Framework','AutoNav','Shipbreaker','Agriculture','Manufacturing','WarDeclared','Medical','SpacerStories','Bank')]
+    [ValidateSet('Framework','AutoNav','Shipbreaker','Agriculture','Manufacturing','WarDeclared','Medical','SpacerStories','Bank','Exchange')]
     [string]$Mod = 'Framework',
     [switch]$Build,
     [switch]$Prepare,
@@ -13,7 +13,7 @@ if ($Build) {
     if (-not $OstranautsPath) {
         $OstranautsPath = (Get-Content -LiteralPath (Join-Path $repoRoot '.local/install-settings.json') -Raw | ConvertFrom-Json).OstranautsPath
     }
-    $builder = @{Framework='framework';AutoNav='autonav';Shipbreaker='shipbreaker';Agriculture='agriculture';Manufacturing='manufacturing';WarDeclared='war-declared';Medical='medical';SpacerStories='spacer-stories';Bank='bank'}[$Mod]
+    $builder = @{Framework='framework';AutoNav='autonav';Shipbreaker='shipbreaker';Agriculture='agriculture';Manufacturing='manufacturing';WarDeclared='war-declared';Medical='medical';SpacerStories='spacer-stories';Bank='bank';Exchange='exchange'}[$Mod]
     & (Join-Path $PSScriptRoot "build-$builder.ps1") -OstranautsPath $OstranautsPath
     if (-not $?) { throw 'Build failed; no Workshop candidate prepared.' }
     $id = "Phobos$Mod"

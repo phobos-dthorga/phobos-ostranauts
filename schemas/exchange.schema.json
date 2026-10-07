@@ -1,0 +1,384 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/exchange.schema.json",
+  "title": "Phobos exchange data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "priority": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it."
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "exchange"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Free text for maintainers; ignored by the game."
+        },
+        "name": {
+          "type": "string",
+          "description": "The exchange name in the world: 1 to 40 characters, without | , ; = # [ ] < > or line breaks."
+        },
+        "commission": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.05,
+          "description": "The broker commission, as a share of an order value."
+        },
+        "minCommission": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000,
+          "description": "The least commission on an order, in credits."
+        },
+        "impact": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "How hard an order pushes the price: impact = this x daily volatility x the square root of (shares / daily volume)."
+        },
+        "impactHalfLifeDays": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 30,
+          "description": "How quickly the push fades: a half-life in game days."
+        },
+        "maxOrderShare": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 5,
+          "description": "The largest order, as a share of one company daily volume."
+        },
+        "maxHolding": {
+          "type": "number",
+          "minimum": 1000,
+          "maximum": 100000000,
+          "description": "The most one player may hold in one company, valued at the asking price, in credits."
+        },
+        "trend": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "slowWeeks": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 104,
+              "description": "How long a phase lasts, roughly: the slow half-life in game weeks; at least 1.5 times fastWeeks."
+            },
+            "fastWeeks": {
+              "type": "number",
+              "minimum": 0.25,
+              "maximum": 26,
+              "description": "How quickly a phase turns: the fast half-life in game weeks."
+            },
+            "sd": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.5,
+              "description": "How far phases carry the price: the standard deviation of the log price (0.15 is about 15%)."
+            }
+          },
+          "required": [
+            "slowWeeks",
+            "fastWeeks",
+            "sd"
+          ],
+          "description": "The market-wide trend phase every company follows to its own degree."
+        },
+        "moveShare": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 0.5,
+          "description": "A change over one game day this large (a share of the price) is reported with its cause."
+        },
+        "turnShare": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 0.5,
+          "description": "A phase moving this fast (a share of the price per game week) counts as a trend when it turns."
+        },
+        "reportCooldownDays": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 30,
+          "description": "The fewest game days between two reports on one company."
+        }
+      },
+      "required": [
+        "name",
+        "commission",
+        "minCommission",
+        "impact",
+        "impactHalfLifeDays",
+        "maxOrderShare",
+        "maxHolding",
+        "trend",
+        "moveShare",
+        "turnShare",
+        "reportCooldownDays"
+      ]
+    },
+    "sectors": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "name": {
+              "type": "string",
+              "description": "The sector name shown on the panel: 1 to 40 characters, without | , ; = # [ ] < > or line breaks."
+            },
+            "trend": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "slowWeeks": {
+                  "type": "number",
+                  "minimum": 0.5,
+                  "maximum": 104,
+                  "description": "How long a phase lasts, roughly: the slow half-life in game weeks; at least 1.5 times fastWeeks."
+                },
+                "fastWeeks": {
+                  "type": "number",
+                  "minimum": 0.25,
+                  "maximum": 26,
+                  "description": "How quickly a phase turns: the fast half-life in game weeks."
+                },
+                "sd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 0.5,
+                  "description": "How far phases carry the price: the standard deviation of the log price (0.15 is about 15%)."
+                }
+              },
+              "required": [
+                "slowWeeks",
+                "fastWeeks",
+                "sd"
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "trend"
+          ]
+        }
+      },
+      "description": "Sectors by id (lowercase words joined by dashes, at most 24 characters); companies in one sector share its phases."
+    },
+    "companies": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "ticker": {
+              "type": "string",
+              "description": "The trading symbol: two to five capital letters, unique.",
+              "pattern": "^[A-Z]{2,5}$"
+            },
+            "name": {
+              "type": "string",
+              "description": "The company name: 1 to 40 characters, without | , ; = # [ ] < > or line breaks."
+            },
+            "profile": {
+              "type": "string",
+              "description": "What the company does, in a wire service neutral voice; at most 400 characters, no placeholders."
+            },
+            "sector": {
+              "type": "string",
+              "description": "One of the sectors.",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
+            "price": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 100000,
+              "description": "The price when first listed in a save, in credits per share."
+            },
+            "dailyVolume": {
+              "type": "number",
+              "minimum": 100,
+              "maximum": 1000000000.0,
+              "description": "Shares that change hands in a game day: the scale of the player price impact."
+            },
+            "volatility": {
+              "type": "number",
+              "minimum": 0.001,
+              "maximum": 0.05,
+              "description": "Day-to-day noise: the standard deviation of the log price over a game day."
+            },
+            "volOfVol": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "How much the noise wanders between calm and stormy stretches."
+            },
+            "noiseHalfLifeYears": {
+              "type": "number",
+              "minimum": 0.25,
+              "maximum": 50,
+              "description": "How slowly accumulated noise fades back: a half-life in game years."
+            },
+            "drift": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.1,
+              "description": "The steady upward drift of the log price per game year (owner choice: real-world drift)."
+            },
+            "jumpsPerYear": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 12,
+              "description": "Sudden jumps a game year."
+            },
+            "jumpSize": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.3,
+              "description": "The typical size of a jump: a standard deviation of the log price."
+            },
+            "spread": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.05,
+              "description": "The gap between buying and selling prices, as a share of the price."
+            },
+            "followsMarket": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "How closely the company follows the market phases (default 1)."
+            },
+            "followsSector": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "How closely it follows its sector phases (default 1)."
+            },
+            "trend": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "slowWeeks": {
+                  "type": "number",
+                  "minimum": 0.5,
+                  "maximum": 104,
+                  "description": "How long a phase lasts, roughly: the slow half-life in game weeks; at least 1.5 times fastWeeks."
+                },
+                "fastWeeks": {
+                  "type": "number",
+                  "minimum": 0.25,
+                  "maximum": 26,
+                  "description": "How quickly a phase turns: the fast half-life in game weeks."
+                },
+                "sd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 0.5,
+                  "description": "How far phases carry the price: the standard deviation of the log price (0.15 is about 15%)."
+                }
+              },
+              "required": [
+                "slowWeeks",
+                "fastWeeks",
+                "sd"
+              ]
+            },
+            "drivers": {
+              "type": "array",
+              "maxItems": 6,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "station": {
+                    "type": "string",
+                    "description": "The station registration whose cargo market the company follows, such as MTRS.",
+                    "pattern": "^[A-Z0-9]{3,8}$"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "The game category of goods, such as AnyWeapons.",
+                    "pattern": "^Any[A-Za-z0-9]{1,37}$"
+                  },
+                  "weight": {
+                    "type": "number",
+                    "minimum": -1,
+                    "maximum": 1,
+                    "description": "How strongly the company follows it: positive when dear goods there help it, negative for an input; not 0."
+                  },
+                  "limit": {
+                    "type": "number",
+                    "minimum": 0.01,
+                    "maximum": 0.3,
+                    "description": "The most this driver may move the log price either way (default 0.12)."
+                  }
+                },
+                "required": [
+                  "station",
+                  "category",
+                  "weight"
+                ]
+              },
+              "description": "The game market signals the company follows."
+            }
+          },
+          "required": [
+            "ticker",
+            "name",
+            "profile",
+            "sector",
+            "price",
+            "dailyVolume",
+            "volatility",
+            "volOfVol",
+            "noiseHalfLifeYears",
+            "drift",
+            "jumpsPerYear",
+            "jumpSize",
+            "spread",
+            "trend"
+          ]
+        }
+      },
+      "description": "Listed companies by id (lowercase words joined by dashes, at most 24 characters); the id names the company saved state."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "market",
+    "sectors",
+    "companies"
+  ],
+  "description": "Phobos Exchange pack: the exchange terms, its sectors and the listed companies. Each company expected yearly return must stay at or below 0.14 (checked by the validators)."
+}

@@ -29,6 +29,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.128.0] - 2026-10-07 - Draft
+
+### Added
+
+- Charts for panels: a line chart in the game's palette with faint grid lines, dashed levels (an alert, what you paid) and a readout while you point at it. It redraws only when its figures change and thins long histories to the screen's width, so it costs nothing between updates. Phobos Exchange is the first to use it.
+- A shared list of what you own through Phobos mods, so one mod's overview can show another's: Phobos Banking's Credit overview lists your Phobos Exchange shares. Neither mod needs the other.
+- Test commands that change a save are now locked until the game's own unlockdebug (owner rule, every Phobos mod). Even then each one warns that the save will lie outside what the mod was built for and that no later version will put it back, and goes ahead only with confirm at the end of the command. Read-only readouts and ordinary commands are not affected. Phobos Exchange's test commands are the first; the other mods' commands follow in a later release.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved by Framework.
+
 ## [0.127.2] - 2026-10-07 - Draft
 
 ### Fixed

@@ -36,7 +36,7 @@ Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.
 Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
 # The maintained catalogue owns the current floors; check the rule, not a copied number.
 $maintainedMinimums = (Get-Content -LiteralPath (Join-Path $repoRoot 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json -AsHashtable).minimums
-foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework', 'Medical.Framework', 'Bank.Framework')) {
+foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework', 'Medical.Framework', 'Bank.Framework', 'Exchange.Framework')) {
     $since = [version]$maintainedMinimums[$key].since
     $floor = [version]$maintainedMinimums[$key].value
     Check ($floor -ge [version]'0.30.1') "$key floor never drops below the Polaris fix baseline"
@@ -632,6 +632,18 @@ Check (((ReadOrder $bank).aLoadOrder -join ',') -eq 'core,PhobosFramework,Phobos
 $bankInstalled = InstalledFiles $bank
 & $installer @bank -Mods Bank | Out-Null
 Check ((InstalledFiles $bank) -eq $bankInstalled) 'Banking repeat install changed files'
+
+# Phobos Exchange needs only Framework.
+$exchange = Fixture 'exchange-only' @('core')
+$exchangeBefore = InstalledFiles $exchange
+& $installer @exchange -Mods Exchange -WhatIf | Out-Null
+Check ((InstalledFiles $exchange) -eq $exchangeBefore) 'Exchange preview changed files'
+& $installer @exchange -Mods Exchange | Out-Null
+Check (((ReadOrder $exchange).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosExchange') 'Exchange must select Framework and nothing else'
+& $installer @exchange -Mods Exchange -VerifyOnly | Out-Null
+$exchangeInstalled = InstalledFiles $exchange
+& $installer @exchange -Mods Exchange | Out-Null
+Check ((InstalledFiles $exchange) -eq $exchangeInstalled) 'Exchange repeat install changed files'
 
 # Phobos Spacer Stories is data only: Framework plus its native folder, and never a plugin folder of its own.
 $stories = Fixture 'spacer-stories-only' @('core')

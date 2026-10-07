@@ -14,6 +14,7 @@ What an add-on can do today (Phobos Framework 0.92.0):
   Phobos Agriculture.
 - Name the things it adds, and translate the Phobos mods into another language.
 - Add War Has Been Declared rebuild schematics.
+- List new companies and sectors on Phobos Exchange.
 
 ## 1. Get it working for yourself first
 

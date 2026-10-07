@@ -18,7 +18,7 @@ See docs/development/workshop-upload-preparation.md.
 [CmdletBinding()]
 param(
     # Limit the check to these mods; default is every mod.
-    [ValidateSet('Framework', 'AutoNav', 'Shipbreaker', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories', 'Bank')]
+    [ValidateSet('Framework', 'AutoNav', 'Shipbreaker', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories', 'Bank', 'Exchange')]
     [string[]]$Mod,
     # Private items only: update held mods too (passed to upload-workshop.ps1).
     [switch]$AcknowledgeHold,

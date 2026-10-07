@@ -38,6 +38,8 @@ internal static class ItemReferenceExport
         packs["PhobosSpacerStories"] = new NativeDefinitions();
         // Phobos Banking adds no definitions: a PDA app reading the game's own ledger.
         packs["PhobosBank"] = new NativeDefinitions();
+        // Phobos Exchange adds no definitions either: a PDA app over the game's own cargo market.
+        packs["PhobosExchange"] = new NativeDefinitions();
         // Publish only to this audit process's in-memory dictionaries for native valuation.
         foreach (var pack in packs.Values) pack.Publish();
         packs["PhobosFramework"] = framework;

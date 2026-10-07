@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "tool": "scripts/export-exchange-art.py",
+  "generation": "none: drawn from fixed shapes by the script, which is the source of record",
+  "files": {
+    "assets/phobos-exchange/Shares-1024.png": {
+      "sha256": "AD7D2E9E2E2C45F40E87A1DF4E60492A622F3AF9923313EC6E09A76459FCDE84",
+      "bytes": 9790
+    },
+    "mods/PhobosExchange/images/phobos/exchange/Shares.png": {
+      "sha256": "4AD6AD7E3F51467D7E74FABAF18AD784A4149F3343D2DBFBB898A9C81FF5A06B",
+      "bytes": 10624
+    }
+  },
+  "notes": {
+    "mods/PhobosExchange/images/phobos/exchange/Shares.png": "EXCHANGE PDA app icon, 256 px like the game's own; reduced from the 1024 px master with Lanczos filtering."
+  }
+}

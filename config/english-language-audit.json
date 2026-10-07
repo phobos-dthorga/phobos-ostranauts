@@ -89216,6 +89216,2034 @@
       ],
       "before": "{0}: {1}, open. Owed {2}, available {3}, least due this shift {4}; {5}% a shift, {6}% fee a draw.",
       "after": "{0}: {1}, open. Owed {2}, available {3}, least due this shift {4}; {5}% a shift, {6}% fee a draw."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Plugin.loaded",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:43"
+      ],
+      "before": "Phobos Exchange {0} loaded.",
+      "after": "Phobos Exchange {0} loaded."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Content.missing_package",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:50",
+        "src/PhobosExchange/Plugin.cs:97"
+      ],
+      "before": "Phobos Exchange's data folder isn't enabled in the game's mod list, so the exchange stays closed. Enable it and load again.",
+      "after": "Phobos Exchange's data folder isn't enabled in the game's mod list, so the exchange stays closed. Enable it and load again."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Content.ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:59"
+      ],
+      "before": "Phobos Exchange ready: {0} companies listed.",
+      "after": "Phobos Exchange ready: {0} companies listed."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "App.label",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:56"
+      ],
+      "before": "EXCHANGE",
+      "after": "EXCHANGE"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "App.title",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:56"
+      ],
+      "before": "Exchange",
+      "after": "Exchange"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "App.tooltip",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:56"
+      ],
+      "before": "Buy and sell shares in the system's companies, watch their charts and set price alerts.",
+      "after": "Buy and sell shares in the system's companies, watch their charts and set price alerts."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Money",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:433"
+      ],
+      "before": "${0}",
+      "after": "${0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Percent",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:434"
+      ],
+      "before": "{0}%",
+      "after": "{0}%"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Change.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:102",
+        "src/PhobosExchange/ExchangePanel.cs:243",
+        "src/PhobosExchange/Plugin.cs:144",
+        "src/PhobosExchange/Plugin.cs:163"
+      ],
+      "before": "-",
+      "after": "-"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.pack_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Companies.cs:29"
+      ],
+      "before": "The exchange's company list failed to load, so the exchange is closed: {0}",
+      "after": "The exchange's company list failed to load, so the exchange is closed: {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.pack_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:70"
+      ],
+      "before": "The exchange's company list didn't load, so the exchange is closed. The log says why.",
+      "after": "The exchange's company list didn't load, so the exchange is closed. The log says why."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.driver_unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Companies.cs:41"
+      ],
+      "before": "Exchange: {0} follows {2} at {1}, but {3} That signal holds still.",
+      "after": "Exchange: {0} follows {2} at {1}, but {3} That signal holds still."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.no_category",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/NativeMarket.cs:23"
+      ],
+      "before": "the game has no such category of goods.",
+      "after": "the game has no such category of goods."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.no_station",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/NativeMarket.cs:24"
+      ],
+      "before": "there's no such station in this game.",
+      "after": "there's no such station in this game."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.opened",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:85"
+      ],
+      "before": "Exchange opened for this save: {0} companies, with two years of price history.",
+      "after": "Exchange opened for this save: {0} companies, with two years of price history."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.poll_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:72"
+      ],
+      "before": "The exchange couldn't move its prices on: {0}",
+      "after": "The exchange couldn't move its prices on: {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.record_kept",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:76"
+      ],
+      "before": "This character's exchange record reads as {0}; it is left untouched.",
+      "after": "This character's exchange record reads as {0}; it is left untouched."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.record_unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:76",
+        "src/PhobosExchange/Market.cs:88"
+      ],
+      "before": "This character's exchange record is from a newer version or damaged, so trading is closed and the record is left as it is. Update Phobos Exchange to open it.",
+      "after": "This character's exchange record is from a newer version or damaged, so trading is closed and the record is left as it is. Update Phobos Exchange to open it."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Market.record_refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:133"
+      ],
+      "before": "The exchange record couldn't be saved on this character; the log has the reason.",
+      "after": "The exchange record couldn't be saved on this character; the log has the reason."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:52",
+        "src/PhobosExchange/ExchangePanel.cs:60"
+      ],
+      "before": "Exchange",
+      "after": "Exchange"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.market",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:61"
+      ],
+      "before": "Market",
+      "after": "Market"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.holdings",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:62"
+      ],
+      "before": "Your shares",
+      "after": "Your shares"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.no_game",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:46",
+        "src/PhobosExchange/Market.cs:69"
+      ],
+      "before": "There's no game running to trade in.",
+      "after": "There's no game running to trade in."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.busy",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:47"
+      ],
+      "before": "The game is busy with another window just now. Try again in a moment.",
+      "after": "The game is busy with another window just now. Try again in a moment."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.other_window",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:49"
+      ],
+      "before": "Another window wouldn't close, so the exchange didn't open. Close it and try again.",
+      "after": "Another window wouldn't close, so the exchange didn't open. Close it and try again."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Panel.list_empty",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:88"
+      ],
+      "before": "No companies are listed.",
+      "after": "No companies are listed."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Group.unlisted",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:87"
+      ],
+      "before": "No longer listed",
+      "after": "No longer listed"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Row.company",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:100"
+      ],
+      "before": "{0}  {1}  {2}",
+      "after": "{0}  {1}  {2}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Row.held",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:100"
+      ],
+      "before": "{0}  {1}  {2}  held",
+      "after": "{0}  {1}  {2}  held"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Row.unlisted",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:99"
+      ],
+      "before": "{0}: {1} shares, not traded",
+      "after": "{0}: {1} shares, not traded"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.what",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:108"
+      ],
+      "before": "Shares in the system's companies, priced around the clock. Prices follow the cargo markets at the stations each company trades with, run in rising and falling stretches that last weeks, and creep upward over the years. Buy on the way up, sell before the turn, and don't borrow to sit on shares: a loan costs more than they earn on average.",
+      "after": "Shares in the system's companies, priced around the clock. Prices follow the cargo markets at the stations each company trades with, run in rising and falling stretches that last weeks, and creep upward over the years. Buy on the way up, sell before the turn, and don't borrow to sit on shares: a loan costs more than they earn on average."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.cash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:109",
+        "src/PhobosExchange/ExchangePanel.cs:121",
+        "src/PhobosExchange/ExchangePanel.cs:293"
+      ],
+      "before": "Cash: {0}",
+      "after": "Cash: {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.holdings",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:110",
+        "src/PhobosExchange/ExchangePanel.cs:122",
+        "src/PhobosExchange/ExchangePanel.cs:294"
+      ],
+      "before": "Your shares are worth {0} at today's selling prices.",
+      "after": "Your shares are worth {0} at today's selling prices."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.wire",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:111"
+      ],
+      "before": "Market wire",
+      "after": "Market wire"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.wire_quiet",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:112"
+      ],
+      "before": "Nothing on the wire yet. Big moves and turns show up here and in the crew log.",
+      "after": "Nothing on the wire yet. Big moves and turns show up here and in the crew log."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.how_heading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:114"
+      ],
+      "before": "How it works",
+      "after": "How it works"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Overview.how",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:115"
+      ],
+      "before": "Pick a company for its chart and to trade. Every order pays the spread (the gap between the buying and selling price) and a commission, and a big order nudges the price against you, so quick round trips lose money. Price alerts tell you when a company reaches a level, even while you skip time.",
+      "after": "Pick a company for its chart and to trade. Every order pays the spread (the gap between the buying and selling price) and a commission, and a big order nudges the price against you, so quick round trips lose money. Price alerts tell you when a company reaches a level, even while you skip time."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.heading",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:120"
+      ],
+      "before": "Your shares",
+      "after": "Your shares"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:124"
+      ],
+      "before": "You hold no shares.",
+      "after": "You hold no shares."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:126"
+      ],
+      "before": "{0} ({1}): {2} shares, worth {3}. They cost {4}; gain {5}.",
+      "after": "{0} ({1}): {2} shares, worth {3}. They cost {4}; gain {5}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.sell_all",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:127"
+      ],
+      "before": "Sell everything",
+      "after": "Sell everything"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.label",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:428"
+      ],
+      "before": "Shares",
+      "after": "Shares"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.detail",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:429"
+      ],
+      "before": "In {0} companies on the {1}",
+      "after": "In {0} companies on the {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Holdings.detail_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:429"
+      ],
+      "before": "In one company on the {1}",
+      "after": "In one company on the {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "SellAll.warning",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:284"
+      ],
+      "before": "This sells all your shares in {0} companies at the selling prices, with commission on each order.",
+      "after": "This sells all your shares in {0} companies at the selling prices, with commission on each order."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "SellAll.warning_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:284"
+      ],
+      "before": "This sells all your shares in one company at the selling price, with commission.",
+      "after": "This sells all your shares in one company at the selling price, with commission."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "SellAll.done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:289"
+      ],
+      "before": "Sold everything: {0} paid into your account.",
+      "after": "Sold everything: {0} paid into your account."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "SellAll.nothing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:282"
+      ],
+      "before": "You hold no shares to sell.",
+      "after": "You hold no shares to sell."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.heading",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:138"
+      ],
+      "before": "{0} ({1})",
+      "after": "{0} ({1})"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.sector",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:140"
+      ],
+      "before": "Sector: {0}",
+      "after": "Sector: {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.price",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:238"
+      ],
+      "before": "Price {0}. You sell at {1}, buy at {2}.",
+      "after": "Price {0}. You sell at {1}, buy at {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.change",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:239"
+      ],
+      "before": "Over a day {0}, over a week {1}",
+      "after": "Over a day {0}, over a week {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.none_held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:240"
+      ],
+      "before": "You hold none.",
+      "after": "You hold none."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:241"
+      ],
+      "before": "You hold {0} shares, worth {1}. They cost {2}; gain {3}.",
+      "after": "You hold {0} shares, worth {1}. They cost {2}; gain {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.unlisted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:404"
+      ],
+      "before": "Not listed on the exchange now; last price {0}. Your shares are kept and can't be traded until it's listed again.",
+      "after": "Not listed on the exchange now; last price {0}. Your shares are kept and can't be traded until it's listed again."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Company.unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:404"
+      ],
+      "before": "This company's record is from a newer version of Phobos Exchange, so it's left untouched and can't be traded.",
+      "after": "This company's record is from a newer version of Phobos Exchange, so it's left untouched and can't be traded."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.hours_range",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:147"
+      ],
+      "before": "3 days",
+      "after": "3 days"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.days_range",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:147"
+      ],
+      "before": "120 days",
+      "after": "120 days"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.weeks_range",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:147"
+      ],
+      "before": "2 years",
+      "after": "2 years"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.now",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:275"
+      ],
+      "before": "now",
+      "after": "now"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.hours",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:274"
+      ],
+      "before": "{0} h ago",
+      "after": "{0} h ago"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.days",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:274"
+      ],
+      "before": "{0} d ago",
+      "after": "{0} d ago"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.weeks",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:274"
+      ],
+      "before": "{0} wk ago",
+      "after": "{0} wk ago"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.alert_above",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:267"
+      ],
+      "before": "alert {0}",
+      "after": "alert {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.alert_below",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:268"
+      ],
+      "before": "alert {0}",
+      "after": "alert {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Chart.paid",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:272"
+      ],
+      "before": "paid {0}",
+      "after": "paid {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.heading",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:162"
+      ],
+      "before": "Order",
+      "after": "Order"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.lots",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:169"
+      ],
+      "before": "Lots of {0} shares",
+      "after": "Lots of {0} shares"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.buy_quote",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:211"
+      ],
+      "before": "Buying {0}: about {1} in all, {2} of it commission.",
+      "after": "Buying {0}: about {1} in all, {2} of it commission."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.buy_no",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:211"
+      ],
+      "before": "Buying {0} isn't possible now: not enough cash, or over the order or holding limit.",
+      "after": "Buying {0} isn't possible now: not enough cash, or over the order or holding limit."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.sell_quote",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:212"
+      ],
+      "before": "Selling {0}: about {1} paid to you after {2} commission.",
+      "after": "Selling {0}: about {1} paid to you after {2} commission."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.sell_no",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:212"
+      ],
+      "before": "You hold none to sell.",
+      "after": "You hold none to sell."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.cannot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:163"
+      ],
+      "before": "You can't buy any now: one share asks {0} plus commission, and you hold none to sell.",
+      "after": "You can't buy any now: one share asks {0} plus commission, and you hold none to sell."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.buy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:172"
+      ],
+      "before": "Buy",
+      "after": "Buy"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.sell",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:175"
+      ],
+      "before": "Sell",
+      "after": "Sell"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.confirm_buy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:225"
+      ],
+      "before": "Buy {0} shares of {1} ({2}) at about {3} each? {4} in all, {5} of it commission. The price can move a little before the order fills.",
+      "after": "Buy {0} shares of {1} ({2}) at about {3} each? {4} in all, {5} of it commission. The price can move a little before the order fills."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.confirm_sell",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:225"
+      ],
+      "before": "Sell {0} shares of {1} ({2}) at about {3} each? {4} paid to you after {5} commission.",
+      "after": "Sell {0} shares of {1} ({2}) at about {3} each? {4} paid to you after {5} commission."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.confirm_buy_yes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:228"
+      ],
+      "before": "Buy",
+      "after": "Buy"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.confirm_sell_yes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:228"
+      ],
+      "before": "Sell",
+      "after": "Sell"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Order.confirm_no",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:234"
+      ],
+      "before": "Not now",
+      "after": "Not now"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:373",
+        "src/PhobosExchange/Plugin.cs:149"
+      ],
+      "before": "No company trades as {0}. Type phobosexchange quotes for the list.",
+      "after": "No company trades as {0}. Type phobosexchange quotes for the list."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.no_shares",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:247"
+      ],
+      "before": "Give a number of shares above zero.",
+      "after": "Give a number of shares above zero."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.order_too_large",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:248"
+      ],
+      "before": "One order can be at most {0} shares of {1}. Split it up.",
+      "after": "One order can be at most {0} shares of {1}. Split it up."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.holding_cap",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:249"
+      ],
+      "before": "The exchange lets one trader hold at most {0} of {1}, and this order would go over.",
+      "after": "The exchange lets one trader hold at most {0} of {1}, and this order would go over."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.cash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:250"
+      ],
+      "before": "That costs {0} with commission, and you have {1}.",
+      "after": "That costs {0} with commission, and you have {1}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.not_held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:251",
+        "src/PhobosExchange/Market.cs:263"
+      ],
+      "before": "You hold only {0} shares of {1}.",
+      "after": "You hold only {0} shares of {1}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.too_small",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:252"
+      ],
+      "before": "That sale would fetch less than the {0} commission.",
+      "after": "That sale would fetch less than the {0} commission."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:253"
+      ],
+      "before": "The order didn't go through.",
+      "after": "The order didn't go through."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.bought",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:240"
+      ],
+      "before": "Bought {0} shares of {1} ({2}) at {3} each, commission {4}: {5} paid. You now hold {6}.",
+      "after": "Bought {0} shares of {1} ({2}) at {3} each, commission {4}: {5} paid. You now hold {6}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Trade.sold",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:240"
+      ],
+      "before": "Sold {0} shares of {1} ({2}) at {3} each, commission {4}: {5} received. You now hold {6}.",
+      "after": "Sold {0} shares of {1} ({2}) at {3} each, commission {4}: {5} received. You now hold {6}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Ledger.bought",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:238"
+      ],
+      "before": "Bought {0} {1} at {2}",
+      "after": "Bought {0} {1} at {2}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Ledger.sold",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:238"
+      ],
+      "before": "Sold {0} {1} at {2}",
+      "after": "Sold {0} {1} at {2}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.heading",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:179"
+      ],
+      "before": "Price alerts",
+      "after": "Price alerts"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:242"
+      ],
+      "before": "No alerts set.",
+      "after": "No alerts set."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.current",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:243"
+      ],
+      "before": "Alert above {0}, below {1}.",
+      "after": "Alert above {0}, below {1}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.up_button",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:182"
+      ],
+      "before": "Alert at +10%",
+      "after": "Alert at +10%"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.down_button",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:184"
+      ],
+      "before": "Alert at -10%",
+      "after": "Alert at -10%"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.clear_button",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/ExchangePanel.cs:186"
+      ],
+      "before": "Clear alerts",
+      "after": "Clear alerts"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.set_above",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:310"
+      ],
+      "before": "Alert set: you'll hear when {0} reaches {1}.",
+      "after": "Alert set: you'll hear when {0} reaches {1}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.set_below",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:310"
+      ],
+      "before": "Alert set: you'll hear when {0} falls to {1}.",
+      "after": "Alert set: you'll hear when {0} falls to {1}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.cleared_above",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:304"
+      ],
+      "before": "Upper alert on {0} cleared.",
+      "after": "Upper alert on {0} cleared."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.cleared_below",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:304"
+      ],
+      "before": "Lower alert on {0} cleared.",
+      "after": "Lower alert on {0} cleared."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.must_be_above",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:308"
+      ],
+      "before": "An upper alert has to be above the price now ({0}).",
+      "after": "An upper alert has to be above the price now ({0})."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.must_be_below",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:308"
+      ],
+      "before": "A lower alert has to be below the price now ({0}).",
+      "after": "A lower alert has to be below the price now ({0})."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.fired_above",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:150"
+      ],
+      "before": "Price alert: {0} ({1}) is at {2}, up through your {3} level.",
+      "after": "Price alert: {0} ({1}) is at {2}, up through your {3} level."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.fired_below",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:150"
+      ],
+      "before": "Price alert: {0} ({1}) is at {2}, down through your {3} level.",
+      "after": "Price alert: {0} ({1}) is at {2}, down through your {3} level."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:151"
+      ],
+      "before": "{0} at {1}",
+      "after": "{0} at {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Alert.more",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:153"
+      ],
+      "before": "{0} more price alerts went off. Open EXCHANGE to see where prices stand.",
+      "after": "{0} more price alerts went off. Open EXCHANGE to see where prices stand."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.rose",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:189"
+      ],
+      "before": "Market wire: {0} ({1}) rose {2} over the day, {3}.",
+      "after": "Market wire: {0} ({1}) rose {2} over the day, {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.fell",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:189"
+      ],
+      "before": "Market wire: {0} ({1}) fell {2} over the day, {3}.",
+      "after": "Market wire: {0} ({1}) fell {2} over the day, {3}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.turn_up",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:188"
+      ],
+      "before": "Market wire: {0} ({1}) has turned upward, {2}.",
+      "after": "Market wire: {0} ({1}) has turned upward, {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.turn_down",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:188"
+      ],
+      "before": "Market wire: {0} ({1}) has turned downward, {2}.",
+      "after": "Market wire: {0} ({1}) has turned downward, {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Wire.more",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:156"
+      ],
+      "before": "{0} more wire reports. The charts on EXCHANGE show the rest.",
+      "after": "{0} more wire reports. The charts on EXCHANGE show the rest."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.market",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:198"
+      ],
+      "before": "moving with the whole market",
+      "after": "moving with the whole market"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.sector",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:199"
+      ],
+      "before": "moving with the rest of {0}",
+      "after": "moving with the rest of {0}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.company",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:200"
+      ],
+      "before": "on its own business",
+      "after": "on its own business"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.noise",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:211"
+      ],
+      "before": "on a sudden swing in trading",
+      "after": "on a sudden swing in trading"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.trading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:201"
+      ],
+      "before": "under the weight of large orders",
+      "after": "under the weight of large orders"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.drift",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:202"
+      ],
+      "before": "on steady long-run growth",
+      "after": "on steady long-run growth"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.scarce",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:209"
+      ],
+      "before": "as {0} ran short at {1}",
+      "after": "as {0} ran short at {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Cause.plenty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:209"
+      ],
+      "before": "as {0} piled up at {1}",
+      "after": "as {0} piled up at {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.summary",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:166"
+      ],
+      "before": "Market wire, while you were away for {0}: biggest movers {1}.",
+      "after": "Market wire, while you were away for {0}: biggest movers {1}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.days",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:164"
+      ],
+      "before": "{0} days",
+      "after": "{0} days"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.years",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:164"
+      ],
+      "before": "{0} years",
+      "after": "{0} years"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.mover",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:165"
+      ],
+      "before": "{0} {1}",
+      "after": "{0} {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.holdings",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:168"
+      ],
+      "before": "Your shares are worth {0}, against {1} before.",
+      "after": "Your shares are worth {0}, against {1} before."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.alerts",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:169"
+      ],
+      "before": "{0} price alerts went off.",
+      "after": "{0} price alerts went off."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Away.alerts_one",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:169"
+      ],
+      "before": "One price alert went off.",
+      "after": "One price alert went off."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Test.shock_what",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:331"
+      ],
+      "before": "jump {0} by {1}",
+      "after": "jump {0} by {1}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Test.shock_range",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:330"
+      ],
+      "before": "Give a jump between -90 and 1000 percent.",
+      "after": "Give a jump between -90 and 1000 percent."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Test.reset_what",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Market.cs:342"
+      ],
+      "before": "reset the exchange's prices, history and alerts (your shares stay)",
+      "after": "reset the exchange's prices, history and alerts (your shares stay)"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.help",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:120"
+      ],
+      "before": "phobosexchange [quotes | quote TICKER | buy TICKER shares | sell TICKER shares|all | holdings | alert TICKER above|below price | alert TICKER clear | alerts | sellall | open | drivers [TICKER] | state [TICKER]]. Test commands, which need unlockdebug and confirm: test shock TICKER percent, test reset.",
+      "after": "phobosexchange [quotes | quote TICKER | buy TICKER shares | sell TICKER shares|all | holdings | alert TICKER above|below price | alert TICKER clear | alerts | sellall | open | drivers [TICKER] | state [TICKER]]. Test commands, which need unlockdebug and confirm: test shock TICKER percent, test reset."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.opened",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:106"
+      ],
+      "before": "Exchange opened.",
+      "after": "Exchange opened."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.none",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:134"
+      ],
+      "before": "No companies are listed.",
+      "after": "No companies are listed."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.quotes_heading",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:135"
+      ],
+      "before": "{0}: ticker, name, price, change over a day and a week, shares held",
+      "after": "{0}: ticker, name, price, change over a day and a week, shares held"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.quote_line",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:142"
+      ],
+      "before": "{0}  {1}  {2}  day {3}  week {4}  held {5}",
+      "after": "{0}  {1}  {2}  day {3}  week {4}  held {5}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.quote_unavailable",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:141"
+      ],
+      "before": "{0}: {1} shares held. {2}",
+      "after": "{0}: {1} shares held. {2}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.quote_prices",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:153"
+      ],
+      "before": "You sell at {0}, buy at {1}. Sector: {2}.",
+      "after": "You sell at {0}, buy at {1}. Sector: {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.quote_held",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:154"
+      ],
+      "before": "You hold {0}, worth {1}; they cost {2}.",
+      "after": "You hold {0}, worth {1}; they cost {2}."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.alert_line",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:162"
+      ],
+      "before": "{0} alerts: above {1}, below {2}",
+      "after": "{0} alerts: above {1}, below {2}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.no_holdings",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:169"
+      ],
+      "before": "You hold no shares.",
+      "after": "You hold no shares."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.holdings_heading",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:170"
+      ],
+      "before": "Your shares, worth {0} at the selling prices:",
+      "after": "Your shares, worth {0} at the selling prices:"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.holding_line",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:172"
+      ],
+      "before": "{0}: {1} shares, worth {2}, cost {3}, gains already taken {4}",
+      "after": "{0}: {1} shares, worth {2}, cost {3}, gains already taken {4}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.no_alerts",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:180"
+      ],
+      "before": "No price alerts set.",
+      "after": "No price alerts set."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.drivers_heading",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:187"
+      ],
+      "before": "Drivers, read only: company, station, category, the game's price factor now, weight, where the signal is heading and where it is (log units).",
+      "after": "Drivers, read only: company, station, category, the game's price factor now, weight, where the signal is heading and where it is (log units)."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.driver_line",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:197"
+      ],
+      "before": "{0}: {1} ({2}) {3}: factor {4}, weight {5}, heading {6}, now {7}",
+      "after": "{0}: {1} ({2}) {3}: factor {4}, weight {5}, heading {6}, now {7}"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.driver_none",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:192"
+      ],
+      "before": "{0}: follows no station",
+      "after": "{0}: follows no station"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.no_reading",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:198"
+      ],
+      "before": "no reading",
+      "after": "no reading"
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.state_heading",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:211"
+      ],
+      "before": "Market state, read only, at step {0}; test changes on this save: {1}. Parts of each log price: market, sector, company, drivers, noise, trading, drift; then the pace of its phase a week.",
+      "after": "Market state, read only, at step {0}; test changes on this save: {1}. Parts of each log price: market, sector, company, drivers, noise, trading, drift; then the pace of its phase a week."
+    },
+    {
+      "mod": "PhobosExchange",
+      "key": "Console.state_line",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Phobos Exchange 0.1.0: the EXCHANGE app, trading, alerts, the market wire and the gated test commands, written to player-language rules; every refusal says what is in the way; costs and limits named before confirmation; placeholders, commands and tickers kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosExchange/Plugin.cs:217"
+      ],
+      "before": "{0}: {1} {2} {3} {4} {5} {6} {7}; pace {8} a week",
+      "after": "{0}: {1} {2} {3} {4} {5} {6} {7}; pace {8} a week"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Debug.locked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.0: the test-command gate (owner rule: unlockdebug, a plain warning on every use, confirm) and the shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/DebugCommands.cs:29"
+      ],
+      "before": "That's a test command, and test commands that change your save stay locked. Type unlockdebug first: it's the game's own switch for debug commands.",
+      "after": "That's a test command, and test commands that change your save stay locked. Type unlockdebug first: it's the game's own switch for debug commands."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Debug.warning",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.0: the test-command gate (owner rule: unlockdebug, a plain warning on every use, confirm) and the shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/DebugCommands.cs:30"
+      ],
+      "before": "Test command: {0}. This changes your save outside what {1} was built to do. What follows may never match normal play, and no later version of the mod will put it back. Keep playing this save and the change stays with it, so save a copy first if you might want to go back.",
+      "after": "Test command: {0}. This changes your save outside what {1} was built to do. What follows may never match normal play, and no later version of the mod will put it back. Keep playing this save and the change stays with it, so save a copy first if you might want to go back."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Debug.done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.0: the test-command gate (owner rule: unlockdebug, a plain warning on every use, confirm) and the shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/DebugCommands.cs:36"
+      ],
+      "before": "{0}: done. This save is now marked as changed by a test command.",
+      "after": "{0}: done. This save is now marked as changed by a test command."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Debug.log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.0: the test-command gate (owner rule: unlockdebug, a plain warning on every use, confirm) and the shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/DebugCommands.cs:42"
+      ],
+      "before": "Test command used ({0}): {1}. The save is marked as test-changed.",
+      "after": "Test command used ({0}): {1}. The save is marked as test-changed."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Holdings.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.128.0: the test-command gate (owner rule: unlockdebug, a plain warning on every use, confirm) and the shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Trading/PlayerHoldings.cs:53"
+      ],
+      "before": "Holdings from {0} could not be read and are left out: {1}",
+      "after": "Holdings from {0} could not be read and are left out: {1}"
     }
   ],
   "documents": [
@@ -89223,9 +91251,10 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5e4865f81cf26d2aaaab4b724c262f861eb2cdbbfcdbc546708f1aa247446fe7",
+      "sha256": "624ba9015b897d6f38af45354c0400dff969c63837a9d4614858ff4e26d9e6b4",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
-      "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
+      "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "SUPPORT.md",
@@ -89238,8 +91267,9 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "545a9e208bff4b24c25bb93d48bd434f30ab65c5d529f633e1c033b5f5daf412",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "74965e5ffaac2277a3a9770ce42b714377808a25739077b0fc6daff95f017755",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -89385,8 +91415,9 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7aaa25a28a9f8244a7df01a3a61c1b5e8120fdb077ae791e07edb3b98dcfd31d",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
+      "sha256": "fe7b6692fcd2e8037bc9ed44d1aeeb674e2e8b76ad96062a971551afea5ee3d1",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/crew-automation.md",
@@ -89728,8 +91759,9 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "4f83bd1264bdfdff3a07ac4e09237ab369ace290ddadfe8f9b11387b379bb7ad",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
+      "sha256": "15f2b877dd955e0e6c0d240f368eb064a149e67413ab01340f2b1899c938b330",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -89776,8 +91808,9 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "63846df42a7c3e8e1981301b780df50dbc75cfc0e02385c723244153a0f78d83",
-      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day."
+      "sha256": "3d0fd2bc21a2801f08f615dd0db4a8e4c5b7b520b417ce1d2059817aabf57194",
+      "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -89867,8 +91900,9 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "e3fa539ca34ee48ead5e743cba310a104169025748e0a493b17150f19cbd549d",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "8fda46786f0e8c1a3092823320094aea281554727eee4fd8a75c652c23ffc1f9",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -90347,8 +92381,9 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "9847aa573bbd019f3f543e008739ad0a230e50c506ae76d288c7ffb809cd7a4a",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
+      "sha256": "cfb4461b04f184d6566576b5318bdc9e36f634d6e1c53ef9ea71ad7795a30123",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -90368,8 +92403,9 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8e54bc1b0fc6c51cfb0d34e784909bcdad6fd0e1682de313a5d228522358c12a",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1: regenerated by the item-reference updater; only the version changed."
+      "sha256": "ae7ddde5977aab2d50533df282b685854b7f33ff78ea0d8e39949ac8285cbb77",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1: regenerated by the item-reference updater; only the version changed.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -90431,15 +92467,17 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "69e1891ac85f2bd96fce038851564aef4ccaa1e55bb7cf592b2c298dd0375ffd",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger."
+      "sha256": "4aff15b911b703592246f33e4dd661052e4c1a9e6bdc04ea69e4c550a847e802",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "deba5ba658dddb8a676afebf28fb23f5d3d2020cfc7c04e8c0bb5b52f717eda2",
-      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code."
+      "sha256": "29cbd18f7da303d7f3fc77a39de19741da9cf03793df68d3cb0cea4584f99905",
+      "review": "Reviewed 6 October 2026 for Framework 0.126.0 (PDA apps) and Phobos Banking 0.1.0: the CREDIT app and its debts panel; wording read against player-language.md; claims checked against the game's ledger code.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/lines-and-draining.md",
@@ -90501,15 +92539,17 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8b55c5fa8cb59eadf2c30e77ea5ea7c38c52efb7ae481f4abdfb0775c03fc6d2",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
+      "sha256": "689e7286ddd428350992fbe8cbb09787bf2da52e3f42a12d4eef046f6d0b4b4b",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/publishing-an-add-on.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "e2bcd47c11763ba6e0cec4e89558515a7afc27c1e8b7493343eb73158fbb08bc",
-      "review": "Add-on data folder fix, 6 October 2026"
+      "sha256": "b5686593a3ada0884079f514d228f6799371128e39005d4635ba25068b7c07dd",
+      "review": "Add-on data folder fix, 6 October 2026",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "docs/residue-collector.md",
@@ -90641,8 +92681,9 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e0dd6640da91998916fcdd97d44801f800d4a06659b220d70a2cb79743bc1f33",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
+      "sha256": "00acff3131428e49065d9d70f801fd64410764e5d5aa99a5fb4d073782feb012",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -90740,17 +92781,40 @@
       "path": "docs/development/share-market-and-charts-design.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "0bb85abfac9d49047ce5bba823813766bff9146cc8039894632eefe9a181807e",
+      "sha256": "c8bca353cc705fe865e96b5e18857d80c82b1237026524e9d4efefdf92cb08f4",
       "review": "Reviewed 7 October 2026: research-only design record for a Phobos Banking share market and a Framework chart control. Observed game behaviour, library source reading, agent proposals, unverified points and owner decisions are labelled; finance research attributed to its authors with primary links; no runtime or player catalogue text changed.",
-      "review20261007ExchangePlanning": "Reviewed 7 October 2026: planning-round section added (owner decisions, corrections, model, time jumps, save record) and superseded notes on the original proposal; owner choices and agent choices labelled; no runtime text changed."
+      "review20261007ExchangePlanning": "Reviewed 7 October 2026: planning-round section added (owner decisions, corrections, model, time jumps, save record) and superseded notes on the original proposal; owner choices and agent choices labelled; no runtime text changed.",
+      "review20261007ExchangeBuilt": "Reviewed 7 October 2026: as-built section for Phobos Exchange 0.1.0 (trend phases as the difference of two OU processes, measured costs labelled as offline .NET figures, the guard and economy results, owner checks pending)."
+    },
+    {
+      "path": "docs/exchange-player-guide.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "new",
+      "sha256": "19b2caef90c0e57c29d68aec775b0f09f96d59c9468ad3b975f253caa9849356",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+    },
+    {
+      "path": "docs/exchange-item-reference.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "new",
+      "sha256": "195448c38a57fdae4743d96adbbb7555b813382ac60101c259bb678f6a47b256",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+    },
+    {
+      "path": "workshop/PhobosExchange/page.bbcode",
+      "scope": "current player text; Workshop page draft",
+      "decision": "new",
+      "sha256": "5e3aff8e8ef636785c576b9aba5ea598397623bf2cb1b59468261c9844b93cb0",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f9cf9c2fa6fd7cd548ff599e3e72b4b0289fd752aeb92b02ede3f7870fce7dc8",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service."
+      "sha256": "d05a6d7e020c42a57d41bdae52144ea841fe3f4d6f92bf8407fc8882d178234d",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.3.0: financing at the ship and real-estate brokers through a lender's pre-approval; claims checked against the broker code and the financing service.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -90801,8 +92865,9 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0a6d5b41f8fd81834c9658caf76416f9e381fe0c8ba3b55e6bfba3a8343403f2",
-      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained."
+      "sha256": "08005e7ef802dddbe473a3ef46f2e179af4ed42c7571604f28494ac2d42a0dc3",
+      "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -91044,6 +93109,27 @@
       "scope": "generated Workshop release notes",
       "sha256": "bb23a11f5d966ccb24a14d625aa2b70e84ef13b779a7e060f6386f360c5da10d",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0: generated from the held changelog entry and checked against the story pack."
+    },
+    {
+      "path": "mods/PhobosExchange/CHANGELOG.md",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "3f8db62e566271fa1d62655b1850cc29bd0a2455da73ef84e88471bb54a6d830",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+    },
+    {
+      "path": "mods/PhobosExchange/framework/exchange.json",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "f2ac0e31a3ae0aebf06eab132f82df5008fd79c3a47329f928451a8d975a65e6",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+    },
+    {
+      "path": "mods/PhobosExchange/mod_info.json",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "af64a245e33cb1f851caa1ad59953426f927cf32baf5b892fe620f8eb4934534",
+      "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
     }
   ],
   "hardcodedReview": {

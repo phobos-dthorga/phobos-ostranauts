@@ -36,6 +36,10 @@
     "Bank.Framework": {
       "since": "0.1.0",
       "value": "0.127.0"
+    },
+    "Exchange.Framework": {
+      "since": "0.1.0",
+      "value": "0.128.0"
     }
   }
 }

@@ -108,11 +108,18 @@ X ← aX + s·√(1−a²)·z, with a = 2^(−Δ/half-life) and stationary sprea
 n = floor(game time / 60 s); z comes from a stable hash of the save, the company, the step
 and a stream number, so it is never rolled.
 
-- **Trend phases.** A trend rate for the market (half-life about 6 weeks), each sector (about
-  4 weeks) and each company (about 3 weeks), each an OU process; the price carries its time
-  integral. Over any step the integral and the end value are jointly Gaussian with
-  closed-form moments, so one exact draw covers a minute, a day or fifty years.
-- **Noise.** About 1 to 2% a game day, scaled by a log-volatility that wanders with a 3-day
+- **Trend phases (as built).** The plan was an OU trend rate whose time integral the price
+  carries. Tuning showed its integral's variance grows without bound: about 0.6 in a game
+  year, far over the return guard, and it would make typical prices fall. As built, each
+  phase (the market's, each sector's and each company's) is the difference of a slow and a
+  fast OU process driven by the same noise. The noise cancels over short steps, so the level
+  moves smoothly with momentum (a rise carries on, then turns), and its variance stays
+  bounded however long a save runs. Both processes step exactly together (a 2 x 2 Gaussian
+  transition), so one draw still covers a minute, a day or fifty years; the short-step
+  covariance uses series expansions so a one-minute step never loses precision. Shipped
+  half-lives: market 10 and 2.5 weeks, sectors 8 or 9 and 2 weeks, companies 6 and 1.5
+  weeks; phase sizes 0.06 to 0.15 of the log price.
+- **Noise.** About 0.7 to 1.1% a game day as shipped (calmer than planned, so phases show over weeks), scaled by a log-volatility that wanders with a 3-day
   half-life (calm and stormy stretches), with slow reversion over years.
 - **Jumps.** Rare, decided by hash.
 - **Drivers.** The native price factors at named stations for named categories, read every game
@@ -147,6 +154,29 @@ clock, trend states, each company's model state, holdings, alerts, a test-change
 history as 73 hourly, 120 daily and 104 weekly closes per company, stored compactly relative to
 each chunk's base. About 1.5 KB a company and fixed caps, so the record never grows without
 bound. Fields this version does not understand are kept exactly as they were.
+
+### As built (Phobos Exchange 0.1.0 and Framework 0.128.0, 7 October 2026, held draft)
+
+- **Measured offline** (.NET 10 on the owner's PC; the game's Mono is slower, and the in-game
+  operation `exchange.catch_up` records the real cost): a one-day skip about 3 ms for three
+  companies; three days or more 8 to 12 ms; fifty years at once 4,589 steps, within the fixed
+  bound of 4,610. Minute-by-minute stepping, one catch-up and any chunking give bit-identical
+  prices, also across a save and load.
+- **The guard as shipped:** expected yearly returns from 9.2% (Verdemorrow) to 12.7%
+  (Brightvein Mining), all under 14%. Over ten seeds and three game years, borrowing at the
+  cheapest Banking rate (29.2% a game year) to buy and hold lost about 71% after interest.
+  Following the hidden phase earned about 2.3% a month per company before commission;
+  following what the weekly chart shows (the price above where it stood a week ago) about
+  1.3%. That is the reward for reading the board, and it stays below the cost of a loan.
+- **The record** for three companies after 400 game days: 29 fields, about 4.6 KB; eight
+  companies come to about 12 KB, fixed.
+- **Every driver is live:** each of the 19 shipped drivers names a station whose cargo
+  market prices the category and makes or uses it (checked against the installed game's
+  market data by the native checks).
+- **Not yet seen in play.** Owner checks: the panel and chart at 16x, a 24-hour skip with
+  alerts, a save and reload, a trade against the Finances ledger, `phobosexchange drivers`
+  at several stations, the test commands before and after `unlockdebug`, and a long time
+  jump for the away summary.
 
 ## What we can build on
 

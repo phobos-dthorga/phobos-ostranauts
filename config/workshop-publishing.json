@@ -80,6 +80,15 @@
       "hold": "Held draft: first release awaiting owner gameplay checks.",
       "uploadedVersion": "0.6.0",
       "uploadedVisibility": "private"
+    },
+    "PhobosExchange": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": "Held draft: first release awaiting owner gameplay checks.",
+      "uploadedVersion": null,
+      "uploadedVisibility": null
     }
   },
   "externalRequiredItems": [
