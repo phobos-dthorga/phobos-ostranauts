@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/spacer-stories-authoring.md",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.3.1",
-    "strNotes": "Vanilla station life and Phobos maker stories: news, adverts, crew talk, loading lore, encyclopedia articles, 22 chains and 23 archive files. Requires Phobos Framework 0.114.0 or newer; equipment stories appear with their relevant mods. New chains have no expiry, deposit or item consumption; two once-only fees total 900 credits. Data-only held draft; build-check update and gameplay review pending."
+    "strModVersion": "0.4.0",
+    "strNotes": "Vanilla station life and Phobos maker stories: news, adverts, crew talk, loading lore, encyclopedia articles, 22 chains and 23 archive files. Requires Phobos Framework 0.132.0 or newer; equipment stories appear with their relevant mods. New chains have no expiry, deposit or item consumption; two once-only fees total 900 credits. Data-only held draft; build-check update and gameplay review pending."
   }
 ]

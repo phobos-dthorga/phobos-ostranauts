@@ -2810,7 +2810,7 @@
     "SpacerStories.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.3.1",
+      "value": "0.4.0",
       "description": "PhobosSpacerStories (data-only story add-on) published source/package version.",
       "targets": [
         {
@@ -2859,7 +2859,7 @@
     "SpacerStories.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.114.0",
+      "value": "0.132.0",
       "description": "Current Phobos Spacer Stories required Framework version, shared with the add-on manifest and local installer admission.",
       "targets": [
         {

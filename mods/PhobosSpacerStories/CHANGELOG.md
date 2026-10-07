@@ -8,6 +8,19 @@ Draft dates record preparation, not Workshop publication.
 
 - The Workshop page now says this collection changes no gigs, and points to Phobos Framework 0.123.0's fair gig deadlines for far deliveries.
 
+## [0.4.0] - 2026-10-08 - Draft
+
+### Added
+
+- Station life comes in more than one wording. Every line of station talk now has three ways of saying it, and the news about station life, what people say about it and its adverts have two, so the same words do not keep coming round. The game picks one each time and never shows the same one twice running. Every wording keeps its line's story and gates: none tells you anything before its story would.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.132.0, which reads text written several ways (up from 0.114.0).
+- The new wordings were written by Claude, the project's coding assistant, under the owner's direction of 8 October 2026, and are held for the owner's review.
+- Saves: nothing new is saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.3.1] - 2026-10-07 - Released
 
 ### Changed

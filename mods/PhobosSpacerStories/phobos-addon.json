@@ -3,10 +3,10 @@
   "id": "phobos-spacer-stories",
   "name": "Phobos Spacer Stories",
   "author": "Phobos A. D'thorga",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "idPrefix": "SpacerTales",
   "requires": {
-    "PhobosFramework": "0.114.0"
+    "PhobosFramework": "0.132.0"
   },
   "notes": "First-party data-only story collection commissioned by phobosgekko on 6 October 2026. Expands vanilla station life alongside original Phobos maker histories, with 22 chains and 23 archive files. Optional equipment entries require their own content mods. New stories have no expiry; two once-only fees total 900 credits. Original fiction, open to owner revision. Source draft; normal packaging awaits a fixed-inventory check update and owner gameplay review."
 }

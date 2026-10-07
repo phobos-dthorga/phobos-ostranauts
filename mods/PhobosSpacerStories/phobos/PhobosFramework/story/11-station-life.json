@@ -1,156 +1,303 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction, commissioned by phobosgekko on 6 October 2026; agent-authored choices open to owner revision. Vanilla evidence, literary influences and mechanical limits: docs/development/spacer-stories-vanilla-expansion.md. This pack does not change native plots, gigs, faction scores, station rules or NPCs.",
+  "notes": "Original Phobos fiction, commissioned by phobosgekko on 6 October 2026; agent-authored choices open to owner revision. Vanilla evidence, literary influences and mechanical limits: docs/development/spacer-stories-vanilla-expansion.md. This pack does not change native plots, gigs, faction scores, station rules or NPCs. Variant lines (Spacer Stories 0.4.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "broadcasts": {
     "spacertales-freight-estimate-notice": {
       "thread": "spacertales-reasonable-freight",
-      "text": "A small freight estimators' circle at [place] is collecting examples of contracts whose promised arrival bears little relation to the journey. Its correspondence offers a comparison of waiting, fuel and turnaround costs, with no deposit and no departure deadline. The circle says a large number in the reward column does not make a small number in the time column sensible.",
-      "mention": "There is a freight circle comparing the deadline with the actual journey. About time.",
+      "text": [
+        "A small freight estimators' circle at [place] is collecting examples of contracts whose promised arrival bears little relation to the journey. Its correspondence offers a comparison of waiting, fuel and turnaround costs, with no deposit and no departure deadline. The circle says a large number in the reward column does not make a small number in the time column sensible.",
+        "At [place], a small circle of freight estimators is gathering contracts whose promised arrival has little to do with the journey. It offers a comparison of waiting, fuel and turnaround costs, with no deposit and no departure deadline. A big figure in the reward column, the circle says, does not make a small one in the time column sensible."
+      ],
+      "mention": [
+        "There is a freight circle comparing the deadline with the actual journey. About time.",
+        "A freight circle is putting the deadlines next to the real journeys. Overdue, if you ask me."
+      ],
       "weight": 3
     },
     "spacertales-salvage-name-notice": {
       "thread": "spacertales-salvage-kin",
-      "text": "An independent records clerk at [place] is seeking readers for a copied salvage account. It separates the owner of a component from the people who fitted it, maintained it and were still owed wages when the vessel changed hands. No title dispute will be decided by the exercise. The clerk says the last page is usually the one that goes missing.",
-      "mention": "Someone is copying the workers' names out of old salvage accounts.",
+      "text": [
+        "An independent records clerk at [place] is seeking readers for a copied salvage account. It separates the owner of a component from the people who fitted it, maintained it and were still owed wages when the vessel changed hands. No title dispute will be decided by the exercise. The clerk says the last page is usually the one that goes missing.",
+        "A records clerk at [place] wants readers for a copied salvage account that sets the owner of a component apart from the people who fitted it, kept it running and were still owed wages when the vessel changed hands. The exercise will settle no title dispute. The last page, the clerk notes, is usually the one that goes missing."
+      ],
+      "mention": [
+        "Someone is copying the workers' names out of old salvage accounts.",
+        "There is a clerk copying out who actually worked on old salvage. Owners first, then the people."
+      ],
       "weight": 3
     },
     "spacertales-berth-address-notice": {
       "thread": "spacertales-berth-neighbours",
-      "text": "A berth association at [place] is revising a voluntary contact sheet for crews away on long runs. Families have asked that a ship's departure stop being treated as a person's disappearance. The sheet records who will hold a message and who has agreed to receive one. It grants no residency rights and collects no dues through visiting captains.",
-      "mention": "The berth association wants away on a run to mean away on a run, not vanished.",
+      "text": [
+        "A berth association at [place] is revising a voluntary contact sheet for crews away on long runs. Families have asked that a ship's departure stop being treated as a person's disappearance. The sheet records who will hold a message and who has agreed to receive one. It grants no residency rights and collects no dues through visiting captains.",
+        "At [place], a berth association is revising its voluntary contact sheet for crews on long runs, after families asked that a ship leaving port stop being treated as a person vanishing. The sheet records who will hold a message and who has agreed to receive one. It grants no residency rights and collects no dues from visiting captains."
+      ],
+      "mention": [
+        "The berth association wants away on a run to mean away on a run, not vanished.",
+        "The berth association says going on a long run is not the same as disappearing. Took them long enough."
+      ],
       "weight": 3
     },
     "spacertales-old-ring-notice": {
       "thread": "spacertales-old-ring-tenants",
-      "text": "Residents at [place] are circulating an account of a maintenance petition with three different dates on its cover. The tenants want the oldest date retained when the copy is refiled. Their copyist says the dispute concerns a particular building account, not a new housing rule, and that a neat replacement cover must not erase how long people have waited.",
-      "mention": "An old-ring petition has been recopied so often it has got younger than the people waiting.",
+      "text": [
+        "Residents at [place] are circulating an account of a maintenance petition with three different dates on its cover. The tenants want the oldest date retained when the copy is refiled. Their copyist says the dispute concerns a particular building account, not a new housing rule, and that a neat replacement cover must not erase how long people have waited.",
+        "An account of a maintenance petition with three different dates on its cover is going round the residents at [place]. The tenants want the oldest date kept when it is refiled. Their copyist says the dispute is about one building's account, not a new housing rule, and that a tidy new cover must not hide how long people have waited."
+      ],
+      "mention": [
+        "An old-ring petition has been recopied so often it has got younger than the people waiting.",
+        "That old-ring petition has been refiled so often its cover looks newer than the tenants."
+      ],
       "weight": 3
     },
     "spacertales-ceres-wording-notice": {
       "thread": "spacertales-ceres-translations",
-      "text": "A freight translator at [place] has opened correspondence about a shipment described as both household effects and used equipment. The descriptions came from different parties with different reasons for writing them. Readers are being offered the two accounts together, without a ruling on duties or ownership. The translator asks captains to read the description before trusting the total.",
-      "mention": "Two descriptions of the same shipment are going round. Each makes sense until you see the other.",
+      "text": [
+        "A freight translator at [place] has opened correspondence about a shipment described as both household effects and used equipment. The descriptions came from different parties with different reasons for writing them. Readers are being offered the two accounts together, without a ruling on duties or ownership. The translator asks captains to read the description before trusting the total.",
+        "A freight translator at [place] is circulating correspondence about a shipment described as household effects by one party and used equipment by another, each with its own reasons. The two accounts are offered side by side, with no ruling on duties or ownership. Captains are asked to read the description before they trust the total."
+      ],
+      "mention": [
+        "Two descriptions of the same shipment are going round. Each makes sense until you see the other.",
+        "Same shipment, two descriptions doing the rounds. Read one and it is fine. Read both and you start counting."
+      ],
       "weight": 3
     },
     "spacertales-titan-yard-notice": {
       "thread": "spacertales-titan-families",
-      "text": "A family archive at [place] is collecting ordinary yard correspondence: requests for leave, postponed visits and the messages workers sent home after launch days. The archive wants life around the ships preserved beside their specifications. It offers copies, not access to a yard or a military contract.",
-      "mention": "The yard archive is keeping the letters about missed dinners as well as the launch dates.",
+      "text": [
+        "A family archive at [place] is collecting ordinary yard correspondence: requests for leave, postponed visits and the messages workers sent home after launch days. The archive wants life around the ships preserved beside their specifications. It offers copies, not access to a yard or a military contract.",
+        "At [place], a family archive is gathering everyday yard letters: requests for leave, visits put off, the messages workers sent home after a launch. It wants the life around the ships kept beside their specifications. Copies only; no access to a yard or a military contract is offered."
+      ],
+      "mention": [
+        "The yard archive is keeping the letters about missed dinners as well as the launch dates.",
+        "The yard archive is keeping the missed suppers alongside the launch dates. Good."
+      ],
       "weight": 3
     },
     "spacertales-luna-works-notice": {
       "thread": "spacertales-lunar-leftovers",
-      "text": "A voluntary archive at [place] is comparing an unfinished works list with a contractor's closing account. Tools and rooms can remain on Luna long after the work that was meant to fill them has moved elsewhere. The archive seeks no expedition into abandoned sites; it wants someone to read what the contractor called complete.",
-      "mention": "There is an archive comparing finished on paper with unfinished on Luna.",
+      "text": [
+        "A voluntary archive at [place] is comparing an unfinished works list with a contractor's closing account. Tools and rooms can remain on Luna long after the work that was meant to fill them has moved elsewhere. The archive seeks no expedition into abandoned sites; it wants someone to read what the contractor called complete.",
+        "A volunteer archive at [place] is setting an unfinished works list beside a contractor's closing account. On Luna, tools and rooms outlast the work meant to fill them. The archive plans no trip to abandoned sites; it wants someone to read what the contractor called complete."
+      ],
+      "mention": [
+        "There is an archive comparing finished on paper with unfinished on Luna.",
+        "Somebody is checking what a contractor called finished against what is still standing on Luna."
+      ],
       "weight": 3
     },
     "spacertales-visa-letter-notice": {
       "thread": "spacertales-maintenance-visas",
-      "text": "A maintenance worker's correspondence at [place] is available for copying. It sets out the difference between obtaining a work visa and having enough time, money and freedom to enjoy the place it admits you to. The letter concerns one worker's terms. It does not offer a visa, a job or a way around the authorities.",
-      "mention": "There is a maintenance letter about having permission to live somewhere and no time to live there.",
+      "text": [
+        "A maintenance worker's correspondence at [place] is available for copying. It sets out the difference between obtaining a work visa and having enough time, money and freedom to enjoy the place it admits you to. The letter concerns one worker's terms. It does not offer a visa, a job or a way around the authorities.",
+        "Copies are available at [place] of a maintenance worker's letters on the gap between holding a work visa and having the time, money and freedom to enjoy the place it lets you into. The letters concern one worker's terms. They offer no visa, no job and no way around the authorities."
+      ],
+      "mention": [
+        "There is a maintenance letter about having permission to live somewhere and no time to live there.",
+        "There is a letter going round about a work visa for a lovely place and no hours to enjoy it."
+      ],
       "weight": 3
     },
     "spacertales-deimos-shift-notice": {
       "thread": "spacertales-deimos-night-work",
-      "text": "Night-shift correspondence from [place] describes the staff who keep rented laboratories supplied and open between research shifts. Its author asks readers to keep the service entries beside the project summaries. The account offers no results, restricted access or proof of what any research team was doing.",
-      "mention": "The laboratory night shift wants to stay in the account after the research team takes the credit.",
+      "text": [
+        "Night-shift correspondence from [place] describes the staff who keep rented laboratories supplied and open between research shifts. Its author asks readers to keep the service entries beside the project summaries. The account offers no results, restricted access or proof of what any research team was doing.",
+        "Letters from the night shift at [place] describe the staff who keep rented laboratories stocked and open between research shifts. The writer asks that the service log be kept beside the project summaries. No results, restricted access or proof of any team's work is offered."
+      ],
+      "mention": [
+        "The laboratory night shift wants to stay in the account after the research team takes the credit.",
+        "The lab night shift would like to be in the record too, next to whoever gets the credit."
+      ],
       "weight": 3
     },
     "spacertales-venus-invoice-notice": {
       "thread": "spacertales-venus-after-loss",
-      "text": "A freight correspondent at [place] is sharing a small collection of invoices issued after a Venusian shipment failed to arrive. The accounts disagree about when a consignment becomes a loss and when a family can stop waiting. The correspondent has removed identifying route details. No surviving crew or missing cargo has been located by the collection.",
-      "mention": "After a shipment goes missing, the bills arrive more reliably than the answers.",
+      "text": [
+        "A freight correspondent at [place] is sharing a small collection of invoices issued after a Venusian shipment failed to arrive. The accounts disagree about when a consignment becomes a loss and when a family can stop waiting. The correspondent has removed identifying route details. No surviving crew or missing cargo has been located by the collection.",
+        "At [place], a freight correspondent is sharing invoices issued after a Venusian shipment failed to arrive. They disagree on when a consignment becomes a loss and when a family may stop waiting. Route details have been removed. The collection has found no surviving crew and no missing cargo."
+      ],
+      "mention": [
+        "After a shipment goes missing, the bills arrive more reliably than the answers.",
+        "When a shipment vanishes, the invoices still turn up on time. The answers do not."
+      ],
       "weight": 3
     },
     "spacertales-europa-letter-notice": {
       "thread": "spacertales-europa-distance",
-      "text": "A family correspondence custodian at [place] is offering a copied exchange about delayed mail and the trade restrictions around Atlantis. The writers disagree about the politics but agree that their family should not have to become a political argument. The copy describes no smuggling route and offers no passage through the blockade.",
-      "mention": "Someone is preserving a family argument about the blockade. They still remembered to ask after each other.",
+      "text": [
+        "A family correspondence custodian at [place] is offering a copied exchange about delayed mail and the trade restrictions around Atlantis. The writers disagree about the politics but agree that their family should not have to become a political argument. The copy describes no smuggling route and offers no passage through the blockade.",
+        "A custodian of family letters at [place] is offering a copied exchange about delayed mail and the trade restrictions around Atlantis. The writers disagree on the politics and agree that their family should not become a political argument. No smuggling route or passage through the blockade is described."
+      ],
+      "mention": [
+        "Someone is preserving a family argument about the blockade. They still remembered to ask after each other.",
+        "A family argued about the blockade by letter and still asked after each other. Someone is keeping the letters."
+      ],
       "weight": 3
     },
     "spacertales-hollow-book-notice": {
       "thread": "spacertales-hollow-accounts",
-      "text": "A dockside account keeper at [place] has released a copy of a disputed meal-and-berth book. One entry was written as a loan by the payer and as wages by the person receiving it. Readers are invited to compare the accounts. No money is being collected and no creditor will be introduced by the correspondence.",
-      "mention": "A dockside book calls the same money a loan on one page and wages on the next.",
+      "text": [
+        "A dockside account keeper at [place] has released a copy of a disputed meal-and-berth book. One entry was written as a loan by the payer and as wages by the person receiving it. Readers are invited to compare the accounts. No money is being collected and no creditor will be introduced by the correspondence.",
+        "A copy of a disputed meal-and-berth book has been released by a dockside account keeper at [place]. One entry was written as a loan by the person paying and as wages by the person paid. Readers may compare the accounts; no money is being collected and no creditor will be introduced."
+      ],
+      "mention": [
+        "A dockside book calls the same money a loan on one page and wages on the next.",
+        "One dockside book, one payment, two names for it: a loan on one page, wages on the other."
+      ],
       "weight": 3
     },
     "spacertales-freight-crew-room": {
       "thread": "spacertales-reasonable-freight",
-      "text": "Several small crews around [place] are circulating their own estimates before bidding for work. The estimates allow for a berth queue and a return journey as well as the outward leg. A broker says this makes quotations harder to compare. A captain says it makes them easier to survive.",
-      "mention": "A captain put the return trip in the estimate. The broker called it an extra.",
+      "text": [
+        "Several small crews around [place] are circulating their own estimates before bidding for work. The estimates allow for a berth queue and a return journey as well as the outward leg. A broker says this makes quotations harder to compare. A captain says it makes them easier to survive.",
+        "Around [place], several small crews are passing round their own estimates before bidding for work, counting a berth queue and the trip home as well as the outward leg. A broker complains it makes quotations harder to compare. A captain replies that it makes them easier to survive."
+      ],
+      "mention": [
+        "A captain put the return trip in the estimate. The broker called it an extra.",
+        "A broker called the return leg an extra. The captain who costed it called it getting home."
+      ],
       "weight": 1
     },
     "spacertales-salvage-labels": {
       "thread": "spacertales-salvage-kin",
-      "text": "A dockside reseller at [place] has begun keeping old maintenance labels with used components. Buyers like the dates; former crew like the names. The reseller warns that a label can be wrong and is not proof of safe operation. Sales staff report that some customers now spend longer reading the label than examining the part.",
-      "mention": "A parts dealer is keeping the old labels. People want to know who last cared for the thing.",
+      "text": [
+        "A dockside reseller at [place] has begun keeping old maintenance labels with used components. Buyers like the dates; former crew like the names. The reseller warns that a label can be wrong and is not proof of safe operation. Sales staff report that some customers now spend longer reading the label than examining the part.",
+        "A dockside reseller at [place] now keeps old maintenance labels with used components. Buyers like the dates; former crews like the names. The reseller warns that a label can be wrong and proves nothing about safe operation, and staff say some customers now read the label longer than they look at the part."
+      ],
+      "mention": [
+        "A parts dealer is keeping the old labels. People want to know who last cared for the thing.",
+        "That parts dealer keeps the old labels on. Folk like seeing who looked after the thing before."
+      ],
       "weight": 1
     },
     "spacertales-berth-quiet-hours": {
       "thread": "spacertales-berth-neighbours",
-      "text": "Neighbours at [place] have agreed to rotate a quiet meal period between adjoining berths. The arrangement is voluntary and has already produced two competing timetables. One organiser says the aim is simply to let somebody sleep before everybody starts moving supplies again.",
-      "mention": "The quiet-meal timetable has a rival timetable. Both say they are the quiet one.",
+      "text": [
+        "Neighbours at [place] have agreed to rotate a quiet meal period between adjoining berths. The arrangement is voluntary and has already produced two competing timetables. One organiser says the aim is simply to let somebody sleep before everybody starts moving supplies again.",
+        "Adjoining berths at [place] have agreed to take turns with a quiet meal period. The arrangement is voluntary and has already produced two rival timetables. An organiser says the aim is only to let somebody sleep before everyone starts shifting supplies."
+      ],
+      "mention": [
+        "The quiet-meal timetable has a rival timetable. Both say they are the quiet one.",
+        "There is a quiet-meal timetable on our deck. And a second one, also claiming to be quiet."
+      ],
       "weight": 1
     },
     "spacertales-ring-repair-priority": {
       "thread": "spacertales-old-ring-tenants",
-      "text": "An old-ring residents' sheet at [place] lists a failed cupboard latch beside larger maintenance complaints. Its author says the latch matters because a shift worker sleeps beside it. Another resident has asked that a dripping tap remain on the sheet even when the drip is too small for the contractor's report.",
-      "mention": "The repair sheet kept the little faults on it. You still have to sleep beside them.",
+      "text": [
+        "An old-ring residents' sheet at [place] lists a failed cupboard latch beside larger maintenance complaints. Its author says the latch matters because a shift worker sleeps beside it. Another resident has asked that a dripping tap remain on the sheet even when the drip is too small for the contractor's report.",
+        "An old-ring residents' sheet at [place] puts a failed cupboard latch beside the larger complaints, because a shift worker sleeps next to it. Another resident wants a dripping tap kept on the sheet, even if the drip is too small for the contractor's report."
+      ],
+      "mention": [
+        "The repair sheet kept the little faults on it. You still have to sleep beside them.",
+        "The repair sheet kept the latch and the drip on it. Small faults, but you sleep next to them."
+      ],
       "weight": 1
     },
     "spacertales-ceres-empty-case": {
       "thread": "spacertales-ceres-translations",
-      "text": "A used-equipment seller at [place] has put an empty transit case in the window with its accumulated shipping labels intact. Passers-by have offered three accounts of its route and none of its contents. The seller says it is for sale as a case, and charges no extra for the stories.",
-      "mention": "That empty case in the window has travelled further than the shopkeeper can prove.",
+      "text": [
+        "A used-equipment seller at [place] has put an empty transit case in the window with its accumulated shipping labels intact. Passers-by have offered three accounts of its route and none of its contents. The seller says it is for sale as a case, and charges no extra for the stories.",
+        "An empty transit case sits in a used-equipment seller's window at [place], its shipping labels intact. Passers-by have offered three accounts of where it has been and none of what it held. It is for sale as a case, the seller says; the stories are free."
+      ],
+      "mention": [
+        "That empty case in the window has travelled further than the shopkeeper can prove.",
+        "There is an empty case in a shop window with more stories than anyone can check."
+      ],
       "weight": 1
     },
     "spacertales-titan-small-launch": {
       "thread": "spacertales-titan-families",
-      "text": "A small yard gathering at [place] marked the launch of a service craft with a meal after shift. The craft's purchaser issued specifications; the workers' notice thanked the people who had covered watches while the delivery ran late. No ship performance record was claimed.",
-      "mention": "The launch notice thanked the people covering late watches. That is a specification you can trust.",
+      "text": [
+        "A small yard gathering at [place] marked the launch of a service craft with a meal after shift. The craft's purchaser issued specifications; the workers' notice thanked the people who had covered watches while the delivery ran late. No ship performance record was claimed.",
+        "Workers at [place] marked the launch of a service craft with a meal after shift. The purchaser published the specifications; the workers' notice thanked those who covered watches while the delivery ran late. No performance record was claimed."
+      ],
+      "mention": [
+        "The launch notice thanked the people covering late watches. That is a specification you can trust.",
+        "A launch notice that thanked the late-watch crew. Now that is a specification I believe."
+      ],
       "weight": 1
     },
     "spacertales-luna-postponed": {
       "thread": "spacertales-lunar-leftovers",
-      "text": "An archive display at [place] pairs a lunar contractor's departure notice with an earlier list of jobs marked temporary. The curator has left the word unchanged. A visitor asked how long temporary can last. The curator says the surviving paperwork does not provide an end date.",
-      "mention": "An archive has a temporary works list with no end date. Luna kept the works longer than the contractor.",
+      "text": [
+        "An archive display at [place] pairs a lunar contractor's departure notice with an earlier list of jobs marked temporary. The curator has left the word unchanged. A visitor asked how long temporary can last. The curator says the surviving paperwork does not provide an end date.",
+        "At [place], an archive display sets a lunar contractor's departure notice beside an older list of jobs marked temporary. The curator has left the word as it was. Asked how long temporary can last, the curator says the paperwork gives no end date."
+      ],
+      "mention": [
+        "An archive has a temporary works list with no end date. Luna kept the works longer than the contractor.",
+        "Temporary works on Luna with no end date. The contractor left; the works stayed."
+      ],
       "weight": 1
     },
     "spacertales-visa-shift-cover": {
       "thread": "spacertales-maintenance-visas",
-      "text": "A maintenance crew at [place] exchanged shifts so one worker could attend a family appointment. Their private arrangement has been recorded in a training scrapbook as an example of cooperation. The crew asked that the entry keep the wages they gave up as well as the hours they gained.",
-      "mention": "The training book praised a shift swap. The crew made it print what the swap cost them.",
+      "text": [
+        "A maintenance crew at [place] exchanged shifts so one worker could attend a family appointment. Their private arrangement has been recorded in a training scrapbook as an example of cooperation. The crew asked that the entry keep the wages they gave up as well as the hours they gained.",
+        "So that one worker could attend a family appointment, a maintenance crew at [place] swapped shifts among themselves. A training scrapbook has since recorded it as an example of cooperation. The crew asked that the entry show the wages they gave up as well as the hours they won."
+      ],
+      "mention": [
+        "The training book praised a shift swap. The crew made it print what the swap cost them.",
+        "A training book praised their shift swap, so the crew made it list what the swap cost."
+      ],
       "weight": 1
     },
     "spacertales-deimos-lost-mug": {
       "thread": "spacertales-deimos-night-work",
-      "text": "A shared laboratory service desk at [place] reports that its longest-running ownership dispute concerns a chipped mug. Three teams identify it as theirs. The night cleaner identifies the person who actually washes it. The desk has declined to assign research priority to the claim.",
-      "mention": "Three research teams claim the mug. One cleaner knows who washes it.",
+      "text": [
+        "A shared laboratory service desk at [place] reports that its longest-running ownership dispute concerns a chipped mug. Three teams identify it as theirs. The night cleaner identifies the person who actually washes it. The desk has declined to assign research priority to the claim.",
+        "The longest-running ownership dispute at a shared laboratory service desk at [place] concerns a chipped mug. Three teams say it is theirs; the night cleaner knows who actually washes it. The desk has declined to give the claim research priority."
+      ],
+      "mention": [
+        "Three research teams claim the mug. One cleaner knows who washes it.",
+        "Three teams fighting over one mug. The cleaner knows whose it really is."
+      ],
       "weight": 1
     },
     "spacertales-venus-shore-list": {
       "thread": "spacertales-venus-after-loss",
-      "text": "A small freight office at [place] has replaced a list labelled waiting cargo with separate lists for delayed, unconfirmed and written-off shipments. Families welcomed the extra detail but asked that written off never be used as a description of a person.",
-      "mention": "The freight office split its waiting list. Families asked it to keep people out of the written-off column.",
+      "text": [
+        "A small freight office at [place] has replaced a list labelled waiting cargo with separate lists for delayed, unconfirmed and written-off shipments. Families welcomed the extra detail but asked that written off never be used as a description of a person.",
+        "A small freight office at [place] has split its waiting cargo list into delayed, unconfirmed and written-off shipments. Families welcomed the detail, and asked that written off never be used to describe a person."
+      ],
+      "mention": [
+        "The freight office split its waiting list. Families asked it to keep people out of the written-off column.",
+        "The freight office split up its waiting list. The families only asked it not to file people as written off."
+      ],
       "weight": 1
     },
     "spacertales-europa-common-envelope": {
       "thread": "spacertales-europa-distance",
-      "text": "A family correspondence group at [place] has preserved an envelope used by two relatives on opposite sides of a political argument. Its notes record a corrected address, a recipe and a request for news of a cousin. The group says disagreement is visible on every page, and so is affection.",
-      "mention": "The family letter argues about the blockade, then asks whether the cousin is eating properly.",
+      "text": [
+        "A family correspondence group at [place] has preserved an envelope used by two relatives on opposite sides of a political argument. Its notes record a corrected address, a recipe and a request for news of a cousin. The group says disagreement is visible on every page, and so is affection.",
+        "At [place], a family letters group has kept an envelope shared by two relatives on opposite sides of a political argument. Its notes hold a corrected address, a recipe and a request for news of a cousin. The disagreement shows on every page, the group says, and so does the affection."
+      ],
+      "mention": [
+        "The family letter argues about the blockade, then asks whether the cousin is eating properly.",
+        "That family letter fights about the blockade for pages, then asks if the cousin is eating."
+      ],
       "weight": 1
     },
     "spacertales-hollow-chair": {
       "thread": "spacertales-hollow-accounts",
-      "text": "A dockside meal room at [place] has kept a broken chair off its disposal list because the person who repaired its other chairs is away. Nobody claims the chair is valuable. Staff say they would rather ask than discover later that the one thing a regular had wanted kept had been thrown out.",
-      "mention": "They are keeping a broken chair until its repairer gets back. Nobody asked what it would sell for.",
+      "text": [
+        "A dockside meal room at [place] has kept a broken chair off its disposal list because the person who repaired its other chairs is away. Nobody claims the chair is valuable. Staff say they would rather ask than discover later that the one thing a regular had wanted kept had been thrown out.",
+        "A dockside meal room at [place] has kept a broken chair off the disposal list, because the regular who mends its chairs is away. Nobody calls it valuable. Staff would rather ask than learn later that they threw out the one thing a regular wanted kept."
+      ],
+      "mention": [
+        "They are keeping a broken chair until its repairer gets back. Nobody asked what it would sell for.",
+        "They are saving a broken chair for the regular who fixes them. Nobody has asked what it is worth."
+      ],
       "weight": 1
     },
     "spacertales-estimate-return-report": {
       "thread": "spacertales-reasonable-freight",
       "text": "The estimators' circle at [place] has retained a return-journey column in its own sample quotation after the copied comparison was read. The change concerns the circle's correspondence, not the station job board. Its organiser says a captain must still decide whether a particular offer is worth the trip.",
-      "mention": "That freight circle kept the return column. The job board is still its own problem.",
+      "mention": [
+        "That freight circle kept the return column. The job board is still its own problem.",
+        "The freight circle is keeping the return column. The job board is another matter."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -162,7 +309,10 @@
     "spacertales-label-names-report": {
       "thread": "spacertales-salvage-kin",
       "text": "A copied maintenance label will accompany the disputed pump sale described in the records correspondence at [place]. The label preserves workers' names and warnings. Ownership and old wages remain separate questions; the records clerk has issued no safety certificate or legal ruling.",
-      "mention": "They kept the pump's old working label. Nobody pretended it settled the wages.",
+      "mention": [
+        "They kept the pump's old working label. Nobody pretended it settled the wages.",
+        "The old working label is going with that pump. It names the crew; it does not settle the wages."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -174,7 +324,10 @@
     "spacertales-address-sheet-report": {
       "thread": "spacertales-berth-neighbours",
       "text": "The neighbours' contact sheet at [place] now names willing message-holders without making them responsible for a captain's debts. Misfiled letters from the correspondence case have been found. The agreement is voluntary and concerns the participating neighbours only.",
-      "mention": "The letters were found, and the message-holder did not inherit anybody's loan.",
+      "mention": [
+        "The letters were found, and the message-holder did not inherit anybody's loan.",
+        "Those misfiled letters turned up, and nobody who holds a message got stuck with a loan."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -186,7 +339,10 @@
     "spacertales-petition-date-report": {
       "thread": "spacertales-old-ring-tenants",
       "text": "The original date has been restored to the copied residents' petition at [place]. The contractor acknowledged the packet; the copyist reports no completed repair. The tenants asked that the difference remain explicit when the correspondence was archived.",
-      "mention": "The petition has its age back. The repair still needs doing.",
+      "mention": [
+        "The petition has its age back. The repair still needs doing.",
+        "They put the old date back on the petition. Now they just need to fix the thing."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -198,7 +354,10 @@
     "spacertales-box-paired-report": {
       "thread": "spacertales-ceres-translations",
       "text": "The two freight descriptions in the correspondence at [place] are now being copied together. Sender and broker agreed to retain the item list and the household letter without presenting either as proof of ownership. Their disagreement about value remains.",
-      "mention": "Both accounts of that box are being kept. They still disagree about the price.",
+      "mention": [
+        "Both accounts of that box are being kept. They still disagree about the price.",
+        "Both accounts of that box are being kept together. The argument about the price goes on."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -210,7 +369,10 @@
     "spacertales-yard-family-report": {
       "thread": "spacertales-titan-families",
       "text": "The launch-evening archive at [place] now includes the family's letter beside the on-time departure notice. A revised meal invitation saves portions for people covering the last watch. The archive stresses that an invitation is a proposal, not a new yard work rule.",
-      "mention": "The launch archive kept the missed supper. The next invitation remembers the late watch.",
+      "mention": [
+        "The launch archive kept the missed supper. The next invitation remembers the late watch.",
+        "The launch archive remembered the missed supper. The next invitation saves food for the late watch."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -222,7 +384,10 @@
     "spacertales-luna-list-report": {
       "thread": "spacertales-lunar-leftovers",
       "text": "The copied lunar works list at [place] is now filed beside the contractor's closing account. It retains the jobs still marked next shift and the workers' meal order. The archive claims no access to the abandoned site and no finding about why work stopped.",
-      "mention": "The lunar archive kept the next-shift list beside the closing invoice.",
+      "mention": [
+        "The lunar archive kept the next-shift list beside the closing invoice.",
+        "In the lunar archive, the next-shift list sits beside the closing invoice now."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -234,7 +399,10 @@
     "spacertales-visa-hours-report": {
       "thread": "spacertales-maintenance-visas",
       "text": "The maintenance worker's family correspondence at [place] now keeps the visa terms beside the letters about postponed visits. The copy changes no contract or residency right. Its custodian says both kinds of permission belong in the account.",
-      "mention": "The visa letters kept the missed visits as well as the terms.",
+      "mention": [
+        "The visa letters kept the missed visits as well as the terms.",
+        "They kept the missed visits in the visa file, not just the terms."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -246,7 +414,10 @@
     "spacertales-night-work-report": {
       "thread": "spacertales-deimos-night-work",
       "text": "The night-service correspondence at [place] has retained the uncertain recording notes and the cleaner's work in the same account. Neither replay nor an unidentified visitor has been established. The staff have asked readers to stop giving the room a supernatural nickname.",
-      "mention": "The tea-room account kept the cleaner's work. It did not identify the extra voice.",
+      "mention": [
+        "The tea-room account kept the cleaner's work. It did not identify the extra voice.",
+        "The tea-room account kept the cleaner in it. The extra voice is still unexplained."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -258,7 +429,10 @@
     "spacertales-venus-contact-report": {
       "thread": "spacertales-venus-after-loss",
       "text": "The missing-shipment correspondence at [place] now separates the closed cargo claim from the family's return contact. No confirmed news of the crew has arrived. The family asked that the completed copying exercise not be described as the end of their wait.",
-      "mention": "The cargo claim closed. The family's return contact stayed open.",
+      "mention": [
+        "The cargo claim closed. The family's return contact stayed open.",
+        "Cargo claim closed. The family left their return contact open all the same."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -270,7 +444,10 @@
     "spacertales-europa-pair-report": {
       "thread": "spacertales-europa-distance",
       "text": "The family letters in the correspondence at [place] have been archived together at both writers' request. Their disagreement over the blockade remains, along with corrected addresses and a recipe. No trade restriction or passage permission was changed.",
-      "mention": "Both family letters were kept. So were the argument and the recipe.",
+      "mention": [
+        "Both family letters were kept. So were the argument and the recipe.",
+        "Both family letters are archived together, argument, recipe and all."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -282,7 +459,10 @@
     "spacertales-meal-book-report": {
       "thread": "spacertales-hollow-accounts",
       "text": "The three copied dockside books at [place] now describe the disputed portion as a meal with shift. The corrected entry retains the earlier charge crossed out, so the disagreement remains visible. No visiting captain paid it.",
-      "mention": "The cook kept the book. The meal finally stopped being called a loan.",
+      "mention": [
+        "The cook kept the book. The meal finally stopped being called a loan.",
+        "The cook's book finally calls that meal a meal, not a loan."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -294,7 +474,10 @@
     "spacertales-waiting-letter-report": {
       "thread": "spacertales-titan-families",
       "text": "The unhurried family letter has reached its receiving correspondence at [place]. The reply confirms that the repaired chair is still there. The captain's receipt is paid; no deadline or return delivery follows. The archive has left room for the next ordinary letter.",
-      "mention": "The letter without an arrival date arrived. The chair is still there.",
+      "mention": [
+        "The letter without an arrival date arrived. The chair is still there.",
+        "That unhurried letter got there in the end. The chair is still in its place."
+      ],
       "weight": 1,
       "requires": {
         "flags": [
@@ -307,67 +490,106 @@
   "adverts": {
     "spacertales-ad-real-estimate": {
       "thread": "spacertales-reasonable-freight",
-      "text": "BEFORE YOU BID\nCompare the outward trip, the return trip and the waiting. A large reward has never shortened an orbit. Independent freight correspondence at [place]; no route or arrival is guaranteed.",
+      "text": [
+        "BEFORE YOU BID\nCompare the outward trip, the return trip and the waiting. A large reward has never shortened an orbit. Independent freight correspondence at [place]; no route or arrival is guaranteed.",
+        "BEFORE YOU BID\nCount the trip out, the trip back and the time spent waiting. No reward has ever shortened an orbit. Independent freight correspondence at [place]; arrival and route not guaranteed."
+      ],
       "weight": 1
     },
     "spacertales-ad-label-copy": {
       "thread": "spacertales-salvage-kin",
-      "text": "LOOSELEAF DOCK COPIES\nA sale card for the buyer. A working copy for the crew. Keep the old warning legible. Independent copying trade at [place].",
+      "text": [
+        "LOOSELEAF DOCK COPIES\nA sale card for the buyer. A working copy for the crew. Keep the old warning legible. Independent copying trade at [place].",
+        "LOOSELEAF DOCK COPIES\nOne copy for the sale, one for the people who work on it, and the old warnings kept readable on both. Independent copying trade at [place]."
+      ],
       "weight": 1
     },
     "spacertales-ad-message-holder": {
       "thread": "spacertales-berth-neighbours",
-      "text": "LONG WATCH MEALS\nA covered portion is a better welcome than an empty pan. Serving the people who get back after everybody else has eaten. Ask what is left before asking what is fashionable.",
+      "text": [
+        "LONG WATCH MEALS\nA covered portion is a better welcome than an empty pan. Serving the people who get back after everybody else has eaten. Ask what is left before asking what is fashionable.",
+        "LONG WATCH MEALS\nFor whoever gets back after the pans are empty: a portion kept covered and warm. Ask what is left before you ask what is in fashion."
+      ],
       "weight": 1
     },
     "spacertales-ad-ring-copy": {
       "thread": "spacertales-old-ring-tenants",
-      "text": "OLD RING DOOR AND DRAWER WORK\nLatches, catches and the cupboard everybody walks around. Small jobs are still jobs. Keep your first request date on the next copy.",
+      "text": [
+        "OLD RING DOOR AND DRAWER WORK\nLatches, catches and the cupboard everybody walks around. Small jobs are still jobs. Keep your first request date on the next copy.",
+        "OLD RING DOOR AND DRAWER WORK\nThe latch that sticks, the catch that rattles, the cupboard nobody opens. Small jobs done properly. Bring the date of your first request."
+      ],
       "weight": 1
     },
     "spacertales-ad-translation": {
       "thread": "spacertales-ceres-translations",
-      "text": "READ BOTH DESCRIPTIONS\nHousehold effects. Used equipment. The same box can carry a different price in every account. Freight correspondence at [place]; no customs advice or clearance offered.",
+      "text": [
+        "READ BOTH DESCRIPTIONS\nHousehold effects. Used equipment. The same box can carry a different price in every account. Freight correspondence at [place]; no customs advice or clearance offered.",
+        "READ BOTH DESCRIPTIONS\nOne box, two names: household effects or used equipment, and a different price for each. Freight correspondence at [place]. We give no customs advice and arrange no clearance."
+      ],
       "weight": 1
     },
     "spacertales-ad-yard-family": {
       "thread": "spacertales-titan-families",
-      "text": "LAUNCH DAY PORTRAITS\nThe customer gets a ship photograph. Get one with the people who built it. Late-watch sittings by arrangement. Keep the work clothes; they tell the right story.",
+      "text": [
+        "LAUNCH DAY PORTRAITS\nThe customer gets a ship photograph. Get one with the people who built it. Late-watch sittings by arrangement. Keep the work clothes; they tell the right story.",
+        "LAUNCH DAY PORTRAITS\nThe client takes home a picture of the ship. Take one of the crew who built it. Late-watch sittings by arrangement; come in your work clothes."
+      ],
       "weight": 1
     },
     "spacertales-ad-luna-unfinished": {
       "thread": "spacertales-lunar-leftovers",
-      "text": "SECOND SHIFT WORK BOOKS\nA tough cover for estimates, sketches and the things the next watch needs to know. Blank pages sold without promises that the job will ever finish.",
+      "text": [
+        "SECOND SHIFT WORK BOOKS\nA tough cover for estimates, sketches and the things the next watch needs to know. Blank pages sold without promises that the job will ever finish.",
+        "SECOND SHIFT WORK BOOKS\nStrong covers, plain pages, room for estimates, sketches and notes for the next watch. Whether the job ever finishes is up to you."
+      ],
       "weight": 1
     },
     "spacertales-ad-visa-correspondence": {
       "thread": "spacertales-maintenance-visas",
-      "text": "READ THE HOURS AS WELL AS THE VIEW\nA worker's account of maintenance residency at [place]. Correspondence, not recruitment.",
+      "text": [
+        "READ THE HOURS AS WELL AS THE VIEW\nA worker's account of maintenance residency at [place]. Correspondence, not recruitment.",
+        "THE VIEW IS NOT THE WHOLE STORY\nOne maintenance worker's account of residency at [place], hours included. Correspondence only; we recruit nobody."
+      ],
       "weight": 1
     },
     "spacertales-ad-night-staff": {
       "thread": "spacertales-deimos-night-work",
-      "text": "NIGHT BENCH TEA\nFor the people still there after the project meeting ends. Hot cups, plain portions, no presentation required. Somebody has to wash the mug afterwards.",
+      "text": [
+        "NIGHT BENCH TEA\nFor the people still there after the project meeting ends. Hot cups, plain portions, no presentation required. Somebody has to wash the mug afterwards.",
+        "NIGHT BENCH TEA\nHot cups and plain portions for whoever is still working when the meeting ends. No slides needed. Mug washing is your own affair."
+      ],
       "weight": 1
     },
     "spacertales-ad-venus-terms": {
       "thread": "spacertales-venus-after-loss",
-      "text": "WHEN A SHIPMENT DOES NOT ARRIVE\nKeep a copy of the terms before everyone explains them differently. Freight letters at [place]. No recovery service offered.",
+      "text": [
+        "WHEN A SHIPMENT DOES NOT ARRIVE\nKeep a copy of the terms before everyone explains them differently. Freight letters at [place]. No recovery service offered.",
+        "WHEN A SHIPMENT DOES NOT ARRIVE\nKeep your own copy of the terms, before everyone remembers them differently. Freight letters at [place]; we offer no recovery service."
+      ],
       "weight": 1
     },
     "spacertales-ad-family-mail": {
       "thread": "spacertales-europa-distance",
-      "text": "TWO SIDES LETTER COPYING\nKeep the answer beside the argument. Envelopes large enough for a recipe, a correction and the news you meant to send first.",
+      "text": [
+        "TWO SIDES LETTER COPYING\nKeep the answer beside the argument. Envelopes large enough for a recipe, a correction and the news you meant to send first.",
+        "TWO SIDES LETTER COPYING\nKeep the reply next to the argument. Envelopes with room for a recipe, a correction, and the news you meant to put first."
+      ],
       "weight": 1
     },
     "spacertales-ad-hollow-accounts": {
       "thread": "spacertales-hollow-accounts",
-      "text": "DOCKSIDE ACCOUNT BOOKS\nWrite what it was for before somebody finds a better-sounding name. Plain paper, sturdy covers, room for corrections. Fair weather not included.",
+      "text": [
+        "DOCKSIDE ACCOUNT BOOKS\nWrite what it was for before somebody finds a better-sounding name. Plain paper, sturdy covers, room for corrections. Fair weather not included.",
+        "DOCKSIDE ACCOUNT BOOKS\nWrite down what the money was for, before somebody gives it a nicer name. Plain paper, sturdy covers, space for corrections."
+      ],
       "weight": 1
     },
     "spacertales-ad-galley-neighbour": {
       "thread": "spacertales-berth-neighbours",
-      "text": "MAKE ROOM FOR SUPPER\nVerdemorrow cultivation and galley equipment for ships where a late watch still deserves a meal. Keep the portion aside before somebody claims the last one.",
+      "text": [
+        "MAKE ROOM FOR SUPPER\nVerdemorrow cultivation and galley equipment for ships where a late watch still deserves a meal. Keep the portion aside before somebody claims the last one.",
+        "MAKE ROOM FOR SUPPER\nVerdemorrow growing and galley equipment for ships that keep a meal back for the late watch. Put a portion aside before the last one goes."
+      ],
       "weight": 1,
       "requires": {
         "mods": [
@@ -380,371 +602,583 @@
     "spacertales-talk-freight-two-clocks": {
       "thread": "spacertales-reasonable-freight",
       "moment": "complaint",
-      "line": "The offer gives me two days. The journey asks for rather more. I think they should meet before I sign.",
+      "line": [
+        "The offer gives me two days. The journey asks for rather more. I think they should meet before I sign.",
+        "The contract has one clock and the route has another. I would like them introduced before I put my name down.",
+        "Two days, says the job. Rather longer, says the flight plan. Somebody should settle that before it is my problem."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-freight-return": {
       "thread": "spacertales-reasonable-freight",
       "moment": "jargon",
-      "line": "A route estimate ends when you can take the next job. Getting there is only part of it.",
+      "line": [
+        "A route estimate ends when you can take the next job. Getting there is only part of it.",
+        "Count the trip back in. A run is not finished until you are free for the next one.",
+        "Arrival is the middle of a route estimate, not the end. The end is when you can work again."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-freight-good-money": {
       "thread": "spacertales-reasonable-freight",
       "moment": "worry",
-      "line": "Good money is still good money. I just want to reach the other end alive enough to collect it.",
+      "line": [
+        "Good money is still good money. I just want to reach the other end alive enough to collect it.",
+        "The pay is fine. I would like to be in a fit state to spend it.",
+        "I am not turning the money down. I am only asking whether the journey lets me keep it."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-freight-job-board": {
       "thread": "spacertales-reasonable-freight",
       "moment": "joke",
-      "line": "The job board found a shorter journey. Apparently it leaves out the ship.",
+      "line": [
+        "The job board found a shorter journey. Apparently it leaves out the ship.",
+        "The job board's route is very quick. It just assumes you can walk between stations.",
+        "Fastest route on the board. A shame it was drawn by someone who has never had to brake."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-salvage-wages": {
       "thread": "spacertales-salvage-kin",
       "moment": "story",
-      "line": "The last owner bought the part. The previous crew kept it running. That is why the old label has more names.",
+      "line": [
+        "The last owner bought the part. The previous crew kept it running. That is why the old label has more names.",
+        "One name on the label paid for the part. All the others kept it working. You can tell which list is longer.",
+        "The receipt has one name. The service tag has six. Both are true; only one of them did the work."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-salvage-title": {
       "thread": "spacertales-salvage-kin",
       "moment": "complaint",
-      "line": "Being allowed to strip a ship does not answer every question about who last lived in it.",
+      "line": [
+        "Being allowed to strip a ship does not answer every question about who last lived in it.",
+        "The salvage licence tells you what you may take. It says nothing about who left it.",
+        "A permit to cut a hull open is not the same as knowing whose home it was."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-salvage-memory": {
       "thread": "spacertales-salvage-kin",
       "moment": "superstition",
-      "line": "Keep the old maintenance note until you know the part. Some warnings look like shopping lists.",
+      "line": [
+        "Keep the old maintenance note until you know the part. Some warnings look like shopping lists.",
+        "Never bin a maintenance note you do not understand yet. The dull ones are the ones that matter.",
+        "Read the scribble on a salvaged part before you throw it out. Someone wrote it for a reason."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-salvage-clean-card": {
       "thread": "spacertales-salvage-kin",
       "moment": "joke",
-      "line": "The seller called the history spotless. That meant they had thrown it away.",
+      "line": [
+        "The seller called the history spotless. That meant they had thrown it away.",
+        "Clean service record, the seller said. Clean as in empty.",
+        "No faults on file, they told me. No file, I found out."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-berth-friend": {
       "thread": "spacertales-berth-neighbours",
       "moment": "small-talk",
-      "line": "My neighbour holds my messages when I am away. I hold the complaint about their kettle.",
+      "line": [
+        "My neighbour holds my messages when I am away. I hold the complaint about their kettle.",
+        "My neighbour minds my post while I am gone. In return I do not mention the kettle. Much.",
+        "We have an arrangement next door: they keep my messages, I keep quiet about their music."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-berth-home": {
       "thread": "spacertales-berth-neighbours",
       "moment": "question",
-      "line": "If your home leaves port, which part of the address do you miss?",
+      "line": [
+        "If your home leaves port, which part of the address do you miss?",
+        "When the place you live can undock, where exactly is home?",
+        "Is home the berth, the ship, or whoever keeps your messages while you are gone?"
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-berth-quiet": {
       "thread": "spacertales-berth-neighbours",
       "moment": "complaint",
-      "line": "There is no good time to move a crate beside somebody asleep. There is a very popular bad time.",
+      "line": [
+        "There is no good time to move a crate beside somebody asleep. There is a very popular bad time.",
+        "Somebody always decides to shift cargo right by the bunks at the start of sleep shift. Always.",
+        "Every berth has one neighbour who moves crates at night. I have checked."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-berth-room": {
       "thread": "spacertales-berth-neighbours",
       "moment": "story",
-      "line": "We made room for a visitor at supper. They stayed long enough to become the person making room.",
+      "line": [
+        "We made room for a visitor at supper. They stayed long enough to become the person making room.",
+        "We squeezed a stranger in at supper once. Now they set the table.",
+        "One extra chair for a guest, a while back. These days they fetch the extra chair for others."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ring-date": {
       "thread": "spacertales-old-ring-tenants",
       "moment": "complaint",
-      "line": "I keep the first date on every repair request. The latch has not got any newer either.",
+      "line": [
+        "I keep the first date on every repair request. The latch has not got any newer either.",
+        "My repair request has a date on it older than some of the staff. The latch remembers it fondly.",
+        "I re-file the same latch repair and keep the first date on it. It is a sort of anniversary."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ring-tap": {
       "thread": "spacertales-old-ring-tenants",
       "moment": "worry",
-      "line": "A small drip is a small problem until you spend your whole sleep shift listening to it.",
+      "line": [
+        "A small drip is a small problem until you spend your whole sleep shift listening to it.",
+        "It is only a drip. It is only a drip at the exact pace of a sleep shift.",
+        "Nobody worries about a small leak. Then you lie awake counting it."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ring-floor": {
       "thread": "spacertales-old-ring-tenants",
       "moment": "story",
-      "line": "That floor has been patched so often I recognise the neighbours by which patch they avoid.",
+      "line": [
+        "That floor has been patched so often I recognise the neighbours by which patch they avoid.",
+        "The corridor floor is mostly patches now. Everyone has a favourite one to step around.",
+        "I could draw you a map of that floor by the patches alone. The neighbours could too."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ring-window": {
       "thread": "spacertales-old-ring-tenants",
       "moment": "joke",
-      "line": "The room came with a view. The landlord did not mention the other person sharing it.",
+      "line": [
+        "The room came with a view. The landlord did not mention the other person sharing it.",
+        "Lovely view from my room. Lovely view from my roommate's bunk too, apparently. Same window.",
+        "The listing said a window. It did not say whose."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ceres-box": {
       "thread": "spacertales-ceres-translations",
       "moment": "jargon",
-      "line": "The description tells you what they want you to pay for. Read the contents as well.",
+      "line": [
+        "The description tells you what they want you to pay for. Read the contents as well.",
+        "Read the contents list, not the label. The label is the price talking.",
+        "A box description is a sales pitch. The contents line is the bit that is true."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ceres-counter": {
       "thread": "spacertales-ceres-translations",
       "moment": "complaint",
-      "line": "Every counter wants the original. There was one original before I started.",
+      "line": [
+        "Every counter wants the original. There was one original before I started.",
+        "Every office wants to keep the original. I only ever had the one.",
+        "Three counters, three requests for the original document. Somebody has it now. Not me."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ceres-two-pens": {
       "thread": "spacertales-ceres-translations",
       "moment": "story",
-      "line": "My aunt kept two copies of her account. One showed the charges. The other showed who had been hungry.",
+      "line": [
+        "My aunt kept two copies of her account. One showed the charges. The other showed who had been hungry.",
+        "My aunt's accounts came in pairs: the one for the office, and the one that said who had gone without.",
+        "There were two ledgers in my aunt's drawer. The official one added up. The other one remembered names."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-ceres-neutral": {
       "thread": "spacertales-ceres-translations",
       "moment": "question",
-      "line": "If a translation is neutral, why does somebody always ask who paid for it?",
+      "line": [
+        "If a translation is neutral, why does somebody always ask who paid for it?",
+        "A neutral translation, they said. Then why does everyone want to know whose it was?",
+        "Can a translation be neutral if both sides keep checking who signed it?"
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-titan-new-ship": {
       "thread": "spacertales-titan-families",
       "moment": "story",
-      "line": "The new ship had a crowd at launch. Most of the people who built it were still on shift.",
+      "line": [
+        "The new ship had a crowd at launch. Most of the people who built it were still on shift.",
+        "Big crowd at the launch. The builders watched it on a screen from the next job.",
+        "They cheered the new hull out of the yard. The welders heard about it at the end of shift."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-titan-tools": {
       "thread": "spacertales-titan-families",
       "moment": "joke",
-      "line": "A state-of-the-art yard still has a person asking who took their spanner.",
+      "line": [
+        "A state-of-the-art yard still has a person asking who took their spanner.",
+        "Best shipyard in the system, and still someone shouting about a missing spanner.",
+        "You can build a warship in that yard. You cannot keep a spanner in it."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-titan-leave": {
       "thread": "spacertales-titan-families",
       "moment": "worry",
-      "line": "I can tell you the launch date months ahead. Getting leave for a family visit is less reliable.",
+      "line": [
+        "I can tell you the launch date months ahead. Getting leave for a family visit is less reliable.",
+        "The yard knows to the day when the hull goes out. It cannot tell me when I get to go home.",
+        "Launch dates are fixed months out. Family leave is decided the week before, if at all."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-titan-name": {
       "thread": "spacertales-titan-families",
       "moment": "small-talk",
-      "line": "We remember a vessel by who worked beside us on it. The client remembers what it cost.",
+      "line": [
+        "We remember a vessel by who worked beside us on it. The client remembers what it cost.",
+        "Ask the client about that ship and you hear a price. Ask us and you hear names.",
+        "To the buyer it is a hull number. To us it is the shift with the good cook."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-luna-temporary": {
       "thread": "spacertales-lunar-leftovers",
       "moment": "complaint",
-      "line": "They called the work temporary. The people left before the temporary work did.",
+      "line": [
+        "They called the work temporary. The people left before the temporary work did.",
+        "Temporary, they said. The scaffolding outlasted the crew.",
+        "The temporary structures are still up. The people who put them up are long gone."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-luna-meal": {
       "thread": "spacertales-lunar-leftovers",
       "moment": "story",
-      "line": "Old lunar accounts list meals beside machinery. I always read the meals first. Somebody expected to finish the shift.",
+      "line": [
+        "Old lunar accounts list meals beside machinery. I always read the meals first. Somebody expected to finish the shift.",
+        "In the old lunar ledgers the meal orders sit next to the parts. I read the meals. Someone was planning on supper.",
+        "Read an old lunar site's accounts and look for the food. That is where you find the people."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-luna-unanswered": {
       "thread": "spacertales-lunar-leftovers",
       "moment": "superstition",
-      "line": "An old access light can mean a lot of things. Do not decide that one of them is an invitation.",
+      "line": [
+        "An old access light can mean a lot of things. Do not decide that one of them is an invitation.",
+        "A light still blinking on a dead site is not asking you in.",
+        "Abandoned panels blink for all sorts of reasons. Welcome is not one of them."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-luna-tourist": {
       "thread": "spacertales-lunar-leftovers",
       "moment": "worry",
-      "line": "An abandoned place can be dangerous without needing a story to explain it.",
+      "line": [
+        "An abandoned place can be dangerous without needing a story to explain it.",
+        "Old sites do not need ghosts to kill you. Corroded seals manage fine.",
+        "You do not need a legend to get hurt in a derelict. Rust and vacuum are enough."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-visa-view": {
       "thread": "spacertales-maintenance-visas",
       "moment": "complaint",
-      "line": "A lovely place to live. I would like a day off to confirm that.",
+      "line": [
+        "A lovely place to live. I would like a day off to confirm that.",
+        "Beautiful station, I am told. I have mostly seen the service ducts.",
+        "People pay a fortune to live here. I work here, so I have never had time to look."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-visa-cover": {
       "thread": "spacertales-maintenance-visas",
       "moment": "story",
-      "line": "We swapped watches so she could see her child. The supervisor called it team spirit. We called it Thursday.",
+      "line": [
+        "We swapped watches so she could see her child. The supervisor called it team spirit. We called it Thursday.",
+        "We covered her shifts so she could get home for a day. Management put it in a newsletter. We just did it.",
+        "Half the crew swapped watches so one of us could visit family. Nobody wrote it down; that is how it works."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-visa-choice": {
       "thread": "spacertales-maintenance-visas",
       "moment": "question",
-      "line": "How many choices do you have if leaving costs everything you have put into staying?",
+      "line": [
+        "How many choices do you have if leaving costs everything you have put into staying?",
+        "Is it a choice to stay when leaving means losing everything you earned here?",
+        "Free to go, they say. Free to go and start again from nothing. Is that a choice?"
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-visa-jetty": {
       "thread": "spacertales-maintenance-visas",
       "moment": "joke",
-      "line": "They showed me the private jetties. I showed them my overtime sheet. Only one of us was fishing.",
+      "line": [
+        "They showed me the private jetties. I showed them my overtime sheet. Only one of us was fishing.",
+        "The tour went past the private jetties. Mine went past the laundry. Same station.",
+        "Private jetties for the residents, a service lift for the staff. We all get there eventually."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-deimos-mug": {
       "thread": "spacertales-deimos-night-work",
       "moment": "joke",
-      "line": "Three teams claimed the mug. Nobody claimed the washing-up.",
+      "line": [
+        "Three teams claimed the mug. Nobody claimed the washing-up.",
+        "Every project wants credit for the mug. None of them wants the sink.",
+        "Ownership of the mug is disputed. Ownership of the dirty mug is not."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-deimos-schedule": {
       "thread": "spacertales-deimos-night-work",
       "moment": "jargon",
-      "line": "A research schedule leaves space between projects. A service schedule fills it.",
+      "line": [
+        "A research schedule leaves space between projects. A service schedule fills it.",
+        "Researchers call it a gap between projects. We call it the maintenance window.",
+        "Every quiet week in the lab calendar is a busy one on ours."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-deimos-door": {
       "thread": "spacertales-deimos-night-work",
       "moment": "story",
-      "line": "The project changed its name twice. The person checking the door was the same both times.",
+      "line": [
+        "The project changed its name twice. The person checking the door was the same both times.",
+        "Three project names on that door over the years. One person checking it.",
+        "The sign on the lab changes. The face at the checkpoint does not."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-deimos-noticed": {
       "thread": "spacertales-deimos-night-work",
       "moment": "worry",
-      "line": "When the lab runs smoothly nobody sees us. When the supplies are late everybody does.",
+      "line": [
+        "When the lab runs smoothly nobody sees us. When the supplies are late everybody does.",
+        "Do the job well and you are invisible. Be late once and you are famous.",
+        "Nobody thanks the supply crew for a quiet week. Everybody finds us on a bad one."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-venus-loss": {
       "thread": "spacertales-venus-after-loss",
       "moment": "complaint",
-      "line": "The shipment is unconfirmed. The charge for asking about it is very definite.",
+      "line": [
+        "The shipment is unconfirmed. The charge for asking about it is very definite.",
+        "They cannot say where the cargo is. They can say exactly what the enquiry costs.",
+        "Unconfirmed, the clerk says about the shipment. Confirmed, the clerk says about the fee."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-venus-return": {
       "thread": "spacertales-venus-after-loss",
       "moment": "story",
-      "line": "A freight clerk wrote returned beside a case. Its owner was still missing. The family made them change the word.",
+      "line": [
+        "A freight clerk wrote returned beside a case. Its owner was still missing. The family made them change the word.",
+        "The manifest said returned. The case came back; the person did not. The family had the word struck out.",
+        "Some clerk marked a missing man's luggage as returned. His family went in and had it corrected."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-venus-weather": {
       "thread": "spacertales-venus-after-loss",
       "moment": "worry",
-      "line": "They can argue about who insured the cargo. I want to know who is still waiting for a person.",
+      "line": [
+        "They can argue about who insured the cargo. I want to know who is still waiting for a person.",
+        "Let the insurers fight over the cargo. Someone out there is still waiting for a person.",
+        "Everyone is asking about the cargo. Nobody is asking about the families still waiting."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-venus-memory": {
       "thread": "spacertales-venus-after-loss",
       "moment": "superstition",
-      "line": "Keep the departure message. People will tell you later that you must have heard something different.",
+      "line": [
+        "Keep the departure message. People will tell you later that you must have heard something different.",
+        "Save the last message they sent. Memory gets edited by other people.",
+        "Keep the departure note. Later on, everybody remembers it a little differently."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-europa-post": {
       "thread": "spacertales-europa-distance",
       "moment": "complaint",
-      "line": "The argument reaches us faster than the family news. Everybody seems to fund the argument.",
+      "line": [
+        "The argument reaches us faster than the family news. Everybody seems to fund the argument.",
+        "Politics arrives on the fast channel. Letters from home come by the slow one.",
+        "Somebody pays to send us every quarrel. Nobody pays to hurry the family post."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-europa-supper": {
       "thread": "spacertales-europa-distance",
       "moment": "story",
-      "line": "They disagreed about everything until the last paragraph. Both wanted the younger cousin to eat properly.",
+      "line": [
+        "They disagreed about everything until the last paragraph. Both wanted the younger cousin to eat properly.",
+        "Two letters, two sides, no agreement. Until the end, where both asked if the youngest was eating.",
+        "My relatives argued across the whole letter. The last line was the same in both: feed the kid."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-europa-water": {
       "thread": "spacertales-europa-distance",
       "moment": "question",
-      "line": "How much distance is there between two people if they keep the same old letter?",
+      "line": [
+        "How much distance is there between two people if they keep the same old letter?",
+        "Are you far apart if you both still read the same letter?",
+        "If two people treasure the same message, how far apart can they really be?"
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-europa-route": {
       "thread": "spacertales-europa-distance",
       "moment": "worry",
-      "line": "I do not need a clever route through somebody's blockade. I need a letter that can wait.",
+      "line": [
+        "I do not need a clever route through somebody's blockade. I need a letter that can wait.",
+        "I am not trying to run anybody's blockade. I just want my letter to keep until it can travel.",
+        "No heroics, please. A letter that arrives late is better than a ship that does not."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-hollow-loan": {
       "thread": "spacertales-hollow-accounts",
       "moment": "complaint",
-      "line": "They called it a loan after I had already worked for it. That was an expensive change of name.",
+      "line": [
+        "They called it a loan after I had already worked for it. That was an expensive change of name.",
+        "I earned it, then they renamed it a loan. Renaming things costs a lot round here.",
+        "Funny how wages turn into debt once the paperwork catches up."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-hollow-book": {
       "thread": "spacertales-hollow-accounts",
       "moment": "jargon",
-      "line": "Keep your own book. A fair account should survive being compared with someone else's.",
+      "line": [
+        "Keep your own book. A fair account should survive being compared with someone else's.",
+        "Always keep your own tally. An honest account does not mind a second opinion.",
+        "Write it down yourself. If their numbers are right, yours will match."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-hollow-chair": {
       "thread": "spacertales-hollow-accounts",
       "moment": "small-talk",
-      "line": "We kept the broken chair. The regular who fixes it has not been back yet.",
+      "line": [
+        "We kept the broken chair. The regular who fixes it has not been back yet.",
+        "That broken chair is waiting for the regular who always fixes it. They have not been in for a while.",
+        "Nobody touches the broken chair. It belongs to whoever comes back to mend it."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-talk-hollow-credit": {
       "thread": "spacertales-hollow-accounts",
       "moment": "story",
-      "line": "The cook let me owe a meal. Years later I learned they had been paying for it themselves.",
+      "line": [
+        "The cook let me owe a meal. Years later I learned they had been paying for it themselves.",
+        "I ran a tab with the cook for years. Found out later there was no tab; the cook was covering it.",
+        "Somebody let me eat on credit when I was broke. Turned out the credit came from their own pocket."
+      ],
       "speakers": "locals",
       "weight": 1
     },
     "spacertales-crew-journey-choice": {
       "thread": "spacertales-reasonable-freight",
       "moment": "worry",
-      "line": "We can take a good job and still refuse a bad journey. I would like us all back for the next one.",
+      "line": [
+        "We can take a good job and still refuse a bad journey. I would like us all back for the next one.",
+        "Good pay, fine. But if the route is wrong, let us say no. I want the whole crew for the next job.",
+        "A job can be worth taking and the flight still not worth flying. I would rather we all came home."
+      ],
       "speakers": "crew",
       "weight": 1
     },
     "spacertales-crew-ship-address": {
       "thread": "spacertales-berth-neighbours",
       "moment": "small-talk",
-      "line": "I left a return contact ashore. It feels better than asking everybody to guess where this ship will go.",
+      "line": [
+        "I left a return contact ashore. It feels better than asking everybody to guess where this ship will go.",
+        "Somebody ashore has my contact details. Nobody knows where we are going, but they know how to ask.",
+        "I gave a friend on the station a way to reach me. Easier than explaining our course."
+      ],
       "speakers": "crew",
       "weight": 1
     },
     "spacertales-crew-label-history": {
       "thread": "spacertales-salvage-kin",
       "moment": "story",
-      "line": "I kept the note that came with that old part. Somebody aboard another ship once cared whether it worked.",
+      "line": [
+        "I kept the note that came with that old part. Somebody aboard another ship once cared whether it worked.",
+        "That salvaged part came with a handwritten note. I put it back on. It was somebody's work.",
+        "There was a note on the old part we fitted. I kept it; someone on another ship looked after that thing."
+      ],
       "speakers": "crew",
       "weight": 1
     },
     "spacertales-crew-family-clock": {
       "thread": "spacertales-titan-families",
       "moment": "worry",
-      "line": "Everybody at home has a calendar. A ship gives us an estimate. I wish the two agreed more often.",
+      "line": [
+        "Everybody at home has a calendar. A ship gives us an estimate. I wish the two agreed more often.",
+        "Home runs on dates. We run on estimates. Birthdays do not move to suit the flight plan.",
+        "My family asks when I will be back. The best I can give them is a range."
+      ],
       "speakers": "crew",
       "weight": 1
     },
     "spacertales-talk-estimate-in-progress": {
       "thread": "spacertales-reasonable-freight",
       "moment": "small-talk",
-      "line": "The freight comparison you are reading has a return column. I would like that on every offer.",
+      "line": [
+        "The freight comparison you are reading has a return column. I would like that on every offer.",
+        "That freight comparison counts the trip back. Every offer should do the same.",
+        "Good, the comparison you have got includes the return leg. More offers should."
+      ],
       "speakers": "crew",
       "weight": 1,
       "requires": {
@@ -756,7 +1190,11 @@
     "spacertales-talk-letter-on-route": {
       "thread": "spacertales-reasonable-freight",
       "moment": "small-talk",
-      "line": "That family letter can wait for our own route. I like an errand that leaves the ship to its captain.",
+      "line": [
+        "That family letter can wait for our own route. I like an errand that leaves the ship to its captain.",
+        "Nice errand, that family letter. It fits our route, and nobody is telling the captain where to fly.",
+        "The letter can ride along until we pass that way. No detours needed, which suits me."
+      ],
       "speakers": "crew",
       "weight": 1,
       "requires": {
@@ -768,7 +1206,11 @@
     "spacertales-talk-voice-after-copy": {
       "thread": "spacertales-deimos-night-work",
       "moment": "superstition",
-      "line": "I read that tea-room account. A replay would explain it. I would still take company on the watch.",
+      "line": [
+        "I read that tea-room account. A replay would explain it. I would still take company on the watch.",
+        "I know, a recording would explain the tea-room account. All the same, I would rather not stand that watch alone.",
+        "There is a sensible answer to that tea-room account. I would still like a second person on watch."
+      ],
       "speakers": "locals",
       "weight": 1,
       "requires": {
@@ -780,7 +1222,11 @@
     "spacertales-talk-return-column-after": {
       "thread": "spacertales-reasonable-freight",
       "moment": "jargon",
-      "line": "A return column does not guarantee a fair price. It makes one missing cost harder to hide.",
+      "line": [
+        "A return column does not guarantee a fair price. It makes one missing cost harder to hide.",
+        "Putting the return trip on the offer does not make it fair. It makes it honest about one thing.",
+        "A return column is not a fair deal. It is one less place to bury a cost."
+      ],
       "speakers": "anyone",
       "weight": 1,
       "requires": {
@@ -792,7 +1238,11 @@
     "spacertales-talk-optional-grown-supper": {
       "thread": "spacertales-berth-neighbours",
       "moment": "small-talk",
-      "line": "A Verdemorrow rack makes a fine supper topic. Somebody still has to feed the rack and remember the people eating.",
+      "line": [
+        "A Verdemorrow rack makes a fine supper topic. Somebody still has to feed the rack and remember the people eating.",
+        "Grow your own and everyone has an opinion at supper. Somebody still has to tend the rack.",
+        "Home-grown greens get the whole table talking. The rack still needs someone to look after it, and so do the people eating."
+      ],
       "speakers": "anyone",
       "weight": 1,
       "requires": {
@@ -804,7 +1254,11 @@
     "spacertales-talk-optional-flight-estimate": {
       "thread": "spacertales-reasonable-freight",
       "moment": "complaint",
-      "line": "Asterel can help with the flying. It cannot persuade a job offer that the journey has got shorter.",
+      "line": [
+        "Asterel can help with the flying. It cannot persuade a job offer that the journey has got shorter.",
+        "A good Asterel board flies you well. It does not make a short deadline any longer.",
+        "Fancy navigation gear helps with the flight. It does nothing about a contract that ignores the distance."
+      ],
       "speakers": "anyone",
       "weight": 1,
       "requires": {
@@ -816,7 +1270,11 @@
     "spacertales-talk-optional-recovery-label": {
       "thread": "spacertales-salvage-kin",
       "moment": "story",
-      "line": "Rivetline kit can help you recover the material. The name on an old label still belongs to somebody's work.",
+      "line": [
+        "Rivetline kit can help you recover the material. The name on an old label still belongs to somebody's work.",
+        "Rivetline gear will get the metal back. The name scratched on the label is still someone's work.",
+        "Strip it with Rivetline tools by all means. The old label stays somebody's, whatever happens to the metal."
+      ],
       "speakers": "anyone",
       "weight": 1,
       "requires": {

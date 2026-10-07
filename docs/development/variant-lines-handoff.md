@@ -197,6 +197,11 @@ two or three variants each. The arc's two letters are read once a save; leave th
 
 ### Step 4: Phobos Spacer Stories, station life (`mods/PhobosSpacerStories/phobos/PhobosFramework/story/11-station-life.json`)
 
+**Done in Phobos Spacer Stories 0.4.0** (8 October 2026), written by Claude, held for owner
+review: three wordings for each of the 59 talk lines, two for each of the 24 repeating news
+items, all 37 mentions and the 13 adverts. The `once` outcome reports keep one text, since
+each shows once. Spacer Stories' Framework minimum rose to 0.132.0 with it.
+
 The largest pool of everyday talk, heard on every station.
 
 - The 59 small-talk lines first, then the mentions of all 37 news items (people repeat news

@@ -92192,7 +92192,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c16b394296f28cf5ce13a9d9593a4eaa3f3287961f040beb20efafb42a8bfd49",
+      "sha256": "d60545151b83c642f6ab1f3affa478c2576ef694876b9caa82bca0527d2f0af5",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
@@ -92209,7 +92209,8 @@
       "review20261008Fw01330": "Reviewed 8 October 2026 for Framework 0.133.0 and Phobos Exchange 0.5.1 (performance round L102 to L105): capture timings for hooks, collections and saves, every loaded mod named in captures, the ten-second world sweep, line top-ups that reread only changed runs and cheaper identical state writes; wording read against player-language.md; claims checked against the code and the offline checks; nothing claimed as tested in play.",
       "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references.",
       "review20261008Bank090": "Reviewed 8 October 2026 for Phobos Banking 0.9.0: agent-authored variants for every lender letter, reply, news item, advert and small-talk line, and the four mentions rewritten as speech; each officer's voice kept, no consequence beyond the game's late fee, no rates or limits quoted, money only in Finances. Version lines, changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
-      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "SUPPORT.md",
@@ -93479,7 +93480,7 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c718c38935960d9bf265ab302be8b74a1867289bf12e68a892350df5d864fd3a",
+      "sha256": "19e97dca29cbcc9332c2972481ae8a5b7755ee15fb17fae2811338a90aadca72",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
@@ -93488,7 +93489,8 @@
       "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play.",
       "review20261008Variants132": "Reviewed 8 October 2026 for Framework 0.132.0, Phobos Exchange 0.5.0 and Phobos Banking 0.8.0: variant lines (a text written up to eight ways, one shown each time). Version and minimum lines, the guide's Variants section and field notes, the handoffs' wanted lists, changelogs, Workshop lines and the labelled agent placeholders (one Exchange wire line, one Banking letter, three Keelhaul example texts) checked against the player-language guide; each placeholder says what its original says, in the same voice, and promises nothing the code does not do. Item references regenerated (the Auto Nav 0.35.1 version line caught up).",
       "review20261008Catalog134": "Reviewed 8 October 2026 for Framework 0.134.0 and Phobos Exchange 0.6.0: catalogue lines with variants (key, key.2, key.3) and the market wire's agent-authored wordings. Version and minimum lines, the translator and author notes, the Exchange guide's wire note, changelogs, the Exchange page line, the design record's delivered later-work row and finding L106 checked against the player-language guide; regenerated item references.",
-      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "docs/item-references.md",
@@ -93671,8 +93673,9 @@
       "path": "docs/spacer-stories-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "08a688a32734016d18ca285cb1260f72622e1e96ad4ad23d40d6b5c0a7e13983",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "88685eda63dfcae50b51ebda0ab35672d75f8bf6bef8b3e8c6b9bb74c3352b16",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1).",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "docs/war-declared-item-reference.md",
@@ -93763,8 +93766,9 @@
       "path": "workshop/PhobosSpacerStories/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "93b0a696e0edfed52e206f42100c72ded152947b0f6d72f78e1c621a2b355d48",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
+      "sha256": "f122aa857c1d37d824ccca94b6e293eab21270a010513baca94a2866e4e22b42",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0).",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -93957,11 +93961,12 @@
       "path": "docs/development/variant-lines-handoff.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "f71b0a669a3dd4c2300f1117317c63a5f968d89a10ee4763b194a37751e82550",
+      "sha256": "a6fb02331190717eb27b0acdae185907757342033513c768bf5c5dc47e49d796",
       "review": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide.",
       "review20261008Bank090": "Reviewed 8 October 2026 for Phobos Banking 0.9.0: agent-authored variants for every lender letter, reply, news item, advert and small-talk line, and the four mentions rewritten as speech; each officer's voice kept, no consequence beyond the game's late fee, no rates or limits quoted, money only in Finances. Version lines, changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
       "review20261008Exchange060Stories": "Reviewed 8 October 2026 for Phobos Exchange 0.6.0 (step 2 of the variant lines handoff): agent-authored wordings for every wire line, TV report, advert and shareholder letter, and company-specific small talk; game companies only reported on, never speaking; no figures in story text; nothing promised beyond the news entries. Changelog, page line and handoff status checked against the player-language guide.",
-      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide."
+      "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     }
   ],
   "surfaces": [
@@ -94118,14 +94123,16 @@
     {
       "path": "mods/PhobosSpacerStories/mod_info.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "dc343c5de1a142d90585a6c2f0f1ba3d2ccb42489b1a33d71c8758a084bca36d",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "309e1231df20b50e91cbea404815a55bd5d256798052abb57b9e510a84a12934",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1).",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos-addon.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "b4b2e20e41069c82d9c9f0d496b9dac2d6101755e7e3018220cec4dc74f939af",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1)."
+      "sha256": "43b1a3a50314d6a3cb52cb63d1628d3f8a593f9bd20121a35e5a74c9af0de6ac",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1).",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
@@ -94184,9 +94191,10 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "5d508d6aefb3bb364122119b78d706604fec83e604bac0e06bec826d232401cf",
+      "sha256": "3d13b940f259fc8fb9d79e03b0aeccf8ca551acc12c6e78d32f0f6d0f0247dec",
       "review20261008PublicRelease": "Reviewed 2026-10-08: the version published to the public Workshop item is marked Released with its date; no other wording changed.",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0)."
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0).",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/README.md",
@@ -94244,8 +94252,9 @@
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/11-station-life.json",
       "scope": "original inline English story text, placed people and threads, goal contracts and card documents",
-      "sha256": "f485f4baa183a69dcdd5c78e2c417a4bc8d5f95294bf1b89c03ced1b94aafab7",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly."
+      "sha256": "dc9b5fc99e3e447a2e70f40873f6f57584687c7ec54b75259ec2db2329ed1a87",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly.",
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/12-vanilla-correspondence.json",
