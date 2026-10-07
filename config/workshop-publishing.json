@@ -73,11 +73,13 @@
       "uploadedVisibility": "private"
     },
     "PhobosBank": {
-      "itemId": null,
+      "itemId": "3815026981",
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Held draft: first release awaiting owner gameplay checks."
+      "hold": "Held draft: first release awaiting owner gameplay checks.",
+      "uploadedVersion": "0.6.0",
+      "uploadedVisibility": "private"
     }
   },
   "externalRequiredItems": [
