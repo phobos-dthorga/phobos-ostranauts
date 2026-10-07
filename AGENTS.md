@@ -40,8 +40,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   through their own files and Workshop add-ons. Claude builds the logic, the schemas, the
   validators, the hooks between data and code, and a ChatGPT handoff document for each
   content area (what exists, the ids and events to use, the voice and lore rules, the
-  limits); Claude may write a short placeholder or proof only to show the wiring works.
-  Keep a worked add-on example for each content area that players can extend.
+  limits). Since the owner's ChatGPT plan ended (owner, 2026-10-08), Claude also writes that
+  creative content, following the same handoffs and rules as any writer: it stays in data
+  packs, is labelled as agent-authored in the pack's notes and the changelog, and is held for
+  the owner's review. Keep the handoffs current so ChatGPT or another writer can take over
+  again. Keep a worked add-on example for each content area that players can extend.
 
 ## Git, sessions and publication boundaries
 
