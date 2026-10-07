@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained. Variant lines (Spacer Stories 0.4.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "articles": {
     "spacertales-second-shift-record": {
       "section": "phobos-spacer-life",
@@ -34,7 +34,10 @@
     "spacertales-double-freight-claim": {
       "title": "One shipment, two owners",
       "text": "Two former contractors have asked the receiving desk at [place] about the same Sable Margin shipment. [person:spacertales-neri-vale] is checking an ambiguous cargo description before circulating any correction. A crew covering letter gives a third account of repairs and purchases from wages. The desk has a description to compare; it has no ownership verdict.",
-      "mention": "The Sable Margin file at [place] has two contractors and a crew account. One cargo description needs checking first.",
+      "mention": [
+        "The Sable Margin file at [place] has two contractors and a crew account. One cargo description needs checking first.",
+        "Two contractors and a crew letter, all about the same Sable Margin cargo at [place]. The description gets checked before anything else."
+      ],
       "once": true,
       "thread": "spacertales-second-shift-ledger",
       "requires": {
@@ -46,7 +49,10 @@
     "spacertales-second-shift-correction": {
       "title": "The names in the margin",
       "text": "At [place], receiving clerk [person:spacertales-neri-vale] has circulated a correction to the Sable Margin freight account after an independent crew supplied a present-day Rivetline can for comparison with the old item description. Vale says the example clarified the terminology, not ownership. The revised account distinguishes what the documents establish from what their claimants want them to establish. Former crew say it is a useful start.",
-      "mention": "[person:spacertales-neri-vale]'s corrected the Sable Margin freight account. A can can settle a name. Ownership takes more paper.",
+      "mention": [
+        "[person:spacertales-neri-vale]'s corrected the Sable Margin freight account. A can can settle a name. Ownership takes more paper.",
+        "[person:spacertales-neri-vale] corrected the Sable Margin account. The can cleared up a word, not who owns what."
+      ],
       "once": true,
       "requires": {
         "arcsDone": [
@@ -58,7 +64,10 @@
     "spacertales-yard-signatures-news": {
       "title": "The sample was not the proof",
       "text": "At [place], an addendum to the Sable Margin papers distinguishes a material sample from evidence of where it was made. Clerk [person:spacertales-neri-vale] says a recent Rivetline ingot example helped read the old catalogue, but proves nothing about a historical refit. Former workers have asked for their signed repair letters to be considered separately. A broker says separate evidence makes the file harder to summarise.",
-      "mention": "The Sable Margin sample showed what an ingot was. Didn't prove who made the old one. Workers still have their letters.",
+      "mention": [
+        "The Sable Margin sample showed what an ingot was. Didn't prove who made the old one. Workers still have their letters.",
+        "That ingot sample explained the old catalogue. It didn't say who made the Sable Margin's metal. The workers' letters stand on their own."
+      ],
       "once": true,
       "requires": {
         "arcsDone": [
@@ -73,7 +82,10 @@
     "spacertales-verdemorrow-meal-record": {
       "title": "The meal had names",
       "text": "At [place], Verdemorrow's archive has appended a crew account to the often-reprinted Sable Margin galley photograph. The account names the people who tended the crop and prepared the meal. It makes no claim about yield, growing conditions or the ownership of equipment. A former contractor has objected that the additional caption distracts from its provision programme. The archivist says it explains who provided supper.",
-      "mention": "Verdemorrow's put the crew names under the old galley photo. Contractor preferred its own caption.",
+      "mention": [
+        "Verdemorrow's put the crew names under the old galley photo. Contractor preferred its own caption.",
+        "The old galley photo has the crew's names under it now. The contractor isn't pleased; supper was the crew's doing."
+      ],
       "once": true,
       "requires": {
         "arcsDone": [
@@ -88,7 +100,10 @@
     "spacertales-halewright-watch-record": {
       "title": "The watch was people",
       "text": "At [place], Halewright has added a watchkeeper's letter to the Short Return fitting correspondence. The letter distinguishes the supplied bed and monitor from the crew who kept the patient company and did the care work. The archive says no clinical conclusion can be drawn from the surviving account. A former watchkeeper says the point was to preserve the names, not sell another bed.",
-      "mention": "Halewright's kept the Short Return watch letter. The equipment got the invoice. The people finally got their names.",
+      "mention": [
+        "Halewright's kept the Short Return watch letter. The equipment got the invoice. The people finally got their names.",
+        "The Short Return letter is kept with the names of the people who sat the watch. The bed and monitor were only the equipment."
+      ],
       "once": true,
       "requires": {
         "arcsDone": [
@@ -102,8 +117,14 @@
     },
     "spacertales-mixed-makers-spares": {
       "title": "Common parts, separate promises",
-      "text": "Equipment brokers at [place] are being asked for one clear list of stores and connections for mixed plants. Fennmark, Tolvane, Lixivar and Oxsmith dealers each describe their own products. Operators say four leaflets can still leave one gap. A local broker is gathering the descriptions before returning a proposed bill.",
-      "mention": "Four makers can write four correct leaflets and still leave you guessing what joins the machines.",
+      "text": [
+        "Equipment brokers at [place] are being asked for one clear list of stores and connections for mixed plants. Fennmark, Tolvane, Lixivar and Oxsmith dealers each describe their own products. Operators say four leaflets can still leave one gap. A local broker is gathering the descriptions before returning a proposed bill.",
+        "Operators of mixed plants at [place] want brokers to give them one clear list of stores and connections. Fennmark, Tolvane, Lixivar and Oxsmith dealers each describe only their own machines, and four leaflets, operators say, can still leave one gap. A local broker is collecting the descriptions before sending back a proposed bill."
+      ],
+      "mention": [
+        "Four makers can write four correct leaflets and still leave you guessing what joins the machines.",
+        "Each maker's leaflet is right about its own machine. Put four together and there's still a hole where the connections go."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -113,8 +134,14 @@
     },
     "spacertales-yard-worker-loss": {
       "title": "The last repair note",
-      "text": "At [place], a small salvage contractor is disputing payment to a worker whose repair notes were used after she left its payroll. Crew say the notes kept a refit moving when replacement equipment was delayed. Management says the worker supplied knowledge, not a part with a listed value. Rivetline dealers have declined to price the notes. The worker says pricing them was not the original question.",
-      "mention": "A contractor used a worker's repair notes, then said knowledge wasn't a payable part. She says she asked for wages.",
+      "text": [
+        "At [place], a small salvage contractor is disputing payment to a worker whose repair notes were used after she left its payroll. Crew say the notes kept a refit moving when replacement equipment was delayed. Management says the worker supplied knowledge, not a part with a listed value. Rivetline dealers have declined to price the notes. The worker says pricing them was not the original question.",
+        "A worker's repair notes kept a refit going at [place] after she had left a small salvage contractor's payroll, and now she wants paying. Crew say the notes carried the work through delayed replacement equipment. Management says she supplied knowledge, not a part with a listed value. Rivetline dealers will not price the notes; the worker says price was never her question."
+      ],
+      "mention": [
+        "A contractor used a worker's repair notes, then said knowledge wasn't a payable part. She says she asked for wages.",
+        "They used her repair notes after she'd gone, then said notes aren't a part. She only asked for wages."
+      ],
       "requires": {
         "mods": [
           "PhobosShipbreaker"
@@ -124,8 +151,14 @@
     },
     "spacertales-warehouse-watch-rumour": {
       "title": "A light on the closed shelf",
-      "text": "At [place], a freight clerk has dismissed reports of a signal light seen among boxed control equipment in a closed stores aisle. The stock was disconnected and the watch camera recorded only the aisle entrance. Asterel says it cannot diagnose a story without the actual hardware. Night staff have requested another lamp for the aisle. Management is reviewing whether poor lighting counts as an equipment fault.",
-      "mention": "Night crew saw a light in the boxed Asterel stock. Service wants the board. Management wants fewer lamps.",
+      "text": [
+        "At [place], a freight clerk has dismissed reports of a signal light seen among boxed control equipment in a closed stores aisle. The stock was disconnected and the watch camera recorded only the aisle entrance. Asterel says it cannot diagnose a story without the actual hardware. Night staff have requested another lamp for the aisle. Management is reviewing whether poor lighting counts as an equipment fault.",
+        "Reports of a signal light among boxed control equipment in a closed stores aisle at [place] have been dismissed by a freight clerk. The stock was disconnected, and the watch camera covered only the aisle entrance. Without the hardware itself, Asterel says, it cannot diagnose a story. Night staff want another lamp; management is considering whether poor lighting counts as an equipment fault."
+      ],
+      "mention": [
+        "Night crew saw a light in the boxed Asterel stock. Service wants the board. Management wants fewer lamps.",
+        "A light in a crate of disconnected Asterel gear. The night crew asked for another lamp, not an exorcist."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -136,14 +169,23 @@
     "spacertales-ledger-freight-notice": {
       "title": "A description to check",
       "thread": "spacertales-second-shift-ledger",
-      "text": "The receiving desk at [place] is asking independent crews for help reading an old equipment description. A current Rivetline D20 can would make a useful comparison. The desk says it wants an example, not the can itself, and will send the questions by correspondence. No ownership claim will be settled by the comparison.",
-      "mention": "The receiving desk at [place] wants a D20 comparison. You keep the can. They keep the paperwork."
+      "text": [
+        "The receiving desk at [place] is asking independent crews for help reading an old equipment description. A current Rivetline D20 can would make a useful comparison. The desk says it wants an example, not the can itself, and will send the questions by correspondence. No ownership claim will be settled by the comparison.",
+        "Independent crews are being asked to help the receiving desk at [place] read an old equipment description, and a current Rivetline D20 can would be a useful comparison. The desk wants an example, not the can, and will send its questions by correspondence. The comparison will settle no ownership claim."
+      ],
+      "mention": [
+        "The receiving desk at [place] wants a D20 comparison. You keep the can. They keep the paperwork.",
+        "Got a D20 can? The receiving desk at [place] wants to compare it, not keep it."
+      ]
     },
     "spacertales-asterel-service-result": {
       "title": "The number kept the letter",
       "thread": "spacertales-flight-service",
       "text": "The Asterel desk at [place] has attached the old watchkeeper's covering letter to the Sable Margin receiving file. A plate number connected the record through the ship's changed names. The copy preserves a repair account separately from the office's replacement note. It extends no warranty and tests no present board.",
-      "mention": "Asterel's plate number kept the letter with the receiving file. The new module isn't carrying an old warranty.",
+      "mention": [
+        "Asterel's plate number kept the letter with the receiving file. The new module isn't carrying an old warranty.",
+        "Asterel matched the old letter by plate number. It's on file; no warranty came with it."
+      ],
       "requires": {
         "arcsDone": [
           "spacertales-asterel-old-number"
@@ -158,7 +200,10 @@
       "title": "No order placed",
       "thread": "spacertales-mixed-plant-trade",
       "text": "The mixed-plant quotation at [place] has closed without an order. [person:spacertales-orra-pell] retained the four useful makers' descriptions and returned the incomplete bill. Matching finish was offered in place of the missing connections. The customer's ships have gained no equipment or joint service agreement through this correspondence.",
-      "mention": "The mixed-plant bill closed with no sale. Four useful leaflets survived; matching paint didn't fill the gap.",
+      "mention": [
+        "The mixed-plant bill closed with no sale. Four useful leaflets survived; matching paint didn't fill the gap.",
+        "No sale on that mixed-plant bill. The leaflets were useful; matching paint couldn't stand in for the joints."
+      ],
       "requires": {
         "arcsDone": [
           "spacertales-four-leaflets"
@@ -173,7 +218,10 @@
       "title": "Two accounts, no location",
       "thread": "spacertales-still-correspondence",
       "text": "Alembrine's correspondence desk at [place] has retained both accounts of the bottle sent over a borrowed pump. A current product comparison clarified the label, not the old destination. The desk will not combine the letters into a reconciled ending. The pump's owner is still asking for a location.",
-      "mention": "Alembrine kept both pump letters at [place]. Better filing hasn't brought the pump back.",
+      "mention": [
+        "Alembrine kept both pump letters at [place]. Better filing hasn't brought the pump back.",
+        "Both pump letters are on file at [place]. Still no pump."
+      ],
       "requires": {
         "arcsDone": [
           "spacertales-borrowed-pump"
@@ -188,7 +236,10 @@
       "title": "Both sheets retained",
       "thread": "spacertales-refit-drawings",
       "text": "The drawing correspondence forwarded through [place] has closed with both historical sheets retained. The old sales drawing and the crew's later drawing describe different stages of the ship's life. The receiving copy contains letters, not a working schematic. Nobody's ship is being rebuilt to settle an argument over paper.",
-      "mention": "Both drawings stayed in the file at [place]. Keeping a ship's history doesn't mean building it twice.",
+      "mention": [
+        "Both drawings stayed in the file at [place]. Keeping a ship's history doesn't mean building it twice.",
+        "The old drawing and the crew's drawing are both kept at [place]. Nobody's rebuilding a ship to settle it."
+      ],
       "requires": {
         "arcsDone": [
           "spacertales-drawing-after-damage"
@@ -203,7 +254,10 @@
       "title": "The loading had a worker",
       "thread": "spacertales-loading-work",
       "text": "Slingwright's letters desk at [place] has filed a corrected caption beside the worker's signed account. The RM-1 did its job with accepted stock; a person supplied that stock. The photograph's description now keeps those jobs separate. The disputed loading fee remains unpaid in the account. No payment or new batch followed the correction.",
-      "mention": "Slingwright's caption finally counts the loading. The fee in that old account is still disputed.",
+      "mention": [
+        "Slingwright's caption finally counts the loading. The fee in that old account is still disputed.",
+        "The Slingwright caption mentions the loader now. The loading fee is another matter."
+      ],
       "requires": {
         "arcsDone": [
           "spacertales-last-vessel"
@@ -219,7 +273,11 @@
     "spacertales-ledger-names": {
       "moment": "story",
       "speakers": "locals",
-      "line": "The second-shift ledger names the worker before the machine. First catalogue I've read that knew what kept a ship going.",
+      "line": [
+        "The second-shift ledger names the worker before the machine. First catalogue I've read that knew what kept a ship going.",
+        "In the second-shift ledger, the people come before the parts. That's the right order.",
+        "Read the second-shift ledger: names first, machines after. Somebody understood ships."
+      ],
       "thread": "spacertales-second-shift-ledger",
       "requires": {
         "filesRead": [
@@ -230,7 +288,11 @@
     "spacertales-ledger-not-verdict": {
       "moment": "small-talk",
       "speakers": "locals",
-      "line": "[person:spacertales-neri-vale]'s letters don't decide who owns the Sable Margin's parts. They make it harder to forget who repaired them.",
+      "line": [
+        "[person:spacertales-neri-vale]'s letters don't decide who owns the Sable Margin's parts. They make it harder to forget who repaired them.",
+        "[person:spacertales-neri-vale] isn't ruling on who owns the Sable Margin's parts. The letters just keep the repairers on the record.",
+        "Those letters from [person:spacertales-neri-vale] settle nothing about ownership. They do remember who did the repairs."
+      ],
       "thread": "spacertales-second-shift-ledger",
       "requires": {
         "arcsDone": [
@@ -241,7 +303,11 @@
     "spacertales-ledger-two-owners": {
       "moment": "joke",
       "speakers": "anyone",
-      "line": "Two owners claimed the same stores. I'd settle for both paying the same repair bill.",
+      "line": [
+        "Two owners claimed the same stores. I'd settle for both paying the same repair bill.",
+        "Two people claiming the same stores. I'd like to see them both claim the repair bill.",
+        "Everyone owns the stores until the repair invoice arrives."
+      ],
       "thread": "spacertales-second-shift-ledger",
       "requires": {
         "arcsAtStep": [
@@ -252,19 +318,31 @@
     "spacertales-ledger-leave-copy": {
       "moment": "superstition",
       "speakers": "anyone",
-      "line": "Leave a copy of the repair note with somebody who leaves the ship. Records get lonely when there's only one.",
+      "line": [
+        "Leave a copy of the repair note with somebody who leaves the ship. Records get lonely when there's only one.",
+        "Give a copy of the repair notes to someone leaving the ship. A record kept in one place is half lost.",
+        "Always send a copy of the repair note off with someone who's leaving. One copy is no copy."
+      ],
       "thread": "spacertales-second-shift-ledger"
     },
     "spacertales-ledger-old-wages": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "Old invoices belong with this ship's papers. Somebody may eventually ask which parts were only borrowed.",
+      "line": [
+        "Old invoices belong with this ship's papers. Somebody may eventually ask which parts were only borrowed.",
+        "Keep the old invoices with the ship's papers. One day somebody will ask what was only on loan.",
+        "I'd hang on to those old invoices. Somebody always turns up asking which parts weren't really ours."
+      ],
       "thread": "spacertales-second-shift-ledger"
     },
     "spacertales-warehouse-light": {
       "moment": "story",
       "speakers": "locals",
-      "line": "Asterel store clerk saw a light in a disconnected crate. Might've been a reflection. She wants a second lamp before finding out.",
+      "line": [
+        "Asterel store clerk saw a light in a disconnected crate. Might've been a reflection. She wants a second lamp before finding out.",
+        "That Asterel clerk saw a light where nothing was plugged in. Probably a reflection. She still wants a second lamp first.",
+        "A light in a dead crate, the night clerk says. Whatever it was, she's asking for better lighting before she looks again."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -278,7 +356,11 @@
     "spacertales-watch-people": {
       "moment": "small-talk",
       "speakers": "crew",
-      "line": "That Short Return letter thanked the people who stayed on watch. The monitor had its job; staying awake beside someone was theirs.",
+      "line": [
+        "That Short Return letter thanked the people who stayed on watch. The monitor had its job; staying awake beside someone was theirs.",
+        "The Short Return letter remembers who stayed awake with the patient. The monitor did its job; the people did theirs.",
+        "What I liked about the Short Return letter: it thanks the people on watch, not the equipment."
+      ],
       "requires": {
         "mods": [
           "PhobosMedical"
@@ -292,7 +374,11 @@
     "spacertales-ledger-proof-question": {
       "moment": "question",
       "speakers": "anyone",
-      "line": "If the only record of a job belongs to the person who didn't do it, whose history is it?",
+      "line": [
+        "If the only record of a job belongs to the person who didn't do it, whose history is it?",
+        "If the only record of the work is held by someone who didn't do it, whose story does it tell?",
+        "Whose history is it, when the paperwork belongs to the one person who wasn't there?"
+      ],
       "thread": "spacertales-second-shift-ledger"
     }
   },

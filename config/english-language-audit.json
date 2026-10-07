@@ -93961,12 +93961,13 @@
       "path": "docs/development/variant-lines-handoff.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "a6fb02331190717eb27b0acdae185907757342033513c768bf5c5dc47e49d796",
+      "sha256": "6f17d8707019bba56861f07b0ffd84e7774f59dca31e4149ba67435cd002a6d6",
       "review": "Reviewed 8 October 2026: the variant lines handoff for ChatGPT (the feature, who does what, the format, the rules for every variant, and five steps: Banking, Exchange, Agriculture, Spacer Stories station life, the other Spacer Stories files) and the links to it from the Banking and Exchange handoffs, the story design record and the index; counts and ids checked against the shipped packs, wording checked against the player-language guide.",
       "review20261008Bank090": "Reviewed 8 October 2026 for Phobos Banking 0.9.0: agent-authored variants for every lender letter, reply, news item, advert and small-talk line, and the four mentions rewritten as speech; each officer's voice kept, no consequence beyond the game's late fee, no rates or limits quoted, money only in Finances. Version lines, changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
       "review20261008Exchange060Stories": "Reviewed 8 October 2026 for Phobos Exchange 0.6.0 (step 2 of the variant lines handoff): agent-authored wordings for every wire line, TV report, advert and shareholder letter, and company-specific small talk; game companies only reported on, never speaking; no figures in story text; nothing promised beyond the news entries. Changelog, page line and handoff status checked against the player-language guide.",
       "review20261008Agri067": "Reviewed 8 October 2026 for Phobos Agriculture 0.67.0 (step 3 of the variant lines handoff): agent-authored wordings for Verdemorrow's news, mentions, adverts (maker's sales voice, same facts and limits) and crew talk; the Framework minimum line raised to 0.132.0; changelog, page line, handoff status and regenerated item references checked against the player-language guide.",
-      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     }
   ],
   "surfaces": [
@@ -94137,44 +94138,51 @@
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "5fb9b87c2c8b6ee3768f47f1f06afa2cd5e6f55a018880f7af60fc4b5f7d8ec9",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "d78c558b073d32ca27e0b592b5f0a71112755328392f226df48be39fbc32b6a7",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/02-flight-and-rebuild.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "7af1ae5725b303282386b716b9c0577522578d4740f26b388a0145aaa3ad2017",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "9187cd389b29903c4fba6f27760f1118ada6c28900d03d136d932c896f886073",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/03-growing-and-galley.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "65f231d95fa9b7756a58d2b102be40c4c7c362db1cf5f7d682aaf0d7ee62609f",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "cb41df7e5bcaf46c569a788b8c9f86a0e402590d45839fa6d6fd44eb612be010",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/04-process-makers.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "fa2a620c806fbf2340588093071dc64e4d11f0e3e4fc734a425b747a731b97c0",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "f54e09dc874c24280710520b5a20765cbe5a4f09bd007747534cd394976d66e8",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/05-still-and-remainders.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "edee2651bfae71d6b4c57c8f888c32296307f525ffa31ea12baf20837242b1c7",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "3ce2d52ce7b174b075a00041444dc2956396948bae8a0c389e6f559ce1f9bc24",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/06-sickbay.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "7c5da62df1051103e8eecf0170e46afdd57de38cdc471186162159af667f2a03",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "0564c2b280637e9e93eb2625ac0dcabb5f6f29d9bfabc18a52241a88ba56d548",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/07-letters-and-local-history.json",
       "scope": "original inline English story text, goal contracts and card documents",
-      "sha256": "60d2b84ab25c9ce3b845741b8952028e53c54ff694236b33140d71900dc4afe1",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's."
+      "sha256": "5156aea5844dd52f95cbe942f10e68e4ae936bf64e356e09026d4f9c933623d9",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/08-goal-chains.json",
@@ -94191,10 +94199,11 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "3d13b940f259fc8fb9d79e03b0aeccf8ca551acc12c6e78d32f0f6d0f0247dec",
+      "sha256": "6000f67282bdf26cf5f8162ef6122a29ef36b94118881631ecb0371738c3e5ae",
       "review20261008PublicRelease": "Reviewed 2026-10-08: the version published to the public Workshop item is marked Released with its date; no other wording changed.",
       "review": "Reviewed 6 October 2026: Spacer Stories 0.3.0 vanilla expansion. New prose read against player-language.md and current story contracts; in-world fiction kept distinct from cited canon and literary influences. No unsupported interaction, repair, timer, unique parcel check or faction change promised. Native-build inventory failure and untested gameplay stated explicitly. Reviewed 6 October 2026: owner-observed live story chatter and grammar-token handoff. One screenshot is distinguished from wider gameplay validation; intended dialogue, current source path, unverified cause and owner-run reproduction are explicit. No code fix claimed. 6 October 2026: reviewed for story goal faces, From lines and the goal wording pass (Framework 0.121.0, Spacer Stories 0.3.1). 6 October 2026: reviewed for fair gig deadlines (Framework 0.123.0).",
-      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide."
+      "review20261008Spacer040": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 4 of the variant lines handoff): agent-authored wordings for station-life talk, repeating news, mentions and adverts in the collection's reflective, worn-in voice; no station names written into text, no new people or events, every variant within its entry's gates; Framework minimum raised to 0.132.0; changelog, page line and handoff status checked against the player-language guide.",
+      "review20261008Spacer040Makers": "Reviewed 8 October 2026 for Phobos Spacer Stories 0.4.0 (step 5 of the variant lines handoff): agent-authored wordings for the makers' talk, repeating news, mentions and adverts in files 01 to 07; each maker's claims and limits kept (the ML-2 only mines attached targets, the Vigil-2 only watches, nitrogen is not air, the RM-1 takes listed remainders), every variant within its entry's gates, no station names written into text; changelog and handoff status checked against the player-language guide."
     },
     {
       "path": "mods/PhobosSpacerStories/README.md",

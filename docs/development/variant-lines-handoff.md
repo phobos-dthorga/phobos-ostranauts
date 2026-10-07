@@ -213,6 +213,11 @@ The largest pool of everyday talk, heard on every station.
 
 ### Step 5: Phobos Spacer Stories, the other talk and news (files `01` to `07` in the same folder)
 
+**Done in Phobos Spacer Stories 0.4.0** (8 October 2026), written by Claude, held for owner
+review: three wordings for each of the 84 talk lines, two for each of the 41 repeating news
+items, all 51 mentions and the 26 adverts. With step 4, every step of this handoff is done; a
+later writer may revise or add to any variant under the same rules.
+
 The same work on the remaining files with news, adverts and talk: 84 small-talk lines, 51
 mentions, 41 news items without `once` and 26 adverts. Take one or two files at a time if
 that suits.

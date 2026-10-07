@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained. Variant lines (Spacer Stories 0.4.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "articles": {
     "spacertales-fennmark-history": {
       "section": "phobos-makers",
@@ -67,8 +67,14 @@
   "broadcasts": {
     "spacertales-fennmark-vessel-list": {
       "title": "The obvious instruction",
-      "text": "At [place], Fennmark has restored a store-identification paragraph removed from its latest catalogue. The editor responsible considered it too obvious to print. Service contractors say the paragraph was removed in the same quarter that customers began sending photographs of unlabelled stores and asking which was which. The revised catalogue calls identification an owner's responsibility. Contractors call it a start.",
-      "mention": "Fennmark's put the label-your-stores bit back in the catalogue. Obvious wasn't quite obvious enough.",
+      "text": [
+        "At [place], Fennmark has restored a store-identification paragraph removed from its latest catalogue. The editor responsible considered it too obvious to print. Service contractors say the paragraph was removed in the same quarter that customers began sending photographs of unlabelled stores and asking which was which. The revised catalogue calls identification an owner's responsibility. Contractors call it a start.",
+        "Fennmark has put back a paragraph on identifying stores that an editor cut from its latest catalogue as too obvious to print. Service contractors at [place] note that it vanished in the same quarter customers began sending photographs of unlabelled stores and asking which was which. The new catalogue makes identification the owner's job. Contractors call that a start."
+      ],
+      "mention": [
+        "Fennmark's put the label-your-stores bit back in the catalogue. Obvious wasn't quite obvious enough.",
+        "The bit about labelling your stores is back in Fennmark's catalogue. Turns out it needed saying."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -78,8 +84,14 @@
     },
     "spacertales-fennmark-package-price": {
       "title": "Equipment around the equipment",
-      "text": "At [place], a Fennmark distributor has revised a processing quotation after a customer noticed it excluded all stores and connecting lines. The distributor says the price was for the active equipment only. The customer says a machine with nowhere to send output is a rather expensive shelf. Fennmark has asked that future quotations explain the supported job as well as the machine.",
-      "mention": "Fennmark dealer quoted a plant with no stores. Customer said they could buy a shelf cheaper.",
+      "text": [
+        "At [place], a Fennmark distributor has revised a processing quotation after a customer noticed it excluded all stores and connecting lines. The distributor says the price was for the active equipment only. The customer says a machine with nowhere to send output is a rather expensive shelf. Fennmark has asked that future quotations explain the supported job as well as the machine.",
+        "A customer at [place] noticed that a Fennmark distributor's processing quote left out every store and connecting line, and the quote has been revised. The distributor says the price covered the active equipment only; the customer says a machine with nowhere to send its output is an expensive shelf. Fennmark wants future quotes to describe the supported job as well as the machine."
+      ],
+      "mention": [
+        "Fennmark dealer quoted a plant with no stores. Customer said they could buy a shelf cheaper.",
+        "That Fennmark quote left out the stores and lines. A plant without them is just furniture."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -89,8 +101,14 @@
     },
     "spacertales-tolvane-department": {
       "title": "A division of one",
-      "text": "At [place], Tolvane has rejected a contractor's description of its service shop as a complete atmosphere division. The firm's current contract supplies ammonia-cracking equipment and related service, not every system aboard the customer's ships. The contractor says the phrase was intended as praise. Tolvane says praise should fit the invoice.",
-      "mention": "Tolvane won't let that contractor call it a whole atmosphere department. One machine isn't the whole cabin.",
+      "text": [
+        "At [place], Tolvane has rejected a contractor's description of its service shop as a complete atmosphere division. The firm's current contract supplies ammonia-cracking equipment and related service, not every system aboard the customer's ships. The contractor says the phrase was intended as praise. Tolvane says praise should fit the invoice.",
+        "Tolvane has turned down a contractor's description of its service shop at [place] as a complete atmosphere division. Its contract covers ammonia-cracking equipment and its service, the firm says, not every system aboard a customer's ships. The contractor meant it as praise; Tolvane prefers praise that matches the invoice."
+      ],
+      "mention": [
+        "Tolvane won't let that contractor call it a whole atmosphere department. One machine isn't the whole cabin.",
+        "A contractor called Tolvane a whole atmosphere department. Tolvane says it does one job, and does that one."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -100,8 +118,14 @@
     },
     "spacertales-tolvane-air-word": {
       "title": "A useful distinction",
-      "text": "At [place], Tolvane has issued a correction to dealer copy describing a nitrogen stream as breathable air. The company says the distinction is essential to understanding the AX-2's job and the equipment required around it. The dealer has agreed to replace the claim. Customers have asked why the correction needed to come from the maker rather than the person selling them the machine.",
-      "mention": "Tolvane had to explain that nitrogen isn't a cabin full of air. Dealer should've known before taking deposits.",
+      "text": [
+        "At [place], Tolvane has issued a correction to dealer copy describing a nitrogen stream as breathable air. The company says the distinction is essential to understanding the AX-2's job and the equipment required around it. The dealer has agreed to replace the claim. Customers have asked why the correction needed to come from the maker rather than the person selling them the machine.",
+        "Dealer copy at [place] called a nitrogen stream breathable air, and Tolvane has corrected it: the difference, the company says, is the heart of what the AX-2 does and of what must be fitted around it. The dealer will replace the claim. Customers ask why the maker, not the seller, had to point it out."
+      ],
+      "mention": [
+        "Tolvane had to explain that nitrogen isn't a cabin full of air. Dealer should've known before taking deposits.",
+        "Tolvane had to remind a dealer that nitrogen on its own isn't air you can breathe. Customers noticed."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -111,8 +135,14 @@
     },
     "spacertales-lixivar-buckets": {
       "title": "The bucket campaign",
-      "text": "At [place], Lixivar service staff have asked dealers to retire the phrase every batch has value. Customers responding to the campaign have submitted containers of cleaning waste, unidentified liquids and one dry bucket with a valuation request. The company says its equipment needs supported, identified feed. The dry bucket's owner says the bucket is identified and would like an answer.",
-      "mention": "Lixivar's bucket advert went wrong again. Somebody wanted them to recover the value in an empty bucket.",
+      "text": [
+        "At [place], Lixivar service staff have asked dealers to retire the phrase every batch has value. Customers responding to the campaign have submitted containers of cleaning waste, unidentified liquids and one dry bucket with a valuation request. The company says its equipment needs supported, identified feed. The dry bucket's owner says the bucket is identified and would like an answer.",
+        "Lixivar service staff at [place] want dealers to drop the phrase every batch has value. Answering the campaign, customers sent in cleaning waste, unidentified liquids and one dry bucket, all with valuation requests. The equipment needs supported, identified feed, the company says. The owner of the dry bucket points out that it is identified and still wants an answer."
+      ],
+      "mention": [
+        "Lixivar's bucket advert went wrong again. Somebody wanted them to recover the value in an empty bucket.",
+        "Lixivar told folk every batch has value. Someone sent in an empty bucket to test it."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -122,8 +152,14 @@
     },
     "spacertales-lixivar-handover": {
       "title": "A liquid with a past",
-      "text": "At [place], a processing contractor's sale has stalled over missing feed records. The buyer says the vessels contain material the seller described only as useful later. Lixivar has declined to certify the load from photographs. The seller says its long history aboard the plant should establish value. The buyer says it establishes a long history aboard the plant.",
-      "mention": "Useful later was the whole record for that Lixivar load. Later has finally arrived.",
+      "text": [
+        "At [place], a processing contractor's sale has stalled over missing feed records. The buyer says the vessels contain material the seller described only as useful later. Lixivar has declined to certify the load from photographs. The seller says its long history aboard the plant should establish value. The buyer says it establishes a long history aboard the plant.",
+        "Missing feed records have stalled a processing contractor's sale at [place]. The buyer says the seller described the vessels' contents only as useful later. Lixivar will not certify the load from photographs. The seller says the load's long history aboard the plant should prove its worth; the buyer says it proves a long history aboard the plant."
+      ],
+      "mention": [
+        "Useful later was the whole record for that Lixivar load. Later has finally arrived.",
+        "The only record on that Lixivar load says useful later. The buyer would like now."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -133,8 +169,14 @@
     },
     "spacertales-oxsmith-photograph": {
       "title": "A wider photograph",
-      "text": "At [place], Oxsmith's latest brochure has gained a foldout after customers requested photographs showing the equipment around its hot-processing machines. The company says the wider view better represents a working installation. A printer says the original machine photograph was excellent until the stores, connections and heat equipment entered the frame. Buyers say that was when it became informative.",
-      "mention": "Oxsmith's brochure needs a foldout now. They finally photographed the rest of the plant.",
+      "text": [
+        "At [place], Oxsmith's latest brochure has gained a foldout after customers requested photographs showing the equipment around its hot-processing machines. The company says the wider view better represents a working installation. A printer says the original machine photograph was excellent until the stores, connections and heat equipment entered the frame. Buyers say that was when it became informative.",
+        "After customers asked to see the equipment around its hot-processing machines, Oxsmith's latest brochure at [place] has gained a foldout. The wider view shows a working installation better, the company says. A printer says the machine photograph was excellent until the stores, connections and heat equipment came into frame; buyers say that is when it became useful."
+      ],
+      "mention": [
+        "Oxsmith's brochure needs a foldout now. They finally photographed the rest of the plant.",
+        "Oxsmith's brochure has a foldout so the stores and heat gear fit in. A much more honest picture."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -144,8 +186,14 @@
     },
     "spacertales-oxsmith-slogan": {
       "title": "Not quite anywhere",
-      "text": "At [place], Oxsmith has withdrawn a distributor's air from anywhere campaign. The company says its machines accept supported feeds, recover specific products and need substantial electricity and heat handling. It also notes that recovered oxygen is not a complete cabin atmosphere. The distributor is considering a shorter slogan. Service technicians have asked to read it before it is printed.",
-      "mention": "Oxsmith's correcting air from anywhere. Plenty of small print survived, just not anywhere.",
+      "text": [
+        "At [place], Oxsmith has withdrawn a distributor's air from anywhere campaign. The company says its machines accept supported feeds, recover specific products and need substantial electricity and heat handling. It also notes that recovered oxygen is not a complete cabin atmosphere. The distributor is considering a shorter slogan. Service technicians have asked to read it before it is printed.",
+        "Oxsmith has pulled a distributor's air from anywhere campaign at [place]. Its machines take supported feeds, recover particular products and need a great deal of electricity and heat handling, the company says, and recovered oxygen is not a full cabin atmosphere. The distributor is working on a shorter slogan; service technicians want to read it first."
+      ],
+      "mention": [
+        "Oxsmith's correcting air from anywhere. Plenty of small print survived, just not anywhere.",
+        "Air from anywhere, said the advert. Oxsmith says: from supported feed, with a lot of power. Less catchy."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -156,7 +204,10 @@
   },
   "adverts": {
     "spacertales-fennmark-v4-ad": {
-      "text": "Phobos' Fennmark V4 Volatiles Refinery\nUseful feed deserves a proper process. Plan the products, the stores and the heat before you plan the profit. Fennmark: know what goes in, know where it goes next.",
+      "text": [
+        "Phobos' Fennmark V4 Volatiles Refinery\nUseful feed deserves a proper process. Plan the products, the stores and the heat before you plan the profit. Fennmark: know what goes in, know where it goes next.",
+        "Phobos' Fennmark V4 Volatiles Refinery\nGood feed deserves a proper process. Decide on the products, the stores and the heat first; the profit comes after. Fennmark: know what goes in, and know where it goes next."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -165,7 +216,10 @@
       "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-fennmark-stores-ad": {
-      "text": "Fennmark bulk stores\nThe right substance, in the right vessel, with the right connection. A row of matching stores is not a row of interchangeable contents. Leave a label your next shift can read.",
+      "text": [
+        "Fennmark bulk stores\nThe right substance, in the right vessel, with the right connection. A row of matching stores is not a row of interchangeable contents. Leave a label your next shift can read.",
+        "Fennmark bulk stores\nThe right substance in the right vessel on the right connection. Matching stores do not mean matching contents, so label them for the next shift."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -174,7 +228,10 @@
       "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-tolvane-ax-ad": {
-      "text": "Phobos' Tolvane AX-2 Ammonia Cracker\nA specific job, in a specific space. Supported ammonia cracking for crews who have planned the feeds and stores. Nitrogen is not a complete cabin atmosphere. Tolvane prints that in the large type.",
+      "text": [
+        "Phobos' Tolvane AX-2 Ammonia Cracker\nA specific job, in a specific space. Supported ammonia cracking for crews who have planned the feeds and stores. Nitrogen is not a complete cabin atmosphere. Tolvane prints that in the large type.",
+        "Phobos' Tolvane AX-2 Ammonia Cracker\nOne job, done in its own space: supported ammonia cracking, for crews with the feeds and stores planned. Nitrogen alone is not a cabin atmosphere; Tolvane says so in large type."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -183,7 +240,10 @@
       "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-lc-ad": {
-      "text": "Phobos' Lixivar LC-3 Leach and Crystallise Unit\nSeparate the useful from the load. Identified feeds, supported recipes, and products that still need somewhere to go. Lixivar: ask what is in the vessel before asking what it is worth.",
+      "text": [
+        "Phobos' Lixivar LC-3 Leach and Crystallise Unit\nSeparate the useful from the load. Identified feeds, supported recipes, and products that still need somewhere to go. Lixivar: ask what is in the vessel before asking what it is worth.",
+        "Phobos' Lixivar LC-3 Leach and Crystallise Unit\nTake the useful part out of the load, from identified feeds by supported recipes, with somewhere ready for the products. Lixivar: know what is in the vessel before you ask what it is worth."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -192,7 +252,10 @@
       "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-lixivar-acid-ad": {
-      "text": "Lixivar acid equipment\nA dedicated plant, proper tanks and a line made for the job. Sulfuric acid belongs in its own supported route. The pale sage finish does not make it galley furniture.",
+      "text": [
+        "Lixivar acid equipment\nA dedicated plant, proper tanks and a line made for the job. Sulfuric acid belongs in its own supported route. The pale sage finish does not make it galley furniture.",
+        "Lixivar acid equipment\nDedicated plant, proper tanks and a line built for the job: sulfuric acid travels its own supported route. Pale sage paint does not make it galley furniture."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -201,7 +264,10 @@
       "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-ec-ad": {
-      "text": "Phobos' Oxsmith EC-4 Electrolysis Cell\nThere is useful material in supported rock feed. Getting it out takes electricity, heat handling and a plant planned around the products. Oxsmith: buy the job with your eyes open.",
+      "text": [
+        "Phobos' Oxsmith EC-4 Electrolysis Cell\nThere is useful material in supported rock feed. Getting it out takes electricity, heat handling and a plant planned around the products. Oxsmith: buy the job with your eyes open.",
+        "Phobos' Oxsmith EC-4 Electrolysis Cell\nSupported rock feed holds useful material. Getting it out takes electricity, heat handling and a plant built around the products. Oxsmith: buy the job with your eyes open."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -210,7 +276,10 @@
       "thread": "spacertales-mixed-plant-trade"
     },
     "spacertales-oxsmith-cr-ad": {
-      "text": "Phobos' Oxsmith CR-4 Carbothermal Reactor\nA different hot route for supported rock feed, using methane. Different feed bills, different outputs. Ask what your stores can handle before choosing which route your ship needs.",
+      "text": [
+        "Phobos' Oxsmith CR-4 Carbothermal Reactor\nA different hot route for supported rock feed, using methane. Different feed bills, different outputs. Ask what your stores can handle before choosing which route your ship needs.",
+        "Phobos' Oxsmith CR-4 Carbothermal Reactor\nAnother hot route for supported rock feed, this one using methane, with its own feed bill and its own outputs. Check what your stores can take before you choose your ship's route."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -223,7 +292,11 @@
     "spacertales-fennmark-label-story": {
       "moment": "story",
       "speakers": "locals",
-      "line": "The best plant foreman I knew wrote labels you could read from the doorway. Never needed to explain why.",
+      "line": [
+        "The best plant foreman I knew wrote labels you could read from the doorway. Never needed to explain why.",
+        "Best foreman I ever had wrote labels you could read from the hatch. Nobody ever had to ask which store was which.",
+        "One plant boss I knew labelled every store in letters a hand high. Never lost a batch."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -234,7 +307,11 @@
     "spacertales-fennmark-store-joke": {
       "moment": "joke",
       "speakers": "anyone",
-      "line": "Matching Fennmark stores look professional. Labels make them useful.",
+      "line": [
+        "Matching Fennmark stores look professional. Labels make them useful.",
+        "A row of identical Fennmark stores is very smart until you need the right one.",
+        "Same colour, same size, same shape. Fennmark stores need labels the way twins need name tags."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -245,7 +322,11 @@
     "spacertales-fennmark-unpaid-space": {
       "moment": "complaint",
       "speakers": "locals",
-      "line": "Broker charged for the machine, the stores, the lines and delivery. Dock charged for all the space in between.",
+      "line": [
+        "Broker charged for the machine, the stores, the lines and delivery. Dock charged for all the space in between.",
+        "Paid for the machine, the stores, the lines, the delivery. Then the dock billed us for the floor between them.",
+        "The broker's price covered everything except the space it all takes up. The dock covered that, at a price."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -256,7 +337,11 @@
     "spacertales-fennmark-route-jargon": {
       "moment": "jargon",
       "speakers": "anyone",
-      "line": "A line needs a supported connection. Two machines staring at each other across the floor are only neighbours.",
+      "line": [
+        "A line needs a supported connection. Two machines staring at each other across the floor are only neighbours.",
+        "Machines need a real connection to work together. Being in the same room doesn't count.",
+        "No line, no link. A gap of open floor is just a gap."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -267,7 +352,11 @@
     "spacertales-tolvane-narrow-job": {
       "moment": "small-talk",
       "speakers": "locals",
-      "line": "Tolvane knows what its machine does. Wish the last person selling me one did.",
+      "line": [
+        "Tolvane knows what its machine does. Wish the last person selling me one did.",
+        "Tolvane's very clear about what its machine is for. Pity the salesman wasn't.",
+        "The maker knows the job. It's the dealers who think it does everything."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -278,7 +367,11 @@
     "spacertales-tolvane-easy-air": {
       "moment": "worry",
       "speakers": "anyone",
-      "line": "Every time somebody says easy air, I want to see what they mean by air.",
+      "line": [
+        "Every time somebody says easy air, I want to see what they mean by air.",
+        "Easy air, they say. Easy what, exactly? Show me the gases.",
+        "When a seller promises easy air, I ask which part of the air they mean."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -289,7 +382,11 @@
     "spacertales-tolvane-teal-story": {
       "moment": "story",
       "speakers": "locals",
-      "line": "First Tolvane unit I saw was half hidden behind orange stores. Crew said the matching plant cost more than the useful one.",
+      "line": [
+        "First Tolvane unit I saw was half hidden behind orange stores. Crew said the matching plant cost more than the useful one.",
+        "Saw a Tolvane unit once, hidden behind a wall of orange stores. The stores cost more than the machine.",
+        "The first Tolvane I ever saw was buried behind matching stores. The crew said the useful bit was the cheapest bit."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -300,7 +397,11 @@
     "spacertales-lixivar-bucket-joke": {
       "moment": "joke",
       "speakers": "anyone",
-      "line": "Lixivar found value in my unidentified bucket. They sold me the invoice for identifying it.",
+      "line": [
+        "Lixivar found value in my unidentified bucket. They sold me the invoice for identifying it.",
+        "Asked Lixivar what my mystery bucket was worth. They said: one identification fee.",
+        "There was value in that bucket after all. Lixivar's, mostly, for telling me what was in it."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -311,7 +412,11 @@
     "spacertales-lixivar-no-list": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "If we're taking on a process vessel, I want its feed list. I don't like inheriting somebody else's probably.",
+      "line": [
+        "If we're taking on a process vessel, I want its feed list. I don't like inheriting somebody else's probably.",
+        "Before we take that process vessel, I want to know exactly what's been through it. Probably isn't a feed list.",
+        "No feed records, no deal. I don't want to inherit someone else's mystery."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -322,7 +427,11 @@
     "spacertales-lixivar-keeper": {
       "moment": "superstition",
       "speakers": "anyone",
-      "line": "They say the last person to label a vessel owns the trouble in it. I'd rather own a legible label.",
+      "line": [
+        "They say the last person to label a vessel owns the trouble in it. I'd rather own a legible label.",
+        "Whoever labels a vessel last owns whatever's in it, so they say. I'd rather my label was readable.",
+        "Old saying: the last name on the vessel owns the trouble inside. Write neatly."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -333,7 +442,11 @@
     "spacertales-lixivar-seller-complaint": {
       "moment": "complaint",
       "speakers": "locals",
-      "line": "Port wants a history for the process load. The seller's entire history was trust me.",
+      "line": [
+        "Port wants a history for the process load. The seller's entire history was trust me.",
+        "The port asked where the load came from. The seller said trust me. That's not a record.",
+        "Port wants a feed history. The seller offered a handshake."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -344,7 +457,11 @@
     "spacertales-oxsmith-foldout": {
       "moment": "small-talk",
       "speakers": "locals",
-      "line": "Oxsmith's new brochure unfolds. About time the stores fitted in the picture.",
+      "line": [
+        "Oxsmith's new brochure unfolds. About time the stores fitted in the picture.",
+        "The new Oxsmith brochure folds out so the rest of the plant fits in. Progress.",
+        "Oxsmith finally printed the stores and heat gear next to the machine. It took a foldout to manage it."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -358,7 +475,11 @@
     "spacertales-oxsmith-heat-story": {
       "moment": "story",
       "speakers": "locals",
-      "line": "An owner showed me a lovely Oxsmith refit drawing. I asked where the heat went. We started a second drawing.",
+      "line": [
+        "An owner showed me a lovely Oxsmith refit drawing. I asked where the heat went. We started a second drawing.",
+        "Somebody showed me a beautiful Oxsmith refit plan. I asked where the heat goes. They're on draft two now.",
+        "Lovely drawing of an Oxsmith install. No heat handling anywhere on it. We fixed that over a long supper."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -369,7 +490,11 @@
     "spacertales-oxsmith-rock-question": {
       "moment": "question",
       "speakers": "anyone",
-      "line": "If your ship's air started as somebody's rock, at what point did it become home?",
+      "line": [
+        "If your ship's air started as somebody's rock, at what point did it become home?",
+        "We breathe oxygen that came out of a rock. When does that start being our air?",
+        "If the air came from a rock and the water from ice, is the ship more asteroid than ship?"
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -380,7 +505,11 @@
     "spacertales-oxsmith-account-joke": {
       "moment": "joke",
       "speakers": "anyone",
-      "line": "There's oxygen in the rock. There's an electricity bill in the brochure.",
+      "line": [
+        "There's oxygen in the rock. There's an electricity bill in the brochure.",
+        "Oxygen from rock, says Oxsmith. Electricity from you, says the small print.",
+        "The rock has oxygen in it. Getting it out has a power bill in it."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -391,7 +520,11 @@
     "spacertales-process-last-bucket": {
       "moment": "jargon",
       "speakers": "crew",
-      "line": "That Slingwright letter counted the loading as well as the feeder. Material doesn't reach the intake because the caption says it did.",
+      "line": [
+        "That Slingwright letter counted the loading as well as the feeder. Material doesn't reach the intake because the caption says it did.",
+        "The Slingwright letter costs the loading too, not just the feeder. Nothing gets into the intake by caption.",
+        "Somebody still has to carry it to the intake. That Slingwright letter at least counted that."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -405,7 +538,11 @@
     "spacertales-process-label-question": {
       "moment": "question",
       "speakers": "anyone",
-      "line": "Is a thing yours when you buy it, when you understand it, or when nobody else will take it back?",
+      "line": [
+        "Is a thing yours when you buy it, when you understand it, or when nobody else will take it back?",
+        "When do you own a thing: when you pay, when you understand it, or when nobody will take it back?",
+        "Is it yours when you've paid for it, or when you finally know what it does?"
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -416,7 +553,11 @@
     "spacertales-process-profit-worry": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "Before starting a batch, I'm adding up what it takes to make it. The sale price is the easy number.",
+      "line": [
+        "Before starting a batch, I'm adding up what it takes to make it. The sale price is the easy number.",
+        "I'm counting what this batch costs us before I count what it sells for. The second number lies more.",
+        "The sale price is easy. What it takes to make the batch is the sum that matters."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"

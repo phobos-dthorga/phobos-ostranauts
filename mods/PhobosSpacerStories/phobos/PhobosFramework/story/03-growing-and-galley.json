@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained. Variant lines (Spacer Stories 0.4.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "articles": {
     "spacertales-verdemorrow-invoice": {
       "section": "phobos-makers",
@@ -43,8 +43,14 @@
   "broadcasts": {
     "spacertales-verdemorrow-invoice-news": {
       "title": "An archive you can eat",
-      "text": "At [place], Verdemorrow Agronomics has declined a dealer's offer to produce a founder portrait for its anniversary display. The firm will show its oldest surviving invoice instead: lights, pump fittings and one meal owed. Dealers say the document lacks a heroic face. The archivist says it establishes that somebody did the work and somebody else was supposed to feed them.",
-      "mention": "Verdemorrow's anniversary picture is an unpaid invoice. The meal on it sounds more useful than a portrait.",
+      "text": [
+        "At [place], Verdemorrow Agronomics has declined a dealer's offer to produce a founder portrait for its anniversary display. The firm will show its oldest surviving invoice instead: lights, pump fittings and one meal owed. Dealers say the document lacks a heroic face. The archivist says it establishes that somebody did the work and somebody else was supposed to feed them.",
+        "Offered a founder portrait for its anniversary display at [place], Verdemorrow Agronomics said no and chose its oldest surviving invoice: lights, pump fittings and one meal owed. Dealers complain that the document has no heroic face. The archivist says it proves somebody did the work and somebody else was meant to feed them."
+      ],
+      "mention": [
+        "Verdemorrow's anniversary picture is an unpaid invoice. The meal on it sounds more useful than a portrait.",
+        "Verdemorrow is showing an old invoice instead of a founder's portrait. It lists one meal owed. Fair enough."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -54,8 +60,14 @@
     },
     "spacertales-continuance-supper-label": {
       "title": "Not supper",
-      "text": "At [place], Verdemorrow has restored the words NOT SUPPER to a batch of Continuance planting-stock labels after crews complained about their replacement. The revised wording had called the contents a future cultivation allocation. Customers say it looked like an invitation to ignore the packet until a cook opened it. Verdemorrow says the old label tested better in galleys with tired people in them.",
-      "mention": "Continuance packets say NOT SUPPER again. Apparently future cultivation allocation wasn't much of a warning.",
+      "text": [
+        "At [place], Verdemorrow has restored the words NOT SUPPER to a batch of Continuance planting-stock labels after crews complained about their replacement. The revised wording had called the contents a future cultivation allocation. Customers say it looked like an invitation to ignore the packet until a cook opened it. Verdemorrow says the old label tested better in galleys with tired people in them.",
+        "Crews at [place] complained, and Verdemorrow has put the words NOT SUPPER back on a batch of Continuance planting-stock labels. The replacement wording had called the contents a future cultivation allocation, which customers say read like permission to ignore the packet until a cook opened it. The old label, Verdemorrow says, did better in galleys full of tired people."
+      ],
+      "mention": [
+        "Continuance packets say NOT SUPPER again. Apparently future cultivation allocation wasn't much of a warning.",
+        "Verdemorrow's Continuance labels are back to NOT SUPPER. Tired cooks read that one."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -65,8 +77,14 @@
     },
     "spacertales-hearth-borrowed-photo": {
       "title": "One galley, two claims",
-      "text": "The Verdemorrow correspondent working on the receiving file at [place] has found a crew account beside the Sable Margin galley photograph. The caption credits a contractor's provision programme. The letter names the grower, the cook and the installer. The jacket in the photograph was borrowed. A present-day product comparison is still being requested.",
-      "mention": "That galley photo in the receiving file had a borrowed jacket. The crew's supper took more work than the caption.",
+      "text": [
+        "The Verdemorrow correspondent working on the receiving file at [place] has found a crew account beside the Sable Margin galley photograph. The caption credits a contractor's provision programme. The letter names the grower, the cook and the installer. The jacket in the photograph was borrowed. A present-day product comparison is still being requested.",
+        "Beside the Sable Margin galley photograph in the receiving file at [place], the Verdemorrow correspondent has found a crew account. The caption credits a contractor's provision programme; the letter names the grower, the cook and the installer, and notes that the jacket in the photograph was borrowed. A present-day product comparison is still wanted."
+      ],
+      "mention": [
+        "That galley photo in the receiving file had a borrowed jacket. The crew's supper took more work than the caption.",
+        "The galley photo in that receiving file has a crew letter behind it. Borrowed jacket, real supper."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -80,8 +98,14 @@
     },
     "spacertales-groundwork-salt-invoice": {
       "title": "The missing line",
-      "text": "At [place], Verdemorrow has corrected a reseller's recovery leaflet that promised customers never to buy nutrients again. The firm says useful recovery still requires replenishment and leaves material that a crop cannot simply eat. The reseller blames a missing sentence at the page break. Crews say the missing sentence had previously appeared on the invoice.",
-      "mention": "Verdemorrow's reseller forgot the part where you still need supplies. Page break, they say.",
+      "text": [
+        "At [place], Verdemorrow has corrected a reseller's recovery leaflet that promised customers never to buy nutrients again. The firm says useful recovery still requires replenishment and leaves material that a crop cannot simply eat. The reseller blames a missing sentence at the page break. Crews say the missing sentence had previously appeared on the invoice.",
+        "Verdemorrow has corrected a reseller's recovery leaflet at [place] that promised customers they would never buy nutrients again. Useful recovery still needs replenishing, the firm says, and leaves material a crop cannot simply eat. The reseller blames a sentence lost at a page break. Crews point out that the same sentence used to appear on the invoice."
+      ],
+      "mention": [
+        "Verdemorrow's reseller forgot the part where you still need supplies. Page break, they say.",
+        "A reseller told folk they'd never need to buy nutrients again. Verdemorrow says otherwise, and so does the invoice."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -91,8 +115,14 @@
     },
     "spacertales-lettuce-not-luxury": {
       "title": "Cargo classification",
-      "text": "At [place], a dock receiver has reclassified ship-grown lettuce after a broker entered it as decorative vegetation. The cargo owner says the leaves were intended for supper, not a reception area. Verdemorrow welcomed the correction and declined to say whether its advertising photographs had contributed to the confusion. The broker says both categories involve tasteful arrangement.",
-      "mention": "They filed a crew's lettuce as decoration. Bet they'd call my supper a temporary installation.",
+      "text": [
+        "At [place], a dock receiver has reclassified ship-grown lettuce after a broker entered it as decorative vegetation. The cargo owner says the leaves were intended for supper, not a reception area. Verdemorrow welcomed the correction and declined to say whether its advertising photographs had contributed to the confusion. The broker says both categories involve tasteful arrangement.",
+        "A broker at [place] entered a crew's ship-grown lettuce as decorative vegetation, and the dock receiver has now reclassified it. The owner says the leaves were for supper, not a reception area. Verdemorrow welcomed the correction and would not say whether its own advertising photographs were to blame. Both categories, the broker says, involve tasteful arrangement."
+      ],
+      "mention": [
+        "They filed a crew's lettuce as decoration. Bet they'd call my supper a temporary installation.",
+        "Somebody filed ship-grown lettuce as decoration. The crew had other plans for it, like eating it."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -102,8 +132,14 @@
     },
     "spacertales-verdemorrow-late-trial": {
       "title": "The seed arrives first",
-      "text": "A late Verdemorrow display shipment has left a dealer at [place] with seed packets and no rack to demonstrate. Freight handlers say the delay affects the display equipment, not local stock already on sale. The dealer has arranged a talk about crop supplies instead. Visitors have asked whether talking also counts as watering.",
-      "mention": "Verdemorrow's display rack is late at [place]. They've got a talk ready. Plants prefer water.",
+      "text": [
+        "A late Verdemorrow display shipment has left a dealer at [place] with seed packets and no rack to demonstrate. Freight handlers say the delay affects the display equipment, not local stock already on sale. The dealer has arranged a talk about crop supplies instead. Visitors have asked whether talking also counts as watering.",
+        "A dealer at [place] has Verdemorrow seed packets and no rack to show them in, after a display shipment ran late. Freight handlers say only the display equipment is delayed, not stock already on sale. The dealer is giving a talk on crop supplies instead; visitors ask whether talking counts as watering."
+      ],
+      "mention": [
+        "Verdemorrow's display rack is late at [place]. They've got a talk ready. Plants prefer water.",
+        "No display rack at [place], just a talk about crops. You can't water a seed with a speech."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -114,7 +150,10 @@
   },
   "adverts": {
     "spacertales-continuance-ad": {
-      "text": "Verdemorrow Continuance\nLeave something for the next crop. Planting stock for a ship that plans to leave again. Store it where the cook can read the label. Where we go, life grows.",
+      "text": [
+        "Verdemorrow Continuance\nLeave something for the next crop. Planting stock for a ship that plans to leave again. Store it where the cook can read the label. Where we go, life grows.",
+        "Verdemorrow Continuance\nPlanting stock for ships that mean to leave again, and for the crop after this one. Keep it where the cook can read the label. Where we go, life grows."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -123,7 +162,10 @@
       "thread": "spacertales-galley-trade"
     },
     "spacertales-hearth-ad": {
-      "text": "Phobos' Verdemorrow Hearth-2 Galley Cooker\nGive the end of a shift a smell worth following. Supported recipes, real ingredients, a hot meal in the tray. Washing up remains a crew matter.",
+      "text": [
+        "Phobos' Verdemorrow Hearth-2 Galley Cooker\nGive the end of a shift a smell worth following. Supported recipes, real ingredients, a hot meal in the tray. Washing up remains a crew matter.",
+        "Phobos' Verdemorrow Hearth-2 Galley Cooker\nA hot tray at the end of the shift, cooked from supported recipes and real ingredients. Worth walking the length of the ship for. The washing up is still yours."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -132,7 +174,10 @@
       "thread": "spacertales-galley-trade"
     },
     "spacertales-groundwork-honest-ad": {
-      "text": "Verdemorrow Groundwork\nPlants need supplies. Recovery helps; replenishment still belongs on the shopping list. Nutrients and crop-support equipment for crews who read the second half of the brochure.",
+      "text": [
+        "Verdemorrow Groundwork\nPlants need supplies. Recovery helps; replenishment still belongs on the shopping list. Nutrients and crop-support equipment for crews who read the second half of the brochure.",
+        "Verdemorrow Groundwork\nRecovery stretches your supplies; it does not replace them. Nutrients and crop-support equipment for crews who read the brochure to the end."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -141,7 +186,10 @@
       "thread": "spacertales-galley-trade"
     },
     "spacertales-firstlight-space-ad": {
-      "text": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack\nA little green on a working ship. Plan the space, supply the water and nutrients, and keep the room fit for a crop. The first leaf is yours. So is the work after it.",
+      "text": [
+        "Phobos' Verdemorrow Firstlight-4 Cultivation Rack\nA little green on a working ship. Plan the space, supply the water and nutrients, and keep the room fit for a crop. The first leaf is yours. So is the work after it.",
+        "Phobos' Verdemorrow Firstlight-4 Cultivation Rack\nSomething green aboard a working ship. Give it space, water, nutrients and a room a crop can live in. The first leaf is your reward; the work that follows is your job."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -154,7 +202,11 @@
     "spacertales-grow-invoice-story": {
       "moment": "story",
       "speakers": "locals",
-      "line": "Verdemorrow's first invoice includes a meal. I'd like to know if they ever paid that bit.",
+      "line": [
+        "Verdemorrow's first invoice includes a meal. I'd like to know if they ever paid that bit.",
+        "Verdemorrow's oldest invoice lists one meal owed. I hope somebody settled that.",
+        "Funny thing, the first Verdemorrow bill: lights, fittings, and a meal. I wonder who went hungry."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -165,7 +217,11 @@
     "spacertales-grow-not-supper": {
       "moment": "joke",
       "speakers": "anyone",
-      "line": "NOT SUPPER is the most important technical instruction Verdemorrow ever wrote.",
+      "line": [
+        "NOT SUPPER is the most important technical instruction Verdemorrow ever wrote.",
+        "Best engineering Verdemorrow ever did: two words on a seed packet. NOT SUPPER.",
+        "Every galley needs one sign. Verdemorrow printed it on the packets: NOT SUPPER."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -176,7 +232,11 @@
     "spacertales-grow-inspection-tax": {
       "moment": "complaint",
       "speakers": "locals",
-      "line": "That lettuce report filed supper as decoration. I wonder whether eating it counts as removing the display.",
+      "line": [
+        "That lettuce report filed supper as decoration. I wonder whether eating it counts as removing the display.",
+        "Lettuce filed as decoration. Do I need a permit to eat the display?",
+        "If that lettuce counts as ornament, the crew's supper was an art exhibition."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -190,7 +250,11 @@
     "spacertales-grow-reserve-worry": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "I can count the meals. It's the planting stock for the next crop I keep checking.",
+      "line": [
+        "I can count the meals. It's the planting stock for the next crop I keep checking.",
+        "We've got meals for now. What I keep checking is whether we've kept back enough to plant again.",
+        "Supper's fine. Seed for the next crop is what keeps me up."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -204,7 +268,11 @@
     "spacertales-grow-home-question": {
       "moment": "question",
       "speakers": "anyone",
-      "line": "Does a ship become home when something grows in it, or when somebody notices it's stopped growing?",
+      "line": [
+        "Does a ship become home when something grows in it, or when somebody notices it's stopped growing?",
+        "Is a ship home once something grows aboard, or once somebody misses it when it stops?",
+        "When does a hull turn into a home? The first green leaf, or the first person who waters it?"
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -215,7 +283,11 @@
     "spacertales-grow-leaf-superstition": {
       "moment": "superstition",
       "speakers": "anyone",
-      "line": "They say the first leaf belongs to the ship. Cook says the ship can wait until after supper.",
+      "line": [
+        "They say the first leaf belongs to the ship. Cook says the ship can wait until after supper.",
+        "First leaf off the rack goes to the ship, they say. Our cook says the ship can queue like everyone else.",
+        "Tradition says you leave the first leaf for the ship. The cook says tradition can have the second."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -226,7 +298,11 @@
     "spacertales-grow-tray-jargon": {
       "moment": "jargon",
       "speakers": "anyone",
-      "line": "Four trays, one crop. You can't persuade the left half to be potatoes by labelling it differently.",
+      "line": [
+        "Four trays, one crop. You can't persuade the left half to be potatoes by labelling it differently.",
+        "One rack, one crop cycle across all four trays. Writing potatoes on one tray changes nothing.",
+        "The trays share a crop. You get one kind per rack, however hopeful your labels."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -237,7 +313,11 @@
     "spacertales-grow-borrowed-nutrients": {
       "moment": "story",
       "speakers": "crew",
-      "line": "That galley account kept the borrowed jacket, the nutrient charge and the cook's names. The clean caption had room for one contractor.",
+      "line": [
+        "That galley account kept the borrowed jacket, the nutrient charge and the cook's names. The clean caption had room for one contractor.",
+        "That galley account names the cook, the borrowed jacket and the nutrient charge. The caption only had space for the contractor.",
+        "The account behind that photo remembers who cooked and who lent the jacket. The caption remembered who paid for the caption."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -251,7 +331,11 @@
     "spacertales-grow-hearth-stop": {
       "moment": "small-talk",
       "speakers": "locals",
-      "line": "A Hearth meal makes a good excuse to stop work. Somebody always finds the next job before dessert.",
+      "line": [
+        "A Hearth meal makes a good excuse to stop work. Somebody always finds the next job before dessert.",
+        "Nothing stops a shift like a Hearth meal. Nothing restarts it like someone remembering a job before pudding.",
+        "Hot food means everyone sits down. For about ten minutes."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -262,7 +346,11 @@
     "spacertales-grow-packet-pocket": {
       "moment": "small-talk",
       "speakers": "locals",
-      "line": "Continuance seed packets fit in a pocket. That doesn't mean a pocket is where you'll remember you left them.",
+      "line": [
+        "Continuance seed packets fit in a pocket. That doesn't mean a pocket is where you'll remember you left them.",
+        "Seed packets are pocket-sized. So is everything else you lose.",
+        "I keep my Continuance packets in my pocket so I won't forget them. Then I forget which pocket."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -273,7 +361,11 @@
     "spacertales-grow-residue-joke": {
       "moment": "joke",
       "speakers": "crew",
-      "line": "Captain asked whether the rack recycled everything. I offered to put the next invoice in it.",
+      "line": [
+        "Captain asked whether the rack recycled everything. I offered to put the next invoice in it.",
+        "Captain thinks the rack turns everything back into food. I said it couldn't even turn the invoice into a refund.",
+        "No, captain, the grow rack does not recycle everything. Mostly it recycles my patience."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"
@@ -287,7 +379,11 @@
     "spacertales-grow-galley-smell": {
       "moment": "story",
       "speakers": "locals",
-      "line": "I knew a ship by the smell from its Hearth cooker. New owner took it out. Couldn't find the ship for a week.",
+      "line": [
+        "I knew a ship by the smell from its Hearth cooker. New owner took it out. Couldn't find the ship for a week.",
+        "One ship I always found by the Hearth smell in its corridor. Then they took the cooker out, and I walked right past.",
+        "You could find that ship blindfold by its galley. The new owner removed the cooker; nobody could find it after."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture"

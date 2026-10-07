@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained. Variant lines (Spacer Stories 0.4.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "articles": {
     "spacertales-alembrine-history": {
       "section": "phobos-makers",
@@ -44,8 +44,14 @@
   "broadcasts": {
     "spacertales-alembrine-pump-story": {
       "title": "The borrowed pump",
-      "text": "At [place], Alembrine dealers are debating two incompatible accounts of a promotional bottle sent to settle a disagreement over a borrowed pump. One account says the bottle reconciled the owners; the other says it arrived at the wrong ship and widened the quarrel. The firm says neither account came from its process department. The pump's owner says any correction should include the pump's current location.",
-      "mention": "That Alembrine bottle either fixed the pump argument or started it. Nobody's found the pump.",
+      "text": [
+        "At [place], Alembrine dealers are debating two incompatible accounts of a promotional bottle sent to settle a disagreement over a borrowed pump. One account says the bottle reconciled the owners; the other says it arrived at the wrong ship and widened the quarrel. The firm says neither account came from its process department. The pump's owner says any correction should include the pump's current location.",
+        "Two accounts of a promotional bottle are going round Alembrine dealers at [place]. It was sent to settle an argument over a borrowed pump: one account says it made peace between the owners, the other that it reached the wrong ship and made things worse. Alembrine says neither came from its process department. The pump's owner wants any correction to say where the pump is now."
+      ],
+      "mention": [
+        "That Alembrine bottle either fixed the pump argument or started it. Nobody's found the pump.",
+        "Either that Alembrine bottle settled the pump quarrel or it made it worse. The pump is still missing."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -58,8 +64,14 @@
     },
     "spacertales-alembrine-provision-word": {
       "title": "Voyage provision",
-      "text": "At [place], Alembrine has asked an equipment dealer to separate spirit advertising from its operating leaflet. The dealer had described bottled spirit as essential voyage provision next to the fermenter specifications. The firm's technical staff say the machine requires feed and proper process supplies, while a crew's essential provisions include meals. The dealer says meals were outside the campaign's scope.",
-      "mention": "Alembrine's still leaflet accidentally made the spirit sound like supper. Cook might disagree.",
+      "text": [
+        "At [place], Alembrine has asked an equipment dealer to separate spirit advertising from its operating leaflet. The dealer had described bottled spirit as essential voyage provision next to the fermenter specifications. The firm's technical staff say the machine requires feed and proper process supplies, while a crew's essential provisions include meals. The dealer says meals were outside the campaign's scope.",
+        "Alembrine has asked a dealer at [place] to keep spirit advertising out of its operating leaflet, after the dealer called bottled spirit essential voyage provision beside the fermenter specifications. The machine needs feed and proper process supplies, technical staff say; a crew's essential provisions include meals. The dealer says meals were outside the campaign."
+      ],
+      "mention": [
+        "Alembrine's still leaflet accidentally made the spirit sound like supper. Cook might disagree.",
+        "An Alembrine leaflet called spirit essential provisions. The cook has views on what's essential."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -69,8 +81,14 @@
     },
     "spacertales-alembrine-grain-dispute": {
       "title": "The cupboard meeting",
-      "text": "At [place], a joint Verdemorrow and Alembrine display has been delayed after its host crew used the demonstration grain for a hot meal. Dealers say the intended demonstration was a complete shipboard supply chain. The cook says the grain completed one. The next display will reserve separate stocks for planting, cooking and process feed.",
-      "mention": "They cooked the grain for that Verdemorrow and Alembrine display. Sounds like a successful demonstration to me.",
+      "text": [
+        "At [place], a joint Verdemorrow and Alembrine display has been delayed after its host crew used the demonstration grain for a hot meal. Dealers say the intended demonstration was a complete shipboard supply chain. The cook says the grain completed one. The next display will reserve separate stocks for planting, cooking and process feed.",
+        "A joint Verdemorrow and Alembrine display at [place] is running late because its host crew cooked the demonstration grain. Dealers had planned to show a complete shipboard supply chain; the cook says the grain completed one. Next time, planting stock, cooking grain and process feed will be kept apart."
+      ],
+      "mention": [
+        "They cooked the grain for that Verdemorrow and Alembrine display. Sounds like a successful demonstration to me.",
+        "The display grain ended up as supper. Depending who you ask, the demonstration worked."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture",
@@ -81,8 +99,14 @@
     },
     "spacertales-slingwright-worker-photo": {
       "title": "Somebody still loads it",
-      "text": "The Slingwright desk at [place] has retrieved a worker's letter about an RM-1 publicity photograph. The writer supplied the loading that left the room clear, but the caption credited the feeder alone. Sales filed the complaint as an image correction. The desk is separating the equipment claim from the disputed fee; no payment has been reported.",
-      "mention": "Slingwright's letter at [place] counts the worker who loaded the feeder. The fee is still another question.",
+      "text": [
+        "The Slingwright desk at [place] has retrieved a worker's letter about an RM-1 publicity photograph. The writer supplied the loading that left the room clear, but the caption credited the feeder alone. Sales filed the complaint as an image correction. The desk is separating the equipment claim from the disputed fee; no payment has been reported.",
+        "A worker's letter about an RM-1 publicity photograph has been retrieved by the Slingwright desk at [place]. The writer did the loading that left the room clear; the caption credited only the feeder. Sales filed the complaint as an image correction. The desk is separating the equipment claim from the disputed fee, and no payment has been reported."
+      ],
+      "mention": [
+        "Slingwright's letter at [place] counts the worker who loaded the feeder. The fee is still another question.",
+        "That Slingwright letter at [place] gives the loader some credit at last. Nobody has paid the fee yet."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -95,8 +119,14 @@
     },
     "spacertales-slingwright-valuable-stock": {
       "title": "A useful distinction",
-      "text": "At [place], a Slingwright dealer has withdrawn advice to send all processing output to the reaction-mass feeder. Operators pointed out that finished material and useful feed have other purposes, while the RM-1 has a defined list of terminal remainders it accepts. The dealer says all was intended informally. Customers say their invoices are rather formal.",
-      "mention": "Slingwright dealer said throw all the output in the feeder. Apparently all was only advertising.",
+      "text": [
+        "At [place], a Slingwright dealer has withdrawn advice to send all processing output to the reaction-mass feeder. Operators pointed out that finished material and useful feed have other purposes, while the RM-1 has a defined list of terminal remainders it accepts. The dealer says all was intended informally. Customers say their invoices are rather formal.",
+        "Advice to send all processing output to the reaction-mass feeder has been withdrawn by a Slingwright dealer at [place]. Operators pointed out that finished material and useful feed have other uses, and the RM-1 accepts only a defined list of terminal remainders. The dealer meant all informally; customers say their invoices are rather formal."
+      ],
+      "mention": [
+        "Slingwright dealer said throw all the output in the feeder. Apparently all was only advertising.",
+        "A Slingwright dealer told folk to feed everything to the RM-1. The feeder itself is pickier than that."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -107,8 +137,14 @@
     "spacertales-alembrine-letter-call": {
       "title": "Labels wanted, bottles kept",
       "thread": "spacertales-still-correspondence",
-      "text": "Alembrine's customer letters desk at [place] is comparing old product descriptions with current bottled stock. Operators with a Copperhead-3 are invited to read the correspondence. A present bottle can help identify a label, but will not be taken or treated as proof of an old batch.",
-      "mention": "Alembrine's desk at [place] is comparing labels. Keeping your bottle sounds like the useful part.",
+      "text": [
+        "Alembrine's customer letters desk at [place] is comparing old product descriptions with current bottled stock. Operators with a Copperhead-3 are invited to read the correspondence. A present bottle can help identify a label, but will not be taken or treated as proof of an old batch.",
+        "At [place], Alembrine's customer letters desk is checking old product descriptions against current bottled stock, and invites Copperhead-3 operators to read the correspondence. A bottle on hand can help identify a label; it will not be taken, and it proves nothing about an old batch."
+      ],
+      "mention": [
+        "Alembrine's desk at [place] is comparing labels. Keeping your bottle sounds like the useful part.",
+        "Alembrine wants Copperhead-3 owners to read some old letters at [place]. You keep your bottle."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -118,8 +154,14 @@
     "spacertales-slingwright-letter-call": {
       "title": "Loading belongs in the picture",
       "thread": "spacertales-loading-work",
-      "text": "The Slingwright correspondence desk at [place] has asked RM-1 operators to read a retained worker's account of equipment publicity. The desk wants loading work described alongside the feeder's accepted stock. It is offering a copy of the letters, not a job, a payment or a request to run a batch.",
-      "mention": "Slingwright has loading letters at [place]. Reading them won't use up your feed.",
+      "text": [
+        "The Slingwright correspondence desk at [place] has asked RM-1 operators to read a retained worker's account of equipment publicity. The desk wants loading work described alongside the feeder's accepted stock. It is offering a copy of the letters, not a job, a payment or a request to run a batch.",
+        "RM-1 operators are invited by the Slingwright correspondence desk at [place] to read a worker's account of equipment publicity, kept so that the loading work is described alongside the feeder's accepted stock. The desk offers copies of the letters only: no job, no payment and no batch to run."
+      ],
+      "mention": [
+        "Slingwright has loading letters at [place]. Reading them won't use up your feed.",
+        "There are loading letters at the Slingwright desk at [place]. Read them; nobody's asking for a batch."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -129,7 +171,10 @@
   },
   "adverts": {
     "spacertales-alembrine-copperhead-ad": {
-      "text": "Phobos' Alembrine Copperhead-3 Fermenter-Still\nA second use for supported feed you can spare. A proper process, real supplies and cask storage planned around the result. Decide what belongs to supper before starting.",
+      "text": [
+        "Phobos' Alembrine Copperhead-3 Fermenter-Still\nA second use for supported feed you can spare. A proper process, real supplies and cask storage planned around the result. Decide what belongs to supper before starting.",
+        "Phobos' Alembrine Copperhead-3 Fermenter-Still\nSupported feed you can spare, given a second life. A proper process, real supplies and cask storage planned for the result. Settle what belongs to supper before you start."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -138,7 +183,10 @@
       "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-corker-ad": {
-      "text": "Phobos' Alembrine Corker-2 Bottling Unit\nSuitable cask ethanol into Alembrine spirit, with the required bottling supplies. Give the product a label and give the cook a different cupboard.",
+      "text": [
+        "Phobos' Alembrine Corker-2 Bottling Unit\nSuitable cask ethanol into Alembrine spirit, with the required bottling supplies. Give the product a label and give the cook a different cupboard.",
+        "Phobos' Alembrine Corker-2 Bottling Unit\nSuitable cask ethanol, the right bottling supplies, and Alembrine spirit at the end of it. Label every bottle, and keep them in a different cupboard from the cook's."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -147,7 +195,10 @@
       "thread": "spacertales-still-correspondence"
     },
     "spacertales-alembrine-brand-ad": {
-      "text": "Alembrine\nCopper, brass and the end of a long shift. Process equipment for the feed you have actually set aside. Meals, planting stock and process feed deserve their own places.",
+      "text": [
+        "Alembrine\nCopper, brass and the end of a long shift. Process equipment for the feed you have actually set aside. Meals, planting stock and process feed deserve their own places.",
+        "Alembrine\nCopper, brass and a long shift finally over. Process equipment for feed you have truly set aside; meals, planting stock and process feed each keep their own shelf."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -156,7 +207,10 @@
       "thread": "spacertales-still-correspondence"
     },
     "spacertales-slingwright-rm-ad": {
-      "text": "Phobos' Slingwright RM-1 Reaction Mass Feeder\nThe remainder still weighs something. Give accepted terminal remainder stock its supported route into reaction mass. Powered machinery; somebody still has to supply the feed.",
+      "text": [
+        "Phobos' Slingwright RM-1 Reaction Mass Feeder\nThe remainder still weighs something. Give accepted terminal remainder stock its supported route into reaction mass. Powered machinery; somebody still has to supply the feed.",
+        "Phobos' Slingwright RM-1 Reaction Mass Feeder\nRemainders still have mass. Send accepted terminal remainder stock along its supported route into reaction mass. Powered machinery, and someone still has to keep it fed."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -169,7 +223,11 @@
     "spacertales-alembrine-pump-gossip": {
       "moment": "small-talk",
       "speakers": "locals",
-      "line": "The bottle made it back. The borrowed pump didn't. That's the Alembrine story I believe.",
+      "line": [
+        "The bottle made it back. The borrowed pump didn't. That's the Alembrine story I believe.",
+        "Of all the Alembrine stories, I trust the one where the bottle came home and the pump never did.",
+        "Bottle returned, pump still out on loan. Sounds like every borrowing I've heard of."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -183,7 +241,11 @@
     "spacertales-alembrine-cook-story": {
       "moment": "story",
       "speakers": "crew",
-      "line": "Cook caught a dealer carrying our grain towards the still. Called the whole demonstration supper and took it back.",
+      "line": [
+        "Cook caught a dealer carrying our grain towards the still. Called the whole demonstration supper and took it back.",
+        "A dealer tried to take our grain to the still. Cook stepped in, called it supper, and that was that.",
+        "Our cook rescued the grain from a still demonstration. The dealer never saw it again, except on a plate."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture",
@@ -199,7 +261,11 @@
     "spacertales-alembrine-three-labels": {
       "moment": "jargon",
       "speakers": "anyone",
-      "line": "Food, planting stock, process feed. Same cupboard doesn't mean the same use.",
+      "line": [
+        "Food, planting stock, process feed. Same cupboard doesn't mean the same use.",
+        "Three piles: eat it, plant it, or process it. Mixing them up wastes all three.",
+        "Grain for supper, grain for sowing, grain for the still. Label which is which."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture",
@@ -211,7 +277,11 @@
     "spacertales-alembrine-bottle-joke": {
       "moment": "joke",
       "speakers": "crew",
-      "line": "Alembrine gives the end of a shift a bottle. The captain gives it another shift.",
+      "line": [
+        "Alembrine gives the end of a shift a bottle. The captain gives it another shift.",
+        "End of shift: Alembrine offers a bottle. The captain offers overtime.",
+        "The still gives us a reason to stop. The captain gives us a reason not to."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -225,7 +295,11 @@
     "spacertales-alembrine-ceremony": {
       "moment": "superstition",
       "speakers": "anyone",
-      "line": "Never open the first bottle until the batch is put away. That's what the brewer says when he wants you to help tidy up.",
+      "line": [
+        "Never open the first bottle until the batch is put away. That's what the brewer says when he wants you to help tidy up.",
+        "First bottle stays shut until the batch is stowed. Funny how that rule always gets you tidying.",
+        "Never toast a batch before it's put away. Bad luck, says the brewer. Free labour, I say."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -236,7 +310,11 @@
     "spacertales-alembrine-grain-worry": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "I'm less worried about the still than the argument over what grain we're allowed to put in it.",
+      "line": [
+        "I'm less worried about the still than the argument over what grain we're allowed to put in it.",
+        "The still's fine. What worries me is the row about which grain goes in it.",
+        "We'll argue over the grain long before the still gives us trouble."
+      ],
       "requires": {
         "mods": [
           "PhobosAgriculture",
@@ -251,7 +329,11 @@
     "spacertales-alembrine-permit": {
       "moment": "complaint",
       "speakers": "locals",
-      "line": "That Alembrine leaflet called spirit voyage provision. The cook deserves a chance to read the next draft.",
+      "line": [
+        "That Alembrine leaflet called spirit voyage provision. The cook deserves a chance to read the next draft.",
+        "Spirit as voyage provision? Let the cook edit that leaflet next time.",
+        "Whoever wrote that Alembrine leaflet should spend a week living on its idea of provisions."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -265,7 +347,11 @@
     "spacertales-slingwright-pile-joke": {
       "moment": "joke",
       "speakers": "crew",
-      "line": "Bought a feeder for the tomorrow pile. Now the tomorrow pile is waiting to be loaded.",
+      "line": [
+        "Bought a feeder for the tomorrow pile. Now the tomorrow pile is waiting to be loaded.",
+        "We bought a feeder to clear the tomorrow pile. The pile has learned to wait for the feeder.",
+        "The feeder eats the leftovers. Somebody still has to carry them over, and it's always tomorrow."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -279,7 +365,11 @@
     "spacertales-slingwright-last-job": {
       "moment": "story",
       "speakers": "locals",
-      "line": "Last plant I worked had a Slingwright feeder bought after every store was full. I've seen better orders of work.",
+      "line": [
+        "Last plant I worked had a Slingwright feeder bought after every store was full. I've seen better orders of work.",
+        "Worked a plant that bought its Slingwright feeder only after every store was stuffed. A bit late, that.",
+        "My old plant got a feeder once the stores were full to the hatch. Planning was not our strong point."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -290,7 +380,11 @@
     "spacertales-slingwright-finished-stock": {
       "moment": "jargon",
       "speakers": "anyone",
-      "line": "Finished stock is not automatically remainder feed. Read what the feeder accepts before moving the crate.",
+      "line": [
+        "Finished stock is not automatically remainder feed. Read what the feeder accepts before moving the crate.",
+        "Don't send good stock to the feeder. It takes remainders from a list; check the list first.",
+        "The RM-1 has a list. Finished goods aren't on it."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -301,7 +395,11 @@
     "spacertales-slingwright-philosophy": {
       "moment": "question",
       "speakers": "anyone",
-      "line": "When does leftover become waste? When nobody wants it, or when nobody will pay to store it?",
+      "line": [
+        "When does leftover become waste? When nobody wants it, or when nobody will pay to store it?",
+        "Is it leftover or waste? Depends whether anybody will pay to keep it.",
+        "At what point does spare become rubbish: when no one wants it, or when storing it costs more than it's worth?"
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"
@@ -312,7 +410,11 @@
     "spacertales-slingwright-rent": {
       "moment": "complaint",
       "speakers": "locals",
-      "line": "Port charges storage on remainder stock. Seems the one thing a batch makes reliably is another bill.",
+      "line": [
+        "Port charges storage on remainder stock. Seems the one thing a batch makes reliably is another bill.",
+        "Storage fees on the remainders. Every batch makes at least one product, and it's always a bill.",
+        "Port wants rent for our leftovers. The leftovers are the only thing that never runs short."
+      ],
       "requires": {
         "mods": [
           "PhobosManufacturing"

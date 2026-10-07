@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained.",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Drafted with OpenAI's ChatGPT and reviewed for the project: histories and local incidents, open to owner revision; not vanilla canon. Rewritten under docs/development/spacer-stories-rewrite-handoff.md with Framework's places, people and threads. Setting and product evidence: docs/development/spacer-stories-authoring.md. No operating, market, legal or faction rules are changed. Existing entry and step ids are retained. Variant lines (Spacer Stories 0.4.0, 8 October 2026): every variant after the first is agent-authored by Claude under the owner's direction of 8 October 2026, held for owner review.",
   "articles": {
     "spacertales-asterel-history": {
       "section": "phobos-makers",
@@ -38,8 +38,14 @@
   "broadcasts": {
     "spacertales-asterel-assistance-word": {
       "title": "Assistance, in full",
-      "text": "At [place], Asterel is challenging a dealer campaign that describes Polaris modules as a substitute for a pilot. The company says its controls use the ship's fitted propulsion and observations, and do not make fuel, remove wear or excuse a bad approach. The dealer has restored the word assistance to its copy. Captains report that the word is now printed below the finance terms.",
-      "mention": "Asterel made them put assistance back in the advert. It's underneath the loan details.",
+      "text": [
+        "At [place], Asterel is challenging a dealer campaign that describes Polaris modules as a substitute for a pilot. The company says its controls use the ship's fitted propulsion and observations, and do not make fuel, remove wear or excuse a bad approach. The dealer has restored the word assistance to its copy. Captains report that the word is now printed below the finance terms.",
+        "Asterel is challenging a dealer at [place] whose campaign sold Polaris modules as a stand-in for a pilot. Its controls use the ship's own fitted propulsion and observations, Asterel says; they make no fuel, remove no wear and excuse no bad approach. The dealer has put the word assistance back in its copy. Captains say it now sits below the finance terms."
+      ],
+      "mention": [
+        "Asterel made them put assistance back in the advert. It's underneath the loan details.",
+        "Asterel got the word assistance put back in that advert. It sits just under the finance terms."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -49,8 +55,14 @@
     },
     "spacertales-asterel-clock-argument": {
       "title": "Whose time was saved?",
-      "text": "At [place], an Asterel buyer has disputed a contractor's claim that a navigation module saved a full shift of labour. The buyer says the crew spent the recovered shift clearing freight paperwork at the destination. Asterel says the product reduced time at the controls, not time belonging to the employer. The contractor has asked whether that distinction is covered by the warranty.",
-      "mention": "That Asterel module saved a crew a shift. The dock found them a shift of forms instead.",
+      "text": [
+        "At [place], an Asterel buyer has disputed a contractor's claim that a navigation module saved a full shift of labour. The buyer says the crew spent the recovered shift clearing freight paperwork at the destination. Asterel says the product reduced time at the controls, not time belonging to the employer. The contractor has asked whether that distinction is covered by the warranty.",
+        "A contractor at [place] claims an Asterel navigation module saved a full shift of labour. An Asterel buyer disputes it: the crew, she says, spent the saved shift on freight paperwork at the destination. Asterel says the module cut time at the controls, not time owed to an employer. The contractor wants to know whether the warranty covers the difference."
+      ],
+      "mention": [
+        "That Asterel module saved a crew a shift. The dock found them a shift of forms instead.",
+        "Asterel saved them a shift at the controls. The destination filled it with paperwork."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -60,8 +72,14 @@
     },
     "spacertales-asterel-obsolete-letter": {
       "title": "Still answering",
-      "text": "Asterel's service desk at [place] has located the Sable Margin's old covering letter under a plate number retained through the vessel's name changes. The office recorded replacement pending; the watchkeeper recorded a repair. The desk is waiting for acknowledgement before attaching the account to the receiving file.",
-      "mention": "Asterel found the letter by the plate number at [place]. The ship name had worn out first.",
+      "text": [
+        "Asterel's service desk at [place] has located the Sable Margin's old covering letter under a plate number retained through the vessel's name changes. The office recorded replacement pending; the watchkeeper recorded a repair. The desk is waiting for acknowledgement before attaching the account to the receiving file.",
+        "Under a plate number kept through all the vessel's renamings, Asterel's service desk at [place] has found the Sable Margin's old covering letter. The office wrote replacement pending; the watchkeeper wrote repaired. The desk will attach the account to the receiving file once it is acknowledged."
+      ],
+      "mention": [
+        "Asterel found the letter by the plate number at [place]. The ship name had worn out first.",
+        "Asterel tracked that letter down at [place] by the plate number. The ship had gone through names faster."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -74,8 +92,14 @@
     },
     "spacertales-rebuild-drawing": {
       "title": "The old drawing",
-      "text": "A drawing account now being copied at [place] describes an office repair plan that predates the crew's galley and bunk changes. The crew sent a newer drawing with their reply. The receiving clerk is retaining both as historical correspondence; neither is a repair schematic for the reader's ship.",
-      "mention": "The drawing letters at [place] keep both versions. Clean paper didn't make the old galley current.",
+      "text": [
+        "A drawing account now being copied at [place] describes an office repair plan that predates the crew's galley and bunk changes. The crew sent a newer drawing with their reply. The receiving clerk is retaining both as historical correspondence; neither is a repair schematic for the reader's ship.",
+        "A drawing account being copied at [place] shows an office repair plan from before the crew changed the galley and bunks; the crew's reply included a newer drawing. The receiving clerk keeps both as historical correspondence. Neither is a repair schematic for the reader's own ship."
+      ],
+      "mention": [
+        "The drawing letters at [place] keep both versions. Clean paper didn't make the old galley current.",
+        "Both drawings are kept in that account at [place]. A fresh copy of the old plan was still the old plan."
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
@@ -88,8 +112,14 @@
     },
     "spacertales-rebuild-sites": {
       "title": "Spaces reserved",
-      "text": "At [place], used-parts traders report owners arguing over the value of a damaged ship's proposed repairs. Brokers list marked rebuilding positions as restored equipment; crews point out that each position still needs the actual part and somebody to install it. A traders' circular now distinguishes a finished wall from an intention to have one.",
-      "mention": "A broker tried selling build sites as repaired equipment. Apparently intention has a resale price.",
+      "text": [
+        "At [place], used-parts traders report owners arguing over the value of a damaged ship's proposed repairs. Brokers list marked rebuilding positions as restored equipment; crews point out that each position still needs the actual part and somebody to install it. A traders' circular now distinguishes a finished wall from an intention to have one.",
+        "Used-parts traders at [place] report owners arguing over what a damaged ship's planned repairs are worth. Brokers list marked rebuilding positions as restored equipment; crews reply that each one still needs the real part and someone to fit it. A traders' circular now separates a finished wall from the intention to have one."
+      ],
+      "mention": [
+        "A broker tried selling build sites as repaired equipment. Apparently intention has a resale price.",
+        "Someone at the dock listed build sites as repaired equipment. A plan for a wall is not a wall."
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
@@ -100,7 +130,10 @@
   },
   "adverts": {
     "spacertales-asterel-n1-ad": {
-      "text": "Phobos' Asterel N1 Polaris Auto Nav Module\nAn extra hand at the controls. Your thrusters, your fuel, your ship. Let the module help with the flight and keep your attention for the decisions that still belong to you.",
+      "text": [
+        "Phobos' Asterel N1 Polaris Auto Nav Module\nAn extra hand at the controls. Your thrusters, your fuel, your ship. Let the module help with the flight and keep your attention for the decisions that still belong to you.",
+        "Phobos' Asterel N1 Polaris Auto Nav Module\nAnother pair of hands at the controls, using your thrusters, your fuel and your ship. Let it help with the flying, and keep your own attention for the decisions that are still yours."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -109,7 +142,10 @@
       "thread": "spacertales-flight-service"
     },
     "spacertales-asterel-n2-ad": {
-      "text": "Phobos' Asterel N2 Polaris Pursuit Module\nFollowing something is a job. So is knowing when to stop. Fitted sensors and propulsion still set what your ship can do. Asterel: assistance in the small print and the large print.",
+      "text": [
+        "Phobos' Asterel N2 Polaris Pursuit Module\nFollowing something is a job. So is knowing when to stop. Fitted sensors and propulsion still set what your ship can do. Asterel: assistance in the small print and the large print.",
+        "Phobos' Asterel N2 Polaris Pursuit Module\nIt follows a target, and it knows when to stop. What your fitted sensors and propulsion can do is still the limit. Asterel: assistance, in the large print as well as the small."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -118,7 +154,10 @@
       "thread": "spacertales-flight-service"
     },
     "spacertales-asterel-service-ad": {
-      "text": "Asterel\nBefore replacing the ship, read the controls. Navigation modules and industrial consoles for equipment with more history than shine. Your fuel bill remains your fuel bill.",
+      "text": [
+        "Asterel\nBefore replacing the ship, read the controls. Navigation modules and industrial consoles for equipment with more history than shine. Your fuel bill remains your fuel bill.",
+        "Asterel\nRead the controls before you replace the ship. Navigation modules and industrial consoles for equipment with more history than polish. The fuel bill stays yours."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -131,7 +170,11 @@
     "spacertales-flight-board-name": {
       "moment": "small-talk",
       "speakers": "crew",
-      "line": "If we name the Asterel board Please, do you think it or the captain will answer first?",
+      "line": [
+        "If we name the Asterel board Please, do you think it or the captain will answer first?",
+        "I want to give the nav board a name. The captain says one name aboard that gives orders is enough.",
+        "Should we name the Asterel board? It already gets more respect than the cook."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -145,7 +188,11 @@
     "spacertales-flight-paid-rest": {
       "moment": "complaint",
       "speakers": "crew",
-      "line": "That Asterel report saved time at the controls and spent it on dock forms. Assistance found us another kind of work.",
+      "line": [
+        "That Asterel report saved time at the controls and spent it on dock forms. Assistance found us another kind of work.",
+        "That Asterel story: time saved at the controls, spent at a desk. Sounds about right.",
+        "The module saves you a shift and the dock hands you forms to fill it. Typical."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -159,7 +206,11 @@
     "spacertales-flight-grandmother": {
       "moment": "story",
       "speakers": "locals",
-      "line": "My first captain called her Polaris board Auntie. Said it was useful, strict, and absolutely no help with rent.",
+      "line": [
+        "My first captain called her Polaris board Auntie. Said it was useful, strict, and absolutely no help with rent.",
+        "My first captain called her Polaris board Auntie: strict, handy, and no use whatsoever with the rent.",
+        "Knew a pilot who talked to her nav board like an old relative. Said it never lied and never lent her money."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -170,7 +221,11 @@
     "spacertales-flight-sensor-worry": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "A tidy display doesn't make me feel better if I don't know what the sensors can see.",
+      "line": [
+        "A tidy display doesn't make me feel better if I don't know what the sensors can see.",
+        "Neat screen. I'd still like to know what the sensors are actually picking up.",
+        "The display looks calm. That tells me nothing about what's out there that it can't see."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -184,7 +239,11 @@
     "spacertales-flight-braking-jargon": {
       "moment": "jargon",
       "speakers": "anyone",
-      "line": "Closing speed is only the bit towards the target. The sideways bit can ruin your day just as well.",
+      "line": [
+        "Closing speed is only the bit towards the target. The sideways bit can ruin your day just as well.",
+        "Watch the drift as well as the closing speed. Sideways is still fast.",
+        "Your closing rate can be perfect and the lateral drift still puts you into the dock."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -195,7 +254,11 @@
     "spacertales-flight-board-prayer": {
       "moment": "superstition",
       "speakers": "anyone",
-      "line": "Don't thank the nav board before docking. Thank the person who kept fuel aboard.",
+      "line": [
+        "Don't thank the nav board before docking. Thank the person who kept fuel aboard.",
+        "Never thank the nav board until you're docked. Then thank whoever filled the tanks.",
+        "Old pilots won't praise the board mid-flight. Praise is for afterwards, and for the fuel."
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -206,7 +269,11 @@
     "spacertales-flight-autonomy-question": {
       "moment": "question",
       "speakers": "crew",
-      "line": "If the board flies the course I chose, which of us gets to say we went somewhere?",
+      "line": [
+        "If the board flies the course I chose, which of us gets to say we went somewhere?",
+        "If the board does the flying and I pick the course, who gets the credit when we arrive?",
+        "Is it still my journey if the nav board flew it?"
+      ],
       "requires": {
         "mods": [
           "PhobosAutoNav"
@@ -220,7 +287,11 @@
     "spacertales-rebuild-door-story": {
       "moment": "story",
       "speakers": "crew",
-      "line": "That drawing file kept the old doorway and the crew's reply. Paper remembers a galley differently from the people who cook in it.",
+      "line": [
+        "That drawing file kept the old doorway and the crew's reply. Paper remembers a galley differently from the people who cook in it.",
+        "That file has the old doorway drawn in, and the crew's answer beside it. The cooks remember it their own way.",
+        "The drawing shows the galley as the office planned it. The crew's reply shows where the pans actually went."
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
@@ -234,7 +305,11 @@
     "spacertales-rebuild-empty-site": {
       "moment": "joke",
       "speakers": "crew",
-      "line": "Drawing the missing wall is quicker than finding the parts for it. Wish the next job were as easy.",
+      "line": [
+        "Drawing the missing wall is quicker than finding the parts for it. Wish the next job were as easy.",
+        "We can draw a wall in seconds. Building it takes parts we haven't got.",
+        "Marking out the missing wall: done. Finding the wall: next week, maybe."
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
@@ -245,7 +320,11 @@
     "spacertales-rebuild-bunk-worry": {
       "moment": "worry",
       "speakers": "crew",
-      "line": "I kept the drawing from before the damage. I didn't keep a spare for everything on it.",
+      "line": [
+        "I kept the drawing from before the damage. I didn't keep a spare for everything on it.",
+        "We have the plan of the ship as it was. We don't have the spares to match it.",
+        "The old drawing is safe. Half the parts on it are not."
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
@@ -256,7 +335,11 @@
     "spacertales-rebuild-signature": {
       "moment": "complaint",
       "speakers": "crew",
-      "line": "Port says our repair drawing needs a signature. Every person who can draw this ship is busy repairing it.",
+      "line": [
+        "Port says our repair drawing needs a signature. Every person who can draw this ship is busy repairing it.",
+        "Our repair drawing needs a signature, says the port. Everyone qualified is inside a wall fixing it.",
+        "Paperwork wants a signed drawing. The people who could sign it are covered in sealant."
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
@@ -267,7 +350,11 @@
     "spacertales-rebuild-same-ship": {
       "moment": "question",
       "speakers": "anyone",
-      "line": "How much of a ship can you replace before the person who remembers the old one is the last original part?",
+      "line": [
+        "How much of a ship can you replace before the person who remembers the old one is the last original part?",
+        "Replace enough of a ship and the only original part left is whoever remembers it. Then what?",
+        "When every panel has been swapped, is the ship the hull, or the crew who kept flying it?"
+      ],
       "requires": {
         "mods": [
           "PhobosWarDeclared"
