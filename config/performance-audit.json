@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-07",
-  "baselineCommit": "4db2e96f4d198b95962e556351ffdff07ff6f47d",
+  "baselineCommit": "2c4134a694cd83f6b6357d79a5478d6f7234a2fd",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -2924,7 +2924,7 @@
     },
     {
       "path": "src/PhobosBank/Plugin.cs",
-      "sha256": "439c741d7fea0353436d62b0f92cba81109c4f1af7c748a41f7825fd469561ef",
+      "sha256": "683ce216a627150db30dd79f39e972c1716caf3451ac9fca74f1c47c14c26969",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
@@ -2954,7 +2954,8 @@
           146
         ]
       },
-      "reviewed": "2026-10-07"
+      "reviewed": "2026-10-07",
+      "carried": "2026-10-07"
     },
     {
       "path": "src/PhobosBank/Text.cs",

@@ -90289,8 +90289,8 @@
       "path": "docs/bank-item-reference.md",
       "scope": "generated item reference",
       "decision": "New generated reference for Phobos Banking 0.1.0 (no items).",
-      "sha256": "fb416b2e22ded354ca13c177a67cb8a6001009caac7267bb0897dfef11dafd58",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
+      "sha256": "8fc7773ce9f2c2822a40055549cae1e5e2d9cbca0a266b748900d95b85a7330c",
+      "review": "Reviewed 7 October 2026: regenerated for Phobos Banking 0.5.0 (version line only)."
     },
     {
       "path": "docs/development/health-condition-directions.md",
