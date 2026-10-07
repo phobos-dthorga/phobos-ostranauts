@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-07",
-  "baselineCommit": "89ec60a051c5995a5b1a4f74498564a0aa7d0d54",
+  "baselineCommit": "56381e51c1436cd2799ca2920bb7330e20cac947",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -3016,6 +3016,149 @@
       ],
       "indicators": {},
       "reviewed": "2026-10-06"
+    },
+    {
+      "path": "src/PhobosExchange/Core/ExchangePack.cs",
+      "sha256": "3bf224295dd89a7e9ed94539347e4dd1fdac0fc6aa953ee79860ac2b7e63ad46",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/ExchangeRecord.cs",
+      "sha256": "8d7b96ecca48ce8212a8baf633201db89b5e2e1dacd25f31a5f16bf71592465c",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {
+        "collection": [
+          158
+        ]
+      },
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/ExchangeRules.cs",
+      "sha256": "eb44508c4eeff9235e18f7b5bb9f0e31734a54e45c4e474a65ea0a466a6e0511",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          72
+        ]
+      },
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/MarketModel.cs",
+      "sha256": "e58f4885ddabe4cdeef69acf8469b6c675dd90c503afa890acf93189dd7b1f0a",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {
+        "collection": [
+          60,
+          62,
+          63,
+          64,
+          65
+        ],
+        "persistence_or_io": [
+          138,
+          182,
+          384
+        ]
+      },
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/MoveRules.cs",
+      "sha256": "06d188936dffeb7353f693823bba5d92980ed3b2209dcb2c74e3a79a9928fc94",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          70
+        ]
+      },
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/PriceHistory.cs",
+      "sha256": "38e760c22993b79215b6439f9761c26b3b592fe82bc9f4097559711668c8c0ff",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/Processes.cs",
+      "sha256": "639291967aafa3446313c85898a1344fb966ce5efe82c247db4b2a07b773ac1a",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          65,
+          97
+        ]
+      },
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/StableNoise.cs",
+      "sha256": "afe60008a1529b302c79f4b000e1380b3fff01df80bcfab93be6cfb0fed5a4d9",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          73,
+          81
+        ]
+      },
+      "reviewed": "2026-10-07"
+    },
+    {
+      "path": "src/PhobosExchange/Core/TradeRules.cs",
+      "sha256": "78a38397ff368b14566ee35b6fc89166f8de26cad1e6ef4138408e831d24036e",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L97"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-07"
     },
     {
       "path": "src/PhobosFramework/AssemblyInfo.cs",

@@ -1204,6 +1204,21 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 7 October: the share market (L97)
+
+L97 — Phobos Exchange 0.1.0 (held draft) and its Framework chart control. The market steps
+on a fixed grid of 60 game seconds: at speed 16 that is about 16 steps a real second, each
+a few hashed normal draws and one exponent per company, with no allocation, game call or
+text in the step loop. Any time jump is caught up within a fixed bound whatever its size:
+at most about 4,600 steps (minute steps for the last three game days, daily and weekly
+steps before that, one exact step for anything older than two years). Offline on the
+owner's PC (.NET 10, three companies) a one-day skip took about 3 ms, three days or more
+8 to 12 ms, fifty years about 12 ms; the game's Mono runtime is slower, so the in-game
+operation `exchange.catch_up` records the real cost. Price history is encoded only when
+the record is written (hourly closes, trades, alerts). The service polls once a real
+second; the panel refreshes labels and its chart in place once a second while open. The
+record's history is bounded (about 1.5 KB a company). No capture accompanies this change.
+
 ## 7 October: the credit line (L96)
 
 L96 — Phobos Banking 0.6.0. A credit line's balance is an ordinary Phobos loan to the

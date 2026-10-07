@@ -90065,11 +90065,12 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "6896ecbbfe812fd6196b8f081e5525b8b77954207ad4176b09eb8f5fc4f440a0",
+      "sha256": "f6d8eca8d6f29d7f68c8e395de951283cfede3d261230bf618d601ab61ffc035",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
-      "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it."
+      "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it.",
+      "review20261007L97": "Reviewed 7 October 2026: L97 added for the Phobos Exchange market core (fixed time grid, bounded catch-up, offline timings labelled as .NET on the owner's PC, Mono cost to be recorded in game); existing findings retained."
     },
     {
       "path": "docs/development/phobos-framework.md",
