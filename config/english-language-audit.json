@@ -92013,7 +92013,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "bc7a0b2aeb6a904feef6d472bfa2a484c8d9c8d127ae168ec5acecec58d5a898",
+      "sha256": "5e08afd614670815fa86158b2fe9aebc9a23af58d0b643b234ad522738f0839c",
+      "review20261008Salvage": "Reviewed 8 October 2026: index line for the salvage hazards, provenance and scrapyard prices design record; no other wording changed.",
       "review20261008Repricing": "Reviewed 8 October 2026: index line and survey link for the refining profit repricing proposal; no other wording changed.",
       "review20261008Reagents": "Reviewed 8 October 2026: index line for the reagent-sale design record; no other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
@@ -93539,6 +93540,13 @@
       "decision": "new",
       "sha256": "317dd069dded0fa900ff94d1fd352982b4478912b3fa9d80b199b6e14a7ec15b",
       "review": "Reviewed 8 October 2026: proposal-only record repricing refined products so mined chains reach about four times their ore (owner direction and choices of the same day labelled; agent recommendations labelled); every figure computed from the recipe and materials packs and the game's gas prices; guards and outcome-table odds checked; wording read against player-language.md; nothing built and nothing claimed as tested in play."
+    },
+    {
+      "path": "docs/development/salvage-hazards-and-provenance.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "d0d69abb06d0ebed9a0051d4d1aab6252c0b837cdd4ea2fb7a976055e494dde8",
+      "review": "Reviewed 8 October 2026: research-only design record for salvage hazards, provenance and scrapyard prices (the game's ship ownership, salvage permit, police scan, buyers and market configs observed in game data and the local decompile; hazard families on the game's own poisoning, sparks, fire and radiation; provenance grades answered by faction standing plus a small stable-hash share; fences, scrubbing, the trail and the scrapyard price test; the owner's decisions of the same day; saved structures and engine questions); NASA ammonia-loop claim cited to its primary source; wording read against player-language.md; nothing built and nothing claimed as tested in play."
     },
     {
       "path": "docs/development/variant-lines-handoff.md",

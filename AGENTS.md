@@ -416,6 +416,14 @@ delivery in the changelog and design record, and add or amend only the rule here
   loot tables stay the only source of ore: never spawn ore or copy a native table; opened
   deposits stay crew work. The G4 cuts only supported empty native walls and never suppresses
   collisions, expands reach or becomes a port. Unsupported cargo is retained, never deleted.
+- **Salvage hazards and provenance** (owner, 2026-10-08; design record
+  `docs/development/salvage-hazards-and-provenance.md`, nothing built yet): they live in
+  Shipbreaker. Provenance reads the game's own ship ownership, salvage permit and police scan,
+  never a parallel claim system. A legitimate buyer offered a tagged part refuses it, buys it at a
+  discount or buys it openly and leaves a police trail, chosen by the game's faction standing plus
+  a small stable-hash share (`Outcomes.Pick`), never rolled at runtime. Hazards drive only the
+  game's own poisoning, sparks, fire and radiation, and reuse the project's coolant and ammonia
+  handling rather than new fluids.
 - **Auto Nav.** Auto Nav owns flight; Shipbreaker owns capture and mission coordination. Keep
   native fuel, heat, wear, clearance and the safety limiter; clear thrust before turning and on
   control loss; never replay saved thrust. Sensor use (`docs/auto-nav-sensors.md`): switch on
