@@ -255,6 +255,33 @@ class PreparationTests(unittest.TestCase):
             with self.subTest(status=status), patch.object(w.subprocess, 'check_output', return_value=status):
                 self.assertEqual(w.working_tree_dirty(self.root), dirty)
 
+    def test_public_upload_text_reads_published(self):
+        from datetime import date
+        page = '[h1]Example[/h1]\n[b]Version:[/b] 1.0.1\n[b]Publication status:[/b] Not published - development candidate\nBody.\n'
+        note = '[h1]Example 1.0.1[/h1]\n[b]Draft - not published | 2026-10-01[/b]\n\nFix.\n\n[h1]Example 1.0.0[/h1]\n[b]Released | 2026-09-01[/b]\n'
+        sent_page, sent_note = w.published_text(page, note, 'public', date(2026, 10, 7))
+        self.assertIn('[b]Publication status:[/b] Public on the Steam Workshop\nBody.', sent_page)
+        self.assertIn('[b]Released | 2026-10-07[/b]\n\nFix.', sent_note)
+        self.assertIn('[b]Released | 2026-09-01[/b]', sent_note)  # an earlier release keeps its own date
+        self.assertNotIn('Draft', sent_note)
+        # A curated public status is kept, and private or unlisted uploads send the text as written.
+        curated = page.replace('Not published - development candidate', 'Public since 7 October 2026')
+        self.assertEqual(w.published_text(curated, note, 'public')[0], curated)
+        for visibility in ('private', 'unlisted', 'friends'):
+            self.assertEqual(w.published_text(page, note, visibility), (page, note))
+
+    def test_public_upload_vdf_leaves_the_candidate_unchanged(self):
+        self.put('workshop/PhobosExample/page.bbcode', '[h1]Example[/h1]\n[b]Version:[/b] 1.0.0\n[b]Publication status:[/b] Not published - held draft\n')
+        with patch.object(w.subprocess, 'check_output', side_effect=['abc\n', b'']):
+            target = Path(w.prepare(self.root, self.name)['directory'])
+        w.upload_vdf(target, 'public', self.root / 'public.vdf')
+        text = (self.root / 'public.vdf').read_text(encoding='utf-8')
+        self.assertIn('Publication status:[/b] Public on the Steam Workshop', text)
+        self.assertIn('[b]Released | ', text)
+        self.assertNotIn('Draft - not published', text)
+        self.assertIn('Not published - held draft', (target / 'content/documentation/Workshop-page.bbcode').read_text(encoding='utf-8'))
+        self.assertEqual(w.verify(target)['status'], 'verified-offline')
+
     def test_publication_order(self):
         config = {'mods': {'PhobosB': {'requires': ['PhobosA']}, 'PhobosA': {'requires': []}, 'PhobosC': {'requires': ['PhobosB', 'PhobosA']}}}
         self.assertEqual(w.publication_order(config), ['PhobosA', 'PhobosB', 'PhobosC'])

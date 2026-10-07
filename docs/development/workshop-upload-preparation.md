@@ -206,9 +206,14 @@ to the CHANGELOG.md packaged with the mod. The manifest lists the versions as
 candidate prepared before another upload of the same mod was recorded is refused;
 prepare a fresh one.
 
-Each version's heading still says Draft until its changelog entry is marked
-Released, so the first public upload's note reads Draft; how to handle that is
-an open owner choice.
+A public upload is the publication itself, so the text it sends says so: the
+page's status line, if it starts with Not published, is sent as Public on the
+Steam Workshop, and each Draft - not published heading in the change note is sent
+as Released with the upload date. A status line already written for a public item
+(such as Public since 7 October 2026) is sent as written; private, unlisted and
+friends-only uploads send the text unchanged. The candidate and the repository
+are untouched; the upload's own `upload.vdf` in the receipt shows exactly what
+was sent. Once the item is confirmed live, record it in the repository as below.
 
 ### After each upload, on Steam
 

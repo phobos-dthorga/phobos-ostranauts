@@ -3,6 +3,7 @@
 The separate owner-run scripts/upload-workshop.ps1 consumes these candidates.
 """
 import argparse
+from datetime import date
 import hashlib
 import importlib.util
 import json
@@ -23,6 +24,11 @@ TEXT_MAX_BYTES = 7999
 PREVIEW_MAX_BYTES = 1_000_000
 VISIBILITY = {'public': 0, 'friends': 1, 'private': 2, 'unlisted': 3}
 VERSION = re.compile(r'\d+\.\d+\.\d+')
+# A public upload is the publication itself, so the text it sends says so; the repository records follow
+# once the owner has confirmed the item (docs/development/workshop-upload-preparation.md).
+PUBLIC_STATUS = '[b]Publication status:[/b] Public on the Steam Workshop'
+UNPUBLISHED_STATUS = re.compile(r'(?m)^\[b\]Publication status:\[/b\] Not published\b.*$')
+DRAFT_HEADING = re.compile(r'(?m)^\[b\]Draft - not published \| \d{4}-\d{2}-\d{2}\[/b\]$')
 
 
 def digest(data):
@@ -295,6 +301,19 @@ def verify(target):
             'fileCount': len(actual)}
 
 
+def published_text(page, change_note, visibility, today=None):
+    """The page and change note as a public upload sends them: an unpublished status line reads public, and
+    draft version headings read Released on the upload date. Other visibilities send the text unchanged."""
+    if visibility != 'public':
+        return page, change_note
+    released = f'[b]Released | {(today or date.today()).isoformat()}[/b]'
+    page = UNPUBLISHED_STATUS.sub(lambda _: PUBLIC_STATUS, page)
+    change_note = DRAFT_HEADING.sub(lambda _: released, change_note)
+    limit('Workshop page description', page.encode('utf-8'), TEXT_MAX_BYTES)
+    limit('Release change note', change_note.encode('utf-8'), TEXT_MAX_BYTES)
+    return page, change_note
+
+
 def upload_vdf(target, visibility, output):
     """Write the upload VDF for an owner-run SteamCMD session; the candidate stays unchanged."""
     if visibility not in VISIBILITY:
@@ -302,9 +321,10 @@ def upload_vdf(target, visibility, output):
     verify(target)
     report = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
     content = target / 'content'
+    page, change_note = published_text((content / 'documentation/Workshop-page.bbcode').read_text(encoding='utf-8-sig'),
+                                       (content / 'documentation/Release-notes.bbcode').read_text(encoding='utf-8-sig'), visibility)
     values = draft_values(report, target, report.get('title') or json.loads((content / 'mod_info.json').read_text(encoding='utf-8-sig'))[0]['strName'],
-                          (content / 'documentation/Workshop-page.bbcode').read_text(encoding='utf-8-sig'),
-                          (content / 'documentation/Release-notes.bbcode').read_text(encoding='utf-8-sig'), visibility)
+                          page, change_note, visibility)
     data = vdf(values).encode('utf-8')
     output = Path(output)
     if output.exists():
