@@ -365,8 +365,9 @@ With the owner's all-NPC setting on, the same work runs for every idle NPC on a 
 is the case to measure before it ships on.
 
 Measurement plan at delivery: a recording at 16x fast-forward, docked at a large station, a
-full crew off shift, with and without the all-NPC setting, written up as a finding (the next
-free code is L100; claim it with other sessions first) through
+full crew off shift, with and without the all-NPC setting, written up as a finding (L100 was
+claimed by another session on 7 October 2026, so take L101 or later and claim it with other
+sessions first) through
 `scripts/audit-performance.py --refresh --finding`. Registered footprints:
 `framework.spending.openers` (seeded opener count) and `crewfinances.debts` (debt records).
 Fallback if the evaluation shows: gate the opener's `CTTestUs` on a docked state and a

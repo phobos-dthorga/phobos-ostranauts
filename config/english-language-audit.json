@@ -93328,7 +93328,7 @@
       "path": "docs/development/crew-wallets-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "b9f0f4922886cb07039a047122dbdba3fe649ce5729185cdb5479d0a0b2404c1",
+      "sha256": "c337959056a238a2269a4debe3ff980952f16b56b0ba9285d163f5066622b33a",
       "review": "Reviewed 7 October 2026: research-only design record for crew personal wallets (the game's own NPC cash and salary ledger observed in the decompile, a wallet-as-StatUSD design with station spending, allowance mode, inherited debts and later behaviour links, owner decisions of the same day, performance budget for weaker machines, saved structures and engine questions to verify); wording read against player-language.md; nothing built and nothing claimed as tested in play."
     }
   ],
