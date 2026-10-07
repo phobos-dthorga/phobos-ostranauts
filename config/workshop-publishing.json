@@ -5,7 +5,7 @@
       "itemId": "3814698080",
       "requires": [],
       "hold": null,
-      "uploadedVersion": "0.131.1",
+      "uploadedVersion": "0.133.0",
       "uploadedVisibility": "public"
     },
     "PhobosAgriculture": {
@@ -14,7 +14,7 @@
         "PhobosFramework"
       ],
       "hold": null,
-      "uploadedVersion": "0.66.1",
+      "uploadedVersion": "0.66.2",
       "uploadedVisibility": "public"
     },
     "PhobosShipbreaker": {
@@ -41,7 +41,7 @@
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Unpublished draft: first operational release awaiting owner gameplay checks.",
+      "hold": null,
       "uploadedVersion": "0.58.1",
       "uploadedVisibility": "public"
     },
@@ -70,7 +70,7 @@
       ],
       "hold": "Held draft: data-only story collection awaiting owner review of its appearance and pacing in the game.",
       "uploadedVersion": "0.3.1",
-      "uploadedVisibility": "private"
+      "uploadedVisibility": "public"
     },
     "PhobosBank": {
       "itemId": "3815026981",
@@ -78,7 +78,7 @@
         "PhobosFramework"
       ],
       "hold": null,
-      "uploadedVersion": "0.7.0",
+      "uploadedVersion": "0.8.1",
       "uploadedVisibility": "public"
     },
     "PhobosExchange": {
@@ -87,7 +87,7 @@
         "PhobosFramework"
       ],
       "hold": "Held draft: first release awaiting owner gameplay checks.",
-      "uploadedVersion": "0.4.0",
+      "uploadedVersion": "0.5.2",
       "uploadedVisibility": "private"
     }
   },
