@@ -66,6 +66,9 @@ status, operation, required items, blockers, text sizes and SHA-256 hashes of ev
 file. `uploadEnabled` is always false in preparation output. Exit 1 means validation
 failed; exit 2 is invalid arguments. Prepare from a committed tree for anything
 beyond a private test: the uploader refuses a dirty candidate for wider visibility.
+An uncommitted `config/workshop-publishing.json` alone does not count as dirty:
+every upload writes its records there, and the uploader checks the item ID and
+uploaded version against the candidate itself.
 
 Checks: native source against the package, required `data/` content, DLLs against
 compiled output, translations, permitted payload types, filesystem links, generated

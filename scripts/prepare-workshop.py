@@ -253,6 +253,15 @@ def draft_values(report, target, title, description, change_note, visibility='pr
             'description': description, 'changenote': change_note}
 
 
+def working_tree_dirty(root):
+    """Uncommitted changes other than the catalogue. Every upload writes its own record there (item ID,
+    uploaded version and visibility), and the uploader checks those against the candidate, so an
+    uncommitted record must not hold back the next public upload."""
+    entries = subprocess.check_output(['git', 'status', '--porcelain', '-z'], cwd=root)
+    # Each entry is 'XY path'; a rename's original path follows as its own entry and counts as a change.
+    return any(entry and entry[3:] != CATALOGUE for entry in entries.decode('utf-8').split('\0'))
+
+
 def prepare(root, name):
     report, payload, title = plan(root, name)
     # New immutable directory each time: no recursive cleanup or stale files.
@@ -268,7 +277,7 @@ def prepare(root, name):
     (target / 'workshop.vdf.draft').write_bytes(draft)
     report['vdfSha256'] = digest(draft)
     report['sourceCommit'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
-    report['workingTreeDirty'] = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=root))
+    report['workingTreeDirty'] = working_tree_dirty(root)
     (target / 'manifest.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     verify(target)
     return {'status': 'prepared-offline', 'directory': str(target), **report}

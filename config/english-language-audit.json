@@ -92646,7 +92646,8 @@
       "path": "docs/development/workshop-upload-preparation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "b78bfda9e68b0180b60a4549e820b1dd81575f8ed8cacaae391ec2a577812258",
+      "sha256": "beae994bbe1bc8803af4af1e6bb155cb0bc6e63bdf46249260974d40f9becbae",
+      "review20261007CatalogueNotDirty": "Reviewed 2026-10-07: an uncommitted publishing catalogue no longer counts as uncommitted work for public uploads; developer guide wording only, no player text changed.",
       "review20261007OnlyRealUpdates": "Reviewed 2026-10-07: updates go only to items whose mod version is newer than the one uploaded, with the recorded visibility kept; developer guide wording only, no player text changed.",
       "review20261007ChangeNotes": "Reviewed 2026-10-07: the Steam change note now covers every version since the item’s last upload; developer guide wording only, no player text changed.",
       "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."

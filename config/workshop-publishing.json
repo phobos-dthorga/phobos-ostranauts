@@ -82,13 +82,13 @@
       "uploadedVisibility": "private"
     },
     "PhobosExchange": {
-      "itemId": null,
+      "itemId": "3815077672",
       "requires": [
         "PhobosFramework"
       ],
       "hold": "Held draft: first release awaiting owner gameplay checks.",
-      "uploadedVersion": null,
-      "uploadedVisibility": null
+      "uploadedVersion": "0.1.0",
+      "uploadedVisibility": "private"
     }
   },
   "externalRequiredItems": [

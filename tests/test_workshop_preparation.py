@@ -248,6 +248,13 @@ class PreparationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Visibility'):
             w.record_uploaded_version(self.root, self.name, '1.0.1', 'secret')
 
+    def test_uncommitted_catalogue_alone_is_not_dirty(self):
+        cases = {b'': False, b' M config/workshop-publishing.json\0': False,
+                 b' M config/workshop-publishing.json\0?? tmp/\0': True, b' M mods/PhobosExample/data/README.md\0': True}
+        for status, dirty in cases.items():
+            with self.subTest(status=status), patch.object(w.subprocess, 'check_output', return_value=status):
+                self.assertEqual(w.working_tree_dirty(self.root), dirty)
+
     def test_publication_order(self):
         config = {'mods': {'PhobosB': {'requires': ['PhobosA']}, 'PhobosA': {'requires': []}, 'PhobosC': {'requires': ['PhobosB', 'PhobosA']}}}
         self.assertEqual(w.publication_order(config), ['PhobosA', 'PhobosB', 'PhobosC'])
