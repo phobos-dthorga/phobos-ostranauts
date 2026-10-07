@@ -73,6 +73,30 @@ internal static class StoryChecks
         check(pack.broadcasts.Count == 2 && pack.adverts.Count == 1 && pack.arcs["first-harvest"].steps.Count == 3, "A full story pack loads");
         check(pack.arcs["first-harvest"].steps[1].tests[0].consume && pack.arcs["first-harvest"].steps[2].tests[0].hours == 2, "Tests keep their fields");
 
+        // Framework 0.131.0: recurring story content.
+        check(Load(With(@"""title"": ""Second"", ""repeatable"": true,", @"""title"": ""Second"", ""repeatable"": true, ""cooldownDays"": 7,")).arcs["second-harvest"].cooldownDays == 7,
+            "A repeatable arc takes a cooldown in game days");
+        Refused(With(@"""title"": ""First harvest"", ""chance"": 0.1,", @"""title"": ""First harvest"", ""chance"": 0.1, ""cooldownDays"": 7,"), "A cooldown is refused on an arc that is not repeatable");
+        Refused(With(@"""title"": ""Second"", ""repeatable"": true,", @"""title"": ""Second"", ""repeatable"": true, ""cooldownDays"": -1,"), "A negative cooldown is refused");
+        Refused(With(@"""weight"": 2", @"""weight"": 2, ""onceEach"": true"), "onceEach needs flags to watch");
+        check(StoryRules.CooledDown(0, GameClock.Seconds(7), 7) && !StoryRules.CooledDown(0, GameClock.Seconds(6.9), 7) && StoryRules.CooledDown(5, 5, 0),
+            "A repeatable arc may start again once its cooldown in game days has passed");
+        {
+            var r = new StoryRecord();
+            r.SetFlag("contract", 100); r.SetFlag("contract", 200);
+            check(r.Flags["contract"] == 100, "Setting a flag from code keeps the time it was first set");
+            r.RenewFlag("contract", 300);
+            check(r.Flags["contract"] == 300, "An arc that sets a flag again renews its time");
+            var flags = new[] { "contract" };
+            check(r.DueAgain("contract-news", flags), "A onceEach item never shown is due");
+            r.MarkSeen("contract-news", 400);
+            check(!r.DueAgain("contract-news", flags) && r.SeenAt["contract-news"] == 400, "Shown after the flag's latest setting, it waits");
+            r.RenewFlag("contract", 500);
+            check(r.DueAgain("contract-news", flags), "When the flag is set again, it is due again");
+            r.MarkSeen("contract-news", 600);
+            check(r.SeenAt["contract-news"] == 600 && !r.DueAgain("contract-news", flags), "A showing records its latest time, and it waits again");
+        }
+
         // The schema refuses what the game could not show or the runner could not check.
         Refused(With(@"""weight"": 2", @"""weight"": 2, ""colour"": ""red"""), "An unknown field is refused");
         Refused(With("greens-report", "Greens_Report"), "Ids are lower-case and hyphenated");

@@ -223,6 +223,7 @@ flowchart LR
 | `text` | yes | The news item, up to 700 characters. The game's own run to about 650. |
 | `weight` | no | 1 to 100 (default 1): how often it is picked against other story news. |
 | `once` | no | `true` shows it once in a save, then never again. |
+| `onceEach` | no | `true` (Framework 0.131.0) shows it once each time its required flags are set again: news of something that recurs, such as a contract renewed or a recall repeated. Needs at least one flag in `requires.flags`, and does not go with `once`. |
 | `mention` | no | What people say when they bring the news up in small talk (up to 200 characters), while the news item's requirements hold. |
 | `requires` | no | When it may show; see [requirements](#requirements). |
 | `title`, `notes` | no | For you; the game never shows them. |
@@ -233,7 +234,7 @@ stay the game's own (this share is a setting, below).
 ### Adverts (`adverts`)
 
 `text` (up to 400 characters; a line break can separate a heading), and `weight`,
-`once`, `requires`, `title` and `notes` as for news.
+`once`, `onceEach`, `requires`, `title` and `notes` as for news.
 
 ### Small talk (`chatter`)
 
@@ -324,6 +325,7 @@ removed, the file stays on its card and reads as corrupted.
 | `chance` | no | 0 to 1 (default 0): the chance, at each story check (every 30 seconds), that an available arc starts by itself. 0.05 starts it after about ten minutes of play. 0 means it starts only from F3. |
 | `requires` | no | When it may start. Once started, it carries on whatever happens. |
 | `repeatable` | no | `true` lets it start again after it is finished. |
+| `cooldownDays` | no | For a repeatable arc (Framework 0.131.0): the fewest game days after it finished before it may start again by itself (0 to 3650, default 0). Without one, an arc with a `chance` comes round again within minutes. |
 | `steps` | yes | 1 to 12 steps, done in order. |
 
 Each step:
@@ -432,7 +434,7 @@ take only `mods`.
 | `arcsNotStarted` | No arc listed has ever been started. |
 | `filesRead` | Each story data file listed has been opened. |
 | `afterDays`, `beforeDays` | Story time is at least `afterDays`, and less than `beforeDays`, game days. A game day is the game's own, 87,658 seconds (about 24 hours 21 minutes; Framework 0.127.0 and later). Story time starts when the player's story record begins: at the start of a new game, or for a game started before Framework 0.109.0 the first time it is loaded with it. |
-| `flags` | Every story flag listed is set. An arc's `onComplete` sets and clears flags with `setFlags` and `clearFlags` (up to four each). Other mods set flags too (Framework 0.127.0): Phobos Banking marks loans taken, repaid and late, so a story can follow what the player did with money; Phobos Exchange (0.2.0) marks each company's latest big move (`exchange-<company>-surge` or `-slump`), the player buying in (`-bought`), holding a large stake (`-major-holder`) and selling out (`-sold-out`), and starts the arc of the same name when one exists. A flag can also move a company's share price, through the exchange's `news` entries. Flag ids are yours to choose; give them your prefix. |
+| `flags` | Every story flag listed is set. An arc's `onComplete` sets and clears flags with `setFlags` and `clearFlags` (up to four each). Other mods set flags too (Framework 0.127.0): Phobos Banking marks loans taken, repaid and late, so a story can follow what the player did with money; Phobos Exchange (0.2.0) marks each company's latest big move (`exchange-<company>-surge` or `-slump`), the player buying in (`-bought`), holding a large stake (`-major-holder`) and selling out (`-sold-out`), and starts the arc of the same name when one exists. A flag can also move a company's share price, through the exchange's `news` entries. From Framework 0.131.0 an arc that sets a flag already set renews its time (the thing happened again), so `onceEach` news and the exchange's news can follow it each time. Flag ids are yours to choose; give them your prefix. |
 | `notFlags` | None of the flags listed is set. |
 | `arcsActive` | Each arc listed is under way. |
 | `arcsAtStep` | Each `arc.step` listed is under way at that step, so news and talk can follow a story as it happens. |
@@ -485,7 +487,7 @@ override them in `BepInEx/config/PhobosFramework/story/`:
 | `maxActiveArcs` | 2 | How many arcs may start by themselves at once. |
 | `localWeight` | 4 | How much more often news and adverts of the place you are at are picked. News with no place counts 2. |
 | `farWeight` | 1 | How much news and adverts of other places weigh. 0 hides them until you visit. |
-| `mentionDays` | 10 | Game days after a news item was shown during which people still mention it. |
+| `mentionDays` | 10 | Game days after a news item was last shown during which people still mention it. |
 
 ## Checking and testing
 

@@ -22,29 +22,33 @@
       "thread": "keelhaul-freight",
       "region": "Outer System",
       "text": "Cassini Spaceport has given its seasonal ore contract to Keelhaul Freight, a belt line better known for hauling plate than for winning tenders. Dock workers at Zhonghuamen Terminal expect longer queues at the ore chutes.",
-      "once": true
+      "requires": {
+        "arcsActive": [
+          "keelhaul-titan-contract"
+        ]
+      }
     },
     "keelhaul-surge-wire": {
       "thread": "keelhaul-freight",
       "region": "Outer System",
-      "once": true,
       "requires": {
         "flags": [
           "exchange-keelhaul-freight-surge"
         ]
       },
-      "text": "Keelhaul Freight shares made a sharp move on the Lodestar Exchange. The desk has not tied it to a single contract; the next cargo report may tell buyers more than dock gossip."
+      "text": "Keelhaul Freight shares made a sharp move on the Lodestar Exchange. The desk has not tied it to a single contract; the next cargo report may tell buyers more than dock gossip.",
+      "onceEach": true
     },
     "keelhaul-slump-wire": {
       "thread": "keelhaul-freight",
       "region": "Outer System",
-      "once": true,
       "requires": {
         "flags": [
           "exchange-keelhaul-freight-slump"
         ]
       },
-      "text": "Keelhaul Freight shares fell sharply on the Lodestar Exchange. Brokers are waiting for the next station report before they call the bottom."
+      "text": "Keelhaul Freight shares fell sharply on the Lodestar Exchange. Brokers are waiting for the next station report before they call the bottom.",
+      "onceEach": true
     }
   },
   "arcs": {
@@ -75,7 +79,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 14
     },
     "exchange-keelhaul-freight-bought": {
       "title": "A letter from Keelhaul's shareholder desk",

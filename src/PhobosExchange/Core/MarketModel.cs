@@ -52,7 +52,7 @@ public sealed class MarketModel
     private readonly TrendKernel[] trendKernels;
     private readonly OuKernel[] volKernels, noiseKernels;
     private readonly OuKernel impactKernel, driverKernel;
-    private readonly double[] sigma, eta, volNoise, jumpRate, driftPerSecond;
+    private readonly double[] sigma, eta, volNoise, jumpRate, driftPerSecond, newsFade;
     private readonly double[][] targets;
     private TrendState market = new();
     /// <summary>The first step of the month after the last one sampled into the lifetime points.</summary>
@@ -82,7 +82,7 @@ public sealed class MarketModel
         trendKernels = new TrendKernel[Count];
         volKernels = new OuKernel[Count];
         noiseKernels = new OuKernel[Count];
-        sigma = new double[Count]; eta = new double[Count]; volNoise = new double[Count]; jumpRate = new double[Count]; driftPerSecond = new double[Count];
+        sigma = new double[Count]; eta = new double[Count]; volNoise = new double[Count]; jumpRate = new double[Count]; driftPerSecond = new double[Count]; newsFade = new double[Count];
         targets = new double[Count][];
         pasts = new PastSeries?[Count];
         impactKernel = new OuKernel(pack.market.impactHalfLifeDays * ExchangeRules.DaySeconds);
@@ -101,6 +101,7 @@ public sealed class MarketModel
             volNoise[i] = c.volOfVol * Math.Sqrt(2 * volKernels[i].K);
             jumpRate[i] = c.jumpsPerYear / ExchangeRules.YearSeconds;
             driftPerSecond[i] = c.drift / ExchangeRules.YearSeconds;
+            newsFade[i] = Math.Log(2) / (c.newsFadeDays * ExchangeRules.DaySeconds);
             histories[i] = record.History(Ids[i]);
             news[i] = record.NewsFor(Ids[i]);
         }
@@ -473,7 +474,7 @@ public sealed class MarketModel
             Cause.Noise => st.Noise,
             Cause.Trading => st.Impact,
             Cause.Drift => driftPerSecond[i] * (step - st.Listed) * ExchangeRules.StepSeconds,
-            Cause.News => news[i].Move,
+            Cause.News => NewsPart(i, step),
             _ => 0
         };
     }
@@ -519,16 +520,37 @@ public sealed class MarketModel
         States[i].LastLn = LnPrice[i];
     }
 
-    /// <summary>Whether a piece of story news has already moved this company's price in this save.</summary>
-    public bool NewsApplied(int i, string flag) => news[i].Applied.Contains(flag);
-
-    /// <summary>Story news breaks (0.2.0): the price moves once by <paramref name="logDelta"/>, and stays moved.</summary>
-    public void ApplyNews(int i, string flag, double logDelta)
+    /// <summary>The news part of a company's log price at a step (0.4.0): what news moved for good, and the unwinding part
+    /// of every jump so far, fading at the company's half-life. Exact for any step, so a skip lands where watching would.</summary>
+    private double NewsPart(int i, long step)
     {
-        if (!news[i].Applied.Add(flag)) return;
-        news[i].Move += logDelta;
-        LnPrice[i] += logDelta;
+        var n = news[i];
+        if (n.Transient == 0) return n.Move;
+        long since = Math.Max(0, step - n.TransientStep);
+        return n.Move + n.Transient * Math.Exp(-newsFade[i] * since * ExchangeRules.StepSeconds);
+    }
+
+    /// <summary>A company's news state (for the service's watermark on story flags).</summary>
+    public NewsState News(int i) => news[i];
+
+    /// <summary>A piece of story news breaks (Phobos Exchange 0.4.0), as often as its story sets the flag again. The price
+    /// jumps by the entry's move at once. The first time in a save its <c>keeps</c> share stays for good; the rest, and the
+    /// whole jump every later time, unwinds over the company's <c>newsFadeDays</c>. Its <c>carry</c> pushes the company's
+    /// own trend phase the same way, so the move usually runs on for a few weeks. Returns whether this was the first time.</summary>
+    public bool BreakNews(int i, NewsEntry entry)
+    {
+        var n = news[i];
+        bool first = n.Applied.Add(entry.flag);
+        double move = Math.Log(1 + entry.move), keep = first ? entry.keeps : 0;
+        long now = Clock;
+        // The unwinding part as it stands now, then this jump's share of it, from now on.
+        n.Transient = NewsPart(i, now) - n.Move + (1 - keep) * move;
+        n.TransientStep = now;
+        n.Move += keep * move;
+        if (entry.carry != 0) States[i].Trend.Slow += trendKernels[i].KickFor(Math.Log(1 + entry.carry));
+        LnPrice[i] += move;
         States[i].LastLn = LnPrice[i];
+        return first;
     }
 
     /// <summary>A sudden jump (test command only): added to the noise, which fades it over years.</summary>

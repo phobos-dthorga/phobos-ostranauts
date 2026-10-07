@@ -123,6 +123,10 @@
               "type": "boolean",
               "description": "Shown once in a save, then never again."
             },
+            "onceEach": {
+              "type": "boolean",
+              "description": "Shown once each time its required flags are set again (Framework 0.131.0); needs requires.flags, not with once."
+            },
             "requires": {
               "type": "object",
               "additionalProperties": false,
@@ -482,6 +486,10 @@
             "once": {
               "type": "boolean",
               "description": "Shown once in a save, then never again."
+            },
+            "onceEach": {
+              "type": "boolean",
+              "description": "Shown once each time its required flags are set again (Framework 0.131.0); needs requires.flags, not with once."
             },
             "requires": {
               "type": "object",
@@ -1098,6 +1106,12 @@
             "repeatable": {
               "type": "boolean",
               "description": "May start again after it is finished."
+            },
+            "cooldownDays": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 3650,
+              "description": "For a repeatable arc (Framework 0.131.0): the fewest game days after it finished before it may start again by itself."
             },
             "thread": {
               "type": "string",

@@ -188,8 +188,11 @@ internal static class Market
 
     // ---- Story (Phobos Exchange 0.2.0) ------------------------------------------------------------------------
 
-    /// <summary>Story news that moves prices: a company's news entry moves its price once per save when its story flag is
-    /// set (by a story pack's arc or by another mod), and the wire carries its line. A few flag lookups a second.</summary>
+    /// <summary>Story news that moves prices (recurring from 0.4.0): a company's news entry breaks each time its story flag
+    /// is set, or set again (an arc that sets a flag again renews its time, Framework 0.131.0), and the wire carries its
+    /// line. A company keeps a watermark: flags set at or before it are answered. A record from before 0.4.0, or a
+    /// company new to the save, starts its watermark at the latest of its news flags already set, so old news never
+    /// breaks twice. A few flag lookups a second.</summary>
     private static void News()
     {
         if (model == null) return;
@@ -197,11 +200,21 @@ internal static class Market
         for (int i = 0; i < model.Count; i++)
         {
             var entries = model.Entries[i].news;
+            if (entries.Count == 0) continue;
+            var state = model.News(i);
+            if (state.Watermark == null)
+            {
+                double latest = 0;
+                foreach (var e in entries) if (StoryFlags.SetAt(e.flag) is double at && at > latest) latest = at;
+                state.Watermark = latest; dirty = true;
+            }
+            double mark = state.Watermark.Value, newest = mark;
             for (int j = 0; j < entries.Count; j++)
             {
                 var n = entries[j];
-                if (model.NewsApplied(i, n.flag) || !StoryFlags.Has(n.flag)) continue;
-                model.ApplyNews(i, n.flag, Math.Log(1 + n.move));
+                if (StoryFlags.SetAt(n.flag) is not double setAt || setAt <= mark) continue;
+                if (setAt > newest) newest = setAt;
+                model.BreakNews(i, n);
                 watch?.Reported(i, ExchangeRules.HourOf(model.Clock));
                 string name = Companies.Name(model.Ids[i]), ticker = model.Entries[i].ticker;
                 string line = n.wire != null
@@ -210,6 +223,7 @@ internal static class Market
                 Notify("PhobosExchange.wire", NoticeLevel.Info, line, null);
                 moved = true;
             }
+            if (newest > mark) state.Watermark = newest;
         }
         if (moved) { dirty = true; Save(); Version++; }
     }
@@ -221,16 +235,18 @@ internal static class Market
         if (model == null) return;
         string id = model.Ids[company];
         if (replaces != null) Flag(ExchangeRules.StoryId(id, replaces), false);
-        Flag(ExchangeRules.StoryId(id, what), true);
+        // Renewed each time (0.4.0), so news that answers the event can come round again.
+        Flag(ExchangeRules.StoryId(id, what), true, renew: true);
         string arc = ExchangeRules.StoryId(id, what);
         if (!StoryContent.Library.Arcs.ContainsKey(arc)) return;
         if (!StoryArcs.TryBegin(arc, out string message)) Plugin.Log(Text.Get("Story.skipped", arc, message));
     }
 
-    private static void Flag(string flag, bool on)
+    private static void Flag(string flag, bool on, bool renew = false)
     {
         try
         {
+            if (on && renew) { StoryFlags.Renew(flag); return; }
             if (on == StoryFlags.Has(flag)) return;
             if (on) StoryFlags.Set(flag); else StoryFlags.Clear(flag);
         }

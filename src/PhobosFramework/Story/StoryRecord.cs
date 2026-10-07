@@ -187,11 +187,23 @@ public sealed class StoryRecord
     public bool Finished(string arc) => Arcs.TryGetValue(arc, out var p) && (p.State == ArcState.Done || p.Completions > 0);
     public bool Active(string arc) => Arcs.TryGetValue(arc, out var p) && p.State == ArcState.Active;
     public bool AtStep(string arc, string step) => Arcs.TryGetValue(arc, out var p) && p.State == ArcState.Active && p.StepId == step;
-    /// <summary>A news item was shown: remembered with the time, the first time.</summary>
-    public void MarkSeen(string id, double epoch) { if (Seen.Add(id) || !SeenAt.ContainsKey(id)) SeenAt[id] = epoch; }
-    /// <summary>When a news item was first shown: its time, or the record's start for one seen before times were kept, or null.</summary>
+    /// <summary>A news item was shown: remembered with the time of its latest showing (Framework 0.131.0; earlier
+    /// versions kept the first), so talk about it and its next showing follow the latest.</summary>
+    public void MarkSeen(string id, double epoch) { Seen.Add(id); SeenAt[id] = epoch; }
+    /// <summary>When a news item was last shown: its time, or the record's start for one seen before times were kept, or null.</summary>
     public double? SeenEpoch(string id) => SeenAt.TryGetValue(id, out var at) ? at : Seen.Contains(id) ? Began : null;
     public void SetFlag(string flag, double epoch) { if (!Flags.ContainsKey(flag)) Flags[flag] = epoch; }
+    /// <summary>Sets a flag as of now, renewing its time when it was set already (Framework 0.131.0): an arc that sets a
+    /// flag again says it happened again.</summary>
+    public void RenewFlag(string flag, double epoch) => Flags[flag] = epoch;
+    /// <summary>Whether a onceEach entry is due (Framework 0.131.0): never shown, or shown before the latest setting of
+    /// one of its flags.</summary>
+    public bool DueAgain(string id, IEnumerable<string> flags)
+    {
+        if (!SeenAt.TryGetValue(id, out double seen)) return !Seen.Contains(id);
+        foreach (var f in flags) if (Flags.TryGetValue(f, out double set) && set > seen) return true;
+        return false;
+    }
     public void ClearFlag(string flag) => Flags.Remove(flag);
     private static double? Epoch(string value) =>
         double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double epoch) && !double.IsNaN(epoch) && !double.IsInfinity(epoch) ? epoch : null;
@@ -427,9 +439,14 @@ public static class StoryRules
     }
     public const double UnplacedFactor = 2;
 
-    /// <summary>Whether people still mention a news item: within the mention days of when it was first shown.</summary>
+    /// <summary>Whether people still mention a news item: within the mention days of when it was last shown.</summary>
     public static bool MentionFresh(double? seenEpoch, double epoch, double mentionDays) =>
         seenEpoch is double seen && epoch - seen >= 0 && epoch - seen <= GameClock.Seconds(mentionDays);
+
+    /// <summary>Whether a repeatable arc that finished at <paramref name="finished"/> may start again (Framework 0.131.0):
+    /// its cooldown in game days has passed. A clock that went backwards waits until it passes the finish again.</summary>
+    public static bool CooledDown(double finished, double epoch, double cooldownDays) =>
+        cooldownDays <= 0 || epoch - finished >= GameClock.Seconds(cooldownDays);
 
     /// <summary>The eligible small-talk lines, by moment.</summary>
     public static Dictionary<string, List<StoryLine>> ChatterPools(IEnumerable<StoryLine> lines, Func<StoryRequires?, bool> eligible)

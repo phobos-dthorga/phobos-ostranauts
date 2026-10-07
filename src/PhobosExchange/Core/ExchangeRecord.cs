@@ -55,9 +55,19 @@ public sealed class CompanyState
 /// 0.1.0 record reads unchanged and an older version keeps this one untouched.</summary>
 public sealed class NewsState
 {
+    /// <summary>What news has moved the price for good, in log units, and the news that has broken at least once (whose
+    /// lasting share is spent).</summary>
     public double Move;
     public readonly HashSet<string> Applied = new(StringComparer.Ordinal);
     public bool Empty => Move == 0 && Applied.Count == 0;
+    /// <summary>Recurring news (Phobos Exchange 0.4.0), saved under <c>newsfx.&lt;company&gt;</c>: the unwinding part of
+    /// every news jump so far, as it stood at <see cref="TransientStep"/>, fading at the company's half-life from there.</summary>
+    public double Transient;
+    public long TransientStep;
+    /// <summary>Story flags set at or before this game time have been answered; null until the exchange first looks
+    /// (then it is set to the latest news flag already set, so nothing old breaks again).</summary>
+    public double? Watermark;
+    public bool EffectsEmpty => Transient == 0 && Watermark == null;
 }
 
 /// <summary>Shares the player holds in one company.</summary>
@@ -85,7 +95,7 @@ public sealed class ExchangeRecord
     public const string Name = "PhobosExchange";
     public const int Version = 1;
     private const string SeedKey = "seed", ClockKey = "clock", MarketKey = "trend.market", SectorPrefix = "trend.sector.", CompanyPrefix = "co.",
-        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", NewsPrefix = "news.", LifetimePrefix = "hist.m.";
+        HoldingPrefix = "hold.", AlertPrefix = "alert.", HistoryPrefix = "hist.", TestKey = "test", NewsPrefix = "news.", LifetimePrefix = "hist.m.", EffectsPrefix = "newsfx.";
 
     public ulong Seed;
     public bool HasSeed;
@@ -147,7 +157,10 @@ public sealed class ExchangeRecord
                 else { record.kept[key] = value; record.Unreadable.Add(id); }
             }
             else if (key.StartsWith(AlertPrefix, StringComparison.Ordinal) && ours && TryAlert(p, out var alert)) record.Alerts[key.Substring(AlertPrefix.Length)] = alert;
-            else if (key.StartsWith(NewsPrefix, StringComparison.Ordinal) && ours && TryNews(p, out var news)) record.News[key.Substring(NewsPrefix.Length)] = news;
+            else if (key.StartsWith(NewsPrefix, StringComparison.Ordinal) && ours && TryNews(p, out var news))
+            { var n = record.NewsFor(key.Substring(NewsPrefix.Length)); n.Move = news.Move; n.Applied.UnionWith(news.Applied); }
+            // Recurring news (0.4.0) under a key of its own, so 0.2 and 0.3 keep it untouched and still read news.<id>.
+            else if (key.StartsWith(EffectsPrefix, StringComparison.Ordinal) && ours && TryEffects(p, record.NewsFor(key.Substring(EffectsPrefix.Length)))) { }
             else if (key.StartsWith(HistoryPrefix, StringComparison.Ordinal) && TryHistoryKey(key, out string hid, out char res, out int part))
             {
                 if (!histories.TryGetValue((hid, res), out var parts)) histories[(hid, res)] = parts = new Dictionary<int, string>();
@@ -199,6 +212,9 @@ public sealed class ExchangeRecord
         foreach (var pair in News)
             if (!pair.Value.Empty)
                 fields[NewsPrefix + pair.Key] = string.Join("|", Record.FormatTag, Record.Hex(pair.Value.Move), string.Join(";", pair.Value.Applied.OrderBy(f => f, StringComparer.Ordinal)));
+        foreach (var pair in News)
+            if (!pair.Value.EffectsEmpty)
+                fields[EffectsPrefix + pair.Key] = string.Join("|", Record.FormatTag, pair.Value.Watermark is double w ? Record.Hex(w) : "", Record.Hex(pair.Value.Transient), Record.Long(pair.Value.TransientStep));
         foreach (var pair in Histories)
         {
             foreach (char res in PriceHistory.Resolutions)
@@ -244,6 +260,14 @@ public sealed class ExchangeRecord
         n = new NewsState();
         if (p.Length != 3 || !Record.TryHex(p[1], out n.Move)) return false;
         if (p[2].Length > 0) foreach (var flag in p[2].Split(';')) { if (flag.Length == 0) return false; n.Applied.Add(flag); }
+        return true;
+    }
+
+    private static bool TryEffects(string[] p, NewsState n)
+    {
+        if (p.Length != 4 || !Record.TryHex(p[2], out double transient) || !Record.TryLong(p[3], out long step)) return false;
+        if (p[1].Length > 0) { if (!Record.TryHex(p[1], out double watermark)) return false; n.Watermark = watermark; }
+        n.Transient = transient; n.TransientStep = step;
         return true;
     }
 

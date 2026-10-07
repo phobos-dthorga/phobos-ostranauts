@@ -262,12 +262,16 @@
         {
           "flag": "exchange-smartlink-spares-contract",
           "move": 0.08,
-          "wire": "Smartlink wins a point-defence service contract from a group of tug operators."
+          "wire": "Smartlink wins a point-defence service contract from a group of tug operators.",
+          "carry": 0.04,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-smartlink-cannon-inspection",
           "move": -0.07,
-          "wire": "A safety inspection delays delivery of a Smartlink cannon assembly."
+          "wire": "A safety inspection delays delivery of a Smartlink cannon assembly.",
+          "carry": -0.035,
+          "keeps": 0.3
         }
       ]
     },
@@ -346,12 +350,16 @@
         {
           "flag": "exchange-testudo-cabin-refit",
           "move": 0.07,
-          "wire": "Testudo wins a run of cabin refits for working haulers."
+          "wire": "Testudo wins a run of cabin refits for working haulers.",
+          "carry": 0.035,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-testudo-foundry-check",
           "move": -0.08,
-          "wire": "Testudo pauses one foundry line for a crack inspection."
+          "wire": "Testudo pauses one foundry line for a crack inspection.",
+          "carry": -0.04,
+          "keeps": 0.3
         }
       ]
     },
@@ -424,12 +432,16 @@
         {
           "flag": "exchange-ayotimiwa-hull-auction",
           "move": 0.09,
-          "wire": "K-Leg's latest salvage auction draws a larger group of independent buyers."
+          "wire": "K-Leg's latest salvage auction draws a larger group of independent buyers.",
+          "carry": 0.045,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-ayotimiwa-yard-delay",
           "move": -0.06,
-          "wire": "A yard equipment failure delays departures from K-Leg."
+          "wire": "A yard equipment failure delays departures from K-Leg.",
+          "carry": -0.03,
+          "keeps": 0.3
         }
       ]
     },
@@ -501,12 +513,16 @@
         {
           "flag": "exchange-green-energy-cigarette-run",
           "move": 0.06,
-          "wire": "The Green Energy Company fills a large Damask Rose order for station stores."
+          "wire": "The Green Energy Company fills a large Damask Rose order for station stores.",
+          "carry": 0.03,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-green-energy-seed-recall",
           "move": -0.08,
-          "wire": "The Green Energy Company recalls a seed lot after a storage failure."
+          "wire": "The Green Energy Company recalls a seed lot after a storage failure.",
+          "carry": -0.04,
+          "keeps": 0.3
         }
       ]
     },
@@ -579,12 +595,16 @@
         {
           "flag": "exchange-brightvein-new-seam",
           "move": 0.11,
-          "wire": "Brightvein reports a clean ore seam and adds a second carrier to the run."
+          "wire": "Brightvein reports a clean ore seam and adds a second carrier to the run.",
+          "carry": 0.055,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-brightvein-hauler-damage",
           "move": -0.09,
-          "wire": "Damage to a Brightvein hauler delays an ore delivery to Zhonghuamen Terminal."
+          "wire": "Damage to a Brightvein hauler delays an ore delivery to Zhonghuamen Terminal.",
+          "carry": -0.045,
+          "keeps": 0.3
         }
       ]
     },
@@ -663,12 +683,16 @@
         {
           "flag": "exchange-coldwell-ice-delivery",
           "move": 0.08,
-          "wire": "Coldwell completes a water-ice run after a long delay at the docks."
+          "wire": "Coldwell completes a water-ice run after a long delay at the docks.",
+          "carry": 0.04,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-coldwell-tanker-repair",
           "move": -0.07,
-          "wire": "A tanker repair keeps one of Coldwell's volatile cargoes off the route."
+          "wire": "A tanker repair keeps one of Coldwell's volatile cargoes off the route.",
+          "carry": -0.035,
+          "keeps": 0.3
         }
       ]
     },
@@ -740,12 +764,16 @@
         {
           "flag": "exchange-verdemorrow-garden-orders",
           "move": 0.08,
-          "wire": "Verdemorrow receives a new run of orders for shipboard cultivation equipment."
+          "wire": "Verdemorrow receives a new run of orders for shipboard cultivation equipment.",
+          "carry": 0.04,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-verdemorrow-stock-check",
           "move": -0.07,
-          "wire": "A storage failure delays part of Verdemorrow's planting-stock shipment."
+          "wire": "A storage failure delays part of Verdemorrow's planting-stock shipment.",
+          "carry": -0.035,
+          "keeps": 0.3
         }
       ]
     },
@@ -824,12 +852,16 @@
         {
           "flag": "exchange-halewright-clinic-orders",
           "move": 0.08,
-          "wire": "Halewright fills a run of clinic orders from outer-system stations."
+          "wire": "Halewright fills a run of clinic orders from outer-system stations.",
+          "carry": 0.04,
+          "keeps": 0.3
         },
         {
           "flag": "exchange-halewright-fitting-recall",
           "move": -0.06,
-          "wire": "Halewright delays a shipment while it checks a batch of clinic fittings."
+          "wire": "Halewright delays a shipment while it checks a batch of clinic fittings.",
+          "carry": -0.03,
+          "keeps": 0.3
         }
       ]
     }

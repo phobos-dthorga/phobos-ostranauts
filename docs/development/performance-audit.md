@@ -1204,6 +1204,20 @@ L79 — Manufacturing 0.56.1. The offer-time removal check reads the same sessio
 
 L80 — Manufacturing 0.56.2. The offer-time removal check for the charge machines, the Corker-2 and the X2, K2 and AX-2 reads the same session it always did and answers through one pure rule; nothing else changed. No per-frame or world-tick work was added. No capture accompanies this change.
 
+## 8 October: recurring news (L100)
+
+L100 — Phobos Exchange 0.4.0, Framework 0.131.0.
+- **The exchange's step.** Each market step works out a company's news part with one
+  exponent while some news is still unwinding (none otherwise).
+- **The one-second poll.** It now reads each news flag's set time instead of whether it is
+  set: the same one dictionary lookup per news entry.
+- **Breaking news.** A piece of news breaks once per occurrence, a handful of arithmetic.
+- **The story check** (every 30 seconds): a repeatable arc's cooldown is one subtraction,
+  and an `onceEach` news item or advert compares its last showing with its flags' times
+  (a lookup per required flag).
+
+No capture accompanies this change.
+
 ## 7 October: company histories on the exchange (L99)
 
 L99 — Phobos Exchange 0.3.0, Framework 0.130.0. Three changes on the exchange's paths:

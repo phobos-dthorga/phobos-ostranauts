@@ -101,7 +101,8 @@ public static partial class StoryArcs
     }
 
     private static bool Available(StoryEntry<StoryArc> arc, IStoryFacts facts, Gates gates) =>
-        (!record.Arcs.TryGetValue(arc.Id, out var p) || arc.Value.repeatable && p.State == ArcState.Done) && gates.Blocked(arc.Value.requires, arc.Value.thread) == null &&
+        (!record.Arcs.TryGetValue(arc.Id, out var p) || arc.Value.repeatable && p.State == ArcState.Done && StoryRules.CooledDown(p.StepStart, facts.Epoch, arc.Value.cooldownDays)) &&
+        gates.Blocked(arc.Value.requires, arc.Value.thread) == null &&
         (PlaceOf(arc.Value.thread, arc.Value.place) is not string place || facts.Near(place));
 
     private static string? PlaceOf(string? thread, string? place) => StoryContent.Library.PlaceOf(thread, place);
@@ -235,12 +236,14 @@ public static partial class StoryArcs
         if (result != null && result.credits > 0) Pay(result.credits, from, arc.Id);
         if (result != null && result.files.Count > 0) GiveFiles(result.files);
         // Story flags (Framework 0.114.0): what other entries may now require.
-        if (result != null) { foreach (var flag in result.setFlags) record.SetFlag(flag, facts.Epoch); foreach (var flag in result.clearFlags) record.ClearFlag(flag); }
+        // Framework 0.131.0: setting a flag that is set already renews its time, so recurring news can follow it.
+        if (result != null) { foreach (var flag in result.setFlags) record.RenewFlag(flag, facts.Epoch); foreach (var flag in result.clearFlags) record.ClearFlag(flag); }
         // Standing (Framework 0.115.0; owner choice: small changes): through the game's own faction scores.
         if (result != null) foreach (var change in result.standing) Stand(change.faction, change.change);
         int next = StoryRules.NextStep(arc.Value, index, nextId);
         if (next >= 0) Enter(arc, progress, next, facts);
-        else { progress.State = ArcState.Done; progress.Completions++; }
+        // A finished arc keeps its finishing time in StepStart (Framework 0.131.0), for a repeatable arc's cooldown.
+        else { progress.State = ArcState.Done; progress.Completions++; progress.StepStart = facts.Epoch; }
         return true;
     }
 
@@ -461,14 +464,14 @@ public static partial class StoryArcs
         nearPlaces = new HashSet<string>(library.Places.Keys.Where(facts.Near), StringComparer.Ordinal);
         foreach (var b in library.Broadcasts.Values)
         {
-            if (b.Value.once && record.Seen.Contains(b.Id) || gates.Blocked(b.Value.requires, b.Value.thread) != null) continue;
+            if (b.Value.once && record.Seen.Contains(b.Id) || b.Value.onceEach && !record.DueAgain(b.Id, b.Value.requires!.flags) || gates.Blocked(b.Value.requires, b.Value.thread) != null) continue;
             string? place = library.PlaceOf(b.Value.thread, b.Value.place);
             int weight = StoryRules.PlaceWeight(b.Value.weight, place, place != null && nearPlaces.Contains(place), library.Settings);
             if (weight > 0) broadcastPool.Add((b.Id, weight));
         }
         foreach (var a in library.Adverts.Values)
         {
-            if (a.Value.once && record.Seen.Contains(a.Id) || gates.Blocked(a.Value.requires, a.Value.thread) != null) continue;
+            if (a.Value.once && record.Seen.Contains(a.Id) || a.Value.onceEach && !record.DueAgain(a.Id, a.Value.requires!.flags) || gates.Blocked(a.Value.requires, a.Value.thread) != null) continue;
             string? place = library.PlaceOf(a.Value.thread, a.Value.place);
             int weight = StoryRules.PlaceWeight(a.Value.weight, place, place != null && nearPlaces.Contains(place), library.Settings);
             if (weight > 0) advertPool.Add((a.Id, weight));
@@ -510,7 +513,8 @@ public static partial class StoryArcs
         {
             string next = record.Queue[0]; record.Queue.RemoveAt(0);
             // A once-only bulletin already shown is not shown again (Framework 0.114.0).
-            if (StoryContent.Library.Broadcasts.TryGetValue(next, out var b) && !(b.Value.once && record.Seen.Contains(next))) id = next;
+            if (StoryContent.Library.Broadcasts.TryGetValue(next, out var b) && !(b.Value.once && record.Seen.Contains(next)) &&
+                !(b.Value.onceEach && !record.DueAgain(next, b.Value.requires!.flags))) id = next;
         }
         Save();
         return id;

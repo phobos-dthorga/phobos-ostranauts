@@ -37,7 +37,7 @@ published-release or installed-version claims. Current build baseline:
 
 | Mod | Version | What it does | Status / guide |
 | --- | --- | --- | --- |
-| **Phobos Framework** | 0.130.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/development/framework-author-guide.md) |
+| **Phobos Framework** | 0.131.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/development/framework-author-guide.md) |
 | **Phobos Shipbreaker** | 0.85.0 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
 | **Phobos Auto Nav** | 0.35.1 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/development/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.66.1 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
@@ -45,7 +45,7 @@ published-release or installed-version claims. Current build baseline:
 | **Phobos' War Has Been Declared** | 0.3.1 | Battle stations log parts destroyed on your ships; standing down lays the game's own build sites where they stood, filtered by player-editable rebuild schematics | Requires Framework 0.123.0; no items; [player guide](docs/war-declared-player-guide.md) |
 | **Phobos Medical** | 0.5.2 | Halewright Ward-3 medical bed: lay an unconscious casualty in it, let the injured rest awake, or sleep; powered care with the game's own medical-rest healing, stopping when the power does | Requires Framework 0.127.2; uses the vanilla bed's art for now; [player guide](docs/medical-player-guide.md) |
 | **Phobos Banking** | 0.7.0 | A CREDIT app on the PDA listing your ledger, local lender loans, broker financing and a credit line usable anywhere, with letters and stories from the lenders | Requires Framework 0.128.0; held draft; [player guide](docs/bank-player-guide.md) |
-| **Phobos Exchange** | 0.3.0 | An EXCHANGE app on the PDA: shares in the game's ubercorps and Phobos makers, priced from the station cargo markets with trends that run for weeks, charts, cash trading and price alerts | Requires Framework 0.130.0; held draft; [player guide](docs/exchange-player-guide.md) |
+| **Phobos Exchange** | 0.4.0 | An EXCHANGE app on the PDA: shares in the game's ubercorps and Phobos makers, priced from the station cargo markets with trends that run for weeks, charts, cash trading and price alerts | Requires Framework 0.131.0; held draft; [player guide](docs/exchange-player-guide.md) |
 | **Phobos Spacer Stories** | 0.3.1 | Data-only stories of vanilla station life and Phobos makers: news, adverts, crew talk, loading lore, encyclopedia articles and 22 chains with readable archives | Requires Framework 0.114.0; held for build-check update and in-game review; [authoring record](docs/development/spacer-stories-authoring.md) |
 
 Approach Assist has been retired and removed; its prototype remains in Git history. Phobos Medical's monitor, medic care and autodoc, and asteroid life-support processing, remain proposals.

@@ -373,17 +373,19 @@ def story():
         extra={'oneOf': [{'required': ['tests'], 'not': {'required': ['choices']}}, {'required': ['choices'], 'not': {'anyOf': [{'required': ['tests']}, {'required': ['branches']}]}}]})
     weight = num(1, 100, integer=True, description='How often it is picked against other story entries (default 1).')
     once = {'type': 'boolean', 'description': 'Shown once in a save, then never again.'}
+    once_each = {'type': 'boolean', 'description': 'Shown once each time its required flags are set again (Framework 0.131.0); needs requires.flags, not with once.'}
     author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}
     broadcast = obj({**author, 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System; left out, the place\'s own.'},
-                     'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'requires': requires,
+                     'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'onceEach': once_each, 'requires': requires,
                      'mention': text(200, 'What people say when they bring this news up in small talk, for a while after it was shown.'),
                      'thread': thread_ref, 'place': place_ref}, ['text'],
                     extra={'anyOf': [{'required': ['region']}, {'required': ['place']}, {'required': ['thread']}]})
-    advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'requires': requires,
+    advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'onceEach': once_each, 'requires': requires,
                   'thread': thread_ref, 'place': place_ref}, ['text'])
     arc = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80, 'description': 'For authors and the F3 list.'}, 'notes': NOTES, 'requires': requires,
                'chance': num(0, 1, description='Chance per story check (every 30 s) that the eligible arc starts by itself, while the player is at its place if it has one; 0 starts it only from F3.'),
                'repeatable': {'type': 'boolean', 'description': 'May start again after it is finished.'},
+               'cooldownDays': num(0, 3650, description='For a repeatable arc (Framework 0.131.0): the fewest game days after it finished before it may start again by itself.'),
                'thread': thread_ref, 'place': {**place_ref, 'description': place_ref['description'] + ' A dock-at test without a station means this place.'},
                'steps': {'type': 'array', 'items': step, 'minItems': 1, 'maxItems': 12}}, ['title', 'steps'])
     lore_note = ' Shown with no player at hand: plain text without placeholders.'
@@ -554,8 +556,10 @@ def exchange():
     news = obj({
         'notes': NOTES,
         'flag': string('The story flag that brings the news, set by a story arc or another mod.', pattern='^[a-z0-9]+(-[a-z0-9]+)*$'),
-        'move': num(-0.3, 0.3, description='How far the price moves when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way. Once per save, and it stays.'),
+        'move': num(-0.3, 0.3, description='How far the price jumps when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way, each time it breaks.'),
         'wire': string('The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders.'),
+        'carry': num(-0.15, 0.15, description='How far the news carries the price on through the company trend phase, at its height a few weeks on; the same way as the move (Phobos Exchange 0.4.0).'),
+        'keeps': num(0, 1, description='The share of the jump that stays for good the first time this news breaks in a save; the rest, and every later jump, unwinds (Phobos Exchange 0.4.0).'),
     }, required=('flag', 'move'))
     company = obj({
         'notes': NOTES,
@@ -576,7 +580,8 @@ def exchange():
         'followsSector': num(0, 2, description='How closely it follows its sector phases (default 1).'),
         'trend': trend,
         'drivers': {'type': 'array', 'maxItems': 6, 'items': driver, 'description': 'The game market signals the company follows.'},
-        'news': {'type': 'array', 'maxItems': 12, 'items': news, 'description': 'Story news that moves the price once when its story flag is set (Phobos Exchange 0.2.0).'},
+        'news': {'type': 'array', 'maxItems': 12, 'items': news, 'description': 'Story news that moves the price each time its story flag is set (Phobos Exchange 0.2.0; recurring from 0.4.0).'},
+        'newsFadeDays': num(7, 365, description='The half-life, in game days, of the part of each news jump that unwinds (default 30; Phobos Exchange 0.4.0).'),
         'founded': {**year, 'description': 'The year the company was founded: its age, for the story and its page (Phobos Exchange 0.3.0).'},
         'listed': {**year, 'description': 'The year its shares first traded on the exchange, where its price history starts; defaults to founded, no earlier than founded or the exchange opening.'},
         'listingPrice': num(0.01, 100000, description='The share price at listing, for a company listed by 2076; its yearly growth to today, net of the history moves, stays from -0.05 to 0.25.'),

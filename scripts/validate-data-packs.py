@@ -998,6 +998,18 @@ def story_outcome(outcome, where):
     number(outcome.get('credits', 0), f'{where}/onComplete/credits', 0, STORY_LIMITS['credit_reward'], integer=True)
 
 
+STORY_MAX_COOLDOWN_DAYS = 3650
+
+
+def story_once_each(entry, w):
+    """Framework 0.131.0: shown once each time its required flags are set again; needs flags, not with once."""
+    once_each = entry.get('onceEach', False)
+    if not isinstance(once_each, bool):
+        raise Problem(f'{w}/onceEach: true or false')
+    if once_each and (entry.get('once', False) or not (entry.get('requires') or {}).get('flags')):
+        raise Problem(f'{w}: onceEach needs at least one flag in requires.flags to watch, and cannot go with once')
+
+
 def story(pack, where, framework=None):
     """The story schema (Framework 0.107.0). Only Framework's own pack may hold settings (framework=None skips that check)."""
     fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files',
@@ -1070,7 +1082,7 @@ def story(pack, where, framework=None):
     for key, b in pack.get('broadcasts', {}).items():
         w = f'{where}/broadcasts/{key}'
         story_id(key, w)
-        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'requires', 'mention', 'thread', 'place'}, w)
+        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'onceEach', 'requires', 'mention', 'thread', 'place'}, w)
         if b.get('mention') is not None:
             story_words(b['mention'], STORY_LIMITS['line'], f'{w}/mention')
         story_author(b, w)
@@ -1086,10 +1098,11 @@ def story(pack, where, framework=None):
         if not isinstance(b.get('once', False), bool):
             raise Problem(f'{w}/once: true or false')
         story_requires(b.get('requires'), f'{w}/requires')
+        story_once_each(b, w)
     for key, a in pack.get('adverts', {}).items():
         w = f'{where}/adverts/{key}'
         story_id(key, w)
-        fields(a, {'title', 'notes', 'text', 'weight', 'once', 'requires', 'thread', 'place'}, w)
+        fields(a, {'title', 'notes', 'text', 'weight', 'once', 'onceEach', 'requires', 'thread', 'place'}, w)
         story_author(a, w)
         story_key(a.get('thread'), f'{w}/thread')
         story_key(a.get('place'), f'{w}/place')
@@ -1098,11 +1111,12 @@ def story(pack, where, framework=None):
         if not isinstance(a.get('once', False), bool):
             raise Problem(f'{w}/once: true or false')
         story_requires(a.get('requires'), f'{w}/requires')
+        story_once_each(a, w)
     broadcasts = set(pack.get('broadcasts', {}))
     for key, arc in pack.get('arcs', {}).items():
         w = f'{where}/arcs/{key}'
         story_id(key, w)
-        fields(arc, {'title', 'notes', 'requires', 'chance', 'repeatable', 'steps', 'thread', 'place'}, w)
+        fields(arc, {'title', 'notes', 'requires', 'chance', 'repeatable', 'cooldownDays', 'steps', 'thread', 'place'}, w)
         story_key(arc.get('thread'), f'{w}/thread')
         story_key(arc.get('place'), f'{w}/place')
         placed = arc.get('place') is not None or arc.get('thread') is not None
@@ -1113,6 +1127,10 @@ def story(pack, where, framework=None):
         number(arc.get('chance', 0), f'{w}/chance', 0, 1)
         if not isinstance(arc.get('repeatable', False), bool):
             raise Problem(f'{w}/repeatable: true or false')
+        # Framework 0.131.0: a repeatable arc's cooldown, in game days.
+        number(arc.get('cooldownDays', 0), f'{w}/cooldownDays', 0, STORY_MAX_COOLDOWN_DAYS)
+        if arc.get('cooldownDays', 0) > 0 and not arc.get('repeatable', False):
+            raise Problem(f'{w}/cooldownDays: only on an arc that is repeatable')
         story_requires(arc.get('requires'), f'{w}/requires')
         steps = arc.get('steps')
         if not isinstance(steps, list) or not 1 <= len(steps) <= STORY_LIMITS['steps']:
@@ -1380,6 +1398,15 @@ EXCHANGE_HISTORY_MOVE = (-0.6, 1.0, 0.01)
 EXCHANGE_LISTING_GROWTH = (-0.05, 0.25)
 
 
+# Phobos Exchange 0.4.0: recurring news (mirrors ExchangeSchema).
+EXCHANGE_NEWS_CARRY, EXCHANGE_NEWS_UNWIND, EXCHANGE_NEWS_FADE = 0.15, 0.02, (7, 365)
+
+
+def exchange_news_unwind(move, fade_days):
+    """How far a news jump unwinds in its first week (log units), worked for a repeat, which keeps nothing."""
+    return abs(math.log(1 + move)) * (1 - 2 ** (-7 / max(1e-9, fade_days)))
+
+
 def exchange_year(value, where):
     number(value, where, EXCHANGE_EARLIEST_YEAR, EXCHANGE_LAST_YEAR, integer=True)
 
@@ -1473,7 +1500,7 @@ def exchange(pack, where):
         if not isinstance(c, dict):
             raise Problem(f'{w}: expected an object')
         fields(c, {'notes', 'ticker', 'name', 'profile', 'sector', 'price', 'dailyVolume', 'volatility', 'volOfVol', 'noiseHalfLifeYears', 'drift', 'jumpsPerYear',
-                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers', 'news', 'founded', 'listed', 'listingPrice', 'history'}, w)
+                   'jumpSize', 'spread', 'followsMarket', 'followsSector', 'trend', 'drivers', 'news', 'founded', 'listed', 'listingPrice', 'history', 'newsFadeDays'}, w)
         if 'notes' in c and (not isinstance(c['notes'], str) or len(c['notes']) > 2000):
             raise Problem(f'{w}/notes: at most 2000 characters')
         ticker = c.get('ticker')
@@ -1523,7 +1550,7 @@ def exchange(pack, where):
             nw = f'{w}/news/{i}'
             if not isinstance(n, dict):
                 raise Problem(f'{nw}: expected an object')
-            fields(n, {'notes', 'flag', 'move', 'wire'}, nw)
+            fields(n, {'notes', 'flag', 'move', 'wire', 'carry', 'keeps'}, nw)
             story_id(n.get('flag'), f'{nw}/flag')
             if n['flag'] in flags:
                 raise Problem(f'{nw}/flag: {n["flag"]} is used twice for this company')
@@ -1535,6 +1562,15 @@ def exchange(pack, where):
                 story_words(n['wire'], 300, f'{nw}/wire')
                 if '[' in n['wire']:
                     raise Problem(f'{nw}/wire: no placeholders')
+            # Phobos Exchange 0.4.0: recurring news, its carry, its lasting share and its first week's unwind.
+            carry = number(n.get('carry', 0), f'{nw}/carry', -EXCHANGE_NEWS_CARRY, EXCHANGE_NEWS_CARRY)
+            if carry != 0 and (carry > 0) != (n['move'] > 0):
+                raise Problem(f'{nw}/carry: the same way as the move')
+            number(n.get('keeps', 0), f'{nw}/keeps', 0, 1)
+            unwind = exchange_news_unwind(n['move'], c.get('newsFadeDays', 30))
+            if unwind > EXCHANGE_NEWS_UNWIND:
+                raise Problem(f'{nw}: its jump unwinds by {unwind:.3f} in its first week, above {EXCHANGE_NEWS_UNWIND}; make the move smaller or raise the company\'s newsFadeDays')
+        number(c.get('newsFadeDays', 30), f'{w}/newsFadeDays', EXCHANGE_NEWS_FADE[0], EXCHANGE_NEWS_FADE[1])
         # Phobos Exchange 0.3.0: founding and listing years, the price at listing and the company's own history.
         founded, listed = c.get('founded'), c.get('listed')
         if founded is not None:

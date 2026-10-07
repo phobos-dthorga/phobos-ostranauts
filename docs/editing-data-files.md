@@ -682,12 +682,18 @@ What each field does:
 - **`trend`**: the company's own phases: `slowWeeks` (roughly how long one lasts),
   `fastWeeks` (how quickly it turns; `slowWeeks` must be at least one and a half times
   it) and `sd` (how far phases carry the price; 0.15 is about 15%).
-- **`news`** (Phobos Exchange 0.2.0): up to twelve pieces of story news that move the price
-  once when their story flag is set, by a story arc's `setFlags` or another mod: `flag` (a
-  story flag id), `move` (a share of the price from -0.3 to 0.3, at least 0.005 either way:
-  0.08 is up 8%) and an optional `wire` line (up to 300 characters, a neutral wire report, no
-  placeholders) the market wire prints. The move stays: a contract won changes what the
-  company is worth. See [exchange stories](development/exchange-stories-handoff.md) for how a
+- **`news`** (Phobos Exchange 0.2.0, recurring from 0.4.0): up to twelve pieces of story news
+  that move the price each time their story flag is set, or set again, by a story arc's
+  `setFlags` or another mod: `flag` (a story flag id), `move` (how far the price jumps at once,
+  a share from -0.3 to 0.3, at least 0.005 either way: 0.08 is up 8%), an optional `wire` line
+  (up to 300 characters, a neutral wire report, no placeholders) the market wire prints, and
+  since 0.4.0 `carry` (from -0.15 to 0.15, the same way as the move: how far the company's
+  own trend phase carries the price on, at its height a few weeks later) and `keeps` (0 to 1:
+  the share of the jump that stays for good the first time it breaks). The rest of the jump,
+  and the whole jump every later time, unwinds at the company's **`newsFadeDays`** (a
+  half-life in game days, 7 to 365, default 30), so news that recurs never adds up to a
+  steady rise. A jump may unwind by no more than 0.02 (about 2%) in its first week, so trading
+  on the unwind is a modest edge, not free money: a larger move needs a longer fade. See [exchange stories](development/exchange-stories-handoff.md) for how a
   story and its news fit together, and the
   [Keelhaul example](../examples/addons/PhobosExampleKeelhaulListing/README.md).
 - **`founded`** and **`listed`** (Phobos Exchange 0.3.0): the year the company was founded

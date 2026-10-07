@@ -138,6 +138,19 @@ public sealed class TrendKernel
         gap = (aS - aF) * s + aF * g + l21 * z1 + l22 * z2;
     }
 
+    /// <summary>The push to the slow (and so the fast) process that makes the level rise by <paramref name="peak"/> at
+    /// its height (Phobos Exchange 0.4.0): adding the same amount to both leaves the level where it is and sets it moving,
+    /// so on average it rises to the peak after <see cref="PeakSeconds"/> and then fades, with the phase's own noise.</summary>
+    public double KickFor(double peak)
+    {
+        if (A <= 0 || peak == 0) return 0;
+        double r = Ks / Kf, height = Math.Pow(r, Ks / (Kf - Ks)) - Math.Pow(r, Kf / (Kf - Ks));
+        return peak / (A * height);
+    }
+
+    /// <summary>When a push's average rise is at its height.</summary>
+    public double PeakSeconds => Math.Log(Kf / Ks) / (Kf - Ks);
+
     /// <summary>A draw from the stationary distribution, for a new market or a newly listed company.</summary>
     public void Stationary(out double slow, out double gap, double z1, double z2)
     {

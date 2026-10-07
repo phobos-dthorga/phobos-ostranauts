@@ -18,7 +18,7 @@ internal static class StoryNews
         if (id == null && StoryArcs.BroadcastPool.Count > 0 && StoryArcs.Roll() < library.Settings.broadcastShare)
         { id = StoryRules.Pick(StoryArcs.BroadcastPool, StoryArcs.Roll()); fromPool = true; }
         if (id == null || !library.Broadcasts.TryGetValue(id, out var entry)) return original;
-        StoryArcs.Shown(id, entry.Value.once, fromPool ? StoryArcs.BroadcastPool : null);
+        StoryArcs.Shown(id, entry.Value.once || entry.Value.onceEach, fromPool ? StoryArcs.BroadcastPool : null);
         // The "Region News:" label: the item's own, else its place's (Framework 0.114.0).
         string? place = library.PlaceOf(entry.Value.thread, entry.Value.place);
         string region = entry.Value.region != null ? StoryContent.Words(entry.Owner, id + ".region", entry.Value.region) : library.Places.Region(place) ?? Text.Get("Story.these_parts");
@@ -36,7 +36,7 @@ internal static class StoryNews
         if (StoryArcs.AdvertPool.Count == 0 || !(StoryArcs.Roll() < library.Settings.advertShare)) return original;
         string? id = StoryRules.Pick(StoryArcs.AdvertPool, StoryArcs.Roll());
         if (id == null || !library.Adverts.TryGetValue(id, out var entry)) return original;
-        StoryArcs.Shown(id, entry.Value.once, StoryArcs.AdvertPool);
+        StoryArcs.Shown(id, entry.Value.once || entry.Value.onceEach, StoryArcs.AdvertPool);
         return new JsonAd { strName = StoryRules.TestPrefix + id, strDesc = StoryArcs.Fill(StoryContent.Words(entry.Owner, id + ".text", entry.Value.text), library.PlaceOf(entry.Value.thread, entry.Value.place)) };
     }
 }

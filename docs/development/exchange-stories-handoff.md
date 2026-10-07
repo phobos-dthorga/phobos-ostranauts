@@ -48,24 +48,41 @@ are proposals, not Ostranauts canon.
 ## Hooks: how stories and prices meet
 
 **Story into price: news.** Each company's entry in `exchange.json` may list up to twelve
-`news` items: a story flag, how far the price moves when the flag is set (`move`, a share of
-the price from -0.3 to 0.3, at least 0.005 either way) and the line the market wire prints
-(`wire`, up to 300 characters, no placeholders). The move happens once per save, the moment
-the flag is set, and it stays: a contract won or a yard lost changes what the company is
-worth. Any story arc can set the flag (`onComplete.setFlags`), so you write the story in
-`story.json` and say what it does to the price in `exchange.json`:
+`news` items. News recurs (Phobos Exchange 0.4.0, owner direction 8 October 2026: marked
+effects over time, again and again, as the game's own headlines do). Each item has:
+
+- `flag`: the story flag that brings it. It breaks each time the flag is set, or set again;
+  an arc that sets a flag already set renews it (Framework 0.131.0).
+- `move`: how far the price jumps at once, a share from -0.3 to 0.3, at least 0.005 either way.
+- `wire`: the line the market wire prints, up to 300 characters, no placeholders.
+- `carry`: how far the company's trend carries the price on afterwards, at its height a
+  few weeks later, from -0.15 to 0.15, the same way as the move. Usually, not always: the
+  market's own ups and downs still apply.
+- `keeps`: the share of the jump that stays for good the first time it breaks in a save
+  (0 to 1). The rest, and the whole jump every later time, unwinds over the company's
+  `newsFadeDays` (a half-life in game days, default 30).
+
+A jump may unwind by no more than about 2% in its first week, so a bigger move needs a longer
+`newsFadeDays` (the validator says so). You write the story in `story.json` and say what it
+does to the price in `exchange.json`:
 
 ```json
-"news": [ { "flag": "exchange-testudo-titan-yard-contract", "move": 0.08,
+"news": [ { "flag": "exchange-testudo-titan-yard-contract", "move": 0.08, "carry": 0.04, "keeps": 0.3,
             "wire": "Testudo wins the Cassini Spaceport yard contract for the coming season." } ]
 ```
+
+**How news comes round again.** Make the arc that sets the flag `"repeatable": true` with a
+`"cooldownDays"` (the fewest game days before it may start again; the shipped news uses 7,
+the owner's choice of weekly news) and a `chance`. Give its TV item `"onceEach": true` with
+the flag in `requires.flags`, so it shows once each time the news breaks, not once a save.
+Write lines that bear repeating: the second contract of a kind reads as well as the first.
 
 **Price into story: events.** Phobos Exchange starts the arc `exchange-<company>-<event>`
 when a story pack has one (its `requires` still apply), and keeps a flag of the same name:
 
 | Event | When | Flag kept |
 | --- | --- | --- |
-| `surge` | A company's price rose by the wire's threshold (5%) over a game day | `exchange-<company>-surge` while the latest big move was up (cleared by a slump) |
+| `surge` | A company's price rose by the wire's threshold (5%) over a game day | `exchange-<company>-surge` while the latest big move was up (cleared by a slump); renewed at each surge, so `onceEach` news follows every one |
 | `slump` | It fell that far | `exchange-<company>-slump` while the latest big move was down |
 | `bought` | The player buys the company's shares, from none | `exchange-<company>-bought` (cleared when they sell out) |
 | `major-holder` | The player's holding reaches half of what one trader may hold (125,000 credits by default) | `exchange-<company>-major-holder` while it stays there |
@@ -227,6 +244,8 @@ These follow the Banking precedent
   the market move them. Say "climbed", "slid", "a strong week"; the wire line of a `news`
   entry is the one place to say what happened, and still without figures (the wire adds
   the percentage itself).
+- **News comes round.** Each piece of news can break again and again; make its arc
+  repeatable with a cooldown, its TV item `onceEach`, and its lines fit to read more than once.
 - **Weeks, not hours.** Prices run in phases that last weeks; stories pace the same way. A
   `wait` test counts game hours, up to 720 (about thirty game days); waits of a day (24) or
   more suit the market better than a few hours.

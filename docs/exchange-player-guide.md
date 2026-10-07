@@ -45,13 +45,21 @@ wire: Smartlink (SMLK) rose 6.2% over the day, as Weapons ran short at Port Yang
 
 ## News and stories
 
-From version 0.2.0 the exchange has a story side. Story news can move a company's price
-for good: when a contract is won or a yard burns, the wire carries the line and the price
-jumps once. Stories also notice what you do: your first purchase of a company, a large
-stake, selling out, and a company's biggest moves can each bring a letter or news, when a
-story pack has one. Version 0.2.0 ships the hooks and a thread for each company; the stories
-themselves come in a later release, and add-ons can bring their own (see
-[Publishing an add-on](publishing-an-add-on.md)).
+The exchange has a story side. Contracts, recalls, accidents and new seams come round again
+and again, as the game's own headlines do: each company has news that breaks every week or
+two, carried on the market wire and on the TV news. When it breaks:
+
+- **The price jumps at once.** By the time you read the wire, the news is in the price.
+- **It often runs on.** Good news usually lifts the company's own trend for a few weeks
+  after, and bad news drags it; usually, not always.
+- **The jump slowly unwinds.** Over the following weeks most of it fades back. The first
+  time a piece of news breaks in your game, part of it stays for good: a contract first
+  won changes what the company is worth. News that comes round again does not keep adding
+  up.
+
+Stories also notice what you do: your first purchase of a company, a large stake, selling
+out, and a company's biggest moves can each bring a letter or news. Add-ons can bring their
+own (see [Publishing an add-on](publishing-an-add-on.md)).
 
 ## Reading a company
 
@@ -207,7 +215,7 @@ bug report shows it. Keep a copy of the save first if you might want to go back.
 
 ## Requirements
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.130.0 or newer. Install it with
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.131.0 or newer. Install it with
 `./scripts/install-mods.ps1 -Mods Exchange` (see [Installing and updating our mods](installing-mods.md)).
 
 ## Where the ideas come from

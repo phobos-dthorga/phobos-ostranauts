@@ -97,6 +97,17 @@ public static class StoryFlags
         return true;
     }
 
+    /// <summary>Sets a flag as of now, renewing its time when it was set already (Framework 0.131.0): the thing it marks
+    /// happened again, so recurring news (<c>onceEach</c>) and other mods watching the time can follow it.</summary>
+    public static bool Renew(string flag)
+    {
+        if (!StorySchema.IsId(flag)) throw new ArgumentException(Text.Get("Story.bad_flag", flag ?? ""), nameof(flag));
+        if (!StoryArcs.Attached()) return false;
+        StoryArcs.Record.RenewFlag(flag, StarSystem.fEpoch);
+        StoryArcs.FlagsChanged();
+        return true;
+    }
+
     /// <summary>Clears a flag. False when no game is running.</summary>
     public static bool Clear(string flag)
     {

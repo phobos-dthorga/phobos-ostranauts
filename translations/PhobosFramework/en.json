@@ -1082,6 +1082,8 @@
   "Console.upkeep_machines": "Machines",
   "StorySchema.table_long": "{0}: at most {1} entries in one file.",
   "StorySchema.flags": "{0}: up to {1} different flag ids, none both set and cleared.",
+  "StorySchema.cooldown": "{0}.cooldownDays: from 0 to {1} game days, and only on an arc that is repeatable.",
+  "StorySchema.once_each": "{0}: onceEach needs at least one flag in requires.flags to watch, and cannot go with once.",
   "StorySchema.standing": "{0}: a faction with atLeast and/or atMost, each one of {1}, atLeast not above atMost.",
   "StorySchema.standing_change": "{0}: at most {1} factions, each once, each changed by a number from -{2} to {2}, not 0.",
   "StorySchema.count": "{0}: atLeast from 0 to {1}, atMost from atLeast to {1}.",

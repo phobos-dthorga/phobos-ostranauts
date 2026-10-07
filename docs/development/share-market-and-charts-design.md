@@ -301,6 +301,50 @@ The content pass fills `exchange.json` with 41 company-history entries, 16 secto
 
 **Offline check.** `python scripts/validate-data-packs.py` accepts all 29 shipped packs, including both Phobos Exchange packs. The separate merged add-on check also accepts the Keelhaul example. These are schema and cross-pack checks only; no gameplay check has been done.
 
+### Recurring news (Phobos Exchange 0.4.0 and Framework 0.131.0, 8 October 2026, held draft)
+
+**Owner direction** (8 October 2026): news pieces have marked effects over time, repeatedly, as
+the game's own headlines recur. Owner choices: the effect is a jump that a trend phase carries
+on (not a fixed fade, not a build-up), and news recurs weekly.
+
+**Why it needed Framework.** A story flag kept the time it was first set, so an arc running
+again changed nothing, and TV news was shown once a save. Framework 0.131.0 adds:
+- an arc that sets a flag already set renews its time (`StoryFlags.Renew` from code);
+- `cooldownDays` on a repeatable arc;
+- `onceEach` news and adverts, shown once each time a required flag is set again;
+- a news item's seen time is now its latest showing, so talk follows the latest.
+
+**How a piece of news plays out** (`MarketModel.BreakNews`, `NewsPart`):
+- **The jump.** The price jumps by `move` at once. No build-up: an announced rise to come
+  would be free money.
+- **The lasting share.** The first time a piece breaks in a save, its `keeps` share joins the
+  lasting news part.
+- **The unwind.** The rest, and the whole jump every later time, joins one unwinding part per
+  company. It fades at the company's `newsFadeDays` half-life, exactly for any step (closed
+  form), and is saved as two numbers (`newsfx.<company>`), so weekly news over years costs a
+  fixed few bytes.
+- **The carry.** `carry` pushes the company's own trend phase: the same amount added to its
+  slow and fast processes leaves the level where it is and sets it moving. On average the
+  phase rises to `carry` after the kernel's peak time (about four weeks for the shipped
+  phases) and fades, with the phase's own noise, so it is usually but not always a sure
+  thing.
+- **Detecting each breaking.** The service keeps a watermark per company: a news flag whose
+  set time is later breaks again. A 0.2 or 0.3 record, or a company new to the save, starts
+  its watermark at the latest of its news flags already set, so old news never breaks twice.
+
+**What stops this becoming a gaining loop.**
+- Repeats keep nothing for good, so the lasting part is bounded by the news entries' first
+  breakings.
+- The unwind and the carry both fade to nothing.
+- The validator holds a jump's first-week unwind (the part a player can count on after bad
+  news) to 0.02 in log units. Agent default, with `|carry|` capped at 0.15.
+- The return guard is unchanged: it covers the market, and news is authored and bounded.
+
+**Shipped wiring** (agent choices): each shipped news item carries half its move and keeps
+0.3 of its first jump; the news arcs repeat with a 7-day cooldown, and the news, surge and
+slump TV items are `onceEach`. The wire lines are ChatGPT's as written; they now repeat,
+and new lines written to vary them would serve recurring news better.
+
 ## What we can build on
 
 ### Our technical constraints (observed)

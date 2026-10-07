@@ -29,6 +29,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.131.0] - 2026-10-08 - Draft
+
+### Added
+
+- Story content can recur. A repeatable arc can wait a number of game days after it finishes before it starts again, so a story comes round on its own pace instead of at once.
+- An arc that sets a story flag again now renews it: the thing it marks happened again. Other mods can renew a flag the same way.
+- TV news and adverts can show once each time their story flags are set again, instead of once a save, so news of something that keeps happening keeps being reported.
+
+### Changed
+
+- People mention a news item for a while after it was last shown, not only after the first time.
+
+### Save compatibility
+
+- Automatic. A finished arc records when it finished; arcs finished before this version count from the start of their last step.
+
 ## [0.130.0] - 2026-10-07 - Draft
 
 ### Added

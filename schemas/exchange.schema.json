@@ -463,11 +463,23 @@
                     "type": "number",
                     "minimum": -0.3,
                     "maximum": 0.3,
-                    "description": "How far the price moves when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way. Once per save, and it stays."
+                    "description": "How far the price jumps when the news breaks, as a share (0.08 is up 8 percent); at least 0.005 either way, each time it breaks."
                   },
                   "wire": {
                     "type": "string",
                     "description": "The wire line the player reads, in a neutral wire-service voice; at most 300 characters, no placeholders."
+                  },
+                  "carry": {
+                    "type": "number",
+                    "minimum": -0.15,
+                    "maximum": 0.15,
+                    "description": "How far the news carries the price on through the company trend phase, at its height a few weeks on; the same way as the move (Phobos Exchange 0.4.0)."
+                  },
+                  "keeps": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "The share of the jump that stays for good the first time this news breaks in a save; the rest, and every later jump, unwinds (Phobos Exchange 0.4.0)."
                   }
                 },
                 "required": [
@@ -475,7 +487,13 @@
                   "move"
                 ]
               },
-              "description": "Story news that moves the price once when its story flag is set (Phobos Exchange 0.2.0)."
+              "description": "Story news that moves the price each time its story flag is set (Phobos Exchange 0.2.0; recurring from 0.4.0)."
+            },
+            "newsFadeDays": {
+              "type": "number",
+              "minimum": 7,
+              "maximum": 365,
+              "description": "The half-life, in game days, of the part of each news jump that unwinds (default 30; Phobos Exchange 0.4.0)."
             },
             "founded": {
               "type": "integer",

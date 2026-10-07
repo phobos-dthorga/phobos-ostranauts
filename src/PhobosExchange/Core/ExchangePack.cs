@@ -148,6 +148,9 @@ public sealed class CompanyEntry
     public double? listingPrice;
     /// <summary>The company's own history (0.3.0), keyed by id.</summary>
     public Dictionary<string, HistoryEntry> history = new(StringComparer.Ordinal);
+    /// <summary>How slowly its news unwinds (Phobos Exchange 0.4.0): the half-life, in game days, of the part of each
+    /// news jump that does not stay.</summary>
+    public double newsFadeDays = 30;
 }
 
 /// <summary>Which history a milestone comes from.</summary>
@@ -195,6 +198,14 @@ public sealed class NewsEntry
     /// <summary>The wire line the player reads when the news moves the price, in a wire service's neutral voice. Without
     /// one the wire says the company moved on the news.</summary>
     public string? wire;
+    /// <summary>How far the news carries the price on after the jump (Phobos Exchange 0.4.0), as a share at its height a
+    /// few weeks on: it pushes the company's own trend phase the same way, so the move usually runs on, with the
+    /// market's usual uncertainty, then fades. 0 for none.</summary>
+    public double carry;
+    /// <summary>The share of the jump that stays for good the first time this news breaks in a save (0.4.0): a contract
+    /// first won changes what the company is worth. The rest, and the whole jump of every later time, unwinds over the
+    /// company's <c>newsFadeDays</c>.</summary>
+    public double keeps;
 }
 
 public static class ExchangeSchema
@@ -203,6 +214,14 @@ public static class ExchangeSchema
     public const int MaxIdLength = 24, MaxName = 40, MaxProfile = 400, MaxDrivers = 6, MaxCompanies = 40, MaxSectors = 16, MaxNews = 12, MaxWire = 300;
     /// <summary>The largest move one piece of news may make, either way, and the smallest worth reporting.</summary>
     public const double MaxNewsMove = 0.3, MinNewsMove = 0.005;
+    /// <summary>Recurring news (0.4.0): the largest carry, the fade's bounds in game days, and the most a jump may unwind
+    /// in its first week (agent default: a player trading on the unwind earns no more than a few percent a week).</summary>
+    public const double MaxNewsCarry = 0.15, MinNewsFadeDays = 7, MaxNewsFadeDays = 365, MaxNewsUnwindPerWeek = 0.02;
+
+    /// <summary>How far a news jump unwinds in its first week, in log units, faded at the company's half-life. Worked for a
+    /// repeat, which keeps nothing: the most a player can count on.</summary>
+    public static double NewsUnwindPerWeek(NewsEntry n, double fadeDays) =>
+        Math.Abs(Math.Log(1 + n.move)) * (1 - Math.Pow(2, -7 / Math.Max(1e-9, fadeDays)));
     /// <summary>History (0.3.0): entries per market, sector and company, the length of a line, and a move's bounds.</summary>
     public const int MaxMarketHistory = 16, MaxSectorHistory = 8, MaxCompanyHistory = 12, MaxLine = 200;
     public const double MaxHistoryRise = 1.0, MaxHistoryFall = 0.6, MinHistoryMove = 0.01;
@@ -337,7 +356,17 @@ public static class ExchangeSchema
                     StorySchema.Words(n.wire, MaxWire, nw + ".wire");
                     if (n.wire.IndexOf('[') >= 0) throw new ArgumentException(nw + ".wire: no placeholders");
                 }
+                // Phobos Exchange 0.4.0: news recurs, so how it plays out over time is bounded: the carry runs the same
+                // way as the jump, and the jump's unwind a player can count on is held to a few percent a week.
+                if (!Finite(n.carry) || Math.Abs(n.carry) > MaxNewsCarry || n.carry != 0 && Math.Sign(n.carry) != Math.Sign(n.move))
+                    throw new ArgumentException(nw + ".carry: from -" + MaxNewsCarry + " to " + MaxNewsCarry + ", the same way as the move");
+                Range(n.keeps, 0, 1, nw + ".keeps");
+                double unwind = NewsUnwindPerWeek(n, c.newsFadeDays);
+                if (unwind > MaxNewsUnwindPerWeek)
+                    throw new ArgumentException(nw + ": its jump unwinds by " + unwind.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture) + " in its first week, above " +
+                        MaxNewsUnwindPerWeek.ToString(System.Globalization.CultureInfo.InvariantCulture) + "; make the move smaller or raise the company's newsFadeDays");
             }
+            Range(c.newsFadeDays, MinNewsFadeDays, MaxNewsFadeDays, where + ".newsFadeDays");
             // History (0.3.0): founding and listing years, the price at listing and the company's own events.
             if (c.founded is int founded) Year(founded, where + ".founded");
             if (c.listed is int listed)

@@ -9,8 +9,11 @@ What it does:
 
 - Lists **Keelhaul Freight** (ticker KHF) in the Mining and volatiles sector. Its price
   follows ore at Zhonghuamen Terminal, and it has one piece of **news**: when the story flag
-  `keelhaul-titan-contract` is set, the price rises 8% once and the market wire carries the
-  line in the file (`phobos/PhobosExchange/exchange/keelhaul.json`).
+  `keelhaul-titan-contract` is set, the price jumps 8% and the market wire carries the line
+  in the file (`phobos/PhobosExchange/exchange/keelhaul.json`). The contract comes round again
+  (Phobos Exchange 0.4.0): its arc repeats with a 14-day cooldown, each time the price jumps
+  again, the company's trend carries a further 4% on average, and the jump unwinds over the
+  following weeks. Half of the first jump stays for good.
 - Gives the company a **history before the game** (Phobos Exchange 0.3.0): founded in 2052,
   listed in 2058 at 4 credits a share, with a lore entry for its founding and one event, the
   Ceres ore route won in 2063, that lifted its price 30%. The exchange draws its price chart

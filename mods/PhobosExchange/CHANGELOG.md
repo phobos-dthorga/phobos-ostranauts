@@ -5,6 +5,25 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-08 - Draft
+
+### Added
+
+- News comes round again, as the game's own headlines do. Each company's news breaks every week or two: the contracts, recalls, accidents and new seams of its story, on the market wire and the TV news each time.
+- News plays out over weeks. The price jumps at once, then the company's own trend usually carries it further for a few weeks, and the jump slowly unwinds. The first time a piece of news breaks in your game, part of it stays for good; later breakings fade away, so recurring news never adds up to a steady rise.
+- The exchange file sets how far each piece of news carries on, how much of its first jump stays, and how slowly each company's news unwinds. A piece of news may unwind by no more than about 2% in its first week, so trading on it is an edge, not a sure thing.
+
+### Changed
+
+- The surge and slump flags are renewed at each big move, so news answering them comes round again too.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.131.0, for stories that come round again.
+- Saves: the exchange record gains a small entry per company for news still unwinding. News that broke under 0.2 or 0.3 does not break again on loading; it comes round the next time its story runs.
+- The shipped news lines are the same each time a piece breaks; varied lines would read better and are for a later release.
+- Checked offline: a jump, its lasting share, its unwind at the half-life, its carry through the trend phase, a second breaking keeping nothing, the same result minute by minute or in one go, and saves old and new. Not yet seen in the game.
+
 ## [0.3.0] - 2026-10-07 - Draft
 
 ### Added

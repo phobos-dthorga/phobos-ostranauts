@@ -128,7 +128,6 @@
       "thread": "exchange-smartlink",
       "place": "mtrs",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -136,13 +135,13 @@
         ]
       },
       "text": "A group of tug operators has awarded Smartlink a point-defence service contract. Port Yangshan yard crews expect more work on older cannon suites while the new order is filled.",
-      "title": "Smartlink report"
+      "title": "Smartlink report",
+      "onceEach": true
     },
     "exchange-smartlink-cannon-inspection-wire": {
       "thread": "exchange-smartlink",
       "place": "svir",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -150,12 +149,12 @@
         ]
       },
       "text": "A safety inspection has delayed delivery of a Smartlink cannon assembly at Cassini Spaceport. The inspection is continuing, and the shipyard has not named a new delivery date.",
-      "title": "Smartlink report"
+      "title": "Smartlink report",
+      "onceEach": true
     },
     "exchange-smartlink-surge-wire": {
       "thread": "exchange-smartlink",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -163,12 +162,12 @@
         ]
       },
       "text": "Smartlink shares made a sharp move on the Lodestar Exchange. The desk has no single contract to point to; the market has been brisk all week.",
-      "title": "Smartlink price move"
+      "title": "Smartlink price move",
+      "onceEach": true
     },
     "exchange-smartlink-slump-wire": {
       "thread": "exchange-smartlink",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -176,13 +175,13 @@
         ]
       },
       "text": "Smartlink shares fell sharply on the Lodestar Exchange. Buyers are waiting for the next station report before they call the bottom.",
-      "title": "Smartlink price move"
+      "title": "Smartlink price move",
+      "onceEach": true
     },
     "exchange-testudo-cabin-refit-wire": {
       "thread": "exchange-testudo",
       "place": "vcbr",
       "region": "Outer System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -190,13 +189,13 @@
         ]
       },
       "text": "Testudo has won a run of cabin refits for working haulers at Cloudbreak. The yard is splitting the work between several crews to keep the ships in service.",
-      "title": "Testudo report"
+      "title": "Testudo report",
+      "onceEach": true
     },
     "exchange-testudo-foundry-check-wire": {
       "thread": "exchange-testudo",
       "place": "mtrs",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -204,12 +203,12 @@
         ]
       },
       "text": "Testudo has paused one foundry line for a crack inspection. The company has not said how many hull orders will be delayed while the check is under way.",
-      "title": "Testudo report"
+      "title": "Testudo report",
+      "onceEach": true
     },
     "exchange-testudo-surge-wire": {
       "thread": "exchange-testudo",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -217,12 +216,12 @@
         ]
       },
       "text": "Testudo shares climbed sharply on the Lodestar Exchange. A strong week at the yards is not a delivery schedule, so the brokers are watching for the next order book.",
-      "title": "Testudo price move"
+      "title": "Testudo price move",
+      "onceEach": true
     },
     "exchange-testudo-slump-wire": {
       "thread": "exchange-testudo",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -230,13 +229,13 @@
         ]
       },
       "text": "Testudo shares fell sharply on the Lodestar Exchange. Several yards are holding their next orders until the station market settles.",
-      "title": "Testudo price move"
+      "title": "Testudo price move",
+      "onceEach": true
     },
     "exchange-ayotimiwa-hull-auction-wire": {
       "thread": "exchange-ayotimiwa",
       "place": "oklg",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -244,13 +243,13 @@
         ]
       },
       "text": "K-Leg's latest salvage auction has drawn more independent buyers than expected. Crews are lining up for hull plate and usable fittings, though the yard has not changed its terms.",
-      "title": "Ayotimiwa Corp. report"
+      "title": "Ayotimiwa Corp. report",
+      "onceEach": true
     },
     "exchange-ayotimiwa-yard-delay-wire": {
       "thread": "exchange-ayotimiwa",
       "place": "oklg",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -258,12 +257,12 @@
         ]
       },
       "text": "A failure in yard equipment has delayed departures from K-Leg. The Port Authority says crews are being routed around the damaged bay while repairs continue.",
-      "title": "Ayotimiwa Corp. report"
+      "title": "Ayotimiwa Corp. report",
+      "onceEach": true
     },
     "exchange-ayotimiwa-surge-wire": {
       "thread": "exchange-ayotimiwa",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -271,12 +270,12 @@
         ]
       },
       "text": "Ayotimiwa shares rose sharply on the Lodestar Exchange. K-Leg's name is in every dockside conversation, but the desk has not tied the move to one auction.",
-      "title": "Ayotimiwa Corp. price move"
+      "title": "Ayotimiwa Corp. price move",
+      "onceEach": true
     },
     "exchange-ayotimiwa-slump-wire": {
       "thread": "exchange-ayotimiwa",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -284,13 +283,13 @@
         ]
       },
       "text": "Ayotimiwa shares fell sharply on the Lodestar Exchange. The yard is still open; brokers are waiting to see how the next lots move.",
-      "title": "Ayotimiwa Corp. price move"
+      "title": "Ayotimiwa Corp. price move",
+      "onceEach": true
     },
     "exchange-green-energy-cigarette-run-wire": {
       "thread": "exchange-green-energy",
       "place": "vnca",
       "region": "Tharsis",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -298,13 +297,13 @@
         ]
       },
       "text": "The Green Energy Company has filled a large Damask Rose order for station stores. Merchants at Tharsis Landing say the delivery arrived in time for the next supply run.",
-      "title": "The Green Energy Company report"
+      "title": "The Green Energy Company report",
+      "onceEach": true
     },
     "exchange-green-energy-seed-recall-wire": {
       "thread": "exchange-green-energy",
       "place": "vnca",
       "region": "Tharsis",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -312,12 +311,12 @@
         ]
       },
       "text": "The Green Energy Company has recalled a seed lot after a storage failure. Growers are checking their stock while replacement consignments are arranged.",
-      "title": "The Green Energy Company report"
+      "title": "The Green Energy Company report",
+      "onceEach": true
     },
     "exchange-green-energy-surge-wire": {
       "thread": "exchange-green-energy",
       "region": "Tharsis",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -325,12 +324,12 @@
         ]
       },
       "text": "Green Energy Company shares climbed sharply on the Lodestar Exchange. Store orders have been lively, though nobody at the Tharsis board can name a single cause.",
-      "title": "The Green Energy Company price move"
+      "title": "The Green Energy Company price move",
+      "onceEach": true
     },
     "exchange-green-energy-slump-wire": {
       "thread": "exchange-green-energy",
       "region": "Tharsis",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -338,13 +337,13 @@
         ]
       },
       "text": "Green Energy Company shares fell sharply on the Lodestar Exchange. Traders are holding for the next shipment report before they change their plans.",
-      "title": "The Green Energy Company price move"
+      "title": "The Green Energy Company price move",
+      "onceEach": true
     },
     "exchange-brightvein-new-seam-wire": {
       "thread": "exchange-brightvein",
       "place": "bcer",
       "region": "Outer System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -352,13 +351,13 @@
         ]
       },
       "text": "Brightvein has reported a clean ore seam and added a second carrier to the route. Zhonghuamen Terminal expects the first lot after the next belt run.",
-      "title": "Brightvein Mining report"
+      "title": "Brightvein Mining report",
+      "onceEach": true
     },
     "exchange-brightvein-hauler-damage-wire": {
       "thread": "exchange-brightvein",
       "place": "bcer",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -366,12 +365,12 @@
         ]
       },
       "text": "Damage to a Brightvein hauler has delayed an ore delivery to Zhonghuamen Terminal. The cargo is safe, but the company has not given a replacement arrival date.",
-      "title": "Brightvein Mining report"
+      "title": "Brightvein Mining report",
+      "onceEach": true
     },
     "exchange-brightvein-surge-wire": {
       "thread": "exchange-brightvein",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -379,12 +378,12 @@
         ]
       },
       "text": "Brightvein shares made a sharp move on the Lodestar Exchange. The board has no confirmed seam report to explain it; crews are still checking the latest cargo sheets.",
-      "title": "Brightvein Mining price move"
+      "title": "Brightvein Mining price move",
+      "onceEach": true
     },
     "exchange-brightvein-slump-wire": {
       "thread": "exchange-brightvein",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -392,13 +391,13 @@
         ]
       },
       "text": "Brightvein shares dropped sharply on the Lodestar Exchange. A full ore bin is not a promise that the next buyer will be nearby.",
-      "title": "Brightvein Mining price move"
+      "title": "Brightvein Mining price move",
+      "onceEach": true
     },
     "exchange-coldwell-ice-delivery-wire": {
       "thread": "exchange-coldwell",
       "place": "mtrs",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -406,13 +405,13 @@
         ]
       },
       "text": "Coldwell has completed a water-ice run after a long delay at the docks. Stores at Port Yangshan have begun clearing the waiting orders.",
-      "title": "Coldwell Volatiles report"
+      "title": "Coldwell Volatiles report",
+      "onceEach": true
     },
     "exchange-coldwell-tanker-repair-wire": {
       "thread": "exchange-coldwell",
       "place": "mvol",
       "region": "Outer System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -420,12 +419,12 @@
         ]
       },
       "text": "A tanker repair has kept one of Coldwell's volatile cargoes off the route. Upsilon Docking is looking for a replacement load while the ship remains in the bay.",
-      "title": "Coldwell Volatiles report"
+      "title": "Coldwell Volatiles report",
+      "onceEach": true
     },
     "exchange-coldwell-surge-wire": {
       "thread": "exchange-coldwell",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -433,12 +432,12 @@
         ]
       },
       "text": "Coldwell shares rose sharply on the Lodestar Exchange. Ice stores are moving again at Port Yangshan, but the desk has not linked the price change to one shipment.",
-      "title": "Coldwell Volatiles price move"
+      "title": "Coldwell Volatiles price move",
+      "onceEach": true
     },
     "exchange-coldwell-slump-wire": {
       "thread": "exchange-coldwell",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -446,13 +445,13 @@
         ]
       },
       "text": "Coldwell shares slid sharply on the Lodestar Exchange. Brokers are asking for the next arrival report before they take a view on the route.",
-      "title": "Coldwell Volatiles price move"
+      "title": "Coldwell Volatiles price move",
+      "onceEach": true
     },
     "exchange-verdemorrow-garden-orders-wire": {
       "thread": "exchange-verdemorrow",
       "place": "hqch",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -460,13 +459,13 @@
         ]
       },
       "text": "Verdemorrow has received a new run of orders for shipboard cultivation equipment. Buyers at Qincheng Station say more crews are making room for a small grow rack between cargo runs.",
-      "title": "Verdemorrow report"
+      "title": "Verdemorrow report",
+      "onceEach": true
     },
     "exchange-verdemorrow-stock-check-wire": {
       "thread": "exchange-verdemorrow",
       "place": "hqch",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -474,12 +473,12 @@
         ]
       },
       "text": "A storage failure has delayed part of Verdemorrow's planting-stock shipment. The company is checking the affected containers before they leave the depot.",
-      "title": "Verdemorrow report"
+      "title": "Verdemorrow report",
+      "onceEach": true
     },
     "exchange-verdemorrow-surge-wire": {
       "thread": "exchange-verdemorrow",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -487,12 +486,12 @@
         ]
       },
       "text": "Verdemorrow shares climbed sharply on the Lodestar Exchange. Grow-room orders are up at Qincheng Station, though the market has not named them as the cause.",
-      "title": "Verdemorrow price move"
+      "title": "Verdemorrow price move",
+      "onceEach": true
     },
     "exchange-verdemorrow-slump-wire": {
       "thread": "exchange-verdemorrow",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -500,13 +499,13 @@
         ]
       },
       "text": "Verdemorrow shares fell sharply on the Lodestar Exchange. Buyers are checking the next planting-stock delivery before they call the season.",
-      "title": "Verdemorrow price move"
+      "title": "Verdemorrow price move",
+      "onceEach": true
     },
     "exchange-halewright-clinic-orders-wire": {
       "thread": "exchange-halewright",
       "place": "mhng",
       "region": "Outer System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -514,13 +513,13 @@
         ]
       },
       "text": "Halewright has filled a run of clinic orders from outer-system stations. Qiantangmen's buyers expect the next shipment to include beds and replacement fittings.",
-      "title": "Halewright report"
+      "title": "Halewright report",
+      "onceEach": true
     },
     "exchange-halewright-fitting-recall-wire": {
       "thread": "exchange-halewright",
       "place": "svir",
       "region": "Shipping & Inner System",
-      "once": true,
       "weight": 3,
       "requires": {
         "flags": [
@@ -528,12 +527,12 @@
         ]
       },
       "text": "Halewright has delayed a shipment while it checks a batch of clinic fittings. The company has asked customers to hold the affected boxes until the inspection is complete.",
-      "title": "Halewright report"
+      "title": "Halewright report",
+      "onceEach": true
     },
     "exchange-halewright-surge-wire": {
       "thread": "exchange-halewright",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -541,12 +540,12 @@
         ]
       },
       "text": "Halewright shares moved sharply higher on the Lodestar Exchange. Clinic buyers have been active, but the board has not named one order as the cause.",
-      "title": "Halewright price move"
+      "title": "Halewright price move",
+      "onceEach": true
     },
     "exchange-halewright-slump-wire": {
       "thread": "exchange-halewright",
       "region": "Outer System",
-      "once": true,
       "weight": 2,
       "requires": {
         "flags": [
@@ -554,7 +553,8 @@
         ]
       },
       "text": "Halewright shares moved sharply lower on the Lodestar Exchange. Station clinics still need supplies; the next freight report will tell more than the gossip.",
-      "title": "Halewright price move"
+      "title": "Halewright price move",
+      "onceEach": true
     }
   },
   "adverts": {
@@ -827,7 +827,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-smartlink-cannon-inspection": {
       "title": "Smartlink: cannon inspection",
@@ -853,7 +855,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-smartlink-bought": {
       "title": "Smartlink shareholder welcome",
@@ -961,7 +965,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-testudo-foundry-check": {
       "title": "Testudo: foundry check",
@@ -987,7 +993,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-testudo-bought": {
       "title": "Testudo shareholder welcome",
@@ -1095,7 +1103,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-ayotimiwa-yard-delay": {
       "title": "Ayotimiwa Corp.: yard delay",
@@ -1121,7 +1131,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-ayotimiwa-bought": {
       "title": "Ayotimiwa Corp. shareholder welcome",
@@ -1229,7 +1241,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-green-energy-seed-recall": {
       "title": "The Green Energy Company: seed recall",
@@ -1255,7 +1269,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-green-energy-bought": {
       "title": "The Green Energy Company shareholder welcome",
@@ -1363,7 +1379,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-brightvein-hauler-damage": {
       "title": "Brightvein Mining: hauler damage",
@@ -1389,7 +1407,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-brightvein-bought": {
       "title": "Brightvein Mining shareholder welcome",
@@ -1497,7 +1517,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-coldwell-tanker-repair": {
       "title": "Coldwell Volatiles: tanker repair",
@@ -1523,7 +1545,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-coldwell-bought": {
       "title": "Coldwell Volatiles shareholder welcome",
@@ -1631,7 +1655,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-verdemorrow-stock-check": {
       "title": "Verdemorrow: stock check",
@@ -1657,7 +1683,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-verdemorrow-bought": {
       "title": "Verdemorrow shareholder welcome",
@@ -1765,7 +1793,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "lodestar-halewright-fitting-recall": {
       "title": "Halewright: fitting recall",
@@ -1791,7 +1821,9 @@
             ]
           }
         }
-      ]
+      ],
+      "repeatable": true,
+      "cooldownDays": 7
     },
     "exchange-halewright-bought": {
       "title": "Halewright shareholder welcome",

@@ -413,7 +413,7 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
 // ---- Story news and story events (Phobos Exchange 0.2.0) --------------------------------------------------
 {
     string withNews = Fixture.Replace("\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ] },",
-        "\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ], \"news\": [ { \"flag\": \"keel-titan-contract\", \"move\": 0.08, \"wire\": \"Keel Yards wins the Titan hull contract.\" }, { \"flag\": \"keel-yard-fire\", \"move\": -0.12 } ] },");
+        "\"drivers\": [ { \"station\": \"MTRS\", \"category\": \"AnyHull\", \"weight\": 0.5 } ], \"news\": [ { \"flag\": \"keel-titan-contract\", \"move\": 0.08, \"carry\": 0.04, \"keeps\": 0.5, \"wire\": \"Keel Yards wins the Titan hull contract.\" }, { \"flag\": \"keel-yard-fire\", \"move\": -0.12 } ] },");
     Check(withNews != Fixture, "the fixture takes news entries");
     var newsPack = LoadPack(withNews);
     Check(newsPack.companies["keel"].news.Count == 2 && newsPack.companies["keel"].news[1].wire == null && newsPack.companies["glow"].news.Count == 0, "news loads, with no wire line where none is given");
@@ -422,37 +422,76 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     Check(Refused(BadNews("{ \"flag\": \"Keel Contract\", \"move\": 0.08 }")), "a news flag must be a story id");
     Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.5 }")) && Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": -0.5 }")), "news may move a price at most 30% either way");
     Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.001 }")), "news too small to see is refused");
-    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05 }, { \"flag\": \"keel-a\", \"move\": 0.06 }")), "one flag moves a company once");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05 }, { \"flag\": \"keel-a\", \"move\": 0.06 }")), "one flag names one piece of news for a company");
     Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"wire\": \"[player] did it\" }")), "a wire line has no placeholders");
 
+    // Recurring news (0.4.0): a jump at once, a share kept the first time only, the rest unwinding at the company's
+    // half-life, and a carry through the company's own trend phase.
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"carry\": -0.02 }")) && Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"carry\": 0.2 }")),
+        "a carry runs the same way as the move, and is bounded");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.05, \"keeps\": 1.5 }")), "a lasting share is 0 to 1");
+    Check(Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.3 }")) && !Refused(BadNews("{ \"flag\": \"keel-a\", \"move\": 0.08 }")),
+        "a jump whose unwind a player could count on is held to a few percent a week");
+    Check(Refused(With("\"spread\": 0.004,", "\"spread\": 0.004, \"newsFadeDays\": 3,")), "a fade shorter than a week is refused");
+    var titan = newsPack.companies["keel"].news[0];
+    var fire = newsPack.companies["keel"].news[1];
     var market = NewMarket(newsPack, new ExchangeRecord(), now);
     int k = market.IndexOf("keel");
-    double before = market.LnPrice[k];
-    Check(!market.NewsApplied(k, "keel-titan-contract"), "news has not broken before its flag");
-    market.ApplyNews(k, "keel-titan-contract", Math.Log(1.08));
-    Check(Near(Math.Exp(market.LnPrice[k] - before), 1.08, 1e-12) && market.NewsApplied(k, "keel-titan-contract"), "news moves the price by its share at once");
-    market.ApplyNews(k, "keel-titan-contract", Math.Log(1.08));
-    Check(Near(Math.Exp(market.LnPrice[k] - before), 1.08, 1e-12), "the same news never moves the price twice");
-    Check(Near(market.Part(k, Cause.News), Math.Log(1.08), 1e-12), "news is its own part of the price, for the wire");
+    double before = market.LnPrice[k], m = Math.Log(1.08);
+    Check(market.BreakNews(k, titan), "the first breaking is the first");
+    Check(Near(Math.Exp(market.LnPrice[k] - before), 1.08, 1e-12) && Near(market.Part(k, Cause.News), m, 1e-12), "news moves the price by its share at once, as its own part of the price");
+    Check(Near(market.News(k).Move, 0.5 * m, 1e-12), "the first time, its lasting share stays for good");
+    long fade = (long)Math.Round(30 * ExchangeRules.DaySeconds / ExchangeRules.StepSeconds);
+    var twin = NewMarket(LoadPack(withNews.Replace("\"carry\": 0.04, ", "")), new ExchangeRecord(), now);
+    twin.BreakNews(k, twin.Entries[k].news[0]);
+    market.Advance(market.Clock + fade, null);
+    twin.Advance(twin.Clock + fade, null);
+    Check(Near(market.Part(k, Cause.News), 0.5 * m + 0.25 * m, 1e-6), "the rest unwinds at the company's half-life (" + market.Part(k, Cause.News).ToString("0.00000") + ")");
+    var kernel = ExchangeSchema.Kernel(newsPack.companies["keel"].trend);
+    double carried = market.Part(k, Cause.Company) - twin.Part(k, Cause.Company);
+    Check(carried > 0 && carried < Math.Log(1.04) + 1e-9, "the carry pushes the company's phase the same way (" + carried.ToString("0.0000") + " after a month)");
+    var peakA = NewMarket(newsPack, new ExchangeRecord(), now); var peakB = NewMarket(LoadPack(withNews.Replace("\"carry\": 0.04, ", "")), new ExchangeRecord(), now);
+    peakA.BreakNews(k, titan); peakB.BreakNews(k, peakB.Entries[k].news[0]);
+    long peak = (long)Math.Round(kernel.PeakSeconds / ExchangeRules.StepSeconds);
+    peakA.Advance(peakA.Clock + peak, null); peakB.Advance(peakB.Clock + peak, null);
+    Check(Near(peakA.Part(k, Cause.Company) - peakB.Part(k, Cause.Company), Math.Log(1.04), 1e-4), "on average the carry reaches its height when the phase says");
+    double beforeAgain = market.LnPrice[k], newsBefore = market.Part(k, Cause.News);
+    Check(!market.BreakNews(k, titan) && Near(market.LnPrice[k] - beforeAgain, m, 1e-12) && Near(market.News(k).Move, 0.5 * m, 1e-12),
+        "the same news breaks again, jumping as far, but keeps nothing more for good");
+    Check(Near(market.Part(k, Cause.News), newsBefore + m, 1e-12), "a second breaking adds its whole jump to what is still unwinding");
+    market.Advance(market.Clock + 40 * fade, null);
+    Check(Near(market.Part(k, Cause.News), 0.5 * m, 1e-9), "in the long run only the first breaking's lasting share remains, so repeated news never compounds");
+    // Exact through skips and saves.
+    var stepA = NewMarket(newsPack, new ExchangeRecord(), now); var stepB = NewMarket(newsPack, new ExchangeRecord(), now);
+    stepA.BreakNews(k, fire); stepB.BreakNews(k, fire);
+    for (int s = 0; s < 600; s++) stepA.Advance(stepA.Clock + 1, null);
+    stepB.Advance(stepB.Clock + 600, null);
+    Check(stepA.Part(k, Cause.News) == stepB.Part(k, Cause.News), "news unwinds to the same bits minute by minute or in one go");
+    market.News(k).Watermark = 123456.5;
     var fields = market.Record.Encode();
-    Check(fields.TryGetValue("news.keel", out var saved) && saved.StartsWith("1|") && saved.EndsWith("|keel-titan-contract"), "applied news is saved under its own key");
+    Check(fields.TryGetValue("news.keel", out var saved) && saved.StartsWith("1|") && saved.EndsWith("|keel-titan-contract") && fields.ContainsKey("newsfx.keel"),
+        "news that has broken is saved under its own key, what is unwinding under another");
     var back = new MarketModel(newsPack, ExchangeRecord.Decode(fields));
     back.Start(market.Clock, Seed);
-    Check(back.LnPrice[k] == market.LnPrice[k] && back.NewsApplied(k, "keel-titan-contract") && !back.NewsApplied(k, "keel-yard-fire"), "news survives a save and load exactly");
+    Check(back.LnPrice[k] == market.LnPrice[k] && back.Part(k, Cause.News) == market.Part(k, Cause.News) && back.News(k).Watermark == 123456.5 && back.News(k).Applied.Contains("keel-titan-contract"),
+        "news survives a save and load exactly");
     var oldRecord = market.Record.Encode();
-    oldRecord.Remove("news.keel");
+    oldRecord.Remove("newsfx.keel");
     var fromOld = ExchangeRecord.Decode(oldRecord);
-    Check(fromOld.News.Count == 0, "a 0.1.0 record, without news, reads as no news");
+    Check(fromOld.NewsFor("keel").Watermark == null && fromOld.NewsFor("keel").Applied.Contains("keel-titan-contract"), "a 0.2 or 0.3 record reads with no watermark yet, so the service starts one");
+    oldRecord.Remove("news.keel");
+    Check(ExchangeRecord.Decode(oldRecord).News.Values.All(n => n.Empty && n.EffectsEmpty), "a 0.1.0 record, without news, reads as no news");
     var future = market.Record.Encode();
-    future["news.keel"] = "2|from a newer version";
-    Check(ExchangeRecord.Decode(future).Encode()["news.keel"] == "2|from a newer version", "news from a newer version is kept untouched");
+    future["news.keel"] = "2|from a newer version"; future["newsfx.keel"] = "2|newer";
+    var kept = ExchangeRecord.Decode(future).Encode();
+    Check(kept["news.keel"] == "2|from a newer version" && kept["newsfx.keel"] == "2|newer", "news from a newer version is kept untouched");
     // The wire carries the news once: the day's move report does not repeat it.
     var reports = new List<MoveReport>();
     var watch = new MoveWatch(market);
     var observer = new ReportObserver(watch, reports);
     market.Advance(market.Clock + 26 * 60, observer);
     reports.Clear();
-    market.ApplyNews(k, "keel-yard-fire", Math.Log(0.88));
+    market.BreakNews(k, fire);
     watch.Reported(k, ExchangeRules.HourOf(market.Clock));
     market.Advance(market.Clock + 30 * 60, observer);
     Check(!reports.Any(r => r.Company == k && !r.Turn), "news the wire has carried is not reported again as the day's move");
@@ -460,7 +499,7 @@ foreach (var (label, seconds) in new[] { ("a minute", 60.0), ("an hour", 3600.0)
     var plainReports = new List<MoveReport>();
     var plainObserver = new ReportObserver(plain, plainReports);
     market.Advance(market.Clock + 26 * 60, plainObserver);
-    market.ApplyNews(k, "keel-extra", Math.Log(1.2));
+    market.BreakNews(k, new NewsEntry { flag = "keel-extra", move = 0.2 });
     market.Advance(market.Clock + 60, plainObserver);
     Check(plainReports.Any(r => r.Company == k && !r.Turn && r.Cause == Cause.News), "a move made by news is put down to the news");
 }

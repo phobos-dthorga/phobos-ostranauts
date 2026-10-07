@@ -201,6 +201,9 @@ public sealed class StoryBroadcast
     public int weight = 1;
     /// <summary>Shown once in a save, then never again.</summary>
     public bool once;
+    /// <summary>Shown once each time its required flags are set again (Framework 0.131.0): news of something that
+    /// recurs, such as a contract renewed or a recall repeated.</summary>
+    public bool onceEach;
     public StoryRequires? requires;
     /// <summary>What people say when they bring the news up in small talk (the headline moment), for a while after it was shown.</summary>
     public string? mention;
@@ -215,6 +218,8 @@ public sealed class StoryAdvert
     public string text = "";
     public int weight = 1;
     public bool once;
+    /// <summary>Shown once each time its required flags are set again (Framework 0.131.0).</summary>
+    public bool onceEach;
     public StoryRequires? requires;
     public string? thread, place;
 }
@@ -314,6 +319,9 @@ public sealed class StoryArc
     public double chance;
     /// <summary>May start again after it is finished.</summary>
     public bool repeatable;
+    /// <summary>For a repeatable arc (Framework 0.131.0): the fewest game days after it finished before it may start
+    /// again by itself. 0 means at once.</summary>
+    public double cooldownDays;
     public List<StoryStep> steps = new();
     /// <summary>The thread it belongs to, and its place (Framework 0.114.0): it starts by itself only while the player
     /// is there, and a dock-at test without a station means this place.</summary>
@@ -542,6 +550,7 @@ public static class StorySchema
             Words(b.text, MaxBroadcast, where + ".text");
             if (b.mention != null) Words(b.mention, MaxLine, where + ".mention");
             Weight(b.weight, where); Requires(b.requires, where); Key(b.thread, where + ".thread"); Key(b.place, where + ".place");
+            OnceEach(b.onceEach, b.once, b.requires, where);
         }
         foreach (var pair in pack.adverts)
         {
@@ -549,6 +558,7 @@ public static class StorySchema
             EntryId(pair.Key, where); Author(a.title, a.notes, where);
             Words(a.text, MaxAdvert, where + ".text");
             Weight(a.weight, where); Requires(a.requires, where); Key(a.thread, where + ".thread"); Key(a.place, where + ".place");
+            OnceEach(a.onceEach, a.once, a.requires, where);
         }
         foreach (var pair in pack.arcs) Arc(pair.Key, pair.Value);
         foreach (var pair in pack.chatter)
@@ -633,6 +643,15 @@ public static class StorySchema
             throw new ArgumentException(Text.Get("StorySchema.mods_only", where));
     }
 
+    /// <summary>The longest cooldown a repeatable arc may have, in game days (Framework 0.131.0).</summary>
+    public const double MaxCooldownDays = 3650;
+
+    /// <summary>onceEach needs flags to watch, and does not go with once.</summary>
+    private static void OnceEach(bool onceEach, bool once, StoryRequires? requires, string where)
+    {
+        if (onceEach && (once || requires == null || requires.flags.Count == 0)) throw new ArgumentException(Text.Get("StorySchema.once_each", where));
+    }
+
     private static void Arc(string id, StoryArc? arc)
     {
         string where = "arcs." + id;
@@ -641,6 +660,8 @@ public static class StorySchema
         if (string.IsNullOrWhiteSpace(arc.title) || arc.title.Length > MaxTitle) throw new ArgumentException(Text.Get("StorySchema.title", where, MaxTitle));
         Author(null, arc.notes, where);
         Range(arc.chance, 0, 1, where + ".chance");
+        if (!(arc.cooldownDays >= 0 && arc.cooldownDays <= MaxCooldownDays) || arc.cooldownDays > 0 && !arc.repeatable)
+            throw new ArgumentException(Text.Get("StorySchema.cooldown", where, MaxCooldownDays));
         Requires(arc.requires, where); Key(arc.thread, where + ".thread"); Key(arc.place, where + ".place");
         // A dock-at test may leave its station out only when the arc has a place of its own (or a thread that may give one).
         bool placed = arc.place != null || arc.thread != null;

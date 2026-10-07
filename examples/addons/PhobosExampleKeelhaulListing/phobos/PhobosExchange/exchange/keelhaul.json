@@ -30,6 +30,8 @@
         {
           "flag": "keelhaul-titan-contract",
           "move": 0.08,
+          "carry": 0.04,
+          "keeps": 0.5,
           "wire": "Keelhaul Freight wins the Cassini Spaceport ore contract for the coming season."
         }
       ]

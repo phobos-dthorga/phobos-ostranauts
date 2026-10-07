@@ -91687,6 +91687,32 @@
       ],
       "before": "No history on file yet. Writers and add-ons fill it in.",
       "after": "No history on file yet. Writers and add-ons fill it in."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.cooldown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added 8 October 2026 for Framework 0.131.0: the story schema's refusals for cooldownDays and onceEach; read against player-language.md.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryPack.cs:664"
+      ],
+      "before": "{0}.cooldownDays: from 0 to {1} game days, and only on an arc that is repeatable.",
+      "after": "{0}.cooldownDays: from 0 to {1} game days, and only on an arc that is repeatable."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.once_each",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added 8 October 2026 for Framework 0.131.0: the story schema's refusals for cooldownDays and onceEach; read against player-language.md.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story/StoryPack.cs:652"
+      ],
+      "before": "{0}: onceEach needs at least one flag in requires.flags to watch, and cannot go with once.",
+      "after": "{0}: onceEach needs at least one flag in requires.flags to watch, and cannot go with once."
     }
   ],
   "documents": [
@@ -91694,7 +91720,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f3915d2c8d845aac2e2d11fd9fd0d856045697e8ca47631cb18920dbc1ca4c3f",
+      "sha256": "32c9df9f81c5ec2e4026e5dad0239041c20f5a041dd9a04812375ae61a20da5b",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
@@ -91702,7 +91728,8 @@
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "SUPPORT.md",
@@ -91864,12 +91891,13 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "99f6201d578288146b1dd6b73ce6489b5d571a2d94ee8afebd7a2832362d648e",
+      "sha256": "9b5d5840501c5ab781d3825e0521af4be3026b199752dec341d4a7a7b9284be4",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/crew-automation.md",
@@ -92264,11 +92292,12 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5a4be74a971b7ebe9fd337ba2f89286ade8209eae8752420367f9784382985ad",
+      "sha256": "f4611b769a5add8a25bae6c77d45c02b732a443ac9f66c5ade7e23ee3e985f73",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -92557,7 +92586,7 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "5e164f0c489b6c32d8d0fa365d0b1c11e4e47fddd8bd99e479b8c54ae33c7674",
+      "sha256": "855b6a2f3df00839d96b2ff1810e30e18f6a0f794b3c6273330f8f1a33717869",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
@@ -92565,7 +92594,8 @@
       "review20261007L97": "Reviewed 7 October 2026: L97 added for the Phobos Exchange market core (fixed time grid, bounded catch-up, offline timings labelled as .NET on the owner's PC, Mono cost to be recorded in game); existing findings retained.",
       "review20261007Bank070": "Reviewed 7 October 2026: L97 extended with Phobos Banking 0.7.0's holdings read on its overview; existing findings retained.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -92848,11 +92878,12 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "72cf008a17f1a9b2e7b675f8b626b307ceb37f4b92b886abc612452345a4deb2",
+      "sha256": "3ffd7b701fe5a7848716f4e8d00f3687d22336ca8657a17fd7525c3f5da07ef1",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -92936,12 +92967,13 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8c963828b66925fc0bc274134f7177a1b6799194309ee074764fa3cd1fb656a2",
+      "sha256": "eca7e05ccd92aec6339def7058eafe2f981fe2eb699c8aa72e9efea27c8767e2",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/item-references.md",
@@ -93011,12 +93043,13 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f249dd940d82eeb7c439f4721ddf7b5bfc2ca89cf05f22be45ea42f199b52eb6",
+      "sha256": "303bb8b6967938d99f030514d78f0d4f3f4c42c376f25c1e3baa1001253be2c0",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -93137,10 +93170,11 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "de94e6ff07f89d23c5cab53fd9d360dc3375311b079377e6fc9bbacfe0e3ce8c",
+      "sha256": "721399ef3c7f3a2a7f5cd96fad0b7228699142fe3cc4596863ace83eb7892c55",
       "review": "Reviewed 7 October 2026 for Framework 0.127.0: story services for other mods (location, requirement gates, flags, starting an arc) and the story day set to the game's own day.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -93163,13 +93197,14 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "36b5a8847a8c134591eba3880a02f1403758b28fbe619984a25099e49c58a87a",
+      "sha256": "f970bac5e95b99111d540fb473eb32f957f03c3cda18ed295715a3a3548ef26e",
       "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -93272,22 +93307,24 @@
       "path": "docs/development/share-market-and-charts-design.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "578993c52077d29bef748a13248b2315d1df3a5fcf28379b3c39febf51a71cc9",
+      "sha256": "fe29633767fd11d6da8bfc183b42ace8e2817ddfcf02d54a90ffac0d94960760",
       "review": "Reviewed 7 October 2026: research-only design record for a Phobos Banking share market and a Framework chart control. Observed game behaviour, library source reading, agent proposals, unverified points and owner decisions are labelled; finance research attributed to its authors with primary links; no runtime or player catalogue text changed.",
       "review20261007ExchangePlanning": "Reviewed 7 October 2026: planning-round section added (owner decisions, corrections, model, time jumps, save record) and superseded notes on the original proposal; owner choices and agent choices labelled; no runtime text changed.",
       "review20261007ExchangeBuilt": "Reviewed 7 October 2026: as-built section for Phobos Exchange 0.1.0 (trend phases as the difference of two OU processes, measured costs labelled as offline .NET figures, the guard and economy results, owner checks pending).",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: first-draft Exchange histories and story content; checked the canon/date boundary against the linked Blue Bottle Games data and kept company causes, price moves, and unsupported dates explicitly author-written. Counts and validator claims checked against the packs and separate shipped/add-on validation. No gameplay claim."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: first-draft Exchange histories and story content; checked the canon/date boundary against the linked Blue Bottle Games data and kept company causes, price moves, and unsupported dates explicitly author-written. Counts and validator claims checked against the packs and separate shipped/add-on validation. No gameplay claim.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/exchange-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "new",
-      "sha256": "62241af539ecb6ececaa5758f12df35fba91e9858b969fa2b387aceb5a225bf0",
+      "sha256": "c6850cc840325f9c972767c5c3a4ef9ee383ea7eff7a0588d7d79a6a532287ae",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/exchange-item-reference.md",
@@ -93300,12 +93337,13 @@
       "path": "workshop/PhobosExchange/page.bbcode",
       "scope": "current player text; Workshop page draft",
       "decision": "new",
-      "sha256": "022f597a40e4c6ca19a53443d2350479280e029010cd44ca0ddda9b7240cecb0",
+      "sha256": "589eb5536b30b6a0df8696fd32edb26f727c6773511ac3a3687fdb4a784ce058",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: market features and limits checked against the exchange service; the cover is identified as promotional artwork, not a gameplay screenshot; wording read against player-language.md.",
       "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange 0.3.0 Workshop draft checked for player-language and BBCode limits; explicitly held for owner gameplay checks."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange 0.3.0 Workshop draft checked for player-language and BBCode limits; explicitly held for owner gameplay checks.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/console-command-audit.md",
@@ -93318,11 +93356,12 @@
       "path": "docs/development/exchange-stories-handoff.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "7be39c537bbc965d074d73aad245859fa240f3bc15cb9ae5d125f8fbaa3de510",
+      "sha256": "633bcdfd12aa4ebb3fed7a8bacaf882526bc2d6b563cd62ad0492a9e0bbdeecc",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261007HandoffFix": "Reviewed 7 October 2026: the writers' handoff made self-contained for company histories (limits table, sector ids, a format example that validates, clearer rules on figures, months and old listings, how to check the work) and the wait test corrected to game hours up to 720; wording read against player-language.md.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: first-draft Exchange histories and story content; checked the canon/date boundary against the linked Blue Bottle Games data and kept company causes, price moves, and unsupported dates explicitly author-written. Counts and validator claims checked against the packs and separate shipped/add-on validation. No gameplay claim."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: first-draft Exchange histories and story content; checked the canon/date boundary against the linked Blue Bottle Games data and kept company causes, price moves, and unsupported dates explicitly author-written. Counts and validator claims checked against the packs and separate shipped/add-on validation. No gameplay claim.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "docs/development/crew-wallets-research.md",
@@ -93389,10 +93428,11 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "dda300a29a8a21402f3188e1b9259d3082ca955c9e582a1bbb6bcdac37c9cad6",
+      "sha256": "9320edbe1a2885e559858b73d6f5b72370bc6e546554cbce73a1c4cbd5a41d41",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -93640,29 +93680,32 @@
       "path": "mods/PhobosExchange/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "f0ef777de659be0bfa4df11eec7b4da00995e43afaf3ad191cd5852f3eb18a82",
+      "sha256": "6ef47d25e4ab3380610dc28cb6dd4ac9a4a6ebb3c5dacd2edb7936a596dd281c",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange 0.3.0 draft changelog for histories, story-driven price news and event responses; version remains held and no gameplay readiness is claimed."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange 0.3.0 draft changelog for histories, story-driven price news and event responses; version remains held and no gameplay readiness is claimed.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosExchange/framework/exchange.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "076512ac9e79f244b33add71586928dfcf74d06aec60eb13a10c2f2a9516ef02",
+      "sha256": "e339d2a4bb12bc9b059cb05062fdafdc6822d71232b9ef9c92b3420cf298c486",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: company, sector and market histories, listing years/prices and news; unsupported dates and all fictional causes are proposals, and only declared news moves prices."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: company, sector and market histories, listing years/prices and news; unsupported dates and all fictional causes are proposals, and only declared news moves prices.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosExchange/mod_info.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "25f1f3324eac9221994a022f987865412f60039f514dcd32775e7d06cad4868d",
+      "sha256": "3a63944c7d841759f9979a16c440e86aff17622da8ca40b16f05624b3847aa66",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
       "review20261007Exchange021": "Reviewed 7 October 2026 for Phobos Exchange 0.2.1: the attach fix, settled drivers on a new market, trade order and the 120-day chart; only version lines and the new changelog entry changed; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosBank/mod_info.json",
@@ -93683,18 +93726,20 @@
       "path": "mods/PhobosFramework/CHANGELOG.md",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "1b63622991887c3acc5cca9387c7bb99ad7a7b7693f08f7d04a7b5f1eea6fc39",
+      "sha256": "cc786c1a2ef1a08b8da8bc341d4dd839745539fd4ae467f7b7629962a7332b07",
       "review20261007PublicRelease": "Reviewed 2026-10-07: the owner confirmed the public Workshop item; the version published is marked Released and the page status reads Public since 7 October 2026. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "mods/PhobosExchange/framework/story.json",
       "scope": "player-visible text in a shipped file",
       "decision": "new",
-      "sha256": "11c6c32c4acb68a6a518236436adb48c9657c89d288d7ac89facaeceff9db407",
+      "sha256": "3815635b6a0f37b71b0b08bbac5ea913b19ee33fe974ed1b74571505c8a784dd",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange stories, adverts, letters, local chatter and encyclopedia copy against player-language rules and the data-pack contract. Game companies use outside reporting voices; only story flags move prices; draft fiction is held for owner review. No gameplay claim."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Exchange stories, adverts, letters, local chatter and encyclopedia copy against player-language rules and the data-pack contract. Game companies use outside reporting voices; only story flags move prices; draft fiction is held for owner review. No gameplay claim.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosExchange/releases/0.3.0.bbcode",
@@ -93708,25 +93753,28 @@
       "path": "examples/addons/PhobosExampleKeelhaulListing/README.md",
       "scope": "player-facing project or example content",
       "decision": "new",
-      "sha256": "52817cfe255c428528df402887b34246bb9817fd040c93b3c071f8ed9c328691",
+      "sha256": "1b072225fd30e88c38c0106618b8c4ccc2f64d8f86c6cdc4c56f21fe930ab0cf",
       "review": "Reviewed 7 October 2026: player-facing add-on walkthrough for a sample company and its story extensions; checked claims against the example data and kept the example clearly illustrative.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: player-facing add-on walkthrough for a sample company and its story extensions; checked claims against the example data and kept the example clearly illustrative."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: player-facing add-on walkthrough for a sample company and its story extensions; checked claims against the example data and kept the example clearly illustrative.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "examples/addons/PhobosExampleKeelhaulListing/phobos/PhobosFramework/story/keelhaul.json",
       "scope": "player-facing project or example content",
       "decision": "new",
-      "sha256": "d2136b01db85945f60cc21ce897a6c5da754ec36213f388ce924e846b79f67c4",
+      "sha256": "7c2920aed54b58ae51bbcb79a0fef9cc826e048ffbaf268c27c0e583cb81e4bf",
       "review": "Reviewed 7 October 2026: Keelhaul example advert, chatter, article and event arcs against story schema and player-language rules; example-only authored fiction.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Keelhaul example advert, chatter, article and event arcs against story schema and player-language rules; example-only authored fiction."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: Keelhaul example advert, chatter, article and event arcs against story schema and player-language rules; example-only authored fiction.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     },
     {
       "path": "examples/addons/PhobosExampleKeelhaulListing/phobos/PhobosExchange/exchange/keelhaul.json",
       "scope": "player-facing project or example content",
       "decision": "new",
-      "sha256": "8c22fec895f1f733b9abdda88dcfe1156982775515efb5929e1ff4f830afeb24",
+      "sha256": "c7d48cfbb768c9a91d0e224d66727a4e12d29547bf5b50ffd1d611d7514a24f8",
       "review": "Reviewed 7 October 2026: example company profile and wire copy against the Exchange data contract and fictional-company voice; values are illustrative add-on content.",
-      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: example company profile and wire copy against the Exchange data contract and fictional-company voice; values are illustrative add-on content."
+      "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: example company profile and wire copy against the Exchange data contract and fictional-company voice; values are illustrative add-on content.",
+      "review20261008News040": "Reviewed 8 October 2026 for Phobos Exchange 0.4.0 and Framework 0.131.0: recurring news (a jump at once, a carry through the trend phase, an unwind at the company's half-life, a lasting share the first time only), repeatable-arc cooldowns, renewed flags and onceEach news; wording read against player-language.md; claims checked against the exchange model, the story runner and their tests; nothing claimed as tested in play."
     }
   ],
   "hardcodedReview": {

@@ -428,7 +428,10 @@ delivery in the changelog and design record, and add or amend only the rule here
   2078, founding and listing per company): they shape only the past drawn before a save's
   own history, which is redrawn from the pack and the seed at each load and never saved,
   never a live price; what the save played is stored and never changes. Stories move
-  prices only through the pack's `news` entries (a story flag, a one-off move, a wire line);
+  prices only through the pack's `news` entries (a story flag, a jump, a wire line), which
+  recur as the game's headlines do (owner, 2026-10-08): each breaking jumps at once, carries
+  on through the company's trend phase and unwinds, and only the first breaking keeps a
+  share for good, so repeated news never compounds;
   the exchange tells stories through `exchange-<company>-<event>` flags and arcs and registers
   the `exchange` add-on namespace. Design record:
   `docs/development/share-market-and-charts-design.md`; writers' handoff

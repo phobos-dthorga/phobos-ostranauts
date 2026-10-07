@@ -301,6 +301,13 @@ calendar: its 87,658.125-second day, shifts as the game numbers them and `ShiftC
 the shift changes between two times, and (0.130.0) years and months. First consumer:
 Phobos Banking 0.2.0.
 
+Recurring story content (0.131.0): an arc's `onComplete.setFlags` renews a flag that is set
+already, and `StoryFlags.Renew(flag)` does the same from code, so `StoryFlags.SetAt` gives
+the latest time the thing happened (`StoryFlags.Set` still keeps the first). A repeatable
+arc takes `cooldownDays`, counted from when it finished, and news and adverts take
+`onceEach`: shown once each time one of their required flags is set again. First consumer:
+Phobos Exchange 0.4.0's recurring news.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`
