@@ -104,7 +104,7 @@ def plan(root, mods, areas, fetch=fetch_details):
             if uploaded and heading.search(before):
                 after = heading.sub(f'## [{uploaded}] - {row["updated"]} - Released', before)
                 changes[path] = (before, after)
-                row['changes'].append(f'Changelog: {uploaded} marked Released on {row["updated"]} (Steam's last update of the item)')
+                row['changes'].append(f'Changelog: {uploaded} marked Released on {row["updated"]} (when Steam last updated the item)')
     if new_catalogue != catalogue:
         text = json.dumps(new_catalogue, indent=2, ensure_ascii=False) + '\n'
         changes[root / CATALOGUE] = ((root / CATALOGUE).read_text(encoding='utf-8-sig'), text)
