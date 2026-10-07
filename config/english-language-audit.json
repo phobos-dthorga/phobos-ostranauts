@@ -91882,14 +91882,15 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "1e019a81eaa40a0bebcfbdae16d9b1a2bf18f94afc17998c702118d542e0259c",
+      "sha256": "e78bcdb636cbf82a702a261fdef30599a22022c4e6bcec7aca136793508335fe",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
       "review20261006OperatingLoops": "Reviewed 6 October 2026: four new ElevenLabs variants E-H, eight total, and owner-required continuous loopable playback. Clearly distinguish provider originals, legacy one-shots, prepared loop files, measured boundary checks, agent integration proposals and owner perceptual/game tests. No runtime or player catalogue text changed.",
       "review20261007HealthResearch": "Reviewed 7 October 2026: research-only health catalogue and creative opportunities. Separate native definitions, historical code evidence, agent proposals and untested gameplay; classify target-specific positive, neutral and negative effects; preserve exact IDs and primary attribution. No new runtime text or treatments.",
       "review20261007ShareMarket": "Reviewed 7 October 2026: one index line added for the share market and charts design record; existing wording retained.",
       "review20261007TestGate": "Reviewed 7 October 2026 for Framework 0.128.1 and Auto Nav 0.35.1: the unlockdebug rule on test commands (story start, try, reset, news, file, flag, standing, check; phobosnav spawn and spawnpursuit) and the shared test-changed mark; wording read against player-language.md; nothing claimed as tested in play.",
-      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play."
+      "review20261007Exchange020": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
+      "review20261007CrewWallets": "Reviewed 7 October 2026: index line for the crew personal wallets research record; no gameplay claim."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -93145,8 +93146,9 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f91a04e89ff30f5f065d04b7eca5da75e91aa80d759f279fb6d85384650fecb3",
-      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals."
+      "sha256": "2bc2875e162042207a7f26b71a62a5f8f6426814e2a5f755220cbd2314420ed5",
+      "review": "Reviewed 6 October 2026 for Framework 0.125.0 and Agriculture 0.66.0: press twice to go ahead replaces pause-first and unlink-first refusals.",
+      "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -93173,8 +93175,9 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "799d38ccf1adcdb23f58ad969aa024d84ead15919ea01fb204f02f08a2721c5f",
-      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way."
+      "sha256": "267e98f5499fa929ff1e0c2a3d872c9f66b3f775a3cad7935c4b6298e7b1df31",
+      "review": "Reviewed 6 October 2026 for Manufacturing 0.58.0 and Shipbreaker 0.85.0: press twice to go ahead, and the furnace's refusals naming the one condition in the way.",
+      "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -93231,10 +93234,11 @@
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "52afdb67e36204778ee6be4f357160e6aa0200d19390f4dc6f9ad329f74ec770",
+      "sha256": "4cbbda32516ac888d1ce47151a990072fe4cf6c598dc6cb766efde601ea462b0",
       "review20261007HoldLifted": "Reviewed 2026-10-07: the owner lifted the gameplay-check hold; the publication status line now reads development candidate, as on the other uploaded mods. No other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
-      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
     },
     {
       "path": "docs/bank-item-reference.md",
@@ -93319,6 +93323,13 @@
       "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
       "review20261007HandoffFix": "Reviewed 7 October 2026: the writers' handoff made self-contained for company histories (limits table, sector ids, a format example that validates, clearer rules on figures, months and old listings, how to check the work) and the wait test corrected to game hours up to 720; wording read against player-language.md.",
       "review20261007ExchangeStoriesDraft": "Reviewed 7 October 2026: first-draft Exchange histories and story content; checked the canon/date boundary against the linked Blue Bottle Games data and kept company causes, price moves, and unsupported dates explicitly author-written. Counts and validator claims checked against the packs and separate shipped/add-on validation. No gameplay claim."
+    },
+    {
+      "path": "docs/development/crew-wallets-research.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "b9f0f4922886cb07039a047122dbdba3fe649ce5729185cdb5479d0a0b2404c1",
+      "review": "Reviewed 7 October 2026: research-only design record for crew personal wallets (the game's own NPC cash and salary ledger observed in the decompile, a wallet-as-StatUSD design with station spending, allowance mode, inherited debts and later behaviour links, owner decisions of the same day, performance budget for weaker machines, saved structures and engine questions to verify); wording read against player-language.md; nothing built and nothing claimed as tested in play."
     }
   ],
   "surfaces": [
@@ -93615,8 +93626,9 @@
     {
       "path": "mods/PhobosBank/CHANGELOG.md",
       "scope": "player-facing release changelog",
-      "sha256": "3bbb1ddeed77e4836e9a64b4208d6923637a7170fc531453ae903bffe3776e48",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
+      "sha256": "dd6e2eae984238d6bc21745cff7121d5f80b6ef6d8822cd30546c8a9e7c28d24",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play.",
+      "review20261007Published": "Reviewed 7 October 2026: the release entry marked Released with its publication date (commit 51232582 changed one line and left the ledger stale); no wording change beyond the status and date."
     },
     {
       "path": "workshop/PhobosBank/releases/0.5.0.bbcode",

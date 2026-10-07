@@ -154,3 +154,4 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Preparing Steam Workshop uploads](workshop-upload-preparation.md)
 - [F6 repair casting: replacement heat sinks (proposal)](furnace-repair-castings.md)
 - [Construction artwork audit: D4, R4, F6 and other equipment](construction-artwork-audit.md)
+- [Crew personal wallets: research and design record (7 October 2026)](crew-wallets-research.md): what the game already keeps for NPC money and salaries, a wallet-as-StatUSD design with station spending, debts and later behaviour links, owner decisions, performance budget and the engine questions to verify
