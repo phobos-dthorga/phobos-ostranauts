@@ -91244,6 +91244,32 @@
       ],
       "before": "Holdings from {0} could not be read and are left out: {1}",
       "after": "Holdings from {0} could not be read and are left out: {1}"
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.holding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.7.0: the overview's holdings line and its Open button, read through Framework's shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:96"
+      ],
+      "before": "{0}: worth {1} at today's selling prices. {2}.",
+      "after": "{0}: worth {1} at today's selling prices. {2}."
+    },
+    {
+      "mod": "PhobosBank",
+      "key": "Overview.holding_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Phobos Banking 0.7.0: the overview's holdings line and its Open button, read through Framework's shared holdings list; reviewed against player-language rules.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosBank/BankPanel.cs:99"
+      ],
+      "before": "Open {0}",
+      "after": "Open {0}"
     }
   ],
   "documents": [
@@ -91251,10 +91277,11 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "624ba9015b897d6f38af45354c0400dff969c63837a9d4614858ff4e26d9e6b4",
+      "sha256": "cb67b9cab3589483a282b8ed32c207edd6a8d68b5c11cd1630667a339a6983b3",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1 stuck-haul fix: only the version line changed in this file; existing wording retained.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "SUPPORT.md",
@@ -92099,12 +92126,13 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f6d8eca8d6f29d7f68c8e395de951283cfede3d261230bf618d601ab61ffc035",
+      "sha256": "10884e2aec38969221fdad84db571027d7506ef86ba05aee12871c8573f61463",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
       "review20261007Fw01271": "Reviewed 2026-10-07 for Framework 0.127.1: added L94 (fallback claim and time-skip checks); developer wording states the throttle and that no capture accompanies it.",
       "review20261006L80": "Reviewed the four-line L80 note added in concurrent commit e5f25529: developer wording identifies the offer-time rule, separates static work claims from measurement and explicitly says no performance capture accompanies the change. This refresh changes only review metadata.",
       "review20261006L88": "Reviewed the L88 note added in concurrent commit 1e50c8e9, whose ledger refresh recorded the file before that note: developer wording names the per-refresh reads and says no capture accompanies the change. This refresh changes only review metadata for it.",
-      "review20261007L97": "Reviewed 7 October 2026: L97 added for the Phobos Exchange market core (fixed time grid, bounded catch-up, offline timings labelled as .NET on the owner's PC, Mono cost to be recorded in game); existing findings retained."
+      "review20261007L97": "Reviewed 7 October 2026: L97 added for the Phobos Exchange market core (fixed time grid, bounded catch-up, offline timings labelled as .NET on the owner's PC, Mono cost to be recorded in game); existing findings retained.",
+      "review20261007Bank070": "Reviewed 7 October 2026: L97 extended with Phobos Banking 0.7.0's holdings read on its overview; existing findings retained."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -92467,9 +92495,10 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4aff15b911b703592246f33e4dd661052e4c1a9e6bdc04ea69e4c550a847e802",
+      "sha256": "009699b43c2196dd223a3e3ca9a3f180160bc7ecededce9e06f0fb75274b40e2",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.2.0: lenders and borrowing, the lenders pack and its editing guide section, branding of the three lenders; claims checked against the loan code and the game's ledger.",
-      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+      "review20261007Exchange": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play.",
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/item-references.md",
@@ -92739,15 +92768,17 @@
       "path": "docs/bank-player-guide.md",
       "scope": "current player guide",
       "decision": "New player guide for Phobos Banking 0.1.0.",
-      "sha256": "a4e6452e6d2fa6a305d29455604e4cb337cd06893600c140337d9e2d7aa8c355",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
+      "sha256": "484bd17be10e4d441795bde106d0745db5285ef660bee6ab61c14eb75ca3873a",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosBank/page.bbcode",
       "scope": "Workshop page draft",
       "decision": "New held Workshop page for Phobos Banking 0.1.0.",
-      "sha256": "4d81ac8fef5b23d8de70ed5afe24acccb3539b7b7a1b9131b5bb2b3590566240",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code."
+      "sha256": "2f31a89ff104d0a9cc74792db960a7284b42ec9fa33e8f9106c8d4c932d50367",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: the Orrery Credit line usable anywhere, its editing guide and handoff sections, and the repaid fix; claims checked against the credit line service and the game's Prepay code.",
+      "review20261007Bank070": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "docs/bank-item-reference.md",
@@ -93101,8 +93132,8 @@
     {
       "path": "mods/PhobosBank/CHANGELOG.md",
       "scope": "player-facing release changelog",
-      "sha256": "184e66c4a376f5b3cd964217c341cd36f86da6ce8580cfc8755759c9891e55ec",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.6.0: Orrery Credit's placeholder person and place-less thread added to the story pack; the 0.6.0 changelog entry (credit line, repaid fix) checked against the code."
+      "sha256": "3bbb1ddeed77e4836e9a64b4208d6923637a7170fc531453ae903bffe3776e48",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: the overview's holdings line from Phobos Exchange through Framework's shared list; wording read against player-language.md; nothing claimed as tested in play."
     },
     {
       "path": "workshop/PhobosBank/releases/0.5.0.bbcode",
@@ -93130,6 +93161,13 @@
       "decision": "new",
       "sha256": "af64a245e33cb1f851caa1ad59953426f927cf32baf5b892fe620f8eb4934534",
       "review": "Reviewed 7 October 2026 for Framework 0.128.0 and Phobos Exchange 0.1.0: the EXCHANGE app, charts, the shared holdings list and the test-command gate; wording read against player-language.md; claims checked against the exchange service, the market model tests and the game's market and ledger code; nothing claimed as tested in play."
+    },
+    {
+      "path": "mods/PhobosBank/mod_info.json",
+      "scope": "player-visible text in a shipped file",
+      "decision": "new",
+      "sha256": "24f162af8094672207f17062ea8f4cc474ed08d185540d8bd678fddc971dbeb8",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.7.0: version, Framework requirement and description; nothing claimed as tested in play."
     }
   ],
   "hardcodedReview": {

@@ -28,6 +28,8 @@
   "Overview.heading": "Your accounts",
   "Overview.cash": "Cash on hand: {0}",
   "Overview.clear": "You owe nothing to anyone. Enjoy it while it lasts.",
+  "Overview.holding": "{0}: worth {1} at today's selling prices. {2}.",
+  "Overview.holding_open": "Open {0}",
   "Overview.loans": "{0} loans with {1} still to repay. Next instalments: {2} in all, charged at the next shift change.",
   "Overview.loans_one": "One loan with {1} still to repay. Next instalment: {2}, charged at the next shift change.",
   "Overview.bills": "{0} bills waiting, {1} in all.",

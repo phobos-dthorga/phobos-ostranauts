@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-07",
-  "baselineCommit": "de7dbde722c392f66b38702758784809abd7608e",
+  "baselineCommit": "8a74e6b1caaa5e9f113444e113b7f8732ddad63a",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -2708,7 +2708,7 @@
     },
     {
       "path": "src/PhobosBank/BankPanel.cs",
-      "sha256": "95d8ff4c06bf808ee0c43eb6e6581e3c975d4969c15ba1f6bbc04f89f8e9243e",
+      "sha256": "ee2640496cdedcd9d977ba0daa34e33a389cff791709eec8ce1702724d34e093",
       "role": "shared presentation and input",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
@@ -2716,21 +2716,23 @@
         "L86",
         "L92",
         "L93",
-        "L96"
+        "L96",
+        "L97"
       ],
       "indicators": {
         "ui_mutation": [
           52,
-          141,
-          159
+          99,
+          152,
+          170
         ],
         "collection": [
           71,
           72
         ],
         "runtime_hook": [
-          156,
-          168
+          167,
+          179
         ]
       },
       "reviewed": "2026-10-07"
@@ -2972,7 +2974,7 @@
     },
     {
       "path": "src/PhobosBank/Plugin.cs",
-      "sha256": "051ae43a90f6021158f8d0b7b74b2229bb93b8744991a0a8f9895a68eb881a06",
+      "sha256": "e63c5ccfeee2b9669535a007a213be3a3db73fd2274d75429e445b7a54dc8dea",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-07 performance pass; see the linked findings for the disposition.",
@@ -2981,7 +2983,8 @@
         "L92",
         "L93",
         "L95",
-        "L96"
+        "L96",
+        "L97"
       ],
       "indicators": {
         "persistence_or_io": [

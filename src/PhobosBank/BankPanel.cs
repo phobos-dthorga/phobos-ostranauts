@@ -89,6 +89,17 @@ public sealed partial class BankPanel : GUIData
     {
         C.Heading(shell.Detail, Text.Get("Overview.heading"));
         C.Label(shell.Detail, Text.Get("Overview.cash", Money(Debts.Cash())));
+        // What the player owns through other Phobos mods (Banking 0.7.0), such as shares on Phobos Exchange, read from
+        // Framework's shared list; Banking never needs those mods, and the button only opens their own app.
+        foreach (var holding in Phobos.Ostranauts.Framework.Trading.PlayerHoldings.Read())
+        {
+            C.Label(shell.Detail, Text.Get("Overview.holding", holding.Label, Money(holding.Value), holding.Detail));
+            if (holding.App.Length > 0 && Phobos.Ostranauts.Framework.Pda.PdaApps.TryGet(holding.App, out var app))
+            {
+                var open = C.Button(shell.Detail, Text.Get("Overview.holding_open", holding.Label), () => { if (app.Open() is string why) shell.Notice.text = why; });
+                C.Size(open.transform, C.ControlHeight, 240);
+            }
+        }
         // A standing pre-approval for a broker purchase (Banking 0.3.0).
         if (Financing.Current() is Approval approval)
             C.Label(shell.Detail, Text.Get(approval.Kind == LenderSchema.Home ? "Financing.overview_home" : "Financing.overview_ship", Lenders.Name(approval.Lender), Money(approval.Limit), MathUtils.GetUTCFromS(approval.Expires)));

@@ -17,8 +17,8 @@ namespace PhobosBank;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = BankRules.Owner;
-    public const string Version = "0.6.0";
-    public const string MinimumFrameworkVersion = "0.127.0";
+    public const string Version = "0.7.0";
+    public const string MinimumFrameworkVersion = "0.128.0";
     internal const string ModName = "Phobos Banking";
     internal static Action<string> Log = _ => { };
     /// <summary>Whether the package's data folder is enabled in the game's mod list, checked at each content load.</summary>

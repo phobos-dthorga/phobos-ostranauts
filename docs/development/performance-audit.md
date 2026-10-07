@@ -1217,7 +1217,9 @@ owner's PC (.NET 10, three companies) a one-day skip took about 3 ms, three days
 operation `exchange.catch_up` records the real cost. Price history is encoded only when
 the record is written (hourly closes, trades, alerts). The service polls once a real
 second; the panel refreshes labels and its chart in place once a second while open. The
-record's history is bounded (about 1.5 KB a company). No capture accompanies this change.
+record's history is bounded (about 1.5 KB a company). Phobos Banking 0.7.0's overview reads
+Framework's holdings list once each time it is drawn (one value per providing mod: the
+exchange sums its holdings over eight companies). No capture accompanies this change.
 
 ## 7 October: the credit line (L96)
 

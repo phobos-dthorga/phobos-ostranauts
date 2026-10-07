@@ -5,6 +5,18 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-10-07 - Draft
+
+### Added
+
+- The overview shows what you own through other Phobos mods: with Phobos Exchange installed, what your shares are worth at today's selling prices, how many companies you hold, and a button that opens the exchange. Neither mod needs the other.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.128.0, which adds the shared list of holdings.
+- Saves: nothing new is saved. The line reads the exchange's own figures each time the overview is drawn.
+- Checked offline; not yet seen in play.
+
 ## [0.6.0] - 2026-10-07 - Draft
 
 ### Added
