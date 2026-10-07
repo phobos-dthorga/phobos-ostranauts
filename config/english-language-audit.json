@@ -93312,9 +93312,10 @@
       "path": "docs/development/exchange-stories-handoff.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "4a51c0248b986a2617fa1ba3f3a8bf946e222ece29c43acb928fe3f2a16528ee",
+      "sha256": "00999a5407f72acfce638e23719bb58b6578bb075da18926320992109f098df5",
       "review": "Reviewed 7 October 2026 for Phobos Exchange 0.2.0 and Framework 0.129.0: stories as data (news that moves prices, the exchange's story events, the story pack, add-on event namespaces, the Keelhaul example and the ChatGPT handoff); wording read against player-language.md; claims checked against the exchange service, the story services and the C# and Python checks; nothing claimed as tested in play.",
-      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play."
+      "review20261007Exchange030": "Reviewed 7 October 2026 for Phobos Exchange 0.3.0 and Framework 0.130.0: company histories before the game (founding and listing years from 1879 to 2078, history entries, listing prices, the drawn past redrawn at each load, the All chart on a log scale with marks), the monthly lifetime record and long time jumps; wording read against player-language.md; claims checked against the exchange model, its tests and the game's calendar; nothing claimed as tested in play.",
+      "review20261007HandoffFix": "Reviewed 7 October 2026: the writers' handoff made self-contained for company histories (limits table, sector ids, a format example that validates, clearer rules on figures, months and old listings, how to check the work) and the wait test corrected to game hours up to 720; wording read against player-language.md."
     }
   ],
   "surfaces": [

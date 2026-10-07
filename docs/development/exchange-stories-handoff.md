@@ -22,16 +22,19 @@ Two files carry the exchange's world:
 The exchange itself is **the Lodestar Exchange** (agent-chosen name: the star a navigator
 steers by; plain, brisk, a little proud of itself). Its thread is `exchange-lodestar`.
 
-| Company id | Ticker | Name | Sector | Whose | Thread | What moves it (the game's own station markets) |
+| Company id | Ticker | Name | Sector (id) | Whose | Thread | What moves it (the game's own station markets) |
 | --- | --- | --- | --- | --- | --- | --- |
-| `smartlink` | SMLK | Smartlink | Heavy industry | the game's | `exchange-smartlink` | Weapons at Port Yangshan (Mars) and Cassini Spaceport (Titan) |
-| `testudo` | TSTD | Testudo | Heavy industry | the game's | `exchange-testudo` | Hull at Cassini Spaceport and Cloudbreak (Venus); metal at Port Yangshan, an input |
-| `ayotimiwa` | AYO | Ayotimiwa Corp. | Heavy industry | the game's | `exchange-ayotimiwa` | Hull and ore at K-Leg |
-| `green-energy` | GEC | The Green Energy Company | Food and comforts | the game's | `exchange-green-energy` | Intoxicants at Zhonghuamen Terminal and Port Shajiang (Luna) |
-| `brightvein` | BVM | Brightvein Mining | Mining and volatiles | invented | `exchange-brightvein` | Ore at Zhonghuamen Terminal; metal at Port Yangshan |
-| `coldwell` | CWV | Coldwell Volatiles | Mining and volatiles | invented | `exchange-coldwell` | Volatiles at Port Yangshan and Upsilon Docking (Deimos); helium-3 at Venus Orbital |
-| `verdemorrow` | VERD | Verdemorrow | Food and comforts | ours (Phobos Agriculture's maker) | `exchange-verdemorrow` | Food at Zhonghuamen Terminal and Qincheng Station (Mercury) |
-| `halewright` | HALE | Halewright | Medicine | ours (Phobos Medical's maker) | `exchange-halewright` | Medical supplies at Zhonghuamen Terminal, Qiantangmen and Cassini Spaceport |
+| `smartlink` | SMLK | Smartlink | Heavy industry (`industry`) | the game's | `exchange-smartlink` | Weapons at Port Yangshan (Mars) and Cassini Spaceport (Titan) |
+| `testudo` | TSTD | Testudo | Heavy industry (`industry`) | the game's | `exchange-testudo` | Hull at Cassini Spaceport and Cloudbreak (Venus); metal at Port Yangshan, an input |
+| `ayotimiwa` | AYO | Ayotimiwa Corp. | Heavy industry (`industry`) | the game's | `exchange-ayotimiwa` | Hull and ore at K-Leg |
+| `green-energy` | GEC | The Green Energy Company | Food and comforts (`consumer`) | the game's | `exchange-green-energy` | Intoxicants at Zhonghuamen Terminal and Port Shajiang (Luna) |
+| `brightvein` | BVM | Brightvein Mining | Mining and volatiles (`resources`) | invented | `exchange-brightvein` | Ore at Zhonghuamen Terminal; metal at Port Yangshan |
+| `coldwell` | CWV | Coldwell Volatiles | Mining and volatiles (`resources`) | invented | `exchange-coldwell` | Volatiles at Port Yangshan and Upsilon Docking (Deimos); helium-3 at Venus Orbital |
+| `verdemorrow` | VERD | Verdemorrow | Food and comforts (`consumer`) | ours (Phobos Agriculture's maker) | `exchange-verdemorrow` | Food at Zhonghuamen Terminal and Qincheng Station (Mercury) |
+| `halewright` | HALE | Halewright | Medicine (`health`) | ours (Phobos Medical's maker) | `exchange-halewright` | Medical supplies at Zhonghuamen Terminal, Qiantangmen and Cassini Spaceport |
+
+The four sectors are keyed `industry`, `resources`, `consumer` and `health` in
+`exchange.json`; a sector's history sits under its key.
 
 What the game itself says about its four companies, so the lore stays consistent:
 Smartlink is a weapons maker the game calls an "ubercorp", proud of its point-defence
@@ -100,6 +103,42 @@ has the exact limits):
   exchange event moves every company listed at the time (each by how closely it follows
   the market); a sector event moves that sector's companies.
 
+**Limits** (the validators refuse anything outside them):
+
+| What | Limit |
+| --- | --- |
+| Entries in one history | 12 for a company, 8 for a sector, 16 for the exchange |
+| Entry id | lower case letters and digits joined by dashes, at most 24 characters, unique within its history |
+| `year` (and `founded`, `listed`, `opened`) | a whole year from 1879 to 2078 |
+| `month` | 1 to 12 |
+| `move` | from -0.6 to 1.0 (a fall of at most 60%, a rise of at most 100%), at least 0.01 either way; only by 2076 |
+| `line` | up to 200 characters, no placeholders in square brackets |
+| `listingPrice` | 0.01 to 100,000 credits, only for a company listed by 2076 |
+
+**What it looks like.** An illustration of the format only, not lore: the company and its
+events are made up, so do not copy them. Inside a company's entry:
+
+```json
+"founded": 2019,
+"listed": 2038,
+"listingPrice": 12,
+"history": {
+  "first-yard": { "year": 2021, "line": "Opens its first orbital yard over Lagos with two borrowed cranes." },
+  "colony-haulers": { "year": 2041, "month": 5, "move": 0.35, "line": "Wins the colony haulage contracts and doubles its yard crews." },
+  "yard-fire": { "year": 2044, "month": 9, "move": -0.2, "line": "A fire guts the main assembly hall; two hulls are lost on the slips." }
+}
+```
+
+And the exchange's own history, inside `market`:
+
+```json
+"opened": 2034,
+"history": {
+  "first-bell": { "year": 2034, "month": 3, "line": "The first trading session runs from a rented office on Luna." },
+  "the-long-silence": { "year": 2059, "month": 11, "move": -0.4, "line": "Earth goes dark behind the debris; the board stays shut for nine days and reopens far lower." }
+}
+```
+
 **The range.** A new game always begins in 2079 (the game's own start date). Every year you
 give runs from **1879 to 2078**, at most 200 years back. A company cannot list before the
 exchange opened, or before it was founded. An event that moved a price must fall on or
@@ -118,8 +157,16 @@ started show the new one.
 
 **Rules for histories:**
 
-- No figures in a `line`: the chart shows how far it went. Write "Wins the Cassini yard
-  contract", not "Shares jump 40% on the Cassini contract".
+- No prices, percentages or share figures in a `line`: the chart shows how far it went.
+  Write "Wins the Cassini yard contract", not "Shares jump 40% on the Cassini contract".
+  Ordinary counts are fine ("two hulls are lost"). The page prints the year before each
+  line ("2041: Wins the colony haulage contracts"), so do not repeat it.
+- Give a `month` to any event whose timing matters, such as two events in the same year
+  that must come in order. Without one, the month is picked by a fixed calculation from
+  the entry's id: the same for every player, but not one you chose.
+- For a company listed long ago, set a `listingPrice`. Without one, the price is worked
+  back from today at the company's usual growth, which over many decades can leave it at a
+  fraction of a credit a share.
 - The game's own companies are described from outside, as for news: a wire report or a
   historian's line, never their own press release.
 - Check the game's own text before dating anything to do with its companies or places
@@ -186,8 +233,9 @@ These follow the Banking precedent
   the market move them. Say "climbed", "slid", "a strong week"; the wire line of a `news`
   entry is the one place to say what happened, and still without figures (the wire adds
   the percentage itself).
-- **Weeks, not hours.** Prices run in phases that last weeks; stories pace the same way.
-  Wait tests of days fit better than hours.
+- **Weeks, not hours.** Prices run in phases that last weeks; stories pace the same way. A
+  `wait` test counts game hours, up to 720 (about thirty game days); waits of a day (24) or
+  more suit the market better than a few hours.
 - **Standing** changes stay small (up to 10 points, two factions an outcome) and go to the
   game's own factions.
 - **Ids**: lower case with dashes. Exchange content uses `exchange-`; event arcs must be
@@ -225,10 +273,16 @@ These follow the Banking precedent
   event, every event id to be a valid story id, and the story pack to keep its threads.
   Since 0.3.0 they also require every shipped company to have a founding and a listing year,
   and check the history rules above in the game's own code and the Python mirror.
-- The `exchange` validator checks news flags, moves and wire lines; the story validator
-  checks the story pack. Both have Python mirrors and JSON Schemas for your editor.
+- The `exchange` validator checks news flags, moves and wire lines, and the history rules;
+  the story validator checks the story pack. Both have Python mirrors and JSON Schemas for
+  your editor.
+- To check your work: run `python scripts/validate-data-packs.py` in the repository, which
+  names any field outside its limits. In the game, a company's **All** chart and its page
+  show the history, and the F3 command `phobosexchange history SMLK` (or `history` alone
+  for the exchange) prints it.
 - Players can do all of this too: [the Keelhaul example add-on](../../examples/addons/PhobosExampleKeelhaulListing/README.md)
-  lists a company, tells a story that moves its price, and answers its `bought` event.
+  lists a company, tells a story that moves its price, answers its `bought` event and gives
+  the company a history before the game.
   Add-ons may name `exchange-<their prefix>…` ids because Phobos Exchange registers the
   `exchange` namespace (Framework 0.129.0).
 - Changes go in Draft with the changelog, the language ledger and the release notes, as for
