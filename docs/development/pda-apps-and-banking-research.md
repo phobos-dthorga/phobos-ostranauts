@@ -202,9 +202,11 @@ to the game's own behaviour:
    a limit, valid for a while; the broker's popup then opens with that lender chosen. This
    keeps the decision in the bank app, and the broker window only shows its result.
 
-**Not chosen:** a cash advance taken in the app and spent at the broker as a cash
-purchase. It needs no broker changes, but the loan would not be tied to the ship, so the
-game's sale escrow would not repay it.
+**Not chosen for broker financing (6 October 2026):** a cash advance taken in the app
+and spent at the broker as a cash purchase. It needs no broker changes, but the loan
+would not be tied to the ship, so the game's sale escrow would not repay it. That was a
+broker-specific choice, not a decision against a general-purpose remote credit product;
+the owner reopened that question on 7 October 2026 below.
 
 **Unknowns to test in play.** The popup is a Unity prefab we cannot read offline: the row's
 place and size need a hierarchy dump at runtime, and other mods touching the broker are
@@ -467,7 +469,9 @@ read offline.
 
 ## Round 5 as built
 
-Phobos Banking 0.4.0, 7 October 2026, held draft.
+Phobos Banking 0.5.0, 7 October 2026, held draft. The story writing requested in the
+[banking stories handoff](banking-stories-handoff.md) is in the pack; no gameplay or
+publication is implied.
 
 - **Two unregistered lenders** (agent choices): Stillwater Advances at Port Independence,
   Ganymede (0.08% a shift, about 21.5% over a whole loan, ships from 25% down) and the
@@ -481,9 +485,119 @@ Phobos Banking 0.4.0, 7 October 2026, held draft.
   so an arc may require them. `bank-<lender>-late-long` joins the flags.
 - **Lender threads have no place**, so their letters reach the player anywhere; adverts
   and news take the lender's place. Each lender names its officer (`person`).
-- **Banking's story pack** (`mods/PhobosBank/framework/story.json`, registered in Awake):
-  the officers, the threads and Corvane Mutual's four letters as a model. ChatGPT writes
-  the rest from the [stories handoff](banking-stories-handoff.md).
+- **The story pack** (`mods/PhobosBank/framework/story.json`, registered in Awake) has
+  four repeatable event arcs for each lender, local adverts, station news and small talk,
+  and one encyclopedia article on credit and lenders. The letters and their replies do
+  not pay debts or promise any outcome beyond the game's existing late fee and ledger.
+
+## Remote credit line: owner direction and research
+
+Owner direction (7 October 2026): consider borrowing from anywhere in real time, at a
+higher cost or otherwise worse terms than borrowing directly at a lender's location,
+with a familiar credit-card feel. This is research only: no product, balance, price,
+provider, eligibility rule or implementation has been chosen.
+
+### What the modern comparison suggests
+
+The closest low-friction analogy is a **credit-card cash advance**, not a card purchase.
+The U.S. Consumer Financial Protection Bureau (CFPB) describes cash advances as commonly
+having a separate, lower limit, an extra fee and a higher interest rate; interest commonly
+starts on the transaction date rather than after a grace period ([CFPB, “Can I withdraw
+money from my credit card at an ATM?”, reviewed 2 September 2026](https://www.consumerfinance.gov/ask-cfpb/can-i-withdraw-money-from-my-credit-card-at-an-atm-en-34/)).
+For card purchases, the CFPB describes a statement cycle and due date; a grace period may
+apply if the balance is paid in full, while cash advances usually do not receive that
+period ([CFPB, “What is a grace period for a credit card?”, reviewed 23 September 2024](https://www.consumerfinance.gov/ask-cfpb/what-is-a-grace-period-for-a-credit-card-en-47/);
+[CFPB, “Know Before You Owe: Credit Cards”, updated 12 December 2024](https://www.consumerfinance.gov/data-research/credit-card-data/know-before-you-owe-credit-cards/)).
+These are U.S. consumer-finance explanations, not Australian legal advice, Ostranauts
+canon or a mandate for the game. They suggest that a remote draw should disclose its fee,
+rate, limit and first payment plainly, and should not quietly borrow the cheaper purchase
+grace period's language.
+
+### Product shapes to consider
+
+1. **Remote revolving cash line — best fit for the owner's card analogy.** The PDA shows
+   one account limit, current balance, available amount, cost of a draw and next amount
+   due. The player can draw cash anywhere up to the remaining limit; the cash goes into
+   the game's existing `StatUSD`, and payment remains in Finances. The balance can be
+   borrowed again as it is repaid. At a lender's counter, a separate secured loan can
+   offer a larger limit, lower price or longer term.
+2. **Remote cash loan per draw — simpler bridge, weaker card feel.** Each app draw opens
+   an ordinary Phobos Banking loan under the existing mortgage and shift-payment model.
+   It can be more expensive and capped, but it is another fixed loan rather than a
+   revolving account; repeated borrowing creates multiple ledger lines and obligations.
+3. **Pay-by-card at vendors — most literal card, widest scope.** Charge purchases
+   directly to credit rather than giving the player cash. This would need to cover each
+   relevant purchase route, including kiosks and the ship broker, and clearly separate
+   financed purchases from cash advances. It would create many chances for a purchase to
+   bypass the credit limit or be charged twice. I would not start here.
+
+### Suggested shape, still unapproved
+
+- Make the service available through the PDA wherever the player is. The player should
+  be able to make a draw immediately once eligible; a physical branch should improve the
+  terms, not be required to access the remote product. Whether the player first opens or
+  accepts the account at a station, or can enrol from the PDA, remains an owner choice.
+- Keep the global offer to one lender or one clearly identified credit service. Do not
+  make all five station lenders appear to have counters everywhere; their homes and
+  local characters are part of what distinguishes them. A registered lender could offer
+  remote account access while keeping its staffed, secured loans local. A separate
+  system-wide clearing service is another lore option, but would introduce an institution
+  that needs its own identity and story rationale. Neither network infrastructure nor
+  instant inter-station settlement has been verified as canon here; present immediate
+  credit as a gameplay abstraction unless a lore source is established.
+- Make the remote offer less favourable in a small number of visible ways: a lower
+  ceiling and higher total borrowing cost than a comparable loan offered face to face.
+  A remote convenience fee or higher rate could supply the price difference. Do not stack
+  several surprise penalties; show the amount drawn, fee, rate, next amount due and
+  estimated total cost before the player accepts. Leave all exact values for a later
+  balance pass.
+- Do not add repossession, collectors, seized cargo, access restrictions or other new
+  default effects. The existing 17.5% shift late fee is already consequential; adding a
+  remote-credit penalty on top would depart from the owner's recorded default choice.
+  Keep payment in the game's Finances window. Following the [story handoff](banking-stories-handoff.md),
+  letters may explain a bill or ask the player to act, but a reply cannot pay it and no
+  story may promise consequences the code does not implement.
+
+### My recommendation and reservations
+
+I recommend designing toward the revolving cash line in option 1, while keeping its
+draw as cash rather than trying to charge every vendor. That gives the player the
+emergency flexibility requested, keeps the current purchase systems intact, and leaves
+local lenders with a meaningful advantage: collateral-backed terms, higher limits and
+longer repayment when the player travels to them. The PDA can be the always-reachable
+account interface; the fiction can say the line is already authorised against the
+captain or ship account, without claiming a new universal communications technology.
+
+My main reservation is that the existing Banking loans are finite mortgages with
+shiftly instalments; they are not a revolving credit balance with a statement and minimum
+payment. A faithful card-like line therefore needs a distinct account balance, limit,
+draw and repayment rules, plus correct billing across time skips. Reusing one fixed loan
+per draw is cheaper but can turn emergencies into a pile of shift bills and does not
+deliver the requested card experience. I would rather keep the first implementation
+small and honestly call it a cash-advance line than label fixed loans a credit card.
+
+I also recommend resisting the real-world convention of making the product convenient
+by hiding its cost in dense terms. A single explicit draw fee or a plainly higher rate,
+combined with a modest cap, is easier to understand. The game's existing late fee is
+severe enough that the remote line should not make missed payments even harsher.
+
+### Decisions still open
+
+- Can any eligible player enrol and draw from the PDA at any location, or must they
+  first meet a lender or accept its offer in person?
+- Should remote credit be one reusable account balance with a minimum payment, or a
+  sequence of ordinary, individually visible loans? The former matches the request;
+  the latter reuses more of the current loan model.
+- Is the provider one current lender with remote account access, or a new system-wide
+  credit service? Keep the other lenders local unless their lore and data explicitly say
+  otherwise.
+- Does remote borrowing deliver cash only, or should a later feature add direct merchant
+  charges? Cash is the recommended first boundary.
+- What repayment interval and amount can the native Finances window support cleanly for
+  a revolving balance? This needs code-path research before terms are drafted.
+- Does the owner want credit available from a new save's beginning, or unlocked by an
+  account/story event? No good-standing gate is proposed yet; denying emergency access
+  for already being in trouble could undermine the feature's purpose.
 
 ## Proposed rounds
 
@@ -498,5 +612,5 @@ Phobos Banking 0.4.0, 7 October 2026, held draft.
    screens.
 4. **Financing at the broker** (built in Banking 0.3.0). The lender row, terms on screen, the loan on confirm and
    pre-approval; owner tests at OKLG, Mars and Venus.
-5. **Non-accredited lenders and stories** (built in Banking 0.4.0; the lore is ChatGPT's to write). Higher-cost lenders, flags for what happened,
-   and a story pack with ChatGPT's lore (officers as people, adverts, letters).
+5. **Non-accredited lenders and stories** (built in Banking 0.5.0; see above). Higher-cost lenders, flags for what happened,
+   and the completed story pack (officers as people, adverts, letters and local station text).

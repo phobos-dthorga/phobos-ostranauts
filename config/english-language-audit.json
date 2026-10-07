@@ -90261,8 +90261,8 @@
       "path": "docs/development/pda-apps-and-banking-research.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "3b08db4cf5284f0adb879b291e6167a64df33ee56b3f9c3e208c08a5a061a1df",
-      "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema."
+      "sha256": "86bae756a265d1bb4347d636d523592eda7353a02cd02b8e74e64cbc6fd27499",
+      "review": "Reviewed 7 October 2026 for Phobos Banking 0.5.0 and remote credit research: story record checked against the handoff; modern card mechanics attributed to CFPB sources; remote cash-line models, game constraints, open choices and unverified lore assumptions are labelled. No implementation or gameplay test claimed."
     },
     {
       "path": "docs/development/panel-override-audit.md",
