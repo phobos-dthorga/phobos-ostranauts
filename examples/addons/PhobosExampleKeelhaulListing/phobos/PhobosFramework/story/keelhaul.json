@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Example add-on: Keelhaul Freight's story. A news arc that, after a while, sets the flag the exchange file maps to an 8% rise; and the exchange's own bought event for this company, which an add-on may name because Phobos Exchange registers the exchange namespace (exchange-<prefix>-...).",
+  "notes": "Example add-on: Keelhaul Freight's price-moving story, local advert and chatter, encyclopedia article, and event responses. It demonstrates news flags and every story table players commonly add, while keeping all prices in the exchange pack.",
   "people": {
     "keelhaul-orla-brand": {
       "name": "Orla Brand",
@@ -12,7 +12,9 @@
   "threads": {
     "keelhaul-freight": {
       "title": "Keelhaul Freight",
-      "people": [ "keelhaul-orla-brand" ]
+      "people": [
+        "keelhaul-orla-brand"
+      ]
     }
   },
   "broadcasts": {
@@ -21,6 +23,28 @@
       "region": "Outer System",
       "text": "Cassini Spaceport has given its seasonal ore contract to Keelhaul Freight, a belt line better known for hauling plate than for winning tenders. Dock workers at Zhonghuamen Terminal expect longer queues at the ore chutes.",
       "once": true
+    },
+    "keelhaul-surge-wire": {
+      "thread": "keelhaul-freight",
+      "region": "Outer System",
+      "once": true,
+      "requires": {
+        "flags": [
+          "exchange-keelhaul-freight-surge"
+        ]
+      },
+      "text": "Keelhaul Freight shares made a sharp move on the Lodestar Exchange. The desk has not tied it to a single contract; the next cargo report may tell buyers more than dock gossip."
+    },
+    "keelhaul-slump-wire": {
+      "thread": "keelhaul-freight",
+      "region": "Outer System",
+      "once": true,
+      "requires": {
+        "flags": [
+          "exchange-keelhaul-freight-slump"
+        ]
+      },
+      "text": "Keelhaul Freight shares fell sharply on the Lodestar Exchange. Brokers are waiting for the next station report before they call the bottom."
     }
   },
   "arcs": {
@@ -28,13 +52,28 @@
       "title": "Keelhaul wins the Titan ore contract",
       "thread": "keelhaul-freight",
       "chance": 0.02,
-      "requires": { "mods": [ "PhobosExchange" ] },
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
       "steps": [
         {
           "id": "contract",
-          "delivery": { "bulletin": "keelhaul-contract-news" },
-          "tests": [ { "kind": "wait", "hours": 2 } ],
-          "onComplete": { "setFlags": [ "keelhaul-titan-contract" ] }
+          "delivery": {
+            "bulletin": "keelhaul-contract-news"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "keelhaul-titan-contract"
+            ]
+          }
         }
       ]
     },
@@ -51,9 +90,123 @@
               "text": "Your name came across the share register this morning. Keelhaul hauls ore and plate, mostly on time. The board asks nothing of small holders; I write because it is polite, and because ore prices at Zhonghuamen move us more than any speech will."
             }
           },
-          "tests": [ { "kind": "wait", "hours": 1 } ]
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
         }
       ]
+    },
+    "exchange-keelhaul-freight-major-holder": {
+      "title": "A note from Keelhaul's shareholder desk",
+      "thread": "keelhaul-freight",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "large-holder",
+          "delivery": {
+            "message": {
+              "person": "keelhaul-orla-brand",
+              "text": "Your holding is one of the larger names on Keelhaul's register. The belt run can go quiet without warning; watch the cargo reports and keep your own plans within reach."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-keelhaul-freight-surge": {
+      "title": "Keelhaul surge report",
+      "thread": "keelhaul-freight",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "keelhaul-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-keelhaul-freight-slump": {
+      "title": "Keelhaul slump report",
+      "thread": "keelhaul-freight",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "keelhaul-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "adverts": {
+    "keelhaul-freight-advert": {
+      "thread": "keelhaul-freight",
+      "place": "bcer",
+      "weight": 2,
+      "title": "Keelhaul bulk freight",
+      "text": "Freight on paper does not earn its fare. Keelhaul puts ore and plate on the belt run when the route, the hold and the receiving dock all agree. We move bulk cargo, not miracles."
+    }
+  },
+  "chatter": {
+    "keelhaul-surge-chatter": {
+      "thread": "keelhaul-freight",
+      "place": "bcer",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-keelhaul-freight-surge"
+        ]
+      },
+      "line": "KHF climbed again. Check the station reports before you decide the whole belt is rich."
+    },
+    "keelhaul-slump-chatter": {
+      "thread": "keelhaul-freight",
+      "place": "bcer",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-keelhaul-freight-slump"
+        ]
+      },
+      "line": "Shares sliding will not move the ore any faster. The next dock report is what matters."
+    }
+  },
+  "articles": {
+    "keelhaul-bulk-freight": {
+      "section": "phobos-spacer-life",
+      "label": "Bulk freight shares",
+      "title": "Keelhaul Freight",
+      "body": "Keelhaul Freight is a belt carrier that runs ore and plate between the mining lanes and the station markets. A share gives its holder a small claim on the company, not a cargo slot or a place in the next convoy.\n\nThe line follows ore demand at Zhonghuamen Terminal. A short bin may help a carrier with cargo ready to sell; delays, a damaged ship or a full hold can still spoil a good route.",
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "thread": "keelhaul-freight"
     }
   }
 }

@@ -16,11 +16,12 @@ Every hold you fill and every shortage you fly into moves somebody's share price
 [*][b]The market wire[/b]: big moves and turns, each with its cause, in the crew log. After a long absence, one summary.
 [*][b]Your shares[/b]: value, cost and gain for each holding, and Sell everything.
 [*][b]Company histories[/b]: every company has a founding year and a year it listed, and its price history reaches back to its listing however late you install the exchange. Its page lists the events that shaped it.
+[*][b]Stories around the market[/b]: company news can move prices once, with letters when you buy or become a major holder and wire reports on sharp rises or falls. Local chatter, adverts and an encyclopedia article round out the Exchange's world.
 [*]In the F3 console, phobosexchange quotes, quote, buy, sell, holdings, alert, alerts, sellall, history, drivers and state.
 [/list]
 
 [h2]List your own companies[/h2]
-The company list is a data file. Add companies and sectors with their own founding years and history, or change what each one follows, in BepInEx/config/PhobosExchange/exchange, or ship them in an add-on. A built-in guard refuses any company whose shares would earn more on average than a loan costs. Stories can move prices: a company's news, set off by a story, lifts or sinks its price once, and the exchange tells stories when you buy in, hold a large stake or sell out. An example add-on lists a company of its own with its own story.
+The company list is a data file. Add companies and sectors with their own founding years and history, or change what each one follows, in BepInEx/config/PhobosExchange/exchange, or ship them in an add-on. A built-in guard refuses any company whose shares would earn more on average than a loan costs. Stories can move prices: each company has two first-draft news events that move its price once when their story flags are set. Letters follow your first purchase and a large holding; TV reports follow sharp rises and falls. The Keelhaul example shows how add-ons can write their own news, letters, adverts, local chatter and articles.
 
 [h2]Fair warning[/h2]
 [list]
@@ -49,7 +50,7 @@ The company list is a data file. Add companies and sectors with their own foundi
 [list]
 [*]One small record on your character holds the market, your shares and alerts, and the chart history. Nothing else in the save changes except your cash and the ledger lines your trades write.
 [*]Sell everything before removing the mod: shares are only worth credits while the exchange can buy them back. Reinstall it and your shares are still there.
-[*]The figures are invented for the game and tuned for weeks of play, not measured from any real market.
+[*]The figures are invented for the game and tuned for weeks of play, not measured from any real market. The company histories and story text are a first draft, held for owner review.
 [*]Automated checks pass; in-game checks are still pending.
 [/list]
 

@@ -1,10 +1,8 @@
 # Phobos Exchange stories: handoff for ChatGPT
 
-Handoff, 7 October 2026 (Phobos Exchange 0.2.0, histories from 0.3.0, held drafts). The owner's direction: the
-creative side of the Phobos mods (companies, their histories, news, adverts, letters and
-small talk) is data that ChatGPT writes and players can add to; Claude builds the logic,
-the schemas and the checks. This page is what you need to write the stories behind the
-Lodestar Exchange. Nothing here is tested in play yet.
+Handoff, 7 October 2026 (Phobos Exchange 0.2.0, histories from 0.3.0, held draft). First content draft, 7 October 2026: histories and story content now fill the exchange and story packs; all newly invented dates and events remain author-written proposals for owner review. Offline pack validation passes. Nothing here has been checked in play.
+
+The owner's direction: creative content (companies, histories, news, adverts, letters and small talk) is schema-checked data that ChatGPT writes and players can add to; Claude builds the logic, schemas, validators and hooks. This page records the voice, limits, canon anchors and structure for the Lodestar Exchange.
 
 Two files carry the exchange's world:
 
@@ -12,10 +10,7 @@ Two files carry the exchange's world:
   their profiles and, since 0.2.0, their **news**: story flags that move a company's price;
   since 0.3.0 also their founding and listing years and their **history** before the game.
   Its fields are in [Listing a company on the exchange](../editing-data-files.md#listing-a-company-on-the-exchange).
-- **`mods/PhobosExchange/framework/story.json`** (a `story` pack): people, threads, news,
-  adverts, small talk, articles and arcs, written exactly as
-  [writing story content](../writing-story-content.md) describes. It ships with one thread
-  for the exchange and one per company and nothing else: that is your canvas.
+- **`mods/PhobosExchange/framework/story.json`** (a `story` pack): named correspondents, one thread for the Exchange desk and one per company, news, adverts, small talk, an encyclopedia article and event arcs, following [writing story content](../writing-story-content.md). The current pack is the first authored draft; new content remains held for owner review.
 
 ## What exists
 
@@ -36,6 +31,8 @@ steers by; plain, brisk, a little proud of itself). Its thread is `exchange-lode
 The four sectors are keyed `industry`, `resources`, `consumer` and `health` in
 `exchange.json`; a sector's history sits under its key.
 
+Canon anchors below come from Blue Bottle Games' installed Ostranauts 1.0.1.5 data: the local primary source at `Ostranauts_Data/StreamingAssets/data`, especially `tips/tips.json`, `headlines` and the relevant company and ship definitions. The files stay local and are not redistributed. See Blue Bottle Games' [Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/) and Joshu's [Official Ostranauts Modding Guide, 22 June 2026](https://steamcommunity.com/sharedfiles/filedetails/?id=3748342946).
+
 What the game itself says about its four companies, so the lore stays consistent:
 Smartlink is a weapons maker the game calls an "ubercorp", proud of its point-defence
 cannon suites, which its rivals call grandstanding. Testudo builds the Dream, Rouncy, Mesa
@@ -45,8 +42,8 @@ buying, kiosks and refuelling with the OKLG Port Authority. The Green Energy Com
 intoxicants in the Rosebud on Tharsis Landing, Damask Rose cigarettes best known. Verdemorrow
 and Halewright are ours: see the equipment and their sales voices in the Agriculture and
 Medical item references and `docs/development/equipment-branding.md`. Brightvein Mining and
-Coldwell Volatiles have only their profiles so far: their histories, people and voices are
-yours to invent.
+Coldwell Volatiles are invented for this mod; their first-draft histories, people and voices
+are proposals, not Ostranauts canon.
 
 ## Hooks: how stories and prices meet
 
@@ -74,9 +71,7 @@ when a story pack has one (its `requires` still apply), and keeps a flag of the 
 | `major-holder` | The player's holding reaches half of what one trader may hold (125,000 credits by default) | `exchange-<company>-major-holder` while it stays there |
 | `sold-out` | The player sells their last share of the company | `exchange-<company>-sold-out` until they buy again |
 
-Event arcs take `"chance": 0` (only the event starts them) and usually `"repeatable": true`
-(a second surge brings a second letter), and belong to the company's thread. News, adverts
-and small talk may `require` these flags, so a slump can bring gloomy talk at the docks.
+Event arcs default to no chance (only the event starts them) and can be repeatable, so later surges can bring later reports. They belong to the company's thread. News, adverts and small talk may require these flags, so a slump can bring gloomy talk at the docks.
 
 ## Company histories (Phobos Exchange 0.3.0)
 
@@ -199,16 +194,15 @@ Smartlink was a US military contractor before the colonies and made Titan its of
 headquarters; the game gives no founding year. The game is inconsistent on Newcal's
 independence (2059 or 2062), so leave that date alone.
 
-**What ships now (placeholders, agent choice).** These years were set only so the feature
-can be seen working. Replace any of them; nothing else depends on them.
+**First-draft dates (author choices, owner review pending).** The opening, founding, listing and listing-price values are creative choices where the canon list below does not establish them. The Green Energy Company's transformation year, Ayotimiwa's K-Leg work, Testudo's Mesa production and the wider disasters remain anchored to the game's own text.
 
 | Company | Founded | Listed |
-| --- | --- | --- |
-| The Lodestar Exchange | | opened 2034 |
+| --- | ---: | ---: |
+| The Lodestar Exchange | — | opened 2034 |
 | Smartlink | 1952 | 2036 |
 | Testudo | 2019 | 2038 |
 | Ayotimiwa Corp. | 1987 | 2034 |
-| The Green Energy Company | 2034 | 2040 |
+| The Green Energy Company | 1982 | 2040 |
 | Brightvein Mining | 2044 | 2051 |
 | Coldwell Volatiles | 2038 | 2047 |
 | Verdemorrow | 2049 | 2062 |
@@ -238,9 +232,7 @@ These follow the Banking precedent
   more suit the market better than a few hours.
 - **Standing** changes stay small (up to 10 points, two factions an outcome) and go to the
   game's own factions.
-- **Ids**: lower case with dashes. Exchange content uses `exchange-`; event arcs must be
-  exactly `exchange-<company>-<event>`; give news flags `exchange-<company>-` and a short
-  name. Keep the shipped thread keys; you may rename their titles.
+- **Ids**: lower case with dashes. Event arcs must be exactly `exchange-<company>-<event>`; that prefix is reserved for the Exchange's five runtime events. A story arc that sets a company-news flag uses `lodestar-<company>-<news>`; the flag itself is `exchange-<company>-<news>`. Keep the shipped thread keys; you may rename their titles.
 - **Everything belongs somewhere**: every arc, news item, advert and small-talk line names a
   thread (a company's or `exchange-lodestar`); company threads have no place, so letters
   reach the player anywhere, but news and adverts may take a `place` (the station a company
@@ -249,23 +241,15 @@ These follow the Banking precedent
   come from the station markets, the phases and the news entries; stories never claim to
   control them by any other means.
 
-## What would bring it to life (wanted)
+## First draft content delivered
 
-- A founding year, a listing year and, where it helps, a listing price for each company,
-  with three to six history entries each: how it began, its best and worst years, and what
-  it is chasing now. An opening year and a history for the Lodestar Exchange itself, with
-  the events that shook every company (the Kessler collapse of 2059 above all).
-- A short history, a voice and one or two named people for each company (and for the
-  exchange's desk), people being outsiders for the game's four.
-- Two or three `news` entries per company, each told by an arc: contracts, accidents,
-  shortages, a new ship class, a recall, a strike, with moves from 3% to 15%.
-- Event letters for `bought` (a welcome from a broker or the company's shareholder desk,
-  for ours and the invented ones) and `major-holder`, and wire-style news for `surge` and
-  `slump`.
-- Adverts for Verdemorrow, Halewright, Brightvein and Coldwell, and for the exchange itself.
-- Small talk about the markets for dockside crowds, tied to the surge and slump flags.
-- An encyclopedia article on the Lodestar Exchange: what it is, who trades, how a spacer
-  reads the board.
+- Histories for the Exchange, all four sectors and all eight companies: 62 dated entries in all, with three to six company entries each.
+- A founding and listing year for every company, an opening year and a calibrated listing price. All unsupported years and events are labeled as author choices for owner review.
+- One named correspondent per company and a named Exchange desk contact. The four game companies use outside voices; invented companies and Phobos makers may speak for themselves.
+- Two story-driven price-news entries per company, each with a wire line and a delayed flag from its arc.
+- Event arcs for `bought`, `major-holder`, `surge` and `slump`; letters for the first two and a TV report for the latter two.
+- Five adverts, local small talk tied to the latest surge or slump, and an encyclopedia article on reading the board.
+- The Keelhaul example add-on demonstrates company history, news, price flags, event responses, adverts, chatter and an encyclopedia article.
 
 ## How it is wired and checked
 
@@ -285,5 +269,4 @@ These follow the Banking precedent
   the company a history before the game.
   Add-ons may name `exchange-<their prefix>…` ids because Phobos Exchange registers the
   `exchange` namespace (Framework 0.129.0).
-- Changes go in Draft with the changelog, the language ledger and the release notes, as for
-  Banking's stories, until the owner confirms publication.
+- These are first-draft creative choices, not established canon. Keep the release held until owner review and gameplay checks; update the changelog, language ledger, Workshop page and generated release notes together.

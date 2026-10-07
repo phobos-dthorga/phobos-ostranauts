@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "schema": "exchange",
-  "notes": "Phobos Exchange 0.1.0, histories from 0.3.0 (agent-authored balance for the owner to review, 7 October 2026). Owner choices: a mix of the game's ubercorps, invented companies and our own makers; trend phases lasting weeks over a real-world upward drift, with each company's expected yearly return at most 0.14 (half the cheapest Phobos Banking loan's yearly cost). Drivers name stations whose cargo market makes or uses the category (checked against the game's own market data). Founding, listing and opening years are agent placeholders for the writers (see docs/development/exchange-stories-handoff.md); history tables start empty. Design record: docs/development/share-market-and-charts-design.md.",
+  "notes": "Phobos Exchange 0.3.0 first content draft (7 October 2026): market, sector and company histories plus two story events per company are authored proposals for owner review. Game-canon anchors and the division between canon and invention are documented in docs/development/share-market-and-charts-design.md. Prices in play change only through declared news flags.",
   "market": {
-    "notes": "Lodestar Exchange: agent-chosen name. Commission and spread are the house's take; impact follows the square-root shape of Toth et al. (2011) at an authored scale. Opening year 2034 is an agent placeholder for the writers.",
+    "notes": "The Lodestar Exchange opened in 2034 (agent-authored setting choice, owner review pending). Market history and all company histories are first-draft proposals; game-canon anchors and the division between canon and invention are documented in docs/development/share-market-and-charts-design.md.",
     "name": "Lodestar Exchange",
     "commission": 0.004,
     "minCommission": 25,
@@ -11,22 +11,185 @@
     "impactHalfLifeDays": 1,
     "maxOrderShare": 0.25,
     "maxHolding": 250000,
-    "trend": { "slowWeeks": 10, "fastWeeks": 2.5, "sd": 0.08 },
+    "trend": {
+      "slowWeeks": 10,
+      "fastWeeks": 2.5,
+      "sd": 0.08
+    },
     "moveShare": 0.05,
     "turnShare": 0.02,
     "reportCooldownDays": 1,
     "opened": 2034,
-    "history": {}
+    "history": {
+      "exchange-opening": {
+        "year": 2034,
+        "month": 4,
+        "line": "The Lodestar Exchange opens a shared board for companies serving the stations."
+      },
+      "exchange-kessler": {
+        "year": 2059,
+        "month": 8,
+        "move": -0.27,
+        "line": "The Kessler collapse breaks old credit routes and sends listed shares sharply lower."
+      },
+      "exchange-charters": {
+        "year": 2064,
+        "month": 3,
+        "move": 0.16,
+        "line": "New habitation charters bring freight firms and patient capital back to the board."
+      },
+      "exchange-market-split": {
+        "year": 2071,
+        "month": 11,
+        "move": -0.08,
+        "line": "Separate station shortages pull prices in opposite directions across the system."
+      },
+      "exchange-route": {
+        "year": 2075,
+        "month": 6,
+        "move": 0.09,
+        "line": "Regular runs return to several long routes, drawing buyers back to the board."
+      }
+    }
   },
   "sectors": {
-    "industry": { "name": "Heavy industry", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.08 }, "history": {} },
-    "resources": { "name": "Mining and volatiles", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.09 }, "history": {} },
-    "consumer": { "name": "Food and comforts", "trend": { "slowWeeks": 8, "fastWeeks": 2, "sd": 0.07 }, "history": {} },
-    "health": { "name": "Medicine", "trend": { "slowWeeks": 9, "fastWeeks": 2, "sd": 0.06 }, "history": {} }
+    "industry": {
+      "name": "Heavy industry",
+      "trend": {
+        "slowWeeks": 8,
+        "fastWeeks": 2,
+        "sd": 0.08
+      },
+      "history": {
+        "exchange-ind-mesa": {
+          "year": 2041,
+          "month": 5,
+          "line": "Testudo's Mesa enters production."
+        },
+        "exchange-ind-kessler": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.24,
+          "line": "The Kessler collapse strands yards and interrupts orders for finished hulls."
+        },
+        "exchange-ind-yards": {
+          "year": 2065,
+          "month": 2,
+          "move": 0.16,
+          "line": "Reopened yards begin taking repair work from the growing station fleet."
+        },
+        "exchange-ind-haul": {
+          "year": 2072,
+          "month": 9,
+          "move": 0.08,
+          "line": "Demand for working haulers puts the larger builders back on the board."
+        }
+      }
+    },
+    "resources": {
+      "name": "Mining and volatiles",
+      "trend": {
+        "slowWeeks": 8,
+        "fastWeeks": 2,
+        "sd": 0.09
+      },
+      "history": {
+        "exchange-res-ceres": {
+          "year": 2037,
+          "month": 4,
+          "line": "Ceres Resource Extraction is forced out of business, leaving its ring station behind."
+        },
+        "exchange-res-kessler": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.29,
+          "line": "The Kessler collapse scatters contracts and leaves ore sitting far from buyers."
+        },
+        "exchange-res-contracts": {
+          "year": 2066,
+          "month": 6,
+          "move": 0.18,
+          "line": "Station builders return to the belt for regular lots of ore and volatiles."
+        },
+        "exchange-res-slow-lanes": {
+          "year": 2074,
+          "month": 10,
+          "move": -0.09,
+          "line": "Longer waits at the docks make ordinary cargo runs harder to plan."
+        }
+      }
+    },
+    "consumer": {
+      "name": "Food and comforts",
+      "trend": {
+        "slowWeeks": 8,
+        "fastWeeks": 2,
+        "sd": 0.07
+      },
+      "history": {
+        "exchange-con-green": {
+          "year": 2034,
+          "month": 7,
+          "line": "The Growers Alliance of California becomes the Green Energy Company."
+        },
+        "exchange-con-kessler": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.22,
+          "line": "The Kessler collapse leaves food and comfort goods on the wrong side of broken routes."
+        },
+        "exchange-con-stations": {
+          "year": 2067,
+          "month": 5,
+          "move": 0.14,
+          "line": "New station berths add steady demand for food and other daily supplies."
+        },
+        "exchange-con-harvest": {
+          "year": 2073,
+          "month": 9,
+          "move": -0.07,
+          "line": "A thin harvest leaves less room for luxuries in the freight holds."
+        }
+      }
+    },
+    "health": {
+      "name": "Medicine",
+      "trend": {
+        "slowWeeks": 9,
+        "fastWeeks": 2,
+        "sd": 0.06
+      },
+      "history": {
+        "exchange-med-coup": {
+          "year": 2054,
+          "month": 2,
+          "move": 0.12,
+          "line": "After the Ganymede Coup, shipboard clinics take on more work."
+        },
+        "exchange-med-kessler": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.19,
+          "line": "The Kessler collapse delays medical freight along with every other shipment."
+        },
+        "exchange-med-clinics": {
+          "year": 2063,
+          "month": 4,
+          "move": 0.13,
+          "line": "Station clinics reopen their doors and place fresh orders for medical stores."
+        },
+        "exchange-med-supply": {
+          "year": 2072,
+          "month": 12,
+          "move": -0.06,
+          "line": "A shortage of routine supplies keeps clinic orders uneven."
+        }
+      }
+    }
   },
   "companies": {
     "smartlink": {
-      "notes": "The game's ubercorp (its own description of its point-defence suites). Weapons are used at Port Yangshan (MTRS) and Cassini Spaceport (SVIR). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "SMLK",
       "name": "Smartlink",
       "profile": "Weapons maker best known for its point-defence cannon suites, which it calls unrivalled in the system; its rivals call that grandstanding. Its shares follow demand for arms at Port Yangshan and Cassini Spaceport.",
@@ -42,15 +205,74 @@
       "jumpsPerYear": 3,
       "jumpSize": 0.07,
       "spread": 0.004,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.14 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.14
+      },
+      "history": {
+        "exchange-smlk-1952": {
+          "year": 1952,
+          "month": 3,
+          "line": "A United States defence contractor begins making remote security systems for cargo ships and naval yards."
+        },
+        "exchange-smlk-2030": {
+          "year": 2030,
+          "month": 5,
+          "line": "After the Kronos missions reach Titan, Smartlink makes the moon its offworld headquarters."
+        },
+        "exchange-smlk-2036": {
+          "year": 2036,
+          "month": 3,
+          "line": "Smartlink lists on the newly opened Lodestar Exchange."
+        },
+        "exchange-smlk-2048": {
+          "year": 2048,
+          "month": 7,
+          "move": 0.18,
+          "line": "Point-defence suites win a run of contracts from commercial yards."
+        },
+        "exchange-smlk-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.22,
+          "line": "The Kessler collapse leaves parts and service crews scattered across broken routes."
+        },
+        "exchange-smlk-2071": {
+          "year": 2071,
+          "month": 4,
+          "move": 0.09,
+          "line": "A steady demand for replacement barrels keeps older cannon suites in service."
+        }
+      },
       "drivers": [
-        { "station": "MTRS", "category": "AnyWeapons", "weight": 0.5 },
-        { "station": "SVIR", "category": "AnyWeapons", "weight": 0.4 }
+        {
+          "station": "MTRS",
+          "category": "AnyWeapons",
+          "weight": 0.5
+        },
+        {
+          "station": "SVIR",
+          "category": "AnyWeapons",
+          "weight": 0.4
+        }
+      ],
+      "listingPrice": 50.362932,
+      "news": [
+        {
+          "flag": "exchange-smartlink-spares-contract",
+          "move": 0.08,
+          "wire": "Smartlink wins a point-defence service contract from a group of tug operators."
+        },
+        {
+          "flag": "exchange-smartlink-cannon-inspection",
+          "move": -0.07,
+          "wire": "A safety inspection delays delivery of a Smartlink cannon assembly."
+        }
       ]
     },
     "testudo": {
-      "notes": "The game's shipbuilder (Dream, Rouncy, Mesa, Bulk Lifter; hardsuits, flooring, furniture). Hull is used at Cassini Spaceport (SVIR) and Cloudbreak (VCBR); metal is an input bought at Port Yangshan (MTRS). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "TSTD",
       "name": "Testudo",
       "profile": "Shipbuilder behind the Dream, Rouncy, Mesa and Bulk Lifter, and maker of hardsuits, deck flooring and station furniture. Follows demand for hull at Cassini Spaceport and Cloudbreak, and pays for metal from Port Yangshan.",
@@ -66,16 +288,75 @@
       "jumpsPerYear": 2,
       "jumpSize": 0.06,
       "spread": 0.004,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.13 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.13
+      },
+      "history": {
+        "exchange-testudo-2019": {
+          "year": 2019,
+          "month": 4,
+          "line": "A small American fabrication partnership starts building hull sections and deck fittings."
+        },
+        "exchange-testudo-2038": {
+          "year": 2038,
+          "month": 6,
+          "line": "Testudo lists its shares as orders for colony and station hulls gather."
+        },
+        "exchange-testudo-2041": {
+          "year": 2041,
+          "month": 5,
+          "move": 0.24,
+          "line": "The Mesa enters production and gives Testudo a compact hull suited to long service."
+        },
+        "exchange-testudo-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.28,
+          "line": "The Kessler collapse strands unfinished hulls and cuts the flow of new orders."
+        },
+        "exchange-testudo-2072": {
+          "year": 2072,
+          "month": 9,
+          "move": 0.12,
+          "line": "Bulk Lifter work brings the builders back into the long-haul market."
+        }
+      },
       "drivers": [
-        { "station": "SVIR", "category": "AnyHull", "weight": 0.4 },
-        { "station": "VCBR", "category": "AnyHull", "weight": 0.3 },
-        { "station": "MTRS", "category": "AnyMetal", "weight": -0.2, "limit": 0.08 }
+        {
+          "station": "SVIR",
+          "category": "AnyHull",
+          "weight": 0.4
+        },
+        {
+          "station": "VCBR",
+          "category": "AnyHull",
+          "weight": 0.3
+        },
+        {
+          "station": "MTRS",
+          "category": "AnyMetal",
+          "weight": -0.2,
+          "limit": 0.08
+        }
+      ],
+      "listingPrice": 28.274565,
+      "news": [
+        {
+          "flag": "exchange-testudo-cabin-refit",
+          "move": 0.07,
+          "wire": "Testudo wins a run of cabin refits for working haulers."
+        },
+        {
+          "flag": "exchange-testudo-foundry-check",
+          "move": -0.08,
+          "wire": "Testudo pauses one foundry line for a crack inspection."
+        }
       ]
     },
     "ayotimiwa": {
-      "notes": "The game's K-Leg operator: shipbreaking, salvage buying, kiosks and refuelling with the OKLG Port Authority. K-Leg (OKLG) makes hull and ore. Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "AYO",
       "name": "Ayotimiwa Corp.",
       "profile": "Runs the shipbreaking yards, salvage buying, kiosks and refuelling at K-Leg with the OKLG Port Authority. Earns on the hull plate and ore that pass through the yard, so its shares follow their prices there.",
@@ -91,20 +372,74 @@
       "jumpsPerYear": 3,
       "jumpSize": 0.07,
       "spread": 0.005,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.14 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.14
+      },
+      "history": {
+        "exchange-ayo-1987": {
+          "year": 1987,
+          "month": 2,
+          "line": "A Nigerian shipping concern begins with bulk freight runs between coastal ports."
+        },
+        "exchange-ayo-2032": {
+          "year": 2032,
+          "month": 6,
+          "line": "Ayotimiwa and the OKLG Port Authority establish K-Leg as a working station."
+        },
+        "exchange-ayo-2036": {
+          "year": 2036,
+          "month": 4,
+          "move": 0.16,
+          "line": "Shipbreaking begins at K-Leg alongside the growing market for salvage."
+        },
+        "exchange-ayo-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.25,
+          "line": "The Kessler collapse leaves the yard with ships to break and fewer safe routes for the salvage."
+        },
+        "exchange-ayo-2069": {
+          "year": 2069,
+          "month": 7,
+          "move": 0.11,
+          "line": "The yard opens more of its auctions to independent crews and small buyers."
+        }
+      },
       "drivers": [
-        { "station": "OKLG", "category": "AnyHull", "weight": 0.4 },
-        { "station": "OKLG", "category": "AnyOres", "weight": 0.3 }
+        {
+          "station": "OKLG",
+          "category": "AnyHull",
+          "weight": 0.4
+        },
+        {
+          "station": "OKLG",
+          "category": "AnyOres",
+          "weight": 0.3
+        }
+      ],
+      "listingPrice": 15.377348,
+      "news": [
+        {
+          "flag": "exchange-ayotimiwa-hull-auction",
+          "move": 0.09,
+          "wire": "K-Leg's latest salvage auction draws a larger group of independent buyers."
+        },
+        {
+          "flag": "exchange-ayotimiwa-yard-delay",
+          "move": -0.06,
+          "wire": "A yard equipment failure delays departures from K-Leg."
+        }
       ]
     },
     "green-energy": {
-      "notes": "The game's intoxicants maker (the Rosebud, Tharsis Landing; Damask Rose cigarettes). Intoxicants are used at Zhonghuamen Terminal (BCRS) and Port Shajiang (EJDR). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "GEC",
       "name": "The Green Energy Company",
       "profile": "Intoxicants maker based in the Rosebud on Tharsis Landing, best known for its Damask Rose cigarettes. Its shares follow demand at Zhonghuamen Terminal and Port Shajiang.",
       "sector": "consumer",
-      "founded": 2034,
+      "founded": 1982,
       "listed": 2040,
       "price": 41,
       "dailyVolume": 30000,
@@ -115,15 +450,68 @@
       "jumpsPerYear": 3,
       "jumpSize": 0.06,
       "spread": 0.005,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.13 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.13
+      },
+      "history": {
+        "exchange-gec-1982": {
+          "year": 1982,
+          "month": 5,
+          "line": "The Growers Alliance of California forms to supply seed and hardy crops to dry inland farms."
+        },
+        "exchange-gec-2034": {
+          "year": 2034,
+          "month": 7,
+          "line": "The Growers Alliance of California becomes the Green Energy Company."
+        },
+        "exchange-gec-2040": {
+          "year": 2040,
+          "month": 3,
+          "line": "The company lists its shares as the Tharsis market grows."
+        },
+        "exchange-gec-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.25,
+          "line": "The Kessler collapse interrupts the routes carrying seed stock and finished goods."
+        },
+        "exchange-gec-2068": {
+          "year": 2068,
+          "month": 4,
+          "move": 0.15,
+          "line": "A long contract keeps the Rosebud's Damask Rose line in production through a slow freight season."
+        }
+      },
       "drivers": [
-        { "station": "BCRS", "category": "AnyIntoxicants", "weight": 0.4 },
-        { "station": "EJDR", "category": "AnyIntoxicants", "weight": 0.3 }
+        {
+          "station": "BCRS",
+          "category": "AnyIntoxicants",
+          "weight": 0.4
+        },
+        {
+          "station": "EJDR",
+          "category": "AnyIntoxicants",
+          "weight": 0.3
+        }
+      ],
+      "listingPrice": 17.28762,
+      "news": [
+        {
+          "flag": "exchange-green-energy-cigarette-run",
+          "move": 0.06,
+          "wire": "The Green Energy Company fills a large Damask Rose order for station stores."
+        },
+        {
+          "flag": "exchange-green-energy-seed-recall",
+          "move": -0.08,
+          "wire": "The Green Energy Company recalls a seed lot after a storage failure."
+        }
       ]
     },
     "brightvein": {
-      "notes": "Invented (agent choice; no collision found in the repository or the game's data). Ore is used at Zhonghuamen Terminal (BCRS); metal at Port Yangshan (MTRS). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "BVM",
       "name": "Brightvein Mining",
       "profile": "Belt ore miner selling into Zhonghuamen Terminal. Profits rise when ore runs short there and when metal is dear at Port Yangshan, and fall when the bins are full.",
@@ -139,15 +527,69 @@
       "jumpsPerYear": 4,
       "jumpSize": 0.08,
       "spread": 0.006,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.15 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.15
+      },
+      "history": {
+        "exchange-bvm-2044": {
+          "year": 2044,
+          "month": 4,
+          "line": "A belt crew combines separate claims under one carrier to sell ore in steady lots."
+        },
+        "exchange-bvm-2051": {
+          "year": 2051,
+          "month": 5,
+          "line": "Brightvein lists after regular ore runs begin reaching Zhonghuamen Terminal."
+        },
+        "exchange-bvm-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.29,
+          "line": "The Kessler collapse leaves loaded holds waiting for buyers on the wrong side of the system."
+        },
+        "exchange-bvm-2066": {
+          "year": 2066,
+          "month": 6,
+          "move": 0.2,
+          "line": "A run of long contracts puts Brightvein's ships back on the route between the belt and the inner stations."
+        },
+        "exchange-bvm-2074": {
+          "year": 2074,
+          "month": 10,
+          "move": -0.1,
+          "line": "Water at a productive seam forces the crew to close its busiest cut."
+        }
+      },
       "drivers": [
-        { "station": "BCRS", "category": "AnyOres", "weight": 0.5 },
-        { "station": "MTRS", "category": "AnyMetal", "weight": 0.3 }
+        {
+          "station": "BCRS",
+          "category": "AnyOres",
+          "weight": 0.5
+        },
+        {
+          "station": "MTRS",
+          "category": "AnyMetal",
+          "weight": 0.3
+        }
+      ],
+      "listingPrice": 17.766433,
+      "news": [
+        {
+          "flag": "exchange-brightvein-new-seam",
+          "move": 0.11,
+          "wire": "Brightvein reports a clean ore seam and adds a second carrier to the run."
+        },
+        {
+          "flag": "exchange-brightvein-hauler-damage",
+          "move": -0.09,
+          "wire": "Damage to a Brightvein hauler delays an ore delivery to Zhonghuamen Terminal."
+        }
       ]
     },
     "coldwell": {
-      "notes": "Invented (agent choice; no collision found). Volatiles are used at Port Yangshan (MTRS) and Upsilon Docking (MVOL); helium-3 at Venus Orbital (VORB). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "CWV",
       "name": "Coldwell Volatiles",
       "profile": "Hauls water ice and volatiles in to Port Yangshan and Upsilon Docking, with a sideline in helium-3 for Venus Orbital. A shortage at either dock is good news for Coldwell.",
@@ -163,16 +605,75 @@
       "jumpsPerYear": 3,
       "jumpSize": 0.07,
       "spread": 0.006,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.14 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.14
+      },
+      "history": {
+        "exchange-cwv-2038": {
+          "year": 2038,
+          "month": 8,
+          "line": "A small carrier starts moving sealed water-ice loads between the inner stations."
+        },
+        "exchange-cwv-2047": {
+          "year": 2047,
+          "month": 3,
+          "line": "Coldwell lists as demand for water and industrial volatiles grows."
+        },
+        "exchange-cwv-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.27,
+          "line": "The Kessler collapse breaks Coldwell's schedule and leaves tankers short of safe ports."
+        },
+        "exchange-cwv-2068": {
+          "year": 2068,
+          "month": 7,
+          "move": 0.16,
+          "line": "A new handling contract brings Coldwell back to regular runs through Port Yangshan."
+        },
+        "exchange-cwv-2074": {
+          "year": 2074,
+          "month": 5,
+          "move": 0.09,
+          "line": "Upsilon Docking returns to Coldwell's regular route book."
+        }
+      },
       "drivers": [
-        { "station": "MTRS", "category": "AnyVolatiles", "weight": 0.4 },
-        { "station": "MVOL", "category": "AnyVolatiles", "weight": 0.3 },
-        { "station": "VORB", "category": "AnyHe3", "weight": 0.2, "limit": 0.08 }
+        {
+          "station": "MTRS",
+          "category": "AnyVolatiles",
+          "weight": 0.4
+        },
+        {
+          "station": "MVOL",
+          "category": "AnyVolatiles",
+          "weight": 0.3
+        },
+        {
+          "station": "VORB",
+          "category": "AnyHe3",
+          "weight": 0.2,
+          "limit": 0.08
+        }
+      ],
+      "listingPrice": 18.564567,
+      "news": [
+        {
+          "flag": "exchange-coldwell-ice-delivery",
+          "move": 0.08,
+          "wire": "Coldwell completes a water-ice run after a long delay at the docks."
+        },
+        {
+          "flag": "exchange-coldwell-tanker-repair",
+          "move": -0.07,
+          "wire": "A tanker repair keeps one of Coldwell's volatile cargoes off the route."
+        }
       ]
     },
     "verdemorrow": {
-      "notes": "Our own maker (Phobos Agriculture's brand). Food is used at Zhonghuamen Terminal (BCRS) and Qincheng Station (HQCH). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "VERD",
       "name": "Verdemorrow",
       "profile": "Maker of the Firstlight cultivation racks, Hearth galley cookers and Continuance planting stock. When food runs short at Zhonghuamen Terminal or Qincheng Station, more crews grow their own.",
@@ -188,15 +689,68 @@
       "jumpsPerYear": 2,
       "jumpSize": 0.05,
       "spread": 0.005,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.12 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.12
+      },
+      "history": {
+        "exchange-verd-2049": {
+          "year": 2049,
+          "month": 2,
+          "line": "A grow-room supplier forms to build racks for crews who cannot wait for the next food run."
+        },
+        "exchange-verd-2059": {
+          "year": 2059,
+          "month": 8,
+          "line": "The Kessler collapse leaves growers short of seed stock and dependable freight."
+        },
+        "exchange-verd-2062": {
+          "year": 2062,
+          "month": 6,
+          "line": "Verdemorrow lists as more crews fit cultivation space aboard working ships."
+        },
+        "exchange-verd-2068": {
+          "year": 2068,
+          "month": 3,
+          "move": 0.15,
+          "line": "Hearth cookers and Firstlight racks bring repeat orders from small stations."
+        },
+        "exchange-verd-2074": {
+          "year": 2074,
+          "month": 9,
+          "move": 0.09,
+          "line": "Regular service visits keep older grow rooms in use between supply runs."
+        }
+      },
       "drivers": [
-        { "station": "BCRS", "category": "AnyFood", "weight": 0.4 },
-        { "station": "HQCH", "category": "AnyFood", "weight": 0.3 }
+        {
+          "station": "BCRS",
+          "category": "AnyFood",
+          "weight": 0.4
+        },
+        {
+          "station": "HQCH",
+          "category": "AnyFood",
+          "weight": 0.3
+        }
+      ],
+      "listingPrice": 9.633278,
+      "news": [
+        {
+          "flag": "exchange-verdemorrow-garden-orders",
+          "move": 0.08,
+          "wire": "Verdemorrow receives a new run of orders for shipboard cultivation equipment."
+        },
+        {
+          "flag": "exchange-verdemorrow-stock-check",
+          "move": -0.07,
+          "wire": "A storage failure delays part of Verdemorrow's planting-stock shipment."
+        }
       ]
     },
     "halewright": {
-      "notes": "Our own maker (Phobos Medical's brand). Medical goods are used at Zhonghuamen Terminal (BCRS), Qiantangmen (MHNG) and Cassini Spaceport (SVIR). Founding and listing years are placeholders for the writers to replace (agent choice, 0.3.0).",
+      "notes": "First-draft dates and events are authored proposals for owner review; game-canon anchors and the fiction boundary are documented in docs/development/share-market-and-charts-design.md.",
       "ticker": "HALE",
       "name": "Halewright",
       "profile": "Maker of the Ward-3 bed and other shipboard medical equipment. Follows demand for medical supplies at Zhonghuamen Terminal, Qiantangmen and Cassini Spaceport.",
@@ -212,12 +766,71 @@
       "jumpsPerYear": 2,
       "jumpSize": 0.05,
       "spread": 0.004,
-      "trend": { "slowWeeks": 6, "fastWeeks": 1.5, "sd": 0.12 },
-      "history": {},
+      "trend": {
+        "slowWeeks": 6,
+        "fastWeeks": 1.5,
+        "sd": 0.12
+      },
+      "history": {
+        "exchange-hale-2045": {
+          "year": 2045,
+          "month": 4,
+          "line": "A medical-equipment fitter begins supplying small shipboard clinics and station infirmaries."
+        },
+        "exchange-hale-2058": {
+          "year": 2058,
+          "month": 2,
+          "line": "Halewright lists as long-haul crews ask for more room to treat common injuries."
+        },
+        "exchange-hale-2059": {
+          "year": 2059,
+          "month": 8,
+          "move": -0.24,
+          "line": "The Kessler collapse delays medicines and leaves clinic equipment waiting for its fittings."
+        },
+        "exchange-hale-2061": {
+          "year": 2061,
+          "month": 6,
+          "move": 0.18,
+          "line": "Ward Three beds find a market among small crews refitting cramped sickbay corners."
+        },
+        "exchange-hale-2073": {
+          "year": 2073,
+          "month": 5,
+          "move": 0.1,
+          "line": "Routine orders from working stations keep the repair shops busy."
+        }
+      },
       "drivers": [
-        { "station": "BCRS", "category": "AnyMedical", "weight": 0.3 },
-        { "station": "MHNG", "category": "AnyMedical", "weight": 0.3 },
-        { "station": "SVIR", "category": "AnyMedical", "weight": 0.2, "limit": 0.08 }
+        {
+          "station": "BCRS",
+          "category": "AnyMedical",
+          "weight": 0.3
+        },
+        {
+          "station": "MHNG",
+          "category": "AnyMedical",
+          "weight": 0.3
+        },
+        {
+          "station": "SVIR",
+          "category": "AnyMedical",
+          "weight": 0.2,
+          "limit": 0.08
+        }
+      ],
+      "listingPrice": 47.236437,
+      "news": [
+        {
+          "flag": "exchange-halewright-clinic-orders",
+          "move": 0.08,
+          "wire": "Halewright fills a run of clinic orders from outer-system stations."
+        },
+        {
+          "flag": "exchange-halewright-fitting-recall",
+          "move": -0.06,
+          "wire": "Halewright delays a shipment while it checks a batch of clinic fittings."
+        }
       ]
     }
   }

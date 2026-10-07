@@ -1,43 +1,1907 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Phobos Exchange story pack (0.2.0 draft): one place-less thread for the exchange and one per listed company, so ChatGPT and add-ons have somewhere to put news, adverts, small talk and the event arcs the exchange starts. Content to come from the handoff in docs/development/exchange-stories-handoff.md.",
+  "notes": "Phobos Exchange 0.3.0 first content draft (7 October 2026): non-canon dates, market anecdotes and company events are authored proposals for owner review. Game-canon anchors are recorded in docs/development/share-market-and-charts-design.md. The story pack changes prices only through declared news flags.",
+  "people": {
+    "exchange-mara-voss": {
+      "name": "Mara Voss",
+      "role": "independent share broker",
+      "home": "mtrs",
+      "face": "feminine"
+    },
+    "exchange-ivo-pell": {
+      "name": "Ivo Pell",
+      "role": "independent yard broker",
+      "home": "vcbr",
+      "face": "masculine"
+    },
+    "exchange-bisi-nwosu": {
+      "name": "Bisi Nwosu",
+      "role": "independent freight broker",
+      "home": "oklg",
+      "face": "feminine"
+    },
+    "exchange-anika-das": {
+      "name": "Anika Das",
+      "role": "independent Tharsis market correspondent",
+      "home": "vnca",
+      "face": "feminine"
+    },
+    "exchange-daro-fen": {
+      "name": "Daro Fen",
+      "role": "Brightvein freight clerk",
+      "home": "bcer",
+      "face": "masculine"
+    },
+    "exchange-sen-adu": {
+      "name": "Sen Adu",
+      "role": "Coldwell cargo agent",
+      "home": "mtrs",
+      "face": "any"
+    },
+    "exchange-hana-ortiz": {
+      "name": "Hana Ortiz",
+      "role": "Verdemorrow service desk",
+      "home": "hqch",
+      "face": "feminine"
+    },
+    "exchange-mala-sen": {
+      "name": "Mala Sen",
+      "role": "independent medical buyer",
+      "home": "mhng",
+      "face": "feminine"
+    },
+    "exchange-sela-nkomo": {
+      "name": "Sela Nkomo",
+      "role": "Lodestar market desk",
+      "home": "mtrs",
+      "face": "feminine"
+    }
+  },
   "threads": {
     "exchange-lodestar": {
       "title": "The Lodestar Exchange",
-      "notes": "Agent placeholder (Exchange 0.2.0): the exchange itself, for market-wide news, adverts and small talk. No place, so it reaches the player anywhere. ChatGPT writes its content; see docs/development/exchange-stories-handoff.md."
+      "notes": "Market desk, public board and system-wide reporting.",
+      "people": [
+        "exchange-sela-nkomo"
+      ]
     },
     "exchange-smartlink": {
       "title": "Smartlink",
-      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-smartlink-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-mara-voss"
+      ],
+      "notes": "The correspondent is outside the game's company; reports about the company come from an outside view."
     },
     "exchange-testudo": {
       "title": "Testudo",
-      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-testudo-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-ivo-pell"
+      ],
+      "notes": "The correspondent is outside the game's company; reports about the company come from an outside view."
     },
     "exchange-ayotimiwa": {
       "title": "Ayotimiwa Corp.",
-      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-ayotimiwa-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-bisi-nwosu"
+      ],
+      "notes": "The correspondent is outside the game's company; reports about the company come from an outside view."
     },
     "exchange-green-energy": {
       "title": "The Green Energy Company",
-      "notes": "The game's own company: wire reports about it only, never its own words. Agent placeholder (Exchange 0.2.0): its event arcs (exchange-green-energy-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-anika-das"
+      ],
+      "notes": "The correspondent is outside the game's company; reports about the company come from an outside view."
     },
     "exchange-brightvein": {
       "title": "Brightvein Mining",
-      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-brightvein-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-daro-fen"
+      ],
+      "notes": "An invented or Phobos maker company; the listed correspondent may speak for its desk."
     },
     "exchange-coldwell": {
       "title": "Coldwell Volatiles",
-      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-coldwell-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-sen-adu"
+      ],
+      "notes": "An invented or Phobos maker company; the listed correspondent may speak for its desk."
     },
     "exchange-verdemorrow": {
       "title": "Verdemorrow",
-      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-verdemorrow-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-hana-ortiz"
+      ],
+      "notes": "An invented or Phobos maker company; the listed correspondent may speak for its desk."
     },
     "exchange-halewright": {
       "title": "Halewright",
-      "notes": "Agent placeholder (Exchange 0.2.0): its event arcs (exchange-halewright-surge, -slump, -bought, -major-holder, -sold-out) and its news belong here. No place, so letters reach the player anywhere."
+      "people": [
+        "exchange-mala-sen"
+      ],
+      "notes": "An invented or Phobos maker company; the listed correspondent may speak for its desk."
+    }
+  },
+  "broadcasts": {
+    "exchange-smartlink-spares-contract-wire": {
+      "thread": "exchange-smartlink",
+      "place": "mtrs",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-smartlink-spares-contract"
+        ]
+      },
+      "text": "A group of tug operators has awarded Smartlink a point-defence service contract. Port Yangshan yard crews expect more work on older cannon suites while the new order is filled.",
+      "title": "Smartlink report"
+    },
+    "exchange-smartlink-cannon-inspection-wire": {
+      "thread": "exchange-smartlink",
+      "place": "svir",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-smartlink-cannon-inspection"
+        ]
+      },
+      "text": "A safety inspection has delayed delivery of a Smartlink cannon assembly at Cassini Spaceport. The inspection is continuing, and the shipyard has not named a new delivery date.",
+      "title": "Smartlink report"
+    },
+    "exchange-smartlink-surge-wire": {
+      "thread": "exchange-smartlink",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-smartlink-surge"
+        ]
+      },
+      "text": "Smartlink shares made a sharp move on the Lodestar Exchange. The desk has no single contract to point to; the market has been brisk all week.",
+      "title": "Smartlink price move"
+    },
+    "exchange-smartlink-slump-wire": {
+      "thread": "exchange-smartlink",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-smartlink-slump"
+        ]
+      },
+      "text": "Smartlink shares fell sharply on the Lodestar Exchange. Buyers are waiting for the next station report before they call the bottom.",
+      "title": "Smartlink price move"
+    },
+    "exchange-testudo-cabin-refit-wire": {
+      "thread": "exchange-testudo",
+      "place": "vcbr",
+      "region": "Outer System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-testudo-cabin-refit"
+        ]
+      },
+      "text": "Testudo has won a run of cabin refits for working haulers at Cloudbreak. The yard is splitting the work between several crews to keep the ships in service.",
+      "title": "Testudo report"
+    },
+    "exchange-testudo-foundry-check-wire": {
+      "thread": "exchange-testudo",
+      "place": "mtrs",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-testudo-foundry-check"
+        ]
+      },
+      "text": "Testudo has paused one foundry line for a crack inspection. The company has not said how many hull orders will be delayed while the check is under way.",
+      "title": "Testudo report"
+    },
+    "exchange-testudo-surge-wire": {
+      "thread": "exchange-testudo",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-testudo-surge"
+        ]
+      },
+      "text": "Testudo shares climbed sharply on the Lodestar Exchange. A strong week at the yards is not a delivery schedule, so the brokers are watching for the next order book.",
+      "title": "Testudo price move"
+    },
+    "exchange-testudo-slump-wire": {
+      "thread": "exchange-testudo",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-testudo-slump"
+        ]
+      },
+      "text": "Testudo shares fell sharply on the Lodestar Exchange. Several yards are holding their next orders until the station market settles.",
+      "title": "Testudo price move"
+    },
+    "exchange-ayotimiwa-hull-auction-wire": {
+      "thread": "exchange-ayotimiwa",
+      "place": "oklg",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-ayotimiwa-hull-auction"
+        ]
+      },
+      "text": "K-Leg's latest salvage auction has drawn more independent buyers than expected. Crews are lining up for hull plate and usable fittings, though the yard has not changed its terms.",
+      "title": "Ayotimiwa Corp. report"
+    },
+    "exchange-ayotimiwa-yard-delay-wire": {
+      "thread": "exchange-ayotimiwa",
+      "place": "oklg",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-ayotimiwa-yard-delay"
+        ]
+      },
+      "text": "A failure in yard equipment has delayed departures from K-Leg. The Port Authority says crews are being routed around the damaged bay while repairs continue.",
+      "title": "Ayotimiwa Corp. report"
+    },
+    "exchange-ayotimiwa-surge-wire": {
+      "thread": "exchange-ayotimiwa",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-ayotimiwa-surge"
+        ]
+      },
+      "text": "Ayotimiwa shares rose sharply on the Lodestar Exchange. K-Leg's name is in every dockside conversation, but the desk has not tied the move to one auction.",
+      "title": "Ayotimiwa Corp. price move"
+    },
+    "exchange-ayotimiwa-slump-wire": {
+      "thread": "exchange-ayotimiwa",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-ayotimiwa-slump"
+        ]
+      },
+      "text": "Ayotimiwa shares fell sharply on the Lodestar Exchange. The yard is still open; brokers are waiting to see how the next lots move.",
+      "title": "Ayotimiwa Corp. price move"
+    },
+    "exchange-green-energy-cigarette-run-wire": {
+      "thread": "exchange-green-energy",
+      "place": "vnca",
+      "region": "Tharsis",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-green-energy-cigarette-run"
+        ]
+      },
+      "text": "The Green Energy Company has filled a large Damask Rose order for station stores. Merchants at Tharsis Landing say the delivery arrived in time for the next supply run.",
+      "title": "The Green Energy Company report"
+    },
+    "exchange-green-energy-seed-recall-wire": {
+      "thread": "exchange-green-energy",
+      "place": "vnca",
+      "region": "Tharsis",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-green-energy-seed-recall"
+        ]
+      },
+      "text": "The Green Energy Company has recalled a seed lot after a storage failure. Growers are checking their stock while replacement consignments are arranged.",
+      "title": "The Green Energy Company report"
+    },
+    "exchange-green-energy-surge-wire": {
+      "thread": "exchange-green-energy",
+      "region": "Tharsis",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-green-energy-surge"
+        ]
+      },
+      "text": "Green Energy Company shares climbed sharply on the Lodestar Exchange. Store orders have been lively, though nobody at the Tharsis board can name a single cause.",
+      "title": "The Green Energy Company price move"
+    },
+    "exchange-green-energy-slump-wire": {
+      "thread": "exchange-green-energy",
+      "region": "Tharsis",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-green-energy-slump"
+        ]
+      },
+      "text": "Green Energy Company shares fell sharply on the Lodestar Exchange. Traders are holding for the next shipment report before they change their plans.",
+      "title": "The Green Energy Company price move"
+    },
+    "exchange-brightvein-new-seam-wire": {
+      "thread": "exchange-brightvein",
+      "place": "bcer",
+      "region": "Outer System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-brightvein-new-seam"
+        ]
+      },
+      "text": "Brightvein has reported a clean ore seam and added a second carrier to the route. Zhonghuamen Terminal expects the first lot after the next belt run.",
+      "title": "Brightvein Mining report"
+    },
+    "exchange-brightvein-hauler-damage-wire": {
+      "thread": "exchange-brightvein",
+      "place": "bcer",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-brightvein-hauler-damage"
+        ]
+      },
+      "text": "Damage to a Brightvein hauler has delayed an ore delivery to Zhonghuamen Terminal. The cargo is safe, but the company has not given a replacement arrival date.",
+      "title": "Brightvein Mining report"
+    },
+    "exchange-brightvein-surge-wire": {
+      "thread": "exchange-brightvein",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-brightvein-surge"
+        ]
+      },
+      "text": "Brightvein shares made a sharp move on the Lodestar Exchange. The board has no confirmed seam report to explain it; crews are still checking the latest cargo sheets.",
+      "title": "Brightvein Mining price move"
+    },
+    "exchange-brightvein-slump-wire": {
+      "thread": "exchange-brightvein",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-brightvein-slump"
+        ]
+      },
+      "text": "Brightvein shares dropped sharply on the Lodestar Exchange. A full ore bin is not a promise that the next buyer will be nearby.",
+      "title": "Brightvein Mining price move"
+    },
+    "exchange-coldwell-ice-delivery-wire": {
+      "thread": "exchange-coldwell",
+      "place": "mtrs",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-coldwell-ice-delivery"
+        ]
+      },
+      "text": "Coldwell has completed a water-ice run after a long delay at the docks. Stores at Port Yangshan have begun clearing the waiting orders.",
+      "title": "Coldwell Volatiles report"
+    },
+    "exchange-coldwell-tanker-repair-wire": {
+      "thread": "exchange-coldwell",
+      "place": "mvol",
+      "region": "Outer System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-coldwell-tanker-repair"
+        ]
+      },
+      "text": "A tanker repair has kept one of Coldwell's volatile cargoes off the route. Upsilon Docking is looking for a replacement load while the ship remains in the bay.",
+      "title": "Coldwell Volatiles report"
+    },
+    "exchange-coldwell-surge-wire": {
+      "thread": "exchange-coldwell",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-coldwell-surge"
+        ]
+      },
+      "text": "Coldwell shares rose sharply on the Lodestar Exchange. Ice stores are moving again at Port Yangshan, but the desk has not linked the price change to one shipment.",
+      "title": "Coldwell Volatiles price move"
+    },
+    "exchange-coldwell-slump-wire": {
+      "thread": "exchange-coldwell",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-coldwell-slump"
+        ]
+      },
+      "text": "Coldwell shares slid sharply on the Lodestar Exchange. Brokers are asking for the next arrival report before they take a view on the route.",
+      "title": "Coldwell Volatiles price move"
+    },
+    "exchange-verdemorrow-garden-orders-wire": {
+      "thread": "exchange-verdemorrow",
+      "place": "hqch",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-verdemorrow-garden-orders"
+        ]
+      },
+      "text": "Verdemorrow has received a new run of orders for shipboard cultivation equipment. Buyers at Qincheng Station say more crews are making room for a small grow rack between cargo runs.",
+      "title": "Verdemorrow report"
+    },
+    "exchange-verdemorrow-stock-check-wire": {
+      "thread": "exchange-verdemorrow",
+      "place": "hqch",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-verdemorrow-stock-check"
+        ]
+      },
+      "text": "A storage failure has delayed part of Verdemorrow's planting-stock shipment. The company is checking the affected containers before they leave the depot.",
+      "title": "Verdemorrow report"
+    },
+    "exchange-verdemorrow-surge-wire": {
+      "thread": "exchange-verdemorrow",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-verdemorrow-surge"
+        ]
+      },
+      "text": "Verdemorrow shares climbed sharply on the Lodestar Exchange. Grow-room orders are up at Qincheng Station, though the market has not named them as the cause.",
+      "title": "Verdemorrow price move"
+    },
+    "exchange-verdemorrow-slump-wire": {
+      "thread": "exchange-verdemorrow",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-verdemorrow-slump"
+        ]
+      },
+      "text": "Verdemorrow shares fell sharply on the Lodestar Exchange. Buyers are checking the next planting-stock delivery before they call the season.",
+      "title": "Verdemorrow price move"
+    },
+    "exchange-halewright-clinic-orders-wire": {
+      "thread": "exchange-halewright",
+      "place": "mhng",
+      "region": "Outer System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-halewright-clinic-orders"
+        ]
+      },
+      "text": "Halewright has filled a run of clinic orders from outer-system stations. Qiantangmen's buyers expect the next shipment to include beds and replacement fittings.",
+      "title": "Halewright report"
+    },
+    "exchange-halewright-fitting-recall-wire": {
+      "thread": "exchange-halewright",
+      "place": "svir",
+      "region": "Shipping & Inner System",
+      "once": true,
+      "weight": 3,
+      "requires": {
+        "flags": [
+          "exchange-halewright-fitting-recall"
+        ]
+      },
+      "text": "Halewright has delayed a shipment while it checks a batch of clinic fittings. The company has asked customers to hold the affected boxes until the inspection is complete.",
+      "title": "Halewright report"
+    },
+    "exchange-halewright-surge-wire": {
+      "thread": "exchange-halewright",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-halewright-surge"
+        ]
+      },
+      "text": "Halewright shares moved sharply higher on the Lodestar Exchange. Clinic buyers have been active, but the board has not named one order as the cause.",
+      "title": "Halewright price move"
+    },
+    "exchange-halewright-slump-wire": {
+      "thread": "exchange-halewright",
+      "region": "Outer System",
+      "once": true,
+      "weight": 2,
+      "requires": {
+        "flags": [
+          "exchange-halewright-slump"
+        ]
+      },
+      "text": "Halewright shares moved sharply lower on the Lodestar Exchange. Station clinics still need supplies; the next freight report will tell more than the gossip.",
+      "title": "Halewright price move"
+    }
+  },
+  "adverts": {
+    "exchange-advert-verdemorrow": {
+      "thread": "exchange-verdemorrow",
+      "place": "hqch",
+      "weight": 2,
+      "title": "Verdemorrow grow-room supplies",
+      "text": "Keep a little food close at hand. Verdemorrow fits cultivation racks, cookers and planting stock for working ships. A grow room still needs light, water, space and someone to tend it."
+    },
+    "exchange-advert-halewright": {
+      "thread": "exchange-halewright",
+      "place": "mhng",
+      "weight": 2,
+      "title": "Halewright clinic fittings",
+      "text": "A cramped sickbay can still be kept in order. Halewright supplies beds and practical clinic equipment for crews who have to treat a hurt spacer before the next station call."
+    },
+    "exchange-advert-brightvein": {
+      "thread": "exchange-brightvein",
+      "place": "bcer",
+      "weight": 2,
+      "title": "Brightvein ore runs",
+      "text": "Ore only earns its keep once it reaches a buyer. Brightvein runs regular belt cargo when the route, the hold and the dock queue all line up."
+    },
+    "exchange-advert-coldwell": {
+      "thread": "exchange-coldwell",
+      "place": "mtrs",
+      "weight": 2,
+      "title": "Coldwell sealed cargo",
+      "text": "Water ice and industrial volatiles travel better when the cargo stays sealed. Coldwell hauls the cold loads through the inner routes and keeps the paperwork with the tanks."
+    },
+    "exchange-advert-lodestar": {
+      "thread": "exchange-lodestar",
+      "place": "mtrs",
+      "weight": 2,
+      "title": "Read the Lodestar board",
+      "text": "Sela Nkomo, Lodestar market desk: Shortages, full bins and long waits at the docks all reach the share board in time. Read the station reports, mind the run you can afford, and remember that a share is not a wage."
+    }
+  },
+  "chatter": {
+    "exchange-smartlink-surge-chatter": {
+      "thread": "exchange-smartlink",
+      "place": "mtrs",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-smartlink-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-smartlink-slump-chatter": {
+      "thread": "exchange-smartlink",
+      "place": "mtrs",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-smartlink-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-testudo-surge-chatter": {
+      "thread": "exchange-testudo",
+      "place": "vcbr",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-testudo-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-testudo-slump-chatter": {
+      "thread": "exchange-testudo",
+      "place": "vcbr",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-testudo-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-ayotimiwa-surge-chatter": {
+      "thread": "exchange-ayotimiwa",
+      "place": "oklg",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-ayotimiwa-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-ayotimiwa-slump-chatter": {
+      "thread": "exchange-ayotimiwa",
+      "place": "oklg",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-ayotimiwa-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-green-energy-surge-chatter": {
+      "thread": "exchange-green-energy",
+      "place": "vnca",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-green-energy-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-green-energy-slump-chatter": {
+      "thread": "exchange-green-energy",
+      "place": "vnca",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-green-energy-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-brightvein-surge-chatter": {
+      "thread": "exchange-brightvein",
+      "place": "bcer",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-brightvein-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-brightvein-slump-chatter": {
+      "thread": "exchange-brightvein",
+      "place": "bcer",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-brightvein-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-coldwell-surge-chatter": {
+      "thread": "exchange-coldwell",
+      "place": "mtrs",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-coldwell-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-coldwell-slump-chatter": {
+      "thread": "exchange-coldwell",
+      "place": "mtrs",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-coldwell-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-verdemorrow-surge-chatter": {
+      "thread": "exchange-verdemorrow",
+      "place": "hqch",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-verdemorrow-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-verdemorrow-slump-chatter": {
+      "thread": "exchange-verdemorrow",
+      "place": "hqch",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-verdemorrow-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    },
+    "exchange-halewright-surge-chatter": {
+      "thread": "exchange-halewright",
+      "place": "mhng",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-halewright-surge"
+        ]
+      },
+      "line": "That board's climbing again. Check what the stations are short of before you call it a trend."
+    },
+    "exchange-halewright-slump-chatter": {
+      "thread": "exchange-halewright",
+      "place": "mhng",
+      "moment": "headline",
+      "speakers": "locals",
+      "requires": {
+        "flags": [
+          "exchange-halewright-slump"
+        ]
+      },
+      "line": "Shares sliding is no use to the crew that needs the cargo. See what the dock market actually has."
+    }
+  },
+  "articles": {
+    "exchange-how-to-read-the-board": {
+      "section": "phobos-spacer-life",
+      "label": "Reading the share board",
+      "title": "The Lodestar Exchange",
+      "body": "The Lodestar Exchange puts public companies on one board so crews can follow a share from one station to the next. Brokers, yard buyers, ship owners and the occasional spacer all trade there. A share is a small claim on a company; it does not buy you a berth, a cargo or a say over its daily work.\n\nStart with the company page and the station markets it follows. A short supply of something a company sells may help it; a shortage of something it buys may hurt. The broader market, the company's sector and its own trend can pull the other way, and a story flag can add a lasting move. The market wire reports large changes, but a good report is still only one part of the picture. A ship needs fuel and stores before it can wait for a price to turn.",
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "thread": "exchange-lodestar"
+    }
+  },
+  "arcs": {
+    "lodestar-smartlink-spares-contract": {
+      "title": "Smartlink: spares contract",
+      "thread": "exchange-smartlink",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-smartlink-spares-contract"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-smartlink-cannon-inspection": {
+      "title": "Smartlink: cannon inspection",
+      "thread": "exchange-smartlink",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-smartlink-cannon-inspection"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-smartlink-bought": {
+      "title": "Smartlink shareholder welcome",
+      "thread": "exchange-smartlink",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-mara-voss",
+              "text": "I saw your name enter Smartlink's public register. A share is a claim on the company, not a berth in its armoury; the people at the yard still have their own work to finish."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-smartlink-major-holder": {
+      "title": "Smartlink large holder notice",
+      "thread": "exchange-smartlink",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-mara-voss",
+              "text": "Your holding now stands out on my working copy of the register. That can make a sale slower to place when the board is thin. Check the market report before you make plans around it."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-smartlink-surge": {
+      "title": "Smartlink surge report",
+      "thread": "exchange-smartlink",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-smartlink-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-smartlink-slump": {
+      "title": "Smartlink slump report",
+      "thread": "exchange-smartlink",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-smartlink-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-testudo-cabin-refit": {
+      "title": "Testudo: cabin refit",
+      "thread": "exchange-testudo",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-testudo-cabin-refit"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-testudo-foundry-check": {
+      "title": "Testudo: foundry check",
+      "thread": "exchange-testudo",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-testudo-foundry-check"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-testudo-bought": {
+      "title": "Testudo shareholder welcome",
+      "thread": "exchange-testudo",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-ivo-pell",
+              "text": "Your Testudo holding is on the public register now. The company builds useful ships, but you still need a yard slot, a crew and supplies before a hull can earn its keep."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-testudo-major-holder": {
+      "title": "Testudo large holder notice",
+      "thread": "exchange-testudo",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-ivo-pell",
+              "text": "The register shows you as one of Testudo's larger outside holders. Keep a little room in your plans: yard orders can arrive in a rush and then go quiet."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-testudo-surge": {
+      "title": "Testudo surge report",
+      "thread": "exchange-testudo",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-testudo-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-testudo-slump": {
+      "title": "Testudo slump report",
+      "thread": "exchange-testudo",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-testudo-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-ayotimiwa-hull-auction": {
+      "title": "Ayotimiwa Corp.: hull auction",
+      "thread": "exchange-ayotimiwa",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-ayotimiwa-hull-auction"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-ayotimiwa-yard-delay": {
+      "title": "Ayotimiwa Corp.: yard delay",
+      "thread": "exchange-ayotimiwa",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-ayotimiwa-yard-delay"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-ayotimiwa-bought": {
+      "title": "Ayotimiwa Corp. shareholder welcome",
+      "thread": "exchange-ayotimiwa",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-bisi-nwosu",
+              "text": "Your Ayotimiwa holding is entered on the public register. Shares do not reserve a salvage berth; when you bring a ship to K-Leg, the yard still deals with the ship in front of it."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-ayotimiwa-major-holder": {
+      "title": "Ayotimiwa Corp. large holder notice",
+      "thread": "exchange-ayotimiwa",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-bisi-nwosu",
+              "text": "Your Ayotimiwa position is now large enough for the register to flag it. K-Leg has no shortage of people with opinions about the yard; keep your plans tied to what you can actually see."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-ayotimiwa-surge": {
+      "title": "Ayotimiwa Corp. surge report",
+      "thread": "exchange-ayotimiwa",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-ayotimiwa-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-ayotimiwa-slump": {
+      "title": "Ayotimiwa Corp. slump report",
+      "thread": "exchange-ayotimiwa",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-ayotimiwa-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-green-energy-cigarette-run": {
+      "title": "The Green Energy Company: cigarette run",
+      "thread": "exchange-green-energy",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-green-energy-cigarette-run"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-green-energy-seed-recall": {
+      "title": "The Green Energy Company: seed recall",
+      "thread": "exchange-green-energy",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-green-energy-seed-recall"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-green-energy-bought": {
+      "title": "The Green Energy Company shareholder welcome",
+      "thread": "exchange-green-energy",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-anika-das",
+              "text": "Your name is on the public register. That gives you a stake in the Green Energy Company; it does not put you in the Rosebud's crew or change what its stores can sell."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-green-energy-major-holder": {
+      "title": "The Green Energy Company large holder notice",
+      "thread": "exchange-green-energy",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-anika-das",
+              "text": "The register marks you as a substantial outside holder in the Green Energy Company. Judge it by deliveries and station demand, not by the noise around the name."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-green-energy-surge": {
+      "title": "The Green Energy Company surge report",
+      "thread": "exchange-green-energy",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-green-energy-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-green-energy-slump": {
+      "title": "The Green Energy Company slump report",
+      "thread": "exchange-green-energy",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-green-energy-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-brightvein-new-seam": {
+      "title": "Brightvein Mining: new seam",
+      "thread": "exchange-brightvein",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-brightvein-new-seam"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-brightvein-hauler-damage": {
+      "title": "Brightvein Mining: hauler damage",
+      "thread": "exchange-brightvein",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-brightvein-hauler-damage"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-brightvein-bought": {
+      "title": "Brightvein Mining shareholder welcome",
+      "thread": "exchange-brightvein",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-daro-fen",
+              "text": "Your name is on Brightvein's register. We move ore when the route and the buyers line up; owning a share will not put a new load in your hold."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-brightvein-major-holder": {
+      "title": "Brightvein Mining large holder notice",
+      "thread": "exchange-brightvein",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-daro-fen",
+              "text": "The register shows a large outside position in Brightvein. Ore work can be lumpy, so keep enough room in your plans for a quiet run."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-brightvein-surge": {
+      "title": "Brightvein Mining surge report",
+      "thread": "exchange-brightvein",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-brightvein-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-brightvein-slump": {
+      "title": "Brightvein Mining slump report",
+      "thread": "exchange-brightvein",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-brightvein-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-coldwell-ice-delivery": {
+      "title": "Coldwell Volatiles: ice delivery",
+      "thread": "exchange-coldwell",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-coldwell-ice-delivery"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-coldwell-tanker-repair": {
+      "title": "Coldwell Volatiles: tanker repair",
+      "thread": "exchange-coldwell",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-coldwell-tanker-repair"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-coldwell-bought": {
+      "title": "Coldwell Volatiles shareholder welcome",
+      "thread": "exchange-coldwell",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-sen-adu",
+              "text": "Your Coldwell holding is on the register. We make a living by moving sealed cargo when a ship and a buyer are both ready; the shares do not reserve a tank."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-coldwell-major-holder": {
+      "title": "Coldwell Volatiles large holder notice",
+      "thread": "exchange-coldwell",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-sen-adu",
+              "text": "We have a large outside holding to note on the register. The useful question is still whether our next cargo reaches a buyer before the next dock bill comes due."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-coldwell-surge": {
+      "title": "Coldwell Volatiles surge report",
+      "thread": "exchange-coldwell",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-coldwell-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-coldwell-slump": {
+      "title": "Coldwell Volatiles slump report",
+      "thread": "exchange-coldwell",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-coldwell-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-verdemorrow-garden-orders": {
+      "title": "Verdemorrow: garden orders",
+      "thread": "exchange-verdemorrow",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-verdemorrow-garden-orders"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-verdemorrow-stock-check": {
+      "title": "Verdemorrow: stock check",
+      "thread": "exchange-verdemorrow",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-verdemorrow-stock-check"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-verdemorrow-bought": {
+      "title": "Verdemorrow shareholder welcome",
+      "thread": "exchange-verdemorrow",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-hana-ortiz",
+              "text": "Glad to see your name on our share register. If your crew is thinking about a garden, our Firstlight racks and Continuance planting stock still need a habitable room and regular care."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-verdemorrow-major-holder": {
+      "title": "Verdemorrow large holder notice",
+      "thread": "exchange-verdemorrow",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-hana-ortiz",
+              "text": "Your holding is one of the larger names on our register. We build useful equipment, but a share cannot grow a crop for you; the room and the crew still matter."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-verdemorrow-surge": {
+      "title": "Verdemorrow surge report",
+      "thread": "exchange-verdemorrow",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-verdemorrow-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-verdemorrow-slump": {
+      "title": "Verdemorrow slump report",
+      "thread": "exchange-verdemorrow",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-verdemorrow-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-halewright-clinic-orders": {
+      "title": "Halewright: clinic orders",
+      "thread": "exchange-halewright",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 120
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-halewright-clinic-orders"
+            ]
+          }
+        }
+      ]
+    },
+    "lodestar-halewright-fitting-recall": {
+      "title": "Halewright: fitting recall",
+      "thread": "exchange-halewright",
+      "chance": 0.02,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "file-report",
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 168
+            }
+          ],
+          "onComplete": {
+            "setFlags": [
+              "exchange-halewright-fitting-recall"
+            ]
+          }
+        }
+      ]
+    },
+    "exchange-halewright-bought": {
+      "title": "Halewright shareholder welcome",
+      "thread": "exchange-halewright",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-mala-sen",
+              "text": "Your Halewright holding is on the public register. The company sells equipment, not a staffed clinic; a crew still has to make room and look after the gear."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-halewright-major-holder": {
+      "title": "Halewright large holder notice",
+      "thread": "exchange-halewright",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "register-note",
+          "delivery": {
+            "message": {
+              "person": "exchange-mala-sen",
+              "text": "The register shows you among Halewright's larger outside holders. Clinic orders can be steady until one missing shipment stops the work, so watch the stores as well as the board."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-halewright-surge": {
+      "title": "Halewright surge report",
+      "thread": "exchange-halewright",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-halewright-surge-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "exchange-halewright-slump": {
+      "title": "Halewright slump report",
+      "thread": "exchange-halewright",
+      "repeatable": true,
+      "steps": [
+        {
+          "id": "report-move",
+          "delivery": {
+            "bulletin": "exchange-halewright-slump-wire"
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
+    },
+    "lodestar-first-board": {
+      "title": "A note from the Lodestar desk",
+      "thread": "exchange-lodestar",
+      "chance": 0.01,
+      "repeatable": false,
+      "requires": {
+        "mods": [
+          "PhobosExchange"
+        ]
+      },
+      "steps": [
+        {
+          "id": "welcome",
+          "delivery": {
+            "message": {
+              "person": "exchange-sela-nkomo",
+              "text": "Welcome to the Lodestar board. Each company page tells you which station markets it follows; check those reports before you buy. The wider market, the sector and the company trend can all pull a price in different directions. My line is a record of what happened, not a promise about the next move."
+            }
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 24
+            }
+          ]
+        }
+      ]
     }
   }
 }

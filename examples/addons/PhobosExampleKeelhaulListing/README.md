@@ -1,7 +1,7 @@
 # Example add-on: Keelhaul Listing
 
 A small, real add-on for Phobos Exchange, kept here as the worked example of a listed
-company with its own story in [publishing an add-on](../../../docs/publishing-an-add-on.md).
+company and its story content in [publishing an add-on](../../../docs/publishing-an-add-on.md).
 The repository's checks load it over the shipped packs, so the format it shows is the
 format that works. Start from it to list your own corporation.
 
@@ -16,17 +16,18 @@ What it does:
   Ceres ore route won in 2063, that lifted its price 30%. The exchange draws its price chart
   back to 2058 from these, and the company page lists both entries. The ids carry the
   add-on's `keelhaul` prefix.
-- Tells that story (`phobos/PhobosFramework/story/keelhaul.json`): an arc that, some while
-  after it starts, puts the contract on the TV news and then sets the flag.
-- Answers one of the exchange's own events: Phobos Exchange starts the arc
-  `exchange-keelhaul-freight-bought` the first time the player buys the company, so a
-  letter arrives from Keelhaul's shareholder desk. An add-on may name that arc because
+- Tells that story (`phobos/PhobosFramework/story/keelhaul.json`): an arc that puts the contract on the TV news when it starts, then sets the price-moving
+  flag after five game days. It also shows how to
+  add a company advert, local chatter tied to story flags, and an encyclopedia article.
+- Answers the exchange's events: buying shares brings a letter from Keelhaul's shareholder
+  desk, a large holding brings another note, and sharp rises or falls can put wire reports
+  on the TV. Each event has its own arc in the story file. An add-on may name those arcs because
   Phobos Exchange registers its `exchange` namespace: ids that start `exchange-` and then
   the add-on's own prefix belong to the add-on.
 
-The other events a company can answer are `surge` and `slump` (its biggest moves in a day),
-`major-holder` and `sold-out`; see the
-[exchange stories handoff](../../../docs/development/exchange-stories-handoff.md).
+The remaining event is `sold-out`, when the player sells their last share. See the
+[exchange stories handoff](../../../docs/development/exchange-stories-handoff.md) for the
+flags and their timing.
 
 To try it, copy this folder into the game's `Ostranauts_Data/Mods` folder, enable it in
 the MODS screen after the Phobos mods, restart, and type `phobosframework addons` in the

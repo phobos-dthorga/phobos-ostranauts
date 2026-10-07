@@ -9,11 +9,13 @@ not Steam publication.
 
 ### Added
 
-- Company histories from before the game: each company can have a founding year and a year it listed on the Lodestar Exchange, from 1879 to 2078. Its price chart now reaches back to its listing, however recently you installed the exchange.
+- First-draft histories for the Lodestar Exchange, its four sectors and all eight companies. Every company has a founding year, a listing year and a chart that reaches back to that listing, however recently you installed the exchange.
+- Each market, sector and company history records dated events; an optional listing price sets where a company's chart begins. The history entries shape the past drawn before a save's first day with the exchange.
 - An All chart range: the whole history from the listing to now, on a scale that keeps a rise from small beginnings readable, with the years along the bottom and the history's big events marked. Point at a mark to read it.
-- History entries for the exchange, each sector and each company: a year, an optional month, a line of text and, if it moved the price, how far. They shape the history drawn for the years before the game and are listed under Through the years on the company's page, and the exchange's own on the Market page. A company's share price at listing can be set too.
 - The company page and the F3 quote say when the company was founded and when it listed. F3 phobosexchange history, with or without a ticker, prints the exchange's or a company's history.
-- The shipped companies have placeholder founding and listing years, and the exchange an opening year, for the writers to replace. The Keelhaul Listing example add-on shows a company's history.
+- Two price-moving story news entries per company can move its price once when their flags are set. The Exchange also sends letters when you buy shares or become a major holder, and TV reports when a company's price surges or slumps.
+- Named correspondents, local chatter, five adverts and a share-board article give the market a voice. The Keelhaul Listing add-on demonstrates company news, event responses, adverts, chatter and encyclopedia entries.
+- Founding dates and events that do not come from Ostranauts are author-written proposals for owner review, not claims about established game canon.
 - A time skip of more than two years now leaves a record of those years on the All chart instead of a straight line.
 
 ### Compatibility and limits

@@ -243,8 +243,7 @@ the `exchange` pack decides within a fixed range; the writers' handoff covers it
 - A month left out is picked by a stable FNV hash of the entry, the same for every player.
 - An authored listing price must imply a yearly growth, net of the entries' moves, from
   -0.05 to 0.25, so a short history is never a cliff.
-- The placeholder founding, listing and opening years shipped for the writers to replace
-  (see [the handoff](exchange-stories-handoff.md)).
+- The former placeholder founding, listing and opening years have been replaced by first-draft authored values. They remain proposals for owner review (see [the handoff](exchange-stories-handoff.md)).
 
 ```mermaid
 flowchart LR
@@ -293,6 +292,14 @@ companies takes about 4.5 ms (3,056 points), once per load at the first chart th
 it, measured in play as `exchange.past`. The shipped record is about 14 KB at first and
 about 21 KB after fifty years, where the lifetime points reach their cap. Not yet seen in
 play.
+
+### First authored content draft (Phobos Exchange 0.3.0, 7 October 2026, held draft)
+
+The content pass fills `exchange.json` with 41 company-history entries, 16 sector entries and five market entries. Every company now has three to six history lines, a founding and listing year, and a listing price calibrated to about 3.5% yearly growth after its dated moves. The 2034 opening, unsupported founding and listing years, listing prices, invented-company histories and all fictional market anecdotes are author choices for owner review. The story pack contains two price-moving news arcs per company, four event responses per company, eight named company correspondents, an Exchange desk correspondent, five adverts, sixteen local surge/slump lines and an encyclopedia article. The Keelhaul add-on now demonstrates the same extension surfaces.
+
+**Canon boundary and sources.** Dated setting anchors were checked against Blue Bottle Games' installed Ostranauts 1.0.1.5 primary data (`Ostranauts_Data/StreamingAssets/data/tips/tips.json`, `headlines`, and the relevant company and ship definitions, retained locally and not redistributed). Blue Bottle Games' [Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/) is the game source; Joshu's [Official Ostranauts Modding Guide, 22 June 2026](https://steamcommunity.com/sharedfiles/filedetails/?id=3748342946) documents the modding context. This version uses only the dated anchors listed in [the story handoff](exchange-stories-handoff.md): the Kronos missions reaching Titan, Ceres Resource Extraction's closure, Ayotimiwa's K-Leg work, the Green Energy Company name change, Testudo's Mesa production, the Ganymede Coup, the Kessler collapse and the new-game year. Smartlink's founding year and every other unestablished date or incident are fiction written for this draft. When fictional histories meet a canon date, only the date is anchored: the company-specific causes, market reactions and price moves are authored story choices, not claims made by the game. Neither source is said to endorse or validate this mod.
+
+**Offline check.** `python scripts/validate-data-packs.py` accepts all 29 shipped packs, including both Phobos Exchange packs. The separate merged add-on check also accepts the Keelhaul example. These are schema and cross-pack checks only; no gameplay check has been done.
 
 ## What we can build on
 
