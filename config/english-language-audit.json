@@ -92013,7 +92013,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "3785836273b93e6cc0724ef64d13eed3f6837669d5333ddecadcf6a190ab19e8",
+      "sha256": "bc7a0b2aeb6a904feef6d472bfa2a484c8d9c8d127ae168ec5acecec58d5a898",
+      "review20261008Repricing": "Reviewed 8 October 2026: index line and survey link for the refining profit repricing proposal; no other wording changed.",
       "review20261008Reagents": "Reviewed 8 October 2026: index line for the reagent-sale design record; no other wording changed.",
       "review": "Reviewed 7 October 2026 for Phobos Banking 0.4.0: unregistered lenders, the lenders' letters and the stories handoff for ChatGPT; claims checked against the loan code (only the game's own consequences) and the story schema.",
       "review20261006AudioSelection": "Reviewed 6 October 2026: owner selected all four ElevenLabs washer motor/liquid-pump candidates and explicitly removed only this chat's procedural WAVs. Plain audition instructions, exact provenance, original-versus-export differences, separate audio terms and no claim of runtime or in-game readiness.",
@@ -93526,10 +93527,18 @@
       "path": "docs/development/reagent-sale-at-industrial-hubs.md",
       "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
       "decision": "new",
-      "sha256": "3fc87857bf8e3cb984bf91d66da04d947dd22270564096bbe5a76b98a5d0c457",
+      "sha256": "4722596264bfc7951f01e06728af17257487e4c5ee6e55b113688cff86aae7c4",
+      "review20261008Repricing": "Reviewed 8 October 2026: index line and survey link for the refining profit repricing proposal; no other wording changed.",
       "review20261008Exchange052": "Reviewed 8 October 2026 for Phobos Exchange 0.5.2: drivers follow each station's demand, not its stock, so cargo dumping no longer moves share prices (owner decision; the manipulation arithmetic and the as-built note in the share-market record); wire and console wording name demand; saves settle once. Wording read against player-language.md; nothing claimed as tested in play.",
       "review20261008Balance": "Reviewed 8 October 2026 for Phobos Banking 0.8.1, Agriculture 0.66.2 and Manufacturing 0.58.2: Orrery Credit at 0.10% a shift; the stale 1,500 cr/kg crop-nutrient and 30 cr makeup figures corrected to 150 cr/kg and 3 cr (dated design figures kept with a note); the magnesia consumer note, the Exchange cargo-manipulation arithmetic and the reagent-sale survey outcomes; version lines and regenerated item references. Wording read against player-language.md; nothing claimed as tested in play.",
       "review": "Reviewed 8 October 2026: research-only design record for selling reagents at the game's industrial hubs (what the game's merchant tables and production maps show, what our stock and bulk-supply code already has and lacks, the classification of every chemical and bulk commodity, the chain arithmetic under the value rules, the owner's four decisions of the same day, the implementation outline for the next round and a survey of other balance seams); wording read against player-language.md; nothing built and nothing claimed as tested in play."
+    },
+    {
+      "path": "docs/development/refining-profit-repricing.md",
+      "scope": "research/developer reference; observed game behaviour, proposals and owner choices labelled",
+      "decision": "new",
+      "sha256": "317dd069dded0fa900ff94d1fd352982b4478912b3fa9d80b199b6e14a7ec15b",
+      "review": "Reviewed 8 October 2026: proposal-only record repricing refined products so mined chains reach about four times their ore (owner direction and choices of the same day labelled; agent recommendations labelled); every figure computed from the recipe and materials packs and the game's gas prices; guards and outcome-table odds checked; wording read against player-language.md; nothing built and nothing claimed as tested in play."
     },
     {
       "path": "docs/development/variant-lines-handoff.md",

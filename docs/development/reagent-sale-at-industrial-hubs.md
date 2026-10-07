@@ -317,8 +317,8 @@ The owner answered each on 8 October 2026; the outcome follows each item.
   said this is for play to judge. Recommendation: leave it until the hub sale has been played,
   since bought salts change what the LC-3 is for. **Owner, 8 October 2026:** profits from
   refining, and perhaps manufacturing, must rise substantially: the band becomes 3 to 5 x the
-  ore, carried by product prices, with every guard kept. A dated repricing proposal comes
-  before the build, and the spirit reprice below joins it.
+  ore, carried by product prices, with every guard kept. The proposal is the
+  [repricing record](refining-profit-repricing.md), and the spirit reprice below joins it.
 - **Epsom salt surplus.** An olivine charge makes 32 and about 4 are ever used; magnesia has no
   consumer, so the Epsom-to-acid idea waits (same record, idea 8). Recommendation: a hub buyer
   does not help a surplus; the consumer is the fix. **Owner:** research a consumer first; the
