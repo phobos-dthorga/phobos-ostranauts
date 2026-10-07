@@ -79,7 +79,11 @@ public static class LineDefinitions
             if (damaged && s.DamagedName != null) co.strNameFriendly = co.strNameShort = s.DamagedName;
             co.nStackLimit = installed ? 1 : s.LooseStack;
             co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
-            co.mapPoints = new[] { "use,0,-16" };
+            // A segment has no points (Framework 0.131.1). The game sends install, uninstall and repair work to the
+            // "use" point, which for a segment pointed one tile in front of it: a segment along the hull, in a wall or
+            // against one could never be reached. With no points the jobs target the segment's own tile, reached from
+            // any neighbouring tile, exactly as the game's power conduit; GetPos("use") falls back to the segment itself.
+            co.mapPoints = Array.Empty<string>();
             co.aStartingConds = co.aStartingConds.Where(x => !x.StartsWith("IsContainer=", StringComparison.Ordinal) && !x.StartsWith("IsCumbersome=", StringComparison.Ordinal))
                 .Concat(installed ? Array.Empty<string>() : new[] { "IsPocketable=1x1" }).ToArray();
             // A laid segment is a fixture like the game's power conduit (Framework 0.73.0): out of the ground inventory,

@@ -30,6 +30,10 @@ internal static class LineNativeChecks
             {
                 var item = Item(prefix + form);
                 check(item.fZScale == layer, "Line drawn in its own layer: " + prefix + form);
+                // Framework 0.131.1: the game paths install, uninstall and repair work to the "use" point; a segment with one
+                // (one tile in front) could not be reached along the hull or in a wall. Segments carry no points, as the conduit.
+                check((Object(prefix + form)?.mapPoints ?? Array.Empty<string>()).All(p => !p.StartsWith("use,", StringComparison.Ordinal)),
+                    "A segment has no use point, so crew work on it from any neighbouring tile: " + prefix + form);
                 if (!form.StartsWith("Installed", StringComparison.Ordinal)) continue;
                 string forbid = item.aSocketForbids[4];
                 check(LootOf(forbid).aCOs.All(c => c.StartsWith(presence + "=", StringComparison.Ordinal)) && item.aSocketForbids.Where((_, i) => i != 4).All(f => f == "Blank"),

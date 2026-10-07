@@ -29,6 +29,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.131.1] - 2026-10-07 - Draft
+
+### Fixed
+
+- Crew and the player can reach every line build site again. A pipe or belt segment used to send its install, removal and repair work to the tile in front of it, so a segment laid along the hull, inside a wall or against one could never be reached, and the crew list only said it was out of reach. A segment now has no front: crew work on a line from any tile beside it, as they do with the game's own conduit. Draining, venting and reopening a line are reached the same way.
+
+### Save compatibility
+
+- Automatic. Build sites already laid follow the new rule when the save loads; nothing is moved or removed.
+
 ## [0.131.0] - 2026-10-08 - Draft
 
 ### Added
