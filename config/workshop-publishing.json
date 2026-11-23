@@ -1,5 +1,20 @@
 {
   "appId": "1022980",
+  "layout": {
+    "scope": [
+      "src/{mod}/",
+      "mods/{mod}/",
+      "translations/{mod}/"
+    ],
+    "dirtyExempt": [
+      "docs/research/",
+      "docs/development/"
+    ],
+    "textFolder": "documentation",
+    "payloadHook": "scripts/workshop_payload.py:payload",
+    "receipts": ".local/workshop-receipts",
+    "settings": ".local/workshop-settings.json"
+  },
   "mods": {
     "PhobosFramework": {
       "itemId": "3814698080",

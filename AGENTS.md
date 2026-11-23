@@ -69,6 +69,16 @@ delivery in the changelog and design record, and add or amend only the rule here
   real upload, handle credentials, subscribe, announce or change visibility. Keep real item IDs,
   dependencies, holds and the uploaded version and visibility in
   `config/workshop-publishing.json`, unknown IDs as null.
+- **Steam, the shared route (23 Nov 2026):** `python scripts/workshop.py` runs phobos-modkit's
+  `steam-publish` (the submodule at `external/phobos-modkit`; after cloning run
+  `git submodule update --init`), the same commands D'thorga Companion's Publish page runs. Use
+  it first for status, pending items, a mod's card and offline candidates. The package each item
+  holds is built by `scripts/workshop_payload.py`, named in the catalogue's layout, and must
+  keep the checks `prepare-workshop.py` makes (moved from it word for word; on 23 Nov 2026 both
+  staged the same 109 files for Spacer Stories). Uploads go through the running Steam client by
+  default, or SteamCMD; the owner's press or console only, never an agent. The older scripts
+  above stay until the shared uploader has made one real Private upload and one public update
+  (the owner's choice: retire them after proof); change both while both exist.
 - Never commit saves, decompiled game source, game assemblies, extracted game assets,
   credentials or personal machine paths. Resolve game paths from local settings
   (`.local/install-settings.json`) or arguments. Game-derived research material stays in ignored

@@ -1,3 +1,6 @@
 [submodule "external/phobos-scope"]
 	path = external/phobos-scope
 	url = https://github.com/phobos-dthorga/phobos-scope.git
+[submodule "external/phobos-modkit"]
+	path = external/phobos-modkit
+	url = https://github.com/phobos-dthorga/phobos-modkit.git
