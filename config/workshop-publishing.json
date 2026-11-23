@@ -13,7 +13,12 @@
     "textFolder": "documentation",
     "payloadHook": "scripts/workshop_payload.py:payload",
     "receipts": ".local/workshop-receipts",
-    "settings": ".local/workshop-settings.json"
+    "settings": ".local/workshop-settings.json",
+    "build": [
+      "python",
+      "scripts/workshop_build.py",
+      "{mod}"
+    ]
   },
   "mods": {
     "PhobosFramework": {

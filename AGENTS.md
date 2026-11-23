@@ -75,7 +75,10 @@ delivery in the changelog and design record, and add or amend only the rule here
   it first for status, pending items, a mod's card and offline candidates. The package each item
   holds is built by `scripts/workshop_payload.py`, named in the catalogue's layout, and must
   keep the checks `prepare-workshop.py` makes (moved from it word for word; on 23 Nov 2026 both
-  staged the same 109 files for Spacer Stories). Uploads go through the running Steam client by
+  staged the same 109 files for Spacer Stories). The catalogue's build command is
+  `scripts/workshop_build.py <mod>`, which runs the mod's `scripts/build-<mod>.ps1` with the game's
+  folder from `.local/install-settings.json`; a new mod adds its line to its `SCRIPTS` (a test
+  checks every catalogue mod has one). Uploads go through the running Steam client by
   default, or SteamCMD; the owner's press or console only, never an agent. The older scripts
   above stay until the shared uploader has made one real Private upload and one public update
   (the owner's choice: retire them after proof); change both while both exist.
